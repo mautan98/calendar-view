@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="newsViewModel"
+            type="com.namviet.vtvtravel.viewmodel.NewsViewModel" />
+
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
+        android:clickable="true">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:statusBarScrim="@android:color/transparent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/vpSlideShow"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </RelativeLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/myToolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colorPrimary"
+                    app:layout_collapseMode="pin"
+                    android:elevation="0dp"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetStart="0dp"
+                    app:contentInsetStartWithNavigation="0dp">
+
+                    <RelativeLayout
+                        android:id="@+id/rlToolBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp">
+
+                        <ImageView
+                            android:id="@+id/ivBack"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            app:srcCompat="@drawable/vt_keyboard_arrow_left_white" />
+
+                        <com.namviet.vtvtravel.widget.RobotoTextView
+                            android:id="@+id/tvTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="Địa điểm"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_13sdp"
+                            app:typeface="roboto_bold" />
+
+                        <ImageView
+                            android:id="@+id/ivSearch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            app:srcCompat="@drawable/vt_search_white" />
+                    </RelativeLayout>
+                </android.support.v7.widget.Toolbar>
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+            <com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
+                android:id="@+id/vpIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                app:dotColor="@color/gray_99"
+                app:dotRadius="3dp"
+                app:selectedDotRadius="4dp"
+                app:selectedDotColor="@color/colorPrimary" />
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvListNews"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

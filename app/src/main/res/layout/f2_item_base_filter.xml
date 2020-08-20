@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:paddingBottom="9dp"
+        android:paddingTop="9dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvFilter"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="16dp"
+            android:textColor="#2C2C2C"
+            android:layout_weight="1"
+            android:text="Tất cả"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <RadioButton
+            android:id="@+id/radioBtn"
+            android:layout_marginEnd="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <View
+        android:background="#ECECEC"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+
+</LinearLayout>

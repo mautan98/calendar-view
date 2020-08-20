@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Điểm đến yêu thích"
+        android:textColor="#101010"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/roboto_regular"
+        android:text="Lên rừng xuống biển, trọn vẹn Việt Nam"
+        android:textColor="#9F9F9F"
+        android:textSize="14dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:minHeight="157dp"
+        android:id="@+id/recyclerFavorPlace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@id/recyclerAppVideo"
+        android:layout_marginTop="20dp"
+        android:background="#ECECEC" />
+</LinearLayout>

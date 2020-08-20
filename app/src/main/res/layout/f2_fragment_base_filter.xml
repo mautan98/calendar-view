@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data></data>
+
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:id="@+id/layoutToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimary">
+
+            <LinearLayout
+                android:id="@+id/btnBack"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/video_top_back" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="Cơ sở lọc"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+
+            <LinearLayout
+                android:id="@+id/btnSetToDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mặc định"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_above="@+id/btnContinue"
+            android:layout_below="@+id/layoutToolbar"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            android:id="@+id/rclContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <LinearLayout
+            android:id="@+id/btnContinue"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="26dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/f2_bg_btn_filter"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:text="Tiếp tục"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

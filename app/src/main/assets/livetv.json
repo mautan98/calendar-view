@@ -1,0 +1,2823 @@
+{
+  "status": "success",
+  "code": "SUCCESS",
+  "message": "",
+  "data": {
+    "name": "Live TV",
+    "code": "APP_TV",
+    "widget_class": "home.tvContentBlock",
+    "widget_type": "TV_CONTENT_BLOCK",
+    "items": [
+      {
+        "code": "VTV1",
+        "logo_url": "https://cdn1.travel.onex.vn/data_files/tv_channels_files/image/202003/30/1_fttqr.png",
+        "id": "5cda7d4a64dccc1b286213b2",
+        "name": "VTV1",
+        "content_type": "tv_channels",
+        "banner_url": "http://vtvgoimage.vtvdigital.vn/images/20190506/success_20190506173820_ts12-0305.mp41-720p.jpg",
+        "detail_link": "https://api1.travel.onex.vn/tv/channel/VTV1",
+        "streaming_urls": [
+          {
+            "id": "5cda7d4a64dccc1b286213b2",
+            "content_type": "tv_streamings",
+            "protocol": "https",
+            "quality": "1080p",
+            "url": "https://hls.travel.onex.vn/namvietvtv/_definst_/smil:vtv1_vtvtravel/playlist.m3u8"
+          }
+        ],
+        "schedule_link": "https://api1.travel.onex.vn/tv/schedule/VTV1?date=2020-08-16",
+        "date": "Hôm nay, Ngày 16/08/2020",
+        "schedule": [
+          {
+            "id": "5f3806eab4ebd133b87f0d19",
+            "content_type": "tv_schedules",
+            "topic": "Dám sống",
+            "name": "Dám sống",
+            "start_time": 1597596300,
+            "end_time": 1597597140
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d18",
+            "content_type": "tv_schedules",
+            "topic": "Hòa nhạc thính phòng",
+            "name": "Hòa nhạc chúng tôi trở lại - Phần 2",
+            "start_time": 1597594500,
+            "end_time": 1597596300
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d17",
+            "content_type": "tv_schedules",
+            "topic": "Thời sự 23h",
+            "name": "Thời sự 23h",
+            "start_time": 1597593600,
+            "end_time": 1597594500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d16",
+            "content_type": "tv_schedules",
+            "topic": "MV+",
+            "name": "MV+",
+            "start_time": 1597592700,
+            "end_time": 1597593600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d15",
+            "content_type": "tv_schedules",
+            "topic": "VTV kết nối",
+            "name": "VTV kết nối",
+            "start_time": 1597592100,
+            "end_time": 1597592700
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d14",
+            "content_type": "tv_schedules",
+            "topic": "Bình luận thể thao",
+            "name": "Bình luận thể thao",
+            "start_time": 1597590900,
+            "end_time": 1597592100
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d13",
+            "content_type": "tv_schedules",
+            "topic": "Hoa cài trên lá chắn",
+            "name": "Hoa cài trên lá chắn",
+            "start_time": 1597585200,
+            "end_time": 1597590900
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d12",
+            "content_type": "tv_schedules",
+            "topic": "Truyền hình Quân đội nhân dân",
+            "name": "Xuất quân tham gia Army Games 2020",
+            "start_time": 1597583400,
+            "end_time": 1597585200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d11",
+            "content_type": "tv_schedules",
+            "topic": "Vì tầm vóc Việt",
+            "name": "Vì tầm vóc Việt",
+            "start_time": 1597583100,
+            "end_time": 1597583400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d10",
+            "content_type": "tv_schedules",
+            "topic": "S - Việt Nam",
+            "name": "múa trống chhay- dăm ở Tây Ninh",
+            "start_time": 1597582800,
+            "end_time": 1597583100
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d0f",
+            "content_type": "tv_schedules",
+            "topic": "Thời sự 20h",
+            "name": "Thời sự 20h",
+            "start_time": 1597582500,
+            "end_time": 1597582800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d0e",
+            "content_type": "tv_schedules",
+            "topic": "Thời sự 19h",
+            "name": "Thời sự 19h",
+            "start_time": 1597579200,
+            "end_time": 1597582500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d0d",
+            "content_type": "tv_schedules",
+            "topic": "Chuyển động 24h",
+            "name": "Chuyển động 24h",
+            "start_time": 1597577400,
+            "end_time": 1597579200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d0c",
+            "content_type": "tv_schedules",
+            "topic": "Việt Nam hôm nay",
+            "name": "Việt Nam hôm nay",
+            "start_time": 1597573800,
+            "end_time": 1597577400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d0b",
+            "content_type": "tv_schedules",
+            "topic": "Hành trình vẻ đẹp",
+            "name": "Nàng \"Pony Việt Nam\"",
+            "start_time": 1597573200,
+            "end_time": 1597573800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d0a",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá Việt Nam",
+            "name": "Ngôi nhà làm từ cây dừa",
+            "start_time": 1597572300,
+            "end_time": 1597573200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d09",
+            "content_type": "tv_schedules",
+            "topic": "Thời sự 16h",
+            "name": "Thời sự 16h",
+            "start_time": 1597572000,
+            "end_time": 1597572300
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d08",
+            "content_type": "tv_schedules",
+            "topic": "Tuổi cao gương sáng",
+            "name": "Hết lòng vì việc chung",
+            "start_time": 1597571100,
+            "end_time": 1597572000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d07",
+            "content_type": "tv_schedules",
+            "topic": "Văn hoá Quân đội nhân dân",
+            "name": "Sắc cờ hồng",
+            "start_time": 1597569300,
+            "end_time": 1597571100
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d06",
+            "content_type": "tv_schedules",
+            "topic": "Thời sự 16h",
+            "name": "Thời sự 16h",
+            "start_time": 1597568400,
+            "end_time": 1597569300
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d05",
+            "content_type": "tv_schedules",
+            "topic": "Cùng em đến trường",
+            "name": "Vượt khó đến trường",
+            "start_time": 1597568100,
+            "end_time": 1597568400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d04",
+            "content_type": "tv_schedules",
+            "topic": "Nhà hát truyền hình",
+            "name": "Vở tuồng: Tình mẹ",
+            "start_time": 1597561800,
+            "end_time": 1597568100
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d03",
+            "content_type": "tv_schedules",
+            "topic": "Trái đất xanh",
+            "name": "Trái đất xanh",
+            "start_time": 1597561200,
+            "end_time": 1597561800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d02",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Sự trả thù hoàn hảo - Tập 41",
+            "start_time": 1597558200,
+            "end_time": 1597561200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d01",
+            "content_type": "tv_schedules",
+            "topic": "Cặp lá yêu thương",
+            "name": "Cặp lá yêu thương",
+            "start_time": 1597557900,
+            "end_time": 1597558200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d00",
+            "content_type": "tv_schedules",
+            "topic": "Y tế 24h",
+            "name": "Y tế 24h",
+            "start_time": 1597557600,
+            "end_time": 1597557900
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0cff",
+            "content_type": "tv_schedules",
+            "topic": "Người quê",
+            "name": "Làng chài bình yên",
+            "start_time": 1597556400,
+            "end_time": 1597557600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0cfe",
+            "content_type": "tv_schedules",
+            "topic": "5 phút hôm nay",
+            "name": "5 phút hôm nay",
+            "start_time": 1597555500,
+            "end_time": 1597556400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0cfd",
+            "content_type": "tv_schedules",
+            "topic": "Thời sự 12h",
+            "name": "Thời sự 12h",
+            "start_time": 1597554000,
+            "end_time": 1597555500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0cfc",
+            "content_type": "tv_schedules",
+            "topic": "Chuyển động 24h",
+            "name": "Chuyển động 24h",
+            "start_time": 1597551300,
+            "end_time": 1597554000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0cfb",
+            "content_type": "tv_schedules",
+            "topic": "Thời sự 11h",
+            "name": "Thời sự 11h",
+            "start_time": 1597550400,
+            "end_time": 1597551300
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0cfa",
+            "content_type": "tv_schedules",
+            "topic": "Việc tử tế",
+            "name": "Việc tử tế",
+            "start_time": 1597548600,
+            "end_time": 1597550400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0cf9",
+            "content_type": "tv_schedules",
+            "topic": "Cha mẹ thay đổi",
+            "name": "Cha mẹ thay đổi_Nhà là nơi trái tim thuộc về",
+            "start_time": 1597545900,
+            "end_time": 1597548600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0cf8",
+            "content_type": "tv_schedules",
+            "topic": "Toàn cảnh thế giới",
+            "name": "Toàn cảnh thế giới",
+            "start_time": 1597544100,
+            "end_time": 1597545900
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0cf7",
+            "content_type": "tv_schedules",
+            "topic": "Quốc gia số",
+            "name": "Quốc gia số",
+            "start_time": 1597543500,
+            "end_time": 1597544100
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0cf6",
+            "content_type": "tv_schedules",
+            "topic": "Thời sự 9h",
+            "name": "Thời sự 9h",
+            "start_time": 1597543200,
+            "end_time": 1597543500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0cf5",
+            "content_type": "tv_schedules",
+            "topic": "Nhịp sống ô tô",
+            "name": "Nhịp sống ô tô",
+            "start_time": 1597542600,
+            "end_time": 1597543200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0cf4",
+            "content_type": "tv_schedules",
+            "topic": "Sống mới",
+            "name": "Sống mới",
+            "start_time": 1597539900,
+            "end_time": 1597542600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0cf3",
+            "content_type": "tv_schedules",
+            "topic": "Thời sự 8h",
+            "name": "Thời sự 8h",
+            "start_time": 1597539600,
+            "end_time": 1597539900
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0cf2",
+            "content_type": "tv_schedules",
+            "topic": "Giai điệu kết nối",
+            "name": "Giai điệu kết nối",
+            "start_time": 1597537800,
+            "end_time": 1597539600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0cf1",
+            "content_type": "tv_schedules",
+            "topic": "Báo chí toàn cảnh",
+            "name": "Báo chí toàn cảnh",
+            "start_time": 1597536000,
+            "end_time": 1597537800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0cf0",
+            "content_type": "tv_schedules",
+            "topic": "V - Việt Nam",
+            "name": "Tiêu Quảng Trị",
+            "start_time": 1597535880,
+            "end_time": 1597536000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0cef",
+            "content_type": "tv_schedules",
+            "topic": "Chào buổi sáng",
+            "name": "Chào buổi sáng",
+            "start_time": 1597530600,
+            "end_time": 1597535880
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0cee",
+            "content_type": "tv_schedules",
+            "topic": "Vì cộng đồng",
+            "name": "Con nuôi",
+            "start_time": 1597529400,
+            "end_time": 1597530600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0ced",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá thế giới",
+            "name": "Nơi đường chân trời - Tập 4",
+            "start_time": 1597525800,
+            "end_time": 1597529400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0cec",
+            "content_type": "tv_schedules",
+            "topic": "Thời sự 4h",
+            "name": "Thời sự 4h",
+            "start_time": 1597525200,
+            "end_time": 1597525800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0ceb",
+            "content_type": "tv_schedules",
+            "topic": "Hành trình di sản",
+            "name": "Cát bà chùm ngọc xanh giữa biển xanh",
+            "start_time": 1597522200,
+            "end_time": 1597525200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0cea",
+            "content_type": "tv_schedules",
+            "topic": "Thời sự 3h",
+            "name": "Thời sự 3h",
+            "start_time": 1597521600,
+            "end_time": 1597522200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0ce9",
+            "content_type": "tv_schedules",
+            "topic": "Phim tài liệu",
+            "name": "Chữ Quốc ngữ theo dòng thời gian",
+            "start_time": 1597518900,
+            "end_time": 1597521600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0ce8",
+            "content_type": "tv_schedules",
+            "topic": "Thời sự 2h",
+            "name": "Thời sự 2h",
+            "start_time": 1597518000,
+            "end_time": 1597518900
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0ce7",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá Việt Nam",
+            "name": "Lảnh Giang linh từ",
+            "start_time": 1597516800,
+            "end_time": 1597518000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0ce6",
+            "content_type": "tv_schedules",
+            "topic": "Tương lai xanh",
+            "name": "Tương lai xanh",
+            "start_time": 1597515000,
+            "end_time": 1597516800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0ce5",
+            "content_type": "tv_schedules",
+            "topic": "Thời sự 1h",
+            "name": "Thời sự 1h",
+            "start_time": 1597514400,
+            "end_time": 1597515000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0ce4",
+            "content_type": "tv_schedules",
+            "topic": "24h công nghệ",
+            "name": "24h công nghệ",
+            "start_time": 1597512600,
+            "end_time": 1597514400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0ce3",
+            "content_type": "tv_schedules",
+            "topic": "Dám sống",
+            "name": "Dám sống",
+            "start_time": 1597511700,
+            "end_time": 1597512600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0ce2",
+            "content_type": "tv_schedules",
+            "topic": "Thời sự 0h",
+            "name": "Thời sự 0h",
+            "start_time": 1597510800,
+            "end_time": 1597511700
+          }
+        ]
+      },
+      {
+        "code": "VTV2",
+        "logo_url": "https://cdn1.travel.onex.vn/data_files/tv_channels_files/image/202003/30/2_vzsap.png",
+        "id": "5cde2f3e64dccc1b286213c4",
+        "name": "VTV2",
+        "content_type": "tv_channels",
+        "banner_url": "http://vtvgoimage.vtvdigital.vn/images/20190506/success_20190506173820_ts12-0305.mp41-720p.jpg",
+        "detail_link": "https://api1.travel.onex.vn/tv/channel/VTV2",
+        "streaming_urls": [
+          {
+            "id": "5cde2f9464dccc1b286213df",
+            "content_type": "tv_streamings",
+            "protocol": "https",
+            "quality": "1080p",
+            "url": "https://hls.travel.onex.vn/namvietvtv/_definst_/smil:vtv2_vtvtravel/playlist.m3u8"
+          }
+        ],
+        "schedule_link": "https://api1.travel.onex.vn/tv/schedule/VTV2?date=2020-08-16",
+        "date": "Hôm nay, Ngày 16/08/2020",
+        "schedule": [
+          {
+            "id": "5f3806eab4ebd133b87f0d4e",
+            "content_type": "tv_schedules",
+            "topic": "Phóng sự",
+            "name": "Chuyện cũ Đà Lạt - Tập 5",
+            "start_time": 1597596300,
+            "end_time": 1597597140
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d4d",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá thế giới",
+            "name": "Bí ẩn về trí nhớ",
+            "start_time": 1597593600,
+            "end_time": 1597596300
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d4c",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá",
+            "name": "Ngôi nhà thông minh - Tập 2",
+            "start_time": 1597592400,
+            "end_time": 1597593600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d4b",
+            "content_type": "tv_schedules",
+            "topic": "Bản tin 22h00",
+            "name": "Bản tin 22h00",
+            "start_time": 1597590000,
+            "end_time": 1597592400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d4a",
+            "content_type": "tv_schedules",
+            "topic": "Lựa chọn thông thái",
+            "name": "Lựa chọn nồi cơm điện - Tập 1",
+            "start_time": 1597589100,
+            "end_time": 1597590000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d49",
+            "content_type": "tv_schedules",
+            "topic": "Giấc mơ hoa",
+            "name": "Hoa súng",
+            "start_time": 1597588200,
+            "end_time": 1597589100
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d48",
+            "content_type": "tv_schedules",
+            "topic": "Vì sức khỏe người Việt",
+            "name": "Chăm sóc và làm đẹp da",
+            "start_time": 1597587000,
+            "end_time": 1597588200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d47",
+            "content_type": "tv_schedules",
+            "topic": "Đẹp 24/7",
+            "name": "Thời trang thể hiện con người bạn",
+            "start_time": 1597586700,
+            "end_time": 1597587000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d46",
+            "content_type": "tv_schedules",
+            "topic": "Góc nhìn công thương",
+            "name": "Công nghiệp hỗ trợ - kết nối chuỗi cung ứng",
+            "start_time": 1597586100,
+            "end_time": 1597586700
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d45",
+            "content_type": "tv_schedules",
+            "topic": "Phụ nữ là để yêu thương",
+            "name": "Chồng nhà người ta",
+            "start_time": 1597584600,
+            "end_time": 1597586100
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d44",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Truyền thuyết phi đao - Tập 6",
+            "start_time": 1597582200,
+            "end_time": 1597584600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d43",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Thập Nhất hoàng tử - Tập 25",
+            "start_time": 1597579200,
+            "end_time": 1597582200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d42",
+            "content_type": "tv_schedules",
+            "topic": "Chuyển động 24 giờ",
+            "name": "Chuyển động 24 giờ",
+            "start_time": 1597577400,
+            "end_time": 1597579200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d41",
+            "content_type": "tv_schedules",
+            "topic": "Sống khỏe mỗi ngày",
+            "name": "Kiểm soát tốt bệnh đái tháo đường trong mùa dịch Covid-19",
+            "start_time": 1597574700,
+            "end_time": 1597577400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d40",
+            "content_type": "tv_schedules",
+            "topic": "Nhà nông vui vẻ",
+            "name": "Nhà nông vui vẻ",
+            "start_time": 1597573800,
+            "end_time": 1597574700
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d3f",
+            "content_type": "tv_schedules",
+            "topic": "Người nông dân hiện đại",
+            "name": "Qua miền thắng cảnh",
+            "start_time": 1597572000,
+            "end_time": 1597573800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d3e",
+            "content_type": "tv_schedules",
+            "topic": "Đèn giao thông",
+            "name": "Đèn giao thông",
+            "start_time": 1597571100,
+            "end_time": 1597572000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d3d",
+            "content_type": "tv_schedules",
+            "topic": "Thông báo - Ghi ơn",
+            "name": "Thông báo - Ghi ơn",
+            "start_time": 1597570980,
+            "end_time": 1597571100
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d3c",
+            "content_type": "tv_schedules",
+            "topic": "Kiến thức cộng đồng",
+            "name": "Đồng hành cùng công nghiệp hỗ trợ",
+            "start_time": 1597569300,
+            "end_time": 1597570980
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d3b",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá thế giới",
+            "name": "Hành trình của tỏi",
+            "start_time": 1597566600,
+            "end_time": 1597569300
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d3a",
+            "content_type": "tv_schedules",
+            "topic": "Nẻo về nguồn cội",
+            "name": "Rồng trong phật giáo Lý - Trần",
+            "start_time": 1597565700,
+            "end_time": 1597566600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d39",
+            "content_type": "tv_schedules",
+            "topic": "Phóng sự",
+            "name": "Chuyện cũ Đà Lạt - Tập 7",
+            "start_time": 1597564800,
+            "end_time": 1597565700
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d38",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá thế giới",
+            "name": "Những kỳ quan của con người - Tập 11",
+            "start_time": 1597563000,
+            "end_time": 1597564800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d37",
+            "content_type": "tv_schedules",
+            "topic": "Kinh doanh và pháp luật",
+            "name": "Phạt và bồi thường thiệt hại từ vi phạm hợp đồng",
+            "start_time": 1597561200,
+            "end_time": 1597563000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d36",
+            "content_type": "tv_schedules",
+            "topic": "Kinh tế số",
+            "name": "Kinh tế số",
+            "start_time": 1597559400,
+            "end_time": 1597561200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d35",
+            "content_type": "tv_schedules",
+            "topic": "Pháp luật và Cuộc sống",
+            "name": "Lập di chúc để định đoạt tài sản sau khi chết",
+            "start_time": 1597557600,
+            "end_time": 1597559400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d34",
+            "content_type": "tv_schedules",
+            "topic": "Chất lượng cuộc sống",
+            "name": "Tai biến sản khoa - Phát hiện sớm và can thiệp kịp thời",
+            "start_time": 1597554900,
+            "end_time": 1597557600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d33",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Cái giá của danh vọng - Tập 16",
+            "start_time": 1597552200,
+            "end_time": 1597554900
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d32",
+            "content_type": "tv_schedules",
+            "topic": "Phim tài liệu",
+            "name": "Cuộc chiến chưa kết thúc - Phần 3: Phòng chống dịch Made in Việt Nam",
+            "start_time": 1597550400,
+            "end_time": 1597552200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d31",
+            "content_type": "tv_schedules",
+            "topic": "Cho ngày hoàn hảo",
+            "name": "Văn hóa sử dụng mạng xã hội",
+            "start_time": 1597547700,
+            "end_time": 1597550400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d30",
+            "content_type": "tv_schedules",
+            "topic": "Sống khỏe mỗi ngày",
+            "name": "Tiến bộ trong chẩn đoán và điều trị viêm gan B",
+            "start_time": 1597545000,
+            "end_time": 1597547700
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d2f",
+            "content_type": "tv_schedules",
+            "topic": "Cơ thể bạn nói gì ?",
+            "name": "Khăn lau diệt khuẩn có tiêu diệt được vi khuẩn và virus không?",
+            "start_time": 1597543200,
+            "end_time": 1597545000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d2e",
+            "content_type": "tv_schedules",
+            "topic": "Đi tìm đồng đội",
+            "name": "Đi tìm đồng đội",
+            "start_time": 1597541400,
+            "end_time": 1597543200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d2d",
+            "content_type": "tv_schedules",
+            "topic": "An sinh xã hội",
+            "name": "An toàn cho phụ nữ và trẻ em",
+            "start_time": 1597540500,
+            "end_time": 1597541400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d2c",
+            "content_type": "tv_schedules",
+            "topic": "Đi đâu ? ăn gì ?",
+            "name": "Sắc màu Hà Nội",
+            "start_time": 1597539600,
+            "end_time": 1597540500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d2b",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá thế giới",
+            "name": "Những kỳ quan của con người - Tập 10",
+            "start_time": 1597537800,
+            "end_time": 1597539600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d2a",
+            "content_type": "tv_schedules",
+            "topic": "Hành trình khám phá",
+            "name": "Nơi cột mốc thiên đường",
+            "start_time": 1597536900,
+            "end_time": 1597537800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d29",
+            "content_type": "tv_schedules",
+            "topic": "Sống khỏe mỗi ngày",
+            "name": "Thay đổi thói quen dinh dưỡng để phòng tránh dịch bệnh",
+            "start_time": 1597535100,
+            "end_time": 1597536900
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d28",
+            "content_type": "tv_schedules",
+            "topic": "Xem và nghĩ",
+            "name": "Chim cú - chúa tể bóng đêm",
+            "start_time": 1597534200,
+            "end_time": 1597535100
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d27",
+            "content_type": "tv_schedules",
+            "topic": "Bạn của nhà nông",
+            "name": "Bạn của nhà nông",
+            "start_time": 1597531500,
+            "end_time": 1597534200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d26",
+            "content_type": "tv_schedules",
+            "topic": "Phóng sự",
+            "name": "Chuyện cũ Đà Lạt - Tập 4",
+            "start_time": 1597530600,
+            "end_time": 1597531500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d25",
+            "content_type": "tv_schedules",
+            "topic": "Năng suất - Chất lượng",
+            "name": "ISO 22000 giúp doanh nghiệp tiết kiệm chi phí và thời gian",
+            "start_time": 1597529700,
+            "end_time": 1597530600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d24",
+            "content_type": "tv_schedules",
+            "topic": "Giải mã cuộc sống",
+            "name": "Nuôi dạy chó nghiệp vụ - Tập 1",
+            "start_time": 1597528800,
+            "end_time": 1597529700
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d23",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá thế giới",
+            "name": "Những kỳ quan của con người - Tập 9",
+            "start_time": 1597527000,
+            "end_time": 1597528800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d22",
+            "content_type": "tv_schedules",
+            "topic": "Chất Việt",
+            "name": "Trà Việt - Tập 2",
+            "start_time": 1597525800,
+            "end_time": 1597527000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d21",
+            "content_type": "tv_schedules",
+            "topic": "Đi đâu ? ăn gì ?",
+            "name": "Khám phá Vân Đồn",
+            "start_time": 1597525200,
+            "end_time": 1597525800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d20",
+            "content_type": "tv_schedules",
+            "topic": "Nhà nông vui vẻ",
+            "name": "Nhà nông vui vẻ",
+            "start_time": 1597524300,
+            "end_time": 1597525200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d1f",
+            "content_type": "tv_schedules",
+            "topic": "Bạn của nhà nông",
+            "name": "Bạn của nhà nông",
+            "start_time": 1597521600,
+            "end_time": 1597524300
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d1e",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá thế giới",
+            "name": "Bên dưới đồng cỏ châu Phi",
+            "start_time": 1597518900,
+            "end_time": 1597521600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d1d",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Thập Nhất hoàng tử - Tập 24",
+            "start_time": 1597516200,
+            "end_time": 1597518900
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d1c",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá thế giới",
+            "name": "Một năm trên nông trại - Tập 2",
+            "start_time": 1597513500,
+            "end_time": 1597516200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d1b",
+            "content_type": "tv_schedules",
+            "topic": "Phóng sự",
+            "name": "Chuyện cũ Đà Lạt - Tập 6",
+            "start_time": 1597512600,
+            "end_time": 1597513500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d1a",
+            "content_type": "tv_schedules",
+            "topic": "Phim tài liệu khoa học",
+            "name": "Trở lại chiến trường Vị Xuyên",
+            "start_time": 1597510800,
+            "end_time": 1597512600
+          }
+        ]
+      },
+      {
+        "code": "VTV3",
+        "logo_url": "https://cdn1.travel.onex.vn/data_files/tv_channels_files/image/202003/30/3_mbbhd.png",
+        "id": "5cde2f5064dccc1b286213c9",
+        "name": "VTV3",
+        "content_type": "tv_channels",
+        "banner_url": "http://vtvgoimage.vtvdigital.vn/images/20190506/success_20190506173820_ts12-0305.mp41-720p.jpg",
+        "detail_link": "https://api1.travel.onex.vn/tv/channel/VTV3",
+        "streaming_urls": [
+          {
+            "id": "5cde2fa264dccc1b286213e3",
+            "content_type": "tv_streamings",
+            "protocol": "https",
+            "quality": "1080p",
+            "url": "https://hls.travel.onex.vn/namvietvtv/_definst_/smil:vtv3_vtvtravel/playlist.m3u8"
+          }
+        ],
+        "schedule_link": "https://api1.travel.onex.vn/tv/schedule/VTV3?date=2020-08-16",
+        "date": "Hôm nay, Ngày 16/08/2020",
+        "schedule": [
+          {
+            "id": "5f3806eab4ebd133b87f0d74",
+            "content_type": "tv_schedules",
+            "topic": "Lời tự sự",
+            "name": "Đạo diễn Đỗ Đức Thành",
+            "start_time": 1597593600,
+            "end_time": 1597597140
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d73",
+            "content_type": "tv_schedules",
+            "topic": "Quà tặng cuộc sống",
+            "name": "Gánh mẹ trên vai",
+            "start_time": 1597593000,
+            "end_time": 1597593600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d72",
+            "content_type": "tv_schedules",
+            "topic": "Ơn giời, cậu đây rồi",
+            "name": "Ơn giời, cậu đây rồi",
+            "start_time": 1597587600,
+            "end_time": 1597593000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d71",
+            "content_type": "tv_schedules",
+            "topic": "Làm giàu không khó",
+            "name": "Làm giàu không khó",
+            "start_time": 1597587000,
+            "end_time": 1597587600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d70",
+            "content_type": "tv_schedules",
+            "topic": "Hành lý tình yêu",
+            "name": "Hành lý tình yêu",
+            "start_time": 1597582800,
+            "end_time": 1597587000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d6f",
+            "content_type": "tv_schedules",
+            "topic": "V - Việt Nam",
+            "name": "V - Việt Nam",
+            "start_time": 1597582500,
+            "end_time": 1597582800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d6e",
+            "content_type": "tv_schedules",
+            "topic": "Thời sự",
+            "name": "Thời sự",
+            "start_time": 1597579200,
+            "end_time": 1597582500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d6d",
+            "content_type": "tv_schedules",
+            "topic": "Không thỏa hiệp",
+            "name": "Không thỏa hiệp",
+            "start_time": 1597576200,
+            "end_time": 1597579200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d6c",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Nàng dâu order - Tập 14",
+            "start_time": 1597573500,
+            "end_time": 1597576200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d6b",
+            "content_type": "tv_schedules",
+            "topic": "Bí quyết của Eva",
+            "name": "Cùng con vượt qua tuổi dậy thì",
+            "start_time": 1597572600,
+            "end_time": 1597573500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d6a",
+            "content_type": "tv_schedules",
+            "topic": "Thời tiết",
+            "name": "Thời tiết",
+            "start_time": 1597572480,
+            "end_time": 1597572600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d69",
+            "content_type": "tv_schedules",
+            "topic": "Vì bạn xứng đáng",
+            "name": "Vì bạn xứng đáng",
+            "start_time": 1597569000,
+            "end_time": 1597572480
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d68",
+            "content_type": "tv_schedules",
+            "topic": "Ẩm thực kỳ thú",
+            "name": "Ẩm thực kỳ thú",
+            "start_time": 1597565400,
+            "end_time": 1597569000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d67",
+            "content_type": "tv_schedules",
+            "topic": "Rubic 8",
+            "name": "Những thiên thần nhà S6 - Tập 36",
+            "start_time": 1597564500,
+            "end_time": 1597565400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d66",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Yêu trong đau thương - Tập 6",
+            "start_time": 1597561200,
+            "end_time": 1597564500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d65",
+            "content_type": "tv_schedules",
+            "topic": "Đường lên đỉnh Olympia",
+            "name": "Đường lên đỉnh Olympia",
+            "start_time": 1597557600,
+            "end_time": 1597561200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d64",
+            "content_type": "tv_schedules",
+            "topic": "Hạnh phúc là gì?",
+            "name": "Ông Đỗ Hữu Triết",
+            "start_time": 1597557000,
+            "end_time": 1597557600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d63",
+            "content_type": "tv_schedules",
+            "topic": "Người một nhà",
+            "name": "Người một nhà",
+            "start_time": 1597554000,
+            "end_time": 1597557000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d62",
+            "content_type": "tv_schedules",
+            "topic": "VTV kết nối",
+            "name": "VTV kết nối",
+            "start_time": 1597553100,
+            "end_time": 1597554000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d61",
+            "content_type": "tv_schedules",
+            "topic": "100 triệu 1 phút",
+            "name": "100 triệu 1 phút",
+            "start_time": 1597550400,
+            "end_time": 1597553100
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d60",
+            "content_type": "tv_schedules",
+            "topic": "Không gian xanh",
+            "name": "Kiến trúc sư Đặng Phan Lạc Việt - Không gian sáng tạo nghệ thuật",
+            "start_time": 1597549500,
+            "end_time": 1597550400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d5f",
+            "content_type": "tv_schedules",
+            "topic": "Đại chiến âm nhạc",
+            "name": "Đại chiến âm nhạc",
+            "start_time": 1597546800,
+            "end_time": 1597549500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d5e",
+            "content_type": "tv_schedules",
+            "topic": "Sức nước ngàn năm",
+            "name": "Số 13",
+            "start_time": 1597543200,
+            "end_time": 1597546800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d5d",
+            "content_type": "tv_schedules",
+            "topic": "Nhà tranh biện trẻ",
+            "name": "Nhà tranh biện trẻ",
+            "start_time": 1597539600,
+            "end_time": 1597543200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d5c",
+            "content_type": "tv_schedules",
+            "topic": "Thời tiết",
+            "name": "Thời tiết",
+            "start_time": 1597539480,
+            "end_time": 1597539600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d5b",
+            "content_type": "tv_schedules",
+            "topic": "Mỗi ngày một niềm vui",
+            "name": "Mỗi ngày một niềm vui",
+            "start_time": 1597539000,
+            "end_time": 1597539480
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d5a",
+            "content_type": "tv_schedules",
+            "topic": "Cà phê sáng",
+            "name": "Cà phê sáng",
+            "start_time": 1597536000,
+            "end_time": 1597539000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d59",
+            "content_type": "tv_schedules",
+            "topic": "S- Việt Nam",
+            "name": "S- Việt Nam",
+            "start_time": 1597535400,
+            "end_time": 1597536000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d58",
+            "content_type": "tv_schedules",
+            "topic": "Một phút và cả cuộc đời",
+            "name": "Hối hận muộn màng",
+            "start_time": 1597534800,
+            "end_time": 1597535400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d57",
+            "content_type": "tv_schedules",
+            "topic": "Hãy chọn giá đúng",
+            "name": "Hãy chọn giá đúng",
+            "start_time": 1597532400,
+            "end_time": 1597534800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d56",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Ba kiếp nhân duyên - Tập 2",
+            "start_time": 1597529400,
+            "end_time": 1597532400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d55",
+            "content_type": "tv_schedules",
+            "topic": "Vui - khoẻ - có ích",
+            "name": "Vui - khoẻ - có ích",
+            "start_time": 1597527000,
+            "end_time": 1597529400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d54",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Kẻ thù từ quá khứ - Tập 73",
+            "start_time": 1597524300,
+            "end_time": 1597527000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d53",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Nàng dâu order - Tập 13",
+            "start_time": 1597521600,
+            "end_time": 1597524300
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d52",
+            "content_type": "tv_schedules",
+            "topic": "Hành trình di sản",
+            "name": "Bên Bạch Đằng Giang",
+            "start_time": 1597518600,
+            "end_time": 1597521600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d51",
+            "content_type": "tv_schedules",
+            "topic": "Chiến sĩ 2020",
+            "name": "Chiến sĩ 2020",
+            "start_time": 1597515600,
+            "end_time": 1597518600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d50",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá thế giới",
+            "name": "Thế giới qua góc nhìn khác – Tập 30",
+            "start_time": 1597513800,
+            "end_time": 1597515600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d4f",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Nơi ánh dương soi chiếu - Tập 1",
+            "start_time": 1597510800,
+            "end_time": 1597513800
+          }
+        ]
+      },
+      {
+        "code": "VTV4",
+        "logo_url": "https://cdn1.travel.onex.vn/data_files/tv_channels_files/image/202003/30/4_swzdo.png",
+        "id": "5cde2f5e64dccc1b286213ce",
+        "name": "VTV4",
+        "content_type": "tv_channels",
+        "banner_url": "http://vtvgoimage.vtvdigital.vn/images/20190506/success_20190506173820_ts12-0305.mp41-720p.jpg",
+        "detail_link": "https://api1.travel.onex.vn/tv/channel/VTV4",
+        "streaming_urls": [
+          {
+            "id": "5cde2fae64dccc1b286213e7",
+            "content_type": "tv_streamings",
+            "protocol": "https",
+            "quality": "1080p",
+            "url": "https://hls.travel.onex.vn/namvietvtv/_definst_/smil:vtv4_vtvtravel/playlist.m3u8"
+          }
+        ],
+        "schedule_link": "https://api1.travel.onex.vn/tv/schedule/VTV4?date=2020-08-16",
+        "date": "Hôm nay, Ngày 16/08/2020",
+        "schedule": [
+          {
+            "id": "5f3806eab4ebd133b87f0da4",
+            "content_type": "tv_schedules",
+            "topic": "Thế giới tuổi thơ",
+            "name": "Vầng trăng của",
+            "start_time": 1597595400,
+            "end_time": 1597597140
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0da3",
+            "content_type": "tv_schedules",
+            "topic": "Sắc màu các dân tộc",
+            "name": "Ngôi làng dưới chân núi",
+            "start_time": 1597593600,
+            "end_time": 1597595400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0da2",
+            "content_type": "tv_schedules",
+            "topic": "Điều ước thứ 7",
+            "name": "Điều ước thứ 7",
+            "start_time": 1597590900,
+            "end_time": 1597593600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0da1",
+            "content_type": "tv_schedules",
+            "topic": "Nhịp đập Việt Nam",
+            "name": "Linh thiêng Tam Đảo",
+            "start_time": 1597590600,
+            "end_time": 1597590900
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0da0",
+            "content_type": "tv_schedules",
+            "topic": "Talk Vietnam",
+            "name": "Trịnh Lai và khát vọng nâng tầm dịch vụ ăn uống Việt",
+            "start_time": 1597588200,
+            "end_time": 1597590600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d9f",
+            "content_type": "tv_schedules",
+            "topic": "Thời tiết du lịch",
+            "name": "Thời tiết du lịch",
+            "start_time": 1597587900,
+            "end_time": 1597588200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d9e",
+            "content_type": "tv_schedules",
+            "topic": "Sức sống thể thao",
+            "name": "Sức sống thể thao",
+            "start_time": 1597587600,
+            "end_time": 1597587900
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d9d",
+            "content_type": "tv_schedules",
+            "topic": "Bản tin tiếng Việt 21h",
+            "name": "Bản tin tiếng Việt 21h",
+            "start_time": 1597586400,
+            "end_time": 1597587600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d9c",
+            "content_type": "tv_schedules",
+            "topic": "Phim tài liệu",
+            "name": "Vàng son mộc bản triều Nguyễn",
+            "start_time": 1597584600,
+            "end_time": 1597586400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d9b",
+            "content_type": "tv_schedules",
+            "topic": "Tạp chí tiếng Nhật",
+            "name": "Tạp chí tiếng Nhật",
+            "start_time": 1597582800,
+            "end_time": 1597584600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d9a",
+            "content_type": "tv_schedules",
+            "topic": "Nhịp đập Việt Nam",
+            "name": "Cánh đồng muối Xuân Bình",
+            "start_time": 1597582500,
+            "end_time": 1597582800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d99",
+            "content_type": "tv_schedules",
+            "topic": "Tác phẩm mới",
+            "name": "Biển hát ru anh",
+            "start_time": 1597581900,
+            "end_time": 1597582500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d98",
+            "content_type": "tv_schedules",
+            "topic": "Chuyện cũ dấu xưa",
+            "name": "Huyền thoại Ponagar",
+            "start_time": 1597581000,
+            "end_time": 1597581900
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d97",
+            "content_type": "tv_schedules",
+            "topic": "Toàn cảnh thế giới",
+            "name": "Toàn cảnh thế giới",
+            "start_time": 1597579200,
+            "end_time": 1597581000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d96",
+            "content_type": "tv_schedules",
+            "topic": "Sân khấu",
+            "name": "Đàn bà trẻ - đàn bà già",
+            "start_time": 1597576500,
+            "end_time": 1597579200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d95",
+            "content_type": "tv_schedules",
+            "topic": "Rubic 8",
+            "name": "Bó tay.kom - Tập 72",
+            "start_time": 1597575600,
+            "end_time": 1597576500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d94",
+            "content_type": "tv_schedules",
+            "topic": "Từ những miền quê",
+            "name": "Đất và người làng Mơ Hra",
+            "start_time": 1597574700,
+            "end_time": 1597575600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d93",
+            "content_type": "tv_schedules",
+            "topic": "Âm nhạc Việt Nam những chặng đường",
+            "name": "Số 305",
+            "start_time": 1597573800,
+            "end_time": 1597574700
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d92",
+            "content_type": "tv_schedules",
+            "topic": "Tường thuật",
+            "name": "Trao giải báo chí thông tin đối ngoại 2020",
+            "start_time": 1597568400,
+            "end_time": 1597573800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d91",
+            "content_type": "tv_schedules",
+            "topic": "Văn học nghệ thuật",
+            "name": "NSND Quang Thọ",
+            "start_time": 1597566600,
+            "end_time": 1597568400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d90",
+            "content_type": "tv_schedules",
+            "topic": "Giai điệu cuộc sống",
+            "name": "Dân ca nhạc cổ: Vang ngân điệu Then cổ",
+            "start_time": 1597564800,
+            "end_time": 1597566600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d8f",
+            "content_type": "tv_schedules",
+            "topic": "Tạp chí tiếng Nhật",
+            "name": "Tạp chí tiếng Nhật",
+            "start_time": 1597563000,
+            "end_time": 1597564800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d8e",
+            "content_type": "tv_schedules",
+            "topic": "Sắc màu các dân tộc",
+            "name": "Về Hua Tạt nghe gió hát",
+            "start_time": 1597561200,
+            "end_time": 1597563000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d8d",
+            "content_type": "tv_schedules",
+            "topic": "Văn học nghệ thuật",
+            "name": "Tìm về những người lính năm xưa",
+            "start_time": 1597559400,
+            "end_time": 1597561200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d8c",
+            "content_type": "tv_schedules",
+            "topic": "Gia đình hoàn mỹ",
+            "name": "Gia đình hoàn mỹ",
+            "start_time": 1597555800,
+            "end_time": 1597559400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d8b",
+            "content_type": "tv_schedules",
+            "topic": "Bản tin tiếng Việt 12h",
+            "name": "Bản tin tiếng Việt 12h",
+            "start_time": 1597554000,
+            "end_time": 1597555800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d8a",
+            "content_type": "tv_schedules",
+            "topic": "Chuyện cũ dấu xưa",
+            "name": "Huyền thoại Ponagar",
+            "start_time": 1597553100,
+            "end_time": 1597554000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d89",
+            "content_type": "tv_schedules",
+            "topic": "Rubic 8",
+            "name": "Bó tay.kom - Tập 71",
+            "start_time": 1597552200,
+            "end_time": 1597553100
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d88",
+            "content_type": "tv_schedules",
+            "topic": "Phim cuối tuần",
+            "name": "Ráng chiều",
+            "start_time": 1597546800,
+            "end_time": 1597552200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d87",
+            "content_type": "tv_schedules",
+            "topic": "Nhật ký người Việt",
+            "name": "Nhật ký người Việt",
+            "start_time": 1597546500,
+            "end_time": 1597546800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d86",
+            "content_type": "tv_schedules",
+            "topic": "Phim tài liệu",
+            "name": "Vàng son mộc bản triều Nguyễn",
+            "start_time": 1597545000,
+            "end_time": 1597546500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d85",
+            "content_type": "tv_schedules",
+            "topic": "Sắc màu các dân tộc",
+            "name": "Ngôi làng dưới chân núi",
+            "start_time": 1597543200,
+            "end_time": 1597545000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d84",
+            "content_type": "tv_schedules",
+            "topic": "Bizline",
+            "name": "Nghị quyết 55 về năng lượng: Rộng cửa cho nhà đầu tư nước ngoài",
+            "start_time": 1597541400,
+            "end_time": 1597543200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d83",
+            "content_type": "tv_schedules",
+            "topic": "Nghệ thuật và Cuộc sống",
+            "name": "Xiếc Việt Nam - Số 7",
+            "start_time": 1597539600,
+            "end_time": 1597541400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d82",
+            "content_type": "tv_schedules",
+            "topic": "Cà phê sáng",
+            "name": "Cà phê sáng",
+            "start_time": 1597536000,
+            "end_time": 1597539600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d81",
+            "content_type": "tv_schedules",
+            "topic": "Điều ước thứ 7",
+            "name": "Điều ước thứ 7",
+            "start_time": 1597533300,
+            "end_time": 1597536000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d80",
+            "content_type": "tv_schedules",
+            "topic": "Người Việt bốn phương",
+            "name": "Người Việt bốn phương",
+            "start_time": 1597532400,
+            "end_time": 1597533300
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d7f",
+            "content_type": "tv_schedules",
+            "topic": "Thời tiết du lịch",
+            "name": "Thời tiết du lịch",
+            "start_time": 1597531500,
+            "end_time": 1597532400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d7e",
+            "content_type": "tv_schedules",
+            "topic": "Phim cuối tuần",
+            "name": "Ráng chiều",
+            "start_time": 1597525200,
+            "end_time": 1597531500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d7d",
+            "content_type": "tv_schedules",
+            "topic": "Sắc màu các dân tộc",
+            "name": "Ngôi làng dưới chân núi",
+            "start_time": 1597523400,
+            "end_time": 1597525200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d7c",
+            "content_type": "tv_schedules",
+            "topic": "Phim tài liệu",
+            "name": "Vàng son mộc bản triều Nguyễn",
+            "start_time": 1597521600,
+            "end_time": 1597523400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d7b",
+            "content_type": "tv_schedules",
+            "topic": "Sắc màu các dân tộc",
+            "name": "Chợ phiên Simacai",
+            "start_time": 1597519800,
+            "end_time": 1597521600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d7a",
+            "content_type": "tv_schedules",
+            "topic": "Gia đình hoàn mỹ",
+            "name": "Gia đình hoàn mỹ",
+            "start_time": 1597516200,
+            "end_time": 1597519800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d79",
+            "content_type": "tv_schedules",
+            "topic": "Người Việt bốn phương",
+            "name": "Người Việt bốn phương",
+            "start_time": 1597515300,
+            "end_time": 1597516200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d78",
+            "content_type": "tv_schedules",
+            "topic": "Talk Vietnam",
+            "name": "Tiến sĩ Nguyễn Thanh Mỹ - Nhà khoa học của nông dân",
+            "start_time": 1597512600,
+            "end_time": 1597515300
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d77",
+            "content_type": "tv_schedules",
+            "topic": "Thời tiết du lịch",
+            "name": "Thời tiết du lịch",
+            "start_time": 1597512300,
+            "end_time": 1597512600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d76",
+            "content_type": "tv_schedules",
+            "topic": "Sức sống thể thao",
+            "name": "Sức sống thể thao",
+            "start_time": 1597512000,
+            "end_time": 1597512300
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0d75",
+            "content_type": "tv_schedules",
+            "topic": "Bản tin tiếng Việt 0h",
+            "name": "Bản tin tiếng Việt 0h",
+            "start_time": 1597510800,
+            "end_time": 1597512000
+          }
+        ]
+      },
+      {
+        "code": "VTV5",
+        "logo_url": "https://cdn1.travel.onex.vn/data_files/tv_channels_files/image/202003/30/5_nwmxk.png",
+        "id": "5cde2f6f64dccc1b286213d3",
+        "name": "VTV5",
+        "content_type": "tv_channels",
+        "banner_url": "http://vtvgoimage.vtvdigital.vn/images/20190506/success_20190506173820_ts12-0305.mp41-720p.jpg",
+        "detail_link": "https://api1.travel.onex.vn/tv/channel/VTV5",
+        "streaming_urls": [
+          {
+            "id": "5cde2fba64dccc1b286213eb",
+            "content_type": "tv_streamings",
+            "protocol": "https",
+            "quality": "1080p",
+            "url": "https://hls.travel.onex.vn/namvietvtv/_definst_/smil:vtv5_vtvtravel/playlist.m3u8"
+          }
+        ],
+        "schedule_link": "https://api1.travel.onex.vn/tv/schedule/VTV5?date=2020-08-16",
+        "date": "Hôm nay, Ngày 16/08/2020",
+        "schedule": [
+          {
+            "id": "5f3806eab4ebd133b87f0dd5",
+            "content_type": "tv_schedules",
+            "topic": "Ca nhạc",
+            "name": "Ca nhạc",
+            "start_time": 1597595400,
+            "end_time": 1597597140
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dd4",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá Việt Nam",
+            "name": "Bên dưới đồng cỏ Châu Phi",
+            "start_time": 1597592700,
+            "end_time": 1597595400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dd3",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Con tàu y đức - Tập 23",
+            "start_time": 1597590000,
+            "end_time": 1597592700
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dd2",
+            "content_type": "tv_schedules",
+            "topic": "Thanh âm Việt",
+            "name": "Về theo câu hát dân ca",
+            "start_time": 1597589100,
+            "end_time": 1597590000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dd1",
+            "content_type": "tv_schedules",
+            "topic": "Trang văn hóa",
+            "name": "Trang văn hóa",
+            "start_time": 1597588200,
+            "end_time": 1597589100
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dd0",
+            "content_type": "tv_schedules",
+            "topic": "Chuyện nghề",
+            "name": "Mỳ chũ Lục Ngạn",
+            "start_time": 1597587300,
+            "end_time": 1597588200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dcf",
+            "content_type": "tv_schedules",
+            "topic": "Miền Tây những điểm đến",
+            "name": "Về miền Tây đi chợ miệt vườn",
+            "start_time": 1597586400,
+            "end_time": 1597587300
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dce",
+            "content_type": "tv_schedules",
+            "topic": "Nông nghiệp xanh Tây Nguyên",
+            "name": "Nông nghiệp xanh Tây Nguyên",
+            "start_time": 1597585500,
+            "end_time": 1597586400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dcd",
+            "content_type": "tv_schedules",
+            "topic": "Hội nhập và phát triển",
+            "name": "Hội nhập và phát triển",
+            "start_time": 1597584600,
+            "end_time": 1597585500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dcc",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Ngôi sao khoai tây - Tập 35, 36",
+            "start_time": 1597579200,
+            "end_time": 1597584600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dcb",
+            "content_type": "tv_schedules",
+            "topic": "Thiếu nhi",
+            "name": "Khoảng trời tuổi thơ",
+            "start_time": 1597577400,
+            "end_time": 1597579200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dca",
+            "content_type": "tv_schedules",
+            "topic": "Bản tin thị trường",
+            "name": "Bản tin thị trường",
+            "start_time": 1597576980,
+            "end_time": 1597577400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dc9",
+            "content_type": "tv_schedules",
+            "topic": "Thời tiết",
+            "name": "Thời tiết",
+            "start_time": 1597576800,
+            "end_time": 1597576980
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dc8",
+            "content_type": "tv_schedules",
+            "topic": "Thời sự",
+            "name": "Thời sự",
+            "start_time": 1597575600,
+            "end_time": 1597576800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dc7",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá Việt Nam",
+            "name": "Khám phá Việt Nam",
+            "start_time": 1597574700,
+            "end_time": 1597575600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dc6",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Hạnh phúc không có ở cuối con đường - Tập 16",
+            "start_time": 1597572000,
+            "end_time": 1597574700
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dc5",
+            "content_type": "tv_schedules",
+            "topic": "Không gian văn hóa nghệ thuật",
+            "name": "Không gian văn hóa nghệ thuật",
+            "start_time": 1597569300,
+            "end_time": 1597572000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dc4",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Bước tới hạnh phúc - Tập 6",
+            "start_time": 1597566600,
+            "end_time": 1597569300
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dc3",
+            "content_type": "tv_schedules",
+            "topic": "Chương trình tiếng Mường",
+            "name": "Chương trình tiếng Mường",
+            "start_time": 1597564800,
+            "end_time": 1597566600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dc2",
+            "content_type": "tv_schedules",
+            "topic": "Chương trình tiếng Thái",
+            "name": "Chương trình tiếng Thái",
+            "start_time": 1597563000,
+            "end_time": 1597564800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dc1",
+            "content_type": "tv_schedules",
+            "topic": "Chương trình tiếng Dao",
+            "name": "Chương trình tiếng Dao",
+            "start_time": 1597561200,
+            "end_time": 1597563000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dc0",
+            "content_type": "tv_schedules",
+            "topic": "Chương trình tiếng Mông",
+            "name": "Chương trình tiếng Mông",
+            "start_time": 1597559400,
+            "end_time": 1597561200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dbf",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Con đường danh vọng - Tập 287, 288",
+            "start_time": 1597554000,
+            "end_time": 1597559400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dbe",
+            "content_type": "tv_schedules",
+            "topic": "Bản tin thể thao",
+            "name": "Bản tin thể thao",
+            "start_time": 1597553700,
+            "end_time": 1597554000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dbd",
+            "content_type": "tv_schedules",
+            "topic": "Thời sự",
+            "name": "Thời sự",
+            "start_time": 1597553100,
+            "end_time": 1597553700
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dbc",
+            "content_type": "tv_schedules",
+            "topic": "Nét đẹp dân gian",
+            "name": "Những viên gạch bên dòng sông Hậu",
+            "start_time": 1597552800,
+            "end_time": 1597553100
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dbb",
+            "content_type": "tv_schedules",
+            "topic": "Thiếu nhi",
+            "name": "Khoảng trời tuổi thơ",
+            "start_time": 1597551300,
+            "end_time": 1597552800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dba",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Hạnh phúc không có ở cuối con đường - Tập 16",
+            "start_time": 1597548600,
+            "end_time": 1597551300
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0db9",
+            "content_type": "tv_schedules",
+            "topic": "Nhịp sống VTV5",
+            "name": "Nhịp sống VTV5",
+            "start_time": 1597546800,
+            "end_time": 1597548600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0db8",
+            "content_type": "tv_schedules",
+            "topic": "Nẻo về nguồn cội",
+            "name": "Nẻo về nguồn cội",
+            "start_time": 1597545900,
+            "end_time": 1597546800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0db7",
+            "content_type": "tv_schedules",
+            "topic": "Vui sống mỗi ngày",
+            "name": "Vui sống mỗi ngày",
+            "start_time": 1597543200,
+            "end_time": 1597545900
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0db6",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá thế giới",
+            "name": "Bên dưới đồng cỏ Châu Phi",
+            "start_time": 1597540500,
+            "end_time": 1597543200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0db5",
+            "content_type": "tv_schedules",
+            "topic": "Sống khỏe mỗi ngày",
+            "name": "Phòng chống bệnh tiêu chảy mùa nắng nóng",
+            "start_time": 1597538700,
+            "end_time": 1597540500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0db4",
+            "content_type": "tv_schedules",
+            "topic": "Ký sự",
+            "name": "Hoài niệm làng nghề - Tập 7",
+            "start_time": 1597537800,
+            "end_time": 1597538700
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0db3",
+            "content_type": "tv_schedules",
+            "topic": "Chương trình tiếng Tày",
+            "name": "Chương trình tiếng Tày",
+            "start_time": 1597536000,
+            "end_time": 1597537800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0db2",
+            "content_type": "tv_schedules",
+            "topic": "Chương trình tiếng Thái",
+            "name": "Chương trình tiếng Thái",
+            "start_time": 1597534200,
+            "end_time": 1597536000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0db1",
+            "content_type": "tv_schedules",
+            "topic": "Chương trình tiếng Dao",
+            "name": "Chương trình tiếng Dao",
+            "start_time": 1597532400,
+            "end_time": 1597534200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0db0",
+            "content_type": "tv_schedules",
+            "topic": "Chương trình tiếng Mông",
+            "name": "Chương trình tiếng Mông",
+            "start_time": 1597530600,
+            "end_time": 1597532400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0daf",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá Việt Nam",
+            "name": "Khám phá Việt Nam",
+            "start_time": 1597529700,
+            "end_time": 1597530600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dae",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Bước tới hạnh phúc - Tập 5",
+            "start_time": 1597527000,
+            "end_time": 1597529700
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dad",
+            "content_type": "tv_schedules",
+            "topic": "Dân tộc phát triển",
+            "name": "Tạo động lực phát triển nông nghiệp hàng hóa",
+            "start_time": 1597525200,
+            "end_time": 1597527000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dac",
+            "content_type": "tv_schedules",
+            "topic": "Ca nhạc",
+            "name": "Ca nhạc",
+            "start_time": 1597523400,
+            "end_time": 1597525200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0dab",
+            "content_type": "tv_schedules",
+            "topic": "Phim hoạt hình",
+            "name": "Ảo thuật gia đại tài - Tập 7, 8 (Phần 1)",
+            "start_time": 1597521600,
+            "end_time": 1597523400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0daa",
+            "content_type": "tv_schedules",
+            "topic": "Phụ nữ Việt",
+            "name": "Phụ nữ Việt",
+            "start_time": 1597520700,
+            "end_time": 1597521600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0da9",
+            "content_type": "tv_schedules",
+            "topic": "Hành trình di sản",
+            "name": "Thường Tín đất tổ",
+            "start_time": 1597518000,
+            "end_time": 1597520700
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0da8",
+            "content_type": "tv_schedules",
+            "topic": "Nẻo về nguồn cội",
+            "name": "Nẻo về nguồn cội",
+            "start_time": 1597517400,
+            "end_time": 1597518000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0da7",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá thế giới",
+            "name": "Bên dưới đồng cỏ Châu Phi",
+            "start_time": 1597514400,
+            "end_time": 1597517400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0da6",
+            "content_type": "tv_schedules",
+            "topic": "Ký sự",
+            "name": "Về miền Chapi - Tập 1",
+            "start_time": 1597513500,
+            "end_time": 1597514400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0da5",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Con tàu y đức - Tập 22",
+            "start_time": 1597510800,
+            "end_time": 1597513500
+          }
+        ]
+      },
+      {
+        "code": "VTV6",
+        "logo_url": "https://cdn1.travel.onex.vn/data_files/tv_channels_files/image/202003/30/6_brblf.png",
+        "id": "5cde2f7e64dccc1b286213d8",
+        "name": "VTV6",
+        "content_type": "tv_channels",
+        "banner_url": "http://vtvgoimage.vtvdigital.vn/images/20190506/success_20190506173820_ts12-0305.mp41-720p.jpg",
+        "detail_link": "https://api1.travel.onex.vn/tv/channel/VTV6",
+        "streaming_urls": [
+          {
+            "id": "5cde2fc664dccc1b286213ef",
+            "content_type": "tv_streamings",
+            "protocol": "https",
+            "quality": "1080p",
+            "url": "https://hls.travel.onex.vn/namvietvtv/_definst_/smil:vtv6_vtvtravel/playlist.m3u8"
+          }
+        ],
+        "schedule_link": "https://api1.travel.onex.vn/tv/schedule/VTV6?date=2020-08-16",
+        "date": "Hôm nay, Ngày 16/08/2020",
+        "schedule": [
+          {
+            "id": "5f3806eab4ebd133b87f0e56",
+            "content_type": "tv_schedules",
+            "topic": "Thể thao",
+            "name": "Trận tranh HCV Bóng đá nam Sea Games 30: U22 Việt Nam - U22 Indonesia",
+            "start_time": 1597593600,
+            "end_time": 1597597140
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e55",
+            "content_type": "tv_schedules",
+            "topic": "Người được chọn",
+            "name": "Người được chọn",
+            "start_time": 1597592100,
+            "end_time": 1597593600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e54",
+            "content_type": "tv_schedules",
+            "topic": "Nhật ký người Việt",
+            "name": "Nhật ký người Việt",
+            "start_time": 1597591800,
+            "end_time": 1597592100
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e53",
+            "content_type": "tv_schedules",
+            "topic": "360 độ thể thao",
+            "name": "360 độ thể thao",
+            "start_time": 1597590000,
+            "end_time": 1597591800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e52",
+            "content_type": "tv_schedules",
+            "topic": "Thời tiết",
+            "name": "Thời tiết",
+            "start_time": 1597589700,
+            "end_time": 1597590000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e51",
+            "content_type": "tv_schedules",
+            "topic": "Video Storm: Bạn đã xem chưa?",
+            "name": "Số 13",
+            "start_time": 1597588200,
+            "end_time": 1597589700
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e50",
+            "content_type": "tv_schedules",
+            "topic": "Quán Thanh Xuân",
+            "name": "Quán Thanh Xuân",
+            "start_time": 1597582800,
+            "end_time": 1597588200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e4f",
+            "content_type": "tv_schedules",
+            "topic": "Những phụ nữ có Gu",
+            "name": "Những phụ nữ có Gu",
+            "start_time": 1597581000,
+            "end_time": 1597582800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e4e",
+            "content_type": "tv_schedules",
+            "topic": "Những phụ nữ có Gu",
+            "name": "Những phụ nữ có Gu",
+            "start_time": 1597579200,
+            "end_time": 1597581000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e4d",
+            "content_type": "tv_schedules",
+            "topic": "Thời tiết",
+            "name": "Thời tiết",
+            "start_time": 1597578900,
+            "end_time": 1597579200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e4c",
+            "content_type": "tv_schedules",
+            "topic": "Chuyến đi màu xanh",
+            "name": "Số 20",
+            "start_time": 1597577400,
+            "end_time": 1597578900
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e4b",
+            "content_type": "tv_schedules",
+            "topic": "VTV Sports News",
+            "name": "VTV Sports News",
+            "start_time": 1597575600,
+            "end_time": 1597577400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e4a",
+            "content_type": "tv_schedules",
+            "topic": "Phim Sitcom",
+            "name": "Bó tay.kom - Tập 33 , Tập 34",
+            "start_time": 1597573800,
+            "end_time": 1597575600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e49",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá thế giới",
+            "name": "Công thức nấu ăn cổ truyền Hàn Quốc - Tập 2",
+            "start_time": 1597572000,
+            "end_time": 1597573800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e48",
+            "content_type": "tv_schedules",
+            "topic": "Cuộc đua không dừng lại",
+            "name": "Số 1",
+            "start_time": 1597570200,
+            "end_time": 1597572000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e47",
+            "content_type": "tv_schedules",
+            "topic": "Đồng hành",
+            "name": "Cất cánh",
+            "start_time": 1597569300,
+            "end_time": 1597570200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e46",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá Việt Nam",
+            "name": "Khu chợ nổi giữa 5 con sông",
+            "start_time": 1597568400,
+            "end_time": 1597569300
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e45",
+            "content_type": "tv_schedules",
+            "topic": "Trên từng cây số",
+            "name": "Số 1",
+            "start_time": 1597566600,
+            "end_time": 1597568400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e44",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá thế giới",
+            "name": "Chinh phục không gian - Tập 2 Rác thải trong không gian",
+            "start_time": 1597563900,
+            "end_time": 1597566600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e43",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Cung đường tội lỗi - Tập 10",
+            "start_time": 1597561200,
+            "end_time": 1597563900
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e42",
+            "content_type": "tv_schedules",
+            "topic": "Ghế không tựa",
+            "name": "Số 32",
+            "start_time": 1597559400,
+            "end_time": 1597561200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e41",
+            "content_type": "tv_schedules",
+            "topic": "Thể thao",
+            "name": "Tạp chí Cầu lông thế giới",
+            "start_time": 1597557600,
+            "end_time": 1597559400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e40",
+            "content_type": "tv_schedules",
+            "topic": "Bữa trưa vui vẻ",
+            "name": "Bữa trưa vui vẻ",
+            "start_time": 1597554000,
+            "end_time": 1597557600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e3f",
+            "content_type": "tv_schedules",
+            "topic": "Thời tiết",
+            "name": "Thời tiết",
+            "start_time": 1597553700,
+            "end_time": 1597554000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e3e",
+            "content_type": "tv_schedules",
+            "topic": "VTV Sports News",
+            "name": "VTV Sports News",
+            "start_time": 1597552200,
+            "end_time": 1597553700
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e3d",
+            "content_type": "tv_schedules",
+            "topic": "Nào cùng phong cách",
+            "name": "Số 7",
+            "start_time": 1597550400,
+            "end_time": 1597552200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e3c",
+            "content_type": "tv_schedules",
+            "topic": "Người được chọn",
+            "name": "Người được chọn",
+            "start_time": 1597548600,
+            "end_time": 1597550400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e3b",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá thế giới",
+            "name": "Nơi đường chân trời - Tập 9",
+            "start_time": 1597545000,
+            "end_time": 1597548600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e3a",
+            "content_type": "tv_schedules",
+            "topic": "Thời tiết",
+            "name": "Thời tiết",
+            "start_time": 1597544100,
+            "end_time": 1597545000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e39",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Cung đường tội lỗi - Tập 10",
+            "start_time": 1597542300,
+            "end_time": 1597544100
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e38",
+            "content_type": "tv_schedules",
+            "topic": "Thể thao",
+            "name": "Trận tranh HCV Bóng đá nam Sea Games 30: U22 Việt Nam - U22 Indonesia",
+            "start_time": 1597536900,
+            "end_time": 1597542300
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e37",
+            "content_type": "tv_schedules",
+            "topic": "Nhịp đập 360 độ Thể Thao",
+            "name": "Nhịp đập 360 độ Thể Thao",
+            "start_time": 1597534200,
+            "end_time": 1597536900
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e36",
+            "content_type": "tv_schedules",
+            "topic": "Ngôi nhà thế hệ số",
+            "name": "Ngôi nhà thế hệ số",
+            "start_time": 1597532400,
+            "end_time": 1597534200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e35",
+            "content_type": "tv_schedules",
+            "topic": "Thể thao",
+            "name": "Tạp chí Thể thao tốc độ",
+            "start_time": 1597530600,
+            "end_time": 1597532400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e34",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá thế giới",
+            "name": "Công thức nấu ăn cổ truyền Hàn Quốc - Tập 2",
+            "start_time": 1597528800,
+            "end_time": 1597530600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e33",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá Việt Nam",
+            "name": "Khu chợ nổi giữa 5 con sông",
+            "start_time": 1597527900,
+            "end_time": 1597528800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e32",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Cung đường tội lỗi - Tập 9",
+            "start_time": 1597525200,
+            "end_time": 1597527900
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e31",
+            "content_type": "tv_schedules",
+            "topic": "Thể thao",
+            "name": "Tạp chí Thể thao tốc độ",
+            "start_time": 1597523400,
+            "end_time": 1597525200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e30",
+            "content_type": "tv_schedules",
+            "topic": "Cuộc đua không dừng lại",
+            "name": "Số 1",
+            "start_time": 1597521600,
+            "end_time": 1597523400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e2f",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá thế giới",
+            "name": "Nơi đường chân trời - Tập 8",
+            "start_time": 1597518900,
+            "end_time": 1597521600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e2e",
+            "content_type": "tv_schedules",
+            "topic": "Chuyến đi màu xanh",
+            "name": "Số 20",
+            "start_time": 1597517100,
+            "end_time": 1597518900
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e2d",
+            "content_type": "tv_schedules",
+            "topic": "Phim truyện",
+            "name": "Cung đường tội lỗi - Tập 8",
+            "start_time": 1597514400,
+            "end_time": 1597517100
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e2c",
+            "content_type": "tv_schedules",
+            "topic": "Khám phá thế giới",
+            "name": "Công thức nấu ăn cổ truyền Hàn Quốc - Tập 1",
+            "start_time": 1597512600,
+            "end_time": 1597514400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e2b",
+            "content_type": "tv_schedules",
+            "topic": "Thể thao",
+            "name": "Tạp chí Bundesliga",
+            "start_time": 1597510800,
+            "end_time": 1597512600
+          }
+        ]
+      },
+      {
+        "code": "VTV7",
+        "logo_url": "https://cdn1.travel.onex.vn/data_files/tv_channels_files/image/202004/09/vtv7-1_bwavg.png",
+        "id": "5e8f2a55190d81525e8b456c",
+        "name": "VTV7",
+        "content_type": "tv_channels",
+        "banner_url": "http://vtvgoimage.vtvdigital.vn/images/20190506/success_20190506173820_ts12-0305.mp41-720p.jpg",
+        "detail_link": "https://api1.travel.onex.vn/tv/channel/VTV7",
+        "streaming_urls": [
+          {
+            "id": "5e8f2af5190d8177508b4573",
+            "content_type": "tv_streamings",
+            "protocol": "https",
+            "quality": "",
+            "url": "https://hls.travel.onex.vn/namvietvtv/_definst_/smil:vtv7_vtvtravel/playlist.m3u8"
+          }
+        ],
+        "schedule_link": "https://api1.travel.onex.vn/tv/schedule/VTV7?date=2020-08-16",
+        "date": "Hôm nay, Ngày 16/08/2020",
+        "schedule": [
+          {
+            "id": "5f3806eab4ebd133b87f0e82",
+            "content_type": "tv_schedules",
+            "topic": "Phim khoa học",
+            "name": "Những thực phẩm tốt cho sức khỏe - Tập 3",
+            "start_time": 1597594800,
+            "end_time": 1597597140
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e81",
+            "content_type": "tv_schedules",
+            "topic": "Trường Teen",
+            "name": "Tập đặc biệt",
+            "start_time": 1597591200,
+            "end_time": 1597594800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e80",
+            "content_type": "tv_schedules",
+            "topic": "Không thì thầm",
+            "name": "Số 6 - Ăn cơm trước kẻng",
+            "start_time": 1597590000,
+            "end_time": 1597591200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e7f",
+            "content_type": "tv_schedules",
+            "topic": "Hành trình làm mẹ",
+            "name": "Số 11",
+            "start_time": 1597589700,
+            "end_time": 1597590000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e7e",
+            "content_type": "tv_schedules",
+            "topic": "Crack Em up",
+            "name": "Số 7",
+            "start_time": 1597588200,
+            "end_time": 1597589700
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e7d",
+            "content_type": "tv_schedules",
+            "topic": "IELTS Face Off",
+            "name": "Số 9 - The Performer",
+            "start_time": 1597586400,
+            "end_time": 1597588200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e7c",
+            "content_type": "tv_schedules",
+            "topic": "Thời tiết của bé",
+            "name": "Thời tiết của bé",
+            "start_time": 1597586160,
+            "end_time": 1597586400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e7b",
+            "content_type": "tv_schedules",
+            "topic": "Chuyện kể của những chú cừu",
+            "name": "Số 19 - Bống làm nông dân",
+            "start_time": 1597585500,
+            "end_time": 1597586160
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e7a",
+            "content_type": "tv_schedules",
+            "topic": "Xứ sở cầu vồng",
+            "name": "Số 10",
+            "start_time": 1597583520,
+            "end_time": 1597585500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e79",
+            "content_type": "tv_schedules",
+            "topic": "Ngày xưa cổ tích",
+            "name": "Số 10 - Nàng tiên ốc",
+            "start_time": 1597582800,
+            "end_time": 1597583520
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e78",
+            "content_type": "tv_schedules",
+            "topic": "Phim khai thác",
+            "name": "Người máy của Anne - Tập 7",
+            "start_time": 1597581000,
+            "end_time": 1597582800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e77",
+            "content_type": "tv_schedules",
+            "topic": "Xưởng thiết kế mộng mơ",
+            "name": "Số 2 - Trò chơi dân gian",
+            "start_time": 1597579200,
+            "end_time": 1597581000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e76",
+            "content_type": "tv_schedules",
+            "topic": "Con đường nghề nghiệp",
+            "name": "Số 24 - Thiết kế đồ họa",
+            "start_time": 1597578300,
+            "end_time": 1597579200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e75",
+            "content_type": "tv_schedules",
+            "topic": "Follow us",
+            "name": "Số 11 - Like a movie",
+            "start_time": 1597577400,
+            "end_time": 1597578300
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e74",
+            "content_type": "tv_schedules",
+            "topic": "5 từ mới tiếng Anh mỗi ngày",
+            "name": "Số 2 - Khu vui chơi",
+            "start_time": 1597576500,
+            "end_time": 1597577400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e73",
+            "content_type": "tv_schedules",
+            "topic": "Hè vui khỏe",
+            "name": "Số 15",
+            "start_time": 1597575600,
+            "end_time": 1597576500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e72",
+            "content_type": "tv_schedules",
+            "topic": "Crack Em up",
+            "name": "Số 7",
+            "start_time": 1597573800,
+            "end_time": 1597575600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e71",
+            "content_type": "tv_schedules",
+            "topic": "IELTS Face Off",
+            "name": "Số 9 - The Performer",
+            "start_time": 1597572000,
+            "end_time": 1597573800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e70",
+            "content_type": "tv_schedules",
+            "topic": "Trường Teen",
+            "name": "Tập đặc biệt",
+            "start_time": 1597568400,
+            "end_time": 1597572000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e6f",
+            "content_type": "tv_schedules",
+            "topic": "Xứ sở cầu vồng",
+            "name": "Số 10",
+            "start_time": 1597566600,
+            "end_time": 1597568400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e6e",
+            "content_type": "tv_schedules",
+            "topic": "Dạy Tiếng Việt lớp 1",
+            "name": "Số 17",
+            "start_time": 1597564800,
+            "end_time": 1597566600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e6d",
+            "content_type": "tv_schedules",
+            "topic": "Con đường nghề nghiệp",
+            "name": "Số 24 - Thiết kế đồ họa",
+            "start_time": 1597563900,
+            "end_time": 1597564800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e6c",
+            "content_type": "tv_schedules",
+            "topic": "Follow us",
+            "name": "Số 11 - Like a movie",
+            "start_time": 1597563000,
+            "end_time": 1597563900
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e6b",
+            "content_type": "tv_schedules",
+            "topic": "Mẹ kể bé nghe - Những câu chuyện nuôi dưỡng tâm hồn",
+            "name": "Số 8",
+            "start_time": 1597562700,
+            "end_time": 1597563000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e6a",
+            "content_type": "tv_schedules",
+            "topic": "Phim khai thác",
+            "name": "Phố Vừng vui nhộn - Tập 15",
+            "start_time": 1597561200,
+            "end_time": 1597562700
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e69",
+            "content_type": "tv_schedules",
+            "topic": "Phim khai thác",
+            "name": "Người máy của Anne - Tập 6",
+            "start_time": 1597559400,
+            "end_time": 1597561200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e68",
+            "content_type": "tv_schedules",
+            "topic": "Phim khai thác",
+            "name": "Người máy của Anne - Tập 5",
+            "start_time": 1597557600,
+            "end_time": 1597559400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e67",
+            "content_type": "tv_schedules",
+            "topic": "Cha mẹ thay đổi",
+            "name": "Số 2 - Nhà là nơi trái tim hiện diện",
+            "start_time": 1597554000,
+            "end_time": 1597557600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e66",
+            "content_type": "tv_schedules",
+            "topic": "Trường Teen",
+            "name": "Tập đặc biệt",
+            "start_time": 1597550400,
+            "end_time": 1597554000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e65",
+            "content_type": "tv_schedules",
+            "topic": "Con đường nghề nghiệp",
+            "name": "Số 24 - Thiết kế đồ họa",
+            "start_time": 1597549500,
+            "end_time": 1597550400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e64",
+            "content_type": "tv_schedules",
+            "topic": "Follow us",
+            "name": "Số 11 - Like a movie",
+            "start_time": 1597548600,
+            "end_time": 1597549500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e63",
+            "content_type": "tv_schedules",
+            "topic": "Xứ sở cầu vồng",
+            "name": "Số 10",
+            "start_time": 1597546800,
+            "end_time": 1597548600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e62",
+            "content_type": "tv_schedules",
+            "topic": "Xưởng thiết kế mộng mơ",
+            "name": "Số 2 - Trò chơi dân gian",
+            "start_time": 1597545000,
+            "end_time": 1597546800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e61",
+            "content_type": "tv_schedules",
+            "topic": "Dạy Tiếng Việt lớp 1",
+            "name": "Số 17",
+            "start_time": 1597543200,
+            "end_time": 1597545000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e60",
+            "content_type": "tv_schedules",
+            "topic": "Phim khai thác",
+            "name": "Người máy của Anne - Tập 6",
+            "start_time": 1597541400,
+            "end_time": 1597543200
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e5f",
+            "content_type": "tv_schedules",
+            "topic": "Phim khai thác",
+            "name": "Người máy của Anne - Tập 5",
+            "start_time": 1597539600,
+            "end_time": 1597541400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e5e",
+            "content_type": "tv_schedules",
+            "topic": "Crack Em up",
+            "name": "Số 7",
+            "start_time": 1597537800,
+            "end_time": 1597539600
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e5d",
+            "content_type": "tv_schedules",
+            "topic": "IELTS Face Off",
+            "name": "Số 9 - The Performer",
+            "start_time": 1597536000,
+            "end_time": 1597537800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e5c",
+            "content_type": "tv_schedules",
+            "topic": "Thời tiết của bé",
+            "name": "Thời tiết của bé",
+            "start_time": 1597535760,
+            "end_time": 1597536000
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e5b",
+            "content_type": "tv_schedules",
+            "topic": "Mẹ kể bé nghe - Những câu chuyện nuôi dưỡng tâm hồn",
+            "name": "Số 8",
+            "start_time": 1597535400,
+            "end_time": 1597535760
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e5a",
+            "content_type": "tv_schedules",
+            "topic": "5 từ mới tiếng Anh mỗi ngày",
+            "name": "Địa điểm",
+            "start_time": 1597534800,
+            "end_time": 1597535400
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e59",
+            "content_type": "tv_schedules",
+            "topic": "Cùng nhún nhảy",
+            "name": "Số 10 - Cùng bé tập thể thao",
+            "start_time": 1597534500,
+            "end_time": 1597534800
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e58",
+            "content_type": "tv_schedules",
+            "topic": "Cùng lăn vào bếp",
+            "name": "Hàu nướng phô mai",
+            "start_time": 1597532640,
+            "end_time": 1597534500
+          },
+          {
+            "id": "5f3806eab4ebd133b87f0e57",
+            "content_type": "tv_schedules",
+            "topic": "",
+            "name": "Trận tranh HCV Bóng đá nam Sea Games 30: U22 Việt Nam - U22 Indonesia",
+            "start_time": 1597510800,
+            "end_time": 1597532640
+          }
+        ]
+      }
+    ]
+  }
+}

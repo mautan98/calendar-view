@@ -1,0 +1,185 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="375:227"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:alpha="0.3"
+            android:background="@color/md_black_1000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="144dp"
+            android:orientation="horizontal"
+            android:paddingStart="12dp">
+
+            <ImageView
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_gravity="center"
+                android:src="@drawable/f2_ic_weather" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="12dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="20°C"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="4dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="25°C"
+                    android:textColor="#E2E2E2"
+                    android:textSize="14dp" />
+
+                <ImageView
+                    android:layout_width="11dp"
+                    android:layout_height="7dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/f2_ic_arrow2"
+                    android:tint="@color/white" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/rlIntroduce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+            app:cardCornerRadius="9dp"
+            app:cardElevation="5dp"
+            app:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:paddingStart="14dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="21dp">
+
+                <TextView
+                    android:id="@+id/tvRegionName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textColor="#00918D"
+                    android:textSize="18dp" />
+
+                <ImageView
+                    android:id="@+id/btnShare"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="1dp"
+                    android:src="@drawable/f2_ic_share_new" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="50dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvSmallIntro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Giới thiệu"
+                        android:textColor="#707070"
+                        android:textSize="14dp" />
+
+                    <WebView
+                        android:id="@+id/webView"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="15dp"
+                        android:visibility="visible"
+                        tools:ignore="WebViewLayout" />
+
+                    <TextView
+                        android:id="@+id/btnShowMoreAndShowLess"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Xem thêm"
+                        android:textColor="#00918D"
+                        android:textSize="16dp" />
+                </LinearLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rclActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="31dp"
+            android:layout_marginRight="28dp"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="43dp"
+            android:background="#ECECEC" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data></data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/roboto_medium"
+                android:textAllCaps="true"
+                android:textColor="@color/md_black_1000"
+                android:textSize="18dp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rclContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:visibility="gone"
+            android:focusable="true"
+            android:clickable="true"
+            android:id="@+id/layoutTryAgain"
+            android:gravity="center"
+            android:paddingEnd="30dp"
+            android:paddingStart="30dp"
+            android:paddingTop="40dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Chưa đồng bộ được danh bạ Call Now, bạn hãy duyệt trang danh bạ để đồng bộ"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/tvTryAgain"
+                android:textColor="@color/white"
+                android:background="@color/colorPrimary"
+                android:padding="10dp"
+                android:text="Duyệt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

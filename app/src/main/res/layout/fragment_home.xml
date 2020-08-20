@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="homeViewModel"
+            type="com.namviet.vtvtravel.viewmodel.HomeViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <FrameLayout
+            android:id="@+id/frHome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/menuFooter" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/menuFooter"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/ivCall"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@null"
+                android:src="@drawable/f2_ic_call2" />
+
+            <ImageView
+                android:id="@+id/ivChat"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:src="@drawable/f2_ic_chat"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <com.namviet.vtvtravel.widget.HomeMenuFooter
+            android:id="@+id/menuFooter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:layout_collapseMode="pin" />
+
+
+        <RelativeLayout
+            android:focusable="true"
+            android:clickable="true"
+            android:id="@+id/layoutMenuFloat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.5"
+                android:background="@color/md_black_1000" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:id="@+id/layoutFake"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/menuFooterFake"
+                    android:layout_alignParentRight="true"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/ivCallFake"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@null"
+                        android:src="@drawable/f2_ic_x" />
+
+                    <ImageView
+                        android:id="@+id/ivChatFake"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@null"
+                        android:src="@mipmap/ic_float_btn_chat"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/menuFooterFake"
+                    android:layout_marginBottom="35dp"
+                    android:layout_toStartOf="@+id/layoutFake"
+                    android:gravity="end"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_marginEnd="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginBottom="50dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="11dp"
+                            android:text="Call now"
+                            android:textColor="@color/white" />
+
+                        <LinearLayout
+                            android:id="@+id/btnCallNow"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp">
+
+
+                            <ImageView
+                                android:src="@drawable/f2_ic_call_now"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_marginEnd="28dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="11dp"
+                            android:text="Gọi 1039"
+                            android:textColor="@color/white" />
+
+                        <LinearLayout
+                            android:id="@+id/btnCall1039"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp">
+
+                            <ImageView
+                                android:src="@drawable/f2_ic_supporter"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <com.namviet.vtvtravel.widget.HomeMenuFooter
+                    android:id="@+id/menuFooterFake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:visibility="invisible"
+                    app:layout_collapseMode="pin" />
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

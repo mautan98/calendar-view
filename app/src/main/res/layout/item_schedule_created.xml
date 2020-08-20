@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/_2sdp"
+    android:paddingTop="@dimen/_10sdp"
+    android:paddingRight="@dimen/_2sdp"
+    android:paddingBottom="@dimen/_10sdp">
+
+    <ImageView
+        android:layout_width="@dimen/_13sdp"
+        android:layout_height="@dimen/_13sdp"
+        android:layout_gravity="center_vertical"
+        android:rotation="270"
+        app:srcCompat="@drawable/vt_arrow_down_fill_gray" />
+
+    <com.daimajia.slider.library.RobotoTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:text="Lịch trình ngày 27/12/2015"
+        android:textColor="@color/gray_33"
+        android:textSize="@dimen/_13sdp"
+        app:typeface="roboto_regular" />
+
+</LinearLayout>

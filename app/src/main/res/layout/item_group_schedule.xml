@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/_10sdp"
+    android:paddingBottom="@dimen/_10sdp">
+
+    <LinearLayout
+        android:id="@+id/llTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/_10sdp"
+        android:paddingRight="@dimen/_10sdp">
+
+        <View
+            android:layout_width="@dimen/_7sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/color_bg_tv_notify" />
+
+        <com.namviet.vtvtravel.widget.RobotoTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp"
+            android:text="Nổi Bật"
+            android:textAllCaps="true"
+            android:textColor="@color/color_bg_tv_notify"
+            android:textSize="@dimen/_14sdp"
+            app:typeface="roboto_bold" />
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llTitle"
+        android:layout_marginTop="@dimen/_5sdp" />
+
+
+</RelativeLayout>

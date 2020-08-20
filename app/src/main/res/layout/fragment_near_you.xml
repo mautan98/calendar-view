@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="showAllViewModel"
+            type="com.namviet.vtvtravel.viewmodel.ShowAllViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true">
+
+        <include
+            android:id="@+id/toolBar"
+            layout="@layout/toolbar_text" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolBar"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/llTop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvNearType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvNearDis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+                <Button
+                    android:id="@+id/btFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/bg_button_update"
+                    android:paddingEnd="@dimen/_15sdp"
+                    android:paddingStart="@dimen/_15sdp"
+                    android:text="@string/bt_near_you"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_11sdp"
+                    android:visibility="gone" />
+
+                <FrameLayout
+                    android:id="@+id/map"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_170sdp"
+                    android:layout_marginTop="@dimen/_5sdp" />
+
+            </LinearLayout>
+
+            <com.namviet.vtvtravel.widget.RobotoTextView
+                android:id="@+id/tvTitleList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/_5sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:text="Du lịch"
+                android:textColor="@color/gray_33"
+                android:textSize="@dimen/_13sdp"
+                app:typeface="roboto_bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvNear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTitleList"
+                android:layout_marginTop="@dimen/_5sdp" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/prLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/_60sdp"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+</layout>

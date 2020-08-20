@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data></data>
+
+    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v4.widget.NestedScrollView
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/layout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <!--        <android.support.v7.widget.CardView-->
+                    <!--            app:cardElevation="2dp"-->
+                    <!--            app:cardCornerRadius="13dp"-->
+                    <!--            android:layout_width="match_parent"-->
+                    <!--            android:layout_height="wrap_content">-->
+
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/layoutTooltip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+
+                        <ImageView
+                            android:id="@+id/imgToolTip"
+                            android:layout_width="227dp"
+                            android:layout_height="110dp"
+                            android:background="@drawable/f2_bg_tooltip"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:textStyle="italic"
+                            android:id="@+id/tvContent"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="8dp"
+                            android:padding="15dp"
+                            android:text="&quot;Chọn 1 con số trong các nhánh sau, cả hệ sinh thái du lịch sẽ dần hiện ra trước mắt bạn.&quot;"
+                            android:textColor="#4B4B4B"
+                            android:textSize="14.5dp"
+                            app:layout_constraintEnd_toEndOf="@+id/imgToolTip"
+                            app:layout_constraintStart_toStartOf="@+id/imgToolTip"
+                            app:layout_constraintTop_toTopOf="@+id/imgToolTip" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <ImageView
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:layout_marginStart="-7dp"
+                        android:layout_toEndOf="@+id/layoutTooltip"
+                        android:background="@drawable/f2_img_employ"
+                        android:visibility="visible"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/icTriangle"
+                        android:layout_width="57dp"
+                        android:layout_height="45dp"
+                        android:layout_marginStart="-27dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_toEndOf="@+id/layoutTooltip"
+                        android:background="@drawable/f2_ic_triangle"
+                        android:visibility="visible" />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="-20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_toEndOf="@+id/layoutTooltip"
+                        android:background="#FCF2E8" />
+
+
+                    <!--        </android.support.v7.widget.CardView>-->
+
+                </RelativeLayout>
+
+
+                <ImageView
+                    android:id="@+id/imgBanner"
+                    app:layout_constraintDimensionRatio="1125:495"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/layout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="41dp"
+                    android:layout_marginTop="45dp"
+                    android:layout_marginEnd="41dp"
+                    android:background="@drawable/f2_bg_round_call"
+                    android:paddingTop="13dp"
+                    android:paddingBottom="13dp"
+                    app:layout_constraintTop_toBottomOf="@+id/layout1">
+
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="31dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toStartOf="@+id/tvCall"
+                        android:src="@drawable/f2_ic_call" />
+
+
+                    <TextView
+                        android:id="@+id/tvCall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/roboto_bold"
+                        android:gravity="center"
+                        android:text="Tổng đài 1039"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="22dp" />
+
+
+                </RelativeLayout>
+
+
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/imgStep"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/f2_img_step"
+                    app:layout_constraintDimensionRatio="1480:1928"
+                    app:layout_constraintTop_toBottomOf="@+id/layout2" />
+
+                <android.support.v7.widget.RecyclerView
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/imgBanner"
+                    android:id="@+id/rclContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:layout_constraintTop_toBottomOf="@id/rclContent" />
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </LinearLayout>
+
+</layout>

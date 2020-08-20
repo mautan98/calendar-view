@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "442401811015",
+    "firebase_url": "https://vtvtravel-fcc05.firebaseio.com",
+    "project_id": "vtvtravel-fcc05",
+    "storage_bucket": "vtvtravel-fcc05.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:442401811015:android:e8f390ad19852417755f62",
+        "android_client_info": {
+          "package_name": "com.namviet.vtvtravel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "442401811015-vite16res0267sgdk757de34ql1aomks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB555R2w4AbgxYB3hzhAqVzzO6L4t6uiWE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "442401811015-vite16res0267sgdk757de34ql1aomks.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "442401811015-5g81aeuqs0hfctb74i4ci9jv72h0q40q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.vtvnews.vtvtravel"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:442401811015:android:0c0a641e4e6be81b755f62",
+        "android_client_info": {
+          "package_name": "com.vtvnews.vtvtravel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "442401811015-vite16res0267sgdk757de34ql1aomks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB555R2w4AbgxYB3hzhAqVzzO6L4t6uiWE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "442401811015-vite16res0267sgdk757de34ql1aomks.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "442401811015-5g81aeuqs0hfctb74i4ci9jv72h0q40q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.vtvnews.vtvtravel"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

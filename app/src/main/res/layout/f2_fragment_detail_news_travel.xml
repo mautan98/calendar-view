@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="detailNewsTravelViewModel"
+            type="com.namviet.vtvtravel.viewmodel.f2travelnews.DetailNewsTravelViewModel" />
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:id="@+id/btnBack"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="11dp"
+                    android:layout_height="19dp"
+                    android:src="@drawable/video_top_back"
+                    android:tint="#707070" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="18dp"
+                android:gravity="end">
+
+
+                <ImageView
+                    android:visibility="gone"
+                    android:layout_width="20dp"
+                    android:layout_height="17dp"
+                    android:src="@drawable/f2_ic_gray_heart" />
+
+
+                <TextView
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="9" />
+
+
+                <ImageView
+                    android:id="@+id/btnShareLink"
+                    android:layout_width="20dp"
+                    android:layout_height="17dp"
+                    android:layout_marginStart="29dp"
+                    android:src="@drawable/f2_ic_share_new" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray_33" />
+
+
+        <RelativeLayout
+            android:id="@+id/layoutRootContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_marginTop="19dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:src="@drawable/f2_ic_arrow"
+                                android:layout_width="6dp"
+                                android:layout_height="11dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:id="@+id/tvCategory"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="Khám phá"
+                                android:textColor="#00918D"
+                                android:textSize="14dp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvTitle"
+                            android:layout_marginTop="4dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="6 địa điểm ngắm hoa tam giác mạch được nhiều người ưa thích"
+                            android:textColor="#000000"
+                            android:textSize="20dp" />
+
+                        <LinearLayout
+                            android:layout_marginTop="18dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:src="@drawable/f2_ic_time"
+                                android:layout_width="18dp"
+                                android:layout_height="16dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:id="@+id/tvDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="25/05/2020"
+                                android:textColor="#878787"
+                                android:textSize="12dp" />
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="13dp"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="9dp"
+                                android:layout_marginEnd="9dp"
+                                android:background="#B4B4B4" />
+
+                            <ImageView
+                                android:src="@drawable/f2_ic_author"
+                                android:layout_width="18dp"
+                                android:layout_height="16dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:id="@+id/tvAuthor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="Thủy Nguyên"
+                                android:textColor="#878787"
+                                android:textSize="12dp" />
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="13dp"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="9dp"
+                                android:layout_marginEnd="9dp"
+                                android:background="#B4B4B4" />
+
+                            <ImageView
+                                android:src="@drawable/f2_ic_gray_view"
+                                android:layout_width="18dp"
+                                android:layout_height="16dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:id="@+id/tvView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="3.4K"
+                                android:textColor="#878787"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <WebView
+                            android:id="@+id/webViewContent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:minHeight="500dp" />
+
+                        <com.facebook.shimmer.ShimmerFrameLayout
+                            android:id="@+id/shimmer_view_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <include layout="@layout/data_placeholder_layout" />
+
+                                <include layout="@layout/data_placeholder_layout" />
+
+                                <include layout="@layout/data_placeholder_layout" />
+
+                                <include layout="@layout/data_placeholder_layout" />
+
+                                <include layout="@layout/data_placeholder_layout" />
+
+                                <include layout="@layout/data_placeholder_layout" />
+
+                                <include layout="@layout/data_placeholder_layout" />
+
+                            </LinearLayout>
+
+                        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+                    </RelativeLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="#E8E8E8" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="Bình luận"
+                            android:textColor="@color/md_black_1000"
+                            android:textSize="18dp" />
+
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rclComment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/layoutViewAllComment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:orientation="vertical">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:background="@color/colorPrimary" />
+
+
+                            <LinearLayout
+                                android:id="@+id/btnViewMoreComment"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:paddingTop="19dp"
+                                android:paddingBottom="19dp">
+
+                                <TextView
+                                    android:id="@+id/tvCommentLeft"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:text="Xem tất cả 9 bình luận"
+                                    android:textAllCaps="true"
+                                    android:textSize="14dp" />
+
+                                <ImageView
+                                    android:layout_width="6dp"
+                                    android:layout_height="11dp"
+                                    android:rotation="180"
+                                    android:src="@drawable/f2_ic_back" />
+
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:background="@color/colorPrimary" />
+
+
+                        </LinearLayout>
+
+
+                        <RelativeLayout
+                            android:id="@+id/layoutWriteComment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="33dp"
+                            android:layout_marginEnd="12dp"
+                            android:background="@drawable/f2_bg_write_comment"
+                            android:gravity="center_vertical"
+                            android:paddingTop="12dp"
+                            android:paddingBottom="12dp">
+
+                            <ImageView
+                                android:layout_width="9dp"
+                                android:layout_height="13dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="10dp"
+                                android:layout_toStartOf="@+id/tvWriteComment"
+                                android:src="@drawable/f2_ic_green_type" />
+
+                            <TextView
+                                android:id="@+id/tvWriteComment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="Viết bình luận " />
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginTop="34dp"
+                        android:background="#E8E8E8" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="15dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_weight="1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="Các trải nghiệm lân cận"
+                                android:textColor="@color/md_black_1000"
+                                android:textSize="18dp" />
+
+
+                            <TextView
+                                android:visibility="invisible"
+                                android:layout_marginEnd="15dp"
+                                android:textColor="@color/colorPrimary"
+                                android:fontFamily="@font/roboto_regular"
+                                android:textSize="14dp"
+                                android:text="Xem thêm"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+
+                        </LinearLayout>
+
+
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rclNearBy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </android.support.v4.widget.NestedScrollView>
+
+
+            <RelativeLayout
+                android:id="@+id/shimmerMain"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/data_placeholder_layout" />
+
+                        <include layout="@layout/data_placeholder_layout" />
+
+                        <include layout="@layout/data_placeholder_layout" />
+
+                        <include layout="@layout/data_placeholder_layout" />
+
+                        <include layout="@layout/data_placeholder_layout" />
+
+                        <include layout="@layout/data_placeholder_layout" />
+
+                        <include layout="@layout/data_placeholder_layout" />
+
+                    </LinearLayout>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>

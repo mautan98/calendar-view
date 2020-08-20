@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="@dimen/_5sdp"
+    android:paddingTop="@dimen/_3sdp"
+    android:paddingBottom="@dimen/_3sdp">
+
+    <com.daimajia.slider.library.RobotoTextView
+        android:id="@+id/tvTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:paddingLeft="@dimen/_5sdp"
+        android:paddingTop="@dimen/_3sdp"
+        android:paddingRight="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_3sdp"
+        android:text="#Ở đâu"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp"
+        app:typeface="roboto_regular" />
+</RelativeLayout>

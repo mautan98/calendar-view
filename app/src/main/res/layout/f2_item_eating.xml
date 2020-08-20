@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:scaleType="centerCrop"
+                    android:id="@+id/imgAvatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="197dp" />
+
+                <TextView
+                    android:layout_width="87dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="30dp"
+                    android:background="#FF0000"
+                    android:fontFamily="@font/roboto_bold"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="4dp"
+                    android:text="ƯU ĐÃI -35%"
+                    android:textColor="#FFFFFF"
+                    android:textSize="11dp" />
+
+                <ImageView
+                    android:visibility="gone"
+                    android:layout_width="18dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="#FF00FF" />
+            </RelativeLayout>
+
+            <TextView
+                android:maxLines="2"
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Bún Bò Huế Bà Mai Ngõ Đại Định"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+
+            <TextView
+                android:maxLines="2"
+                android:id="@+id/tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Bí quyết làm nên món bún bò Huế trứ danh của quán là nước dùng, hợp với khẩu vị ở Hà Nội"
+                android:textColor="#000000"
+                android:textSize="14dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:gravity="center"
+                    android:id="@+id/tvRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="13dp"
+                    android:background="@drawable/f2_bg_score"
+                    android:fontFamily="@font/roboto_bold"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
+                    android:text="9.8"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10dp" />
+
+                <TextView
+                    android:id="@+id/tvRatingText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="7dp"
+                    android:text="Tuyệt vời"
+                    android:textColor="#22558F"
+                    android:textSize="12dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="center"
+                    android:background="#B4B4B4" />
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="6dp"
+                    android:src="@drawable/f2_ic_view" />
+
+                <TextView
+                    android:id="@+id/tvCommentCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="205"
+                    android:textColor="#0081FF"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="#E8E8E8" />
+
+        <LinearLayout
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/f2_ic_distance" />
+
+                <TextView
+                    android:id="@+id/tvDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Cách 10,8 Km"
+                    android:textColor="#5E5E5E"
+                    android:textSize="12dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginEnd="11dp"
+                    android:background="#707070" />
+
+                <TextView
+                    android:maxLength="25"
+                    android:layout_weight="1"
+                    android:id="@+id/tvAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Ngõ Đình Đại, Hai Bà Trưng"
+                    android:textColor="#5E5E5E"
+                    android:textSize="12dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginEnd="11dp"
+                    android:background="#707070" />
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="21dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/f2_ic_location" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutOpen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/f2_ic_time" />
+
+                <TextView
+                    android:id="@+id/tvOpenDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="6dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Mở cửa T2 - CN"
+                    android:textColor="#5E5E5E"
+                    android:textSize="12dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginEnd="11dp"
+                    android:background="#707070" />
+
+                <TextView
+                    android:id="@+id/tvOpenTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="06:30 - 21:30"
+                    android:textColor="#5E5E5E"
+                    android:textSize="12dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginEnd="11dp"
+                    android:background="#707070" />
+
+                <TextView
+                    android:id="@+id/tvOpenState"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Đang mở"
+                    android:textColor="#0FB403"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/f2_ic_money" />
+
+                <TextView
+                    android:id="@+id/tvPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="6dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Từ 150.000 đ - 200.000 đ"
+                    android:textColor="#5E5E5E"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="21dp"
+        android:background="#ECECEC" />
+</LinearLayout>

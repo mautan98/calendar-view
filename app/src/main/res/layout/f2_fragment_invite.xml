@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="inviteDialogViewModel"
+            type="com.namviet.vtvtravel.viewmodel.f2callnow.InviteDialogViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="52dp"
+            android:layout_height="6dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/f2_bg_pull" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/f2_bg_rule"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:text="Mời tham gia gọi thoại"
+                android:textColor="#000000"
+                android:textSize="18dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray_99" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp">
+
+                <RadioGroup
+                    android:id="@+id/btnRadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/btnSendTo1039"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:drawableLeft="@drawable/f2_ic_call_by_1039"
+                        android:drawablePadding="12dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:layoutDirection="rtl"
+                        android:text="Gửi qua tổng đài 1039"
+                        android:textSize="16dp" />
+
+                    <RadioButton
+                        android:id="@+id/btnShareToOtherApp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:drawableLeft="@drawable/f2_ic_share_app"
+                        android:drawablePadding="12dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:layoutDirection="rtl"
+                        android:text="Chia sẻ qua ứng dụng khác"
+                        android:textSize="16dp" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/btnAgreeEnable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="38dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/f2_bg_agree_enable"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:text="Đồng ý"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/btnAgreeDisable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="38dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/f2_bg_agree_disable"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:text="Đồng ý"
+                android:textAllCaps="true"
+                android:textColor="#878787"
+                android:textSize="14dp" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

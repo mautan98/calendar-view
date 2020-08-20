@@ -1,0 +1,193 @@
+{
+  "status": "success",
+  "code": "SUCCESS",
+  "message": "",
+  "data": {
+    "menus": {
+      "left": [
+        {
+          "id": "5f1fccce4198d0a4738b458d",
+          "code": "APP_MAIN_HEADER_BOOKING",
+          "code_type": "APP_MAIN_HEADER_PACKAGE",
+          "name": "Đơn hàng",
+          "icon_url": "https://cdn1.travel.onex.vn/crop_70x70/data_files/menus_files/image/202007/28/buy_ibaco.png",
+          "icon_enable_url": null,
+          "link": "https://api1.travel.onex.vn",
+          "category_id": null,
+          "html_icon": "",
+          "weight": 0,
+          "banner_url": null,
+          "children": []
+        },
+        {
+          "id": "5f1fcc634198d06d4d8b4592",
+          "code": "APP_MAIN_HEADER_BOOKING",
+          "code_type": "APP_MAIN_HEADER_MY_GIFT",
+          "name": "Quà của tôi",
+          "icon_url": "https://cdn1.travel.onex.vn/crop_70x70/data_files/menus_files/image/202007/28/gift_vmenm.png",
+          "icon_enable_url": null,
+          "link": "https://api1.travel.onex.vn",
+          "category_id": null,
+          "html_icon": "",
+          "weight": 0,
+          "banner_url": null,
+          "children": [
+            {
+              "id": "5f2e19774198d082048b456a",
+              "code": "APP_MAIN_VQMM_BOOKING",
+              "code_type": "APP_MAIN_VQMM_BOOKING",
+              "name": "Vòng quay may mắn",
+              "icon_url": "https://cdn1.travel.onex.vn/crop_70x70/data_files/menus_files/image/202008/08/wheel_gxzuy.png",
+              "icon_enable_url": null,
+              "link": "https://api1.travel.onex.vn",
+              "category_id": null,
+              "html_icon": "",
+              "weight": 0,
+              "banner_url": null,
+              "children": []
+            },
+            {
+              "id": "5f2e18554198d0a87c8b4569",
+              "code": "APP_MAIN_VOUCHER_BOOKING",
+              "code_type": "APP_MAIN_VOUCHER_BOOKING",
+              "name": "Voucher du lịch",
+              "icon_url": "https://cdn1.travel.onex.vn/crop_70x70/data_files/menus_files/image/202008/08/voucher_xneoe.png",
+              "icon_enable_url": null,
+              "link": "https://api1.travel.onex.vn",
+              "category_id": null,
+              "html_icon": "",
+              "weight": 0,
+              "banner_url": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "5f1fcc354198d06d4d8b4590",
+          "code": "APP_MAIN_HEADER_BOOKING",
+          "code_type": "APP_MAIN_HEADER_MY_TRIP",
+          "name": "Chuyến đi của tôi",
+          "icon_url": "https://cdn1.travel.onex.vn/crop_70x70/data_files/menus_files/image/202007/28/travel_fodlm.png",
+          "icon_enable_url": null,
+          "link": "https://api1.travel.onex.vn",
+          "category_id": null,
+          "html_icon": "",
+          "weight": 0,
+          "banner_url": null,
+          "children": []
+        },
+        {
+          "id": "5f1fcc1e4198d06d4d8b458f",
+          "code": "APP_MAIN_BOOKING",
+          "code_type": "APP_MAIN_TRAVEL_NEWS",
+          "name": "TIN TỨC DU LỊCH",
+          "icon_url": "https://cdn1.travel.onex.vn/crop_70x70/data_files/menus_files/image/202007/28/news_tmded.png",
+          "icon_enable_url": null,
+          "link": "https://api1.travel.onex.vn",
+          "category_id": null,
+          "html_icon": "",
+          "weight": 0,
+          "banner_url": null,
+          "children": []
+        },
+        {
+          "id": "5f1fcc054198d0a4738b458c",
+          "code": "APP_MAIN_BOOKING",
+          "code_type": "APP_MAIN_LIVETV",
+          "name": "LIVE TV",
+          "icon_url": "https://cdn1.travel.onex.vn/crop_70x70/data_files/menus_files/image/202007/28/tv_rmekz.png",
+          "icon_enable_url": null,
+          "link": "https://api1.travel.onex.vn/tv/broadcast",
+          "category_id": null,
+          "html_icon": "",
+          "weight": 0,
+          "banner_url": null,
+          "children": []
+        },
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {}
+      ],
+      "header": [],
+      "footer": [
+        {
+          "id": "5f1fcb014198d0a4738b4581",
+          "code": "APP_FOOTER_BOOKING",
+          "code_type": "APP_FOOTER_HOME",
+          "name": "TRANG CHỦ",
+          "icon_url": "https://cdn1.travel.onex.vn/crop_70x70/data_files/menus_files/image/202007/30/home-inactive_fysxk.png",
+          "icon_enable_url": "https://cdn1.travel.onex.vn/crop_70x70/data_files/menus_files/image/202007/30/home-active_vumcx.png",
+          "link": "https://api1.travel.onex.vn",
+          "category_id": null,
+          "html_icon": "",
+          "weight": 0,
+          "banner_url": null,
+          "children": []
+        },
+        {
+          "id": "5f1fcad34198d0a4738b4580",
+          "code": "APP_FOOTER_BOOKING",
+          "code_type": "APP_FOOTER_MOMENT",
+          "name": "KHOẢNH KHẮC",
+          "icon_url": "https://cdn1.travel.onex.vn/crop_70x70/data_files/menus_files/image/202007/30/khoanhkhac-inactive_jhgwa.png",
+          "icon_enable_url": "https://cdn1.travel.onex.vn/crop_70x70/data_files/menus_files/image/202007/30/khoanhkhac-active_fohrn.png",
+          "link": "https://api1.travel.onex.vn/moments",
+          "category_id": null,
+          "html_icon": "",
+          "weight": 0,
+          "banner_url": null,
+          "children": []
+        },
+        {
+          "id": "5f1fcab94198d0a4738b457f",
+          "code": "APP_FOOTER_BOOKING",
+          "code_type": "APP_FOOTER_BOOKING",
+          "name": "BOOKING",
+          "icon_url": "https://cdn1.travel.onex.vn/crop_70x70/data_files/menus_files/image/202007/30/booking-inactive_wsuzi.png",
+          "icon_enable_url": "https://cdn1.travel.onex.vn/crop_70x70/data_files/menus_files/image/202007/30/booking-active_lbdcx.png",
+          "link": "https://api1.travel.onex.vn",
+          "category_id": null,
+          "html_icon": "",
+          "weight": 0,
+          "banner_url": null,
+          "children": []
+        },
+        {
+          "id": "5f1fca954198d0a4738b457e",
+          "code": "APP_FOOTER_BOOKING",
+          "code_type": "APP_FOOTER_VIDEO",
+          "name": "VIDEO",
+          "icon_url": "https://cdn1.travel.onex.vn/crop_70x70/data_files/menus_files/image/202007/30/video-inactive_tvxfz.png",
+          "icon_enable_url": "https://cdn1.travel.onex.vn/crop_70x70/data_files/menus_files/image/202007/30/video-active_uutdt.png",
+          "link": "https://api1.travel.onex.vn/videos",
+          "category_id": null,
+          "html_icon": "",
+          "weight": 0,
+          "banner_url": null,
+          "children": []
+        },
+        {
+          "id": "5f1fca754198d0a4738b457d",
+          "code": "APP_FOOTER_BOOKING",
+          "code_type": "APP_FOOTER_MENU",
+          "name": "MENU",
+          "icon_url": "https://cdn1.travel.onex.vn/crop_70x70/data_files/menus_files/image/202007/30/menu-inactive_qtyno.png",
+          "icon_enable_url": "https://cdn1.travel.onex.vn/crop_70x70/data_files/menus_files/image/202007/30/menu-active_wfqwl.png",
+          "link": "https://api1.travel.onex.vn",
+          "category_id": null,
+          "html_icon": "",
+          "weight": 0,
+          "banner_url": null,
+          "children": []
+        }
+      ]
+    }
+  }
+}

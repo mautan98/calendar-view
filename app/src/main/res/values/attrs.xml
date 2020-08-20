@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="RobotoTextView">
+        <attr name="typeface" />
+    </declare-styleable>
+
+    <attr name="typeface" format="enum">
+        <enum name="roboto_light" value="0" />
+        <enum name="roboto_regular" value="1" />
+        <enum name="roboto_bold" value="2" />
+    </attr>
+
+    <declare-styleable name="CircleProgressBar">
+        <attr name="text1Size" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="MaskableLayout">
+        <attr name="mask" format="reference" />
+        <attr name="porterduffxfermode">
+            <enum name="ADD" value="0" />
+            <enum name="CLEAR" value="1" />
+            <enum name="DARKEN " value="2" />
+            <enum name="DST" value="3" />
+            <enum name="DST_ATOP" value="4" />
+            <enum name="DST_IN" value="5" />
+            <enum name="DST_OUT" value="6" />
+            <enum name="DST_OVER" value="7" />
+            <enum name="LIGHTEN" value="8" />
+            <enum name="MULTIPLY" value="9" />
+            <enum name="OVERLAY" value="10" />
+            <enum name="SCREEN" value="11" />
+            <enum name="SRC" value="12" />
+            <enum name="SRC_ATOP" value="13" />
+            <enum name="SRC_IN" value="14" />
+            <enum name="SRC_OUT" value="15" />
+            <enum name="SRC_OVER" value="16" />
+            <enum name="XOR" value="17" />
+        </attr>
+        <attr name="anti_aliasing" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="BlurImageView">
+        <attr name="radius_blur" format="integer" />
+    </declare-styleable>
+
+
+    <declare-styleable name="RoundishImageView">
+        <attr name="cornerRadius" format="dimension" />
+        <attr name="roundedCorners">
+            <flag name="topLeft" value="1" />
+            <flag name="topRight" value="2" />
+            <flag name="bottomRight" value="4" />
+            <flag name="bottomLeft" value="8" />
+            <flag name="all" value="15" />
+        </attr>
+    </declare-styleable>
+
+</resources>

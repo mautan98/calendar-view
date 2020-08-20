@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/item_chat_base"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Để lại thông tin, nhân viên CSKH sẽ liên hệ tư vấn:" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Họ và Tên"
+        android:textColor="@color/md_grey_900"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edtUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_button_chat3"
+        android:padding="8dp"
+        android:text="abc" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Số điện thoại"
+        android:textColor="@color/md_grey_900"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edtPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_button_chat3"
+        android:padding="8dp"
+        android:text="abc" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thời gian có thể liên hệ"
+        android:textColor="@color/md_grey_900"
+        android:textStyle="bold" />
+
+    <com.namviet.vtvtravel.widget.RobotoTextView
+        android:id="@+id/edtBirth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_ed_search_stroke"
+        android:drawableEnd="@drawable/vt_calendar"
+        android:drawablePadding="5dp"
+        android:gravity="left|center_vertical"
+        android:padding="12dp"
+        android:singleLine="true"
+        android:text="00/00/0000"
+        android:textColor="@color/gray_33"
+        android:textSize="14sp"
+        app:typeface="roboto_regular" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <Spinner
+            android:id="@+id/spinnerStart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Đến" />
+
+        <Spinner
+            android:id="@+id/spinnerEnd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nội dung cần tư vấn"
+        android:textColor="@color/md_black_1000"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edtContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_button_chat3"
+        android:gravity="start"
+        android:lines="3"
+        android:padding="8dp"
+        android:text="abc" />
+
+    <Button
+        android:id="@+id/btnSend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/md_orange_400"
+        android:text="Gửi"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+</LinearLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp">
+
+    <android.support.v7.widget.CardView
+        app:cardUseCompatPadding="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="4dp"
+        card_view:cardElevation="2dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <ImageView
+                    android:id="@+id/imvBanner"
+                    android:layout_width="222dp"
+                    android:layout_height="143dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/f2_item_highlight_place" />
+
+                <View
+                    android:layout_width="222dp"
+                    android:layout_height="143dp"
+                    android:alpha="0.3"
+                    android:background="@color/md_black_1000" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="35dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/f2_ic_play" />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="222dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imvBanner"
+                android:fontFamily="@font/roboto_medium"
+                android:padding="8dp"
+                android:text="Ghé Ninh Thuận tham quan công viên đá"
+                android:textColor="#000000"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

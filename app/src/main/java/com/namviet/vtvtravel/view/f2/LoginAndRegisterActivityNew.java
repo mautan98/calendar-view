@@ -1,0 +1,93 @@
+package com.namviet.vtvtravel.view.f2;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.view.View;
+
+import com.baseapp.utils.KeyboardUtils;
+import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.config.Constants;
+import com.namviet.vtvtravel.databinding.F2ActivityLoginAndRegisterBinding;
+import com.namviet.vtvtravel.databinding.F2FragmentPageMainLoginBinding;
+import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
+import com.namviet.vtvtravel.f2base.base.BaseFragment;
+import com.namviet.vtvtravel.view.fragment.f2account.MainPageLoginAndRegisterFragment;
+
+public class LoginAndRegisterActivityNew extends BaseActivityNew<F2ActivityLoginAndRegisterBinding> {
+    public boolean isFromButtonCallNow;
+    public boolean isFromBooking;
+
+    private int position;
+    public String packageCode = Constants.TypePackage.TRAVEL_VIP;
+    @Override
+    public int getLayoutRes() {
+        return R.layout.f2_activity_login_and_register;
+    }
+
+    @Override
+    public int getFrame() {
+        return R.id.mainFrame;
+    }
+
+    @Override
+    public void getDataFromIntent() {
+        isFromButtonCallNow = getIntent().getBooleanExtra(Constants.IntentKey.IS_FROM_BUTTON_CALL_NOW, false);
+        isFromBooking = getIntent().getBooleanExtra(Constants.IntentKey.IS_FROM_BOOKING, false);
+        position = getIntent().getIntExtra(Constants.IntentKey.KEY_POSITION, 0);
+    }
+
+    @Override
+    public void doAfterOnCreate() {
+    }
+
+    @Override
+    public void setClick() {
+        getBinding().btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getBinding().layoutWarning.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    @Override
+    public BaseFragment<F2FragmentPageMainLoginBinding> initFragment() {
+        MainPageLoginAndRegisterFragment mainPageLoginAndRegisterFragment = new MainPageLoginAndRegisterFragment();
+        mainPageLoginAndRegisterFragment.setPosition(position);
+        return mainPageLoginAndRegisterFragment;
+    }
+
+    public void showWarning(String message){
+        getBinding().tvWarningMessage.setText(message);
+        getBinding().layoutWarning.setVisibility(View.VISIBLE);
+    }
+
+    public static void startScreen(Context activity, int position, boolean isFromButtonCallNow){
+        Intent intent = new Intent(activity, LoginAndRegisterActivityNew.class);
+        intent.putExtra(Constants.IntentKey.POSITION_LOGIN, position);
+        intent.putExtra(Constants.IntentKey.KEY_POSITION, position);
+        intent.putExtra(Constants.IntentKey.IS_FROM_BUTTON_CALL_NOW, isFromButtonCallNow);
+        activity.startActivity(intent);
+    }
+
+    public static void startScreen(Context activity, int position, boolean isFromButtonCallNow, boolean isFromBooking){
+        Intent intent = new Intent(activity, LoginAndRegisterActivityNew.class);
+        intent.putExtra(Constants.IntentKey.POSITION_LOGIN, position);
+        intent.putExtra(Constants.IntentKey.KEY_POSITION, position);
+        intent.putExtra(Constants.IntentKey.IS_FROM_BUTTON_CALL_NOW, isFromButtonCallNow);
+        intent.putExtra(Constants.IntentKey.IS_FROM_BOOKING, isFromBooking);
+        activity.startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        getBinding().layoutWarning.setVisibility(View.GONE);
+    }
+
+    public void hideWarning(){
+        getBinding().layoutWarning.setVisibility(View.GONE);
+        KeyboardUtils.hideKeyboard(this, getBinding().getRoot());
+    }
+}

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data></data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/mainFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <LinearLayout
+            android:visibility="gone"
+            android:paddingBottom="15dp"
+            android:id="@+id/layoutWarning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFB300"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:src="@drawable/f2_ic_error"
+                android:layout_marginTop="15dp"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="18dp" />
+
+
+            <TextView
+                android:id="@+id/tvWarningMessage"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Xác nhận mật khẩu phải trùng với thông tin mật khẩu"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+
+
+            <LinearLayout
+                android:gravity="bottom"
+                android:layout_width="32dp"
+                android:layout_height="32dp">
+
+                <ImageView
+                    android:src="@drawable/f2_ic_close"
+                    android:id="@+id/btnClose"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

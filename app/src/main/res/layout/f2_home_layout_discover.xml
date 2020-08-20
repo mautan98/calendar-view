@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data></data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+
+        <TextView
+            android:paddingEnd="12dp"
+            android:paddingStart="12dp"
+            android:layout_marginTop="12dp"
+            android:textSize="20dp"
+            android:textColor="@color/md_black_1000"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Khám phá cùng #VTVTravel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+<!--            <include layout="@layout/f2_item_home_tab_discover"/>-->
+
+<!--            <include layout="@layout/f2_item_home_tab_discover"/>-->
+
+<!--            <include layout="@layout/f2_item_home_tab_discover"/>-->
+
+<!--            <include layout="@layout/f2_item_home_tab_discover"/>-->
+
+<!--            <include layout="@layout/f2_item_home_tab_discover"/>-->
+
+
+            <android.support.v7.widget.RecyclerView
+                android:orientation="horizontal"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                android:id="@+id/rclTab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+
+        </LinearLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:minHeight="350dp"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            android:visibility="visible"
+            android:layout_marginTop="15dp"
+            android:id="@+id/rclDiscover"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include layout="@layout/f2_item_home_discover"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/btnReadMore"
+            android:background="@drawable/f2_bg_round_see_more"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginStart="12dp"
+            android:paddingBottom="11dp"
+            android:paddingTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            
+            
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="80dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:alpha="0.5"
+                    android:rotation="180"
+                    android:src="@drawable/f2_itemclick_offline"
+                    android:layout_width="6.5dp"
+                    android:layout_height="11dp"/>
+                
+                
+            </LinearLayout>
+
+            <TextView
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textAllCaps="true"
+                android:text="Xem nhiều hơn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="80dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:src="@drawable/f2_itemclick_offline"
+                    android:layout_width="6.5dp"
+                    android:layout_height="11dp"/>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_marginTop="20dp"
+            android:background="#ECECEC"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
+
+    </LinearLayout>
+
+</layout>

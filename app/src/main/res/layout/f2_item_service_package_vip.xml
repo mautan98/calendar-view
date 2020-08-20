@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="41dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12.5dp"
+        android:background="@drawable/f2_bg_dash"
+        android:orientation="vertical"
+        android:paddingStart="15dp"
+        android:paddingTop="21dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="23dp">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Gói Travel VIP:"
+            android:textSize="16dp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="- Miễn phí data khi truy cập nội dung tại
+VTV Travel (dự kiến)
+\n- Miễn phí nhận thông tin du lịch.
+\n- Miễn phí 15 phút gọi/ ngày tương tác giữa
+các thuê bao theo gói dịch vụ đã đăng kí qua
+1039.
+\n- Miễn phí 15 phút gọi/ ngày đến 1039 (
+nhánh tự động).
+\n- Miễn phí 10 phút gọi/ ngày đến 1039 (
+nhánh tổng đài viên).
+\n- Tham gia săn deal với giá ưu đãi và cơ hội
+trúng thưởng cao."
+            android:textColor="#606060"
+            android:textSize="16dp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="29dp"
+        android:background="@color/white"
+        android:gravity="center">
+
+        <ImageView
+
+            android:layout_width="26dp"
+            android:layout_height="27dp"
+            android:src="@drawable/f2_ic_package" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

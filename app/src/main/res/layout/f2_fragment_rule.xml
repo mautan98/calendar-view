@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data></data>
+
+    <LinearLayout
+        android:id="@+id/rootView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <View
+            android:layout_width="52dp"
+            android:layout_height="6dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="115dp"
+            android:background="@drawable/f2_bg_pull" />
+
+
+        <LinearLayout
+            android:focusable="true"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/f2_bg_rule"
+            android:orientation="vertical">
+
+            <WebView
+                android:layout_marginTop="10dp"
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="22dp"-->
+<!--                android:layout_marginBottom="20dp"-->
+<!--                android:fontFamily="@font/roboto_bold"-->
+<!--                android:gravity="center"-->
+<!--                android:text="Chi tiết thể lệ"-->
+<!--                android:textColor="#000000"-->
+<!--                android:textSize="18dp" />-->
+
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0.5dp"-->
+<!--                android:background="@color/gray_99" />-->
+
+<!--            <android.support.v4.widget.NestedScrollView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:paddingStart="16dp"-->
+<!--                    android:paddingEnd="16dp">-->
+
+
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="14dp"-->
+<!--                        android:fontFamily="@font/roboto_bold"-->
+<!--                        android:text="I. THỜI GIAN THAM DỰ"-->
+<!--                        android:textColor="#000000"-->
+<!--                        android:textSize="18dp" />-->
+
+
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="\n- Thời gian tham dự gửi ảnh dự thi: 03 tuần-->
+<!--                \n- từ 30/05 đến 19/06/2012 \n\n- Thời gian công bố kết quả: 22/06/2012-->
+
+<!--\n\n- Thời gian trao giải thưởng: từ 25/06 đến 30/06/2012-->
+<!--"-->
+<!--                        android:textColor="#000000"-->
+<!--                        android:textSize="18dp" />-->
+
+
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="50dp"-->
+<!--                        android:fontFamily="@font/roboto_bold"-->
+<!--                        android:text="II. CHI TIẾT"-->
+<!--                        android:textColor="#000000"-->
+<!--                        android:textSize="18dp" />-->
+
+
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="\n***Giải thưởng:-->
+
+<!--\n\n- 1 giải nhất bao gồm: 1.000.000VND tiền mặt và phần quà của nhãn hàng P&amp;G trị giá 500.000VND.-->
+
+<!--\n\n- 1 giải nhì bao gồm: 500.000VND tiền mặt và phần quà của nhãn hàng P&amp;G trị giá 500.000VND.-->
+
+<!--\n\n- 5 giải ba bao gồm: phần quà của nhãn hàng P&amp;G trị giá 500.000VND.-->
+
+<!--\n\nMỗi người tham dự chỉ được nhận 1 giải duy nhất.-->
+
+
+
+<!--\n\n\n\n\ ***Hình thức cuộc thi:-->
+
+<!-- \n\n- Mỗi thành viên tham gia sẽ gửi ảnh về địa chỉ email: pgvncamonme@gmail.com để đăng ký dự thi theo form sau:-->
+
+
+
+<!--\n\n\n\nĐĂNG KÝ DỰ THI CUỘC THI ẢNH “KHOẢNH KHẮC VỀ MẸ”-->
+
+<!--\n\n-          Họ tên:-->
+
+<!--\n\n-          CMND số:-->
+
+<!--\n\n-          Địa chỉ hiện tại:-->
+
+<!--\n\n-          Điện thoại:-->
+
+<!--\n\n-          Địa chỉ Facebook :-->
+
+<!--\n\nLời chia sẻ về ảnh : khoảnh khắc ảnh được chụp đã đọng lại cảm xúc gì cho thành viên tham gia.-->
+
+<!--\n\nCảm ơn BTC.-->
+
+
+
+<!--\n\n\n\n-  Các ảnh của thành viên tham gia sẽ được đăng lên Cộng đồng P&amp;G VN Cảm Ơn Mẹ trên Facebook, album cuộc thi ảnh Khoảnh Khắc Về Mẹ.-->
+
+<!--\n\n- Thành viên tham gia dự thi sẽ đi vận động bình chọn bằng cách like vào ảnh dự thi.-->
+
+<!--\n\n- BTC sẽ chọn ra 10 bài dự thi có lượng Like cao nhất để tiến hành chấm giải. Từ 10 bài dự thi này BTC sẽ tiếp tục chọn ra những bài có lời chia sẻ ý nghĩa nhất để tiến hành trao giải theo cơ cấu giải thưởng.-->
+
+
+
+<!--\n\n\n\n***Thể lệ cuộc thi:-->
+
+<!--\n\n- Hình ảnh tham gia dự thi phải đạt những điều kiện sau:-->
+
+<!--\n\nGhi lại những khoảng khắc giữa thành viên tham gia và hình ảnh về người Mẹ trong những hoạt động thường nhật.-->
+<!--\nGhi lại những khoảnh khắc giữa thành viên tham gia và hình ảnh về người Mẹ trong thời ấu thơ.-->
+<!--\nGhi lại những khoảnh khắc giữa Mẹ và các thành viên trong gia đình.-->
+<!--\n- Mỗi thành viên chỉ được phép gửi tối đa 03 ảnh dự thi.-->
+
+
+
+<!--\n\n\n\nIII. ĐIỀU KIỆN THAM GIA-->
+
+<!--\n\n- Là các bạn nam-nữ, không phân biệt độ tuổi (BTC sẽ kiểm tra, xác nhận giấy tờ tùy thân đối với người đoạt giải).-->
+
+<!--\n\n- Là công dân Việt Nam, đang sống và làm việc tại Việt Nam.-->
+
+<!--\n\n- Là thành viên của trang Cộng đồng P&amp;G VN Cảm Ơn Mẹ trên Facebook. Để trở thành thành viên, người tham gia ấn vào nút LIKE của trang P&amp;G VN Cảm Ơn Mẹ-->
+
+<!--\n\n- Cuộc thi không dành cho nhân viên của Công ty P&amp;G Việt Nam và công ty truyền thông cho chương trình này.-->
+
+
+
+<!--\n\n\n\nIV. CÁCH TÍNH SỐ BÌNH CHỌN-->
+
+<!--\n\n- 01 lần Like tương đương với 01 phiếu bình chọn.-->
+
+<!--\n\n- Lưu ý không tạo nick ảo để vào bình chọn. Những phiếu bình chọn của tài khoản có dưới 30 bạn sẽ không được tính.-->
+
+
+
+<!--\n\n\n\nV. CƠ CHẾ NHẬN GIẢI-->
+
+<!--\n\n- Người trúng giải sẽ được gọi điện xác nhận và mời đến nhận giải theo thông tin liên hệ từ Ban tổ chức.-->
+
+<!--\n\n- Thời gian gửi thông tin để nhận giải không quá 7 ngày kể từ khi BTC gửi mail và gọi điện trực tiếp để thông báo, quá thời hạn trên giải thưởng sẽ hết hiệu lực.-->
+
+<!--\n\n- Người trúng giải phải trình CMND hoặc giấy tờ tùy thân để nhận giải.-->
+
+
+
+<!--\n\n\n\nVI. KHIẾU NẠI VÀ LUẬT ÁP DỤNG-->
+
+<!--\n\n- Người tham dự phải chịu trách nhiệm về bản quyền đối với hình ảnh dự thi. Ban tổ chức sẽ không chịu trách nhiệm khi xảy ra tranh chấp bản quyền.-->
+
+<!--\n\n- Quyết định của Ban tổ chức là quyết định cuối cùng buộc người tham dự phải chấp hành.-->
+
+<!--\n\n- Bài dự thi không được vi phạm thuần phong mỹ tục, pháp luật, văn hoá Việt Nam...-->
+
+<!--\n\n- Nghiêm cấm sử dụng những từ ngữ, hình ảnh, thông tin không lành mạnh, thiếu văn hóa-->
+
+<!--\n\n- Tránh những nội dung phản động về chính trị, tôn giáo. Nghiêm cấm tuyên truyền, khích động những hành vi bạo lực, tuyên truyền phản động hoặc các hành vi phá hoại.-->
+
+<!--\n\n- Ban tổ chức có quyền hủy bỏ quyền dự thi của những tài khoản bị phát hiện hành vi gian lận, hoặc vi phạm các điều khoản trên mà không cần thông báo.-->
+
+<!--\n\n- Ban tổ chức được quyền sử dụng các bài viết dự thi cũng như hình ảnh của những người trúng thưởng trên mọi phương tiện thông tin đại chúng mà không cần thông báo cho tác giả hoặc trả bất kỳ chi phí nào.-->
+
+<!--\n\n- Ban tổ chức không chịu trách nhiệm về việc cung cấp sai thông tin của người trúng giải.-->
+
+<!--\n\n- Ban tổ chức có quyền thay đổi cơ cấu hoặc nội dung giải thưởng nhưng vẫn đảm bảo giá trị giải thưởng không thay đổi."-->
+<!--                        android:textColor="#000000"-->
+<!--                        android:textSize="18dp"-->
+<!--                        android:layout_marginBottom="50dp"/>-->
+
+
+<!--                </LinearLayout>-->
+<!--            </android.support.v4.widget.NestedScrollView>-->
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</layout>

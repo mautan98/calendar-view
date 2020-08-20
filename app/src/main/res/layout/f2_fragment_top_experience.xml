@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="travelNewsViewModel"
+            type="com.namviet.vtvtravel.viewmodel.f2travelnews.TravelNewsViewModel" />
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorPrimary">
+
+                <LinearLayout
+                    android:id="@+id/btnBack"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/video_top_back" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center"
+                    android:text="Top trải nghiệm"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="21dp"
+                        android:layout_height="21dp"
+                        android:src="@drawable/f2_ic_search2"
+                        android:tint="@color/white" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:tabIndicatorColor="@color/f2_color_package"
+                    app:tabMode="scrollable" />
+
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vpContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/btnScrollToTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="80dp"
+            android:background="@drawable/f2_bg_scroll_top"
+            android:drawableLeft="@drawable/f2_ic_go_fisrt"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:paddingStart="30dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="15dp"
+            android:text="Lên đầu trang"
+            android:textColor="#000000"
+            android:textSize="16dp" />
+
+    </RelativeLayout>
+</layout>

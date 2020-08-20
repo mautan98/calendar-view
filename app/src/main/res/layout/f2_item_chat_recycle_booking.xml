@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="235dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="10dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="2dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="11dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#3D3D3D"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Khuyến mãi vé máy bay tháng 7"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:textColor="#3D3D3D"
+            android:textSize="14sp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Vé máy bay khứ hồi đang giảm giá mạnh"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="14sp"
+                android:text="HÀ NỘI"/>
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/f2_ic_chat_from_to"/>
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="14sp"
+                android:text="ĐÀ NẴNG"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="#0066FF"
+            android:textSize="14sp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="www.vtvtravel.vn/deal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingStart="36dp"
+            android:paddingEnd="36dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="7dp"
+            android:layout_gravity="center"
+            android:textColor="#FFFF"
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="14sp"
+            android:background="@drawable/f2_bg_button"
+            android:text="Đặt ngay"/>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

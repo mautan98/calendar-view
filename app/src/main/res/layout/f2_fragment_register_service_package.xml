@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data></data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="50dp">
+
+                <TextView
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:id="@+id/tvDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18.5dp"
+                    android:fontFamily="@font/roboto_medium_italic"
+                    android:text="VTV Travel ra mắt 2 gói ưu đãi siêu hot, siêu tốc độ, siêu tiết kiệm chỉ dành riêng cho thành viên của VTV Travel"
+                    android:textColor="#434343"
+                    android:textSize="16dp" />
+
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp">
+
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="23dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:id="@+id/layoutPackage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/f2_bg_round_package"
+                            android:orientation="vertical"
+                            android:paddingTop="21dp"
+                            android:paddingBottom="17dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="11dp"
+                                android:layout_marginEnd="11dp"
+                                android:fontFamily="@font/roboto_black"
+                                android:gravity="center"
+                                android:text="Gói Friend Travel"
+                                android:textColor="@color/white"
+                                android:textSize="18dp" />
+
+
+                            <LinearLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginTop="23dp"
+                                android:layout_marginEnd="5dp"
+                                android:background="@color/white"
+                                android:gravity="center"
+                                android:paddingTop="4dp"
+                                android:paddingBottom="5dp">
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:text="Soạn"
+                                    android:textColor="#ECA65A"
+                                    android:textSize="12dp" />
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:fontFamily="@font/roboto_black"
+                                    android:text="MP"
+                                    android:textAllCaps="true"
+                                    android:textColor="#FF0000"
+                                    android:textSize="13dp" />
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:text="gửi"
+                                    android:textColor="#ECA65A"
+                                    android:textSize="12dp" />
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:fontFamily="@font/roboto_black"
+                                    android:text="1039"
+                                    android:textAllCaps="true"
+                                    android:textColor="#FF0000"
+                                    android:textSize="13dp" />
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                        <ImageView
+                            android:id="@+id/viewTriangle"
+                            android:layout_width="20dp"
+                            android:layout_height="18dp"
+                            android:layout_below="@+id/layoutPackage"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/f2_bg_triangle"
+                            android:rotation="180" />
+
+
+                        <TextView
+                            android:id="@+id/btnRegisterFriendTravelPackage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/viewTriangle"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/f2_bg_round_register"
+                            android:gravity="center"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:text="Đăng ký"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:id="@+id/layoutPackage2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/f2_bg_round_package"
+                            android:orientation="vertical"
+                            android:paddingTop="21dp"
+                            android:paddingBottom="17dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="11dp"
+                                android:layout_marginEnd="11dp"
+                                android:fontFamily="@font/roboto_black"
+                                android:gravity="center"
+                                android:text="Gói Travel VIP"
+                                android:textColor="@color/white"
+                                android:textSize="18dp" />
+
+
+                            <LinearLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginTop="23dp"
+                                android:layout_marginEnd="5dp"
+                                android:background="@color/white"
+                                android:gravity="center"
+                                android:paddingTop="4dp"
+                                android:paddingBottom="5dp">
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:text="Soạn"
+                                    android:textColor="#ECA65A"
+                                    android:textSize="12dp" />
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:fontFamily="@font/roboto_black"
+                                    android:text="vip"
+                                    android:textAllCaps="true"
+                                    android:textColor="#FF0000"
+                                    android:textSize="13dp" />
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:text="gửi"
+                                    android:textColor="#ECA65A"
+                                    android:textSize="12dp" />
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:fontFamily="@font/roboto_black"
+                                    android:text="1039"
+                                    android:textAllCaps="true"
+                                    android:textColor="#FF0000"
+                                    android:textSize="13dp" />
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/viewTriangle2"
+                            android:layout_width="20dp"
+                            android:layout_height="18dp"
+                            android:layout_below="@+id/layoutPackage2"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/f2_bg_triangle"
+                            android:rotation="180" />
+
+
+                        <TextView
+                            android:id="@+id/btnRegisterVIPPackage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/viewTriangle2"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/f2_bg_round_register"
+                            android:gravity="center"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:text="Đăng ký"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_marginTop="35dp"
+                    app:spanCount="2"
+                    android:id="@+id/recycler_top_package"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="android.support.v7.widget.GridLayoutManager" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:id="@+id/recycler_service_package"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+
+</layout>

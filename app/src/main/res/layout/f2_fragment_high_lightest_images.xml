@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="imagePartViewModel"
+            type="com.namviet.vtvtravel.viewmodel.imagepart.ImagePartViewModel" />
+    </data>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:focusable="true"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <LinearLayout
+                android:id="@+id/btnBack"
+                android:gravity="center"
+                android:layout_width="50dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:src="@drawable/video_top_back"
+                    android:layout_width="10dp"
+                    android:layout_height="18dp"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:textSize="18dp"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="Ảnh nổi bật nhất"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_alignParentEnd="true"
+                android:gravity="center"
+                android:layout_width="50dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:tint="@color/white"
+                    android:src="@drawable/f2_ic_search2"
+                    android:layout_width="21dp"
+                    android:layout_height="21dp"/>
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            android:id="@+id/rclContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+</layout>

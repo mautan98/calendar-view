@@ -1,0 +1,48 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="filterViewModel"
+            type="com.namviet.vtvtravel.viewmodel.ItemFilterViewModel" />
+    </data>
+
+
+    <LinearLayout
+        android:id="@+id/itemView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/_10sdp"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingRight="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_5sdp">
+
+        <ImageView
+            android:id="@+id/ivSelect"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/vt_square_check" />
+
+        <com.namviet.vtvtravel.widget.RobotoTextView
+            android:id="@+id/tvName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="Du lịch rừng núi"
+            android:textColor="@color/gray_33"
+            android:textSize="@dimen/_13sdp"
+            app:typeface="roboto_regular" />
+
+
+    </LinearLayout>
+
+
+</layout>

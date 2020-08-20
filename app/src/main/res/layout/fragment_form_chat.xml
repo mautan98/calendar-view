@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="formChatViewModel"
+            type="com.namviet.vtvtravel.viewmodel.FormChatViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/toolBar"
+            layout="@layout/toolbar_text_chat" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolBar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Để lại thông tin, nhân viên CSKH sẽ liên hệ tư vấn:" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Họ và Tên"
+                    android:textColor="@color/md_grey_800"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_edittext"
+                    android:padding="8dp"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Số điện thoại"
+                    android:textColor="@color/md_grey_800"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_edittext"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:padding="8dp"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Thời gian có thể liên hệ"
+                    android:textColor="@color/md_grey_800"
+                    android:textStyle="bold" />
+
+                <com.namviet.vtvtravel.widget.RobotoTextView
+                    android:id="@+id/edtBirth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_ed_search_stroke"
+                    android:drawableEnd="@drawable/vt_calendar"
+                    android:drawablePadding="5dp"
+                    android:gravity="left|center_vertical"
+                    android:hint="--/--/----"
+                    android:padding="8dp"
+                    android:singleLine="true"
+                    android:textColor="@color/gray_33"
+                    android:textSize="14sp"
+                    app:typeface="roboto_regular" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center">
+
+                    <Spinner
+                        android:id="@+id/spinnerStart"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Đến" />
+
+                    <Spinner
+                        android:id="@+id/spinnerEnd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Nội dung cần tư vấn"
+                    android:textColor="@color/md_grey_800"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_edittext"
+                    android:gravity="start"
+                    android:lines="3"
+                    android:padding="8dp" />
+
+                <Button
+                    android:id="@+id/btnSend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_button_chat4"
+                    android:text="Gửi"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+
+</layout>

@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="ReviewViewModel"
+            type="com.namviet.vtvtravel.viewmodel.f2review.ReviewViewModel" />
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:id="@+id/btnBack"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/video_top_back"
+                    android:tint="@color/colorPrimary" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="Đánh giá"
+                android:textAllCaps="true"
+                android:textColor="@color/md_black_1000"
+                android:textSize="18dp" />
+
+            <LinearLayout
+                android:id="@+id/btnWriteReview"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="9dp"
+                    android:layout_height="13dp"
+                    android:layout_marginEnd="6dp"
+                    android:src="@drawable/f2_ic_green_type" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Viết đánh giá"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorPrimary" />
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:clickable="true"
+            android:focusable="true">
+
+
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:elevation="0dp">
+
+                <android.support.design.widget.CollapsingToolbarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:layout_scrollFlags="scroll">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp">
+
+                            <TextView
+                                android:id="@+id/tvName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="Bánh Khúc Cô Lan"
+                                android:textColor="#000000"
+                                android:textSize="18dp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/tvRating"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="13dp"
+                                    android:background="@drawable/f2_bg_score"
+                                    android:fontFamily="@font/roboto_bold"
+                                    android:paddingLeft="6dp"
+                                    android:paddingRight="6dp"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="10dp" />
+
+                                <TextView
+                                    android:id="@+id/tvContentRating"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/roboto_bold"
+                                    android:paddingLeft="3dp"
+                                    android:paddingRight="7dp"
+                                    android:textColor="#22558F"
+                                    android:textSize="12dp" />
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="12dp"
+                                    android:layout_gravity="center"
+                                    android:background="#B4B4B4" />
+
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="6dp"
+                                    android:src="@drawable/f2_ic_view" />
+
+                                <TextView
+                                    android:id="@+id/tvCommentCount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="3dp"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:text="0"
+                                    android:textColor="#0081FF"
+                                    android:textSize="12dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="3dp"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:text="Đánh giá"
+                                    android:textColor="#0081FF"
+                                    android:textSize="12dp" />
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="end|center_vertical">
+
+                                    <ImageView
+                                        android:layout_width="12dp"
+                                        android:layout_height="12dp"
+                                        android:src="@drawable/f2_ic_distance" />
+
+                                    <TextView
+                                        android:maxLength="30"
+                                        android:id="@+id/tvDistance"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:textColor="#5e5e5e"
+                                        android:textSize="12dp" />
+
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="35dp"
+                            android:orientation="vertical"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="Đánh giá"
+                                android:textColor="#000000"
+                                android:textSize="18dp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/tvRating2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="13dp"
+                                    android:background="@drawable/f2_bg_score"
+                                    android:fontFamily="@font/roboto_bold"
+                                    android:paddingLeft="6dp"
+                                    android:paddingRight="6dp"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="10dp" />
+
+                                <TextView
+
+                                    android:id="@+id/tvContentRating2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/roboto_bold"
+                                    android:paddingLeft="3dp"
+                                    android:paddingRight="7dp"
+                                    android:textColor="#22558F"
+                                    android:textSize="12dp" />
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="12dp"
+                                    android:layout_gravity="center"
+                                    android:background="#B4B4B4" />
+
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="6dp"
+                                    android:src="@drawable/f2_ic_view" />
+
+                                <TextView
+                                    android:id="@+id/tvCommentCount2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="3dp"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:textColor="#0081FF"
+                                    android:textSize="12dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="3dp"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:text="Đánh giá"
+                                    android:textColor="#0081FF"
+                                    android:textSize="12dp" />
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="28dp"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="Xếp hạng của khách du lịch"
+                                android:textColor="@color/md_black_1000"
+                                android:textSize="15dp" />
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="20dp"
+                                    android:gravity="center_vertical">
+
+                                    <TextView
+                                        android:layout_width="80dp"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:text="Tuyệt vời"
+                                        android:textColor="#676767"
+                                        android:textSize="13dp" />
+
+
+                                    <ProgressBar
+                                        android:id="@+id/progress1"
+                                        style="?android:attr/progressBarStyleHorizontal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="8dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:layout_weight="1"
+                                        android:progress="90"
+                                        android:progressDrawable="@drawable/f2_rounded_corners_progress_bar" />
+
+                                    <TextView
+                                        android:id="@+id/tvCountRating1"
+                                        android:layout_width="60dp"
+                                        android:layout_height="wrap_content"
+                                        android:text="987"
+                                        android:textColor="#676767" />
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:gravity="center_vertical">
+
+                                    <TextView
+                                        android:layout_width="80dp"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:text="Rất tốt"
+                                        android:textColor="#676767"
+                                        android:textSize="13dp" />
+
+
+                                    <ProgressBar
+                                        android:id="@+id/progress2"
+                                        style="?android:attr/progressBarStyleHorizontal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="8dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:layout_weight="1"
+                                        android:progress="80"
+                                        android:progressDrawable="@drawable/f2_rounded_corners_progress_bar" />
+
+                                    <TextView
+                                        android:id="@+id/tvCountRating2"
+                                        android:layout_width="60dp"
+                                        android:layout_height="wrap_content"
+                                        android:text="100"
+                                        android:textColor="#676767" />
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:gravity="center_vertical">
+
+                                    <TextView
+                                        android:layout_width="80dp"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:text="Hài lòng"
+                                        android:textColor="#676767"
+                                        android:textSize="13dp" />
+
+
+                                    <ProgressBar
+                                        android:id="@+id/progress3"
+                                        style="?android:attr/progressBarStyleHorizontal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="8dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:layout_weight="1"
+                                        android:progress="10"
+                                        android:progressDrawable="@drawable/f2_rounded_corners_progress_bar" />
+
+                                    <TextView
+                                        android:id="@+id/tvCountRating3"
+                                        android:layout_width="60dp"
+                                        android:layout_height="wrap_content"
+                                        android:text="10"
+                                        android:textColor="#676767" />
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:gravity="center_vertical">
+
+                                    <TextView
+                                        android:layout_width="80dp"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:text="Trung bình"
+                                        android:textColor="#676767"
+                                        android:textSize="13dp" />
+
+
+                                    <ProgressBar
+                                        android:id="@+id/progress4"
+                                        style="?android:attr/progressBarStyleHorizontal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="8dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:layout_weight="1"
+                                        android:progress="1"
+                                        android:progressDrawable="@drawable/f2_rounded_corners_progress_bar" />
+
+                                    <TextView
+                                        android:id="@+id/tvCountRating4"
+                                        android:layout_width="60dp"
+                                        android:layout_height="wrap_content"
+                                        android:text="1"
+                                        android:textColor="#676767" />
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:gravity="center_vertical">
+
+                                    <TextView
+                                        android:layout_width="80dp"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:text="Kém"
+                                        android:textColor="#676767"
+                                        android:textSize="13dp" />
+
+
+                                    <ProgressBar
+                                        android:id="@+id/progress5"
+                                        style="?android:attr/progressBarStyleHorizontal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="8dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:layout_weight="1"
+                                        android:progress="10"
+                                        android:progressDrawable="@drawable/f2_rounded_corners_progress_bar" />
+
+                                    <TextView
+                                        android:id="@+id/tvCountRating5"
+                                        android:layout_width="60dp"
+                                        android:layout_height="wrap_content"
+                                        android:text="10"
+                                        android:textColor="#676767" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </android.support.design.widget.CollapsingToolbarLayout>
+
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rclRating"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        </android.support.design.widget.CoordinatorLayout>
+    </LinearLayout>
+
+</layout>

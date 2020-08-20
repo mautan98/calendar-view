@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data></data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="52dp"
+            android:layout_height="6dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/f2_bg_pull" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/f2_bg_rule2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/f2_bg_title_sort"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="Sắp xếp"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycleSort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

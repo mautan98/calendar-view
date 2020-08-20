@@ -1,0 +1,49 @@
+{
+  "distance":[
+    {
+      "label": "1 km",
+      "value": "1000",
+      "isSelected": false
+    },
+    {
+      "label": "5 km",
+      "value": "5000",
+      "isSelected": false
+    },
+    {
+      "label": "10 km",
+      "value": "10000",
+      "isSelected": false
+    },
+    {
+      "label": "15 km",
+      "value": "15000",
+      "isSelected": false
+    },
+    {
+      "label": "20 km",
+      "value": "20000",
+      "isSelected": false
+    },
+    {
+      "label": "25 km",
+      "value": "25000",
+      "isSelected": false
+    },
+    {
+      "label": "30 km",
+      "value": "30000",
+      "isSelected": false
+    },
+    {
+      "label": "35 km",
+      "value": "35000",
+      "isSelected": false
+    },
+    {
+      "label": "40 km",
+      "value": "40000",
+      "isSelected": true
+    }
+  ]
+}

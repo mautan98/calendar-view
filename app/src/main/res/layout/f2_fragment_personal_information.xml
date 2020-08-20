@@ -1,0 +1,762 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="accountViewModel"
+            type="com.namviet.vtvtravel.viewmodel.AccountViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/layoutToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="7dp"
+                android:paddingStart="8dp"
+                android:paddingTop="13dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="13dp"
+                android:src="@drawable/f2_ic_close"
+                android:tint="#707070" />
+
+            <TextView
+                android:id="@+id/txtTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Thông tin cá nhân"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtTitleEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Chỉnh sửa thông tin cá nhân"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/txtEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/roboto_regular"
+                android:paddingRight="17dp"
+                android:text="Chỉnh sửa"
+                android:textColor="#00918D"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/txtDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/roboto_regular"
+                android:paddingRight="17dp"
+                android:text="Xong"
+                android:textColor="#00918D"
+                android:textSize="14dp"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/layoutToolbar"
+            android:background="#ECECEC">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#ECECEC" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/layoutHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="15dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imgAvatar"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:src="#FF00FF"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txtName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Sơn Bùi"
+                        android:textColor="#000000"
+                        android:textSize="17dp"
+                        app:layout_constraintStart_toEndOf="@id/imgAvatar"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/imgArm"
+                        android:layout_width="17dp"
+                        android:layout_height="19dp"
+                        android:layout_marginTop="2dp"
+                        android:src="@drawable/f2_ic_star_armorial"
+                        app:layout_constraintStart_toStartOf="@id/txtName"
+                        app:layout_constraintTop_toBottomOf="@id/txtName" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/f2_item_bg_regency"
+                        android:drawableRight="@drawable/f2_ic_arrow3"
+                        android:drawablePadding="4dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="3dp"
+                        android:text="Hội viên"
+                        android:textColor="#FFFFFF"
+                        android:textSize="10dp"
+                        app:layout_constraintBottom_toBottomOf="@id/imgArm"
+                        app:layout_constraintStart_toEndOf="@id/imgArm"
+                        app:layout_constraintTop_toTopOf="@id/imgArm" />
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/layoutHeaderEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="15dp"
+                    android:visibility="gone">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imgAvatarEdit"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginBottom="15dp"
+                        android:src="#FF00FF"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:padding="1dp"
+                        android:src="@drawable/f2_ic_edit_avatar"
+                        app:civ_border_color="#FFFFFF"
+                        app:civ_border_width="0.5dp"
+                        app:layout_constraintEnd_toEndOf="@id/imgAvatarEdit"
+                        app:layout_constraintTop_toTopOf="@id/imgAvatarEdit" />
+                </android.support.constraint.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="15dp"
+                    android:background="#ECECEC" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Thông tin của bạn"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/imgMergeInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="5dp"
+                        android:padding="5dp"
+                        android:src="@drawable/f2_ic_arrow2" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Tên hiển thị"
+                        android:textColor="#707070"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/edtUsername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@null"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:text="Sơn Bùi"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#ECECEC" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Họ và Tên"
+                        android:textColor="#707070"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/edtFullname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@null"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#ECECEC" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Số điện thoại"
+                        android:textColor="#707070"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/edtNumberPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@null"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:text="0986343411"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#ECECEC" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Email"
+                        android:textColor="#707070"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/edtEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@null"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#ECECEC" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Giới tính"
+                        android:textColor="#707070"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvGender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="14sp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@null"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Nam"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#ECECEC" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Ngày sinh"
+                        android:textColor="#707070"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvBirthOfDay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@null"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:text="01/01/2020"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#ECECEC" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Địa chỉ"
+                        android:textColor="#707070"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/edtAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@null"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:text="Số 123, Thành Thái, Cầu Giấy, Hà Nội"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#ECECEC" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#ECECEC" />
+
+                <!--        Thông tin giấy tờ-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="15dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Thông tin giấy tờ"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/imgMergePaper"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="5dp"
+                        android:padding="5dp"
+                        android:src="@drawable/f2_ic_arrow2" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutPaper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="5dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Loại giấy tờ"
+                        android:textColor="#707070"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@null"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:text="CMND"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#ECECEC" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Số"
+                        android:textColor="#707070"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@null"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#ECECEC" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#ECECEC" />
+
+                <!--        Thông tin xuất hóa đơn VAT-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="15dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Thông tin xuất hóa đơn VAT"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/imgMergeBill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="5dp"
+                        android:padding="5dp"
+                        android:src="@drawable/f2_ic_arrow2" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutBill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="5dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Tên doanh nghiệp"
+                        android:textColor="#707070"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@null"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#ECECEC" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Mã số thuế"
+                        android:textColor="#707070"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@null"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#ECECEC" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Chọn tỉnh thành"
+                        android:textColor="#707070"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@null"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#ECECEC" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Địa chỉ doanh nghiệp"
+                        android:textColor="#707070"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@null"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#ECECEC" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Người nhận hóa đơn"
+                        android:textColor="#707070"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="14sp"
+                        android:layout_marginEnd="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#ECECEC" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+    </RelativeLayout>
+</layout>

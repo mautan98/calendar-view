@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="accountViewModel"
+            type="com.namviet.vtvtravel.viewmodel.AccountViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:clickable="true">
+
+        <include
+            android:id="@+id/toolBar"
+            layout="@layout/toolbar_title" />
+
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolBar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:src="@mipmap/logo_login" />
+
+
+        <RelativeLayout
+            android:id="@+id/llForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivLogo"
+            android:layout_marginTop="@dimen/_40sdp">
+
+            <LinearLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:id="@+id/llInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_45sdp"
+                android:layout_marginEnd="@dimen/_45sdp"
+                android:layout_marginBottom="@dimen/_40sdp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.namviet.vtvtravel.widget.RobotoTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/notice_forgot_pass"
+                    android:textColor="@color/gray_33"
+                    android:textSize="@dimen/_12sdp"
+                    app:typeface="roboto_regular" />
+
+                <EditText
+                    android:id="@+id/edPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:hint="@string/phone_number"
+                    android:inputType="number"
+                    android:maxLength="12"
+                    android:singleLine="true"
+                    android:textAlignment="center"
+                    android:textColor="@color/gray_33"
+                    android:textColorHint="@color/gray_99"
+                    android:textSize="@dimen/_14sdp" />
+
+
+                <Button
+                    android:id="@+id/btNext"
+                    android:layout_width="@dimen/_115sdp"
+                    android:layout_height="@dimen/_32sdp"
+                    android:layout_marginTop="@dimen/_40sdp"
+                    android:background="@drawable/bg_button_update"
+                    android:text="@string/next"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13sdp" />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

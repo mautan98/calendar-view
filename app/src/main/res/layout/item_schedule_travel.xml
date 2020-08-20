@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_5sdp">
+
+
+    <RelativeLayout
+        android:id="@+id/cvItem"
+        android:layout_width="@dimen/_110sdp"
+        android:layout_height="@dimen/_80sdp">
+
+        <ImageView
+            android:id="@+id/ivPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/_9sdp"
+            android:layout_marginTop="@dimen/_9sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_header" />
+
+        <ImageView
+            android:id="@+id/ivSelect"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:background="@drawable/bg_cirle_check"
+            android:padding="@dimen/_3sdp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/vt_add_schedule_white" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_toEndOf="@+id/cvItem"
+        android:orientation="vertical">
+
+        <com.namviet.vtvtravel.widget.RobotoTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Dạo quanh phố cổ Hà Nội nhân dip Giáng Sinh"
+            android:textColor="@color/gray_33"
+            android:textSize="@dimen/_13sdp"
+            app:typeface="roboto_bold" />
+
+        <com.namviet.vtvtravel.widget.RobotoTextView
+            android:id="@+id/tvAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:drawableLeft="@drawable/vt_placeholder"
+            android:drawablePadding="@dimen/_2sdp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:text="22, Dịch Vọng, Cầu Giấy, Hà Nội"
+            android:textColor="@color/gray_66"
+            android:textSize="@dimen/_11sdp"
+            app:typeface="roboto_regular" />
+
+        <com.namviet.vtvtravel.widget.RobotoTextView
+            android:id="@+id/tvDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:drawableLeft="@drawable/vt_distance_arrows"
+            android:drawablePadding="@dimen/_3sdp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:text="Cách 200m"
+            android:textColor="@color/gray_66"
+            android:textSize="@dimen/_11sdp"
+            app:typeface="roboto_regular" />
+    </LinearLayout>
+
+
+</RelativeLayout>

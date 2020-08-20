@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data></data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="54dp"
+            android:layout_marginEnd="52dp"
+            android:background="@drawable/f2_bg_dialog_15"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/f2_confirm_otp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:text="Bạn đã xác minh thành công. \nXin cảm ơn!"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="#E4E4E4" />
+
+            <TextView
+                android:id="@+id/btnOk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:text="Ok"
+                android:textColor="#00918D"
+                android:textSize="17dp" />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

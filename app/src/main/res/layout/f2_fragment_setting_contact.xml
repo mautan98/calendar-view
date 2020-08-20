@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data></data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:clickable="true">
+
+        <RelativeLayout
+            android:id="@+id/rlToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimary">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Danh bạ"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
+
+            <LinearLayout
+                android:id="@+id/btnBack"
+                android:gravity="center"
+                android:layout_width="50dp"
+                android:layout_height="50dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/video_top_back"
+                    android:tint="@color/white" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlToolBar"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/layoutBtnUpdateCallNow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/txtTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Cập nhật danh bạ Gọi thoại"
+                    android:textColor="#101010"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtTitle"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Lần cuối lúc 19/06/2020 07:15"
+                    android:textColor="#515151"
+                    android:textSize="16dp" />
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/f2_ic_refresh" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E4E4E4" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Tự động cập nhật danh bạ"
+                    android:textColor="#343434"
+                    android:textSize="16dp" />
+
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switchAutoUpdateContact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:checked="false"
+                    app:colorControlActivated="@color/colorPrimary" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E4E4E4" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

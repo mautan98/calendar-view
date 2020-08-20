@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+    </data>
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/myToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp">
+
+        <RelativeLayout
+            android:id="@+id/rlToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/vt_keyboard_arrow_left_white" />
+
+            <com.namviet.vtvtravel.widget.RobotoTextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/switchEdit"
+                android:layout_toRightOf="@+id/ivBack"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:lines="1"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                app:typeface="roboto_bold"
+                tools:text="Địa điểm" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/switchEdit"
+                style="@style/SwitchStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:checked="false"
+                android:gravity="center"
+                android:text="@string/edit"
+                android:textColor="@color/white"
+                app:colorControlActivated="@color/colorPrimary"
+                app:switchPadding="@dimen/_5sdp" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+</layout>

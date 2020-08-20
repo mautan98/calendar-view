@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="32dp">
+
+    <include
+        layout="@layout/item_chat_base"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_button_chat6"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="VTV Travel rất mong được hỗ trợ Qúy khách.Vui lòng chọn 1 trong các hình thức sau:" />
+
+        <Button
+            android:id="@+id/btnForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/bg_button_chat"
+            android:padding="4dp"
+            android:text="Để lại thông tin, nhân viên CSKH sẽ liên hệ tư vấn"
+            android:textAllCaps="false"
+            android:textColor="@color/md_grey_900" />
+
+        <Button
+            android:id="@+id/btnChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/bg_button_chat"
+            android:padding="4dp"
+            android:text="Chat trực tiếp với nhân viên CSKH"
+            android:textAllCaps="false"
+            android:textColor="@color/md_grey_900" />
+
+        <Button
+            android:id="@+id/btn1039"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_button_chat"
+            android:text="Liên hệ trực tiếp tổng đài 1039"
+            android:textAllCaps="false"
+            android:textColor="@color/md_grey_900" />
+    </LinearLayout>
+</LinearLayout>

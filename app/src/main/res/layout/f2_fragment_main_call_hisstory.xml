@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="mainCallHistoryViewModel"
+            type="com.namviet.vtvtravel.viewmodel.f2callnow.MainCallHistoryViewModel" />
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingTop="8dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/btnAllCallHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/f2_bg_selected_tab_history"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingStart="25dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="25dp"
+                    android:paddingBottom="6dp"
+                    android:text="Tất cả"
+                    android:textAllCaps="true"
+                    android:textColor="@color/md_black_1000" />
+
+
+                <TextView
+                    android:id="@+id/btnMissingCall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingStart="25dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="25dp"
+                    android:paddingBottom="6dp"
+                    android:text="Gọi nhỡ"
+                    android:textAllCaps="true"
+                    android:textColor="#757575" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/btnDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Xóa"
+                android:textColor="#00918D"
+                android:textSize="17dp"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/btnEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="25dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Sửa"
+                android:textColor="#00918D"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/btnDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="25dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Xong"
+                android:textColor="#00918D"
+                android:textSize="17dp"
+                android:visibility="gone" />
+
+
+        </RelativeLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vpMainHistoryCall"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white" />
+
+
+    </LinearLayout>
+
+
+</layout>

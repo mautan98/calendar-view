@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="accountViewModel"
+            type="com.namviet.vtvtravel.viewmodel.AccountViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <include
+            android:id="@+id/toolBar"
+            layout="@layout/toolbar_text" />
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolBar"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:id="@+id/rlAvatar"
+                        android:layout_width="@dimen/_55sdp"
+                        android:layout_height="@dimen/_55sdp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/avatar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@mipmap/user"
+                            app:civ_border_color="@color/colorPrimary"
+                            app:civ_border_width="1dp" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="@dimen/_3sdp"
+                            app:srcCompat="@drawable/vt_photo_camera" />
+                    </RelativeLayout>
+
+                    <EditText
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_toEndOf="@+id/rlAvatar"
+                        android:background="@null"
+                        android:ems="8"
+                        android:enabled="false"
+                        android:lines="1"
+                        android:padding="@dimen/_5sdp"
+                        android:singleLine="true"
+                        android:textColor="@color/gray_33"
+                        android:textSize="@dimen/_15sdp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="vertical">
+
+                    <com.namviet.vtvtravel.widget.RobotoTextView
+                        android:id="@+id/tvName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:ems="7"
+                        android:text="@string/full_name"
+                        android:textAllCaps="true"
+                        android:textColor="@color/gray_33"
+                        android:textSize="@dimen/_10sdp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/tvName"
+                        android:layout_toRightOf="@+id/tvTitle">
+
+                        <EditText
+                            android:id="@+id/edtFullName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/bg_ed_search_stroke"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:paddingTop="@dimen/_3sdp"
+                            android:paddingRight="@dimen/_5sdp"
+                            android:paddingBottom="@dimen/_3sdp"
+                            android:singleLine="true"
+                            android:textColor="@color/gray_33"
+                            android:textSize="@dimen/_12sdp" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="vertical">
+
+                    <com.namviet.vtvtravel.widget.RobotoTextView
+                        android:id="@+id/tvPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:ems="7"
+                        android:text="@string/phone"
+                        android:textAllCaps="true"
+                        android:textColor="@color/gray_33"
+                        android:textSize="@dimen/_10sdp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/tvPhone"
+                        android:layout_toRightOf="@+id/tvTitle">
+
+                        <EditText
+                            android:id="@+id/edtPhone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/bg_ed_search_stroke"
+                            android:gravity="left|center_vertical"
+                            android:inputType="number"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:paddingTop="@dimen/_3sdp"
+                            android:paddingRight="@dimen/_5sdp"
+                            android:paddingBottom="@dimen/_3sdp"
+                            android:singleLine="true"
+                            android:textColor="@color/gray_33"
+                            android:textSize="@dimen/_12sdp" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="vertical">
+
+                    <com.namviet.vtvtravel.widget.RobotoTextView
+                        android:id="@+id/tvEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:ems="7"
+                        android:text="@string/mail"
+                        android:textAllCaps="true"
+                        android:textColor="@color/gray_33"
+                        android:textSize="@dimen/_10sdp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/tvEmail">
+
+                        <EditText
+                            android:id="@+id/edtEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/bg_ed_search_stroke"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:paddingTop="@dimen/_3sdp"
+                            android:paddingRight="@dimen/_5sdp"
+                            android:paddingBottom="@dimen/_3sdp"
+                            android:singleLine="true"
+                            android:textColor="@color/gray_33"
+                            android:textSize="@dimen/_12sdp" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="vertical">
+
+                    <com.namviet.vtvtravel.widget.RobotoTextView
+                        android:id="@+id/tvBirth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:ems="7"
+                        android:text="@string/birth"
+                        android:textAllCaps="true"
+                        android:textColor="@color/gray_33"
+                        android:textSize="@dimen/_10sdp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/tvBirth">
+
+                        <com.namviet.vtvtravel.widget.RobotoTextView
+                            android:id="@+id/edtBirth"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_ed_search_stroke"
+                            android:drawableEnd="@drawable/vt_calendar"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:paddingTop="@dimen/_3sdp"
+                            android:paddingEnd="@dimen/_5sdp"
+                            android:paddingBottom="@dimen/_3sdp"
+                            android:singleLine="true"
+                            android:textColor="@color/gray_33"
+                            android:textSize="@dimen/_12sdp"
+                            app:typeface="roboto_regular" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="vertical">
+
+                    <com.namviet.vtvtravel.widget.RobotoTextView
+                        android:id="@+id/tvGender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:ems="7"
+                        android:text="@string/gender"
+                        android:textAllCaps="true"
+                        android:textColor="@color/gray_33"
+                        android:textSize="@dimen/_10sdp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/tvGender">
+
+                        <RadioGroup
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/rdoMale"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/male"
+                                android:textColor="@color/gray_33"
+                                android:textSize="@dimen/_13sdp" />
+
+                            <RadioButton
+                                android:id="@+id/rdoFemale"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_20sdp"
+                                android:text="@string/female"
+                                android:textColor="@color/gray_33"
+                                android:textSize="@dimen/_13sdp" />
+                        </RadioGroup>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="vertical">
+
+                    <com.namviet.vtvtravel.widget.RobotoTextView
+                        android:id="@+id/tvAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:ems="7"
+                        android:text="@string/address"
+                        android:textAllCaps="true"
+                        android:textColor="@color/gray_33"
+                        android:textSize="@dimen/_10sdp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/tvAddress">
+
+                        <EditText
+                            android:id="@+id/edtAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/bg_ed_search_stroke"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:paddingTop="@dimen/_3sdp"
+                            android:paddingRight="@dimen/_5sdp"
+                            android:paddingBottom="@dimen/_3sdp"
+                            android:singleLine="true"
+                            android:textColor="@color/gray_33"
+                            android:textSize="@dimen/_12sdp" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="vertical">
+
+                    <com.namviet.vtvtravel.widget.RobotoTextView
+                        android:id="@+id/tvCmnd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:ems="7"
+                        android:text="@string/cmnd"
+                        android:textAllCaps="true"
+                        android:textColor="@color/gray_33"
+                        android:textSize="@dimen/_10sdp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/tvCmnd">
+
+                        <EditText
+                            android:id="@+id/edtCmnd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/bg_ed_search_stroke"
+                            android:gravity="left|center_vertical"
+                            android:inputType="number"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:paddingTop="@dimen/_3sdp"
+                            android:paddingRight="@dimen/_5sdp"
+                            android:paddingBottom="@dimen/_3sdp"
+                            android:singleLine="true"
+                            android:textColor="@color/gray_33"
+                            android:textSize="@dimen/_12sdp" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="vertical">
+
+                    <com.namviet.vtvtravel.widget.RobotoTextView
+                        android:id="@+id/tvAboutMe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:ems="7"
+                        android:text="@string/about_me"
+                        android:textAllCaps="true"
+                        android:textColor="@color/gray_33"
+                        android:textSize="@dimen/_10sdp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/tvAboutMe">
+
+                        <EditText
+                            android:id="@+id/edtAboutMe"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/bg_ed_search_stroke"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:paddingTop="@dimen/_3sdp"
+                            android:paddingRight="@dimen/_5sdp"
+                            android:paddingBottom="@dimen/_3sdp"
+                            android:singleLine="true"
+                            android:textColor="@color/gray_33"
+                            android:textSize="@dimen/_12sdp" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btCancel"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:background="@drawable/bg_button_update"
+                        android:text="@string/cancel"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <Button
+                        android:id="@+id/btSave"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:background="@drawable/bg_button_update"
+                        android:text="@string/save"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13sdp" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </RelativeLayout>
+</layout>

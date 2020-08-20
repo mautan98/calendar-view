@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp">
+
+                <LinearLayout
+                    android:id="@+id/btnBack"
+                    android:layout_width="44dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/f2_ic_close"
+                        android:tint="@color/colorPrimary" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableLeft="@drawable/f2_ic_green_type"
+                    android:drawablePadding="6dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center"
+                    android:text="Viết đánh giá"
+                    android:textColor="#00918D"
+                    android:textSize="16dp" />
+
+                <LinearLayout
+                    android:layout_width="44dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gửi"
+                        android:textColor="#00918D"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="Trải nghiệm của bạn thế nào?"
+                android:textColor="#00918D"
+                android:textSize="14dp" />
+
+            <RatingBar
+                android:id="@+id/rtbProductRating"
+                style="@style/RatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:isIndicator="false"
+                android:numStars="5"
+                android:stepSize="1" />
+
+            <EditText
+                android:paddingTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/f2_bg_edittext"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="start"
+                android:hint="Viết nhận xét của bạn"
+                android:lines="6"
+                android:paddingStart="10dp"
+                android:textColor="#9F9F9F"
+                android:textColorHint="#9F9F9F" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="end"
+                android:text="0/1000 ký tự tối thiểu"
+                android:textColor="#9F9F9F"
+                android:textSize="14dp" />
+
+            <ImageView
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/f2_ic_add_image" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#E4E4E4" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="26dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/f2_bg_button2"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:text="GỬI NGAY"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+</RelativeLayout>

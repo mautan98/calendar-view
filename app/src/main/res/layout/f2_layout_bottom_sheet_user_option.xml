@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data></data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/f2_bg_round_see_more"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/f2_dialog_comment_border"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtCamera"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="17dp"
+                    android:text="Chụp ảnh"
+                    android:textColor="#007AFF"
+                    android:textSize="20dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/gray_99" />
+
+                <TextView
+                    android:id="@+id/txtGallery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="17dp"
+                    android:text="Tải ảnh từ Thư viện"
+                    android:textColor="#007AFF"
+                    android:textSize="20dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/gray_99" />
+
+                <TextView
+                    android:id="@+id/txtViewImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="17dp"
+                    android:text="Xem ảnh"
+                    android:textColor="#007AFF"
+                    android:textSize="20dp" />
+
+
+                <TextView
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="17dp"
+                    android:text="Xóa ảnh"
+                    android:textColor="#007AFF"
+                    android:textSize="20dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/gray_99" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/f2_bg_round_see_more"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:paddingTop="14dp"
+            android:paddingBottom="17dp"
+            android:text="Hủy"
+            android:textColor="#007AFF"
+            android:textSize="20dp" />
+    </LinearLayout>
+</layout>

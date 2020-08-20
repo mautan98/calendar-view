@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data></data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000">
+
+        <LinearLayout
+            android:id="@+id/btnBack"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="17dp"
+                android:src="@drawable/f2_ic_close" />
+
+        </LinearLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/ctlBanner"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgBanner"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="#00AAFF"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                app:layout_constraintDimensionRatio="375:246"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.longtailvideo.jwplayer.JWPlayerView
+                android:id="@+id/jwPlayer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/imgHeart"
+            android:layout_width="20dp"
+            android:layout_height="17dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginBottom="2dp"
+            android:src="@drawable/f2_ic_red_heart"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/ctlBanner"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/tvNumberOfHeart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="100"
+            android:textColor="#FFFFFF"
+            android:textSize="14dp"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toLeftOf="@id/imgHeart"
+            app:layout_constraintRight_toRightOf="@+id/imgHeart"
+            app:layout_constraintTop_toBottomOf="@id/imgHeart" />
+
+        <ImageView
+            android:id="@+id/imgComment"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="18dp"
+            android:src="@drawable/f2_ic_reply"
+            android:tint="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/tvNumberOfHeart"
+            app:layout_constraintRight_toRightOf="@+id/tvNumberOfHeart"
+            app:layout_constraintTop_toBottomOf="@id/tvNumberOfHeart" />
+
+        <TextView
+            android:id="@+id/tvNumberOfComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="9"
+            android:textColor="#FFFFFF"
+            android:textSize="14dp"
+            app:layout_constraintLeft_toLeftOf="@id/imgComment"
+            app:layout_constraintRight_toRightOf="@+id/imgComment"
+            app:layout_constraintTop_toBottomOf="@id/imgComment" />
+
+        <ImageView
+            android:id="@+id/btnShare"
+            android:layout_width="22dp"
+            android:layout_height="17dp"
+            android:layout_marginTop="9dp"
+            android:src="@drawable/f2_ic_share_new2"
+            android:tint="@color/white"
+            app:layout_constraintLeft_toLeftOf="@+id/tvNumberOfComment"
+            app:layout_constraintRight_toRightOf="@id/tvNumberOfComment"
+            app:layout_constraintTop_toBottomOf="@id/tvNumberOfComment" />
+
+        <TextView
+            android:id="@+id/tvType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/f2_bg_textview_go_where"
+            android:fontFamily="@font/roboto_regular"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"
+            android:text="Đi đâu"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@id/imgComment"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imgComment" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/roboto_medium"
+            android:paddingStart="12dp"
+            android:layout_marginEnd="100dp"
+            android:text="Tới Biển Đồi Dương Nghe Hiền Hòa Sóng Vỗ."
+            android:textColor="#FFFFFF"
+            android:textSize="14dp"
+            app:layout_constraintLeft_toLeftOf="@id/tvType"
+            app:layout_constraintTop_toBottomOf="@id/tvType" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto_regular"
+            android:paddingStart="12dp"
+            android:layout_marginEnd="100dp"
+            android:text="Nếu như Hà Nội có bún thang Phố Cổ thì Hưng Yên cũng nổi tiếng với .."
+            android:textColor="#FFFFFF"
+            android:textSize="14dp"
+            app:layout_constraintLeft_toLeftOf="@id/tvType"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

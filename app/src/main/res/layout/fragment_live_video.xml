@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true">
+
+        <android.opengl.GLSurfaceView
+            android:id="@+id/cameraPreview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/vTransparent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#77000000" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            android:visibility="visible">
+
+            <ImageButton
+                android:id="@+id/btSetting"
+                style="?borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:onClick="showSetResolutionDialog"
+                app:srcCompat="@drawable/vt_settings" />
+
+            <ImageButton
+                android:id="@+id/btChangeCamera"
+                style="?attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:onClick="changeCamera"
+                app:srcCompat="@drawable/vt_switch_camera" />
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/toggle_broadcasting"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:onClick="toggleBroadcasting"
+            android:text="@string/start_broadcasting"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_14sdp" />
+    </RelativeLayout>
+</layout>

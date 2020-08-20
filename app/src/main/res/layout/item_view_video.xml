@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="travelModel"
+            type="com.namviet.vtvtravel.viewmodel.ItemChildTravelViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:paddingBottom="@dimen/_5sdp"
+        android:paddingLeft="@dimen/_10sdp"
+        android:paddingRight="@dimen/_10sdp"
+        android:paddingTop="@dimen/_5sdp">
+
+        <RelativeLayout
+            android:id="@+id/rl_background"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_70sdp">
+
+            <ImageView
+                android:id="@+id/iv_thumbnail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{travelModel.photo}" />
+
+            <ImageView
+                android:id="@+id/iv_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:alpha="0.7"
+                app:srcCompat="@drawable/vt_play_circle_outline" />;
+        </RelativeLayout>
+
+        <com.namviet.vtvtravel.widget.RobotoTextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_toRightOf="@+id/rl_background"
+            android:text="@{travelModel.name}"
+            android:textColor="@color/gray_33"
+            android:textSize="@dimen/_12sdp"
+            app:typeface="roboto_regular" />
+
+        <com.namviet.vtvtravel.widget.RobotoTextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_toRightOf="@+id/rl_background"
+            android:drawableLeft="@drawable/vt_time_create"
+            android:drawablePadding="@dimen/_4sdp"
+            android:text="@{travelModel.time}"
+            android:textColor="@color/gray_66"
+            android:textSize="@dimen/_11sdp"
+            android:visibility="@{travelModel.checkTime}" />
+    </RelativeLayout>
+</layout>

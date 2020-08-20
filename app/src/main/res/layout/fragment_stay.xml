@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="placeViewModel"
+            type="com.namviet.vtvtravel.viewmodel.PlaceViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <include
+            android:id="@+id/toolBar"
+            layout="@layout/toolbar_text" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_below="@+id/toolBar">
+
+            <include
+                android:id="@+id/filData"
+                layout="@layout/filter_data_layout" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvWhereStay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_8sdp" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

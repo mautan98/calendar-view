@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="11dp"
+        android:layout_height="15dp"
+        android:src="@drawable/f2_ic_gray_location2"
+        android:layout_gravity="center"/>
+    <TextView
+        android:paddingBottom="11dp"
+        android:paddingTop="11dp"
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textColor="#000000"
+        android:textSize="16dp"
+        android:fontFamily="@font/roboto_regular"
+        android:text="Hà Nội"
+        android:layout_gravity="center"/>
+</LinearLayout>

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/rlInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivBgInfo"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_140sdp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/bg_header_slide_menu" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_140sdp"
+                android:background="@color/alpha_gray_00" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_40sdp"
+                android:layout_toLeftOf="@+id/llWeather">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="@dimen/_45sdp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@mipmap/user"
+                    app:civ_border_color="@color/colorPrimary"
+                    app:civ_border_width="1dp" />
+
+                <com.facebook.login.widget.ProfilePictureView
+                    android:id="@+id/profileAvatar"
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="@dimen/_45sdp"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="gone" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/avatar">
+
+                    <LinearLayout
+                        android:id="@+id/llInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <com.namviet.vtvtravel.widget.RobotoTextView
+                            android:id="@+id/tvName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:lines="1"
+                            android:text="Nguyễn Văn A"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_14sdp"
+                            app:typeface="roboto_regular" />
+
+                        <com.namviet.vtvtravel.widget.RobotoTextView
+                            android:id="@+id/tvPhone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:lines="1"
+                            android:text="0123456789"
+                            android:textColor="@color/gray_99"
+                            android:textSize="@dimen/_12sdp"
+                            app:typeface="roboto_regular" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llLogin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:orientation="horizontal">
+
+                        <com.namviet.vtvtravel.widget.RobotoTextView
+                            android:id="@+id/btLogin"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_marginRight="@dimen/_3sdp"
+                            android:background="@drawable/bg_bt_white"
+                            android:gravity="center"
+                            android:text="@string/login"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_11sdp"
+                            app:typeface="roboto_regular" />
+
+                        <com.namviet.vtvtravel.widget.RobotoTextView
+                            android:id="@+id/btRegister"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_marginLeft="@dimen/_3sdp"
+                            android:background="@drawable/bg_bt_register"
+                            android:gravity="center"
+                            android:text="@string/register"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_11sdp"
+                            app:typeface="roboto_regular" />
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/llWeather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/_40sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <com.namviet.vtvtravel.widget.RobotoTextView
+                    android:id="@+id/tvCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/vt_arrow_down_fill_white"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:text="Hà Nội"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sdp"
+                    app:typeface="roboto_bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:orientation="horizontal">
+
+                    <com.namviet.vtvtravel.widget.RobotoTextView
+                        android:id="@+id/tvTemp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:text="29"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14sdp"
+                        app:typeface="roboto_bold" />
+
+                    <ImageView
+                        android:id="@+id/ivIconWeather"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        app:srcCompat="@drawable/vt_rain" />
+                </LinearLayout>
+
+
+                <com.namviet.vtvtravel.widget.RobotoTextView
+                    android:id="@+id/tvHumidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:text="22-29"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sdp"
+                    app:typeface="roboto_bold" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvSlideMenu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rlInfo" />
+
+        <!--<Button-->
+        <!--android:id="@+id/btLiveVideo"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/line"-->
+        <!--android:layout_marginTop="@dimen/_20sdp"-->
+        <!--android:text="@string/live_video" />-->
+
+        <!--<Button-->
+        <!--android:id="@+id/btPlayLive"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/btLiveVideo"-->
+        <!--android:layout_marginTop="@dimen/_20sdp"-->
+        <!--android:text="@string/play_live" />-->
+
+        <!--<Button-->
+        <!--android:id="@+id/btEncode"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/btPlayLive"-->
+        <!--android:layout_marginTop="@dimen/_20sdp"-->
+        <!--android:text="@string/encode" />-->
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data></data>
+
+
+    <LinearLayout
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp"
+        android:paddingEnd="3dp"
+        android:paddingStart="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="3dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="7dp">
+
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:id="@+id/imgAvatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="1:0.75"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <ImageView
+                        android:id="@+id/imgVideoType"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:src="@drawable/f2_ic_video"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                </android.support.constraint.ConstraintLayout>
+
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="6dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Gợi ý 6 địa điểm vui chơi cho trẻ em ở..."
+                    android:textColor="@color/md_black_1000"
+                    android:textSize="16dp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="6dp"
+                    android:gravity="center_vertical">
+
+
+                    <ImageView
+                        android:src="@drawable/f2_ic_time"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp" />
+
+
+                    <TextView
+                        android:id="@+id/tvTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="25/05/2020"
+                        android:textSize="11dp" />
+
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        android:background="#707070" />
+
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end|center_vertical">
+
+                        <ImageView
+                            android:src="@drawable/f2_ic_gray_view"
+                            android:layout_width="16dp"
+                            android:layout_height="11dp"
+                            android:layout_marginEnd="8dp" />
+
+
+                        <TextView
+                            android:id="@+id/tvViewCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="11k"
+                            android:textSize="11dp" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+
+</layout>

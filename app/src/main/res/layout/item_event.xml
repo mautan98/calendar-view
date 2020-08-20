@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_5sdp">
+
+    <com.namviet.vtvtravel.widget.RobotoTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Du lịch"
+        android:textColor="@color/md_black_1000"
+        android:textSize="@dimen/_13sdp"
+        app:typeface="roboto_bold" />
+
+    <com.namviet.vtvtravel.widget.RobotoTextView
+        android:id="@+id/tv_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="Tất cả"
+        android:textSize="@dimen/_11sdp"
+        app:typeface="roboto_regular" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle" />
+
+</RelativeLayout>

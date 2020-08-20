@@ -1,0 +1,175 @@
+package com.namviet.vtvtravel.adapter.newhome.subnewhome;
+
+import android.app.Activity;
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.response.newhome.AppVideoResponse;
+import com.namviet.vtvtravel.response.newhome.ItemAppDiscoverResponse;
+import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
+
+import java.util.List;
+
+public class SubDiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final int TYPE_ITEM = 0;
+
+    private Context context;
+    private List<ItemAppDiscoverResponse.Item> itemList;
+
+    public SubDiscoverAdapter(Context context, List<ItemAppDiscoverResponse.Item> itemList) {
+        this.context = context;
+        this.itemList = itemList;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return TYPE_ITEM;
+    }
+
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v;
+        if (viewType == TYPE_ITEM) {
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_item_home_discover, parent, false);
+            return new HeaderViewHolder(v);
+        }
+        return null;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        try {
+            if (getItemViewType(position) == TYPE_ITEM) {
+                ((HeaderViewHolder) holder).bindItem(position);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+//        return itemList != null ? itemList.size() : 0;
+        return 1;
+    }
+
+
+    public class HeaderViewHolder extends RecyclerView.ViewHolder {
+        private ImageView img1;
+        private TextView tv1;
+        private ImageView img3;
+        private TextView tv3;
+        private ImageView img2;
+        private TextView tv2;
+        private ImageView img4;
+        private TextView tv4;
+
+        public HeaderViewHolder(View itemView) {
+            super(itemView);
+            img1 = itemView.findViewById(R.id.img1);
+            tv1 = itemView.findViewById(R.id.tv1);
+            img3 = itemView.findViewById(R.id.img3);
+            tv3 = itemView.findViewById(R.id.tv3);
+            img2 = itemView.findViewById(R.id.img2);
+            tv2 = itemView.findViewById(R.id.tv2);
+            img4 = itemView.findViewById(R.id.img4);
+            tv4 = itemView.findViewById(R.id.tv4);
+        }
+
+        public void bindItem(int position) {
+
+            try {
+                tv1.setText(itemList.get(0).getName());
+                setImage(itemList.get(0).getLogo_url(), img1);
+                img1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            TravelNewsActivity.openScreenDetail((Activity)context, TravelNewsActivity.OpenType.DETAIL, itemList.get(0).getDetail_link());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                tv2.setText(itemList.get(1).getName());
+                setImage(itemList.get(1).getLogo_url(), img2);
+                img2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            TravelNewsActivity.openScreenDetail((Activity)context, TravelNewsActivity.OpenType.DETAIL, itemList.get(1).getDetail_link());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            try {
+                tv3.setText(itemList.get(2).getName());
+                setImage(itemList.get(2).getLogo_url(), img3);
+                img3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            TravelNewsActivity.openScreenDetail((Activity)context, TravelNewsActivity.OpenType.DETAIL, itemList.get(2).getDetail_link());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                tv4.setText(itemList.get(3).getName());
+                setImage(itemList.get(3).getLogo_url(), img4);
+                img4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            TravelNewsActivity.openScreenDetail((Activity)context, TravelNewsActivity.OpenType.DETAIL, itemList.get(3).getDetail_link());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+
+
+        }
+
+        public void setImage(String url, ImageView image) {
+            RequestOptions requestOptions = new RequestOptions();
+            requestOptions.placeholder(com.daimajia.slider.library.R.drawable.img_placeholder);
+            requestOptions.error(com.daimajia.slider.library.R.drawable.img_placeholder);
+            Glide.with(context).setDefaultRequestOptions(requestOptions).load(url).thumbnail(0.2f).into(image);
+        }
+    }
+
+
+}

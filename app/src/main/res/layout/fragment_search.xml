@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="searchViewModel"
+            type="com.namviet.vtvtravel.viewmodel.SearchViewModel" />
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:clickable="true">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/myToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary">
+
+            <RelativeLayout
+                android:id="@+id/toolBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/_10sdp">
+
+                <ImageButton
+                    android:id="@+id/ivBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    app:srcCompat="@drawable/vt_keyboard_arrow_left_white" />
+
+                <RelativeLayout
+                    android:id="@+id/rlSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_toEndOf="@+id/ivBack"
+                    android:background="@drawable/bg_ed_search_white">
+
+                    <EditText
+                        android:id="@+id/edSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:background="@null"
+                        android:drawableLeft="@drawable/vt_search_grey"
+                        android:drawablePadding="@dimen/_5sdp"
+                        android:ellipsize="end"
+                        android:hint="@string/search"
+                        android:imeOptions="actionSearch"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:paddingRight="@dimen/_10sdp"
+                        android:paddingBottom="@dimen/_5sdp"
+                        android:singleLine="true"
+                        android:textColor="@color/gray_33"
+                        android:textColorHint="@color/gray_66"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <ImageView
+                        android:id="@+id/ivClear"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:alpha="0.6"
+                        android:background="@drawable/bg_circle_cancle"
+                        android:padding="@dimen/_5sdp"
+                        android:visibility="gone"
+                        app:srcCompat="@drawable/vt_close" />
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/myToolbar" />
+
+        <ProgressBar
+            android:id="@+id/prLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+        <com.namviet.vtvtravel.widget.RobotoTextView
+            android:id="@+id/tvResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="@dimen/_15sdp"
+            android:text="@string/result_search"
+            android:textColor="@color/gray_33"
+            android:textSize="@dimen/_12sdp"
+            android:visibility="gone"
+            app:typeface="roboto_regular" />
+
+    </RelativeLayout>
+
+
+</layout>

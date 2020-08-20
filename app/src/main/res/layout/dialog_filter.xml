@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data></data>
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/_10sdp">
+
+            <RelativeLayout
+                android:id="@+id/rlTop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp">
+
+                <ImageView
+                    android:id="@+id/ivClose"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:padding="@dimen/_3sdp"
+                    app:srcCompat="@drawable/vt_close_black" />
+
+                <com.daimajia.slider.library.RobotoTextView
+                    android:id="@+id/tvCancelFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:text="@string/cancel_filter"
+                    android:textColor="@color/gray_33"
+                    android:textSize="@dimen/_13sdp"
+                    app:typeface="roboto_regular" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvFilter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btApply"
+                android:layout_width="@dimen/_110sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_button_update"
+                android:text="@string/apply"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</layout>

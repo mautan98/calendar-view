@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="subTravelNewsViewModel"
+            type="com.namviet.vtvtravel.viewmodel.f2travelnews.SubTravelNewsViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/data_placeholder_layout" />
+
+                <include layout="@layout/data_placeholder_layout" />
+
+                <include layout="@layout/data_placeholder_layout" />
+
+                <include layout="@layout/data_placeholder_layout" />
+
+                <include layout="@layout/data_placeholder_layout" />
+
+                <include layout="@layout/data_placeholder_layout" />
+
+                <include layout="@layout/data_placeholder_layout" />
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <android.support.v7.widget.RecyclerView
+            app:spanCount="2"
+            app:layoutManager="android.support.v7.widget.StaggeredGridLayoutManager"
+            android:id="@+id/rclContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+
+        
+    </RelativeLayout>
+
+</layout>

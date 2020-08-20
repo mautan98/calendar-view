@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="bigLocationViewModel"
+            type="com.namviet.vtvtravel.viewmodel.f2biglocation.BigLocationViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rclContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <LinearLayout
+            android:id="@+id/layoutPin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <LinearLayout
+                    android:id="@+id/btnBack"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/ivBack"
+                        android:layout_width="11dp"
+                        android:layout_height="19dp"
+                        android:layout_marginStart="18dp"
+                        android:src="@drawable/video_top_back" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutChooseRegion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/f2_bg_button_location"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tvRegionNameTop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/f2_bg_button_location"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center_horizontal"
+                        android:paddingStart="18dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="7dp"
+                        android:textColor="#00918D"
+                        android:textSize="16dp" />
+
+                    <ImageView
+                        android:layout_width="11dp"
+                        android:layout_height="7dp"
+                        android:layout_marginEnd="18dp"
+                        android:src="@drawable/f2_ic_arrow2"
+                        android:tint="#00918D" />
+
+                </LinearLayout>
+
+
+                <ImageView
+                    android:id="@+id/btnSearch"
+                    android:layout_width="21dp"
+                    android:layout_height="21dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="18dp"
+                    android:src="@drawable/f2_ic_search2"
+                    android:tint="@color/white" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_below="@+id/layoutPin"
+            android:visibility="visible"
+            android:id="@+id/shimmerMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/data_placeholder_layout" />
+
+                    <include layout="@layout/data_placeholder_layout" />
+
+                    <include layout="@layout/data_placeholder_layout" />
+
+                    <include layout="@layout/data_placeholder_layout" />
+
+                    <include layout="@layout/data_placeholder_layout" />
+
+                    <include layout="@layout/data_placeholder_layout" />
+
+                    <include layout="@layout/data_placeholder_layout" />
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</layout>

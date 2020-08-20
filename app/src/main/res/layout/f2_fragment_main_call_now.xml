@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data></data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#00918D">
+
+
+                <RelativeLayout
+                    android:id="@+id/imgUser"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp">
+
+                    <ImageView
+                        android:id="@+id/imgAvatar"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@mipmap/user" />
+
+
+                    <View
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/f2_bg_circle_online"
+                        android:layout_width="9dp"
+                        android:layout_height="9dp"/>
+
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/f2_ic_small_logo" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Call now"
+                        android:textColor="@color/white"
+                        android:textSize="21dp" />
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+            <android.support.design.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+
+                <android.support.design.widget.AppBarLayout
+                    android:id="@+id/appBarLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:elevation="0dp">
+
+                    <android.support.design.widget.CollapsingToolbarLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        app:layout_scrollFlags="scroll">
+
+                        <RelativeLayout
+                            android:id="@+id/layoutLearnMore"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/f2_bg_banner_call_now">
+
+                            <ImageView
+                                android:id="@+id/imvBanner"
+                                android:layout_width="76dp"
+                                android:layout_height="80dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="10dp"
+                                android:src="@drawable/f2_callnow_offline" />
+
+
+                            <View
+                                android:id="@+id/viewClose"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_alignParentEnd="true" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginTop="12dp"
+                                android:layout_marginEnd="9dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="Ẩn"
+                                android:textColor="#434040"
+                                android:textSize="14dp" />
+
+                            <TextView
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginStart="10dp"
+                                android:id="@+id/txtTitleBanner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/imvBanner"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/roboto_black"
+                                android:gravity="center"
+                                android:text="Giữ kết nối với bạn bè của bạn qua tính năng Gọi thoại của VTVTravel"
+                                android:textColor="#292929"
+                                android:textSize="18dp" />
+
+                            <TextView
+                                android:id="@+id/txtTitleBanner2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txtTitleBanner"
+                                android:layout_marginStart="14dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="14dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:gravity="center"
+                                android:text="Bạn ơi, giờ đây bạn có thể trò chuyện với bạn bè tiện hơn rất nhiều"
+                                android:textColor="#000000"
+                                android:textSize="14dp" />
+
+                            <TextView
+                                android:id="@+id/btnLearnMore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txtTitleBanner2"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="12dp"
+                                android:background="@drawable/f2_bg_button"
+                                android:fontFamily="@font/roboto_regular"
+                                android:paddingStart="40dp"
+                                android:paddingTop="6dp"
+                                android:paddingEnd="40dp"
+                                android:paddingBottom="8dp"
+                                android:text="Tìm hiểu thêm"
+                                android:textColor="@color/white"
+                                android:textSize="16dp" />
+
+                        </RelativeLayout>
+
+                    </android.support.design.widget.CollapsingToolbarLayout>
+
+                </android.support.design.widget.AppBarLayout>
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vpMainCallNow"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:overScrollMode="never"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+            </android.support.design.widget.CoordinatorLayout>
+
+
+            <!--        <View-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="1dp"-->
+            <!--            android:background="@color/gray_99" />-->
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                app:tabIndicatorHeight="0dp" />
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:scaleType="centerCrop"
+            android:src="@drawable/f2_ic_go_to_call"
+            android:id="@+id/btnToCallScreen"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="60dp"
+            android:layout_marginBottom="72dp" />
+
+    </RelativeLayout>
+
+</layout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="@dimen/_10sdp">
+
+    <com.namviet.vtvtravel.widget.RobotoTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nổi Bật"
+        android:textAllCaps="true"
+        android:textColor="@color/gray_33"
+        android:textSize="@dimen/_14sdp"
+        app:typeface="roboto_bold" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/vpSlide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle"
+        android:layout_marginTop="@dimen/_5sdp" />
+
+    <com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
+        android:id="@+id/vpIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/vpSlide"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="2dp"
+        app:dotColor="@color/gray_99"
+        app:dotRadius="3dp"
+        app:selectedDotColor="@color/color_bg_tv_notify"
+        app:selectedDotRadius="4dp" />
+
+</RelativeLayout>

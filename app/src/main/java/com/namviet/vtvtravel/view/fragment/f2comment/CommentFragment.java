@@ -1,0 +1,365 @@
+package com.namviet.vtvtravel.view.fragment.f2comment;
+
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.graphics.Path;
+import android.view.View;
+import android.widget.Toast;
+
+import com.baseapp.menu.SlideMenu;
+import com.jakewharton.rxbinding2.widget.RxTextView;
+import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent;
+import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.adapter.comment.CommentAdapter;
+import com.namviet.vtvtravel.app.MyApplication;
+import com.namviet.vtvtravel.databinding.F2FragmentCommentBinding;
+import com.namviet.vtvtravel.f2base.base.BaseFragment;
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.model.Account;
+import com.namviet.vtvtravel.model.Comment;
+import com.namviet.vtvtravel.model.travelnews.Travel;
+import com.namviet.vtvtravel.response.f2comment.CommentResponse;
+import com.namviet.vtvtravel.response.f2comment.CreateCommentResponse;
+import com.namviet.vtvtravel.response.f2comment.DeleteCommentResponse;
+import com.namviet.vtvtravel.response.f2comment.UpdateCommentResponse;
+import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
+import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.viewmodel.f2comment.CommentViewModel;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+
+public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> implements Observer {
+    public static int TYPE_COMMENT_NORMAL = 0;
+    public static int TYPE_COMMENT_EDIT = 1;
+    public static int TYPE_COMMENT_REPLY = 2;
+    private CommentViewModel viewModel;
+    private CommentAdapter commentAdapter;
+    private DetailTravelNewsResponse detailTravelNewsResponse;
+    private String contentId;
+    private String parentId;
+    private String userId;
+    private String contentType;
+
+    private int typeComment = TYPE_COMMENT_NORMAL;
+    private String idCommentForEdit;
+
+    private List<CommentResponse.Data.Comment> comments = new ArrayList<>();
+
+    public CommentFragment() {
+    }
+
+    @Override
+    public int getLayoutRes() {
+        return R.layout.f2_fragment_comment;
+    }
+
+    @Override
+    public void initView() {
+        viewModel = new CommentViewModel();
+        getBinding().setCommentViewModel(viewModel);
+        viewModel.addObserver(this);
+
+    }
+
+    private void postComment(String parentId, String content, String contentId, String contentType) {
+        Account account = MyApplication.getInstance().getAccount();
+        if (null != account && account.isLogin()) {
+            userId = String.valueOf(account.getId());
+            viewModel.postComment(parentId, userId, content, contentId, contentType);
+        } else {
+            LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+        }
+
+    }
+
+    @Override
+    public void initData() {
+        handleSearch();
+        contentId = detailTravelNewsResponse.getData().getId();
+        contentType = detailTravelNewsResponse.getData().getContent_type();
+
+        viewModel.getComment(detailTravelNewsResponse.getData().getId());
+//        viewModel.updateComment("616", "ahihi");
+//        viewModel.deleteComment("616");
+
+        commentAdapter = new CommentAdapter(comments, mActivity, new CommentAdapter.ClickItem() {
+            @Override
+            public void onClickItem(CommentResponse.Data.Comment comment) {
+
+            }
+
+            @Override
+            public void onLongClickItem(CommentResponse.Data.Comment comment, CommentResponse.Data.Comment commentParent) {
+                Account account = MyApplication.getInstance().getAccount();
+                if (null != account && account.isLogin()) {
+                    userId = String.valueOf(account.getId());
+                    if(userId.equals(comment.getUserId())){
+                        OptionCommentOfMineDialog optionCommentOfMineDialog = new OptionCommentOfMineDialog();
+                        optionCommentOfMineDialog.setClickButton(new OptionCommentOfMineDialog.ClickButton() {
+                            @Override
+                            public void onClickEdit() {
+                                typeComment = TYPE_COMMENT_EDIT;
+                                idCommentForEdit = comment.getId();
+                                getBinding().edtComment.setText(comment.getContent());
+                            }
+
+                            @Override
+                            public void onClickCopy() {
+                                ClipboardManager clipboard = (ClipboardManager) mActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+                                ClipData clip = ClipData.newPlainText("label", comment.getContent());
+                                clipboard.setPrimaryClip(clip);
+                                showToast("Đã sao chép tin nhắn vào bộ nhớ tạm");
+                            }
+
+                            @Override
+                            public void onDelete() {
+                                deleteComment(comment.getId());
+                            }
+                        });
+                        optionCommentOfMineDialog.show(mActivity.getSupportFragmentManager(), null);
+                    }else {
+                        OptionCommentDialog optionCommentDialog = new OptionCommentDialog();
+                        optionCommentDialog.setClickButton(new OptionCommentDialog.ClickButton() {
+
+                            @Override
+                            public void onClickReply() {
+                                typeComment = TYPE_COMMENT_REPLY;
+                                getBinding().edtComment.setText("#"+comment.getUser().getFullname());
+                                CommentFragment.this.parentId = commentParent.getId();
+                            }
+
+                            @Override
+                            public void onClickCopy() {
+                                ClipboardManager clipboard = (ClipboardManager) mActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+                                ClipData clip = ClipData.newPlainText("label", comment.getContent());
+                                clipboard.setPrimaryClip(clip);
+                                showToast("Đã sao chép tin nhắn vào bộ nhớ tạm");
+                            }
+
+                        });
+                        optionCommentDialog.show(mActivity.getSupportFragmentManager(), null);
+                    }
+                } else {
+                    LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+                }
+
+
+            }
+
+            @Override
+            public void onClickReply(CommentResponse.Data.Comment comment, CommentResponse.Data.Comment commentParent) {
+                typeComment = TYPE_COMMENT_REPLY;
+                getBinding().edtComment.setText("#"+comment.getUser().getFullname());
+                CommentFragment.this.parentId = commentParent.getId();
+            }
+        });
+        getBinding().rclComment.setAdapter(commentAdapter);
+    }
+
+    @Override
+    public void inject() {
+
+    }
+
+    private void deleteComment(String commentId){
+        viewModel.deleteComment(commentId);
+    }
+
+    @Override
+    public void setClickListener() {
+        getBinding().btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mActivity.onBackPressed();
+            }
+        });
+
+        getBinding().imgSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Account account = MyApplication.getInstance().getAccount();
+                if (null != account && account.isLogin()) {
+                    userId = String.valueOf(account.getId());
+
+                    if(typeComment == TYPE_COMMENT_EDIT){
+                        if (!getBinding().edtComment.getText().toString().isEmpty()) {
+                            viewModel.updateComment(idCommentForEdit, getBinding().edtComment.getText().toString());
+                            getBinding().edtComment.setText("");
+                            getBinding().imgSend.setAlpha(1f);
+                            typeComment = TYPE_COMMENT_NORMAL;
+                        }
+                    }else if(typeComment == TYPE_COMMENT_REPLY){
+                        if (!getBinding().edtComment.getText().toString().isEmpty()) {
+                            postComment(parentId, getBinding().edtComment.getText().toString(), contentId, contentType);
+                            getBinding().edtComment.setText("");
+                            getBinding().imgSend.setAlpha(1f);
+                            typeComment = TYPE_COMMENT_NORMAL;
+                        }
+                    }else {
+                        if (!getBinding().edtComment.getText().toString().isEmpty()) {
+                            postComment(null, getBinding().edtComment.getText().toString(), contentId, contentType);
+                            getBinding().edtComment.setText("");
+                            getBinding().imgSend.setAlpha(1f);
+                        }
+                    }
+                } else {
+                    LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+                }
+
+            }
+        });
+    }
+
+    @Override
+    public void setObserver() {
+
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+        getBinding().layoutLoading.setVisibility(View.GONE);
+        if (observable instanceof CommentViewModel && null != o) {
+            if (o instanceof CommentResponse) {
+                CommentResponse response = (CommentResponse) o;
+                if(response.getData().getContent().size() > 0){
+                    getBinding().layoutNoComment.setVisibility(View.GONE);
+                }
+                comments.clear();
+                comments.addAll(response.getData().getContent());
+                commentAdapter.notifyDataSetChanged();
+//                commentAdapter = new CommentAdapter(response.getData().getContent(), mActivity, new CommentAdapter.ClickItem() {
+//                    @Override
+//                    public void onClickItem(CommentResponse.Data.Comment comment) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onLongClickItem(CommentResponse.Data.Comment comment, CommentResponse.Data.Comment commentParent) {
+//                        Account account = MyApplication.getInstance().getAccount();
+//                        if (null != account && account.isLogin()) {
+//                            userId = String.valueOf(account.getId());
+//                            if(userId.equals(comment.getUserId())){
+//                                OptionCommentOfMineDialog optionCommentOfMineDialog = new OptionCommentOfMineDialog();
+//                                optionCommentOfMineDialog.setClickButton(new OptionCommentOfMineDialog.ClickButton() {
+//                                    @Override
+//                                    public void onClickEdit() {
+//                                        typeComment = TYPE_COMMENT_EDIT;
+//                                        idCommentForEdit = comment.getId();
+//                                        getBinding().edtComment.setText(comment.getContent());
+//                                    }
+//
+//                                    @Override
+//                                    public void onClickCopy() {
+//                                        ClipboardManager clipboard = (ClipboardManager) mActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+//                                        ClipData clip = ClipData.newPlainText("label", comment.getContent());
+//                                        clipboard.setPrimaryClip(clip);
+//                                        showToast("Đã sao chép tin nhắn vào bộ nhớ tạm");
+//                                    }
+//
+//                                    @Override
+//                                    public void onDelete() {
+//                                        deleteComment(comment.getId());
+//                                    }
+//                                });
+//                                optionCommentOfMineDialog.show(mActivity.getSupportFragmentManager(), null);
+//                            }else {
+//                                OptionCommentDialog optionCommentDialog = new OptionCommentDialog();
+//                                optionCommentDialog.setClickButton(new OptionCommentDialog.ClickButton() {
+//
+//                                    @Override
+//                                    public void onClickReply() {
+//                                        typeComment = TYPE_COMMENT_REPLY;
+//                                        getBinding().edtComment.setText("#"+comment.getUser().getFullname());
+//                                        CommentFragment.this.parentId = commentParent.getId();
+//                                    }
+//
+//                                    @Override
+//                                    public void onClickCopy() {
+//                                        ClipboardManager clipboard = (ClipboardManager) mActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+//                                        ClipData clip = ClipData.newPlainText("label", comment.getContent());
+//                                        clipboard.setPrimaryClip(clip);
+//                                        showToast("Đã sao chép tin nhắn vào bộ nhớ tạm");
+//                                    }
+//
+//                                });
+//                                optionCommentDialog.show(mActivity.getSupportFragmentManager(), null);
+//                            }
+//                        } else {
+//                            LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+//                        }
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onClickReply(CommentResponse.Data.Comment comment, CommentResponse.Data.Comment commentParent) {
+//                        typeComment = TYPE_COMMENT_REPLY;
+//                        getBinding().edtComment.setText("#"+comment.getUser().getFullname());
+//                        CommentFragment.this.parentId = commentParent.getId();
+//                    }
+//                });
+//                getBinding().rclComment.setAdapter(commentAdapter);
+            } else if (o instanceof CreateCommentResponse) {
+                CreateCommentResponse response = (CreateCommentResponse) o;
+                if (response != null && response.isSuccess()) {
+                    viewModel.getComment(detailTravelNewsResponse.getData().getId());
+                }
+            } else if (o instanceof DeleteCommentResponse) {
+                DeleteCommentResponse response = (DeleteCommentResponse) o;
+                if (response != null && response.isSuccess()) {
+                    viewModel.getComment(detailTravelNewsResponse.getData().getId());
+                }
+            } else if (o instanceof UpdateCommentResponse) {
+                UpdateCommentResponse response = (UpdateCommentResponse) o;
+                if (response != null && response.isSuccess()) {
+                    viewModel.getComment(detailTravelNewsResponse.getData().getId());
+                }
+            } else if (o instanceof ErrorResponse) {
+                ErrorResponse responseError = (ErrorResponse) o;
+                try {
+//                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
+                } catch (Exception e) {
+
+                }
+            }
+
+        }
+    }
+
+    public void setDetailTravelNewsResponse(DetailTravelNewsResponse detailTravelNewsResponse) {
+        this.detailTravelNewsResponse = detailTravelNewsResponse;
+    }
+
+
+    private void handleSearch() {
+        RxTextView.afterTextChangeEvents(getBinding().edtComment)
+                .skipInitialValue()
+                .debounce(100, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<TextViewAfterTextChangeEvent>() {
+                    @Override
+                    public void accept(TextViewAfterTextChangeEvent textViewAfterTextChangeEvent) throws Exception {
+                        if (getBinding().edtComment.getText().toString().isEmpty()) {
+                            getBinding().imgSend.setAlpha(0.3f);
+                        } else {
+                            getBinding().imgSend.setAlpha(1f);
+                        }
+                    }
+                });
+
+
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
+}

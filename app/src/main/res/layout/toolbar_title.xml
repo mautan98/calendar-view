@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+
+    </data>
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/rlToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        android:elevation="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            app:srcCompat="@drawable/vt_close_black"
+            android:padding="@dimen/_4sdp"/>
+
+
+    </android.support.v7.widget.Toolbar>
+</layout>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/f2_item_chat_base" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="53dp"
+        android:layout_marginEnd="53dp"
+        android:layout_marginTop="12dp"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/btnForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="14dp"
+            android:text="Để lại thông tin để đc hỗ trợ tốt hơn"
+            android:textAllCaps="false"
+            android:textColor="#3D3D3D"
+            android:background="@drawable/f2_bg_button_choice"/>
+
+        <Button
+            android:id="@+id/btnChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="14dp"
+            android:text="Kết nối với CSKH"
+            android:textAllCaps="false"
+            android:textColor="#3D3D3D"
+            android:background="@drawable/f2_bg_button_choice"/>
+
+        <Button
+            android:id="@+id/btn1039"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="14dp"
+            android:text="Liên hệ tổng đài 1039"
+            android:textAllCaps="false"
+            android:textColor="#3D3D3D"
+            android:background="@drawable/f2_bg_button_choice" />
+    </LinearLayout>
+</LinearLayout>

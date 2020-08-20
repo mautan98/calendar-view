@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="serviceViewModel"
+            type="com.namviet.vtvtravel.view.fragment.f2service.ServiceViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:focusable="true"
+        android:clickable="true"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/rlToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimary">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Gói dịch vụ"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
+
+            <LinearLayout
+                android:id="@+id/btnBack"
+                android:gravity="center"
+                android:layout_width="50dp"
+                android:layout_height="50dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/video_top_back"
+                    android:tint="@color/white" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/tabVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            app:layout_constraintBottom_toTopOf="@id/vpVideo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rlToolBar"
+            app:tabMode="scrollable"
+            app:tl_indicator_color="@color/colorPrimary"
+            app:tl_indicator_width="120dp"
+            app:tl_tab_padding="16dp"
+            app:tl_textAllCaps="true"
+            app:tl_textBold="BOTH"
+            app:tl_textSelectColor="@color/colorPrimary"
+            app:tl_textUnselectColor="@color/gray_99"
+            app:tl_textsize="16sp" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vpVideo"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_below="@+id/tabVideo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tabVideo" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

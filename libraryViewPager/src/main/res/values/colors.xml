@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffff</color>
+    <color name="gray_33">#333333</color>
+    <color name="gray_66">#666666</color>
+    <color name="gray_99">#999999</color>
+    <color name="alpha_gray_99">#99ffffff</color>
+    <color name="alpha_gray_00">#66000000</color>
+    <color name="alpha_white_99">#66ffffff</color>
+    <color name="alpha_white_tranfer">#00000000</color>
+    <color name="indicator">#dadada</color>
+    <color name="color_play">#f8a249</color>
+</resources>

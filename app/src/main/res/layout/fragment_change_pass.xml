@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="accountViewModel"
+            type="com.namviet.vtvtravel.viewmodel.AccountViewModel" />
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolBar"
+            layout="@layout/toolbar_text" />
+
+        <com.daimajia.slider.library.RobotoTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:gravity="center"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/tv_change_pass"
+            android:textColor="@color/gray_33"
+            android:textSize="@dimen/_13sdp"
+            app:typeface="roboto_regular" />
+
+        <LinearLayout
+            android:id="@+id/llInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivLogo"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:hint="@string/input_old_pass"
+                android:textColorHint="@color/gray_99"
+                app:hintTextAppearance="@style/HintText"
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/edPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:textColor="@color/gray_33"
+                    android:textColorHint="@color/gray_99"
+                    android:textSize="@dimen/_14sdp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:hint="@string/input_new_pass"
+                android:textColorHint="@color/gray_99"
+                app:hintTextAppearance="@style/HintText"
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/edNewPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:textColor="@color/gray_33"
+                    android:textColorHint="@color/gray_99"
+                    android:textSize="@dimen/_14sdp" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:hint="@string/input_repass"
+                android:textColorHint="@color/gray_99"
+                app:hintTextAppearance="@style/HintText"
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/edReNewPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:textColor="@color/gray_33"
+                    android:textColorHint="@color/gray_99"
+                    android:textSize="@dimen/_14sdp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/btUpdate"
+                android:layout_width="@dimen/_115sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/bg_button_update"
+                android:text="@string/update"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13sdp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data></data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.daimajia.slider.library.RobotoTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/_20sdp"
+            android:text="ĂN GÌ"
+            android:textColor="@color/gray_33"
+            android:textSize="@dimen/_13sdp"
+            app:typeface="roboto_regular" />
+
+    </RelativeLayout>
+</layout>

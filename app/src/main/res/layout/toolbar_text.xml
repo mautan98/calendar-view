@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+    </data>
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/myToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp">
+
+        <RelativeLayout
+            android:id="@+id/rlToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <com.namviet.vtvtravel.widget.RobotoTextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:lines="1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                app:typeface="roboto_bold"
+                tools:text="Địa điểm" />
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/vt_keyboard_arrow_left_white" />
+
+            <ImageView
+                android:id="@+id/ivSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                app:srcCompat="@drawable/vt_search_white" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+</layout>

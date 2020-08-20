@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data></data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="15dp">
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/layoutBanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:id="@+id/layoutBanner1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="1125:666"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.namviet.vtvtravel.view.f2customview.RoundishImageView
+                        android:id="@+id/imgBanner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/test_banner"
+                        app:cornerRadius="30dp"
+                        app:roundedCorners="bottomLeft|bottomRight" />
+
+                    <View
+                        android:alpha="0.3"
+                        android:background="@drawable/f2_bg_cover_banner_home"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"/>
+
+                </android.support.constraint.ConstraintLayout>
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/layoutBanner1" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/layoutSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginEnd="36dp"
+                android:layout_marginBottom="3dp"
+                android:elevation="3dp"
+                app:cardCornerRadius="25dp"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical">
+
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="23dp"
+                        android:src="@drawable/f2_ic_search2" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/white"
+                        android:fontFamily="@font/roboto_regular"
+                        android:hint="Nhập từ khóa để tìm kiếm"
+                        android:singleLine="true"
+                        android:textColorHint="#878787"
+                        android:textSize="14dp" />
+
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible">
+
+                <LinearLayout
+                    android:id="@+id/layoutUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical">
+
+
+                    <RelativeLayout
+                        android:layout_width="54dp"
+                        android:layout_height="wrap_content">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/imgAvatar"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:layout_marginStart="12dp"
+                            android:src="@drawable/f2_defaut_user" />
+
+
+                        <TextView
+                            android:id="@+id/tvLevel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:background="@drawable/f2_bg_round_see_more"
+                            android:fontFamily="@font/roboto_regular"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="5dp"
+                            android:text="Free"
+                            android:textColor="#F89C1C"
+                            android:textSize="8dp"
+                            android:visibility="invisible" />
+
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="Xin chào!"
+                            android:textColor="@color/white"
+                            android:textSize="17dp" />
+
+                        <TextView
+                            android:id="@+id/tvLoginRightNow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/f2_bg_login_now"
+                            android:fontFamily="@font/roboto_regular"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="15dp"
+                            android:text="Đăng nhập ngay"
+                            android:textColor="#727272"
+                            android:textSize="10dp" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end|center_vertical">
+
+                    <ImageView
+                        android:id="@+id/ivNotify"
+                        android:layout_width="25dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="12dp"
+                        android:src="@drawable/ic_bell"
+                        android:tint="@color/white" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="33dp"
+                android:layout_marginEnd="18dp"
+                android:gravity="center">
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rclHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+
+            </LinearLayout>
+
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="33dp"
+                android:layout_marginEnd="18dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/layoutHotel"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/f2_bg_tool_top"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/f2_icon_hotel" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Khách sạn"
+                        android:textColor="@color/md_black_1000"
+                        android:textSize="9dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutFlight"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/f2_bg_tool_top"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toStartOf="@+id/layoutFood"
+                    app:layout_constraintStart_toEndOf="@+id/layoutHotel"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/f2_ic_airplane" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Chuyến bay"
+                        android:textColor="@color/md_black_1000"
+                        android:textSize="9dp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/layoutFood"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/f2_bg_tool_top"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toStartOf="@+id/layoutPlay"
+                    app:layout_constraintStart_toEndOf="@+id/layoutFlight"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/f2_ic_food" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Ẩn thực"
+                        android:textColor="@color/md_black_1000"
+                        android:textSize="9dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutPlay"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/f2_bg_tool_top"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toStartOf="@+id/layoutTrip"
+                    app:layout_constraintStart_toEndOf="@+id/layoutFood"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/f2_ic_ticket" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Vui vẻ chơi"
+                        android:textColor="@color/md_black_1000"
+                        android:textSize="9dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutTrip"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/f2_bg_tool_top"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/f2_ic_trip" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Chuyến đi"
+                        android:textColor="@color/md_black_1000"
+                        android:textSize="9dp" />
+
+                </LinearLayout>
+
+
+            </android.support.constraint.ConstraintLayout>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</layout>

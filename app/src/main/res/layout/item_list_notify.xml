@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/_10sdp"
+    android:paddingTop="@dimen/_5sdp"
+    android:paddingRight="@dimen/_10sdp"
+    android:paddingBottom="@dimen/_5sdp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/avatar"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:src="@mipmap/user"
+        app:civ_border_color="@color/colorPrimary" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_toRightOf="@id/avatar"
+        android:orientation="vertical">
+
+        <com.daimajia.slider.library.RobotoTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="Du lich Hà Nội cuối năm 2018"
+            android:textColor="@color/gray_33"
+            android:textSize="@dimen/_13sdp"
+            app:typeface="roboto_bold" />
+
+        <com.daimajia.slider.library.RobotoTextView
+            android:id="@+id/tvShortDes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Du lich Hà Nội cuối năm 2018"
+            android:textColor="@color/gray_33"
+            android:textSize="@dimen/_12sdp"
+            app:typeface="roboto_regular" />
+
+        <com.daimajia.slider.library.RobotoTextView
+            android:id="@+id/tvTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="Hôm nay"
+            android:textColor="@color/gray_66"
+            android:textSize="@dimen/_11sdp"
+            app:typeface="roboto_regular" />
+    </LinearLayout>
+
+
+</RelativeLayout>

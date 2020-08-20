@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_service_dialog">
+
+        <RelativeLayout
+            android:layout_width="320dp"
+            android:layout_height="320dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/vt_close" />
+
+            <TextView
+                android:id="@+id/txt_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="ĐĂNG KÝ KHÔNG THÀNH CÔNG"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/txt_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:maxWidth="200dp"
+                android:text="Tài khoản của quý khách không đủ 3000 đồng để đăng ký dịch vụ gói Travel Vip"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/txt_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:maxWidth="200dp"
+                android:text="Quý khách vui lòng nạp thêm tiền vào tài khoản thuê bao để đăng ký lại"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

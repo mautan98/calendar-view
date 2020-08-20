@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.namviet.vtvtravel.viewmodel.DisableRecyclerView
+        android:id="@+id/rvListVideo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:id="@+id/rlVideoPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_180sdp"
+        android:visibility="visible">
+
+        <com.longtailvideo.jwplayer.JWPlayerView
+
+            android:id="@+id/jwPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imv_back_play_list_video"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_dialog_close_dark" />
+
+</RelativeLayout>

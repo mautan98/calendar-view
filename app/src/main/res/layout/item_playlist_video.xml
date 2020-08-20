@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_item_video"
+    android:background="@color/md_black_1000"
+    android:paddingBottom="@dimen/_10sdp">
+
+
+    <RelativeLayout
+        android:id="@+id/rlPlayArea"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_180sdp">
+
+        <ImageView
+            android:id="@+id/imgCover"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_180sdp"
+            android:background="@color/colorPrimary"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:alpha="0.7"
+            app:srcCompat="@drawable/vt_play" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rlPlayArea"
+        android:orientation="vertical"
+        android:padding="@dimen/_5sdp">
+
+        <com.daimajia.slider.library.RobotoTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Xuyến xao mùa cúc họa mi đón đông về giữa lòng Hà Nội"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13sdp"
+            app:typeface="roboto_bold" />
+
+        <com.daimajia.slider.library.RobotoTextView
+            android:id="@+id/tvShortDes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Xuyến xao mùa cúc họa mi đón đông về giữa lòng Hà Nội"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            app:typeface="roboto_regular" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:orientation="horizontal">
+
+            <com.daimajia.slider.library.RobotoTextView
+                android:id="@+id/tvType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:ellipsize="end"
+                android:ems="4"
+                android:maxLines="2"
+                android:text="Ở đâu"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_13sdp"
+                app:typeface="roboto_bold" />
+
+            <com.daimajia.slider.library.RobotoTextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:drawableLeft="@drawable/vt_time_create"
+                android:drawablePadding="@dimen/_5sdp"
+                android:gravity="center_vertical"
+                android:text="10 giờ trước"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13sdp"
+                app:typeface="roboto_regular" />
+
+            <com.daimajia.slider.library.RobotoTextView
+                android:id="@+id/tvView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:drawableLeft="@drawable/vt_view_count"
+                android:drawablePadding="@dimen/_5sdp"
+                android:gravity="center_vertical"
+                android:text="321"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13sdp"
+                app:typeface="roboto_regular" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvTag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"/>
+
+
+
+    </LinearLayout>
+    <View
+        android:background="@color/alpha_white_tranfer_50"
+        android:id="@+id/v_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</RelativeLayout>

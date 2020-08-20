@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemMenu"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackgroundBorderless"
+    android:paddingLeft="@dimen/_10sdp"
+    android:paddingTop="@dimen/_5sdp"
+    android:paddingRight="@dimen/_10sdp">
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivMenu"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/bg_circle_cancle"
+            android:padding="@dimen/_3sdp"
+            android:src="@mipmap/ic_where_color" />
+
+        <com.namviet.vtvtravel.widget.RobotoTextView
+            android:id="@+id/tvName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:drawableEnd="@drawable/vt_arrow_right"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/search"
+            android:textColor="@color/gray_33"
+            android:textSize="@dimen/_14sdp"
+            app:typeface="roboto_regular"
+            tools:text="mr gary allen" />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/ll"
+        android:layout_marginStart="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:alpha="0.7"
+        android:background="@color/gray_99" />
+</RelativeLayout>
+

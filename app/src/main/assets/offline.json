@@ -1,0 +1,189 @@
+{
+  "popupScreen": {
+    "banner": {
+      "image": "img_popup_banner.png",
+      "content": "abcd"
+    },
+    "description": "Chào Bạn! Chúng tôi đã ra mắt tính năng trải nghiệm offline cho bạn trải nghiệm với nhiều ưu đãi từ VTV Travel.",
+    "items": [
+      {
+        "id": "1",
+        "title": "Gọi thoại giá rẻ",
+        "subTitle": "(200đ/phút)",
+        "icon": "img_popup_1.png"
+      },
+      {
+        "id": "2",
+        "title": "Săn Deal",
+        "subTitle": "Giành ngàn quà tặng",
+        "icon": "img_popup_2.png"
+      },
+      {
+        "id": "3",
+        "title": "Đăng ký gói dịch vụ",
+        "subTitle": "Trải nghiệm mọi tính năng",
+        "icon": "img_popup_3.png"
+      },
+      {
+        "id": "4",
+        "title": "Tổng đài 1039",
+        "subTitle": "Thông tin du lịch",
+        "icon": "img_popup_4.png"
+      }
+    ]
+  },
+  "listScreens":[
+    {
+      "id": "1",
+      "name": "Call Now",
+      "banner": {
+        "image": "img_callNow_banner.png",
+        "content": "abcd"
+      },
+      "description": "Dễ dàng hơn bao giờ hết",
+      "items": [
+        {
+          "type": "0",
+          "id": "1",
+          "title": "Soạn 1039Số_điện_thoại",
+          "icon": "ic_phone.png",
+          "specialText": ["Soạn ","1039","Số_điện_thoại"]
+        },
+        {
+          "type": "1",
+          "id": "2",
+          "subTitle": "Liên kết đến danh bạ từ điện thoại của bạn",
+          "icon": "ic_contact.png"
+        },
+        {
+          "type": "1",
+          "id": "3",
+          "subTitle": "Chia sẻ ngay với bạn bè để thoải mái tán gẫu",
+          "icon": "ic_share.png"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Săn deal",
+      "banner": {
+        "image": "img_deal_banner.png",
+        "content": "abcd"
+      },
+      "description": "Dễ dàng hơn bao giờ hết",
+      "items": [
+        {
+          "type": "0",
+          "id": "1",
+          "title": "Cách thức",
+          "subTitle": "Gọi tổng đài 1039 (nhánh 7) và làm theo hướng dẫn (Giá : 40đ/phút)",
+          "icon": "ic_cursor.png",
+          "button": "btn_call_1039.png",
+          "action": {
+            "type": "call",
+            "phone": "1039"
+
+          }
+        },
+        {
+          "type": "1",
+          "id": "2",
+          "title": "Giải thưởng",
+          "subTitle": "Tour du lịch 5 sao combo du lịch hạng sang, vé máy bay cùng hàng ngàn giải thưởng giá trị",
+          "icon": "ic_gift.png"
+        },
+        {
+          "type": "2",
+          "id": "3",
+          "title": "Thể lệ",
+          "subTitle": "Xem chi tiết >>",
+          "icon": "ic_rule.png",
+          "action": {
+            "type": "html",
+            "code": "privacy.html"
+          }
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Gói dịch vụ",
+      "banner": {
+        "image": "img_callCenter_banner.png",
+        "content": "abcd"
+      },
+      "description": "VTV Travel ra mắt 2 gói ưu đãi siêu hot, siêu tốc độ, siêu tiết kiệm chỉ dành riêng cho thành viên của VTV Travel",
+      "items": [
+        {
+          "type": "0",
+          "id": "1",
+          "title": "Gói Friend Travel",
+          "subTitle": "- Miễn phí nhận thông tin du lịch.\n- Miễn phí data khi truy cập nội dung tại VTV Travel.\n- Tham gia săn deal với giá ưu đãi và cơ hội trúng thưởng cao.",
+          "icon": "ic_package.png"
+        },
+        {
+          "type": "0",
+          "id": "2",
+          "title": "Gói Friend VIP",
+          "subTitle": "- Miễn phí data khi truy cập nội dung tại VTV Travel (dự kiến)\n- Miễn phí nhận thông tin du lịch.\n- Miễn phí 15 phút gọi/ ngày tương tác giữa các thuê bao theo gói dịch vụ đã đăng kí qua 1039.\n- Miễn phí 15 phút gọi/ngày đến 1039 (nhánh tự động).\n- Miễn phí 10 phút gọi/ ngày đến 1039 (nhánh tổng đài viên).\n- Tham gia săn deal với giá ưu đãi và cơ hội trúng thưởng cao.",
+          "icon": "ic_package.png"
+        }
+      ],
+      "packages":[
+        {
+          "type": "0",
+          "id": "1",
+          "name": "Gói Friend Travel",
+          "code": "MP",
+          "price": "1.000đ/ngày",
+          "content": "Miễn phí nhận thông tin du lịch\nMiễn phí nhận thông tin du lịch\nMiễn phí nhận thông tin du lịch",
+          "banner": "img_package_friend.png",
+          "action": {
+            "type": "sms",
+            "code": "MP",
+            "phone": "1039"
+          }
+        },
+        {
+          "type": "0",
+          "id": "2",
+          "name": "Gói Friend VIP",
+          "code": "VIP",
+          "price": "2.000đ/ngày",
+          "content": "Miễn phí nhận thông tin du lịch\nMiễn phí nhận thông tin du lịch\nMiễn phí nhận thông tin du lịch",
+          "banner": "img_package_vip.png",
+          "action": {
+            "type": "sms",
+            "code": "VIP",
+            "phone": "1039"
+          }
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Tổng đài 1039",
+      "banner": {
+        "image": "img_callCenter_banner.png",
+        "content": "abcd"
+      },
+      "description": "Dễ dàng hơn bao giờ hết",
+      "items": [
+        {
+          "type": "0",
+          "id": "1",
+          "icon": "ic_call_1039_large.png",
+          "action": {
+            "type": "call",
+            "phone": "1039"
+          }
+        },
+        {
+          "type": "1",
+          "id": "2",
+          "icon": "img_callCenter_tree.png"
+        }
+      ]
+    }
+  ]
+}

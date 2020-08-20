@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="searchNumberViewModel"
+            type="com.namviet.vtvtravel.viewmodel.f2callnow.SearchNumberViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true">
+
+
+        <LinearLayout
+            android:id="@+id/layoutIntro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="16dp"
+            android:background="#F3F3F3"
+            android:orientation="vertical"
+            android:paddingStart="24dp"
+            android:paddingTop="24dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="24dp">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Cú pháp: "
+                    android:textColor="@color/md_black_1000"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="1039+Số_điện_thoại"
+                    android:textColor="@color/md_black_1000"
+                    android:textSize="16dp" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Trong đó Số_điện_thoại bắt đầu bằng 0"
+                android:textColor="@color/md_black_1000"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Ví dụ: 10390966429650"
+                android:textColor="@color/md_black_1000"
+                android:textSize="16dp" />
+
+
+        </LinearLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rclContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/layoutType"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#f2f2f2">
+
+            <ImageView
+                android:id="@+id/imgShowKeyboard"
+                android:layout_width="20dp"
+                android:layout_height="26dp"
+                android:rotation="180"
+                android:src="@drawable/f2_ic_hide_keyboard" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray_99" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingTop="11dp"
+                android:paddingBottom="11dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="1039"
+                    android:textColor="#00918D"
+                    android:textSize="27dp" />
+
+
+                <EditText
+                    android:id="@+id/edtPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="0912345678"
+                    android:inputType="phone"
+                    android:singleLine="true"
+                    android:textSize="27dp" />
+
+                <ImageView
+                    android:id="@+id/btnDelete"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/f2_ic_delete_number" />
+
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/btnCloseKeyboard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="40dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:padding="15dp"
+                    android:text="Đóng"
+                    android:textColor="@color/md_black_1000"
+                    android:textSize="16dp" />
+
+
+                <LinearLayout
+                    android:id="@+id/btnCall"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/f2_bg_circle_cal"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:src="@drawable/f2_ic_phone" />
+
+
+                </LinearLayout>
+
+
+                <ImageView
+                    android:id="@+id/imgHideKeyboard"
+                    android:layout_width="20dp"
+                    android:layout_height="26dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="50dp"
+                    android:src="@drawable/f2_ic_hide_keyboard" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</layout>

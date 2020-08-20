@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data></data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/f2_bg_dialog_15"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:text="ÁP DỤNG MÃ KHUYẾN MÃI"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+
+
+            <LinearLayout
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="22dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_marginTop="24dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tvCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/f2_bg_dash_voucher"
+                        android:gravity="center"
+                        android:src="@drawable/f2_ic_time_left" />
+
+
+                    <ImageView
+                        android:id="@+id/btnCopy"
+                        android:layout_marginStart="7dp"
+                        android:layout_width="99dp"
+                        android:layout_height="39dp"
+                        android:src="@drawable/f2_ic_copy_voucher_code" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="9dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="17dp"
+                        android:layout_height="26dp"
+                        android:src="@drawable/f2_ic_time_left" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="Hạn sử dụng đến ngày 31/08/2020"
+                        android:textColor="#858585" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Sử dụng ngay tại đây:"
+                        android:textColor="#000000"
+                        android:textSize="16dp" />
+
+
+                    <TextView
+                        android:id="@+id/tvShortLink"
+                        android:layout_marginStart="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="shortlink"
+                        android:textColor="#004CFF" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="16dp"
+                android:background="#E4E4E4" />
+
+            <TextView
+                android:id="@+id/btnClose"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:text="Đóng"
+                android:textColor="#00918D"
+                android:textSize="17dp" />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

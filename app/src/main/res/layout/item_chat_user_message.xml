@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="right"
+    android:paddingTop="8dp"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:gravity="right"
+        android:id="@+id/ll_chat"
+        android:layout_weight="6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:orientation="vertical"
+        app:layout_constraintRight_toLeftOf="@id/imv_chat_text"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_chat_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="Bạn"
+            android:textColor="@color/md_grey_700"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.github.library.bubbleview.BubbleTextView
+            android:id="@+id/tv_chat_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="300dp"
+            android:padding="10dp"
+            android:text="Hello BubbleTextVew"
+            android:textColor="@color/md_grey_800"
+            app:angle="8dp"
+            app:arrowCenter="true"
+            app:arrowHeight="10dp"
+            app:arrowLocation="right"
+            app:arrowPosition="14dp"
+            app:arrowWidth="8dp"
+            app:bubbleColor="@color/md_grey_200"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_chat_name" />
+
+        <TextView
+            android:id="@+id/tv_chat_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="just now" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/imv_chat_text"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="12dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_account_circle_black_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</LinearLayout>

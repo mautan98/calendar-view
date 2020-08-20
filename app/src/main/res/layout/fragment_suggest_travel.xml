@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="placeViewModel"
+            type="com.namviet.vtvtravel.viewmodel.PlaceViewModel" />
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_41sdp"
+            android:background="@color/colorPrimary"
+            android:gravity="center_vertical"
+            android:elevation="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivMenu"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:padding="@dimen/_3sdp"
+                    android:src="@mipmap/ic_menu" />
+
+                <ImageView
+                    android:id="@+id/ivLogoHome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/logo_home" />
+
+                <RelativeLayout
+                    android:id="@+id/llNotify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="@dimen/_10sdp">
+
+                    <ImageView
+                        android:id="@+id/notify"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:padding="@dimen/_3sdp"
+                        android:src="@mipmap/ic_notify" />
+
+                    <com.namviet.vtvtravel.widget.RobotoTextView
+                        android:id="@+id/tv_notification"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignRight="@id/notify"
+                        android:background="@drawable/bg_notification"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/_4sdp"
+                        android:paddingRight="@dimen/_4sdp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_10sdp"
+                        app:typeface="roboto_regular" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolBar"
+            android:background="@mipmap/bg_suggest">
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:id="@+id/imvBackground"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <com.daimajia.slider.library.RobotoTextView
+                android:textStyle="bold"
+                android:id="@+id/tvTitleSuggest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_60sdp"
+                android:gravity="center_horizontal"
+                android:paddingLeft="@dimen/_20sdp"
+                android:paddingRight="@dimen/_20sdp"
+                android:text="@string/suggest_travel_title"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                app:typeface="roboto_regular" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTitleSuggest"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_40sdp"
+                android:orientation="vertical">
+
+                <com.daimajia.slider.library.RobotoTextView
+                    android:id="@+id/btSuggest"
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="@dimen/_32sdp"
+                    android:layout_marginRight="@dimen/_3sdp"
+                    android:background="@drawable/textview_corner_suggest"
+                    android:gravity="center"
+                    android:text="@string/vtv_travel_goi_y"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13sdp"
+                    app:typeface="roboto_bold" />
+
+                <com.daimajia.slider.library.RobotoTextView
+                    android:id="@+id/btSchedule"
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="@dimen/_32sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/textview_corner_schedule"
+                    android:gravity="center"
+                    android:text="@string/vtv_travel_schedule"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13sdp"
+                    app:typeface="roboto_bold" />
+
+                <com.daimajia.slider.library.RobotoTextView
+                    android:id="@+id/btMySchedule"
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="@dimen/_32sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/textview_corner_myschedule"
+                    android:gravity="center"
+                    android:text="@string/my_travel_schedule"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13sdp"
+                    app:typeface="roboto_bold" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</layout>

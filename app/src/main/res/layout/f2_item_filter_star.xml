@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data></data>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="6dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="6dp"
+        android:paddingBottom="5dp">
+
+        <LinearLayout
+            android:id="@+id/linearStar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/f2_bg_tab_star"
+            android:gravity="center"
+            android:paddingStart="30dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:id="@+id/tvNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
+                android:text="1"
+                android:textColor="#C7C7C7"
+                android:textSize="14dp" />
+
+            <ImageView
+                android:id="@+id/imgStar"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginStart="4dp"
+                android:src="@drawable/f2_ic_disable_star" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

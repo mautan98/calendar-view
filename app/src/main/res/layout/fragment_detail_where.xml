@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="placeViewModel"
+            type="com.namviet.vtvtravel.viewmodel.PlaceViewModel" />
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:clickable="true"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:statusBarScrim="@android:color/transparent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/ivBanner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/bg_header" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/alpha_white_00"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingTop="@dimen/_3sdp"
+                        android:paddingRight="@dimen/_10sdp"
+                        android:paddingBottom="@dimen/_3sdp">
+
+                        <ImageView
+                            android:id="@+id/ivIconWeather"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical" />
+
+                        <com.daimajia.slider.library.RobotoTextView
+                            android:id="@+id/tvTemp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_toRightOf="@id/ivIconWeather"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_14sdp"
+                            app:typeface="roboto_regular" />
+
+                        <ImageView
+                            android:id="@+id/ivArrow"
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_toRightOf="@id/tvTemp"
+                            app:srcCompat="@drawable/vt_arrow_down" />
+
+                        <com.daimajia.slider.library.RobotoTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_gravity="center_vertical|right"
+                            android:background="@drawable/bg_ed_search_white"
+                            android:drawableLeft="@drawable/bg_dot"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:paddingLeft="@dimen/_5sdp"
+                            android:paddingTop="@dimen/_2sdp"
+                            android:paddingRight="@dimen/_5sdp"
+                            android:paddingBottom="@dimen/_2sdp"
+                            android:text="@string/open_door"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_12sdp"
+                            android:visibility="invisible"
+                            app:typeface="roboto_regular" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/myToolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colorPrimary"
+                    android:elevation="0dp"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetStart="0dp"
+                    app:contentInsetStartWithNavigation="0dp"
+                    app:layout_collapseMode="pin">
+
+                    <RelativeLayout
+                        android:id="@+id/rlToolBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/ivBack"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            app:srcCompat="@drawable/vt_keyboard_arrow_left_white" />
+
+                        <com.namviet.vtvtravel.widget.RobotoTextView
+                            android:id="@+id/tvTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="Địa điểm"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_13sdp"
+                            app:typeface="roboto_bold" />
+
+                        <ImageView
+                            android:id="@+id/ivSearch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            app:srcCompat="@drawable/vt_search_white" />
+                    </RelativeLayout>
+                </android.support.v7.widget.Toolbar>
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:background="@color/white"
+                android:textSize="@dimen/_12sdp"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/colorPrimary"
+                app:tabTextColor="@color/gray_99" />
+        </android.support.design.widget.AppBarLayout>
+
+        <com.namviet.vtvtravel.widget.CustomNestedScrollView
+            android:id="@+id/nesScroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_10sdp">
+
+                    <com.daimajia.slider.library.RobotoTextView
+                        android:id="@+id/tvTitleWhere"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/_3sdp"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:textColor="@color/gray_33"
+                        android:textSize="@dimen/_13sdp"
+                        app:typeface="roboto_bold" />
+
+                    <com.daimajia.slider.library.RobotoTextView
+                        android:id="@+id/tvAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvTitleWhere"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:textColor="@color/gray_66"
+                        android:textSize="@dimen/_11sdp"
+                        app:typeface="roboto_regular" />
+                </RelativeLayout>
+
+                <WebView
+                    android:id="@+id/webDes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_5sdp" />
+
+                <com.daimajia.slider.library.RobotoTextView
+                    android:id="@+id/tvTitlePhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:text="Thư viện ảnh"
+                    android:textColor="@color/gray_33"
+                    android:textSize="@dimen/_13sdp"
+                    app:typeface="roboto_bold" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvPhotos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp" />
+
+                <com.daimajia.slider.library.RobotoTextView
+                    android:id="@+id/tvTitleVideo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:text="Video"
+                    android:textColor="@color/gray_33"
+                    android:textSize="@dimen/_13sdp"
+                    android:visibility="gone"
+                    app:typeface="roboto_bold" />
+
+                <RelativeLayout
+                    android:id="@+id/rlVideoPlayer"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_180sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:visibility="gone">
+
+                    <include
+                        android:id="@+id/videoPlayer"
+                        layout="@layout/layout_float_video"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/ivBannerVideo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/bg_header" />
+
+                    <ImageView
+                        android:id="@+id/ivIconPlay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:alpha="0.6"
+                        app:srcCompat="@drawable/vt_play" />
+                </RelativeLayout>
+
+                <com.daimajia.slider.library.RobotoTextView
+                    android:id="@+id/tvTitleSuggest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:text="Các gợi ý khác của VTV Travel"
+                    android:textColor="@color/gray_33"
+                    android:textSize="@dimen/_13sdp"
+                    app:typeface="roboto_bold" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvSuggest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp" />
+
+                <com.daimajia.slider.library.RobotoTextView
+                    android:id="@+id/tvTitleNearPlace"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:text="Các địa điểm lân cận"
+                    android:textColor="@color/gray_33"
+                    android:textSize="@dimen/_13sdp"
+                    app:typeface="roboto_bold" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvNearPlace"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp" />
+
+                <com.daimajia.slider.library.RobotoTextView
+                    android:id="@+id/tvTitleComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:text="Bình luận (0)"
+                    android:textColor="@color/gray_33"
+                    android:textSize="@dimen/_13sdp"
+                    app:typeface="roboto_bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/avatar"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_35sdp"
+                        android:src="@mipmap/user"
+                        app:civ_border_color="@color/colorPrimary"
+                        app:civ_border_width="1dp" />
+
+                    <com.daimajia.slider.library.RobotoTextView
+                        android:id="@+id/tvComment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:hint="@string/write_comment"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:paddingBottom="@dimen/_5sdp"
+                        android:textColor="@color/gray_33"
+                        android:textColorHint="@color/gray_66"
+                        android:textSize="@dimen/_13sdp"
+                        app:typeface="roboto_regular" />
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp" />
+            </LinearLayout>
+
+
+        </com.namviet.vtvtravel.widget.CustomNestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

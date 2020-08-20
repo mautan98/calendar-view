@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/menu_sex_nam"
+        android:title="@string/male"
+        android:visible="true"
+        tools:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_sex_nu"
+        android:title="@string/female"
+        android:visible="true"
+        tools:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_sex_other"
+        android:title="@string/other"
+        android:visible="true"
+        tools:showAsAction="ifRoom" />
+</menu>

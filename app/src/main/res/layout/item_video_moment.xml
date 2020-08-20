@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/rlImg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_160sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp">
+
+            <ImageView
+                android:id="@+id/ivItem"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_150sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_header" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:alpha="0.6"
+                app:srcCompat="@drawable/vt_play" />
+        </RelativeLayout>
+
+        <com.daimajia.slider.library.RobotoTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlImg"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Vẻ đẹp hùng vĩ của các công viên Mỹ"
+            android:textColor="@color/gray_33"
+            android:textSize="@dimen/_13sdp"
+            app:typeface="roboto_regular" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

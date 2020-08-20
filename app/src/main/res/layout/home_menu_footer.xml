@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/ll_footer_hot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/ripple_effect_click"
+        android:clickable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_5sdp"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/iv_footer_hot"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:src="@drawable/f2_ic_home_enable" />
+
+        <com.namviet.vtvtravel.widget.RobotoTextView
+            android:id="@+id/tv_footer_hot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="Trang chủ"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_9sdp"
+            app:typeface="roboto_regular" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_footer_moment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/ripple_effect_click"
+        android:clickable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_5sdp">
+
+        <ImageView
+            android:id="@+id/iv_footer_moment"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:src="@drawable/f2_ic_moment_disable" />
+
+        <com.namviet.vtvtravel.widget.RobotoTextView
+            android:id="@+id/tv_footer_moment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="1"
+            android:text="@string/khoanh_khac"
+            android:textColor="@color/gray_99"
+            android:textSize="@dimen/_9sdp"
+            app:typeface="roboto_regular" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_footer_suggest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/ripple_effect_click"
+        android:clickable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_5sdp">
+
+        <ImageView
+            android:id="@+id/iv_footer_suggest"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:src="@drawable/f2_ic_booking_disable" />
+
+        <com.namviet.vtvtravel.widget.RobotoTextView
+            android:id="@+id/tv_footer_suggest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="1"
+            android:text="Booking"
+            android:textColor="@color/gray_99"
+            android:textSize="@dimen/_9sdp"
+            app:typeface="roboto_regular" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/ll_footer_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/ripple_effect_click"
+        android:clickable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_5sdp">
+
+        <ImageView
+            android:id="@+id/iv_footer_video"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:src="@drawable/test_ic_video" />
+
+        <com.namviet.vtvtravel.widget.RobotoTextView
+            android:id="@+id/tv_footer_video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="1"
+            android:text="@string/tv_video"
+            android:textColor="@color/gray_99"
+            android:textSize="@dimen/_9sdp"
+            app:typeface="roboto_regular" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_footer_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/ripple_effect_click"
+        android:clickable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_5sdp">
+
+        <ImageView
+            android:id="@+id/iv_footer_menu"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:src="@drawable/f2_ic_new_menu" />
+
+        <com.namviet.vtvtravel.widget.RobotoTextView
+            android:id="@+id/tv_footer_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="1"
+            android:text="Menu"
+            android:textColor="@color/gray_99"
+            android:textSize="@dimen/_9sdp"
+            app:typeface="roboto_regular" />
+    </LinearLayout>
+
+</LinearLayout>

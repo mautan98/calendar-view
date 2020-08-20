@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="12dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:background="@drawable/f2_defaut_user"
+            android:id="@+id/imgAvatar"
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Thiên An"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/imgLevel"
+                    android:layout_width="17dp"
+                    android:layout_height="19dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@color/colorPrimary" />
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/f2_bg_score"
+                    android:fontFamily="@font/roboto_bold"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10dp" />
+
+                <TextView
+
+                    android:id="@+id/tvContentRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="7dp"
+                    android:textColor="#22558F"
+                    android:textSize="12dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="center"
+                    android:background="#B4B4B4" />
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="#0081FF"
+                    android:textSize="13dp" />
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:id="@+id/tvComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/roboto_regular"
+                android:textColor="#000000"
+                android:textSize="14dp" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:orientation="horizontal"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                android:id="@+id/rclImage"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:visibility="gone"
+                    android:src="@drawable/f2_ic_gray_heart"
+                    android:layout_width="20dp"
+                    android:layout_height="18dp" />
+
+                <TextView
+                    android:layout_marginEnd="15dp"
+                    android:visibility="gone"
+                    android:id="@+id/tvCountLike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="2"
+                    android:textColor="#7A7A7A"
+                    android:textSize="14dp" />
+
+                <ImageView
+                    android:src="@drawable/f2_ic_reply"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+
+                <TextView
+                    android:id="@+id/tvReply"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Trả lời"
+                    android:textColor="#7A7A7A"
+                    android:textSize="14dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="5dp"
+        android:background="#E8E8E8" />
+
+</LinearLayout>

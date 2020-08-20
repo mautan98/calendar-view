@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/_5sdp"
+    android:paddingBottom="@dimen/_5sdp">
+
+    <ImageView
+        android:id="@+id/ivPhoto"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
+        android:scaleType="centerCrop" />
+
+    <EditText
+        android:id="@+id/edAbout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_toLeftOf="@id/ivRemove"
+        android:layout_toRightOf="@id/ivPhoto"
+        android:background="@drawable/bg_ed_about_photo"
+        android:hint="@string/title_of_photo"
+        android:inputType="textCapSentences"
+        android:paddingLeft="@dimen/_5sdp"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingRight="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_5sdp"
+        android:singleLine="true"
+        android:textColor="@color/gray_33"
+        android:textColorHint="@color/gray_99"
+        android:textSize="@dimen/_12sdp" />
+
+    <ImageView
+        android:id="@+id/ivRemove"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:background="@drawable/bg_circle_cancle"
+        android:padding="@dimen/_5sdp"
+        app:srcCompat="@drawable/vt_close" />
+</RelativeLayout>

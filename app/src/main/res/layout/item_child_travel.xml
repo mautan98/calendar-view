@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="travelModel"
+            type="com.namviet.vtvtravel.viewmodel.ItemChildTravelViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/itemViews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="@{travelModel::onItemClick}"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:padding="@dimen/_5sdp">
+
+        <ImageView
+            android:id="@+id/ivPhoto"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{travelModel.photo}" />
+
+        <com.namviet.vtvtravel.widget.RobotoTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivPhoto"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@{travelModel.name}"
+            android:textColor="@color/gray_33"
+            android:textSize="@dimen/_11sdp"
+            app:typeface="roboto_regular"
+            />
+
+    </RelativeLayout>
+</layout>

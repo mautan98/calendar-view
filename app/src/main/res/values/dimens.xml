@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="size_btn">24dp</dimen>
+    <dimen name="max_height">750dp</dimen>
+    <dimen name="min_height">550dp</dimen>
+    <dimen name="_180sdp">180sp</dimen>
+    <dimen name="_14sdp">14sp</dimen>
+    <dimen name="height_item_video">392dp</dimen>
+</resources>

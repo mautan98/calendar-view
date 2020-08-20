@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="4dp"
+        card_view:cardElevation="2dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="143dp">
+
+
+                <ImageView
+                    android:id="@+id/imvBanner"
+                    android:layout_width="222dp"
+                    android:layout_height="143dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/f2_item_highlight_place" />
+
+                <View
+                    android:layout_width="222dp"
+                    android:layout_height="143dp"
+                    android:alpha="0.3"
+                    android:background="@color/md_black_1000" />
+
+
+                <TextView
+
+                    android:layout_alignParentBottom="true"
+                    android:id="@+id/tvTitle"
+                    android:layout_width="222dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:padding="8dp"
+                    android:text="Ghé Ninh Thuận tham quan công viên đá"
+                    android:textColor="@color/white"
+                    android:textSize="12dp" />
+
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

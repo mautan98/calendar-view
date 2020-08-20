@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/_5sdp"
+    android:paddingBottom="@dimen/_5sdp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:src="@mipmap/user"
+            app:civ_border_color="@color/colorPrimary" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp">
+
+            <com.daimajia.slider.library.RobotoTextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="Nguyễn Văn A"
+                android:textColor="@color/gray_33"
+                android:textSize="@dimen/_13sdp"
+                app:typeface="roboto_bold" />
+
+            <com.daimajia.slider.library.RobotoTextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_toRightOf="@+id/tvName"
+                android:drawableLeft="@drawable/vt_time_create"
+                android:drawablePadding="@dimen/_5sdp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:lines="1"
+                android:text="07/12/2018 15:05"
+                android:textColor="@color/gray_99"
+                android:textSize="@dimen/_11sdp"
+                app:typeface="roboto_regular" />
+
+            <com.daimajia.slider.library.RobotoTextView
+                android:id="@+id/tvComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvName"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:text="Đội tuyển Việt Nam đến sân bay. Quang Hải lập tức thu hút người hâm mộ. Anh cũng không ngần ngại giao lưu với các cổ động viên"
+                android:textColor="@color/gray_33"
+                android:textSize="@dimen/_12sdp"
+                app:typeface="roboto_regular" />
+
+            <TextView
+                android:layout_marginTop="8dp"
+                android:id="@+id/tvAnswer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvComment"
+                android:text="Trả lời" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_child_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvAnswer"/>
+
+            <com.daimajia.slider.library.RobotoTextView
+                android:layout_below="@id/rv_child_comment"
+                android:id="@+id/tvCommentChild"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:hint="@string/write_comment"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:textColor="@color/gray_33"
+                android:textColorHint="@color/gray_66"
+                android:textSize="@dimen/_13sdp"
+                app:typeface="roboto_regular" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

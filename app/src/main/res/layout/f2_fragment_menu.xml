@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="newHomeViewModel"
+            type="com.namviet.vtvtravel.viewmodel.newhome.NewHomeViewModel" />
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ECECEC"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/layoutToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimary">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="Menu"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="123dp"
+            android:layout_below="@+id/layoutToolbar"
+            android:background="@drawable/f2_bg_banner" />
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layoutToolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical"
+                android:paddingBottom="30dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/layoutWeather"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="26dp"
+                        android:layout_marginTop="18dp">
+
+
+                        <ImageView
+                            android:id="@+id/imgWeather"
+                            android:layout_width="39dp"
+                            android:layout_height="39dp"
+                            android:src="@drawable/f2_ic_weather" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="21dp"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:id="@+id/tvCity"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="Hà Nội, Việt Nam"
+                                android:textColor="@color/white"
+                                android:textSize="14dp" />
+
+
+                            <TextView
+                                android:id="@+id/tvStatus"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Trời nắng 39 C"
+                                android:textColor="@color/white"
+                                android:textSize="14dp" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="28dp"
+                        android:layout_marginEnd="10dp"
+                        app:cardCornerRadius="9dp"
+                        app:cardElevation="3dp"
+                        app:cardUseCompatPadding="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+
+                            <LinearLayout
+                                android:visibility="gone"
+                                android:id="@+id/layoutUser"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="14dp"
+                                android:layout_marginTop="14dp"
+                                android:layout_marginEnd="14dp"
+                                android:gravity="center_vertical"
+                                android:paddingBottom="12dp">
+
+                                <ImageView
+                                    android:background="@drawable/f2_defaut_user"
+                                    android:id="@+id/imgAvatar"
+                                    android:layout_width="58dp"
+                                    android:layout_height="58dp"
+                                    android:scaleType="centerCrop" />
+
+
+                                <LinearLayout
+                                    android:id="@+id/layoutUserInformation"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="18dp"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/tvName"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/roboto_bold"
+                                        android:text="Chào Sơn"
+                                        android:textColor="#5D5D5D"
+                                        android:textSize="20dp" />
+
+
+                                    <TextView
+                                        android:id="@+id/tvPhone"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:text="0986xxxx15"
+                                        android:textColor="#515151"
+                                        android:textSize="15dp" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:text="THÔNG TIN CÁ NHÂN"
+                                        android:textColor="#00918D"
+                                        android:textSize="15dp" />
+
+
+                                </LinearLayout>
+
+
+                                <ImageView
+                                    android:layout_width="6dp"
+                                    android:layout_height="11dp" />
+
+
+                            </LinearLayout>
+
+
+
+                            <LinearLayout
+                                android:id="@+id/layoutUserNotYetLogin"
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:layout_marginTop="18dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:src="@drawable/f2_defaut_user"
+                                    android:layout_width="46dp"
+                                    android:layout_height="46dp"/>
+
+
+                                <TextView
+                                    android:textSize="20dp"
+                                    android:fontFamily="@font/roboto_bold"
+                                    android:layout_marginTop="12.5dp"
+                                    android:gravity="center"
+                                    android:text="Bạn chưa đăng nhập"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:paddingEnd="10dp"
+                                    android:paddingStart="10dp"
+                                    android:layout_marginTop="9dp"
+                                    android:textSize="14dp"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:gravity="center"
+                                    android:text="Bạn cần đăng nhập để sử dụng những
+tính năng của VTVTravel"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+
+                                <LinearLayout
+                                    android:layout_marginBottom="15dp"
+                                    android:layout_marginTop="15dp"
+                                    android:gravity="center"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <android.support.v7.widget.CardView
+                                        android:id="@+id/btnLogin"
+                                        app:cardUseCompatPadding="true"
+                                        app:cardCornerRadius="16dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+
+                                        <TextView
+                                            android:background="#00918D"
+                                            android:textColor="@color/white"
+                                            android:paddingBottom="8dp"
+                                            android:paddingTop="8dp"
+                                            android:paddingStart="24dp"
+                                            android:paddingEnd="24dp"
+                                            android:text="Đăng nhập"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"/>
+
+                                    </android.support.v7.widget.CardView>
+
+
+                                    <android.support.v7.widget.CardView
+                                        android:id="@+id/btnRegister"
+                                        app:cardUseCompatPadding="true"
+                                        app:cardCornerRadius="16dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+
+                                        <TextView
+                                            android:background="#00918D"
+                                            android:textColor="@color/white"
+                                            android:paddingBottom="8dp"
+                                            android:paddingTop="8dp"
+                                            android:paddingStart="24dp"
+                                            android:paddingEnd="24dp"
+                                            android:text="  Đăng ký  "
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"/>
+
+
+                                    </android.support.v7.widget.CardView>
+
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rclHeaderMenu"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+
+                        </LinearLayout>
+
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rclContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </RelativeLayout>
+
+</layout>

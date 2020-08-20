@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="smallLocationViewModel"
+            type="com.namviet.vtvtravel.viewmodel.f2smalllocation.SmallLocationViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorPrimary">
+
+                <LinearLayout
+                    android:id="@+id/btnBack"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/video_top_back" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_marginEnd="80dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_toEndOf="@+id/btnBack"
+                    android:background="@drawable/f2_bg_search_small_location"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="21dp"
+                        android:layout_height="21dp"
+                        android:layout_marginStart="11dp"
+                        android:src="@drawable/f2_ic_search2" />
+
+                    <EditText
+                        android:layout_marginEnd="10dp"
+                        android:singleLine="true"
+                        android:id="@+id/edtSearch"
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:hint="Bạn muốn ăn gì?"
+                        android:textSize="14dp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnChooseRegion"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:visibility="visible">
+
+
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/tvRegionName"
+                        android:singleLine="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/white"
+                        android:text="Địa điểm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="11dp"
+                        android:layout_height="7dp"
+                        android:src="@drawable/f2_ic_arrow2"
+                        android:tint="@color/white" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rclContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="27dp"
+            android:layout_marginEnd="27dp"
+            android:background="@drawable/f2_bg_scroll_top">
+
+            <LinearLayout
+                android:id="@+id/btnFilter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/f2_ic_filter" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Lọc"
+                    android:textColor="#000000"
+                    android:textSize="16dp" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#E8E8E8" />
+
+            <LinearLayout
+                android:id="@+id/btnSort"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/f2_ic_sort" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Sắp xếp"
+                    android:textColor="#000000"
+                    android:textSize="16dp" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#E8E8E8" />
+
+            <LinearLayout
+                android:id="@+id/btnMap"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/f2_ic_gray_location" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Bản đồ"
+                    android:textColor="#000000"
+                    android:textSize="16dp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</layout>
