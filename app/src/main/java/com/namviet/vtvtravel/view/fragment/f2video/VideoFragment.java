@@ -1,21 +1,26 @@
 package com.namviet.vtvtravel.view.fragment.f2video;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2offline.MainAdapter;
+import com.namviet.vtvtravel.adapter.vtvtabstyle.VTVTabStyleAdapter;
 import com.namviet.vtvtravel.databinding.F2FragmentVideoBinding;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.response.f2video.VideoResponse;
+import com.namviet.vtvtravel.view.f2.f2oldbase.SearchActivity;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.viewmodel.f2video.VideoViewModel;
 
@@ -59,8 +64,16 @@ public class VideoFragment extends MainFragment implements Observer {
             }
         }, 500);
 
+        binding.btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SearchActivity.startScreen(mActivity);
+            }
+        });
+
     }
 
+    private VTVTabStyleAdapter mainAdapter;
     @Override
     public void update(Observable observable, Object o) {
         new Handler().postDelayed(new Runnable() {
@@ -78,7 +91,7 @@ public class VideoFragment extends MainFragment implements Observer {
         if (observable instanceof VideoViewModel && null != o) {
             if (o instanceof VideoResponse) {
                 videoResponse = (VideoResponse) o;
-                MainAdapter mainAdapter = new MainAdapter(getChildFragmentManager());
+                mainAdapter = new VTVTabStyleAdapter(getChildFragmentManager());
                 for (int i = 0; i < videoResponse.getData().size(); i++) {
                     SubVideoFragment subVideoFragment = new SubVideoFragment();
                     subVideoFragment.setContentLink(videoResponse.getData().get(i).getLink());
@@ -86,11 +99,25 @@ public class VideoFragment extends MainFragment implements Observer {
                 }
 
                 binding.vpContent.setAdapter(mainAdapter);
-                binding.tabLayout.setTabTextColors(ContextCompat.getColor(mActivity, R.color.md_black_1000), ContextCompat.getColor(mActivity, R.color.f2_color_package));
                 binding.tabLayout.setupWithViewPager(binding.vpContent);
                 for (int i = 0; i < videoResponse.getData().size(); i++) {
-                    binding.tabLayout.getTabAt(i).setText(videoResponse.getData().get(i).getName());
+                    View tabHome = LayoutInflater.from(mActivity).inflate(R.layout.f2_custom_tab_vtv_style, null);
+                    TextView tvHome = tabHome.findViewById(R.id.tvTitle);
+                    tvHome.setText((videoResponse.getData().get(i).getName()));
+                    if (i == 0) {
+                        tvHome.setTextColor(Color.parseColor("#00918D"));
+                    } else {
+                        tvHome.setTextColor(Color.parseColor("#101010"));
+                    }
+                    View view = tabHome.findViewById(R.id.indicator);
+                    if (i == 0) {
+                        view.setVisibility(View.VISIBLE);
+                    } else {
+                        view.setVisibility(View.INVISIBLE);
+                    }
+                    binding.tabLayout.getTabAt(i).setCustomView(tabHome);
                 }
+                binding.tabLayout.addOnTabSelectedListener(OnTabSelectedListener);
             }
 
         } else if (o instanceof ErrorResponse) {
@@ -103,5 +130,24 @@ public class VideoFragment extends MainFragment implements Observer {
         }
 
     }
+
+    private TabLayout.OnTabSelectedListener OnTabSelectedListener = new TabLayout.OnTabSelectedListener() {
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+            int c = tab.getPosition();
+            mainAdapter.SetOnSelectView(binding.tabLayout, c);
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+            int c = tab.getPosition();
+            mainAdapter.SetUnSelectView(binding.tabLayout, c);
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+
+        }
+    };
 
 }

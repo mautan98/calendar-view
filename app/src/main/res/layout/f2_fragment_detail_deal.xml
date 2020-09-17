@@ -18,8 +18,7 @@
             android:background="@color/white"
             android:clickable="true"
             android:focusable="true"
-            android:orientation="vertical"
-            android:paddingBottom="30dp">
+            android:orientation="vertical">
 
 
             <RelativeLayout
@@ -54,6 +53,12 @@
 
 
             </RelativeLayout>
+
+
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
 
 

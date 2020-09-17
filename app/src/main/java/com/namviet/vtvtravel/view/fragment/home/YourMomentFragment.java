@@ -158,7 +158,7 @@ public class YourMomentFragment extends MainFragment implements Observer, Travel
                             }
                         } else if (o instanceof NewestResponse) {
                             NewestResponse slideShows = (NewestResponse) o;
-                            slideMomentAdapter = new SlideMomentAdapter(mActivity.getSupportFragmentManager(), slideShows.getData());
+                            slideMomentAdapter = new SlideMomentAdapter(getChildFragmentManager(), slideShows.getData());
                             binding.vpSlideShow.setAdapter(slideMomentAdapter);
                             placeViewModel.loadVideoMoment();
                         } else if (o instanceof VideoMomentResponse) {

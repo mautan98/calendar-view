@@ -87,11 +87,14 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
         private TextView tvPriceRange;
         private TextView tvTime;
         private TextView tvViewCount;
+        private TextView tvRateText;
         private int position;
+        private View viewTime;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
             imgAvatar = itemView.findViewById(R.id.imgAvatar);
+            viewTime = itemView.findViewById(R.id.viewTime);
             tvLocationName = itemView.findViewById(R.id.tvLocationName);
             tvPriceRange = itemView.findViewById(R.id.tvPriceRange);
             tvOpenTime = itemView.findViewById(R.id.tvOpenTime);
@@ -102,6 +105,7 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
             tvName = itemView.findViewById(R.id.tvName);
             tvStatus = itemView.findViewById(R.id.tvStatus);
             tvRate = itemView.findViewById(R.id.tvRate);
+            tvRateText = itemView.findViewById(R.id.tvRateText);
             tvAddress = itemView.findViewById(R.id.tvAddress);
             tvType = itemView.findViewById(R.id.tvType);
             tvDistance = itemView.findViewById(R.id.tvDistance);
@@ -125,28 +129,46 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
             tvName.setText(travel.getName());
             tvLocationName.setText(travel.getRegion_name());
             Glide.with(context).load(travel.getLogo_url()).into(imgAvatar);
-            Glide.with(context).load(travel.getUrl_icon()).into(imgType);
-            tvRate.setText(travel.getStandard_rate());
+
+            tvRate.setText(travel.getEvaluate());
+            tvRateText.setText(travel.getEvaluate_text());
             tvCommentCount.setText(travel.getComment_count());
             tvAddress.setText(travel.getAddress());
-            tvType.setText(travel.getCollection().getName());
 
 
-            if (travel.getDistance() != null && !"".equals(travel.getDistance()) && Double.parseDouble(travel.getDistance()) < 1000) {
-                tvDistance.setText("Cách bạn " + travel.getDistance() + " m");
-            } else if (travel.getDistance() != null && !"".equals(travel.getDistance())) {
-                double finalValue = Math.round(Double.parseDouble(travel.getDistance()) / 1000 * 10.0) / 10.0;
-                tvDistance.setText("Cách bạn " + finalValue + " km");
+            try {
+                tvType.setText(travel.getCollection().getName());
+                Glide.with(context).load(travel.getUrl_icon()).into(imgType);
+            } catch (Exception e) {
+                tvType.setVisibility(View.GONE);
+                imgType.setVisibility(View.GONE);
+                e.printStackTrace();
             }
 
-            if (Constants.TypeDestination.RESTAURANTS.equals(travel.getCollection().getContent_type()) || Constants.TypeDestination.HOTELS.equals(travel.getCollection().getContent_type())) {
+
+            try {
+                if(travel.isHas_location()) {
+                    if (travel.getDistance() != null && !"".equals(travel.getDistance()) && Double.parseDouble(travel.getDistance()) < 1000) {
+                        tvDistance.setText("Cách bạn " + travel.getDistance() + " m");
+                    } else if (travel.getDistance() != null && !"".equals(travel.getDistance())) {
+                        double finalValue = Math.round(Double.parseDouble(travel.getDistance()) / 1000 * 10.0) / 10.0;
+                        tvDistance.setText("Cách bạn " + finalValue + " km");
+                    }
+                }else {
+                    tvDistance.setText("Không xác định");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if (Constants.TypeDestination.RESTAURANTS.equals(travel.getContent_type()) || Constants.TypeDestination.HOTELS.equals(travel.getContent_type())) {
                 linearPriceType.setVisibility(View.VISIBLE);
                 layoutForRestaurant.setVisibility(View.GONE);
                 tvStatus.setVisibility(View.GONE);
                 tvOpenDate.setVisibility(View.GONE);
                 tvOpenTime.setVisibility(View.GONE);
                 tvPriceRange.setVisibility(View.VISIBLE);
-                tvPriceRange.setText(travel.getPrice_from() + " - " + travel.getPrice_to());
+                tvPriceRange.setText(travel.getPrice_from() + " đ - " + travel.getPrice_to()+" đ");
             } else {
                 tvPriceRange.setVisibility(View.GONE);
                 linearPriceType.setVisibility(View.GONE);
@@ -154,9 +176,23 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
                 tvStatus.setVisibility(View.VISIBLE);
                 tvOpenDate.setVisibility(View.VISIBLE);
                 tvOpenTime.setVisibility(View.VISIBLE);
-                tvOpenTime.setText(travel.getRange_time());
                 tvOpenDate.setText(travel.getOpen_week());
                 tvStatus.setText(travel.getType_open());
+
+                try {
+                    if(travel.getRange_time().isEmpty()){
+                        viewTime.setVisibility(View.GONE);
+                        tvOpenTime.setVisibility(View.GONE);
+                    }else {
+                        viewTime.setVisibility(View.VISIBLE);
+                        tvOpenTime.setText(travel.getRange_time());
+                        tvOpenTime.setVisibility(View.VISIBLE);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    viewTime.setVisibility(View.GONE);
+                    tvOpenTime.setVisibility(View.GONE);
+                }
             }
         }
     }
@@ -165,6 +201,4 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
     public interface ClickItem {
         void onClickItem(Travel travel);
     }
-
-
 }

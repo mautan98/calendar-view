@@ -49,6 +49,7 @@ public class HomeViewModel extends BaseViewModel {
         }
     }
 
+
     public void loadDataHome() {
         prLoading.set(View.VISIBLE);
         MyApplication myApplication = MyApplication.getInstance();

@@ -3,7 +3,9 @@ package com.namviet.vtvtravel.view.fragment.f2travelnote;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebResourceRequest;
@@ -17,9 +19,11 @@ import com.namviet.vtvtravel.adapter.travelnews.NearByInTravelDetailAdapter;
 import com.namviet.vtvtravel.databinding.F2FragmentDetailNewsTravelBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.model.f2event.OnCommentSuccessInTravelNews;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.view.MainActivity;
@@ -28,6 +32,9 @@ import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.viewmodel.f2travelnews.DetailNewsTravelViewModel;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 import java.util.Observable;
@@ -73,6 +80,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
 
             }
         }, 500);
+
 
     }
 
@@ -120,6 +128,12 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+                try {
+                    TrackingAnalytic.postEvent(TrackingAnalytic.SHARE, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -158,6 +172,17 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                 getBinding().tvTitle.setText(detailTravelNewsResponse.getData().getName());
                 getBinding().tvCategory.setText(detailTravelNewsResponse.getData().getTitle());
                 try {
+                    if(detailTravelNewsResponse.getData().getShort_description() == null || detailTravelNewsResponse.getData().getShort_description().isEmpty()){
+                        getBinding().tvSapo.setVisibility(View.GONE);
+                    }else {
+                        getBinding().tvSapo.setVisibility(View.VISIBLE);
+                        getBinding().tvSapo.setText(detailTravelNewsResponse.getData().getShort_description());
+                    }
+                } catch (Exception e) {
+                    getBinding().tvSapo.setVisibility(View.GONE);
+                }
+
+                try {
                     getBinding().tvDate.setText("" + DateUtltils.timeToString(Long.valueOf(detailTravelNewsResponse.getData().getCreated())));
                     getBinding().tvAuthor.setText(detailTravelNewsResponse.getData().getAuthor());
 
@@ -168,7 +193,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                     } else {
                         getBinding().tvView.setText(detailTravelNewsResponse.getData().getView_count());
                     }
-                } catch (NumberFormatException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -179,7 +204,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                     getBinding().layoutViewAllComment.setVisibility(View.GONE);
                 } else if (comments.size() >= 3) {
                     getBinding().layoutViewAllComment.setVisibility(View.VISIBLE);
-                    getBinding().tvCommentLeft.setText("Xem tất cả " + (comments.size() - 3) + " bình luận");
+                    getBinding().tvCommentLeft.setText("Xem tất cả " + comments.size() + " bình luận");
                 } else {
                     getBinding().layoutViewAllComment.setVisibility(View.GONE);
                 }
@@ -232,5 +257,23 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
             super.onPageFinished(view, url);
             getBinding().shimmerViewContainer.setVisibility(View.GONE);
         }
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onCommentSuccessInTravelNews(OnCommentSuccessInTravelNews onCommentSuccessInTravelNews){
+        getComment(detailTravelNewsResponse.getData().getId());
     }
 }

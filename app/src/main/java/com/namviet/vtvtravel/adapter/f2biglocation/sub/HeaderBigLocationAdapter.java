@@ -75,20 +75,32 @@ public class HeaderBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
         private ImageView imgAvatar;
         private TextView tvName;
         private TextView tvRate;
+        private TextView tvRateText;
         private TextView tvCommentCount;
         private TextView tvAddress;
         private TextView tvDistance;
         private TextView tvType;
+        private TextView tvLocationName;
+        private TextView tvOpenDate;
+        private TextView tvStatus;
+        private TextView tvOpenTime;
+        private View viewTime;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
             imgAvatar = itemView.findViewById(R.id.imgAvatar);
+            tvOpenDate = itemView.findViewById(R.id.tvOpenDate);
+            tvStatus = itemView.findViewById(R.id.tvStatus);
+            tvOpenTime = itemView.findViewById(R.id.tvOpenTime);
+            viewTime = itemView.findViewById(R.id.viewTime);
             tvName = itemView.findViewById(R.id.tvName);
             tvRate = itemView.findViewById(R.id.tvRate);
             tvCommentCount = itemView.findViewById(R.id.tvCommentCount);
             tvAddress = itemView.findViewById(R.id.tvAddress);
             tvDistance = itemView.findViewById(R.id.tvDistance);
             tvType = itemView.findViewById(R.id.tvType);
+            tvLocationName = itemView.findViewById(R.id.tvLocationName);
+            tvRateText = itemView.findViewById(R.id.tvRateText);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -104,17 +116,47 @@ public class HeaderBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
 
             Glide.with(context).load(travel.getLogo_url()).into(imgAvatar);
             tvName.setText(travel.getName());
-            tvRate.setText("9.8");
+            tvRate.setText(travel.getEvaluate());
+            tvRateText.setText(travel.getEvaluate_text());
             tvCommentCount.setText(travel.getComment_count());
             tvAddress.setText(travel.getAddress());
+            tvLocationName.setText(travel.getRegion_name());
 
             tvType.setText(travel.getType());
 
-            if (travel.getDistance() != null && !"".equals(travel.getDistance()) && Double.parseDouble(travel.getDistance()) < 1000) {
-                tvDistance.setText("Cách bạn " + travel.getDistance() + " m");
-            } else if (travel.getDistance() != null && !"".equals(travel.getDistance())) {
-                double finalValue = Math.round(Double.parseDouble(travel.getDistance()) / 1000 * 10.0) / 10.0;
-                tvDistance.setText("Cách bạn " + finalValue + " km");
+            try {
+                if(travel.isHas_location()) {
+                    if (travel.getDistance() != null && !"".equals(travel.getDistance()) && Double.parseDouble(travel.getDistance()) < 1000) {
+                        tvDistance.setText("Cách bạn " + travel.getDistance() + " m");
+                    } else if (travel.getDistance() != null && !"".equals(travel.getDistance())) {
+                        double finalValue = Math.round(Double.parseDouble(travel.getDistance()) / 1000 * 10.0) / 10.0;
+                        tvDistance.setText("Cách bạn " + finalValue + " km");
+                    }
+                }else {
+                    tvDistance.setText("Không xác định");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            tvOpenDate.setText(travel.getOpen_week());
+            tvStatus.setText(travel.getType_open());
+
+
+            try {
+                if(travel.getRange_time().isEmpty()){
+                    viewTime.setVisibility(View.GONE);
+                    tvOpenTime.setVisibility(View.GONE);
+                }else {
+                    viewTime.setVisibility(View.VISIBLE);
+                    tvOpenTime.setText(travel.getRange_time());
+                    tvOpenTime.setVisibility(View.VISIBLE);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                viewTime.setVisibility(View.GONE);
+                tvOpenTime.setVisibility(View.GONE);
             }
 
         }

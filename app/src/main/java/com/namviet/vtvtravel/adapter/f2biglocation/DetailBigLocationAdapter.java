@@ -25,9 +25,11 @@ import com.namviet.vtvtravel.adapter.f2biglocation.sub.VideoBigLocationAdapter;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.Video;
 import com.namviet.vtvtravel.model.travelnews.Travel;
+import com.namviet.vtvtravel.response.WeatherResponse;
 import com.namviet.vtvtravel.response.f2biglocation.BigLocationResponse;
 import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
 import com.namviet.vtvtravel.view.f2.DetailVideoActivity;
+import com.namviet.vtvtravel.view.f2.HighLightSeeMoreVideoActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 
 import java.util.List;
@@ -60,12 +62,25 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
     private List<BigLocationResponse.Data.Item> items;
     private BigLocationResponse.Data.Region region;
 
+    public void setWeatherResponse(WeatherResponse weatherResponse) {
+        try {
+            this.weatherResponse = weatherResponse;
+            notifyItemChanged(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private WeatherResponse weatherResponse;
+
     public DetailBigLocationAdapter(List<BigLocationResponse.Data.Item> items, BigLocationResponse.Data.Region region, Context context, ClickItem clickItem) {
         this.context = context;
         this.items = items;
         this.clickItem = clickItem;
         this.region = region;
     }
+
+
 
     @Override
     public int getItemViewType(int position) {
@@ -216,7 +231,7 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
 
         public void bindItem(int position) {
             this.position = position;
-            headerBigLocationAdapter = new FooterBigLocationAdapter(items.get(position).getItems(), context, items.get(position).getCode(), null);
+            headerBigLocationAdapter = new FooterBigLocationAdapter(items.get(position).getItems(), context, items.get(position).getCode_type(), null);
             rclContent.setAdapter(headerBigLocationAdapter);
             tvTitle.setText(items.get(position).getName());
 
@@ -273,11 +288,13 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
         private RecyclerView rclContent;
         private TextView tvTitle;
         private VideoBigLocationAdapter videoBigLocationAdapter;
+        private TextView btnSeeMore;
 
         public VideoViewHolder(View itemView) {
             super(itemView);
             rclContent = itemView.findViewById(R.id.rclContent);
             tvTitle = itemView.findViewById(R.id.tvTitle);
+            btnSeeMore = itemView.findViewById(R.id.btnSeeMore);
 
 
         }
@@ -287,6 +304,12 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
             videoBigLocationAdapter = new VideoBigLocationAdapter(items.get(position).getItems(), context, null);
             rclContent.setAdapter(videoBigLocationAdapter);
             tvTitle.setText(items.get(position).getName());
+            btnSeeMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    HighLightSeeMoreVideoActivity.startScreen(context, region.getName(), region.getId(), items.get(position).getLink());
+                }
+            });
         }
     }
 
@@ -303,10 +326,15 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
         private ImageView btnShare;
         private TextView tvSmallIntro;
 
+        private ImageView imgWeather;
+        private TextView tvWeather;
+
 
         public OverViewViewHolder(View itemView) {
             super(itemView);
             tvRegionName = itemView.findViewById(R.id.tvRegionName);
+            imgWeather = itemView.findViewById(R.id.imgWeather);
+            tvWeather = itemView.findViewById(R.id.tvWeather);
             btnShare = itemView.findViewById(R.id.btnShare);
             tvSmallIntro = itemView.findViewById(R.id.tvSmallIntro);
             rclActivity = itemView.findViewById(R.id.rclActivity);
@@ -327,13 +355,11 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
                 ViewGroup.LayoutParams params = webView.getLayoutParams();
                 params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 webView.setLayoutParams(params);
-                region.setShow(false);
                 btnShowMoreAndShowLess.setText("Ẩn bớt");
             } else {
                 ViewGroup.LayoutParams params = webView.getLayoutParams();
                 params.height = Utils.dp2px(context, 120);
                 webView.setLayoutParams(params);
-                region.setShow(true);
                 btnShowMoreAndShowLess.setText("Xem thêm");
             }
 
@@ -365,6 +391,13 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
                     Toast.makeText(context, "Coming soon", Toast.LENGTH_SHORT).show();
                 }
             });
+
+            try {
+                tvWeather.setText(weatherResponse.getData().get(0).getWeather().getDescription() + ", " + Math.round(weatherResponse.getData().get(0).getTamp()) + "°C");
+                Glide.with(context).load(weatherResponse.getData().get(0).getWeather().getIcon_url()).placeholder(R.drawable.f2_ic_weather).error(R.drawable.f2_ic_weather).into(imgWeather);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }
     }

@@ -28,7 +28,6 @@ import com.bumptech.glide.request.transition.Transition;
 import com.daimajia.slider.library.Travel;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.ChatSlideshowAdapter;
-import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.listener.TravelSelectListener;
@@ -104,10 +103,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
             return R.layout.f2_item_chat_not_reply;
         } else if (Constants.TypeChat.GET_USER_GUILD.equals(chat)) {
             return R.layout.f2_item_chat_get_user_guild;
-        } else if (Constants.TypeChat.USER_GUILD_REGISTER_VIP.equals(chat)) {
-            return R.layout.f2_item_chat_register_vip;
-        } else if (Constants.TypeChat.USER_GUILD_DEAL.equals(chat)) {
-            return R.layout.f2_item_chat_deal;
+        } else if (Constants.TypeChat.USER_GUILD_TEXT.equals(chat)) {
+            return R.layout.f2_item_chat_user_guild_text;
+        } else if (Constants.TypeChat.USER_GUILD_SLIDE.equals(chat)) {
+            return R.layout.f2_item_chat_user_guild_slide;
         } else {
             return R.layout.f2_item_chat_text;
         }
@@ -142,10 +141,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
                 return new NotReplyHolder(v);
             case R.layout.f2_item_chat_get_user_guild:
                 return new GetUserGuildHolder(v);
-            case R.layout.f2_item_chat_register_vip:
-                return new RegisterVipHolder(v);
-            case R.layout.f2_item_chat_deal:
-                return new DealHolder(v);
+            case R.layout.f2_item_chat_user_guild_text:
+                return new UserGuildTextHolder(v);
+            case R.layout.f2_item_chat_user_guild_slide:
+                return new UserGuildSlideHolder(v);
             default:
                 return new ChatTextHolder(v);
         }
@@ -183,7 +182,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
             try {
                 mChatNameTv.setText(chatData.getSender().getFull_name() + ", ");
             } catch (Exception e) {
-                mChatNameTv.setText("Chat" + ", ");
+                mChatNameTv.setText("Chatbot" + ", ");
             }
             if (chatData.getAvatar_url() != null && "".equals(chatData.getAvatar_url())) {
                 setImageUrl(chatData.getAvatar_url(), mChatTextImv);
@@ -196,7 +195,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
             } else if (position == 0) {
                 Account account = MyApplication.getInstance().getAccount();
                 if (null != account && account.isLogin()) {
-                    mChatTextTv.setText(spannableString(chatData.getText(), 8, 8 + account.getFullname().length()));
+//                    mChatTextTv.setText(spannableString(chatData.getText(), 8, 8 + account.getFullname().length()));
+                    mChatTextTv.setText(chatData.getText());
                 } else {
                     mChatTextTv.setText(chatData.getText());
                 }
@@ -357,11 +357,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
 //            requestOptions.error(R.mipmap.user);
             if (null != account && account.isLogin()) {
                 if (account.getImageProfile() != null && !account.getImageProfile().isEmpty()) {
-                    Glide.with(mContext).load(account.getImageProfile()).apply(new RequestOptions().circleCrop()).into(avatar);
+                    Glide.with(mContext).load(account.getImageProfile()).apply(new RequestOptions().circleCrop()).placeholder(R.drawable.f2_defaut_user).error(R.drawable.f2_defaut_user).into(avatar);
                 } else {
                     avatar.setImageResource(R.drawable.f2_defaut_user);
                 }
-                name.setText(account.getFullname());
+                name.setText(account.getFullname() + ", ");
             }
         }
     }
@@ -417,11 +417,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
 //            requestOptions.error(R.mipmap.user);
             if (null != account && account.isLogin()) {
                 if (account.getImageProfile() != null && !account.getImageProfile().isEmpty()) {
-                    Glide.with(mContext).load(account.getImageProfile()).apply(new RequestOptions().circleCrop()).into(avatar);
+                    Glide.with(mContext).load(account.getImageProfile()).apply(new RequestOptions().circleCrop()).placeholder(R.drawable.f2_defaut_user).error(R.drawable.f2_defaut_user).into(avatar);
                 } else {
                     avatar.setImageResource(R.drawable.f2_defaut_user);
                 }
-                name.setText(account.getFullname());
+                name.setText(account.getFullname() + ", ");
             }
         }
     }
@@ -454,7 +454,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
                 MyApplication.getInstance().setAdminChated(true);
                 ChatData chatData = mListChat.get(position);
                 if (null != chatData.getSender().getFull_name()) {
-                    mChatNameTv.setText(chatData.getSender().getFull_name());
+                    mChatNameTv.setText(chatData.getSender().getFull_name() + ", ");
                 }
                 mChatTextTv.setText(chatData.getContent());
                 setImageUrl(chatData.getSender().getAvatarUrl(), mChatTextImv);
@@ -592,7 +592,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
 
         public void bindItem(int position) {
             ChatData chatData = mListChat.get(position);
-            mChatNameTv.setText(chatData.getSender().getFull_name());
+            mChatNameTv.setText(chatData.getSender().getFull_name() + ", ");
             mChatTextTv.setText(chatData.getText());
             mChatTimeTv.setText(chatData.getCurrent_time());
         }
@@ -626,7 +626,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
                 MyApplication.getInstance().setAdminChated(true);
                 ChatData chatData = mListChat.get(position);
                 if (null != chatData.getSender().getFull_name()) {
-                    mChatNameTv.setText(chatData.getSender().getFull_name());
+                    mChatNameTv.setText(chatData.getSender().getFull_name() + ", ");
                 }
                 mChatTextTv.setText(chatData.getContent());
                 mChatTimeTv.setText(chatData.getCurrent_time());
@@ -667,10 +667,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
         }
     }
 
-    public class RegisterVipHolder extends BaseItemChat {
+    public class UserGuildTextHolder extends BaseItemChat {
         private RecyclerView recycleRegisterVip;
 
-        public RegisterVipHolder(View itemView) {
+        public UserGuildTextHolder(View itemView) {
             super(itemView);
             recycleRegisterVip = itemView.findViewById(R.id.recycleRegisterVip);
         }
@@ -680,15 +680,15 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
             super.bindItem(position);
             ChatData chatData = mListChat.get(position);
 
-            RegisterVipAdapter registerVipAdapter = new RegisterVipAdapter(mContext, chatData.getItemPostUserGuild());
-            recycleRegisterVip.setAdapter(registerVipAdapter);
+            UserGuildTextAdapter userGuildTextAdapter = new UserGuildTextAdapter(mContext, chatData.getItemPostUserGuild());
+            recycleRegisterVip.setAdapter(userGuildTextAdapter);
         }
     }
 
-    public class DealHolder extends BaseItemChat implements DealAdapter.ClickItem {
+    public class UserGuildSlideHolder extends BaseItemChat implements UserGuildSlideAdapter.ClickItem {
         private RecyclerView recycleDeal;
 
-        public DealHolder(View itemView) {
+        public UserGuildSlideHolder(View itemView) {
             super(itemView);
             recycleDeal = itemView.findViewById(R.id.recycleDeal);
         }
@@ -698,9 +698,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
             super.bindItem(position);
             ChatData chatData = mListChat.get(position);
 
-            DealAdapter dealAdapter = new DealAdapter(mContext, chatData.getItemPostUserGuild());
-            recycleDeal.setAdapter(dealAdapter);
-            dealAdapter.setClickItem(this);
+            UserGuildSlideAdapter userGuildSlideAdapter = new UserGuildSlideAdapter(mContext, chatData.getItemPostUserGuild());
+            recycleDeal.setAdapter(userGuildSlideAdapter);
+            userGuildSlideAdapter.setClickItem(this);
         }
 
         @Override

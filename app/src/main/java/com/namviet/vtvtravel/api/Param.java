@@ -5,12 +5,15 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.baseapp.utils.StringUtils;
+import com.google.gson.Gson;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
+import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.City;
 import com.namviet.vtvtravel.model.CustomGallery;
 import com.namviet.vtvtravel.model.GroupSchedule;
 import com.namviet.vtvtravel.response.FilterData;
+import com.namviet.vtvtravel.tracking.Tracking;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,6 +60,16 @@ public class Param {
     public static Map<String, Object> getDefault() {
         Map<String, Object> map = new HashMap<>();
         map.put(WSConfig.KeyParam.LANG_CODE, "vi");
+        if (null != MyApplication.getInstance().getMyLocation()
+                && MyApplication.getInstance().getMyLocation().getLat() != MyApplication.getInstance().getMyLocation().getLog()) {
+            map.put(WSConfig.KeyParam.LAT, MyApplication.getInstance().getMyLocation().getLat());
+            map.put(WSConfig.KeyParam.LOG, MyApplication.getInstance().getMyLocation().getLog());
+        }
+        return map;
+    }
+
+    public static Map<String, Object> getDefaultNonLangCode() {
+        Map<String, Object> map = new HashMap<>();
         if (null != MyApplication.getInstance().getMyLocation()
                 && MyApplication.getInstance().getMyLocation().getLat() != MyApplication.getInstance().getMyLocation().getLog()) {
             map.put(WSConfig.KeyParam.LAT, MyApplication.getInstance().getMyLocation().getLat());
@@ -589,7 +602,6 @@ public class Param {
     }
 
 
-
     public static Map<String, Object> zipVersion() {
         Map<String, Object> map = new HashMap<>();
         map.put(WSConfig.KeyParam.NAME, "Call_Now");
@@ -600,6 +612,17 @@ public class Param {
         JSONObject map = new JSONObject();
         try {
             map.put(WSConfig.KeyParam.CONTENT_ID, contentId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+
+    public static JSONObject updateSystemInbox(String id) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.ID, id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -685,6 +708,20 @@ public class Param {
         return map;
     }
 
+
+    public static JSONObject checkUserReceiver(String voucherId, String channel, String os, String event) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put("voucherId", voucherId);
+            map.put("channel", channel);
+            map.put("os", os);
+            map.put("event", event);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
     public static Map<String, Object> getBigLocation(String regionId) {
         Map<String, Object> map = getDefault();
         map.put(WSConfig.KeyParam.REGION_ID, regionId);
@@ -760,5 +797,38 @@ public class Param {
         map.put(WSConfig.KeyParam.PAGE, page);
         return map;
     }
+
+    public static JSONObject postEvent(String eventName) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.EVENT_NAME, eventName);
+            Account account = MyApplication.getInstance().getAccount();
+            if (null != account && account.isLogin()) {
+                map.put(WSConfig.KeyParam.USER_ID, account.getId());
+                map.put(WSConfig.KeyParam.MOBILE, account.getMobile());
+            }
+            map.put(WSConfig.KeyParam.CHANNEL, "ANDROID");
+            map.put(WSConfig.KeyParam.METHOD, "POST");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static JSONObject postEvent2(String eventName, Tracking tracking) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.EVENT_NAME, eventName);
+
+            String jsonInString = new Gson().toJson(tracking);
+            JSONObject jsonObject = new JSONObject(jsonInString);
+
+            map.put(WSConfig.KeyParam.REQUEST, jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
 
 }

@@ -3,8 +3,10 @@ package com.namviet.vtvtravel.viewmodel.f2biglocation;
 import com.google.gson.Gson;
 import com.namviet.vtvtravel.api.Param;
 import com.namviet.vtvtravel.api.TravelService;
+import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.response.WeatherResponse;
 import com.namviet.vtvtravel.response.f2biglocation.BigLocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.LocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.RegionResponse;
@@ -20,6 +22,34 @@ import io.reactivex.functions.Consumer;
 import retrofit2.HttpException;
 
 public class BigLocationViewModel extends BaseViewModel {
+
+    public void loadWeather(String regionId) {
+        String url = WSConfig.HOST + "weather/forecast";
+        url = url + "/" + regionId;
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelService();
+        Map<String, Object> queryMap = Param.getDefault();
+        Disposable disposable = newsService.loadWeather(url, queryMap)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<WeatherResponse>() {
+                    @Override
+                    public void accept(WeatherResponse placeResponse) throws Exception {
+                        if (placeResponse != null && null != placeResponse.getData()) {
+                            requestSuccess(placeResponse);
+                        } else {
+                            requestSuccess(null);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable);
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
 
     public void getBigLocation(String regionId) {
         MyApplication myApplication = MyApplication.getInstance();

@@ -74,20 +74,24 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     }
 
     public void setCountUnRead(int count) {
-        Account account = MyApplication.getInstance().getAccount();
-        if (null != tvCountUnread && null != account && account.isLogin()) {
-            if (count > 0) {
-                tvCountUnread.setVisibility(View.VISIBLE);
-                if (count > 100) {
-                    tvCountUnread.setText("99+");
+        try {
+            Account account = MyApplication.getInstance().getAccount();
+            if (null != tvCountUnread && null != account && account.isLogin()) {
+                if (count > 0) {
+                    tvCountUnread.setVisibility(View.VISIBLE);
+                    if (count > 100) {
+                        tvCountUnread.setText("99+");
+                    } else {
+                        tvCountUnread.setText("" + count);
+                    }
                 } else {
-                    tvCountUnread.setText("" + count);
+                    tvCountUnread.setVisibility(View.INVISIBLE);
                 }
-            } else {
+            } else if (null != tvCountUnread){
                 tvCountUnread.setVisibility(View.INVISIBLE);
             }
-        } else if (null != tvCountUnread){
-            tvCountUnread.setVisibility(View.INVISIBLE);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -153,14 +157,22 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     }
 
     public void showDialogLoading() {
-        mLoadingDialog = LoadingDialog.newInstance();
-        mLoadingDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
-        mLoadingDialog.setCancelable(false);
+        try {
+            mLoadingDialog = LoadingDialog.newInstance();
+            mLoadingDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+            mLoadingDialog.setCancelable(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void dimissDialogLoading() {
-        if (null != mLoadingDialog) {
-            mLoadingDialog.dismissAllowingStateLoss();
+        try {
+            if (null != mLoadingDialog) {
+                mLoadingDialog.dismissAllowingStateLoss();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

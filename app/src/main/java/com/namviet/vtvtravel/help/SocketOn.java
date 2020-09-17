@@ -5,6 +5,10 @@ public class SocketOn {
     private int i;
     private Object[] args;
 
+    public SocketOn(){
+
+    }
+
     public SocketOn(int i, Object[] args) {
         this.i = i;
         this.args = args;

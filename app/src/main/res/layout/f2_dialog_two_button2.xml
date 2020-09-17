@@ -52,7 +52,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="center"
-                    android:text="Cancel"
+                    android:text="Hủy"
                     android:textColor="#0076FF"
                     android:textSize="17dp" />
 

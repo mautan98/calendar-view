@@ -17,7 +17,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.comment.SubCommentAdapter;
 import com.namviet.vtvtravel.config.Constants;
-import com.namviet.vtvtravel.model.travelnews.Travel;
+import com.namviet.vtvtravel.model.f2smalllocation.Travel;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SmallLocationResponse;
 import com.namviet.vtvtravel.ultils.DateUtltils;
@@ -80,7 +80,7 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
         private TextView tvName;
         private TextView tvDescription;
         private TextView tvRating;
-        private TextView tvRatingText;
+        private TextView tvRateText;
         private TextView tvCommentCount;
         private TextView tvDistance;
         private TextView tvAddress;
@@ -91,16 +91,18 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         private LinearLayout layoutOpen;
         private LinearLayout layoutPrice;
+        private View viewTime;
 
         private int position;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
+            viewTime = itemView.findViewById(R.id.viewTime);
             tvName = itemView.findViewById(R.id.tvName);
             imgAvatar = itemView.findViewById(R.id.imgAvatar);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvRating = itemView.findViewById(R.id.tvRating);
-            tvRatingText = itemView.findViewById(R.id.tvRatingText);
+            tvRateText = itemView.findViewById(R.id.tvRateText);
             tvCommentCount = itemView.findViewById(R.id.tvCommentCount);
             tvDistance = itemView.findViewById(R.id.tvDistance);
             tvAddress = itemView.findViewById(R.id.tvAddress);
@@ -131,7 +133,7 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
             tvCommentCount.setText(travel.getComment_count());
             tvAddress.setText(travel.getAddress());
             tvRating.setText(travel.getEvaluate());
-            tvRatingText.setText(travel.getEvaluate_text());
+            tvRateText.setText(travel.getEvaluate_text());
 
             if (Constants.TypeDestination.RESTAURANTS.equals(travel.getContent_type()) || Constants.TypeDestination.HOTELS.equals(travel.getContent_type())) {
                 layoutPrice.setVisibility(View.VISIBLE);
@@ -141,7 +143,6 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
                 layoutPrice.setVisibility(View.GONE);
                 layoutOpen.setVisibility(View.VISIBLE);
                 tvOpenDate.setText(travel.getOpen_week());
-                tvOpenTime.setText(travel.getRange_time());
                 tvOpenState.setText(travel.getType_open());
 
                 if ("Đang đóng".equals(travel.getType_open())) {
@@ -149,13 +150,37 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
                 } else {
                     tvOpenState.setTextColor(Color.parseColor("#0FB403"));
                 }
+
+
+                try {
+                    if (travel.getRange_time().isEmpty()) {
+                        viewTime.setVisibility(View.GONE);
+                        tvOpenTime.setVisibility(View.GONE);
+                    } else {
+                        viewTime.setVisibility(View.VISIBLE);
+                        tvOpenTime.setText(travel.getRange_time());
+                        tvOpenTime.setVisibility(View.VISIBLE);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    viewTime.setVisibility(View.GONE);
+                    tvOpenTime.setVisibility(View.GONE);
+                }
             }
 
-            if (travel.getDistance() != null && !"".equals(travel.getDistance()) && Double.parseDouble(travel.getDistance()) < 1000) {
-                tvDistance.setText("Cách bạn " + travel.getDistance() + " m");
-            } else if (travel.getDistance() != null && !"".equals(travel.getDistance())) {
-                double finalValue = Math.round(Double.parseDouble(travel.getDistance()) / 1000 * 10.0) / 10.0;
-                tvDistance.setText("Cách bạn " + finalValue + " km");
+            try {
+                if (travel.isHas_location()) {
+                    if (travel.getDistance() != null && !"".equals(travel.getDistance()) && Double.parseDouble(travel.getDistance()) < 1000) {
+                        tvDistance.setText("Cách bạn " + travel.getDistance() + " m");
+                    } else if (travel.getDistance() != null && !"".equals(travel.getDistance())) {
+                        double finalValue = Math.round(Double.parseDouble(travel.getDistance()) / 1000 * 10.0) / 10.0;
+                        tvDistance.setText("Cách bạn " + finalValue + " km");
+                    }
+                }else {
+                    tvDistance.setText("Không xác định");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

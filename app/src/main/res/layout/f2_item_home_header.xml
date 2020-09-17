@@ -7,14 +7,15 @@
 
 
     <LinearLayout
-        android:paddingEnd="10dp"
+        android:paddingEnd="9dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:foreground="@drawable/ripple_effect_click"
             android:id="@+id/layoutRoot"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="57dp"
+            android:layout_height="57dp"
             android:background="@drawable/f2_bg_tool_top"
             android:gravity="center"
             android:orientation="vertical"

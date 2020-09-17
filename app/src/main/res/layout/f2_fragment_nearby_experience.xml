@@ -73,6 +73,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
@@ -122,7 +123,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="80dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/f2_bg_scroll_top"
             android:drawableLeft="@drawable/f2_ic_go_fisrt"
             android:drawablePadding="10dp"

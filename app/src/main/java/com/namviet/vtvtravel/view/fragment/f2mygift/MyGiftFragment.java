@@ -4,16 +4,19 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.View;
+import android.widget.Toast;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.mygift.ChildrenMenuAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.databinding.F2FragmentMyGiftBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.response.AccountResponse;
 import com.namviet.vtvtravel.response.ResponseError;
 import com.namviet.vtvtravel.response.f2menu.MenuItem;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.fragment.f2service.GetInfoResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
@@ -97,27 +100,39 @@ public class MyGiftFragment extends BaseFragment<F2FragmentMyGiftBinding> implem
             if (arg instanceof GetInfoResponse) {
                 GetInfoResponse getInfoResponse = (GetInfoResponse) arg;
                 if (getInfoResponse.getData().getUser().getPackageCode() != null && getInfoResponse.getData().getUser().getPackageCode().equals("TRAVEL_VIP")) {
-                    TravelVoucherActivity.openScreen(mActivity, false);
+                    TravelVoucherActivity.openScreen(mActivity, false, TravelVoucherActivity.OpenType.LIST, false);
                 }else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                    builder.setMessage("Mời đăng ký gói VIP để tận hưởng ưu đãi từ VTV Travel");
-                    builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+                    NotifiDialog notifiDialog = NotifiDialog.newInstance("Thông báo", "Mời đăng ký gói VIP \nĐể tận hưởng ưu đãi từ VTV Travel", "Đồng ý", new NotifiDialog.ClickButton() {
                         @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
+                        public void onClickButton() {
                             ServiceActivity.startScreen(mActivity);
                         }
                     });
-                    builder.setNegativeButton("Bỏ qua", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                        }
-                    });
-                    builder.create();
-                    builder.show();
+                    notifiDialog.show(mActivity.getSupportFragmentManager(), null);
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+//                    builder.setMessage("Mời đăng ký gói VIP để tận hưởng ưu đãi từ VTV Travel");
+//                    builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            ServiceActivity.startScreen(mActivity);
+//                        }
+//                    });
+//                    builder.setNegativeButton("Bỏ qua", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                        }
+//                    });
+//                    builder.create();
+//                    builder.show();
                 }
-            } else if (arg instanceof ResponseError) {
-                ResponseError responseError = (ResponseError) arg;
+            } else if (arg instanceof ErrorResponse) {
+                try {
+                    ErrorResponse responseError = (ErrorResponse) arg;
+                    showToast("Có lỗi xảy ra");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

@@ -4,8 +4,12 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Travel implements Serializable {
+    private String category;
+    private boolean has_location;
+    private String is_video;
     private String id;
     private String content_type;
     private String streaming_url;
@@ -37,11 +41,37 @@ public class Travel implements Serializable {
     private String standard_rate;
     private String url_icon;
     private Collection collection;
+//    private Loc loc;
 
     private String is_trend;
     private String icon;
 
     private int typeItem = 1000;
+
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public boolean isHas_location() {
+        return has_location;
+    }
+
+    public void setHas_location(boolean has_location) {
+        this.has_location = has_location;
+    }
+
+    public String getIs_video() {
+        return is_video;
+    }
+
+    public void setIs_video(String is_video) {
+        this.is_video = is_video;
+    }
 
     public String getStreaming_url() {
         return streaming_url;
@@ -299,6 +329,10 @@ public class Travel implements Serializable {
         this.typeItem = typeItem;
     }
 
+//    public Loc getLoc() {
+//        return loc;
+//    }
+
     public static class Collection implements Serializable {
         @Expose
         @SerializedName("link")
@@ -334,4 +368,17 @@ public class Travel implements Serializable {
             this.name = name;
         }
     }
+
+//    public static class Loc implements Serializable {
+//        private String type;
+//        private List<String> coordinates;
+//
+//        public String getType() {
+//            return type;
+//        }
+//
+//        public List<String> getCoordinates() {
+//            return coordinates;
+//        }
+//    }
 }

@@ -3,6 +3,7 @@ package com.namviet.vtvtravel.view.f2;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.baseapp.utils.KeyboardUtils;
@@ -17,6 +18,7 @@ import com.namviet.vtvtravel.view.fragment.f2account.MainPageLoginAndRegisterFra
 public class LoginAndRegisterActivityNew extends BaseActivityNew<F2ActivityLoginAndRegisterBinding> {
     public boolean isFromButtonCallNow;
     public boolean isFromBooking;
+    public boolean isFromDeal;
 
     private int position;
     public String packageCode = Constants.TypePackage.TRAVEL_VIP;
@@ -34,6 +36,7 @@ public class LoginAndRegisterActivityNew extends BaseActivityNew<F2ActivityLogin
     public void getDataFromIntent() {
         isFromButtonCallNow = getIntent().getBooleanExtra(Constants.IntentKey.IS_FROM_BUTTON_CALL_NOW, false);
         isFromBooking = getIntent().getBooleanExtra(Constants.IntentKey.IS_FROM_BOOKING, false);
+        isFromDeal = getIntent().getBooleanExtra(Constants.IntentKey.IS_FROM_DEAL, false);
         position = getIntent().getIntExtra(Constants.IntentKey.KEY_POSITION, 0);
     }
 
@@ -80,12 +83,60 @@ public class LoginAndRegisterActivityNew extends BaseActivityNew<F2ActivityLogin
         activity.startActivity(intent);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        getBinding().layoutWarning.setVisibility(View.GONE);
+    public static void startScreen(Context activity, int position, boolean isFromButtonCallNow, boolean isFromBooking, boolean isFromDealAndHaveBackLink){
+        Intent intent = new Intent(activity, LoginAndRegisterActivityNew.class);
+        intent.putExtra(Constants.IntentKey.POSITION_LOGIN, position);
+        intent.putExtra(Constants.IntentKey.KEY_POSITION, position);
+        intent.putExtra(Constants.IntentKey.IS_FROM_BUTTON_CALL_NOW, isFromButtonCallNow);
+        intent.putExtra(Constants.IntentKey.IS_FROM_DEAL, isFromDealAndHaveBackLink);
+        intent.putExtra(Constants.IntentKey.IS_FROM_BOOKING, isFromBooking);
+        activity.startActivity(intent);
     }
 
+    @Override
+    public void onBackPressed() {
+        try {
+            if(isCreatePassOnTop()){
+                super.onBackPressed();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        super.onBackPressed();
+        getBinding().layoutWarning.setVisibility(View.GONE);
+
+    }
+
+
+    public Fragment getTopFragment() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            return null;
+        }
+        String fragmentTag = getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() - 1).getName();
+        if (fragmentTag.equals("after OTP")) {
+            return getSupportFragmentManager().findFragmentByTag(fragmentTag);
+        } else {
+            return null;
+        }
+
+    }
+
+    public boolean isCreatePassOnTop(){
+        try {
+            if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+                return false;
+            }
+            String fragmentTag = getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() - 1).getName();
+            if (fragmentTag.equals("RecreatePassF2Fragment")) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     public void hideWarning(){
         getBinding().layoutWarning.setVisibility(View.GONE);
         KeyboardUtils.hideKeyboard(this, getBinding().getRoot());

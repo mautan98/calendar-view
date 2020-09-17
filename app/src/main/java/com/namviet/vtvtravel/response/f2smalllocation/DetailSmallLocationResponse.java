@@ -8,6 +8,16 @@ import com.namviet.vtvtravel.response.BaseResponse;
 import java.util.List;
 
 public class DetailSmallLocationResponse extends BaseResponse {
+    private boolean canReload;
+
+    public boolean isCanReload() {
+        return canReload;
+    }
+
+    public void setCanReload(boolean canReload) {
+        this.canReload = canReload;
+    }
+
     private String detailLink;
 
     public String getDetailLink() {
@@ -121,6 +131,8 @@ public class DetailSmallLocationResponse extends BaseResponse {
             }
 
 
+
+            private boolean has_location;
             @Expose
             @SerializedName("region_name")
             private String region_name;
@@ -195,8 +207,70 @@ public class DetailSmallLocationResponse extends BaseResponse {
             @SerializedName("website")
             private String website;
 
+            @Expose
+            @SerializedName("count_1")
+            private String count_1;
+            @Expose
+            @SerializedName("count_2")
+            private String count_2;
+            @Expose
+            @SerializedName("count_3")
+            private String count_3;
+            @Expose
+            @SerializedName("count_4")
+            private String count_4;
+            @Expose
+            @SerializedName("count_5")
+            private String count_5;
 
 
+            public boolean isHas_location() {
+                return has_location;
+            }
+
+            public void setHas_location(boolean has_location) {
+                this.has_location = has_location;
+            }
+
+            public String getCount_1() {
+                return count_1;
+            }
+
+            public void setCount_1(String count_1) {
+                this.count_1 = count_1;
+            }
+
+            public String getCount_2() {
+                return count_2;
+            }
+
+            public void setCount_2(String count_2) {
+                this.count_2 = count_2;
+            }
+
+            public String getCount_3() {
+                return count_3;
+            }
+
+            public void setCount_3(String count_3) {
+                this.count_3 = count_3;
+            }
+
+            public String getCount_4() {
+                return count_4;
+            }
+
+            public void setCount_4(String count_4) {
+                this.count_4 = count_4;
+            }
+
+            public String getCount_5() {
+                return count_5;
+            }
+
+            public void setCount_5(String count_5) {
+                this.count_5 = count_5;
+            }
 
             public class Footer {
                 @Expose

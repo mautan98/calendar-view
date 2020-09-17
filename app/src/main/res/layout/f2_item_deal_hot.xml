@@ -7,6 +7,7 @@
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
+        android:foreground="@drawable/ripple_effect_click"
         app:cardUseCompatPadding="true"
         app:cardCornerRadius="4dp"
         android:layout_width="wrap_content"
@@ -58,7 +59,6 @@
                     android:paddingTop="5dp"
                     android:paddingEnd="8dp"
                     android:paddingBottom="5dp"
-                    android:text="-35%"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     app:layout_constraintRight_toRightOf="parent"
@@ -75,11 +75,13 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:lines="2"
+                    android:maxLines="2"
+                    android:ellipsize="end"
                     android:id="@+id/tvName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="BOM TẤN SUỐI TIÊN - Trọn Gói Vé Cổng + Tham Gia Trò Chơi Siêu..."
                     android:textColor="#000000"
                     android:textSize="14dp" />
 
@@ -102,7 +104,6 @@
                         android:layout_gravity="center"
                         android:layout_marginStart="10dp"
                         android:fontFamily="@font/roboto_regular"
-                        android:text="2.299.000đ"
                         android:textColor="#9C9C9C"
                         android:textSize="14dp" />
 
@@ -113,7 +114,6 @@
                         android:layout_gravity="center"
                         android:layout_marginStart="20dp"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="1,898,000đ"
                         android:textColor="#C51100"
                         android:textSize="14dp" />
                 </LinearLayout>
@@ -137,7 +137,7 @@
                         android:layout_gravity="center"
                         android:layout_marginStart="10dp"
                         android:fontFamily="@font/roboto_regular"
-                        android:text="100 người đang săn deal"
+
                         android:textColor="#000000"
                         android:textSize="12dp" />
 

@@ -177,6 +177,43 @@ public class FilterHomeFragment extends BaseFragment<F2FragmentFilterHomeBinding
         getBinding().btnSetToDefault.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
+
+                    try {
+                        if(filterByCodeResponse.getData().getItems().get(i).getDataHasLoaded() != null) {
+                            int size = filterByCodeResponse.getData().getItems().get(i).getDataHasLoaded().getData().size();
+                            FilterByPageResponse filterByPageResponse = filterByCodeResponse.getData().getItems().get(i).getDataHasLoaded();
+                            for (int j = 0; j < size; j++) {
+                                if(j == 0){
+                                    filterByPageResponse.getData().get(j).setSelected(true);
+                                }else {
+                                    filterByPageResponse.getData().get(j).setSelected(false);
+                                }
+
+
+                                try {
+                                    int size2 = filterByPageResponse.getData().size();
+                                    for (int k = 0; k < size2; k++) {
+                                        filterByPageResponse.getData().get(j).getInputs().get(k).setSelected(false);
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                for (int i = 0; i < filterByCodeResponse.getDistanceClass().getDistances().size(); i++) {
+                    filterByCodeResponse.getDistanceClass().getDistances().get(i).setSelected(false);
+                }
+
+                filterByCodeResponse.setTypeOpen(false);
+                postEventDoneFilterOption();
                 mActivity.onBackPressed();
             }
         });

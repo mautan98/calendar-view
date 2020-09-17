@@ -21,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import com.baseapp.utils.KeyboardUtils;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.config.Constants;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.view.dialog.LoadingDialog;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
@@ -58,6 +59,13 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
             }
             mActivity = (BaseActivityNew) getActivity();
             inject();
+            Log.d("LamLV: ", this.getClass().getName());
+
+            try {
+                TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_VIEW, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+            } catch (Exception e) {
+
+            }
         } catch (Exception e) {
             Log.e("exception", e.getMessage() + "");
         }
@@ -127,17 +135,25 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
 
     @Override
     public void showLoading() {
-        mLoadingDialog = new ProgressDialog(mActivity);
-        mLoadingDialog.setCancelable(true);
-        mLoadingDialog.setMessage("Đang tải...");
-        mLoadingDialog.show();
+        try {
+            mLoadingDialog = new ProgressDialog(mActivity);
+            mLoadingDialog.setCancelable(true);
+            mLoadingDialog.setMessage("Đang tải...");
+            mLoadingDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public void hideLoading() {
-        if (null != mLoadingDialog) {
-            mLoadingDialog.dismiss();
+        try {
+            if (null != mLoadingDialog) {
+                mLoadingDialog.dismiss();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -196,5 +212,10 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

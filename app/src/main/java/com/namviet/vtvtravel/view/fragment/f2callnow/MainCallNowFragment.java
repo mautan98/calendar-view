@@ -79,7 +79,7 @@ public class MainCallNowFragment extends MainFragment {
         Account account = MyApplication.getInstance().getAccount();
         if (null != account && account.isLogin()) {
             if(account.getImageProfile()!=null && !account.getImageProfile().isEmpty()) {
-                Glide.with(mActivity).load(account.getImageProfile()).apply(new RequestOptions().circleCrop()).into(binding.imgAvatar);
+                Glide.with(mActivity).load(account.getImageProfile()).apply(new RequestOptions().circleCrop()).placeholder(R.drawable.f2_defaut_user).error(R.drawable.f2_defaut_user).into(binding.imgAvatar);
             }
         }else {
 

@@ -32,6 +32,8 @@ public class SplashViewModel extends BaseViewModel {
                     public void accept(HomeServiceResponse homeServiceResponse) throws Exception {
                         if (homeServiceResponse != null) {
                             requestSuccess(homeServiceResponse);
+                        } else {
+                            requestSuccess(null);
                         }
                     }
                 }, new Consumer<Throwable>() {

@@ -3,8 +3,11 @@ package com.namviet.vtvtravel.viewmodel.f2biglocation;
 import com.google.gson.Gson;
 import com.namviet.vtvtravel.api.Param;
 import com.namviet.vtvtravel.api.TravelService;
+import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.model.City;
+import com.namviet.vtvtravel.response.WeatherResponse;
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.LocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.TopLocationResponse;
@@ -18,6 +21,9 @@ import io.reactivex.functions.Consumer;
 import retrofit2.HttpException;
 
 public class SearchBigLocationViewModel extends BaseViewModel {
+
+
+
 
     public void getLocation() {
         MyApplication myApplication = MyApplication.getInstance();

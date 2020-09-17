@@ -5,26 +5,25 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.model.Account;
-import com.namviet.vtvtravel.model.ItemMenu;
 import com.namviet.vtvtravel.model.f2event.OnClickMomentInMenu;
 import com.namviet.vtvtravel.model.f2event.OnClickVideoInMenu;
 import com.namviet.vtvtravel.response.f2menu.MenuItem;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.MainActivity;
+import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
 import com.namviet.vtvtravel.view.f2.ImagePartActivity;
 import com.namviet.vtvtravel.view.f2.LiveTVActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
-import com.namviet.vtvtravel.view.f2.f2oldbase.LiveTVActivityOld;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
-import com.namviet.vtvtravel.view.fragment.f2service.ServiceFragment;
+import com.namviet.vtvtravel.tracking.TrackingViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -155,13 +154,38 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             } else {
                                 LoginAndRegisterActivityNew.startScreen(context, 0, false);
                             }
+                            try {
+                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_PACKAGE_REG, TrackingAnalytic.getDefault());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
 
                             break;
                         case "APP_MAIN_PROMOTION":
-                            TravelVoucherActivity.openScreen(context, true);
+                            TravelVoucherActivity.openScreen(context, true, TravelVoucherActivity.OpenType.LIST, false);
+//                            Account account2 = MyApplication.getInstance().getAccount();
+//                            if (null != account2 && account2.isLogin()) {
+//                                TravelVoucherActivity.openScreen(context, true, TravelVoucherActivity.OpenType.LIST);
+//                            } else {
+//                                LoginAndRegisterActivityNew.startScreen(context, 0, false);
+//                            }
+
                             break;
                         case "APP_MAIN_LIVETV":
-                            LiveTVActivityOld.startScreen(context);
+//                            LiveTVActivityOld.startScreen(context);
+                            LiveTVActivity.openScreen(context, 0, itemMenu.getLink());
+                            break;
+                        case "APP_MAIN_DEAL":
+                            try {
+                                DetailDealWebviewActivity.startScreen(context, itemMenu.getLink());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_DEAL_HUNT, TrackingAnalytic.getDefault());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                             break;
 
                     }

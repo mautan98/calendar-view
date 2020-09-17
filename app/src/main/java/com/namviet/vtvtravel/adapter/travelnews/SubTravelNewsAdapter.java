@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.model.travelnews.Travel;
+import com.namviet.vtvtravel.ultils.DateUtltils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +106,11 @@ public class SubTravelNewsAdapter extends RecyclerView.Adapter<RecyclerView.View
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    clickItem.onClickItem(travels.get(position));
+                    try {
+                        clickItem.onClickItem(travels.get(position));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
 
@@ -125,13 +130,23 @@ public class SubTravelNewsAdapter extends RecyclerView.Adapter<RecyclerView.View
                 e.printStackTrace();
             }
 
-            tvTime.setText(travels.get(position).getTime_ago());
+            try {
+                tvTime.setText(DateUtltils.timeToString(Long.valueOf(travels.get(position).getCreated())));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             tvViewCount.setText(travels.get(position).getView_count());
 
-            if(travels.get(position).getContent_type().equals("videos")){
-                imgVideoType.setVisibility(View.VISIBLE);
-            }else {
+            try {
+                if (travels.get(position).getIs_video().equals("1")) {
+                    imgVideoType.setVisibility(View.VISIBLE);
+                } else {
+                    imgVideoType.setVisibility(View.GONE);
+                }
+            } catch (Exception e) {
                 imgVideoType.setVisibility(View.GONE);
+                e.printStackTrace();
             }
         }
     }

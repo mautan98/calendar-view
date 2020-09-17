@@ -257,11 +257,15 @@ public class MainCallHistoryFragment extends MainFragment implements Observer {
                     allCallHistoryFragment.setData(callNowHistoryResponse.getData().getContent());
 
                     callNowHistoriesMissingCall = new ArrayList<>();
-                    Account account = MyApplication.getInstance().getAccount();
-                    for (int i = 0; i < callNowHistoryResponse.getData().getContent().size(); i++) {
-                        if (callNowHistoryResponse.getData().getContent().get(i).getPrice() == null && callNowHistoryResponse.getData().getContent().get(i).getReceiver().equals("84" + account.getMobile().substring(2))) {
-                            callNowHistoriesMissingCall.add(callNowHistoryResponse.getData().getContent().get(i));
+                    try {
+                        Account account = MyApplication.getInstance().getAccount();
+                        for (int i = 0; i < callNowHistoryResponse.getData().getContent().size(); i++) {
+                            if (callNowHistoryResponse.getData().getContent().get(i).getPrice() == null && callNowHistoryResponse.getData().getContent().get(i).getReceiver().equals("84" + account.getMobile().substring(2))) {
+                                callNowHistoriesMissingCall.add(callNowHistoryResponse.getData().getContent().get(i));
+                            }
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
                     missingCallFragment.setData(callNowHistoriesMissingCall);

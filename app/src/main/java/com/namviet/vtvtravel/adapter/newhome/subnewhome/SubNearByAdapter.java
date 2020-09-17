@@ -69,12 +69,14 @@ public class SubNearByAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imgAvatar;
+        private ImageView imgBanner;
         private TextView tvTitle;
         private int position;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
             imgAvatar = itemView.findViewById(R.id.imgAvatar);
+            imgBanner = itemView.findViewById(R.id.imgBanner);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -89,6 +91,7 @@ public class SubNearByAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             this.position = position;
             tvTitle.setText(items.get(position).getName());
             Glide.with(context).load(items.get(position).getIcon_url()).into(imgAvatar);
+            Glide.with(context).load(items.get(position).getBanner_url()).into(imgBanner);
         }
     }
 

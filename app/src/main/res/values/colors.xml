@@ -8,7 +8,7 @@
 
 
     <color name="bg">#FEFEFE</color>
-    <color name="color_ripple_effect">#f8FF4081</color>
+    <color name="color_ripple_effect">#00918D</color>
     <color name="color_icon_slide_menu">#3399cc</color>
     <color name="color_notification">#ff3366</color>
     <color name="white">#ffffff</color>

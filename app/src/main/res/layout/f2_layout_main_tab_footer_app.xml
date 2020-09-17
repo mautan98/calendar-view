@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_footer_hot"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:visibility="visible">
+
+    <ImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="24dp"
+        android:layout_height="23dp"
+        android:src="@drawable/f2_ic_home_enable" />
+
+    <TextView
+        android:textAllCaps="false"
+        android:id="@+id/tvTitle"
+        android:fontFamily="@font/roboto_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:ellipsize="end"
+        android:lines="1"
+        android:text="Trang chủ"
+        android:textColor="@color/colorPrimary"
+        android:textSize="9dp" />
+</LinearLayout>

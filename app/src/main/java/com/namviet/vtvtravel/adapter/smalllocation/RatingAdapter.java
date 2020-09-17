@@ -109,7 +109,12 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public void bindItem(int position) {
             this.position = position;
             GetReviewResponse.Data.Content content = items.get(position);
-            imageAdapter = new ImageAdapter(null, null, null);
+            imageAdapter = new ImageAdapter(content.getGalleryUris(), context, new ImageAdapter.ClickItem() {
+                @Override
+                public void onClickItem(int position) {
+
+                }
+            });
             rclImage.setAdapter(imageAdapter);
 
             tvName.setText(content.getUser().getFullname());
@@ -117,13 +122,13 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             Glide.with(context).load(content.getUser().getImageProfile()).into(imgAvatar);
             try {
                 tvTime.setText(DateUtltils.convertTime(content.getCreated()));
-            } catch (NumberFormatException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             tvRating.setText(content.getPostRate() == null ? "0" : content.getPostRate());
             try {
                 tvContentRating.setText(genRatingText(content.getPostRate() == null ? 0 : Integer.parseInt(content.getPostRate())));
-            } catch (NumberFormatException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 

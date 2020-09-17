@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:foreground="@drawable/ripple_effect_click"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
@@ -29,6 +30,7 @@
                     android:layout_height="197dp" />
 
                 <TextView
+                    android:visibility="gone"
                     android:layout_width="87dp"
                     android:layout_height="24dp"
                     android:layout_marginTop="30dp"
@@ -53,6 +55,7 @@
             </RelativeLayout>
 
             <TextView
+                android:ellipsize="end"
                 android:maxLines="2"
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
@@ -64,6 +67,8 @@
                 android:textSize="16dp" />
 
             <TextView
+                android:lineSpacingExtra="3dp"
+                android:ellipsize="end"
                 android:maxLines="2"
                 android:id="@+id/tvDescription"
                 android:layout_width="match_parent"
@@ -94,7 +99,7 @@
                     android:textSize="10dp" />
 
                 <TextView
-                    android:id="@+id/tvRatingText"
+                    android:id="@+id/tvRateText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_bold"
@@ -162,7 +167,6 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="Cách 10,8 Km"
                     android:textColor="#5E5E5E"
                     android:textSize="12dp" />
 
@@ -175,7 +179,8 @@
                     android:background="#707070" />
 
                 <TextView
-                    android:maxLength="25"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:layout_weight="1"
                     android:id="@+id/tvAddress"
                     android:layout_width="match_parent"
@@ -183,7 +188,6 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="Ngõ Đình Đại, Hai Bà Trưng"
                     android:textColor="#5E5E5E"
                     android:textSize="12dp" />
 
@@ -227,6 +231,7 @@
                     android:textSize="12dp" />
 
                 <View
+                    android:id="@+id/viewTime"
                     android:layout_width="1dp"
                     android:layout_height="12dp"
                     android:layout_gravity="center"
@@ -241,7 +246,6 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="06:30 - 21:30"
                     android:textColor="#5E5E5E"
                     android:textSize="12dp" />
 
@@ -284,7 +288,6 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="6dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="Từ 150.000 đ - 200.000 đ"
                     android:textColor="#5E5E5E"
                     android:textSize="12dp" />
             </LinearLayout>

@@ -4,15 +4,11 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.baseapp.menu.SlideMenu;
 import com.baseapp.utils.KeyboardUtils;
@@ -20,11 +16,11 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.DialogOtpServiceBinding;
-import com.namviet.vtvtravel.databinding.DialogTypeRegisterBinding;
-import com.namviet.vtvtravel.response.ResponseError;
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.dialog.BaseDialogFragment;
+import com.namviet.vtvtravel.tracking.TrackingViewModel;
 
-import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -148,6 +144,7 @@ public class OptServiceDialog extends BaseDialogFragment implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         dimissDialogLoading();
+        cancelTimer();
         if (o instanceof ServiceViewModel) {
             if (arg instanceof ServiceOtpResponse) {
 //                typeRegisterDialog = OptServiceDialog.newInstance();
@@ -155,17 +152,42 @@ public class OptServiceDialog extends BaseDialogFragment implements Observer {
 //                typeRegisterDialog.setCancelable(true);
                 ServiceOtpResponse serviceOtpResponse = (ServiceOtpResponse) arg;
                 if (serviceOtpResponse.isSuccess()) {
-                    mActivity.switchFragment(SlideMenu.MenuType.REGISTER_SUCCESS_SCREEN);
+                    dismiss();
+                    if(service.getCode().equals("TRAVEL_VIP")) {
+                        mActivity.switchFragment(SlideMenu.MenuType.REGISTER_SUCCESS_SCREEN);
+                    }else {
+                        mActivity.switchFragment(SlideMenu.MenuType.REGISTER_SUCCESS_FRIEND_SCREEN);
+                    }
+                    try {
+                        TrackingAnalytic.postEvent(TrackingAnalytic.PACKAGE_REQUEST, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                        TrackingAnalytic.postEvent(TrackingAnalytic.PACKAGE_SUBSCRIBE_SUCCESS, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 } else {
                     showMessage(serviceOtpResponse.getMessage());
 //                    Toast.makeText(mActivity, serviceOtpResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-            } else if (arg instanceof ResponseError) {
-//                ResponseError responseError = (ResponseError) arg;
-//                showMessage(responseError.getMessage());
-                registerFailDialog = RegisterFailDialog.newInstance();
-                registerFailDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
-                registerFailDialog.setCancelable(true);
+            } else if (arg instanceof ErrorResponse) {
+                dismiss();
+
+                try {
+                    ErrorResponse errorResponse = (ErrorResponse) arg;
+                    if ("USER_PKG_NOT_ENOGHT_MONEY".equals(errorResponse.getErrorCode())) {
+                        registerFailDialog = RegisterFailDialog.newInstance();
+                        registerFailDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+                        registerFailDialog.setCancelable(true);
+                        TrackingAnalytic.postEvent(TrackingAnalytic.PACKAGE_SUBSCRIBE_NOT_ENOUGH_CREDIT, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                    } else {
+                        registerFailDialog = RegisterFailDialog.newInstance(errorResponse.getMessage());
+                        registerFailDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+                        registerFailDialog.setCancelable(true);
+                        TrackingAnalytic.postEvent(TrackingAnalytic.PACKAGE_SUBSCRIBE_FAIL, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

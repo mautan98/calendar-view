@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.baseapp.menu.SlideMenu;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -29,10 +28,13 @@ import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.databinding.F2FragmentHomeBinding;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
+import com.namviet.vtvtravel.model.f2event.OnClickTab;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndUpdateUserView;
+import com.namviet.vtvtravel.model.f2event.OnReloadCountSystemInbox;
 import com.namviet.vtvtravel.model.f2event.OnUpdateAccount;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.response.f2livetv.LiveTvResponse;
+import com.namviet.vtvtravel.response.f2systeminbox.CountSystemInbox;
 import com.namviet.vtvtravel.response.newhome.AppFavoriteDestinationResponse;
 import com.namviet.vtvtravel.response.newhome.AppPromotionPartnerResponse;
 import com.namviet.vtvtravel.response.newhome.AppVideoResponse;
@@ -46,10 +48,15 @@ import com.namviet.vtvtravel.response.newhome.ItemAppExperienceResponse;
 import com.namviet.vtvtravel.response.newhome.ItemAppVoucherNowResponse;
 import com.namviet.vtvtravel.response.newhome.MobileFromViettelResponse;
 import com.namviet.vtvtravel.response.newhome.SettingResponse;
+import com.namviet.vtvtravel.tracking.Tracking;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.view.f2.SearchActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
-import com.namviet.vtvtravel.view.f2.f2oldbase.SearchActivity;
+import com.namviet.vtvtravel.view.f2.SystemInboxActivity;
+
 import com.namviet.vtvtravel.view.fragment.MainFragment;
+import com.namviet.vtvtravel.tracking.TrackingViewModel;
 import com.namviet.vtvtravel.viewmodel.newhome.NewHomeViewModel;
 
 import org.greenrobot.eventbus.EventBus;
@@ -66,11 +73,17 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
     private SubSmallHeaderAdapter subSmallHeaderAdapter;
     private String phoneNumberDetectedFrom3G;
     private PauseVideo pauseVideo;
+    private boolean isScroll = true;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+        try {
+            TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_VIEW, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Nullable
@@ -94,6 +107,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
         if (haveNetworkConnection()) {
             newHomeViewModel.getMobileFromViettel();
         }
+        getCountSystemInbox();
         newHomeViewModel.getSetting();
     }
 
@@ -116,6 +130,18 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
             @Override
             public void onClick(View view) {
                 openSearch();
+            }
+        });
+
+        binding.ivNotify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Account account1 = MyApplication.getInstance().getAccount();
+                if (null != account1 && account1.isLogin()) {
+                    SystemInboxActivity.startScreen(mActivity);
+                } else {
+                    LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+                }                                     
             }
         });
     }
@@ -169,6 +195,11 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        try {
+            TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_EXIT, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -188,7 +219,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
             binding.tvLoginRightNow.setText("Đăng kí hội viên ngay");
             binding.tvLevel.setVisibility(View.VISIBLE);
             if (!"".equals(account.getImageProfile()) && account.getImageProfile() != null) {
-                Glide.with(mActivity).load(account.getImageProfile()).into(binding.imgAvatar);
+                Glide.with(mActivity).load(account.getImageProfile()).error(R.drawable.f2_defaut_user).into(binding.imgAvatar);
             }
 
 //            newHomeAdapter.notifyItemChanged(0);
@@ -276,6 +307,22 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                         binding.ivSearch.setVisibility(View.VISIBLE);
                     }
                 }
+
+                try {
+                    if (pauseVideo != null) {
+                        pauseVideo.pauseVideoListener();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    if (isScroll) {
+                        isScroll = false;
+                        TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_SCROLL, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -299,179 +346,190 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
             }
         }, 1000);
 
-        if (observable instanceof NewHomeViewModel && null != o) {
-            if (o instanceof HomeServiceResponse) {
-                homeServiceResponse = (HomeServiceResponse) o;
-                try {
+        try {
+            if (observable instanceof NewHomeViewModel && null != o) {
+                if(o instanceof CountSystemInbox){
+                    try {
+                        CountSystemInbox countSystemInbox = (CountSystemInbox) o;
+                        binding.tvCountNoti.setText(countSystemInbox.getData().getCount());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else if (o instanceof HomeServiceResponse) {
+                    homeServiceResponse = (HomeServiceResponse) o;
+                    try {
+                        setDataForUserViewInRcl();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    newHomeAdapter = new NewHomeAdapter(mActivity, homeServiceResponse, this, this, this, this, this);
+                    binding.rclHome.setAdapter(newHomeAdapter);
+
+                    subSmallHeaderAdapter = new SubSmallHeaderAdapter(homeServiceResponse.getData().get(0).getMenus(), mActivity);
+                    binding.recycleContent.setAdapter(subSmallHeaderAdapter);
+                } else if (o instanceof ErrorResponse) {
+                    ErrorResponse responseError = (ErrorResponse) o;
+                    try {
+                        Toast.makeText(mActivity, responseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                    }
+                } else if (o instanceof SettingResponse) {
+                    SettingResponse settingResponse = (SettingResponse) o;
+                } else if (o instanceof MobileFromViettelResponse) {
+                    MobileFromViettelResponse mobileFromViettelResponse = (MobileFromViettelResponse) o;
+
+                    if (mobileFromViettelResponse.getData().getMobile() != null) {
+                        String cut = mobileFromViettelResponse.getData().getMobile().substring(3, 8);
+                        phoneNumberDetectedFrom3G = mobileFromViettelResponse.getData().getMobile().replace(cut, "xxxxx");
+                    } else {
+                        phoneNumberDetectedFrom3G = "";
+                    }
+
                     setDataForUserViewInRcl();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
 
-                newHomeAdapter = new NewHomeAdapter(mActivity, homeServiceResponse, this, this, this, this, this);
-                binding.rclHome.setAdapter(newHomeAdapter);
-
-                subSmallHeaderAdapter = new SubSmallHeaderAdapter(homeServiceResponse.getData().get(0).getMenus(), mActivity);
-                binding.recycleContent.setAdapter(subSmallHeaderAdapter);
-            } else if (o instanceof ErrorResponse) {
-                ErrorResponse responseError = (ErrorResponse) o;
-                try {
-                    Toast.makeText(mActivity, responseError.getMessage(), Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                }
-            } else if (o instanceof SettingResponse) {
-                SettingResponse settingResponse = (SettingResponse) o;
-            } else if (o instanceof MobileFromViettelResponse) {
-                MobileFromViettelResponse mobileFromViettelResponse = (MobileFromViettelResponse) o;
-
-                if (mobileFromViettelResponse.getData().getMobile() != null) {
-                    String cut = mobileFromViettelResponse.getData().getMobile().substring(3, 8);
-                    phoneNumberDetectedFrom3G = mobileFromViettelResponse.getData().getMobile().replace(cut, "xxxxx");
-                } else {
-                    phoneNumberDetectedFrom3G = "";
-                }
-
-                setDataForUserViewInRcl();
-
-            } else if (o instanceof BaseResponseNewHome) {
-                BaseResponseNewHome baseResponseNewHome = (BaseResponseNewHome) o;
-                switch (baseResponseNewHome.getCodeData()) {
-                    case NewHomeAdapter.TypeString.APP_VOUCHER:
-                        AppVoucherResponse appVoucherResponse = new Gson().fromJson(new Gson().toJson(baseResponseNewHome.getData()), AppVoucherResponse.class);
-                        for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
-                            if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_VOUCHER)) {
-                                homeServiceResponse.getData().get(i).setDataExtra(appVoucherResponse);
-                                newHomeAdapter.notifyItemChanged(i);
-                                break;
-                            }
-                        }
-                        break;
-//                    case NewHomeAdapter.TypeString.APP_DEAL:
-//                        AppDealResponse appDealResponse = new Gson().fromJson(new Gson().toJson(baseResponseNewHome.getData()), AppDealResponse.class);
-//                        for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
-//                            if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_DEAL)) {
-//                                homeServiceResponse.getData().get(i).setDataExtra(appDealResponse);
-//                                newHomeAdapter.notifyItemChanged(i);
-//                                break;
-//                            }
-//                        }
-//                        break;
-
-                    case NewHomeAdapter.TypeString.APP_TOP_EXPERIENCE:
-                        ItemAppExperienceResponse itemAppExperienceResponse = new Gson().fromJson(new Gson().toJson(baseResponseNewHome.getData()), ItemAppExperienceResponse.class);
-                        for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
-                            if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_TOP_EXPERIENCE)) {
-                                homeServiceResponse.getData().get(i).setDataExtra(itemAppExperienceResponse);
-                                newHomeAdapter.notifyItemChanged(i);
-                                break;
-                            }
-                        }
-
-                        break;
-                    case NewHomeAdapter.TypeString.APP_PROMOTION_PARTNER:
-                        AppPromotionPartnerResponse appPromotionPartnerResponse = new Gson().fromJson(new Gson().toJson(baseResponseNewHome.getData()), AppPromotionPartnerResponse.class);
-                        for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
-                            if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_PROMOTION_PARTNER)) {
-                                homeServiceResponse.getData().get(i).setDataExtra(appPromotionPartnerResponse);
-                                newHomeAdapter.notifyItemChanged(i);
-                                break;
-                            }
-                        }
-                        break;
-                    case NewHomeAdapter.TypeString.APP_FAVORITE_DESTINATION:
-                        AppFavoriteDestinationResponse appFavoriteDestinationResponse = new Gson().fromJson(new Gson().toJson(baseResponseNewHome.getData()), AppFavoriteDestinationResponse.class);
-                        for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
-                            if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_FAVORITE_DESTINATION)) {
-                                homeServiceResponse.getData().get(i).setDataExtra(appFavoriteDestinationResponse);
-                                newHomeAdapter.notifyItemChanged(i);
-                                break;
-                            }
-                        }
-                        break;
-                    case NewHomeAdapter.TypeString.APP_VIDEO:
-                        AppVideoResponse appVideoResponse = new Gson().fromJson(new Gson().toJson(baseResponseNewHome.getData()), AppVideoResponse.class);
-                        for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
-                            if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_VIDEO)) {
-                                homeServiceResponse.getData().get(i).setDataExtra(appVideoResponse);
-                                newHomeAdapter.notifyItemChanged(i);
-                                break;
-                            }
-                        }
-                        break;
-                    case NewHomeAdapter.TypeString.APP_TV:
-                        LiveTvResponse liveTvResponse = null;
-                        try {
-                            liveTvResponse = new Gson().fromJson(new Gson().toJson(baseResponseNewHome.getData()), LiveTvResponse.class);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
-                            if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_TV)) {
-                                homeServiceResponse.getData().get(i).setDataExtra(liveTvResponse);
-                                newHomeAdapter.notifyItemChanged(i);
-                                break;
-                            }
-                        }
-                        break;
-                }
-            } else if (o instanceof BaseResponseSecondNewHome) {
-                BaseResponseSecondNewHome baseResponseSecondNewHome = (BaseResponseSecondNewHome) o;
-                switch (baseResponseSecondNewHome.getCodeData()) {
-                    case NewHomeAdapter.TypeString.APP_VOUCHER_NOW:
-                        ItemAppVoucherNowResponse appVoucherResponse = new Gson().fromJson(new Gson().toJson(baseResponseSecondNewHome.getData()), ItemAppVoucherNowResponse.class);
-                        for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
-                            if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_VOUCHER_NOW)) {
-                                if (baseResponseSecondNewHome.isSave()) {
-                                    homeServiceResponse.getData().get(i).setDataExtraSecond(appVoucherResponse);
-                                } else {
-                                    homeServiceResponse.getData().get(i).setDataExtraSecondAfterClickTab(appVoucherResponse);
+                } else if (o instanceof BaseResponseNewHome) {
+                    BaseResponseNewHome baseResponseNewHome = (BaseResponseNewHome) o;
+                    switch (baseResponseNewHome.getCodeData()) {
+                        case NewHomeAdapter.TypeString.APP_VOUCHER:
+                            AppVoucherResponse appVoucherResponse = new Gson().fromJson(new Gson().toJson(baseResponseNewHome.getData()), AppVoucherResponse.class);
+                            for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
+                                if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_VOUCHER)) {
+                                    homeServiceResponse.getData().get(i).setDataExtra(appVoucherResponse);
+                                    newHomeAdapter.notifyItemChanged(i);
+                                    break;
                                 }
-                                newHomeAdapter.notifyItemChanged(i);
-                                break;
                             }
-                        }
-                        break;
-                    case NewHomeAdapter.TypeString.APP_EXPERIENCES_NEARBY:
-                        ItemAppExperienceResponse itemAppExperienceResponse = new Gson().fromJson(new Gson().toJson(baseResponseSecondNewHome.getData()), ItemAppExperienceResponse.class);
-                        for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
-                            if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_EXPERIENCES_NEARBY)) {
-                                if (baseResponseSecondNewHome.isSave()) {
-                                    homeServiceResponse.getData().get(i).setDataExtraSecond(itemAppExperienceResponse);
-                                } else {
-                                    homeServiceResponse.getData().get(i).setDataExtraSecondAfterClickTab(itemAppExperienceResponse);
-                                }
-                                newHomeAdapter.notifyItemChanged(i);
-                                break;
-                            }
-                        }
-                        break;
+                            break;
+    //                    case NewHomeAdapter.TypeString.APP_DEAL:
+    //                        AppDealResponse appDealResponse = new Gson().fromJson(new Gson().toJson(baseResponseNewHome.getData()), AppDealResponse.class);
+    //                        for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
+    //                            if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_DEAL)) {
+    //                                homeServiceResponse.getData().get(i).setDataExtra(appDealResponse);
+    //                                newHomeAdapter.notifyItemChanged(i);
+    //                                break;
+    //                            }
+    //                        }
+    //                        break;
 
-                    case NewHomeAdapter.TypeString.APP_DISCOVER:
-                        ItemAppDiscoverResponse itemAppDiscoverResponse = new Gson().fromJson(new Gson().toJson(baseResponseSecondNewHome.getData()), ItemAppDiscoverResponse.class);
-                        for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
-                            if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_DISCOVER)) {
-                                if (baseResponseSecondNewHome.isSave()) {
-                                    homeServiceResponse.getData().get(i).setDataExtraSecond(itemAppDiscoverResponse);
-                                } else {
-                                    homeServiceResponse.getData().get(i).setDataExtraSecondAfterClickTab(itemAppDiscoverResponse);
+                        case NewHomeAdapter.TypeString.APP_TOP_EXPERIENCE:
+                            ItemAppExperienceResponse itemAppExperienceResponse = new Gson().fromJson(new Gson().toJson(baseResponseNewHome.getData()), ItemAppExperienceResponse.class);
+                            for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
+                                if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_TOP_EXPERIENCE)) {
+                                    homeServiceResponse.getData().get(i).setDataExtra(itemAppExperienceResponse);
+                                    newHomeAdapter.notifyItemChanged(i);
+                                    break;
                                 }
-                                newHomeAdapter.notifyItemChanged(i);
-                                break;
                             }
-                        }
-                        break;
 
-                }
-            } else if (o instanceof BaseResponseSpecialNewHome) {
-                BaseResponseSpecialNewHome baseResponseSpecialNewHome = (BaseResponseSpecialNewHome) o;
-                for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
-                    if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_DEAL)) {
-                        homeServiceResponse.getData().get(i).setDataExtra(baseResponseSpecialNewHome);
-                        newHomeAdapter.notifyItemChanged(i);
-                        break;
+                            break;
+                        case NewHomeAdapter.TypeString.APP_PROMOTION_PARTNER:
+                            AppPromotionPartnerResponse appPromotionPartnerResponse = new Gson().fromJson(new Gson().toJson(baseResponseNewHome.getData()), AppPromotionPartnerResponse.class);
+                            for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
+                                if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_PROMOTION_PARTNER)) {
+                                    homeServiceResponse.getData().get(i).setDataExtra(appPromotionPartnerResponse);
+                                    newHomeAdapter.notifyItemChanged(i);
+                                    break;
+                                }
+                            }
+                            break;
+                        case NewHomeAdapter.TypeString.APP_FAVORITE_DESTINATION:
+                            AppFavoriteDestinationResponse appFavoriteDestinationResponse = new Gson().fromJson(new Gson().toJson(baseResponseNewHome.getData()), AppFavoriteDestinationResponse.class);
+                            for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
+                                if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_FAVORITE_DESTINATION)) {
+                                    homeServiceResponse.getData().get(i).setDataExtra(appFavoriteDestinationResponse);
+                                    newHomeAdapter.notifyItemChanged(i);
+                                    break;
+                                }
+                            }
+                            break;
+                        case NewHomeAdapter.TypeString.APP_VIDEO:
+                            AppVideoResponse appVideoResponse = new Gson().fromJson(new Gson().toJson(baseResponseNewHome.getData()), AppVideoResponse.class);
+                            for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
+                                if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_VIDEO)) {
+                                    homeServiceResponse.getData().get(i).setDataExtra(appVideoResponse);
+                                    newHomeAdapter.notifyItemChanged(i);
+                                    break;
+                                }
+                            }
+                            break;
+                        case NewHomeAdapter.TypeString.APP_TV:
+                            LiveTvResponse liveTvResponse = null;
+                            try {
+                                liveTvResponse = new Gson().fromJson(new Gson().toJson(baseResponseNewHome.getData()), LiveTvResponse.class);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
+                                if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_TV)) {
+                                    homeServiceResponse.getData().get(i).setDataExtra(liveTvResponse);
+                                    newHomeAdapter.notifyItemChanged(i);
+                                    break;
+                                }
+                            }
+                            break;
+                    }
+                } else if (o instanceof BaseResponseSecondNewHome) {
+                    BaseResponseSecondNewHome baseResponseSecondNewHome = (BaseResponseSecondNewHome) o;
+                    switch (baseResponseSecondNewHome.getCodeData()) {
+                        case NewHomeAdapter.TypeString.APP_VOUCHER_NOW:
+                            ItemAppVoucherNowResponse appVoucherResponse = new Gson().fromJson(new Gson().toJson(baseResponseSecondNewHome.getData()), ItemAppVoucherNowResponse.class);
+                            for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
+                                if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_VOUCHER_NOW)) {
+                                    if (baseResponseSecondNewHome.isSave()) {
+                                        homeServiceResponse.getData().get(i).setDataExtraSecond(appVoucherResponse);
+                                    } else {
+                                        homeServiceResponse.getData().get(i).setDataExtraSecondAfterClickTab(appVoucherResponse);
+                                    }
+                                    newHomeAdapter.notifyItemChanged(i);
+                                    break;
+                                }
+                            }
+                            break;
+                        case NewHomeAdapter.TypeString.APP_EXPERIENCES_NEARBY:
+                            ItemAppExperienceResponse itemAppExperienceResponse = new Gson().fromJson(new Gson().toJson(baseResponseSecondNewHome.getData()), ItemAppExperienceResponse.class);
+                            for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
+                                if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_EXPERIENCES_NEARBY)) {
+                                    if (baseResponseSecondNewHome.isSave()) {
+                                        homeServiceResponse.getData().get(i).setDataExtraSecond(itemAppExperienceResponse);
+                                    } else {
+                                        homeServiceResponse.getData().get(i).setDataExtraSecondAfterClickTab(itemAppExperienceResponse);
+                                    }
+                                    newHomeAdapter.notifyItemChanged(i);
+                                    break;
+                                }
+                            }
+                            break;
+
+                        case NewHomeAdapter.TypeString.APP_DISCOVER:
+                            ItemAppDiscoverResponse itemAppDiscoverResponse = new Gson().fromJson(new Gson().toJson(baseResponseSecondNewHome.getData()), ItemAppDiscoverResponse.class);
+                            for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
+                                if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_DISCOVER)) {
+                                    if (baseResponseSecondNewHome.isSave()) {
+                                        homeServiceResponse.getData().get(i).setDataExtraSecond(itemAppDiscoverResponse);
+                                    } else {
+                                        homeServiceResponse.getData().get(i).setDataExtraSecondAfterClickTab(itemAppDiscoverResponse);
+                                    }
+                                    newHomeAdapter.notifyItemChanged(i);
+                                    break;
+                                }
+                            }
+                            break;
+
+                    }
+                } else if (o instanceof BaseResponseSpecialNewHome) {
+                    BaseResponseSpecialNewHome baseResponseSpecialNewHome = (BaseResponseSpecialNewHome) o;
+                    for (int i = 0; i < homeServiceResponse.getData().size(); i++) {
+                        if (homeServiceResponse.getData().get(i).getCode().equals(NewHomeAdapter.TypeString.APP_DEAL)) {
+                            homeServiceResponse.getData().get(i).setDataExtra(baseResponseSpecialNewHome);
+                            newHomeAdapter.notifyItemChanged(i);
+                            break;
+                        }
                     }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -503,7 +561,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 //                Bundle bundle = new Bundle();
 //                mActivity.setBundle(bundle);
 //                mActivity.switchFragment(SlideMenu.MenuType.LOGIN_SCREEN);
-                LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+                LoginAndRegisterActivityNew.startScreen(mActivity, 1, false);
             }
         }
     }
@@ -524,7 +582,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                 binding.tvLoginRightNow.setText("Đăng kí hội viên ngay");
                 binding.tvLevel.setVisibility(View.VISIBLE);
                 if (!"".equals(account.getImageProfile()) && account.getImageProfile() != null) {
-                    Glide.with(mActivity).load(account.getImageProfile()).into(binding.imgAvatar);
+                    Glide.with(mActivity).load(account.getImageProfile()).error(R.drawable.f2_defaut_user).into(binding.imgAvatar);
                 }
             } else {
                 binding.tvLevel.setVisibility(View.GONE);
@@ -619,11 +677,39 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
             String s = account.getFullname() != null ? account.getFullname() : "Bạn";
             binding.tvName.setText("Xin chào, " + s);
             if (!"".equals(account.getImageProfile()) && account.getImageProfile() != null) {
-                Glide.with(mActivity).load(account.getImageProfile()).into(binding.imgAvatar);
+                Glide.with(mActivity).load(account.getImageProfile()).error(R.drawable.f2_defaut_user).into(binding.imgAvatar);
             }
-        }else {
+        } else {
             binding.imgAvatar.setImageResource(R.drawable.f2_defaut_user);
         }
 
+    }
+
+    @Subscribe
+    public void OnClickTab(OnClickTab onClickTab) {
+        try {
+            if (pauseVideo != null) {
+                pauseVideo.pauseVideoListener();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void getCountSystemInbox(){
+        newHomeViewModel.getSystemInboxCount();
+    }
+
+
+    @Subscribe
+    public void onReloadCountSystemInbox(OnReloadCountSystemInbox onReloadCountSystemInbox){
+        getCountSystemInbox();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getCountSystemInbox();
     }
 }

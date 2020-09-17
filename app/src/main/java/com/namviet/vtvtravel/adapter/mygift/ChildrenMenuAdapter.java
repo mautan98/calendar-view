@@ -1,7 +1,11 @@
 package com.namviet.vtvtravel.adapter.mygift;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +18,7 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.response.f2menu.MenuItem;
+import com.namviet.vtvtravel.view.f2.ChatActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.MyGiftActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
@@ -46,7 +51,7 @@ public class ChildrenMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
         if (viewType == TYPE_ITEM_MENU_HEADER) {
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_item_menu_normal, parent, false);
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_item_menu_children, parent, false);
             return new NormalViewHolder(v);
         }
         return null;
@@ -73,7 +78,6 @@ public class ChildrenMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
 
-
     public class NormalViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgAvatar;
         private TextView tvName;
@@ -87,11 +91,11 @@ public class ChildrenMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 @Override
                 public void onClick(View view) {
                     Account account = MyApplication.getInstance().getAccount();
-                    switch (items.get(position).getCode_type()){
+                    switch (items.get(position).getCode_type()) {
 
                         case "APP_MAIN_VQMM_BOOKING":
                             if (null != account && account.isLogin()) {
-                                VQMMWebviewActivity.startScreen(context);
+                                VQMMWebviewActivity.startScreen(context, "");
                             } else {
                                 LoginAndRegisterActivityNew.startScreen(context, 0, false);
                             }
@@ -104,9 +108,49 @@ public class ChildrenMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                 LoginAndRegisterActivityNew.startScreen(context, 0, false);
                             }
                             break;
+
+                        case "APP_MAIN_SUPPORT_BOOKING":
+                            try {
+                                call(context.getString(R.string.calling_address));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            break;
+
+                        case "APP_MAIN_CHATBOT_BOOKING":
+                            try {
+                                ChatActivity.startScreen((MyGiftActivity) context);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            break;
+
                     }
                 }
             });
+
+
+        }
+
+        public void call(String message) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+            alertDialogBuilder
+                    .setMessage("" + message)
+                    .setPositiveButton(R.string.call, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            String phone = "1039";
+                            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
+                            context.startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton(R.string.dimiss, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
         }
 
         public void bindItem(int position) {

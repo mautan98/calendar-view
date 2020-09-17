@@ -52,7 +52,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_regular"
-            android:text="A Đạt"
             android:textColor="#000000"
             android:textSize="18dp" />
 
@@ -61,7 +60,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_regular"
-            android:text="+84 942461154"
             android:textColor="#757575"
             android:textSize="14dp" />
 
@@ -81,6 +79,5 @@
         android:layout_gravity="end"
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/roboto_regular"
-        android:text="14:55"
         android:textColor="#757575" />
 </RelativeLayout>

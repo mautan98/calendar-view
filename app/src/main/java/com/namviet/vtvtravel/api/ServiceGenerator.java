@@ -6,7 +6,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    public static final String API_BASE_URL = "http://cdn1.travel.onex.vn/";
+//    public static final String API_BASE_URL = "http://cdn1.travel.onex.vn/";
+    public static final String API_BASE_URL = "http://cdn.vtvtravel.vn/";
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 

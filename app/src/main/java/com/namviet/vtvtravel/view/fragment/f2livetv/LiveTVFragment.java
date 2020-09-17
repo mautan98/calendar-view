@@ -4,20 +4,29 @@ import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2livetv.ChannelLiveTVAdapter;
 import com.namviet.vtvtravel.adapter.f2livetv.ScheduleLiveTVAdapter;
 import com.namviet.vtvtravel.databinding.F2FragmentDetailLivetvBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
+import com.namviet.vtvtravel.response.CityResponse;
+import com.namviet.vtvtravel.response.WeatherResponse;
 import com.namviet.vtvtravel.response.f2livetv.LiveTvResponse;
+import com.namviet.vtvtravel.response.newhome.BaseResponseNewHome;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.FullVideoActivity;
+import com.namviet.vtvtravel.viewmodel.f2livetv.LiveTvViewModel;
+import com.namviet.vtvtravel.viewmodel.newhome.NewHomeViewModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> implements ChannelLiveTVAdapter.ClickButton, ListChannelDialog.ClickChannel {
+public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> implements ChannelLiveTVAdapter.ClickButton, ListChannelDialog.ClickChannel, Observer {
     private LiveTvResponse response;
 
     private ChannelLiveTVAdapter channelLiveTVAdapter;
@@ -29,6 +38,11 @@ public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> 
     private int position = 0;
     private String urlVideo = "";
 
+    private String detailLink;
+
+
+    private LiveTvViewModel liveTvViewModel;
+
     public LiveTVFragment() {
     }
 
@@ -38,6 +52,11 @@ public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> 
         this.position = position;
     }
 
+    @SuppressLint("ValidFragment")
+    public LiveTVFragment(String detailLink) {
+        this.detailLink = detailLink;
+    }
+
     @Override
     public int getLayoutRes() {
         return R.layout.f2_fragment_detail_livetv;
@@ -45,36 +64,59 @@ public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> 
 
     @Override
     public void initView() {
-        channelList = response.getItems();
-
-        channelLiveTVAdapter = new ChannelLiveTVAdapter(mActivity, channelList, this);
-        getBinding().rclChannel.setAdapter(channelLiveTVAdapter);
-
-        scheduleLiveTVAdapter = new ScheduleLiveTVAdapter(mActivity, scheduleList);
-        getBinding().rclSchedule.setAdapter(scheduleLiveTVAdapter);
-
-        scheduleList.clear();
-        for (LiveTvResponse.Channel.Schedule schedule : response.getItems().get(position).getSchedule()) {
-            scheduleList.add(schedule);
+        if (response == null) {
+            initViewModel();
+        } else {
+            setData();
         }
-        Collections.reverse(scheduleList);
-        scheduleLiveTVAdapter.notifyDataSetChanged();
 
-        getBinding().tvTitle.setText("Lịch phát sóng trên " + response.getItems().get(position).getName());
-        getBinding().tvToday.setText(response.getItems().get(position).getDate());
+    }
 
-        PlaylistItem pi = new PlaylistItem.Builder()
-                .file(response.getItems().get(position).getStreaming_urls().get(0).getUrl())
-//                .file("https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8")
-                .build();
-        getBinding().jwplayer.load(pi);
-        getBinding().jwplayer.play();
+    private void setData() {
+        try {
+            getBinding().jwplayer.setFullscreen(false, false);
+            channelList = response.getItems();
 
-        urlVideo = response.getItems().get(position).getStreaming_urls().get(0).getUrl();
+            channelLiveTVAdapter = new ChannelLiveTVAdapter(mActivity, channelList, this, position);
+            getBinding().rclChannel.setAdapter(channelLiveTVAdapter);
+
+            scheduleLiveTVAdapter = new ScheduleLiveTVAdapter(mActivity, scheduleList);
+            getBinding().rclSchedule.setAdapter(scheduleLiveTVAdapter);
+
+            scheduleList.clear();
+            for (LiveTvResponse.Channel.Schedule schedule : response.getItems().get(position).getSchedule()) {
+                scheduleList.add(schedule);
+            }
+            Collections.reverse(scheduleList);
+            scheduleLiveTVAdapter.notifyDataSetChanged();
+
+            getBinding().tvTitle.setText("Lịch phát sóng trên " + response.getItems().get(position).getName());
+            getBinding().tvToday.setText(response.getItems().get(position).getDate());
+
+            PlaylistItem pi = new PlaylistItem.Builder()
+                    .file(response.getItems().get(position).getStreaming_urls().get(0).getUrl())
+                    .build();
+            getBinding().jwplayer.load(pi);
+            getBinding().jwplayer.play();
+
+            urlVideo = response.getItems().get(position).getStreaming_urls().get(0).getUrl();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        getBinding().shimmerMain.setVisibility(View.GONE);
+    }
+
+
+    private void initViewModel() {
+        liveTvViewModel = new LiveTvViewModel();
+        getBinding().setNewHomeViewModel(liveTvViewModel);
+        liveTvViewModel.addObserver(this);
+        liveTvViewModel.getLiveTvData(detailLink);
     }
 
     @Override
     public void initData() {
+
     }
 
     @Override
@@ -121,23 +163,83 @@ public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> 
     }
 
     private void updateViews(int position) {
-        getBinding().tvTitle.setText("Lịch phát sóng trên " + response.getItems().get(position).getName());
-        getBinding().tvToday.setText(response.getItems().get(position).getDate());
+        try {
+            getBinding().tvTitle.setText("Lịch phát sóng trên " + response.getItems().get(position).getName());
+            getBinding().tvToday.setText(response.getItems().get(position).getDate());
 
-        scheduleList.clear();
-        for (LiveTvResponse.Channel.Schedule schedule : channelList.get(position).getSchedule()) {
-            scheduleList.add(schedule);
+            scheduleList.clear();
+            for (LiveTvResponse.Channel.Schedule schedule : channelList.get(position).getSchedule()) {
+                scheduleList.add(schedule);
+            }
+            Collections.reverse(scheduleList);
+            scheduleLiveTVAdapter.notifyDataSetChanged();
+
+            PlaylistItem pi = new PlaylistItem.Builder()
+                    .file(response.getItems().get(position).getStreaming_urls().get(0).getUrl())
+                    .build();
+            getBinding().jwplayer.load(pi);
+            getBinding().jwplayer.play();
+
+            urlVideo = response.getItems().get(position).getStreaming_urls().get(0).getUrl();
+
+            try {
+                channelLiveTVAdapter.setPositionSelected(position);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        Collections.reverse(scheduleList);
-        scheduleLiveTVAdapter.notifyDataSetChanged();
+    }
 
-        PlaylistItem pi = new PlaylistItem.Builder()
-                .file(response.getItems().get(position).getStreaming_urls().get(0).getUrl())
-//                .file("https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8")
-                .build();
-        getBinding().jwplayer.load(pi);
-        getBinding().jwplayer.play();
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (getBinding().jwplayer != null)
+            getBinding().jwplayer.onStart();
+    }
 
-        urlVideo = response.getItems().get(position).getStreaming_urls().get(0).getUrl();
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (getBinding().jwplayer != null) {
+            getBinding().jwplayer.onResume();
+//            getBinding().jwplayer.play();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (getBinding().jwplayer != null)
+            getBinding().jwplayer.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (getBinding().jwplayer != null)
+            getBinding().jwplayer.onStop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (getBinding().jwplayer != null)
+            getBinding().jwplayer.onDestroy();
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+        if (observable instanceof LiveTvViewModel && null != o) {
+            if (o instanceof BaseResponseNewHome) {
+                BaseResponseNewHome response = (BaseResponseNewHome) o;
+                LiveTVFragment.this.response = new Gson().fromJson(new Gson().toJson(response.getData()), LiveTvResponse.class);
+                setData();
+            }
+        }
     }
 }

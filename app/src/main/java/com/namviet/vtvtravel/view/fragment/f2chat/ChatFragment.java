@@ -279,26 +279,26 @@ public class ChatFragment extends BaseFragment<F2FragmentChatBinding> implements
                 chatData.setType(Constants.TypeChat.GET_USER_GUILD);
                 handleChat(chatData);
             } else if (arg instanceof PostUserGuildResponse) {
-                PostUserGuildResponse response = (PostUserGuildResponse) arg;
-                ChatData chatData = new ChatData();
-                chatData.setItemPostUserGuild(response.getData().getItems());
-                chatData.setText(response.getData().getOnbot());
-                chatData.setCurrent_time(getCurrentTime());
-                if ("REGISTER".equals(response.getData().getCode())) {
-                    chatData.setType(Constants.TypeChat.USER_GUILD_REGISTER_VIP);
-                    handleChat(chatData);
-                } else if ("DEAL".equals(response.getData().getCode())) {
-                    chatData.setType(Constants.TypeChat.USER_GUILD_DEAL);
-                    handleChat(chatData);
-                }
-//                if (response.getData().getCode() != null && response.getData().getCode().toLowerCase().startsWith("_text")) {
+//                PostUserGuildResponse response = (PostUserGuildResponse) arg;
+//                ChatData chatData = new ChatData();
+//                chatData.setItemPostUserGuild(response.getData().getItems());
+//                chatData.setText(response.getData().getOnbot());
+//                chatData.setCurrent_time(getCurrentTime());
+//                if ("REGISTER".equals(response.getData().getCode())) {
 //                    chatData.setType(Constants.TypeChat.USER_GUILD_REGISTER_VIP);
 //                    handleChat(chatData);
-//                }
-//                if (response.getData().getCode() != null && response.getData().getCode().toUpperCase().startsWith("_slide")) {
+//                } else if ("DEAL".equals(response.getData().getCode())) {
 //                    chatData.setType(Constants.TypeChat.USER_GUILD_DEAL);
 //                    handleChat(chatData);
 //                }
+////                if (response.getData().getCode() != null && response.getData().getCode().toLowerCase().startsWith("_text")) {
+////                    chatData.setType(Constants.TypeChat.USER_GUILD_REGISTER_VIP);
+////                    handleChat(chatData);
+////                }
+////                if (response.getData().getCode() != null && response.getData().getCode().toUpperCase().startsWith("_slide")) {
+////                    chatData.setType(Constants.TypeChat.USER_GUILD_DEAL);
+////                    handleChat(chatData);
+////                }
             } else if (arg instanceof CreateRoomResponse) {
                 CreateRoomResponse createRoomResponse = (CreateRoomResponse) arg;
                 SocketManager.initSocket(createRoomResponse.getData().getTokenMemberId());

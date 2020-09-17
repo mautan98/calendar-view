@@ -15,6 +15,11 @@ public class PostUserGuildResponse extends BaseResponse {
         private String onbot;
         private String code;
         private List<Item> items;
+        private String type;
+
+        public String getType() {
+            return type;
+        }
 
         public String getCode() {
             return code;

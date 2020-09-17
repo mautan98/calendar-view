@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.namviet.vtvtravel.response.BaseResponse;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class ListVoucherResponse extends BaseResponse {
@@ -32,7 +33,7 @@ public class ListVoucherResponse extends BaseResponse {
             this.vouchers = vouchers;
         }
 
-        public  class Voucher {
+        public  class Voucher implements Serializable {
             @Expose
             @SerializedName("remainCoupon")
             private String remainCoupon;
@@ -298,7 +299,7 @@ public class ListVoucherResponse extends BaseResponse {
                 this.id = id;
             }
 
-            public  class Coupons {
+            public  class Coupons implements Serializable {
                 @Expose
                 @SerializedName("modifiedAt")
                 private String modifiedAt;

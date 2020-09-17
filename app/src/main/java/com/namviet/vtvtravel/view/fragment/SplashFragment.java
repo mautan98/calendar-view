@@ -62,12 +62,14 @@ public class SplashFragment extends MainFragment implements Observer {
         super.initViews(v);
         homeViewModel = new HomeViewModel(getContext());
         homeViewModel.addObserver(this);
-        homeViewModel.getListMenu();
+//        homeViewModel.getListMenu();
 
 //        splashViewModel = new SplashViewModel();
 //        binding.setSplashViewModel(splashViewModel);
 //        splashViewModel.addObserver(this);
 //        splashViewModel.getHomeService();
+
+        onSuccessLoading();
     }
 
     private void onSuccessLoading() {

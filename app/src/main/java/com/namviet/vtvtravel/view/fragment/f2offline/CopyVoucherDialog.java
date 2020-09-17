@@ -19,9 +19,11 @@ import android.widget.Toast;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.databinding.F2DialogCopyVoucherBinding;
-import com.namviet.vtvtravel.databinding.F2DialogOneButtonTitleImageBinding;
 import com.namviet.vtvtravel.response.f2travelvoucher.ListVoucherResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
+import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.view.dialog.f2.BaseDialogFragment2;
+import com.namviet.vtvtravel.tracking.TrackingViewModel;
 
 public class CopyVoucherDialog extends BaseDialogFragment2 {
     private F2DialogCopyVoucherBinding binding;
@@ -93,11 +95,23 @@ public class CopyVoucherDialog extends BaseDialogFragment2 {
                     ClipData clip = ClipData.newPlainText("label", voucher.getCode() + "");
                     clipboard.setPrimaryClip(clip);
                     Toast.makeText(getContext(), "Đã sao chép mã vào bộ nhớ tạm", Toast.LENGTH_SHORT).show();
+
+                    try {
+                        TrackingAnalytic.postEvent(TrackingAnalytic.COPY_PROMOTION_CODE, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+
+        try {
+            binding.tvTimeLeft.setText("Hạn sử dụng đến ngày " + DateUtltils.timeToString(Long.valueOf(voucher.getEndAt()) / 1000));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public interface ClickButton {

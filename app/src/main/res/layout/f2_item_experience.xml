@@ -12,7 +12,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <android.support.v7.widget.CardView
@@ -64,11 +64,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="match_parent"
                 android:layout_marginStart="11dp"
                 android:orientation="vertical">
 
                 <TextView
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -96,6 +98,7 @@
                         android:textSize="10dp" />
 
                     <TextView
+                        android:id="@+id/tvRateText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_bold"
@@ -152,6 +155,7 @@
                             android:textSize="12dp" />
 
                         <View
+                            android:id="@+id/viewTime"
                             android:layout_width="1dp"
                             android:layout_height="12dp"
                             android:layout_gravity="center"
@@ -164,7 +168,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="06:30 - 21:30"
                             android:textColor="#000000"
                             android:textSize="12dp" />
                     </LinearLayout>
@@ -177,6 +180,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:visibility="invisible"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
@@ -188,7 +192,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="1.967.649 đ - 1.967.649 đ"
                             android:textColor="#000000"
                             android:textSize="16dp" />
 
@@ -199,11 +202,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="Đã đóng"
                         android:textColor="#FF0000"
                         android:textSize="12dp" />
 
                     <LinearLayout
+                        android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -215,18 +218,20 @@
                             android:src="@drawable/f2_ic_location" />
 
                         <TextView
+                            android:maxLines="1"
+                            android:ellipsize="end"
                             android:id="@+id/tvAddress"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="3dp"
                             android:fontFamily="@font/roboto_regular"
                             android:singleLine="true"
-                            android:text="Ngõ Đình Đại, Hai Bà Trưng, Hà Nội"
                             android:textColor="#5E5E5E"
                             android:textSize="11dp" />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -248,6 +253,8 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="3dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -263,7 +270,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="3dp"
                             android:fontFamily="@font/roboto_regular"
-                            android:text="Đi đâu"
                             android:textColor="#5E5E5E"
                             android:textSize="11dp" />
                     </LinearLayout>

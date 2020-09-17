@@ -29,6 +29,15 @@ public class GetReviewResponse extends BaseResponse {
             private String totalCommentInPost;
             private Account user;
             private String postRate;
+            private List<String> galleryUris;
+
+            public List<String> getGalleryUris() {
+                return galleryUris;
+            }
+
+            public void setGalleryUris(List<String> galleryUris) {
+                this.galleryUris = galleryUris;
+            }
 
             public String getId() {
                 return id;

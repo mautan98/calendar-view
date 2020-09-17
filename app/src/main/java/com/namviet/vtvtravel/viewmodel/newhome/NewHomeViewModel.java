@@ -12,6 +12,9 @@ import com.namviet.vtvtravel.response.BaseResponse;
 import com.namviet.vtvtravel.response.CityResponse;
 import com.namviet.vtvtravel.response.ResponseError;
 import com.namviet.vtvtravel.response.WeatherResponse;
+import com.namviet.vtvtravel.response.f2menu.MenuResponse;
+import com.namviet.vtvtravel.response.f2systeminbox.CountSystemInbox;
+import com.namviet.vtvtravel.response.f2systeminbox.SystemInbox;
 import com.namviet.vtvtravel.response.newhome.BaseResponseNewHome;
 import com.namviet.vtvtravel.response.newhome.BaseResponseSecondNewHome;
 import com.namviet.vtvtravel.response.newhome.BaseResponseSpecialNewHome;
@@ -32,6 +35,34 @@ import retrofit2.HttpException;
 
 public class NewHomeViewModel extends BaseViewModel {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+
+
+    public void getSystemInboxCount() {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+
+        Disposable disposable = newsService.getCountSystemInbox()
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<CountSystemInbox>() {
+                    @Override
+                    public void accept(CountSystemInbox countSystemInbox) throws Exception {
+                        if (countSystemInbox != null) {
+                            if (countSystemInbox.isSuccess()) {
+                                requestSuccess(countSystemInbox);
+                            }
+                        }
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable);
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
 
     public void getHomeService() {
         MyApplication myApplication = MyApplication.getInstance();
@@ -68,9 +99,12 @@ public class NewHomeViewModel extends BaseViewModel {
                 .subscribe(new Consumer<BaseResponseNewHome>() {
                     @Override
                     public void accept(BaseResponseNewHome baseResponse) throws Exception {
-                        baseResponse.setCodeData(code);
-                        NewHomeViewModel.this.requestSuccess(baseResponse);
-
+                        if (baseResponse != null) {
+                            baseResponse.setCodeData(code);
+                            NewHomeViewModel.this.requestSuccess(baseResponse);
+                        } else {
+                            requestSuccess(null);
+                        }
                     }
                 }, throwable -> {
                     requestFailed(throwable);
@@ -89,9 +123,12 @@ public class NewHomeViewModel extends BaseViewModel {
                 .subscribe(new Consumer<BaseResponseSpecialNewHome>() {
                     @Override
                     public void accept(BaseResponseSpecialNewHome baseResponse) throws Exception {
-                        baseResponse.setCodeData(code);
-                        NewHomeViewModel.this.requestSuccess(baseResponse);
-
+                        if (baseResponse != null) {
+                            baseResponse.setCodeData(code);
+                            NewHomeViewModel.this.requestSuccess(baseResponse);
+                        } else {
+                            requestSuccess(null);
+                        }
                     }
                 }, throwable -> {
                     requestFailed(throwable);
@@ -112,9 +149,13 @@ public class NewHomeViewModel extends BaseViewModel {
                     @Override
                     public void accept(BaseResponseSecondNewHome baseResponse) throws Exception {
                         try {
-                            baseResponse.setCodeData(code);
-                            baseResponse.setSave(isSave);
-                            NewHomeViewModel.this.requestSuccess(baseResponse);
+                            if (baseResponse != null) {
+                                baseResponse.setCodeData(code);
+                                baseResponse.setSave(isSave);
+                                NewHomeViewModel.this.requestSuccess(baseResponse);
+                            } else {
+                                requestSuccess(null);
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -139,8 +180,10 @@ public class NewHomeViewModel extends BaseViewModel {
                 .subscribe(new Consumer<MobileFromViettelResponse>() {
                     @Override
                     public void accept(MobileFromViettelResponse mobileFromViettelResponse) throws Exception {
-                        if (mobileFromViettelResponse!= null) {
+                        if (mobileFromViettelResponse != null && mobileFromViettelResponse.isSuccess()) {
                             requestSuccess(mobileFromViettelResponse);
+                        } else {
+                            requestSuccess(newsService);
                         }
 
                     }
@@ -161,13 +204,13 @@ public class NewHomeViewModel extends BaseViewModel {
         Disposable disposable = newsService.getSetting()
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<SettingResponse>() {
+                .subscribe(new Consumer<MenuResponse>() {
                     @Override
-                    public void accept(SettingResponse settingResponse) throws Exception {
-                        if(settingResponse != null) {
-                            if (settingResponse.isSuccess()) {
-                                requestSuccess(settingResponse);
-                            }
+                    public void accept(MenuResponse settingResponse) throws Exception {
+                        if (settingResponse != null) {
+                            requestSuccess(settingResponse);
+                        } else {
+                            requestSuccess(null);
                         }
                     }
                 }, throwable -> {
@@ -179,7 +222,7 @@ public class NewHomeViewModel extends BaseViewModel {
 
 
     public void loadWeather(City city) {
-        String url = WSConfig.HOST+"weather/forecast";
+        String url = WSConfig.HOST + "weather/forecast";
         if (null != city) {
             url = url + "/" + city.getId();
         }

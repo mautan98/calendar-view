@@ -57,12 +57,14 @@
             android:gravity="center">
 
             <EditText
+                android:maxLength="1"
+                android:imeOptions="actionNext"
                 android:id="@+id/et1"
                 android:layout_width="40dp"
                 android:layout_height="48dp"
                 android:background="@drawable/f2_bg_otp_edt"
                 android:inputType="phone"
-                android:maxLength="1"
+                android:singleLine="true"
                 android:textAlignment="center" />
 
             <android.support.v4.widget.Space
@@ -70,12 +72,14 @@
                 android:layout_height="0dp" />
 
             <EditText
+                android:maxLength="1"
+                android:imeOptions="actionNext"
                 android:id="@+id/et2"
                 android:layout_width="40dp"
                 android:layout_height="48dp"
                 android:background="@drawable/f2_bg_otp_edt"
                 android:inputType="phone"
-                android:maxLength="1"
+                android:singleLine="true"
                 android:textAlignment="center" />
 
             <android.support.v4.widget.Space
@@ -83,12 +87,14 @@
                 android:layout_height="0dp" />
 
             <EditText
+                android:maxLength="1"
+                android:imeOptions="actionNext"
                 android:id="@+id/et3"
                 android:layout_width="40dp"
                 android:layout_height="48dp"
                 android:background="@drawable/f2_bg_otp_edt"
                 android:inputType="phone"
-                android:maxLength="1"
+                android:singleLine="true"
                 android:textAlignment="center" />
 
             <android.support.v4.widget.Space
@@ -96,12 +102,14 @@
                 android:layout_height="0dp" />
 
             <EditText
+                android:maxLength="1"
+                android:imeOptions="actionNext"
                 android:id="@+id/et4"
                 android:layout_width="40dp"
                 android:layout_height="48dp"
                 android:background="@drawable/f2_bg_otp_edt"
                 android:inputType="phone"
-                android:maxLength="1"
+                android:singleLine="true"
                 android:textAlignment="center" />
 
             <android.support.v4.widget.Space
@@ -109,12 +117,14 @@
                 android:layout_height="0dp" />
 
             <EditText
+                android:maxLength="1"
+                android:imeOptions="actionNext"
                 android:id="@+id/et5"
                 android:layout_width="40dp"
                 android:layout_height="48dp"
                 android:background="@drawable/f2_bg_otp_edt"
                 android:inputType="phone"
-                android:maxLength="1"
+                android:singleLine="true"
                 android:textAlignment="center" />
 
             <android.support.v4.widget.Space
@@ -122,12 +132,14 @@
                 android:layout_height="0dp" />
 
             <EditText
+                android:maxLength="1"
+                android:imeOptions="actionDone"
                 android:id="@+id/et6"
                 android:layout_width="40dp"
                 android:layout_height="48dp"
                 android:background="@drawable/f2_bg_otp_edt"
                 android:inputType="phone"
-                android:maxLength="1"
+                android:singleLine="true"
                 android:textAlignment="center" />
 
 

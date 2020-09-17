@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2ActivityLivetvBinding;
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
@@ -20,6 +21,7 @@ public class LiveTVActivity extends BaseActivityNew<F2ActivityLivetvBinding> {
     private static final String CHANNEL_POSITION = "CHANNEL_POSITION";
     private LiveTvResponse liveTvResponse;
     private int position;
+    private String link;
 
     @Override
     public int getLayoutRes() {
@@ -34,6 +36,8 @@ public class LiveTVActivity extends BaseActivityNew<F2ActivityLivetvBinding> {
     @Override
     public void getDataFromIntent() {
         liveTvResponse = (LiveTvResponse) getIntent().getSerializableExtra(CHANNEL_LIST);
+        link =  getIntent().getStringExtra(Constants.IntentKey.DETAIL_LINK);
+        position = getIntent().getIntExtra(CHANNEL_POSITION, 0);
     }
 
     @Override
@@ -48,7 +52,12 @@ public class LiveTVActivity extends BaseActivityNew<F2ActivityLivetvBinding> {
 
     @Override
     public BaseFragment initFragment() {
-        LiveTVFragment liveTVFragment = new LiveTVFragment(liveTvResponse, position);
+        LiveTVFragment liveTVFragment;
+        if(liveTvResponse == null){
+            liveTVFragment  = new LiveTVFragment(link);
+        }else {
+            liveTVFragment  = new LiveTVFragment(liveTvResponse, position);
+        }
         return liveTVFragment;
     }
 
@@ -56,6 +65,13 @@ public class LiveTVActivity extends BaseActivityNew<F2ActivityLivetvBinding> {
         Intent intent = new Intent(activity, LiveTVActivity.class);
         intent.putExtra(CHANNEL_LIST, response);
         intent.putExtra(CHANNEL_POSITION, position);
+        activity.startActivity(intent);
+    }
+
+    public static void openScreen(Context activity, int position, String detailLink) {
+        Intent intent = new Intent(activity, LiveTVActivity.class);
+        intent.putExtra(Constants.IntentKey.DETAIL_LINK, detailLink);
+        intent.putExtra(Constants.IntentKey.KEY_POSITION, position);
         activity.startActivity(intent);
     }
 }

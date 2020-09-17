@@ -6,13 +6,13 @@
 
     <LinearLayout
         android:id="@+id/cardview"
-        android:layout_width="300dp"
-        android:layout_height="160dp"
+        android:layout_width="302dp"
+        android:layout_height="150dp"
         android:layout_centerInParent="true">
 
 
         <com.makeramen.roundedimageview.RoundedImageView
-            app:riv_corner_radius="25dp"
+            app:riv_corner_radius="12dp"
             app:riv_mutate_background="true"
             app:riv_tile_mode="repeat"
             android:src="@drawable/f2_item_book"

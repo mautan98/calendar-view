@@ -17,6 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
+import java.util.concurrent.TimeUnit;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -68,6 +69,11 @@ public class TravelFactory {
         return retrofit.create(serviceClass);
     }
 
+    public static <S> S createServiceAccNoneToken(Class<S> serviceClass) {
+        Retrofit retrofit = builderAcc.client(unitHttpClientNoneToken(okHttpClient)).build();
+        return retrofit.create(serviceClass);
+    }
+
     public static <S> S createServiceChat(Class<S> serviceClass) {
         Retrofit retrofit = builderChat.client(unitHttpClient(okHttpClient)).build();
         return retrofit.create(serviceClass);
@@ -115,6 +121,138 @@ public class TravelFactory {
                                             Request request = chain.request().newBuilder()
                                                     .addHeader("Content-Type", "Application/JSON")
                                                     .addHeader(WSConfig.KeyParam.HEADER_TOKEN, mInfo.getToken()).build();
+                                            return chain.proceed(request);
+                                        }
+                                    })
+                            .addInterceptor(new LoggingInterceptor())
+                            .sslSocketFactory(sslSocketFactory)
+                            .hostnameVerifier((hostname, session) -> true)
+                            .connectTimeout(1, TimeUnit.MINUTES)
+                            .readTimeout(30, TimeUnit.SECONDS)
+                            .writeTimeout(15, TimeUnit.SECONDS)
+                            .build();
+                } catch (NoSuchAlgorithmException | KeyManagementException e) {
+                    e.printStackTrace();
+                }
+
+
+            } else {
+                //API base param
+                final SSLContext sslContext;
+                try {
+
+                    // Create a trust manager that does not validate certificate chains
+                    final TrustManager[] trustAllCerts = new TrustManager[]{
+                            new X509TrustManager() {
+                                @Override
+                                public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                                }
+
+                                @Override
+                                public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                                }
+
+                                @Override
+                                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                                    return new java.security.cert.X509Certificate[]{};
+                                }
+                            }
+                    };
+
+                    sslContext = SSLContext.getInstance("SSL");
+                    sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+                    // Create an ssl socket factory with our all-trusting manager
+                    final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+
+                    httpClient = new OkHttpClient.Builder()
+                            .addInterceptor(
+                                    new Interceptor() {
+                                        @SuppressLint("NewApi")
+                                        @Override
+                                        public Response intercept(Chain chain) throws IOException {
+//                                        String userStr = "Test mã hóa RSA";
+//                                        byte[] encodeStr = null;
+//                                        try {
+//
+//                                            encodeStr = RSA.encryptByPublicKey(userStr.getBytes(), RSA.PUBLIC_KEY);
+//                                            L.e("btEncode " + RSA.encryptBASE64(encodeStr));
+//
+//                                            L.e("Decode " + new String(RSA.decryptByPrivateKey(encodeStr, RSA.PRIVATE_KEY)));
+//                                        } catch (Exception e) {
+//                                            L.e("btEncode " + e.toString());
+//                                        }
+                                            Request request = null;
+                                            try {
+                                                request = chain.request().newBuilder()
+//                                                    .addHeader("Content-Type", "Application/JSON")
+                                                        .addHeader("Content-Type", "Application/JSON").build();
+//                                                    .addHeader("nvtravel-signature", RSA.encryptBASE64(encodeStr)).build();
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            return chain.proceed(request);
+                                        }
+                                    })
+                            .addInterceptor(new LoggingInterceptor())
+                            .sslSocketFactory(sslSocketFactory)
+                            .hostnameVerifier((hostname, session) -> true)
+                            .build();
+
+                } catch (NoSuchAlgorithmException | KeyManagementException e) {
+                    e.printStackTrace();
+                }
+
+
+
+            }
+        }
+
+
+        return httpClient;
+    }
+
+    private static OkHttpClient unitHttpClientNoneToken(OkHttpClient httpClient) {
+
+        if (httpClient == null) {
+            final Account mInfo = MyApplication.getInstance().getAccount();
+            if (null != mInfo && null != mInfo.getToken() && 0 < mInfo.getToken().length()) {
+
+                // Install the all-trusting trust manager
+                final SSLContext sslContext;
+                try {
+
+                    // Create a trust manager that does not validate certificate chains
+                    final TrustManager[] trustAllCerts = new TrustManager[]{
+                            new X509TrustManager() {
+                                @Override
+                                public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                                }
+
+                                @Override
+                                public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                                }
+
+                                @Override
+                                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                                    return new java.security.cert.X509Certificate[]{};
+                                }
+                            }
+                    };
+
+                    sslContext = SSLContext.getInstance("SSL");
+                    sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+                    // Create an ssl socket factory with our all-trusting manager
+                    final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+
+
+                    httpClient = new OkHttpClient.Builder()
+                            .addInterceptor(
+                                    new Interceptor() {
+                                        @Override
+                                        public Response intercept(Chain chain) throws IOException {
+                                            Request request = chain.request().newBuilder()
+                                                    .addHeader("Content-Type", "Application/JSON")
+                                                    .build();
                                             return chain.proceed(request);
                                         }
                                     })
@@ -187,6 +325,9 @@ public class TravelFactory {
                             .addInterceptor(new LoggingInterceptor())
                             .sslSocketFactory(sslSocketFactory)
                             .hostnameVerifier((hostname, session) -> true)
+                            .connectTimeout(1, TimeUnit.MINUTES)
+                            .readTimeout(30, TimeUnit.SECONDS)
+                            .writeTimeout(15, TimeUnit.SECONDS)
                             .build();
 
                 } catch (NoSuchAlgorithmException | KeyManagementException e) {

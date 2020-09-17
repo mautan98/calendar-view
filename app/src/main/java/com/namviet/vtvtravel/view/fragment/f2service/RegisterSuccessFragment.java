@@ -12,6 +12,8 @@ import com.baseapp.utils.KeyboardUtils;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.databinding.FragmentRegisterSuccessBinding;
 import com.namviet.vtvtravel.model.f2event.OnRegisterVipSuccess;
+import com.namviet.vtvtravel.model.f2event.OnReloadCountSystemInbox;
+import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -32,7 +34,12 @@ public class RegisterSuccessFragment extends MainFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.btnBack.setOnClickListener(this);
-        KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+        EventBus.getDefault().post(new OnReloadCountSystemInbox());
+        try {
+            KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -40,7 +47,8 @@ public class RegisterSuccessFragment extends MainFragment {
         super.onClick(view);
         switch (view.getId()) {
             case R.id.btn_back:
-                EventBus.getDefault().post(new OnRegisterVipSuccess());
+//                EventBus.getDefault().post(new OnRegisterVipSuccess());
+                TravelVoucherActivity.openScreen(mActivity, true, TravelVoucherActivity.OpenType.LIST, true);
                 mActivity.finish();
                 break;
         }

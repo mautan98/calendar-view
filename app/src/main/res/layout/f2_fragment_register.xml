@@ -140,7 +140,7 @@
                         android:fontFamily="@font/roboto_medium"
                         android:text="(Chi tiết ưu đãi)"
                         android:textColor="#00918D"
-                        android:textSize="16dp" />
+                        android:textSize="14dp" />
 
                 </LinearLayout>
 

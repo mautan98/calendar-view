@@ -50,7 +50,7 @@
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:maxWidth="200dp"
-                android:text="Quý khách lựa chọn hình thức đăng ký gói dịch vụ FRIEND"
+                android:text="Quý khách lựa chọn hình thức đăng ký gói dịch vụ"
                 android:textColor="@color/white" />
 
             <Button

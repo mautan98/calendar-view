@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">VTV Travel</string>
-    <string name="google_maps_api_key" translatable="false">AIzaSyCkFNSGpQIaOY_gO5SxS7OEHJ064UpHYgE</string>
+<!--    <string name="google_maps_api_key" translatable="false">AIzaSyCkFNSGpQIaOY_gO5SxS7OEHJ064UpHYgE</string>-->
+    <string name="google_maps_api_key" translatable="false">AIzaSyA6TvgC0sG_Va-FvACxm7nhaw43RJBaF8U</string>
     <string name="facebook_app_id">552584745181558</string>
     <string name="place">Địa điểm</string>
     <string name="search">Hãy cùng khám phá Việt Nam xinh đẹp</string>

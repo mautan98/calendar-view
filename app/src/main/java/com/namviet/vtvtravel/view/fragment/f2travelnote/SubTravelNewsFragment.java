@@ -1,6 +1,9 @@
 package com.namviet.vtvtravel.view.fragment.f2travelnote;
 
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.namviet.vtvtravel.R;
@@ -9,12 +12,16 @@ import com.namviet.vtvtravel.databinding.F2FragmentSubTravelNewsBinding;
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.model.f2event.OnScrollTravelNews;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.travelnews.DetailNewsCategoryResponse;
 import com.namviet.vtvtravel.response.travelnews.NewsCategoryResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.viewmodel.f2travelnews.SubTravelNewsViewModel;
 import com.namviet.vtvtravel.viewmodel.f2travelnews.TravelNewsViewModel;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +35,7 @@ public class SubTravelNewsFragment extends BaseFragment<F2FragmentSubTravelNewsB
     private int position;
     private List<Travel> travels = new ArrayList<>();
     private String loadMoreLink;
+    private StaggeredGridLayoutManager linearLayoutManager;
 
     @Override
     public int getLayoutRes() {
@@ -52,6 +60,9 @@ public class SubTravelNewsFragment extends BaseFragment<F2FragmentSubTravelNewsB
                 addFragment(detailNewsTravelFragment);
             }
         });
+
+        linearLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        getBinding().rclContent.setLayoutManager(linearLayoutManager);
         getBinding().rclContent.setAdapter(subTravelNewsAdapter);
 
     }
@@ -75,6 +86,37 @@ public class SubTravelNewsFragment extends BaseFragment<F2FragmentSubTravelNewsB
                 if (!recyclerView.canScrollVertically(1)) {
                     subTravelNewsViewModel.getDetailNewsCategory(loadMoreLink, true);
                     loadMoreLink = "";
+                }
+
+
+            }
+
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                try {
+                    if(dy > 0){
+                        //means user finger is moving up but the list is going down
+                        EventBus.getDefault().post(new OnScrollTravelNews(false));
+                    }
+                    else{
+                        //means user finger is moving down but the list is going up
+                        EventBus.getDefault().post(new OnScrollTravelNews(true));
+                    }
+
+//                    int pastVisibleItems = linearLayoutManager.findFirstCompletelyVisibleItemPosition();
+//                    if (pastVisibleItems  == 0) {
+//                        EventBus.getDefault().post(new OnScrollTravelNews(false));
+//                    }
+
+                    if (!recyclerView.canScrollVertically(-1)) {
+                        EventBus.getDefault().post(new OnScrollTravelNews(false));
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });

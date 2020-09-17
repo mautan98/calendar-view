@@ -36,6 +36,7 @@ public class ServiceTabFragment extends MainFragment {
         super.onCreate(savedInstanceState);
         if (null != getArguments()) {
             service = getArguments().getParcelable(Constants.IntentKey.KEY_FRAGMENT);
+
         }
     }
 

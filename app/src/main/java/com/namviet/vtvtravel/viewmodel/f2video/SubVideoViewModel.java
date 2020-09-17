@@ -28,8 +28,12 @@ public class SubVideoViewModel extends BaseViewModel {
                 .subscribe(new Consumer<DetailVideoResponse>() {
                     @Override
                     public void accept(DetailVideoResponse response) throws Exception {
-                        response.setLoadMore(isLoadMore);
-                        requestSuccess(response);
+                        if (response != null && null != response.getData()) {
+                            response.setLoadMore(isLoadMore);
+                            requestSuccess(response);
+                        }else {
+                            requestSuccess(null);
+                        }
                     }
                 }, throwable -> {
                     requestFailed(throwable);

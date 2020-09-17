@@ -10,9 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.response.f2travelvoucher.ListVoucherResponse;
 import com.namviet.vtvtravel.response.newhome.ItemAppVoucherNowResponse;
-import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
+import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 
 public class SubVoucherNowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
@@ -76,7 +78,10 @@ public class SubVoucherNowAdapter extends RecyclerView.Adapter<RecyclerView.View
                 @Override
                 public void onClick(View view) {
                     try {
-                        DetailDealWebviewActivity.startScreen((Activity)context, itemAppVoucherNowResponse.getItems().get(position).getLinkVoucher());
+                        ListVoucherResponse.Data.Voucher voucher = new Gson().fromJson(  new Gson().toJson(itemAppVoucherNowResponse.getItems().get(position)), ListVoucherResponse.Data.Voucher.class);
+//                        DetailDealWebviewActivity.startScreen((Activity)context, itemAppVoucherNowResponse.getItems().get(position).getLinkVoucher());
+                        TravelVoucherActivity.startScreenDetail(context, true, TravelVoucherActivity.OpenType.DETAIL, voucher);
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

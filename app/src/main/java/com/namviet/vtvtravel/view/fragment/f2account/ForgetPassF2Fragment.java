@@ -77,8 +77,8 @@ public class ForgetPassF2Fragment extends BaseFragment<F2FragmentForgetPassBindi
                 phone = getBinding().edtUsername.getText().toString();
                 if (phone.isEmpty()) {
 //                    ((LoginAndRegisterActivityNew)mActivity).showWarning("Mật khẩu không được để trống");
-                    handleValidateFail(getBinding().edtUsername, getBinding().edtPhone, "Mật khẩu không được để trống");
-                } else if (!ValidateUtils.isValidPhoneNumber(phone)) {
+                    handleValidateFail(getBinding().edtUsername, getBinding().edtPhone, "Số điện thoại không được để trống");
+                } else if (!ValidateUtils.isValidPhoneNumberNew(phone)) {
                     handleValidateFail(getBinding().edtUsername, getBinding().edtPhone, "Số điện thoại nhập không đúng định dạng");
 //                    ((LoginAndRegisterActivityNew)mActivity).showWarning("Số điện thoại nhập không đúng định dạng");
                 } else {

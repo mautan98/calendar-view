@@ -7,6 +7,7 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.imagepart.SlideImageInHighLightestImageAdapter;
 import com.namviet.vtvtravel.databinding.F2FragmentSlideImageBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 
 import java.util.List;
 

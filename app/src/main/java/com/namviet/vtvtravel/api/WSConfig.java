@@ -3,13 +3,18 @@ package com.namviet.vtvtravel.api;
 public class WSConfig {
 
     //Server test
-    public static final String HOST = "https://api1.travel.onex.vn/";
-    public static final String HOST_ACC = "https://core1.travel.onex.vn/api/v1/";
+//    public static final String HOST = "https://api1.travel.onex.vn/";
+//    public static final String HOST_ACC = "https://core1.travel.onex.vn/api/v1/";
+//    public static final String HOST_CHAT = "https://103.21.148.54:8090/";
+//    public static final String HOST_VQMM = "http://103.21.148.54:8856/lucky-wheel?";
+//    public static final String HOST_BOOKING = "http://103.21.148.54:8857/get-list?token=";
 
     //Server product
-//    public static final String HOST = "https://api.travel.onex.vn/";
-//    public static final String HOST_ACC = "https://core.travel.onex.vn/api/v1/";
-    public static final String HOST_CHAT = "https://103.21.148.54:8090/";
+    public static final String HOST = "https://api.vtvtravel.vn/";
+    public static final String HOST_ACC = "https://core.vtvtravel.vn/api/v1/";
+    public static final String HOST_CHAT = "https://api-cskh.vtvtravel.vn/";
+    public static final String HOST_VQMM = "http://lucky.vtvtravel.vn/lucky-wheel?";
+    public static final String HOST_BOOKING = "http://booking.vtvtravel.vn/get-list?token=";
 
     public static final String URL_ENCODE = "http://api.travel.onex.vn/test/rsa/decrypt";
     public static final String URL_DEFAULT_CHANNEL = "http://113.185.19.133:8443/namvietvtv/smil:vtv1.smil/playlist.m3u8";
@@ -126,6 +131,21 @@ public class WSConfig {
         public static final String GET_CATEGORY_VOUCHER = "user/voucher/category";
         public static final String GET_REGION_VOUCHER = "user/voucher/region";
         public static final String GET_RANK = "user/rank";
+        public static final String CHECK_CAN_RECEIVER = "user/voucher/canReceive";
+        public static final String USER_VOUCHER_RECEIVER = "user/voucher/receive";
+        public static final String SEARCH_HOME = "search/home";
+        public static final String SEARCH_PRE_RESULT = "v3/search/suggestions";
+
+
+        public static final String USAGE_RULES = "page/dieu-khoan-su-dung";
+        public static final String DEAL_DETAIL = "page/chi-tiet-uu-dai-goi-travel-vip";
+
+
+        public static final String SYSTEM_INBOX = "user/inbox";
+        public static final String SYSTEM_INBOX_COUNT = "user/count";
+        public static final String SYSTEM_UPDATE_INBOX = "user/updateInbox";
+
+
 
         public static final String HASH_TAG_SEARCH = "deals/getDealFilter";
         public static final String DEAL_HOT_HOME = "deals/getDealHot";
@@ -215,6 +235,9 @@ public class WSConfig {
         public static final String SERVICE = "service";
         public static final String MEMBER_RANK_ID = "memberRankId";
         public static final String SORT = "sort";
+        public static final String EVENT_NAME = "eventName";
+        public static final String METHOD = "method";
+        public static final String REQUEST = "request";
 
         public static final String USER_AGENT = "userAgent";
     }

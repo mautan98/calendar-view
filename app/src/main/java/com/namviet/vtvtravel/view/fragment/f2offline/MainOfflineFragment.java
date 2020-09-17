@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
@@ -60,12 +61,17 @@ public class MainOfflineFragment extends MainFragment {
 
     protected void initViews(View v) {
         super.initViews(v);
-        offlineDynamic = mActivity.offlineDynamic;
-        updateViews();
-        setClick();
-        renderViewPager();
-        renderTabLayout();
-        binding.vpMainOffline.setCurrentItem(getPositionViewpager(position));
+        try {
+            offlineDynamic = mActivity.offlineDynamic;
+            updateViews();
+            setClick();
+            renderViewPager();
+            renderTabLayout();
+            binding.vpMainOffline.setCurrentItem(getPositionViewpager(position));
+        } catch (Exception e) {
+            Toast.makeText(mActivity, "Có lỗi, hoặc chưa lấy được dữ  liệu offline", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
 
     private int getPositionViewpager(int id){
@@ -91,22 +97,6 @@ public class MainOfflineFragment extends MainFragment {
 
     private void renderViewPager() {
         MainAdapter mainAdapter = new MainAdapter(getChildFragmentManager());
-//        CallNowFragment callNowFragment = new CallNowFragment();
-//        callNowFragment.setFromCallNow(fromCallNow);
-//        callNowFragment.setOfflineDynamic(offlineDynamic);
-//        mainAdapter.addFragment(callNowFragment, "callNowFragment");
-//
-//        HuntDealFragment huntDealFragment = new HuntDealFragment();
-//        huntDealFragment.setOfflineDynamic(offlineDynamic);
-//        mainAdapter.addFragment(huntDealFragment, "huntDealFragment");
-//
-//        ServicePackageFragment servicePackageFragment = new ServicePackageFragment();
-//        servicePackageFragment.setOfflineDynamic(offlineDynamic);
-//        mainAdapter.addFragment(servicePackageFragment, "servicePackageFragment");
-//
-//        CallCenterFragment callCenterFragment = new CallCenterFragment();
-//        callCenterFragment.setOfflineDynamic(offlineDynamic);
-//        mainAdapter.addFragment(callCenterFragment, "servicePackageFragment");
 
         for (int i = 0; i < offlineDynamic.getListScreens().size(); i++) {
             if (offlineDynamic.getListScreens().get(i).getId().equals("1")) {

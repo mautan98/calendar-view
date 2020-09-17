@@ -3,11 +3,9 @@ package com.namviet.vtvtravel.view.fragment.f2comment;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.graphics.Path;
 import android.view.View;
-import android.widget.Toast;
 
-import com.baseapp.menu.SlideMenu;
+import com.bumptech.glide.Glide;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent;
 import com.namviet.vtvtravel.R;
@@ -17,17 +15,19 @@ import com.namviet.vtvtravel.databinding.F2FragmentCommentBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
-import com.namviet.vtvtravel.model.Comment;
-import com.namviet.vtvtravel.model.travelnews.Travel;
+import com.namviet.vtvtravel.model.f2event.OnCommentSuccessInTravelNews;
+import com.namviet.vtvtravel.model.f2event.OnUpdateCommentCount;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.response.f2comment.CreateCommentResponse;
 import com.namviet.vtvtravel.response.f2comment.DeleteCommentResponse;
 import com.namviet.vtvtravel.response.f2comment.UpdateCommentResponse;
 import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.viewmodel.f2comment.CommentViewModel;
 
-import java.text.DecimalFormat;
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -53,6 +53,8 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
     private String idCommentForEdit;
 
     private List<CommentResponse.Data.Comment> comments = new ArrayList<>();
+
+    private int commentAdd = 0;
 
     public CommentFragment() {
     }
@@ -133,7 +135,7 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                             @Override
                             public void onClickReply() {
                                 typeComment = TYPE_COMMENT_REPLY;
-                                getBinding().edtComment.setText("#"+comment.getUser().getFullname());
+                                getBinding().edtComment.setText("Trả lời: "+comment.getUser().getFullname());
                                 CommentFragment.this.parentId = commentParent.getId();
                             }
 
@@ -163,6 +165,14 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
             }
         });
         getBinding().rclComment.setAdapter(commentAdapter);
+
+
+        Account account = MyApplication.getInstance().getAccount();
+        if (null != account && account.isLogin()) {
+            Glide.with(mActivity).load(account.getImageProfile()).error(R.drawable.f2_defaut_user).into(getBinding().imgAvatar);
+        } else {
+        }
+
     }
 
     @Override
@@ -308,15 +318,26 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
 //                    }
 //                });
 //                getBinding().rclComment.setAdapter(commentAdapter);
+
+                try {
+                    TrackingAnalytic.postEvent(TrackingAnalytic.COMMENT, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             } else if (o instanceof CreateCommentResponse) {
                 CreateCommentResponse response = (CreateCommentResponse) o;
                 if (response != null && response.isSuccess()) {
+                    EventBus.getDefault().post(new OnCommentSuccessInTravelNews());
                     viewModel.getComment(detailTravelNewsResponse.getData().getId());
+                    commentAdd = commentAdd + 1;
                 }
             } else if (o instanceof DeleteCommentResponse) {
                 DeleteCommentResponse response = (DeleteCommentResponse) o;
                 if (response != null && response.isSuccess()) {
+                    EventBus.getDefault().post(new OnCommentSuccessInTravelNews());
                     viewModel.getComment(detailTravelNewsResponse.getData().getId());
+                    commentAdd = commentAdd - 1;
                 }
             } else if (o instanceof UpdateCommentResponse) {
                 UpdateCommentResponse response = (UpdateCommentResponse) o;
@@ -361,5 +382,17 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
 
     public void setParentId(String parentId) {
         this.parentId = parentId;
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
+            OnUpdateCommentCount onUpdateCommentCount = new OnUpdateCommentCount(String.valueOf(commentAdd));
+            EventBus.getDefault().post(onUpdateCommentCount);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

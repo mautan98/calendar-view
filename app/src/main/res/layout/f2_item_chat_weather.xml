@@ -29,6 +29,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:drawableLeft="@drawable/ic_location_on_black_24dp"
+                android:maxLines="1"
                 android:text="Hà Nội"
                 android:textColor="@color/white"
                 android:fontFamily="@font/roboto_medium"/>

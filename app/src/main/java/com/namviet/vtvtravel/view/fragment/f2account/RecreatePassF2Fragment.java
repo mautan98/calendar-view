@@ -20,11 +20,14 @@ import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2FragmentRecreatePassBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.model.f2event.OnReloadCountSystemInbox;
 import com.namviet.vtvtravel.response.AccountResponse;
 import com.namviet.vtvtravel.response.ResponseError;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.viewmodel.AccountViewModel;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -165,7 +168,14 @@ public class RecreatePassF2Fragment extends BaseFragment<F2FragmentRecreatePassB
                         MyApplication.getInstance().setAccount(accountResponse.getData());
                         /*mActivity.switchFragment(SlideMenu.MenuType.LOGIN_SCREEN);*/
                         ;
-                        showToast("Đăng ký thành công, mời bạn đăng nhập!");
+                        if (screenType.equals(Constants.IntentKey.TYPE_OTP_RESET_PASS)) {
+                            showToast("Thực hiện cấp lại mật khẩu thành công, mời bạn đăng nhập!");
+                        } else {
+                            showToast("Đăng ký thành công, mời bạn đăng nhập!");
+                        }
+
+                        EventBus.getDefault().post(new OnReloadCountSystemInbox());
+
                         LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
                         mActivity.finish();
                     } else {

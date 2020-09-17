@@ -15,6 +15,7 @@ import com.namviet.vtvtravel.model.f2imagepart.ImagePart;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.imagepart.ImagePartResponse;
 import com.namviet.vtvtravel.response.imagepart.ItemImagePartResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.viewmodel.imagepart.ImagePartViewModel;
 
 import java.util.ArrayList;
@@ -77,6 +78,7 @@ public class HighLightestImagesFragment extends BaseFragment<F2FragmentHighLight
                 }
             }
         });
+
     }
 
     @Override

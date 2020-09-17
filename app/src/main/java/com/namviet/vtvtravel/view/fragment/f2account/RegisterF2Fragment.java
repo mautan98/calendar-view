@@ -1,35 +1,28 @@
 package com.namviet.vtvtravel.view.fragment.f2account;
 
 import android.annotation.SuppressLint;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.adapter.newhome.NewHomeAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
-import com.namviet.vtvtravel.databinding.F2FragmentHuntDealBinding;
 import com.namviet.vtvtravel.databinding.F2FragmentRegisterBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.response.AccountResponse;
-import com.namviet.vtvtravel.response.ResponseError;
-import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.ultils.StringUtils;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.ValidateUtils;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
-import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.viewmodel.AccountViewModel;
+import com.namviet.vtvtravel.tracking.TrackingViewModel;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -92,7 +85,7 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
                     handleValidateFail(getBinding().edtName, getBinding().linearName, getString(R.string.name_invalid));
                 } else if (ValidateUtils.isString(name)) {
                     handleValidateFail(getBinding().edtName, getBinding().linearName, getString(R.string.special_charactor));
-                } else if (!ValidateUtils.isValidPhoneNumber(phone)) {
+                } else if (!ValidateUtils.isValidPhoneNumberNew(phone)) {
                     handleValidateFail(getBinding().edtPhone, getBinding().linearUsername, getString(R.string.phone_invalid));
                 } else {
                     if (phone.substring(0, 3).equals("840")) {

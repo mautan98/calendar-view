@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.baseapp.utils.KeyboardUtils;
+import com.bumptech.glide.Glide;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2biglocation.SearchAllLocationAdapter;
@@ -14,9 +15,11 @@ import com.namviet.vtvtravel.databinding.F2FragmentSearchBigLocationBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.travelnews.Location;
+import com.namviet.vtvtravel.response.WeatherResponse;
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.LocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.TopLocationResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel;
 
@@ -55,13 +58,14 @@ public class SearchBigLocationFragment extends BaseFragment<F2FragmentSearchBigL
         searchAllLocationAdapter = new SearchAllLocationAdapter(mActivity, locations, new SearchAllLocationAdapter.ClickItem() {
             @Override
             public void onClick(Location location) {
-                if(location.getId() != null && !location.getId().isEmpty()) {
+                if (location.getId() != null && !location.getId().isEmpty()) {
                     KeyboardUtils.hideKeyboard(mActivity, getBinding().edtLocation);
                     addFragment(new BigLocationFragment(location.getId()));
                 }
             }
         });
         getBinding().rclLocation.setAdapter(searchAllLocationAdapter);
+
     }
 
     @Override
@@ -92,6 +96,18 @@ public class SearchBigLocationFragment extends BaseFragment<F2FragmentSearchBigL
                 mActivity.onBackPressed();
             }
         });
+        getBinding().btnReadMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (searchTopLocationAdapter != null && searchTopLocationAdapter.isShowAll()) {
+                    searchTopLocationAdapter.setShowAll(false);
+                    getBinding().tvReadMore.setText("XEM THÊM");
+                } else if (searchTopLocationAdapter != null && !searchTopLocationAdapter.isShowAll()) {
+                    searchTopLocationAdapter.setShowAll(true);
+                    getBinding().tvReadMore.setText("THU GỌN");
+                }
+            }
+        });
     }
 
     @Override
@@ -110,7 +126,8 @@ public class SearchBigLocationFragment extends BaseFragment<F2FragmentSearchBigL
                 searchTopLocationAdapter = new SearchTopLocationAdapter(mActivity, response.getData().getItems(), new SearchTopLocationAdapter.ClickItem() {
                     @Override
                     public void onClick(Location location) {
-                        if(location.getId() != null && !location.getId().isEmpty()) {
+                        if (location.getId() != null && !location.getId().isEmpty()) {
+                            KeyboardUtils.hideKeyboard(mActivity, getBinding().edtLocation);
                             addFragment(new BigLocationFragment(location.getId()));
                         }
                     }
@@ -119,7 +136,7 @@ public class SearchBigLocationFragment extends BaseFragment<F2FragmentSearchBigL
             } else if (o instanceof LocationResponse) {
                 LocationResponse response = (LocationResponse) o;
                 getBinding().edtLocation.setText(response.getData().getName());
-            }else if (o instanceof ErrorResponse) {
+            }  else if (o instanceof ErrorResponse) {
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
@@ -131,6 +148,15 @@ public class SearchBigLocationFragment extends BaseFragment<F2FragmentSearchBigL
         }
     }
 
+//    private List<Location> getList() {
+//        List<Location> locations = new ArrayList<>();
+//        for (int i = 0; i < 63; i++) {
+//            Location location = new Location("Province " + i, "https://www.publicdomainpictures.net/pictures/320000/nahled/background-image.png");
+//            locations.add(location);
+//        }
+//        return locations;
+//    }
+
     @SuppressLint("CheckResult")
     private void handleSearch() {
         RxTextView.afterTextChangeEvents(getBinding().edtLocation)
@@ -138,17 +164,17 @@ public class SearchBigLocationFragment extends BaseFragment<F2FragmentSearchBigL
                 .debounce(450, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(textViewAfterTextChangeEvent -> {
-                    if(getBinding().edtLocation.getText().toString().isEmpty()){
-                        getBinding().rclBigLocation.setVisibility(View.VISIBLE);
+                    if (getBinding().edtLocation.getText().toString().isEmpty()) {
+                        getBinding().layoutBigLocation.setVisibility(View.VISIBLE);
                         getBinding().rclLocation.setVisibility(View.GONE);
                         getBinding().tvTitleLocation.setVisibility(View.VISIBLE);
                         getBinding().tvBorder.setVisibility(View.VISIBLE);
-                    }else {
-                        getBinding().rclBigLocation.setVisibility(View.GONE);
+                    } else {
+                        getBinding().layoutBigLocation.setVisibility(View.GONE);
                         getBinding().rclLocation.setVisibility(View.VISIBLE);
                         locations.clear();
                         for (int i = 0; i < locationsMain.size(); i++) {
-                            if(F2Util.removeAccent(locationsMain.get(i).getName().toLowerCase()).contains(F2Util.removeAccent(getBinding().edtLocation.getText().toString().toLowerCase()))){
+                            if (F2Util.removeAccent(locationsMain.get(i).getName().toLowerCase()).contains(F2Util.removeAccent(getBinding().edtLocation.getText().toString().toLowerCase()))) {
                                 locations.add(locationsMain.get(i));
                             }
                         }

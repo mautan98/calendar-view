@@ -78,6 +78,7 @@ public class SubNearbyExperienceInSmallLocationDetailAdapter extends RecyclerVie
         private TextView tvOpenDate;
         private TextView tvOpenTime;
         private TextView tvOpenState;
+        private View viewTime;
         private int position;
 
         public HeaderViewHolder(View itemView) {
@@ -89,6 +90,7 @@ public class SubNearbyExperienceInSmallLocationDetailAdapter extends RecyclerVie
             tvAddress = itemView.findViewById(R.id.tvAddress);
             tvOpenDate = itemView.findViewById(R.id.tvOpenDate);
             tvOpenTime = itemView.findViewById(R.id.tvOpenTime);
+            viewTime = itemView.findViewById(R.id.viewTime);
             tvOpenState = itemView.findViewById(R.id.tvOpenState);
             
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -114,12 +116,21 @@ public class SubNearbyExperienceInSmallLocationDetailAdapter extends RecyclerVie
             tvDescription.setText(travel.getShort_description());
             tvAddress.setText(travel.getAddress());
             tvOpenDate.setText(travel.getOpen_week());
-            tvOpenTime.setText(travel.getRange_time());
-            if (travel.getDistance() != null && !"".equals(travel.getDistance()) && Double.parseDouble(travel.getDistance()) < 1000) {
-                tvDistance.setText("Cách bạn " + travel.getDistance() + " m");
-            } else if (travel.getDistance() != null && !"".equals(travel.getDistance())) {
-                double finalValue = Math.round(Double.parseDouble(travel.getDistance()) / 1000 * 10.0) / 10.0;
-                tvDistance.setText("Cách bạn " + finalValue + " km");
+
+
+            try {
+                if(travel.isHas_location()) {
+                    if (travel.getDistance() != null && !"".equals(travel.getDistance()) && Double.parseDouble(travel.getDistance()) < 1000) {
+                        tvDistance.setText("Cách bạn " + travel.getDistance() + " m");
+                    } else if (travel.getDistance() != null && !"".equals(travel.getDistance())) {
+                        double finalValue = Math.round(Double.parseDouble(travel.getDistance()) / 1000 * 10.0) / 10.0;
+                        tvDistance.setText("Cách bạn " + finalValue + " km");
+                    }
+                }else {
+                    tvDistance.setText("Không xác định");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
 
@@ -131,6 +142,21 @@ public class SubNearbyExperienceInSmallLocationDetailAdapter extends RecyclerVie
                 tvOpenState.setTextColor(Color.parseColor("#0FB403"));
             }
 
+
+            try {
+                if(travel.getRange_time().isEmpty()){
+                    viewTime.setVisibility(View.GONE);
+                    tvOpenTime.setVisibility(View.GONE);
+                }else {
+                    viewTime.setVisibility(View.VISIBLE);
+                    tvOpenTime.setText(travel.getRange_time());
+                    tvOpenTime.setVisibility(View.VISIBLE);
+                }
+            } catch (Exception e) {
+                viewTime.setVisibility(View.GONE);
+                tvOpenTime.setVisibility(View.GONE);
+                e.printStackTrace();
+            }
 
         }
     }

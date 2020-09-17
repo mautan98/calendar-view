@@ -32,6 +32,8 @@
             android:paddingEnd="12dp">
 
             <TextView
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,6 +43,7 @@
                 android:textSize="16dp" />
 
             <TextView
+                android:ellipsize="end"
                 android:id="@+id/tvDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -80,6 +83,7 @@
                     android:background="#707070" />
 
                 <TextView
+                    android:ellipsize="end"
                     android:maxLines="1"
                     android:id="@+id/tvAddress"
                     android:layout_width="wrap_content"
@@ -102,13 +106,14 @@
                     android:id="@+id/tvOpenDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="6dp"
                     android:fontFamily="@font/roboto_regular"
                     android:text="Mở cửa T2 - CN"
                     android:textColor="#5E5E5E"
                     android:textSize="12dp" />
 
                 <TextView
+                    android:id="@+id/viewTime"
+                    android:layout_marginStart="6dp"
                     android:layout_width="1dp"
                     android:layout_height="12dp"
                     android:layout_marginEnd="6dp"
@@ -118,13 +123,12 @@
                     android:id="@+id/tvOpenTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="6dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="06:30 - 21:30"
                     android:textColor="#5E5E5E"
                     android:textSize="12dp" />
 
                 <TextView
+                    android:layout_marginStart="6dp"
                     android:layout_width="1dp"
                     android:layout_height="12dp"
                     android:layout_marginEnd="6dp"

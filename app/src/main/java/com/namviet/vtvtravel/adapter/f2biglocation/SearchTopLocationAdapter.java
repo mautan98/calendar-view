@@ -19,6 +19,16 @@ public class SearchTopLocationAdapter extends RecyclerView.Adapter<SearchTopLoca
     private Context context;
     private List<Location> locationList;
     private ClickItem clickItem;
+    private boolean isShowAll;
+
+    public void setShowAll(boolean showAll) {
+        isShowAll = showAll;
+        this.notifyDataSetChanged();
+    }
+
+    public boolean isShowAll() {
+        return isShowAll;
+    }
 
     public SearchTopLocationAdapter(Context context, List<Location> locationList, ClickItem clickItem) {
         this.context = context;
@@ -40,7 +50,14 @@ public class SearchTopLocationAdapter extends RecyclerView.Adapter<SearchTopLoca
 
     @Override
     public int getItemCount() {
-        return locationList != null ? locationList.size() : 0;
+//        return locationList != null ? locationList.size() : 0;
+        if (!isShowAll && locationList != null) {
+            return locationList.size() < 6 ? locationList.size() : 6;
+        } else if (isShowAll && locationList != null) {
+            return locationList.size();
+        } else {
+            return 0;
+        }
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

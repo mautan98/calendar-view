@@ -37,6 +37,7 @@ import com.namviet.vtvtravel.response.SlideShowResponse;
 import com.namviet.vtvtravel.response.SuggestTravelResponse;
 import com.namviet.vtvtravel.response.TypeMomentResponse;
 import com.namviet.vtvtravel.response.VideoMomentResponse;
+import com.namviet.vtvtravel.response.f2account.HtmlResponse;
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.BigLocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.LocationResponse;
@@ -46,13 +47,20 @@ import com.namviet.vtvtravel.response.f2chat.GetUserGuildResponse;
 import com.namviet.vtvtravel.response.f2chat.PostUserGuildResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByCodeResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByPageResponse;
+import com.namviet.vtvtravel.response.f2livetv.LiveTvResponse;
 import com.namviet.vtvtravel.response.f2review.CreateReviewResponse;
 import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
 import com.namviet.vtvtravel.response.f2review.UploadImageResponse;
+import com.namviet.vtvtravel.response.f2searchmain.MainResultSearchResponse;
+import com.namviet.vtvtravel.response.f2searchmain.MainSearchResponse;
+import com.namviet.vtvtravel.response.f2searchmain.SubBaseSearch;
 import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SortSmallLocationResponse;
+import com.namviet.vtvtravel.response.f2systeminbox.CountSystemInbox;
+import com.namviet.vtvtravel.response.f2systeminbox.SystemInbox;
 import com.namviet.vtvtravel.response.f2topexperience.SubTopExperienceResponse;
 import com.namviet.vtvtravel.response.f2travelvoucher.CategoryVoucherResponse;
+import com.namviet.vtvtravel.response.f2travelvoucher.CheckCanReceiver;
 import com.namviet.vtvtravel.response.f2travelvoucher.ListVoucherResponse;
 import com.namviet.vtvtravel.response.f2travelvoucher.RankVoucherResponse;
 import com.namviet.vtvtravel.response.f2travelvoucher.RegionVoucherResponse;
@@ -69,10 +77,12 @@ import com.namviet.vtvtravel.response.f2smalllocation.SmallLocationResponse;
 import com.namviet.vtvtravel.response.f2video.DetailVideoResponse;
 import com.namviet.vtvtravel.response.imagepart.ImagePartResponse;
 import com.namviet.vtvtravel.response.imagepart.ItemImagePartResponse;
+import com.namviet.vtvtravel.response.newhome.AppVoucherResponse;
 import com.namviet.vtvtravel.response.newhome.BaseResponseNewHome;
 import com.namviet.vtvtravel.response.newhome.BaseResponseSecondNewHome;
 import com.namviet.vtvtravel.response.newhome.BaseResponseSpecialNewHome;
 import com.namviet.vtvtravel.response.newhome.HomeServiceResponse;
+import com.namviet.vtvtravel.response.newhome.ItemAppExperienceResponse;
 import com.namviet.vtvtravel.response.newhome.MobileFromViettelResponse;
 import com.namviet.vtvtravel.response.newhome.SettingResponse;
 import com.namviet.vtvtravel.response.travelnews.DetailNewsCategoryResponse;
@@ -99,6 +109,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 
@@ -373,7 +384,7 @@ public interface TravelService {
     Observable<MobileFromViettelResponse> getMobileFromViettel(@Body RequestBody jsonBodyObject);
 
     @GET(WSConfig.Api.GET_SETTING)
-    Observable<SettingResponse> getSetting();
+    Observable<com.namviet.vtvtravel.response.f2menu.MenuResponse> getSetting();
 
     @GET(WSConfig.Api.GET_NEW_CATEGORY)
     Observable<NewsCategoryResponse> getNewsCategory(@QueryMap Map<String, Object> queryMap);
@@ -484,6 +495,54 @@ public interface TravelService {
 
     @POST(WSConfig.Api.GET_RANK)
     Observable<RankVoucherResponse> getRank(@Body RequestBody jsonBodyObject);
+
+
+    @POST(WSConfig.Api.CHECK_CAN_RECEIVER)
+    Observable<CheckCanReceiver> checkCanReceiver(@Body RequestBody jsonBodyObject);
+
+    @POST(WSConfig.Api.USER_VOUCHER_RECEIVER)
+    Observable<BaseResponse> checkUserVoucherReceiver(@Body RequestBody jsonBodyObject);
+
+
+
+
+    @GET
+    Observable<BaseResponseNewHome> getLiveTvData(@Url String url);
+
+
+    @GET(WSConfig.Api.USAGE_RULES)
+    Observable<HtmlResponse> getUsageRule();
+
+    @GET(WSConfig.Api.DEAL_DETAIL)
+    Observable<HtmlResponse> getDealDetail();
+
+
+    @GET(WSConfig.Api.SYSTEM_INBOX)
+    Observable<SystemInbox> getSystemInbox();
+
+    @GET(WSConfig.Api.SYSTEM_INBOX_COUNT)
+    Observable<CountSystemInbox> getCountSystemInbox();
+
+
+    @POST(WSConfig.Api.SYSTEM_UPDATE_INBOX)
+    Observable<BaseResponse> updateSystemInbox(@Body RequestBody jsonBodyObject);
+
+
+    @GET
+    Observable<SubBaseSearch<AppVoucherResponse>> getYourVoucher(@Url String url);
+
+
+    @GET
+    Observable<SubBaseSearch<ItemAppExperienceResponse>> getTrend(@Url String url);
+
+    @GET(WSConfig.Api.SEARCH_HOME)
+    Observable<MainSearchResponse> getBlockSearch(@QueryMap Map<String, Object> queryMap);
+
+
+    @GET(WSConfig.Api.SEARCH_PRE_RESULT)
+    Observable<MainResultSearchResponse> getPreResultSearch( @QueryMap Map<String, Object> queryMap, @Query("keyword") String keyword, @Query("region_id") String regionId);
+
+
 
     //////////////////////////////////////////////
 

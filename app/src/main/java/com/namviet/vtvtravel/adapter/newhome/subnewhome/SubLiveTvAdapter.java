@@ -22,6 +22,7 @@ public class SubLiveTvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private List<LiveTvResponse.Channel> items = new ArrayList<>();
     private Context context;
     private ButtonClick buttonClick;
+    private int positionSelected = 0;
 
     public SubLiveTvAdapter(List<LiveTvResponse.Channel> items, Context context, ButtonClick buttonClick) {
         this.items = items;
@@ -69,29 +70,49 @@ public class SubLiveTvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgAvatar;
-
+        private View viewBg;
+        private int position;
         public HeaderViewHolder(View itemView) {
             super(itemView);
             imgAvatar = itemView.findViewById(R.id.imgAvatar);
-
+            viewBg = itemView.findViewById(R.id.viewBg);
         }
 
         public void bindItem(int position) {
+            this.position = position;
+            try {
+                if(position == positionSelected){
+                    Glide.with(context).load(items.get(position).getLogo_url()).into(imgAvatar);
+    //                viewBg.setVisibility(View.VISIBLE);
+                }else {
+                    Glide.with(context).load(items.get(position).getLogo_disabled()).into(imgAvatar);
+    //                viewBg.setVisibility(View.GONE);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    Glide.with(context).load(items.get(position).getLogo_url()).into(imgAvatar);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
             imgAvatar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    positionSelected = position;
+                    notifyDataSetChanged();
                     buttonClick.clickChannel(position);
                 }
             });
 
-            try {
-                Glide.with(context).load(items.get(position).getLogo_url()).into(imgAvatar);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            try {
+//                Glide.with(context).load(items.get(position).getLogo_url()).into(imgAvatar);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
 
-            if (position == 1)
-                imgAvatar.performClick();
+//            if (position == 0)
+//                imgAvatar.performClick();
         }
     }
 

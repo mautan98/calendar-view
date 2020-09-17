@@ -39,7 +39,7 @@ public class ReviewViewModel extends BaseViewModel {
                 .subscribe(new Consumer<CreateReviewResponse>() {
                     @Override
                     public void accept(CreateReviewResponse response) throws Exception {
-                        if (response.isSuccess()) {
+                        if (response !=null && response.isSuccess()) {
                             requestSuccess(response);
                         } else {
                             requestSuccess(null);
@@ -66,7 +66,7 @@ public class ReviewViewModel extends BaseViewModel {
                 .subscribe(new Consumer<GetReviewResponse>() {
                     @Override
                     public void accept(GetReviewResponse response) throws Exception {
-                        if (response.isSuccess()) {
+                        if (response != null && response.isSuccess()) {
                             requestSuccess(response);
                         } else {
                             requestSuccess(null);
@@ -94,7 +94,7 @@ public class ReviewViewModel extends BaseViewModel {
                 .subscribe(new Consumer<UploadImageResponse>() {
                     @Override
                     public void accept(UploadImageResponse response) throws Exception {
-                        if (response.isSuccess()) {
+                        if (response != null && response.isSuccess()) {
                             requestSuccess(response);
                         } else {
                             requestSuccess(null);

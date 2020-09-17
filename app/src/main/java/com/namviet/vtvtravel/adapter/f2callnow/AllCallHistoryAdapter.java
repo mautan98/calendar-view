@@ -13,6 +13,7 @@ import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2callnow.CallNowHistory;
 import com.namviet.vtvtravel.ultils.DateUtltils;
+import com.namviet.vtvtravel.view.MainActivity;
 
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class AllCallHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         try {
             Account account = MyApplication.getInstance().getAccount();
 
-            if (callNowHistories.get(position).getPrice() == null && callNowHistories.get(position).getReceiver().equals("84" + account.getMobile().substring(2))){
+            if (callNowHistories.get(position).getPrice() == null && callNowHistories.get(position).getReceiver().equals("84" + account.getMobile().substring(2))) {
 
                 return TYPE_MISSING_CALL;
             } else {
@@ -104,13 +105,11 @@ public class AllCallHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         public CallHistoryViewHolder(View itemView) {
             super(itemView);
-            btnDelete= itemView.findViewById(R.id.btnDelete);
-            tvName= itemView.findViewById(R.id.tvName);
-            tvPhone= itemView.findViewById(R.id.tvPhone);
-            imvCall= itemView.findViewById(R.id.imvCall);
-            imvInCall= itemView.findViewById(R.id.imvInCall);
-
-
+            btnDelete = itemView.findViewById(R.id.btnDelete);
+            tvName = itemView.findViewById(R.id.tvName);
+            tvPhone = itemView.findViewById(R.id.tvPhone);
+            imvCall = itemView.findViewById(R.id.imvCall);
+            imvInCall = itemView.findViewById(R.id.imvInCall);
 
 
             btnDelete = itemView.findViewById(R.id.btnDelete);
@@ -121,11 +120,15 @@ public class AllCallHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Account account = MyApplication.getInstance().getAccount();
-                    if(callNowHistories.get(position).getReceiver().equals("84" + account.getMobile().substring(2))){
-                        clickItem.onClickItem(position, callNowHistories.get(position).getMobile());
-                    }else {
-                        clickItem.onClickItem(position, callNowHistories.get(position).getReceiver());
+                    try {
+                        Account account = MyApplication.getInstance().getAccount();
+                        if (callNowHistories.get(position).getReceiver().equals("84" + account.getMobile().substring(2))) {
+                            clickItem.onClickItem(position, callNowHistories.get(position).getMobile());
+                        } else {
+                            clickItem.onClickItem(position, callNowHistories.get(position).getReceiver());
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             });
@@ -141,12 +144,15 @@ public class AllCallHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 }
 
 
-
-                long created = Long.parseLong(callNowHistories.get(position).getBeginTime());
-                if (DateUtltils.isToday(created)) {
-                    tvTimeMakeCall.setText(DateUtltils.timeToString6(created));
-                } else {
-                    tvTimeMakeCall.setText(DateUtltils.timeToString5(created));
+                try {
+                    long created = Long.parseLong(callNowHistories.get(position).getBeginTime());
+                    if (DateUtltils.isToday(created)) {
+                        tvTimeMakeCall.setText(DateUtltils.timeToString6(created));
+                    } else {
+                        tvTimeMakeCall.setText(DateUtltils.timeToString5(created));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
                 btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -157,17 +163,30 @@ public class AllCallHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 });
 
                 Account account = MyApplication.getInstance().getAccount();
-                if(callNowHistories.get(position).getReceiver().equals("84" + account.getMobile().substring(2))){
+                if (callNowHistories.get(position).getReceiver().equals("84" + account.getMobile().substring(2))) {
                     imvInCall.setVisibility(View.VISIBLE);
                     imvCall.setVisibility(View.GONE);
 
-                    tvName.setText(callNowHistories.get(position).getMobile());
+                    try {
+                        String name = ((MainActivity) mContext).contactHashMap.get(callNowHistories.get(position).getMobile()).getContactName();
+                        tvName.setText(name);
+                    } catch (Exception e) {
+                        tvName.setText(callNowHistories.get(position).getMobile());
+                        e.printStackTrace();
+                    }
                     tvPhone.setText(callNowHistories.get(position).getMobile());
-                }else {
+                } else {
                     imvInCall.setVisibility(View.GONE);
                     imvCall.setVisibility(View.VISIBLE);
 
-                    tvName.setText(callNowHistories.get(position).getReceiver());
+
+                    try {
+                        String name = ((MainActivity) mContext).contactHashMap.get(callNowHistories.get(position).getReceiver()).getContactName();
+                        tvName.setText(name);
+                    } catch (Exception e) {
+                        tvName.setText(callNowHistories.get(position).getReceiver());
+                        e.printStackTrace();
+                    }
                     tvPhone.setText(callNowHistories.get(position).getReceiver());
                 }
 
@@ -195,9 +214,9 @@ public class AllCallHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 @Override
                 public void onClick(View view) {
                     Account account = MyApplication.getInstance().getAccount();
-                    if(callNowHistories.get(position).getReceiver().equals("84" + account.getMobile().substring(2))){
+                    if (callNowHistories.get(position).getReceiver().equals("84" + account.getMobile().substring(2))) {
                         clickItem.onClickItem(position, callNowHistories.get(position).getMobile());
-                    }else {
+                    } else {
                         clickItem.onClickItem(position, callNowHistories.get(position).getReceiver());
                     }
                 }
@@ -213,15 +232,23 @@ public class AllCallHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     btnDelete.setVisibility(View.GONE);
                 }
 
-                long created = Long.parseLong(callNowHistories.get(position).getBeginTime());
-                if (DateUtltils.isToday(created)) {
-                    tvTimeMakeCall.setText(DateUtltils.timeToString6(created));
-                } else {
-                    tvTimeMakeCall.setText(DateUtltils.timeToString5(created));
+                try {
+                    long created = Long.parseLong(callNowHistories.get(position).getBeginTime());
+                    if (DateUtltils.isToday(created)) {
+                        tvTimeMakeCall.setText(DateUtltils.timeToString6(created));
+                    } else {
+                        tvTimeMakeCall.setText(DateUtltils.timeToString5(created));
+                    }
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
                 }
 
-                tvName.setText(callNowHistories.get(position).getReceiver());
-                tvPhone.setText(callNowHistories.get(position).getReceiver());
+                try {
+                    tvName.setText(callNowHistories.get(position).getReceiver());
+                    tvPhone.setText(callNowHistories.get(position).getReceiver());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 btnDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -232,13 +259,29 @@ public class AllCallHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 
                 Account account = MyApplication.getInstance().getAccount();
-                if(callNowHistories.get(position).getReceiver().equals("84" + account.getMobile().substring(2))){
+                if (callNowHistories.get(position).getReceiver().equals("84" + account.getMobile().substring(2))) {
 
-                    tvName.setText(callNowHistories.get(position).getMobile());
+
+                    try {
+                        String name = ((MainActivity) mContext).contactHashMap.get(callNowHistories.get(position).getMobile()).getContactName();
+                        tvName.setText(name);
+                    } catch (Exception e) {
+                        tvName.setText(callNowHistories.get(position).getMobile());
+                        e.printStackTrace();
+                    }
+
                     tvPhone.setText(callNowHistories.get(position).getMobile());
-                }else {
 
-                    tvName.setText(callNowHistories.get(position).getReceiver());
+                } else {
+
+                    try {
+                        String name = ((MainActivity) mContext).contactHashMap.get(callNowHistories.get(position).getReceiver()).getContactName();
+                        tvName.setText(name);
+                    } catch (Exception e) {
+                        tvName.setText(callNowHistories.get(position).getReceiver());
+                        e.printStackTrace();
+                    }
+
                     tvPhone.setText(callNowHistories.get(position).getReceiver());
                 }
             } catch (Exception e) {
@@ -251,6 +294,7 @@ public class AllCallHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     public interface ClickItem {
         void onClickItem(int position, String phone);
+
         void onClickDelete(int position, String id);
     }
 

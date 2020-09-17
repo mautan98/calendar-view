@@ -15,6 +15,7 @@ import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.DialogLoadingBinding;
 import com.namviet.vtvtravel.databinding.DialogTypeRegisterBinding;
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.response.ResponseError;
 import com.namviet.vtvtravel.view.dialog.BaseDialogFragment;
@@ -63,6 +64,11 @@ public class TypeRegisterDialog extends BaseDialogFragment implements Observer {
 
         binding.btnSimRegister.setOnClickListener(this::onClick);
         binding.btnExit.setOnClickListener(this::onClick);
+        try {
+            binding.txt2.setText("Quý khách lựa chọn hình thức đăng ký gói dịch vụ " + service.getCode());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -90,6 +96,7 @@ public class TypeRegisterDialog extends BaseDialogFragment implements Observer {
             if (arg instanceof ServiceOtpResponse) {
                 ServiceOtpResponse serviceOtpResponse = (ServiceOtpResponse) arg;
                 if (serviceOtpResponse.isSuccess()) {
+                    dismiss();
                     typeRegisterDialog = OptServiceDialog.newInstance(service);
                     typeRegisterDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
                     typeRegisterDialog.setCancelable(true);
@@ -97,8 +104,8 @@ public class TypeRegisterDialog extends BaseDialogFragment implements Observer {
                     Toast.makeText(mActivity, serviceOtpResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
-            } else if (arg instanceof ResponseError) {
-                ResponseError responseError = (ResponseError) arg;
+            } else if (arg instanceof ErrorResponse) {
+                ErrorResponse responseError = (ErrorResponse) arg;
 //                showMessage(responseError.getMessage());
                 Toast.makeText(mActivity, responseError.getMessage(), Toast.LENGTH_SHORT).show();
             }

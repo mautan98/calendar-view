@@ -107,7 +107,11 @@ public class FooterBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    SmallLocationActivity.startScreenDetail((Activity) context, SmallLocationActivity.OpenType.DETAIL, items.get(position).getDetail_link());
+                    try {
+                        SmallLocationActivity.startScreenDetail((Activity) context, SmallLocationActivity.OpenType.DETAIL, items.get(position).getDetail_link());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }
@@ -124,7 +128,7 @@ public class FooterBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
             tvCommentCount.setText(travel.getComment_count());
             tvAddress.setText(travel.getAddress());
 
-            if (code.equals(DetailBigLocationAdapter.TypeString.APP_TOP_RESTAURANT) || code.equals(DetailBigLocationAdapter.TypeString.APP_TOP_HOTEL)) {
+            if (code.equals("RESTAURANT") || code.equals("HOTEL")) {
                 layoutPrice.setVisibility(View.VISIBLE);
                 layoutOpen.setVisibility(View.GONE);
                 tvPrice.setText(travel.getPrice_from() + " đ" + " - " + travel.getPrice_to() + " đ");
@@ -141,11 +145,19 @@ public class FooterBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
                 }
             }
 
-            if (travel.getDistance() != null && !"".equals(travel.getDistance()) && Double.parseDouble(travel.getDistance()) < 1000) {
-                tvDistance.setText("Cách bạn " + travel.getDistance() + " m");
-            } else if (travel.getDistance() != null && !"".equals(travel.getDistance())) {
-                double finalValue = Math.round(Double.parseDouble(travel.getDistance()) / 1000 * 10.0) / 10.0;
-                tvDistance.setText("Cách bạn " + finalValue + " km");
+            try {
+                if(travel.isHas_location()) {
+                    if (travel.getDistance() != null && !"".equals(travel.getDistance()) && Double.parseDouble(travel.getDistance()) < 1000) {
+                        tvDistance.setText("Cách bạn " + travel.getDistance() + " m");
+                    } else if (travel.getDistance() != null && !"".equals(travel.getDistance())) {
+                        double finalValue = Math.round(Double.parseDouble(travel.getDistance()) / 1000 * 10.0) / 10.0;
+                        tvDistance.setText("Cách bạn " + finalValue + " km");
+                    }
+                }else {
+                    tvDistance.setText("Không xác định");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

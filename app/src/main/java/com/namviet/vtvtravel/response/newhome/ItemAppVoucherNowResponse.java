@@ -13,14 +13,93 @@ public class ItemAppVoucherNowResponse extends BaseResponse {
     }
 
     public class Item {
-        private String id;
+        private int id;
         private String voucherName;
         private String avatarUri;
         private String bannerUri;
         private String linkVoucher;
+        private Long startAt;
+        private Long endAt;
+        private String regionId;
+        private String content;
+        private String name;
+        private String code;
+        private String categoryId;
+        private int memberRankId;
 
-        public void setId(String id) {
+
+        public Long getStartAt() {
+            return startAt;
+        }
+
+        public void setStartAt(Long startAt) {
+            this.startAt = startAt;
+        }
+
+        public Long getEndAt() {
+            return endAt;
+        }
+
+        public void setEndAt(Long endAt) {
+            this.endAt = endAt;
+        }
+
+        public String getRegionId() {
+            return regionId;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
             this.id = id;
+        }
+
+
+
+        public void setRegionId(String regionId) {
+            this.regionId = regionId;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+
+        public String getCategoryId() {
+            return categoryId;
+        }
+
+        public void setCategoryId(String categoryId) {
+            this.categoryId = categoryId;
+        }
+
+        public int getMemberRankId() {
+            return memberRankId;
+        }
+
+        public void setMemberRankId(int memberRankId) {
+            this.memberRankId = memberRankId;
         }
 
         public void setVoucherName(String voucherName) {
@@ -43,9 +122,7 @@ public class ItemAppVoucherNowResponse extends BaseResponse {
             this.linkVoucher = linkVoucher;
         }
 
-        public String getId() {
-            return id;
-        }
+
 
         public String getVoucherName() {
             return voucherName;

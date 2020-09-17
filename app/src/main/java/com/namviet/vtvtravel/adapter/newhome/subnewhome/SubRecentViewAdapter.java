@@ -85,12 +85,14 @@ public class SubRecentViewAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         private LinearLayout linearOpenType;
         private LinearLayout linearPriceType;
+        private View viewTime;
 
         private int position;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
             imgBanner = itemView.findViewById(R.id.imgBanner);
+            viewTime = itemView.findViewById(R.id.viewTime);
             tvPlace = itemView.findViewById(R.id.tvPlace);
             tvName = itemView.findViewById(R.id.tvName);
             tvRate = itemView.findViewById(R.id.tvRate);
@@ -128,21 +130,46 @@ public class SubRecentViewAdapter extends RecyclerView.Adapter<RecyclerView.View
             } else {
                 linearPriceType.setVisibility(View.GONE);
                 linearOpenType.setVisibility(View.VISIBLE);
+
+
                 tvOpenDate.setText(travel.getTabs().get(1).getOpen_week());
-                tvOpenTime.setText(travel.getTabs().get(1).getRange_time());
+
+
+
                 tvStatus.setText(travel.getTabs().get(1).getType_open());
                 if ("Đang đóng".equals(travel.getTabs().get(1).getType_open())) {
                     tvStatus.setTextColor(Color.parseColor("#FF0000"));
                 } else {
                     tvStatus.setTextColor(Color.parseColor("#0FB403"));
                 }
+
+
+                try {
+                    if(travel.getTabs().get(1).getRange_time().isEmpty()){
+                        tvOpenTime.setVisibility(View.GONE);
+                        viewTime.setVisibility(View.GONE);
+                    }else {
+                        viewTime.setVisibility(View.VISIBLE);
+                        tvOpenTime.setText(travel.getTabs().get(1).getRange_time());
+                        tvOpenTime.setVisibility(View.VISIBLE);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    viewTime.setVisibility(View.GONE);
+                    tvOpenTime.setVisibility(View.GONE);
+                }
+
             }
 
-            if (travel.getTabs().get(1).getDistance() != null && !"".equals(travel.getTabs().get(1).getDistance()) && Double.parseDouble(travel.getTabs().get(1).getDistance()) < 1000) {
-                tvDistance.setText("Cách bạn " + travel.getTabs().get(1).getDistance() + " m");
-            } else if (travel.getTabs().get(1).getDistance() != null && !"".equals(travel.getTabs().get(1).getDistance())) {
-                double finalValue = Math.round(Double.parseDouble(travel.getTabs().get(1).getDistance()) / 1000 * 10.0) / 10.0;
-                tvDistance.setText("Cách bạn " + finalValue + " km");
+            if(travel.getTabs().get(1).isHas_location()) {
+                if (travel.getTabs().get(1).getDistance() != null && !"".equals(travel.getTabs().get(1).getDistance()) && Double.parseDouble(travel.getTabs().get(1).getDistance()) < 1000) {
+                    tvDistance.setText("Cách bạn " + travel.getTabs().get(1).getDistance() + " m");
+                } else if (travel.getTabs().get(1).getDistance() != null && !"".equals(travel.getTabs().get(1).getDistance())) {
+                    double finalValue = Math.round(Double.parseDouble(travel.getTabs().get(1).getDistance()) / 1000 * 10.0) / 10.0;
+                    tvDistance.setText("Cách bạn " + finalValue + " km");
+                }
+            }else {
+                tvDistance.setText("Không xác định");
             }
         }
     }

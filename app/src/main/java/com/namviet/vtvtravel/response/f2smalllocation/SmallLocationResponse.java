@@ -1,6 +1,6 @@
 package com.namviet.vtvtravel.response.f2smalllocation;
 
-import com.namviet.vtvtravel.model.travelnews.Travel;
+import com.namviet.vtvtravel.model.f2smalllocation.Travel;
 import com.namviet.vtvtravel.response.BaseResponse;
 
 import java.util.List;

@@ -1,21 +1,17 @@
 package com.namviet.vtvtravel.view.fragment.f2account;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.baseapp.menu.SlideMenu;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.jakewharton.rxbinding2.widget.RxTextView;
-import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
@@ -24,15 +20,19 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndGoToBooking;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndGoToCallNow;
+import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndReloadDeal;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndUpdateUserView;
+import com.namviet.vtvtravel.model.f2event.OnReloadCountSystemInbox;
 import com.namviet.vtvtravel.model.f2event.OnUpdateLogin;
 import com.namviet.vtvtravel.response.AccountResponse;
 import com.namviet.vtvtravel.response.ResponseError;
 import com.namviet.vtvtravel.ultils.DeviceUtils;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.ValidateUtils;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.viewmodel.AccountViewModel;
+import com.namviet.vtvtravel.tracking.TrackingViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -41,7 +41,6 @@ import java.util.Observer;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 
 public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implements Observer {
     private AccountViewModel accountViewModel;
@@ -153,14 +152,18 @@ public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implem
                         EventBus.getDefault().post(new OnLoginSuccessAndGoToCallNow());
                     }else if(((LoginAndRegisterActivityNew) mActivity).isFromBooking){
                         EventBus.getDefault().post(new OnLoginSuccessAndGoToBooking());
+                    }else if(((LoginAndRegisterActivityNew) mActivity).isFromDeal){
+                        EventBus.getDefault().post(new OnLoginSuccessAndReloadDeal());
                     }
                     EventBus.getDefault().post(new OnLoginSuccessAndUpdateUserView());
+                    EventBus.getDefault().post(new OnReloadCountSystemInbox());
                     String token = FirebaseInstanceId.getInstance().getToken();
                     accountViewModel.notificationReg(DeviceUtils.getDeviceId(getContext()), token, "ANDROID");
                     mPreferenceUtil.setValue(Constants.PrefKey.ACCOUNT_ID, accountResponse.getData().getId().toString());
 
                     /*mActivity.onBackPressed();*/
                     mActivity.finish();
+
                 } else {
                     ResponseError responseError = (ResponseError) o;
                     Toast.makeText(mActivity, "Đăng nhập không thành công", Toast.LENGTH_SHORT).show();

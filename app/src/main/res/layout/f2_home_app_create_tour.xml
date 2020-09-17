@@ -5,6 +5,8 @@
     android:layout_height="wrap_content">
 
     <android.support.constraint.ConstraintLayout
+        android:clickable="true"
+        android:foreground="@drawable/ripple_effect_click"
         android:id="@+id/constraint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

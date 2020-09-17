@@ -50,7 +50,7 @@ public class DetailSmallLocationViewModel extends BaseViewModel {
     }
 
 
-    public void getDetailSmallLocation(String url) {
+    public void getDetailSmallLocation(String url, boolean canReload) {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelService();
         Map<String, Object> queryMap = Param.getDefault();
@@ -61,6 +61,7 @@ public class DetailSmallLocationViewModel extends BaseViewModel {
                     @Override
                     public void accept(DetailSmallLocationResponse response) throws Exception {
                         if (response != null) {
+                            response.setCanReload(canReload);
                             requestSuccess(response);
                         }
                     }

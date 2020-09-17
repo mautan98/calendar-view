@@ -16,6 +16,7 @@ import android.provider.MediaStore;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.baseapp.utils.KeyboardUtils;
+import com.google.android.exoplayer2.C;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent;
@@ -34,15 +36,20 @@ import com.namviet.vtvtravel.databinding.F2FragmentWriteReviewBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
+import com.namviet.vtvtravel.model.f2event.OnReviewSuccess;
 import com.namviet.vtvtravel.response.f2review.CreateReviewResponse;
 import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
 import com.namviet.vtvtravel.response.f2review.UploadImageResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.tracking.TrackingViewModel;
 import com.namviet.vtvtravel.viewmodel.f2review.ReviewViewModel;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.callback.BitmapLoadCallback;
 import com.yalantis.ucrop.model.ExifInfo;
 import com.yalantis.ucrop.util.BitmapLoadUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -76,11 +83,13 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
     private ProgressDialog progressDialog;
 
     @SuppressLint("ValidFragment")
-    public WriteReviewFragment(String contentId) {
+    public WriteReviewFragment(String contentId, String contentType) {
         this.contentId = contentId;
+        this.contentType = contentType;
     }
 
     private String contentId;
+    private String contentType;
 
     public WriteReviewFragment() {
     }
@@ -101,17 +110,17 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 if (rating == 1) {
-                    getBinding().tvRatingText.setText("Kém");
+                    getBinding().tvRateText.setText("Kém");
                 } else if (rating == 2) {
-                    getBinding().tvRatingText.setText("Trung bình");
+                    getBinding().tvRateText.setText("Trung bình");
                 } else if (rating == 3) {
-                    getBinding().tvRatingText.setText("Hài lòng");
+                    getBinding().tvRateText.setText("Hài lòng");
                 } else if (rating == 4) {
-                    getBinding().tvRatingText.setText("Rất tốt");
+                    getBinding().tvRateText.setText("Rất tốt");
                 } else if (rating == 5) {
-                    getBinding().tvRatingText.setText("Tuyệt vời");
+                    getBinding().tvRateText.setText("Tuyệt vời");
                 } else {
-                    getBinding().tvRatingText.setText("Trải nghiệm của bạn thế nào?");
+                    getBinding().tvRateText.setText("Trải nghiệm của bạn thế nào?");
                 }
             }
         });
@@ -127,6 +136,19 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
                         getBinding().tvLeftChar.setText(s);
                     }
                 });
+
+
+        try {
+            getBinding().rootView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    KeyboardUtils.hideKeyboard(mActivity, getBinding().edtReview);
+                    return false;
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -171,13 +193,27 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
         getBinding().btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mActivity.onBackPressed();
+                if(getBinding().ratingReview.getRating() != 0 || !getBinding().edtReview.getText().toString().isEmpty()){
+                    CancelReviewDialog cancelReviewDialog = CancelReviewDialog.newInstance(new CancelReviewDialog.ClickButton() {
+                        @Override
+                        public void onClickButton() {
+                            mActivity.onBackPressed();
+                            KeyboardUtils.hideKeyboard(mActivity, getBinding().edtReview);
+                        }
+                    });
+                    cancelReviewDialog.show(mActivity.getSupportFragmentManager(), null);
+                }else {
+                    KeyboardUtils.hideKeyboard(mActivity, getBinding().edtReview);
+                    mActivity.onBackPressed();
+                }
+
             }
         });
 
         getBinding().btnSendTop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                KeyboardUtils.hideKeyboard(mActivity, getBinding().edtReview);
                 sendReview();
             }
         });
@@ -185,6 +221,7 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
         getBinding().btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                KeyboardUtils.hideKeyboard(mActivity, getBinding().edtReview);
                 sendReview();
             }
         });
@@ -240,7 +277,7 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
                 uploadImage();
             } else {
                 showProgress();
-                viewModel.createReview(null, String.valueOf(account.getId()), getBinding().edtReview.getText().toString(), contentId, "moments", String.valueOf((int)getBinding().ratingReview.getRating()), listUrl);
+                viewModel.createReview(null, String.valueOf(account.getId()), getBinding().edtReview.getText().toString(), contentId, contentType, String.valueOf((int)getBinding().ratingReview.getRating()), listUrl);
             }
 
         } else {
@@ -268,9 +305,17 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
             } else if (o instanceof CreateReviewResponse) {
                 dismissDialog();
                 CreateReviewResponse response = (CreateReviewResponse) o;
-                bitmaps.clear();
-                addImageAdapter.notifyDataSetChanged();
+                EventBus.getDefault().post(new OnReviewSuccess());
+//                bitmaps.clear();
+//                addImageAdapter.notifyDataSetChanged();
                 genDialogSendReviewSuccess();
+
+                try {
+                    TrackingAnalytic.postEvent(TrackingAnalytic.REVIEW, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             } else if (o instanceof UploadImageResponse) {
                 UploadImageResponse response = (UploadImageResponse) o;
                 Log.e("link", response.getData());
@@ -280,7 +325,7 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
                     showToast("Tải ảnh lên hoàn tất, đang gửi đánh giá...");
                     Account account = MyApplication.getInstance().getAccount();
                     if (null != account && account.isLogin()) {
-                        viewModel.createReview(null, String.valueOf(account.getId()), getBinding().edtReview.getText().toString(), contentId, "moments", String.valueOf((int)getBinding().ratingReview.getRating()), listUrl);
+                        viewModel.createReview(null, String.valueOf(account.getId()), getBinding().edtReview.getText().toString(), contentId, contentType, String.valueOf((int)getBinding().ratingReview.getRating()), listUrl);
                     } else {
                         LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
                     }
@@ -290,10 +335,18 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
         } else if (o instanceof ErrorResponse) {
             ErrorResponse responseError = (ErrorResponse) o;
             try {
+                showToast("Có lỗi xảy ra, mời bạn thử lại sau!");
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
             } catch (Exception e) {
 
             }
+        }else {
+            try {
+                showToast("Có lỗi xảy ra");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            dismissDialog();
         }
     }
 

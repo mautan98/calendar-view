@@ -11,6 +11,7 @@
 
 
     <LinearLayout
+        android:foreground="@drawable/ripple_effect_click"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -49,6 +50,9 @@
 
 
             <ImageView
+                android:tint="#8A8A8A"
+                android:rotation="180"
+                android:src="@drawable/f2_ic_back"
                 android:layout_width="6dp"
                 android:layout_height="11dp"
                 android:layout_marginEnd="13dp" />

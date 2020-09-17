@@ -10,12 +10,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.FragmentServiceBinding;
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.response.AccountResponse;
 import com.namviet.vtvtravel.response.ResponseError;
@@ -77,6 +79,7 @@ public class ServiceFragment extends MainFragment implements Observer {
                     String code = String.valueOf(MyApplication.getInstance().getAccount().getId());
                     String token = String.valueOf(MyApplication.getInstance().getAccount().getToken());
                     serviceViewModel.getInfo(code, token);
+                    Toast.makeText(mActivity, "Đang lấy thông tin gói dịch vụ...", Toast.LENGTH_LONG).show();
                 }
 
 
@@ -109,7 +112,7 @@ public class ServiceFragment extends MainFragment implements Observer {
             }
         });
         binding.tabVideo.setViewPager(binding.vpVideo);
-        binding.tabVideo.setCurrentTab(0);
+        binding.tabVideo.setCurrentTab(1);
         binding.vpVideo.setOffscreenPageLimit(list.size());
 
     }
@@ -147,8 +150,12 @@ public class ServiceFragment extends MainFragment implements Observer {
                 }
                 serviceViewModel.getService("ANDROID");
             } else if (arg instanceof ResponseError) {
-                ResponseError responseError = (ResponseError) arg;
-                showMessage(responseError.getMessage());
+                try {
+                    ErrorResponse responseError = (ErrorResponse) arg;
+                    showMessage(responseError.getMessage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

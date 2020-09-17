@@ -7,15 +7,18 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2biglocation.BigLocationTopTabAdapter;
 import com.namviet.vtvtravel.adapter.f2biglocation.DetailBigLocationAdapter;
 import com.namviet.vtvtravel.databinding.F2FragmentBigLocationBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.response.WeatherResponse;
 import com.namviet.vtvtravel.response.f2biglocation.BigLocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.LocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.RegionResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.viewmodel.f2biglocation.BigLocationViewModel;
 
 import java.util.ArrayList;
@@ -127,6 +130,11 @@ public class BigLocationFragment extends BaseFragment<F2FragmentBigLocationBindi
                 detailBigLocationAdapter = new DetailBigLocationAdapter(dataListMain, response.getData().getRegion(), mActivity, null);
                 getBinding().rclContent.setAdapter(detailBigLocationAdapter);
                 getBinding().tvRegionNameTop.setText(response.getData().getRegion().getName());
+                try {
+                    viewModel.loadWeather(response.getData().getRegion().getId());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             } else if (o instanceof LocationResponse) {
                 LocationResponse response = (LocationResponse) o;
@@ -134,6 +142,9 @@ public class BigLocationFragment extends BaseFragment<F2FragmentBigLocationBindi
             } else if (o instanceof RegionResponse) {
                 RegionResponse response = (RegionResponse) o;
                 RegionResponse response1 = (RegionResponse) o;
+            }else if (o instanceof WeatherResponse) {
+                WeatherResponse response = (WeatherResponse) o;
+                detailBigLocationAdapter.setWeatherResponse(response);
             } else if (o instanceof ErrorResponse) {
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {

@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layoutHotel"
     android:layout_width="wrap_content"
-    android:paddingStart="23dp"
+    android:paddingStart="21dp"
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
@@ -11,10 +11,10 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="21dp"
         android:id="@+id/imgAvatar"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:src="@drawable/f2_icon_hotel" />
 
     <TextView

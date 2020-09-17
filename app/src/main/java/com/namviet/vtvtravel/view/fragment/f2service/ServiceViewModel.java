@@ -2,9 +2,11 @@ package com.namviet.vtvtravel.view.fragment.f2service;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
 import com.namviet.vtvtravel.api.Param;
 import com.namviet.vtvtravel.api.TravelService;
 import com.namviet.vtvtravel.app.MyApplication;
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.response.AccountResponse;
 import com.namviet.vtvtravel.ultils.ResponseUltils;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
@@ -15,6 +17,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import okhttp3.RequestBody;
+import retrofit2.HttpException;
 
 public class ServiceViewModel extends BaseViewModel {
     private Context context;
@@ -160,8 +163,18 @@ public class ServiceViewModel extends BaseViewModel {
 
     private void requestFailed(Throwable throwable) {
         try {
+            onLoadFail();
+        } catch (Exception e) {
+
+        }
+
+        try {
+            HttpException error = (HttpException) throwable;
+            String errorBody = error.response().errorBody().string();
+            ErrorResponse errorResponse = new Gson().fromJson(errorBody, ErrorResponse.class);
+            errorResponse.setCodeToSplitCase("");
             setChanged();
-            notifyObservers(ResponseUltils.requestFailed(throwable));
+            notifyObservers(errorResponse);
         } catch (Exception e) {
             setChanged();
             notifyObservers();

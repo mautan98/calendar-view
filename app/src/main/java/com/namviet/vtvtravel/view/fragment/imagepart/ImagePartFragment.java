@@ -11,6 +11,7 @@ import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.f2imagepart.ImagePart;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.imagepart.ImagePartResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.viewmodel.imagepart.ImagePartViewModel;
 
 import java.util.ArrayList;

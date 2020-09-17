@@ -11,6 +11,7 @@ import com.namviet.vtvtravel.response.f2review.CreateReviewResponse;
 import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
 import com.namviet.vtvtravel.response.f2review.UploadImageResponse;
 import com.namviet.vtvtravel.response.f2travelvoucher.CategoryVoucherResponse;
+import com.namviet.vtvtravel.response.f2travelvoucher.CheckCanReceiver;
 import com.namviet.vtvtravel.response.f2travelvoucher.ListVoucherResponse;
 import com.namviet.vtvtravel.response.f2travelvoucher.RankVoucherResponse;
 import com.namviet.vtvtravel.response.f2travelvoucher.RegionVoucherResponse;
@@ -37,7 +38,7 @@ public class TravelVoucherViewModel extends BaseViewModel {
         TravelService newsService = myApplication.getTravelServiceAcc();
 
         RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getMobileFromViettel().toString());
-        Map<String, Object> queryMap = Param.getOwnedVoucher(service, sort, regionId, memberRankId, categoryId,  page);
+        Map<String, Object> queryMap = Param.getOwnedVoucher(service, sort, regionId, memberRankId, categoryId, page);
 
         Disposable disposable = newsService.getOwnedVoucher(jsonBodyObject, queryMap)
                 .subscribeOn(myApplication.subscribeScheduler())
@@ -54,7 +55,7 @@ public class TravelVoucherViewModel extends BaseViewModel {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        requestFailed(throwable);
+                        requestFailed(throwable, "");
                     }
                 });
 
@@ -67,7 +68,7 @@ public class TravelVoucherViewModel extends BaseViewModel {
         TravelService newsService = myApplication.getTravelServiceAcc();
 
         RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getMobileFromViettel().toString());
-        Map<String, Object> queryMap = Param.getOwnedVoucher(service, sort, regionId, memberRankId, categoryId,  page);
+        Map<String, Object> queryMap = Param.getOwnedVoucher(service, sort, regionId, memberRankId, categoryId, page);
 
         Disposable disposable = newsService.getOwnedVoucherStore(jsonBodyObject, queryMap)
                 .subscribeOn(myApplication.subscribeScheduler())
@@ -84,7 +85,37 @@ public class TravelVoucherViewModel extends BaseViewModel {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        requestFailed(throwable);
+                        requestFailed(throwable, "");
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+
+    public void getOwnedVoucherStoreNonToken(String service, String sort, String regionId, String memberRankId, String categoryId, int page) {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAccNoneToken();
+
+        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getMobileFromViettel().toString());
+        Map<String, Object> queryMap = Param.getOwnedVoucher(service, sort, regionId, memberRankId, categoryId, page);
+
+        Disposable disposable = newsService.getOwnedVoucherStore(jsonBodyObject, queryMap)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ListVoucherResponse>() {
+                    @Override
+                    public void accept(ListVoucherResponse response) throws Exception {
+                        if (response.isSuccess()) {
+                            requestSuccess(response);
+                        } else {
+                            requestSuccess(null);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable, "");
                     }
                 });
 
@@ -111,7 +142,7 @@ public class TravelVoucherViewModel extends BaseViewModel {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        requestFailed(throwable);
+                        requestFailed(throwable, "");
                     }
                 });
 
@@ -139,12 +170,69 @@ public class TravelVoucherViewModel extends BaseViewModel {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        requestFailed(throwable);
+                        requestFailed(throwable, "");
                     }
                 });
 
         compositeDisposable.add(disposable);
     }
+
+
+    public void checkCanReceiver() {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+        RequestBody jsonBodyObject = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), Param.getParams2(
+                new JSONObject()).toString());
+        Disposable disposable = newsService.checkCanReceiver(jsonBodyObject)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<CheckCanReceiver>() {
+                    @Override
+                    public void accept(CheckCanReceiver response) throws Exception {
+                        if (response.isSuccess()) {
+                            requestSuccess(response);
+                        } else {
+                            requestSuccess(null);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable, "checkCanReceiver");
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+
+    public void checkUserReceiver(String voucherId, String channel, String os, String event) {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+        RequestBody jsonBodyObject = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), Param.getParams2(
+                Param.checkUserReceiver(voucherId, channel, os, event)).toString());
+        Disposable disposable = newsService.checkUserVoucherReceiver(jsonBodyObject)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<BaseResponse>() {
+                    @Override
+                    public void accept(BaseResponse response) throws Exception {
+                        if (response.isSuccess()) {
+                            requestSuccess(response);
+                        } else {
+                            requestSuccess(null);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable, "checkUserReceiver");
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
 
     public void getRegionVoucher() {
         MyApplication myApplication = MyApplication.getInstance();
@@ -166,7 +254,7 @@ public class TravelVoucherViewModel extends BaseViewModel {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        requestFailed(throwable);
+                        requestFailed(throwable, "");
                     }
                 });
 
@@ -260,7 +348,7 @@ public class TravelVoucherViewModel extends BaseViewModel {
         notifyObservers(object);
     }
 
-    private void requestFailed(Throwable throwable) {
+    private void requestFailed(Throwable throwable, String code) {
         try {
             onLoadFail();
         } catch (Exception e) {
@@ -271,6 +359,7 @@ public class TravelVoucherViewModel extends BaseViewModel {
             HttpException error = (HttpException) throwable;
             String errorBody = error.response().errorBody().string();
             ErrorResponse errorResponse = new Gson().fromJson(errorBody, ErrorResponse.class);
+            errorResponse.setCodeToSplitCase(code);
             setChanged();
             notifyObservers(errorResponse);
         } catch (Exception e) {

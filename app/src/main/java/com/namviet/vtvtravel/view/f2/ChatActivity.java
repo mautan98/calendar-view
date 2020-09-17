@@ -9,6 +9,7 @@ import com.namviet.vtvtravel.databinding.F2ActivityChatBinding;
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.view.fragment.f2chat.ChatFragment;
+import com.namviet.vtvtravel.view.fragment.f2chat.ChatFragmentV2;
 
 public class ChatActivity extends BaseActivityNew<F2ActivityChatBinding> {
     @Override
@@ -38,7 +39,7 @@ public class ChatActivity extends BaseActivityNew<F2ActivityChatBinding> {
 
     @Override
     public BaseFragment initFragment() {
-        return new ChatFragment();
+        return new ChatFragmentV2();
     }
 
     public static void startScreen(Activity activity) {
@@ -50,6 +51,6 @@ public class ChatActivity extends BaseActivityNew<F2ActivityChatBinding> {
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.activity_in_up, R.anim.activity_out_up);
+        overridePendingTransition(R.anim.slide_from_top, R.anim.slide_in_top);
     }
 }

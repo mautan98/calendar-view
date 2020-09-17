@@ -12,6 +12,7 @@ import com.namviet.vtvtravel.view.fragment.f2webview.DetailDealWebviewFragment;
 import com.namviet.vtvtravel.view.fragment.f2webview.VQMMWebviewFragment;
 
 public class VQMMWebviewActivity extends BaseActivityNew<F2ActivityDealWebviewBinding> {
+    private String voucherId;
 
     @Override
     public int getLayoutRes() {
@@ -25,6 +26,7 @@ public class VQMMWebviewActivity extends BaseActivityNew<F2ActivityDealWebviewBi
 
     @Override
     public void getDataFromIntent() {
+        voucherId = getIntent().getStringExtra(Constants.IntentKey.DATA);
     }
 
     @Override
@@ -45,12 +47,13 @@ public class VQMMWebviewActivity extends BaseActivityNew<F2ActivityDealWebviewBi
 
     @Override
     public BaseFragment initFragment() {
-        VQMMWebviewFragment vqmmWebviewFragment = new VQMMWebviewFragment();
+        VQMMWebviewFragment vqmmWebviewFragment = new VQMMWebviewFragment(voucherId);
         return vqmmWebviewFragment;
     }
 
-    public static void startScreen(Context activity) {
+    public static void startScreen(Context activity, String voucherId) {
         Intent intent = new Intent(activity, VQMMWebviewActivity.class);
+        intent.putExtra(Constants.IntentKey.DATA, voucherId);
         activity.startActivity(intent);
     }
 }

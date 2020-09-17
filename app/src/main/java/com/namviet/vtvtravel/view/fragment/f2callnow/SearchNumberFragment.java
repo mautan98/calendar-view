@@ -150,8 +150,12 @@ public class SearchNumberFragment extends MainFragment implements AllContactAdap
                     });
                     oneButtonDialog.show(getChildFragmentManager(), null);
                 } else {
-                    checkNumber(mobile.replaceFirst("0","84"));
-//                    F2Util.startCallIntent(mActivity, "1039" + mobile);
+                    if (!F2Util.isOnline(mActivity)) {
+                        F2Util.startCallIntent(mActivity, "1039" + binding.edtPhone.getText().toString());
+                    }else {
+                        checkNumber(mobile.replaceFirst("0","84"));
+                    }
+
                 }
             }
         });

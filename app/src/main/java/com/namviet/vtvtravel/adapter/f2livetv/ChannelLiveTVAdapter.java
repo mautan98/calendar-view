@@ -18,11 +18,22 @@ public class ChannelLiveTVAdapter extends RecyclerView.Adapter<ChannelLiveTVAdap
     private Context context;
     private List<LiveTvResponse.Channel> channelList;
     private ClickButton clickButton;
+    private int positionSelected = 0;
 
-    public ChannelLiveTVAdapter(Context context, List<LiveTvResponse.Channel> channelList, ClickButton clickButton) {
+    public ChannelLiveTVAdapter(Context context, List<LiveTvResponse.Channel> channelList, ClickButton clickButton, int positionSelected) {
         this.context = context;
         this.channelList = channelList;
         this.clickButton = clickButton;
+        this.positionSelected = positionSelected;
+    }
+
+    public void setPositionSelected(int positionSelected){
+        try {
+            this.positionSelected = positionSelected;
+            notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @NonNull
@@ -43,17 +54,29 @@ public class ChannelLiveTVAdapter extends RecyclerView.Adapter<ChannelLiveTVAdap
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgChannel;
+        private View viewBg;
+        private int position;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             imgChannel = itemView.findViewById(R.id.imgChannel);
+            viewBg = itemView.findViewById(R.id.viewBg);
         }
 
         public void onBind(int position) {
+            this.position = position;
+            if (position == positionSelected) {
+                viewBg.setVisibility(View.VISIBLE);
+            } else {
+                viewBg.setVisibility(View.GONE);
+            }
+
             Glide.with(context).load(channelList.get(position).getLogo_url()).into(imgChannel);
             imgChannel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    positionSelected = position;
+                    notifyDataSetChanged();
                     clickButton.clickChannel(position);
                 }
             });

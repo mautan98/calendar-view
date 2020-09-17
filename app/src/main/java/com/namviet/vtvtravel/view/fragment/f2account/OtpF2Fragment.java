@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.baseapp.utils.KeyboardUtils;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
@@ -182,6 +183,7 @@ public class OtpF2Fragment extends BaseFragment<F2FragmentOtpBinding> implements
             public void afterTextChanged(Editable s) {
                 if (s.length() == 1) {
                     getBinding().et6.clearFocus();
+                    KeyboardUtils.hideKeyboard(mActivity, getBinding().et6);
                 } else if (s.length() == 0) {
                     getBinding().et5.requestFocus();
                 }
@@ -230,8 +232,10 @@ public class OtpF2Fragment extends BaseFragment<F2FragmentOtpBinding> implements
                 } else {
                     String otp = s1 + s2 + s3 + s4 + s5 + s6;
                     if (typeOtp.equals(Constants.IntentKey.TYPE_OTP_REGISTER)) {
+                        showLoading();
                         accountViewModel.verifyOtpRegister(StringUtils.isPhoneValidateV2(mobile, 84), otp);
                     } else if (typeOtp.equals(Constants.IntentKey.TYPE_OTP_RESET_PASS)) {
+                        showLoading();
                         accountViewModel.verifyOtpResetPass(StringUtils.isPhoneValidateV2(mobile, 84), otp);
                     }
                 }
@@ -257,6 +261,7 @@ public class OtpF2Fragment extends BaseFragment<F2FragmentOtpBinding> implements
 
     @Override
     public void update(Observable observable, Object o) {
+        hideLoading();
         if (observable instanceof AccountViewModel && null != o) {
             if (o instanceof AccountResponse) {
                 AccountResponse accountResponse = (AccountResponse) o;
@@ -292,6 +297,9 @@ public class OtpF2Fragment extends BaseFragment<F2FragmentOtpBinding> implements
                 }
             } else if (o instanceof ErrorResponse) {
                 ErrorResponse responseError = (ErrorResponse) o;
+                if(responseError.getErrorCode().equals("REQUEST_OTP_GREATER_THAN_RULES")){
+                    getBinding().tvTimeLeft.setVisibility(View.GONE);
+                }
                 try {
                     ((LoginAndRegisterActivityNew)mActivity).showWarning(responseError.getMessage());
                 } catch (Exception e) {

@@ -1,5 +1,6 @@
 package com.namviet.vtvtravel.adapter.smalllocation;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -12,15 +13,26 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.config.Constants;
+import com.namviet.vtvtravel.help.MySupportMapFragment;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
+import com.namviet.vtvtravel.view.MainActivity;
+import com.namviet.vtvtravel.view.f2.MapActivity;
+import com.namviet.vtvtravel.view.fragment.f2smalllocation.DetailSmallLocationFragment;
 
 import java.util.List;
 
@@ -34,6 +46,7 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
     private ClickItem clickItem;
     private List<GetReviewResponse.Data.Content> reviews;
     private String contentType;
+    private DetailSmallLocationFragment detailSmallLocationFragment;
 
     public void setContentType(String contentType) {
         this.contentType = contentType;
@@ -50,11 +63,12 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
 
     private List<DetailSmallLocationResponse.Data.Tab> items;
 
-    public DetailSmallLocationAdapter(List<DetailSmallLocationResponse.Data.Tab> items, List<GetReviewResponse.Data.Content> reviews, Context context, ClickItem clickItem) {
+    public DetailSmallLocationAdapter(DetailSmallLocationFragment detailSmallLocationFragment, List<DetailSmallLocationResponse.Data.Tab> items, List<GetReviewResponse.Data.Content> reviews, Context context, ClickItem clickItem) {
         this.context = context;
         this.items = items;
         this.clickItem = clickItem;
         this.reviews = reviews;
+        this.detailSmallLocationFragment = detailSmallLocationFragment;
     }
 
     @Override
@@ -222,11 +236,20 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
         private TextView tvPrice;
         private RelativeLayout layoutPrice;
         private LinearLayout layoutOpenType;
+        private LinearLayout layoutPhone;
+        private LinearLayout layoutURL;
+        private View viewTime;
+
+        private MySupportMapFragment mapFragment;
+        private GoogleMap mGoogleMap;
 
 
         public InformationViewHolder(View itemView) {
             super(itemView);
             tvDistance = itemView.findViewById(R.id.tvDistance);
+            viewTime = itemView.findViewById(R.id.viewTime);
+            layoutPhone = itemView.findViewById(R.id.layoutPhone);
+            layoutURL = itemView.findViewById(R.id.layoutURL);
             tvAddress = itemView.findViewById(R.id.tvAddress);
             tvWebsite = itemView.findViewById(R.id.tvWebsite);
             tvPhone = itemView.findViewById(R.id.tvPhone);
@@ -240,14 +263,71 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
             layoutOpenType = itemView.findViewById(R.id.layoutOpenType);
         }
 
+        private void addMyLocation(double lat, double lng, String address) {
+            try {
+//                LatLng sydney = new LatLng(lat, lng);
+//                CameraUpdate center = CameraUpdateFactory.newLatLng(sydney);
+//                CameraUpdate zoom = CameraUpdateFactory.zoomTo(16);
+//                mGoogleMap.addMarker(new MarkerOptions().position(sydney).title(address));
+//                mGoogleMap.moveCamera(center);
+
+
+                LatLng coordinate = new LatLng(lat, lng); //Store these lat lng values somewhere. These should be constant.
+                mGoogleMap.addMarker(new MarkerOptions().position(coordinate).title(address));
+                CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
+                        coordinate, 15);
+                mGoogleMap.animateCamera(location);
+
+//                mGoogleMap.animateCamera(zoom);
+            } catch (Exception e) {
+
+            }
+        }
+
         public void bindItem(int position) {
             this.position = position;
             DetailSmallLocationResponse.Data.Tab tab = items.get(position);
 
-            if(tab.getTel() == null || (tab.getTel() != null && tab.getTel().isEmpty())){
+
+            try {
+                mapFragment = MySupportMapFragment.newInstance();
+                mapFragment.setListener(new MySupportMapFragment.OnTouchListener() {
+                    @Override
+                    public void onTouch() {
+                        //                    binding.nesScroll.requestDisallowInterceptTouchEvent(true);
+                    }
+                });
+
+                mapFragment.getMapAsync(new OnMapReadyCallback() {
+                    @Override
+                    public void onMapReady(GoogleMap googleMap) {
+                        mGoogleMap = googleMap;
+                        addMyLocation(Double.parseDouble(tab.getLat()), Double.parseDouble(tab.getLng()), tab.getAddress());
+
+                        mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                            @Override
+                            public void onMapClick(LatLng latLng) {
+                                try {
+                                    MapActivity.startScreen(context, tab.getLat(), tab.getLng(), tab.getAddress());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    }
+                });
+                detailSmallLocationFragment.getChildFragmentManager().beginTransaction().replace(R.id.map, mapFragment).commit();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            if (tab.getTel() == null || (tab.getTel() != null && tab.getTel().isEmpty())) {
                 tvPhone.setText("Số điện thoại: Đang cập nhật");
                 btnCopy.setVisibility(View.GONE);
-            }else {
+                layoutPhone.setVisibility(View.GONE);
+            } else {
+                layoutPhone.setVisibility(View.VISIBLE);
                 tvPhone.setText("Số điện thoại: " + tab.getTel());
                 btnCopy.setVisibility(View.VISIBLE);
             }
@@ -263,7 +343,23 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
                 }
             });
             tvOpenDate.setText(tab.getOpen_week());
-            tvOpenTime.setText(tab.getRange_time());
+
+            try {
+                if(tab.getRange_time().isEmpty()){
+                    viewTime.setVisibility(View.GONE);
+                    tvOpenTime.setVisibility(View.GONE);
+                }else {
+                    viewTime.setVisibility(View.VISIBLE);
+                    tvOpenTime.setText(tab.getRange_time());
+                    tvOpenTime.setVisibility(View.VISIBLE);
+                }
+            } catch (Exception e) {
+                viewTime.setVisibility(View.GONE);
+                tvOpenTime.setVisibility(View.GONE);
+                e.printStackTrace();
+            }
+
+
             tvOpenState.setText(tab.getType_open());
 
             if ("Đang đóng".equals(tab.getType_open())) {
@@ -272,19 +368,29 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
                 tvOpenState.setTextColor(Color.parseColor("#0FB403"));
             }
 
-            tvPrice.setText("Từ " + tab.getPrice_from() + " - " + tab.getPrice_to());
 
-            if(tab.getWebsite() == null ||(tab.getWebsite() != null && tab.getWebsite().isEmpty())){
+
+            if (tab.getWebsite() == null || (tab.getWebsite() != null && tab.getWebsite().isEmpty())) {
+                layoutURL.setVisibility(View.GONE);
                 tvWebsite.setText("Đang cập nhật");
-            }else {
+            } else {
+                layoutURL.setVisibility(View.VISIBLE);
                 tvWebsite.setText(tab.getWebsite());
             }
 
-            if (tab.getDistance() != null && !"".equals(tab.getDistance()) && Double.parseDouble(tab.getDistance()) < 1000) {
-                tvDistance.setText("Cách bạn " + tab.getDistance() + " m");
-            } else if (tab.getDistance() != null && !"".equals(tab.getDistance())) {
-                double finalValue = Math.round(Double.parseDouble(tab.getDistance()) / 1000 * 10.0) / 10.0;
-                tvDistance.setText("Cách bạn " + finalValue + " km");
+            try {
+                if(tab.isHas_location()) {
+                    if (tab.getDistance() != null && !"".equals(tab.getDistance()) && Double.parseDouble(tab.getDistance()) < 1000) {
+                        tvDistance.setText("Cách bạn " + tab.getDistance() + " m");
+                    } else if (tab.getDistance() != null && !"".equals(tab.getDistance())) {
+                        double finalValue = Math.round(Double.parseDouble(tab.getDistance()) / 1000 * 10.0) / 10.0;
+                        tvDistance.setText("Cách bạn " + finalValue + " km");
+                    }
+                }else {
+                    tvDistance.setText("Không xác định");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
 
@@ -297,6 +403,15 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
             }
 
             tvAddress.setText(tab.getAddress());
+
+            if ((tab.getPrice_from() == null || (tab.getPrice_from() != null && tab.getPrice_from().isEmpty()) &&
+                    (tab.getPrice_to() == null || (tab.getPrice_to() != null && tab.getPrice_to().isEmpty())))) {
+                layoutPrice.setVisibility(View.GONE);
+            } else if((tab.getPrice_to() == null || (tab.getPrice_to() != null && tab.getPrice_to().isEmpty()) || (tab.getPrice_to() != null && tab.getPrice_to().equals("0")))){
+                tvPrice.setText("Từ " + tab.getPrice_from());
+            }else{
+                tvPrice.setText("Từ " + tab.getPrice_from() + " - " + tab.getPrice_to());
+            }
         }
     }
 
@@ -330,7 +445,7 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
 
         }
 
-        private void openImageScreen(int position, int positionGet){
+        private void openImageScreen(int position, int positionGet) {
             try {
                 if (items.get(positionGet).getItemsGallery().size() > 0) {
                     clickItem.onClickImage(position, items.get(positionGet).getItemsGallery());
@@ -353,10 +468,43 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
         private LinearLayout layoutReviewOverview;
         private LinearLayout layoutViewAllComment;
 
+        private ProgressBar progress1;
+        private ProgressBar progress2;
+        private ProgressBar progress3;
+        private ProgressBar progress4;
+        private ProgressBar progress5;
+
+
+        private TextView tvCountRating5;
+        private TextView tvCountRating4;
+        private TextView tvCountRating3;
+        private TextView tvCountRating2;
+        private TextView tvCountRating1;
+
+        private TextView tvRating;
+        private TextView tvContentRating;
+        private TextView tvCommentCount;
+
 
         public RatingViewHolder(View itemView) {
             super(itemView);
+            tvRating = itemView.findViewById(R.id.tvRating);
+            tvCommentCount = itemView.findViewById(R.id.tvCommentCount);
+            tvContentRating = itemView.findViewById(R.id.tvContentRating);
             rclRating = itemView.findViewById(R.id.rclRating);
+
+            progress1 = itemView.findViewById(R.id.progress1);
+            progress2 = itemView.findViewById(R.id.progress2);
+            progress3 = itemView.findViewById(R.id.progress3);
+            progress4 = itemView.findViewById(R.id.progress4);
+            progress5 = itemView.findViewById(R.id.progress5);
+
+            tvCountRating5 = itemView.findViewById(R.id.tvCountRating5);
+            tvCountRating4 = itemView.findViewById(R.id.tvCountRating4);
+            tvCountRating3 = itemView.findViewById(R.id.tvCountRating3);
+            tvCountRating2 = itemView.findViewById(R.id.tvCountRating2);
+            tvCountRating1 = itemView.findViewById(R.id.tvCountRating1);
+
             layoutScore = itemView.findViewById(R.id.layoutScore);
             layoutReviewOverview = itemView.findViewById(R.id.layoutReviewOverview);
             layoutViewAllComment = itemView.findViewById(R.id.layoutViewAllComment);
@@ -390,6 +538,11 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
         public void bindItem(int position) {
             this.position = position;
             if (reviews.size() > 0) {
+                try {
+                    tvCommentCount.setText(items.get(position).getComment_count());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 layoutScore.setVisibility(View.VISIBLE);
                 layoutReviewOverview.setVisibility(View.VISIBLE);
                 if (reviews.size() > 3) {
@@ -397,6 +550,20 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
                 } else {
                     layoutViewAllComment.setVisibility(View.GONE);
                 }
+                progress1.setProgress(getPercent(items.get(position).getCount_1()));
+                progress2.setProgress(getPercent(items.get(position).getCount_2()));
+                progress3.setProgress(getPercent(items.get(position).getCount_3()));
+                progress4.setProgress(getPercent(items.get(position).getCount_4()));
+                progress5.setProgress(getPercent(items.get(position).getCount_5()));
+
+                tvCountRating1.setText(items.get(position).getCount_1());
+                tvCountRating2.setText(items.get(position).getCount_2());
+                tvCountRating3.setText(items.get(position).getCount_3());
+                tvCountRating4.setText(items.get(position).getCount_4());
+                tvCountRating5.setText(items.get(position).getCount_5());
+
+                tvRating.setText(items.get(position).getEvaluate());
+                tvContentRating.setText(items.get(position).getEvaluate_text());
             } else {
                 layoutScore.setVisibility(View.GONE);
                 layoutReviewOverview.setVisibility(View.GONE);
@@ -405,6 +572,13 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
             ratingAdapter = new RatingAdapter(reviews, context, null, true);
             rclRating.setAdapter(ratingAdapter);
             tvCommentLeft.setText("Xem tất cả " + reviews.size() + " đánh giá");
+        }
+
+
+        private int getPercent(String star) {
+            float aFloat = Float.parseFloat(star);
+            int percent = (int) (aFloat / Float.parseFloat(items.get(position).getComment_count()) * 100);
+            return percent;
         }
 
     }

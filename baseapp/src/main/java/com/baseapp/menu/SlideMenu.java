@@ -66,6 +66,7 @@ public class SlideMenu {
         NEW_HOME,
         NEW_MENU,
         BOOKING_SCREEN,
-        REGISTER_SUCCESS_SCREEN
+        REGISTER_SUCCESS_SCREEN,
+        REGISTER_SUCCESS_FRIEND_SCREEN
     }
 }

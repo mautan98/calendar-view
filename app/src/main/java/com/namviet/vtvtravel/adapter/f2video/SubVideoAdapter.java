@@ -19,6 +19,7 @@ import com.namviet.vtvtravel.adapter.comment.SubCommentAdapter;
 import com.namviet.vtvtravel.model.Video;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.view.MainActivity;
@@ -121,7 +122,18 @@ public class SubVideoAdapter extends RecyclerView.Adapter<SubVideoAdapter.Header
             btnShare.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    F2Util.startSenDataText((Activity) context, videos.get(position).getLink_share());
+                    try {
+                        F2Util.startSenDataText((Activity) context, videos.get(position).getStreaming_url());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                    try {
+                        TrackingAnalytic.postEvent(TrackingAnalytic.SHARE, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }

@@ -52,7 +52,7 @@
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:maxWidth="200dp"
-                android:text="Quý khách xác nhận để đăng ký gói dịch vụ FRIEND"
+                android:text="Quý khách xác nhận để đăng ký gói dịch vụ"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 

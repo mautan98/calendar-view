@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
@@ -41,10 +42,12 @@ import com.namviet.vtvtravel.adapter.newhome.subnewhome.tab.TabVoucherNowAdapter
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.Account;
+import com.namviet.vtvtravel.model.f2event.OnClickVideoInMenu;
 import com.namviet.vtvtravel.model.f2event.OnUpdateAccount;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.response.f2livetv.LiveTvResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
+import com.namviet.vtvtravel.response.f2travelvoucher.ListVoucherResponse;
 import com.namviet.vtvtravel.response.newhome.AppDealResponse;
 import com.namviet.vtvtravel.response.newhome.AppFavoriteDestinationResponse;
 import com.namviet.vtvtravel.response.newhome.AppPromotionPartnerResponse;
@@ -60,19 +63,23 @@ import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f2.BigLocationActivity;
 import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
 import com.namviet.vtvtravel.view.f2.FullVideoActivity;
+import com.namviet.vtvtravel.view.f2.HighLightSeeMoreVideoActivity;
 import com.namviet.vtvtravel.view.f2.LiveTVActivity;
 import com.namviet.vtvtravel.view.f2.NearbyExperienceActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.f2.TopExperienceActivity;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
+import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
 import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import me.crosswall.lib.coverflow.CoverFlow;
@@ -470,8 +477,11 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 @Override
                 public void onClickItem(AppVoucherResponse.Item item) {
                     try {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getLinkVoucher()));
-                        context.startActivity(browserIntent);
+//                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getLinkVoucher()));
+//                        context.startActivity(browserIntent);
+
+                        ListVoucherResponse.Data.Voucher voucher = new Gson().fromJson(  new Gson().toJson(item), ListVoucherResponse.Data.Voucher.class);
+                        TravelVoucherActivity.startScreenDetail(context, true, TravelVoucherActivity.OpenType.DETAIL, voucher);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -507,6 +517,18 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        pager.setCurrentItem(1);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, 500);
 
         }
     }
@@ -739,17 +761,25 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private RecyclerView recyclerAppVideo;
         private SubVideoAdapter subVideoAdapter;
         private IndefinitePagerIndicator vpIndicator;
+        private TextView tvSeeMore;
 
         public VideoViewHolder(View itemView) {
             super(itemView);
             recyclerAppVideo = itemView.findViewById(R.id.recyclerAppVideo);
             vpIndicator = itemView.findViewById(R.id.vpIndicator);
+            tvSeeMore = itemView.findViewById(R.id.tvSeeMore);
+
+            try {
+                SnapHelper helper = new LinearSnapHelper();
+                helper.attachToRecyclerView(recyclerAppVideo);
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            }
 
         }
 
         public void bindItem(int position) {
-//            SnapHelper helper = new LinearSnapHelper();
-//            helper.attachToRecyclerView(recyclerAppVideo);
+
 
             AppVideoResponse appVideoResponse = (AppVideoResponse) homeServiceResponse.getData().get(position).getDataExtra();
             if (appVideoResponse == null) {
@@ -764,6 +794,25 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 e.printStackTrace();
             }
 
+            tvSeeMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    EventBus.getDefault().post(new OnClickVideoInMenu());
+//                    HighLightSeeMoreVideoActivity.startScreen(context, "Nổi bật");
+                }
+            });
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        recyclerAppVideo.smoothScrollToPosition(1);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, 500);
+
         }
     }
 
@@ -774,9 +823,14 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private RecyclerView rclTab;
         private TabVoucherNowAdapter tabVoucherNowAdapter;
 
+        private TextView tvTitle;
+        private TextView btnSeeMore;
+
         public VoucherNowViewHolder(View itemView) {
             super(itemView);
             rclContent = itemView.findViewById(R.id.rclContent);
+            tvTitle = itemView.findViewById(R.id.tvTitle);
+            btnSeeMore = itemView.findViewById(R.id.btnSeeMore);
             rclTab = itemView.findViewById(R.id.rclTab);
 
         }
@@ -801,6 +855,23 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 }
             });
             rclTab.setAdapter(tabVoucherNowAdapter);
+
+
+            try {
+                tvTitle.setText(homeServiceResponse.getData().get(position).getName());
+                btnSeeMore.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            TravelVoucherActivity.openScreen(context, true, TravelVoucherActivity.OpenType.LIST, false);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -848,17 +919,17 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             });
 
             newHomeFragment.setPauseVideo(this);
-//            recycleLiveTv.findViewHolderForAdapterPosition(position).itemView.performClick();
 
-//            PlaylistItem pi = new PlaylistItem.Builder()
-//                    .file(liveTvResponse.getItems().get(0).getStreaming_urls().get(0).getUrl())
-//                    .build();
-//            jwplayer.load(pi);
-////            if (position == 0 && mIsFirst) {
-////                mIsFirst = false;
-////            } else {
-//            jwplayer.play();
-////            }
+
+            try {
+                PlaylistItem pi = new PlaylistItem.Builder()
+                        .file(liveTvResponse.getItems().get(0).getStreaming_urls().get(0).getUrl())
+                        .build();
+                jwplayer.load(pi);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
 
         public String loadJSONFromAsset() {
@@ -883,9 +954,9 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 currentPosition = position;
                 PlaylistItem pi = new PlaylistItem.Builder()
                         .file(liveTvResponse.getItems().get(position).getStreaming_urls().get(0).getUrl())
-    //                    .file("https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8")
                         .build();
                 jwplayer.load(pi);
+                jwplayer.play();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -924,6 +995,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
 
             if (detailSmallLocationResponses != null && detailSmallLocationResponses.size() > 0) {
+                Collections.reverse(detailSmallLocationResponses);
                 layoutRoot.setVisibility(View.VISIBLE);
                 subRecentViewAdapter = new SubRecentViewAdapter(context, detailSmallLocationResponses);
                 rclContent.setAdapter(subRecentViewAdapter);

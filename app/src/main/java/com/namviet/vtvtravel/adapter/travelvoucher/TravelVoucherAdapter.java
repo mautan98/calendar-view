@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.f2travelvoucher.ListVoucherResponse;
+import com.namviet.vtvtravel.ultils.DateUtltils;
 
 import java.util.List;
 
@@ -70,12 +71,13 @@ public class TravelVoucherAdapter extends RecyclerView.Adapter<RecyclerView.View
         private int position;
         private ImageView imgAvatar;
         private TextView tvName;
+        private TextView tvTimeLeft;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
             imgAvatar = itemView.findViewById(R.id.imgAvatar);
             tvName = itemView.findViewById(R.id.tvName);
-
+            tvTimeLeft = itemView.findViewById(R.id.tvTimeLeft);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -91,6 +93,12 @@ public class TravelVoucherAdapter extends RecyclerView.Adapter<RecyclerView.View
             ListVoucherResponse.Data.Voucher travel = vouchers.get(position);
             Glide.with(context).load(travel.getAvatarUri()).into(imgAvatar);
             tvName.setText(travel.getName());
+            try {
+                tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(Long.valueOf(travel.getEndAt()) / 1000));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
 
         }
     }

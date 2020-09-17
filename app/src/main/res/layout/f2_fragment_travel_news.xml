@@ -52,6 +52,7 @@
                     android:textSize="18dp" />
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/btnSearch"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
@@ -142,8 +143,10 @@
                         android:id="@+id/tabLayout"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        app:tabIndicatorColor="@color/f2_color_package"
+                        app:tabIndicatorHeight="0dp"
+                        app:tabIndicatorColor="@color/colorPrimary"
                         app:tabMode="scrollable" />
+
 
 
                     <android.support.v4.view.ViewPager
@@ -162,21 +165,21 @@
 
 
         <TextView
-            android:drawablePadding="10dp"
-            android:paddingEnd="30dp"
-            android:paddingStart="30dp"
-            android:paddingBottom="15dp"
-            android:paddingTop="15dp"
-            android:drawableLeft="@drawable/f2_ic_go_fisrt"
             android:id="@+id/btnScrollToTop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="80dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/f2_bg_scroll_top"
+            android:drawableLeft="@drawable/f2_ic_go_fisrt"
+            android:drawablePadding="10dp"
             android:fontFamily="@font/roboto_medium"
             android:gravity="center"
+            android:paddingStart="30dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="15dp"
             android:text="Lên đầu trang"
             android:textColor="#000000"
             android:textSize="16dp" />

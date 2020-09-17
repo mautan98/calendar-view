@@ -90,7 +90,7 @@ public class ChatViewModel extends BaseViewModel {
                 .subscribe(new Consumer<GetUserGuildResponse>() {
                     @Override
                     public void accept(GetUserGuildResponse baseResponse) throws Exception {
-                        if (null != baseResponse) {
+                        if (null != baseResponse  && baseResponse.isSuccess()) {
                             loadSuccess(baseResponse);
                         } else {
                             loadSuccess(null);
@@ -116,7 +116,7 @@ public class ChatViewModel extends BaseViewModel {
                 .subscribe(new Consumer<PostUserGuildResponse>() {
                     @Override
                     public void accept(PostUserGuildResponse response) throws Exception {
-                        if (response != null && null != response.getData()) {
+                        if (response != null && null != response.getData() && response.isSuccess()) {
                             loadSuccess(response);
                         } else {
                             loadSuccess(null);

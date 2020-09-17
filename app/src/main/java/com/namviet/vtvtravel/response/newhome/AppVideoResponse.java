@@ -21,6 +21,11 @@ public class AppVideoResponse extends BaseResponse {
         private String view_count;
         private String short_description;
         private String description;
+        private String streaming_url;
+
+        public String getStreaming_url() {
+            return streaming_url;
+        }
 
         public String getId() {
             return id;

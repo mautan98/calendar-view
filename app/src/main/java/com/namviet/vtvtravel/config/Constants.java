@@ -60,9 +60,9 @@ public class Constants {
         public static final String ADMIN_FIRST = "ADMIN_FIRST";
         public static final String NOT_REPLY = "NOT_REPLY";
         public static final String GET_USER_GUILD = "GET_USER_GUILD";
-        public static final String USER_GUILD_REGISTER_VIP = "USER_GUILD_REGISTER_VIP";
-        public static final String USER_GUILD_DEAL = "USER_GUILD_DEAL";
-        public static final String USER_GUILD_BOOKING = "USER_GUILD_BOOKING";
+        public static final String USER_GUILD_TEXT = "USER_GUILD_TEXT";
+        public static final String USER_GUILD_SLIDE = "USER_GUILD_SLIDE";
+//        public static final String USER_GUILD_BOOKING = "USER_GUILD_BOOKING";
     }
 
     public class IntentKey {
@@ -81,11 +81,13 @@ public class Constants {
         public static final String FROM_DISCONNECT_NOTI = "FROM_DISCONNECT_NOTI";
         public static final String IS_FROM_BUTTON_CALL_NOW = "IS_FROM_BUTTON_CALL_NOW";
         public static final String IS_FROM_BOOKING = "IS_FROM_BOOKING";
+        public static final String IS_FROM_DEAL = "IS_FROM_DEAL";
         public static final String POSITION_LOGIN = "position_login";
         public static final String TYPE_OTP_REGISTER = "TYPE_OTP_REGISTER";
         public static final String TYPE_OTP_RESET_PASS = "TYPE_OTP_RESET_PASS";
         public static final String KEY_MOBILE = "mobile";
         public static final String DATA = "data";
+        public static final String VOUCHER = "VOUCHER";
         public static final String DATA_VIDEO = "DATA_VIDEO";
         public static final String PARENT_COMMENT_ID = "PARENT_COMMENT_ID";
         public static final String DETAIL_VIDEO_ID = "DETAIL_VIDEO_ID";
@@ -95,6 +97,11 @@ public class Constants {
         public static final String CODE = "code";
         public static final String SCREEN_TYPE = "SCREEN_TYPE";
         public static final String DETAIL_LINK = "DETAIL_LINK";
+        public static final String REGION_ID = "REGION_ID";
+        public static final String FROM_REG_VIP = "FROM_REG_VIP";
+        public static final String LAT = "LAT";
+        public static final String LONG = "LONG";
+        public static final String ADDRESS = "ADDRESS";
     }
 
     public static class PrefKey {
@@ -117,6 +124,8 @@ public class Constants {
         public static final String VERSION = "version_offline";
         public static final String DATE = "date";
         public static final String RECENT_VIEW = "RECENT_VIEW";
+        public static final String RECENT_SEARCH = "RECENT_SEARCH";
+        public static final String CONTACT = "CONTACT";
 
 
     }

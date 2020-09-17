@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.adapter.newhome.subnewhome;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.response.newhome.AppDealResponse;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -97,8 +99,37 @@ public class SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public void bindItem(int position) {
             this.position = position;
             Glide.with(context).load(itemList.get(position).getAvatarUri()).into(imgAvatar);
-            tvDisplayPrice.setText(itemList.get(position).getDisplayPrice() + " đ");
-            tvOriginPrice.setText(itemList.get(position).getOriginPrice() + " đ");
+
+
+            try {
+                tvDisplayPrice.setText(convertPrice(itemList.get(position).getDisplayPrice()) + " đ");
+            } catch (Exception e) {
+                try {
+                    tvDisplayPrice.setText(itemList.get(position).getDisplayPrice() + " đ");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                e.printStackTrace();
+            }
+
+
+            try {
+                tvOriginPrice.setText(convertPrice(itemList.get(position).getOriginPrice()) + " đ");
+            } catch (Exception e) {
+                try {
+                    tvOriginPrice.setText(itemList.get(position).getOriginPrice() + " đ");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                e.printStackTrace();
+            }
+
+
+            tvOriginPrice.setPaintFlags(tvOriginPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+
+
+
             tvName.setText(itemList.get(position).getName());
             tvUserTotal.setText(itemList.get(position).getUserTotal() + " người đang săn deal");
             tvDiscount.setText("-"+itemList.get(position).getDiscount() + "%");
@@ -133,7 +164,8 @@ public class SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 if(myCurrentTimeMillis > endTime){
                     return 100;
                 }else {
-                    return (int)(((double)(endTime - myCurrentTimeMillis)/(double)(endTime - startTime)) * 100);
+//                    return (int)(((double)(endTime - myCurrentTimeMillis)/(double)(endTime - startTime)) * 100);
+                    return (int)(((double)(myCurrentTimeMillis - startTime)/(double)(endTime - startTime)) * 100);
                 }
             } catch (Exception e) {
                 return 50;
@@ -143,5 +175,14 @@ public class SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public interface ClickItem{
         void onClickItem(AppDealResponse.Data  data);
+    }
+
+    public static String convertPrice(String string) {
+        try {
+            DecimalFormat df = new DecimalFormat("###,###,###");
+            return df.format(Double.parseDouble(string));
+        } catch (Exception e) {
+            return string;
+        }
     }
 }

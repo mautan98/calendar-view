@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_title_content_service_yellow"
-            android:text="QUAY LẠI GÓI DỊCH VỤ"
+            android:text="Nhận ưu đãi"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

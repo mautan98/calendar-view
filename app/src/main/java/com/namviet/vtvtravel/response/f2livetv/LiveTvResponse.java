@@ -27,6 +27,7 @@ public class LiveTvResponse extends BaseResponse implements Serializable {
     public class Channel implements Serializable {
         private String code;
         private String logo_url;
+        private String logo_disabled;
         private String id;
         private String name;
         private String content_type;
@@ -36,6 +37,58 @@ public class LiveTvResponse extends BaseResponse implements Serializable {
         private String schedule_link;
         private String date;
         private List<Schedule> schedule;
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+
+        public void setLogo_url(String logo_url) {
+            this.logo_url = logo_url;
+        }
+
+        public String getLogo_disabled() {
+            return logo_disabled;
+        }
+
+        public void setLogo_disabled(String logo_disabled) {
+            this.logo_disabled = logo_disabled;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setContent_type(String content_type) {
+            this.content_type = content_type;
+        }
+
+        public void setBanner_url(String banner_url) {
+            this.banner_url = banner_url;
+        }
+
+        public void setDetail_link(String detail_link) {
+            this.detail_link = detail_link;
+        }
+
+        public void setStreaming_urls(List<Streaming> streaming_urls) {
+            this.streaming_urls = streaming_urls;
+        }
+
+        public void setSchedule_link(String schedule_link) {
+            this.schedule_link = schedule_link;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
+        public void setSchedule(List<Schedule> schedule) {
+            this.schedule = schedule;
+        }
 
         public String getCode() {
             return code;

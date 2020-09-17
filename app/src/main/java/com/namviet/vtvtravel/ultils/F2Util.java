@@ -53,10 +53,14 @@ public class F2Util {
     }
 
     public static boolean isOnline(Activity activity) {
-        ConnectivityManager connMgr = (ConnectivityManager)
-                activity.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        return (networkInfo != null && networkInfo.isConnected());
+        try {
+            ConnectivityManager connMgr = (ConnectivityManager)
+                    activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+            return (networkInfo != null && networkInfo.isConnected());
+        } catch (Exception e) {
+            return true;
+        }
 
     }
 
@@ -145,7 +149,11 @@ public class F2Util {
         if(link == null || link.isEmpty()){
 
         }else {
-            Glide.with(context).load(link).into(imageView);
+            try {
+                Glide.with(context).load(link).into(imageView);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

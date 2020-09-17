@@ -45,6 +45,7 @@
                 android:layout_height="wrap_content"/>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_alignParentEnd="true"
                 android:gravity="center"
                 android:layout_width="50dp"

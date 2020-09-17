@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/f2_bg_rule"
+            android:background="@drawable/f2_bg_round_suggestion_location"
             android:orientation="vertical">
 
             <LinearLayout
@@ -83,7 +83,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:background="@drawable/f2_bg_rule"            android:fontFamily="@font/roboto_bold"
+            android:background="@drawable/f2_bg_round_suggestion_location"
+            android:fontFamily="@font/roboto_bold"
             android:gravity="center"
             android:paddingTop="14dp"
             android:paddingBottom="17dp"

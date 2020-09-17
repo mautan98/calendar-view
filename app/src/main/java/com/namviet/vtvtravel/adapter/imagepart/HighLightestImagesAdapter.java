@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.adapter.imagepart;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
@@ -13,12 +14,14 @@ import android.widget.TextView;
 
 import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.bumptech.glide.Glide;
+import com.devs.readmoreoption.ReadMoreOption;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.model.f2imagepart.ImagePart;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.imagepart.ImagePartResponse;
 import com.namviet.vtvtravel.response.imagepart.ItemImagePartResponse;
 import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.ultils.ViewMoreUtils;
@@ -33,6 +36,7 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
     private static final int TYPE_ITEM = 0;
     private Context context;
     private ClickItem clickItem;
+    private ReadMoreOption readMoreOption;
 
     private List<ItemImagePartResponse.Data.Item> images;
 
@@ -40,6 +44,14 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
         this.context = context;
         this.clickItem = clickItem;
         this.images = images;
+
+        readMoreOption = new ReadMoreOption.Builder(context)
+                .labelUnderLine(true)
+                .lessLabel(" Ẩn bớt")
+                .lessLabelColor(Color.parseColor("#000000"))
+                .moreLabel(" Xem thêm")
+                .moreLabelColor(Color.parseColor("#000000"))
+                .build();
     }
 
     @Override
@@ -90,7 +102,7 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
         private TextView tvCommentCount;
         private ImageView btnShare;
         private ImageView imgComment;
-        private ReadMoreTextView tvDescription;
+        private TextView tvDescription;
         private TextView tvReadMore;
         private int position;
         private SlideImageInHighLightestImageAdapter slideImageInHighLightestImageAdapter;
@@ -115,10 +127,8 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
             tvName.setText(item.getName());
             tvAuthor.setText(item.getAuthor());
 
-            tvDescription.setText(item.getContent());
-//            if (!item.isView_more()){
-//                ViewMoreUtils.makeTextViewResizable(tvDescription, 2, "Xem thêm", true, "#000000");
-//            }
+            readMoreOption.addReadMoreTo(tvDescription, item.getContent());
+
             tvCommentCount.setText(item.getCount_comment());
             tvView.setText(item.getView_count());
             tvDate.setText("" + DateUtltils.timeToString(Long.valueOf(item.getCreated())));
@@ -147,7 +157,18 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
             btnShare.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    F2Util.startSenDataText((Activity) context, item.getLink_share());
+                    try {
+                        F2Util.startSenDataText((Activity) context, item.getLink_share());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                    try {
+                        TrackingAnalytic.postEvent(TrackingAnalytic.SHARE, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
 

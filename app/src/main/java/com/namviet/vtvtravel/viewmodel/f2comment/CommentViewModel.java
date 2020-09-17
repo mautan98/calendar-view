@@ -29,7 +29,7 @@ public class CommentViewModel extends BaseViewModel {
                 .subscribe(new Consumer<CommentResponse>() {
                     @Override
                     public void accept(CommentResponse response) throws Exception {
-                        if (response.isSuccess()) {
+                        if (response != null && response.isSuccess()) {
                             requestSuccess(response);
                         } else {
                             requestSuccess(null);
@@ -55,7 +55,7 @@ public class CommentViewModel extends BaseViewModel {
                 .subscribe(new Consumer<CreateCommentResponse>() {
                     @Override
                     public void accept(CreateCommentResponse response) throws Exception {
-                        if (response.isSuccess()) {
+                        if (response != null && response.isSuccess()) {
                             requestSuccess(response);
                         } else {
                             requestSuccess(null);
@@ -81,7 +81,7 @@ public class CommentViewModel extends BaseViewModel {
                 .subscribe(new Consumer<DeleteCommentResponse>() {
                     @Override
                     public void accept(DeleteCommentResponse response) throws Exception {
-                        if (response.isSuccess()) {
+                        if (response != null && response.isSuccess()) {
                             requestSuccess(response);
                         } else {
                             requestSuccess(null);
@@ -107,7 +107,7 @@ public class CommentViewModel extends BaseViewModel {
                 .subscribe(new Consumer<UpdateCommentResponse>() {
                     @Override
                     public void accept(UpdateCommentResponse response) throws Exception {
-                        if (response.isSuccess()) {
+                        if (response != null && response.isSuccess()) {
                             requestSuccess(response);
                         } else {
                             requestSuccess(null);

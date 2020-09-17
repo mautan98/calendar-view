@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.view;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -72,6 +73,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.SlideMenuAdapter;
 import com.namviet.vtvtravel.api.DownloadAPI;
@@ -100,6 +102,7 @@ import com.namviet.vtvtravel.response.ResponseError;
 import com.namviet.vtvtravel.response.SearchResponse;
 import com.namviet.vtvtravel.response.WeatherResponse;
 import com.namviet.vtvtravel.response.f2callnow.ZipVersionResponse;
+import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
 import com.namviet.vtvtravel.service.TrackLocationService;
 import com.namviet.vtvtravel.ultils.DeviceUtils;
 import com.namviet.vtvtravel.ultils.F2UnzipUtil;
@@ -137,6 +140,7 @@ import com.namviet.vtvtravel.view.fragment.f2offline.MainOfflineFragment;
 import com.namviet.vtvtravel.view.fragment.f2offline.MainPageLoginFragment;
 import com.namviet.vtvtravel.view.fragment.f2offline.OfflineDialog;
 import com.namviet.vtvtravel.view.fragment.f2service.RegisterSuccessFragment;
+import com.namviet.vtvtravel.view.fragment.f2service.RegisterSuccessFriendFragment;
 import com.namviet.vtvtravel.view.fragment.home.CreateScheduleFragment;
 import com.namviet.vtvtravel.view.fragment.home.DetailMomentFrangment;
 import com.namviet.vtvtravel.view.fragment.home.DetailScheduleCreateFragment;
@@ -254,6 +258,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
     private HomeViewModel homeViewModel;
 
     public List<Contact> listContact = new ArrayList<>();
+    public HashMap<String, Contact> contactHashMap = new HashMap<>();
     public HashMap<Integer, Contact> listContactCallNow = new HashMap<>();
 
     private boolean fromNotification = false;
@@ -296,8 +301,8 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
         placeViewModel = new PlaceViewModel(this);
         placeViewModel.addObserver(this);
-        placeViewModel.loadWeather(null);
-        placeViewModel.loadCity();
+//        placeViewModel.loadWeather(null);
+//        placeViewModel.loadCity();
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Constants.KeyBroadcast.KEY_COUNT_UNREAD);
@@ -335,7 +340,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
             mLlLogin.setVisibility(View.VISIBLE);
             mLlInfor.setVisibility(View.GONE);
         }
-//        slideMenuAdapter.updateMenuList(getMenuLeft().getLeft());
+
 
     }
 
@@ -513,8 +518,13 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
         setDrawerEnabled(false);
         initSlideMenu();
         initViewDrawerLayout();
-        initDrawerLayout();
-        switchFragment(getmCurrentMenuTab());
+        try {
+            initDrawerLayout();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        switchFragment(getmCurrentMenuTab());
+        switchFragment(SlideMenu.MenuType.HOME_SCREEN);
     }
 
     private void setClickOffline() {
@@ -534,7 +544,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 //
 //                goToOffline(0);
                 if (offlineDynamic == null) {
-                    Toast.makeText(MainActivity.this, "Có lỗi, hoặc chưa láy được dữ  liệu offline", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Có lỗi, hoặc chưa lấy được dữ  liệu offline", Toast.LENGTH_SHORT).show();
                 } else {
                     OfflineDialog offlineDialog = OfflineDialog.newInstance();
                     offlineDialog.show(getSupportFragmentManager(), Constants.TAG_DIALOG);
@@ -581,7 +591,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
                 MyFragment.openFragment(this, getContentFrame(), SplashFragment.class, getBundle(), isAddToBackStack());
                 break;
             case HOME_SCREEN:
-                setDrawerEnabled(true);
+                setDrawerEnabled(false);
                 MyFragment.openFragment(this, getContentFrame(), HomeFragment.class, getBundle(), isAddToBackStack());
                 break;
             case SEARCH_SCREEN:
@@ -767,6 +777,10 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
             case REGISTER_SUCCESS_SCREEN:
                 MyFragment.openFragment(this, getContentFrame(), RegisterSuccessFragment.class, getBundle(), true);
                 break;
+
+            case REGISTER_SUCCESS_FRIEND_SCREEN:
+                MyFragment.openFragment(this, getContentFrame(), RegisterSuccessFriendFragment.class, getBundle(), true);
+                break;
             default:
                 setDrawerEnabled(false);
                 mFragment = new HomeFragment();
@@ -802,7 +816,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
                 super.onBackPressed();
             }
             if (faFragmentManager.getBackStackEntryCount() == 1) {
-                setDrawerEnabled(true);
+                setDrawerEnabled(false);
             }
             setBundle(null);
         }
@@ -849,15 +863,19 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
         MyTracker tracker = new MyTracker(this, new MyTracker.ADLocationListener() {
             @Override
             public void whereIAM(ADLocation loc) {
-                PreferenceUtil.getInstance(MainActivity.this).setValue(Constants.PrefKey.LAT_LOCATION, "" + loc.getLat());
-                PreferenceUtil.getInstance(MainActivity.this).setValue(Constants.PrefKey.LNG_LOCATION, "" + loc.getLng());
+                try {
+                    PreferenceUtil.getInstance(MainActivity.this).setValue(Constants.PrefKey.LAT_LOCATION, "" + loc.getLat());
+                    PreferenceUtil.getInstance(MainActivity.this).setValue(Constants.PrefKey.LNG_LOCATION, "" + loc.getLng());
 
-                MyApplication.getInstance().setMyLocation(new MyLocation(loc.getCity(), loc.getAddress(), loc.getCountry(), loc.getLat(), loc.getLng()));
-                BaseViewModel baseViewModel = new BaseViewModel();
-                baseViewModel.trackLocation(loc.getLat(), loc.getLng(), DeviceUtils.getDeviceId(MainActivity.this));
-                if (!ServiceUltils.isMyServiceRunning(MainActivity.this, TrackLocationService.class)) {
-                    Intent intent = new Intent(MainActivity.this, TrackLocationService.class);
-                    startService(intent);
+                    MyApplication.getInstance().setMyLocation(new MyLocation(loc.getCity(), loc.getAddress(), loc.getCountry(), loc.getLat(), loc.getLng()));
+                    BaseViewModel baseViewModel = new BaseViewModel();
+                    baseViewModel.trackLocation(loc.getLat(), loc.getLng(), DeviceUtils.getDeviceId(MainActivity.this));
+                    if (!ServiceUltils.isMyServiceRunning(MainActivity.this, TrackLocationService.class)) {
+                        Intent intent = new Intent(MainActivity.this, TrackLocationService.class);
+                        startService(intent);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -924,7 +942,16 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
         }
         int lockMode = enabled ? DrawerLayout.LOCK_MODE_UNLOCKED :
                 DrawerLayout.LOCK_MODE_LOCKED_CLOSED;
-        drawerLayout.setDrawerLockMode(lockMode);
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                drawerLayout.setDrawerLockMode(lockMode);
+                // Stuff that updates the UI
+
+            }
+        });
+
     }
 
     public void openAndCloseDrawer() {
@@ -1016,8 +1043,12 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                slideMenuAdapter = new SlideMenuAdapter(MainActivity.this, getMenuLeft().getLeft());
-                mRvSlideMenu.setAdapter(slideMenuAdapter);
+                try {
+                    slideMenuAdapter = new SlideMenuAdapter(MainActivity.this, getMenuLeft().getLeft());
+                    mRvSlideMenu.setAdapter(slideMenuAdapter);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -1084,15 +1115,15 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
             }
         }
         if (observable instanceof PlaceViewModel) {
-            if (o instanceof WeatherResponse) {
-                WeatherResponse response = (WeatherResponse) o;
-                weatherList = response.getData();
-                setWeather(response.getData().get(0));
-            } else if (o instanceof CityResponse) {
-                CityResponse response = (CityResponse) o;
-                cityList = response.getData();
-                MyApplication.getInstance().setCityList(response.getData());
-            }
+//            if (o instanceof WeatherResponse) {
+//                WeatherResponse response = (WeatherResponse) o;
+//                weatherList = response.getData();
+//                setWeather(response.getData().get(0));
+//            } else if (o instanceof CityResponse) {
+//                CityResponse response = (CityResponse) o;
+//                cityList = response.getData();
+//                MyApplication.getInstance().setCityList(response.getData());
+//            }
         }
     }
 
@@ -1358,7 +1389,8 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
     @Subscribe
     public void OnLoadFail(OnLoadFail onLoadFail) {
         if (!F2Util.isOnline(this)) {
-            layoutNoInternet.setVisibility(View.VISIBLE);
+//            layoutNoInternet.setVisibility(View.VISIBLE);
+
         }
     }
 
@@ -1371,8 +1403,12 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
 
     public void showDialogNoCon(){
-        if (!F2Util.isOnline(this)) {
-            layoutNoInternet.setVisibility(View.VISIBLE);
+        try {
+            if (!F2Util.isOnline(this)) {
+                layoutNoInternet.setVisibility(View.VISIBLE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -1416,7 +1452,16 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     public List<Contact> getContacts(Context ctx) {
+        listContact = getContactFromDB();
+        for (int i = 0; i < listContact.size(); i++) {
+            try {
+                contactHashMap.put(listContact.get(i).getPhones().get(0), listContact.get(i));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         List<Contact> list = new ArrayList<>();
 //        int contactMaxId = PreferenceUtil.getInstance(this).getValue(Constants.PrefKey.CONTACT_MAX_ID, 0);
         new AsyncTask<Void, Void, Void>() {
@@ -1424,7 +1469,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-//                Toast.makeText(mActivity, "Lấy danh bạ thành công", Toast.LENGTH_SHORT).show();
+                Log.e("MainActivity", "Lấy danh bạ thành công");
 
             }
 
@@ -1488,7 +1533,18 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 //                    }
 
 //                    listContact = (ArrayList<Contact>) MyApplication.getAppDatabase().foodDao().getAllContact();
-                    listContact = list;
+                    listContact.clear();
+                    listContact.addAll(list);
+                    addContactToDB(listContact);
+
+                    contactHashMap.clear();
+                    for (int i = 0; i < listContact.size(); i++) {
+                        try {
+                            contactHashMap.put(listContact.get(i).getPhones().get(0), listContact.get(i));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                 } catch (Exception e) {
 
                 }
@@ -1620,6 +1676,38 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
         } catch (Exception e) {
             return text.toString();
             //You'll need to add proper error handling here
+        }
+    }
+
+
+
+    private void addContactToDB(List<Contact> contacts){
+        try {
+            List<Contact> contactList = new ArrayList<>();
+            contactList.addAll(contacts);
+            PreferenceUtil.getInstance(this).setValue(Constants.PrefKey.CONTACT, new Gson().toJson(contactList));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private List<Contact> getContactFromDB(){
+        try {
+
+            List<Contact> contacts;
+            String json = PreferenceUtil.getInstance(this).getValue(Constants.PrefKey.CONTACT, "");
+            if(json.isEmpty()){
+                contacts = new ArrayList<>();
+            }else {
+                contacts  = new Gson().fromJson(json,
+                        new TypeToken<ArrayList<Contact>>() {}.getType());
+            }
+            return contacts;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return new ArrayList<>();
         }
     }
 

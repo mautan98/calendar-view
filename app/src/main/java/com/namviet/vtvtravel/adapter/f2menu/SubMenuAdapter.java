@@ -1,6 +1,5 @@
 package com.namviet.vtvtravel.adapter.f2menu;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -12,13 +11,16 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.model.ItemMenu;
+import com.namviet.vtvtravel.app.MyApplication;
+import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.response.f2menu.MenuItem;
-import com.namviet.vtvtravel.view.MainActivity;
-import com.namviet.vtvtravel.view.f2.ImagePartActivity;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
+import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.MyGiftActivity;
-import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
+import com.namviet.vtvtravel.view.f2.SystemInboxActivity;
+import com.namviet.vtvtravel.view.f2.WebviewActivity;
 import com.namviet.vtvtravel.view.f2.f2oldbase.SettingActivity;
+import com.namviet.vtvtravel.tracking.TrackingViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,12 +104,36 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 public void onClick(View view) {
                     switch (items.get(position).getCode_type()){
                         case "APP_MAIN_HEADER_MY_GIFT":
+                            try {
+                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_MY_PROMOTION, TrackingAnalytic.getDefault());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         case "APP_MAIN_FOOTER_SUPPORT":
                             MyGiftActivity.startScreen(context, (ArrayList<MenuItem>) items.get(position).getMenuChildren(), items.get(position).getName());
                             break;
                         case "APP_MAIN_FOOTER_SETTING":
                             SettingActivity.startScreen(context);
                             break;
+                        case "APP_MAIN_HEADER_PACKAGE":
+                            Account account = MyApplication.getInstance().getAccount();
+                            if (null != account && account.isLogin()) {
+                                WebviewActivity.startScreen(context);
+                            } else {
+                                LoginAndRegisterActivityNew.startScreen(context, 0, false);
+                            }
+                            break;
+
+                        case "APP_MAIN_FOOTER_NOTIFICATION":
+                            Account account1 = MyApplication.getInstance().getAccount();
+                            if (null != account1 && account1.isLogin()) {
+                                SystemInboxActivity.startScreen(context);
+                            } else {
+                                LoginAndRegisterActivityNew.startScreen(context, 0, false);
+                            }
+
+                            break;
+
                     }
                 }
             });

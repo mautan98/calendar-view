@@ -70,6 +70,7 @@
 
 
                     <EditText
+                        android:maxLength="20"
                         android:id="@+id/edtPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -100,13 +101,13 @@
                 </LinearLayout>
 
                 <TextView
+                    android:textStyle="italic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="18dp"
-                    android:fontFamily="@font/roboto_italic"
-                    android:text="Mật khẩu từ 6 ký tự chỉ có chữ, số hoặc chữ và số, không bao gồm chữ hoa và ký tự đặc biệt"
+                    android:text="Mật khẩu từ 6 - 20 ký tự"
                     android:textColor="#001684"
                     android:textSize="13dp" />
 
@@ -126,6 +127,7 @@
 
 
                     <EditText
+                        android:maxLength="20"
                         android:id="@+id/edtPassword2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

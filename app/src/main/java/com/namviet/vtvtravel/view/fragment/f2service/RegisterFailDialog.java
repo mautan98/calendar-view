@@ -9,17 +9,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.databinding.DialogRegisterFailBinding;
 import com.namviet.vtvtravel.databinding.DialogTypeRegisterBinding;
 import com.namviet.vtvtravel.view.dialog.BaseDialogFragment;
 
 
 public class RegisterFailDialog extends BaseDialogFragment {
-    private DialogTypeRegisterBinding binding;
+    private DialogRegisterFailBinding binding;
+    private String message;
+
+    public static RegisterFailDialog newInstance(String message) {
+        RegisterFailDialog loadingDialog = new RegisterFailDialog();
+        loadingDialog.message = message;
+        return loadingDialog;
+    }
 
     public static RegisterFailDialog newInstance() {
         RegisterFailDialog loadingDialog = new RegisterFailDialog();
         return loadingDialog;
     }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,8 +55,18 @@ public class RegisterFailDialog extends BaseDialogFragment {
     }
 
     protected void updateView() {
-
-
+        binding.imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+        if (message != null && message.length() > 0){
+            binding.txt2.setText(message);
+            binding.txt3.setVisibility(View.GONE);
+        } else {
+            binding.txt3.setVisibility(View.VISIBLE);
+        }
     }
 
 //    @Override

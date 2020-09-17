@@ -33,7 +33,7 @@ public class MissingCallHistoryAdapter extends RecyclerView.Adapter<RecyclerView
         this.clickItem = clickItem;
     }
 
-    public void setData(List<CallNowHistory> callNowHistories){
+    public void setData(List<CallNowHistory> callNowHistories) {
         this.callNowHistories = callNowHistories;
         notifyDataSetChanged();
     }
@@ -41,17 +41,16 @@ public class MissingCallHistoryAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public int getItemViewType(int position) {
 //        if (contacts.get(position).isHeader()){
-            return TYPE_MISSING_CALL;
+        return TYPE_MISSING_CALL;
 //        }else {
 //            return TYPE_MISSING_CALL;
 //        }
     }
 
-    public void setEnableDelete(boolean isEnableDelete){
+    public void setEnableDelete(boolean isEnableDelete) {
         this.isEnableDelete = isEnableDelete;
         notifyDataSetChanged();
     }
-
 
 
     @Override
@@ -72,7 +71,7 @@ public class MissingCallHistoryAdapter extends RecyclerView.Adapter<RecyclerView
         try {
             if (getItemViewType(position) == TYPE_CALL_HISTORY) {
                 ((CallHistoryViewHolder) holder).bindItem(position);
-            }else if(getItemViewType(position) == TYPE_MISSING_CALL ){
+            } else if (getItemViewType(position) == TYPE_MISSING_CALL) {
                 ((MissingCallViewHolder) holder).bindItem(position);
             }
         } catch (Exception e) {
@@ -93,14 +92,14 @@ public class MissingCallHistoryAdapter extends RecyclerView.Adapter<RecyclerView
 
         public CallHistoryViewHolder(View itemView) {
             super(itemView);
-            btnDelete= itemView.findViewById(R.id.btnDelete);
+            btnDelete = itemView.findViewById(R.id.btnDelete);
 
         }
 
         public void bindItem(int position) {
-            if(isEnableDelete){
+            if (isEnableDelete) {
                 btnDelete.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 btnDelete.setVisibility(View.GONE);
             }
 
@@ -116,18 +115,18 @@ public class MissingCallHistoryAdapter extends RecyclerView.Adapter<RecyclerView
 
         public MissingCallViewHolder(View itemView) {
             super(itemView);
-            btnDelete= itemView.findViewById(R.id.btnDelete);
-            tvName= itemView.findViewById(R.id.tvName);
-            tvPhone= itemView.findViewById(R.id.tvPhone);
+            btnDelete = itemView.findViewById(R.id.btnDelete);
+            tvName = itemView.findViewById(R.id.tvName);
+            tvPhone = itemView.findViewById(R.id.tvPhone);
             tvTimeMakeCall = itemView.findViewById(R.id.tvTimeMakeCall);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Account account = MyApplication.getInstance().getAccount();
-                    if(callNowHistories.get(position).getReceiver().equals("84" + account.getMobile().substring(2))){
+                    if (callNowHistories.get(position).getReceiver().equals("84" + account.getMobile().substring(2))) {
                         clickItem.onClickItem(position, callNowHistories.get(position).getMobile());
-                    }else {
+                    } else {
                         clickItem.onClickItem(position, callNowHistories.get(position).getReceiver());
                     }
                 }
@@ -137,21 +136,29 @@ public class MissingCallHistoryAdapter extends RecyclerView.Adapter<RecyclerView
 
         public void bindItem(int position) {
             this.position = position;
-            if(isEnableDelete){
+            if (isEnableDelete) {
                 btnDelete.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 btnDelete.setVisibility(View.GONE);
             }
 
-            long created = Long.parseLong(callNowHistories.get(position).getBeginTime());
-            if (DateUtltils.isToday(created)) {
-                tvTimeMakeCall.setText(DateUtltils.timeToString6(created));
-            } else {
-                tvTimeMakeCall.setText(DateUtltils.timeToString5(created));
+            try {
+                long created = Long.parseLong(callNowHistories.get(position).getBeginTime());
+                if (DateUtltils.isToday(created)) {
+                    tvTimeMakeCall.setText(DateUtltils.timeToString6(created));
+                } else {
+                    tvTimeMakeCall.setText(DateUtltils.timeToString5(created));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
-            tvName.setText(callNowHistories.get(position).getReceiver());
-            tvPhone.setText(callNowHistories.get(position).getReceiver());
+            try {
+                tvName.setText(callNowHistories.get(position).getReceiver());
+                tvPhone.setText(callNowHistories.get(position).getReceiver());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -161,21 +168,34 @@ public class MissingCallHistoryAdapter extends RecyclerView.Adapter<RecyclerView
             });
 
             Account account = MyApplication.getInstance().getAccount();
-            if(callNowHistories.get(position).getReceiver().equals("84" + account.getMobile().substring(2))){
+            if (callNowHistories.get(position).getReceiver().equals("84" + account.getMobile().substring(2))) {
 
-                tvName.setText(callNowHistories.get(position).getMobile());
+                try {
+                    String name = ((MainActivity) mContext).contactHashMap.get(callNowHistories.get(position).getMobile()).getContactName();
+                    tvName.setText(name);
+                } catch (Exception e) {
+                    tvName.setText(callNowHistories.get(position).getMobile());
+                    e.printStackTrace();
+                }
                 tvPhone.setText(callNowHistories.get(position).getMobile());
-            }else {
+            } else {
 
-                tvName.setText(callNowHistories.get(position).getReceiver());
+                try {
+                    String name = ((MainActivity) mContext).contactHashMap.get(callNowHistories.get(position).getReceiver()).getContactName();
+                    tvName.setText(name);
+                } catch (Exception e) {
+                    tvName.setText(callNowHistories.get(position).getReceiver());
+                    e.printStackTrace();
+                }
                 tvPhone.setText(callNowHistories.get(position).getReceiver());
             }
 
         }
     }
 
-    public interface ClickItem{
+    public interface ClickItem {
         void onClickItem(int position, String phone);
+
         void onClickDelete(int position, String id);
     }
 

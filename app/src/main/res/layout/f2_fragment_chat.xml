@@ -74,9 +74,10 @@
             android:orientation="vertical">
 
             <android.support.v7.widget.RecyclerView
+                app:stackFromEnd="true"
                 android:id="@+id/recycler_chat"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_above="@id/view"
                 android:layout_below="@+id/toolBar"
                 android:orientation="vertical"

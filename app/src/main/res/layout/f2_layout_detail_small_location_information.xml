@@ -69,13 +69,15 @@
         android:layout_marginTop="10dp"
         android:background="#E8E8E8" />
 
-    <View
+    <FrameLayout
+        android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="12dp" />
 
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -83,102 +85,117 @@
         android:background="#E8E8E8" />
 
     <LinearLayout
+        android:id="@+id/layoutURL"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="12dp"
-        android:gravity="center_vertical">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_marginEnd="4dp"
-            android:src="@drawable/f2_ic_link" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:fontFamily="@font/roboto_regular"
-            android:text="Website :"
-            android:textColor="#5E5E5E"
-            android:textSize="12dp" />
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/tvWebsite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:fontFamily="@font/roboto_regular"
-            android:text="www.banhkhuccolan.com"
-            android:textColor="#6685E9"
-            android:textSize="12dp" />
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/f2_ic_link" />
 
-        <ImageView
-            android:layout_width="8dp"
-            android:layout_height="8dp"
-            android:layout_marginEnd="4dp"
-            android:src="@drawable/f2_ic_link_to" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Website :"
+                android:textColor="#5E5E5E"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/tvWebsite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="www.banhkhuccolan.com"
+                android:textColor="#6685E9"
+                android:textSize="12dp" />
+
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/f2_ic_link_to" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="#E8E8E8" />
+
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:background="#E8E8E8" />
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="12dp"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_marginEnd="6dp"
-            android:src="@drawable/f2_ic_phone" />
-
-        <TextView
-            android:id="@+id/tvPhone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:fontFamily="@font/roboto_regular"
-            android:text="Số điện thoại: 0909999999"
-            android:textColor="#5E5E5E"
-            android:textSize="12dp" />
-
-        <TextView
-            android:id="@+id/btnCopy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/f2_bg_copy"
-            android:fontFamily="@font/roboto_medium"
-            android:paddingStart="8dp"
-            android:paddingTop="4dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="4dp"
-            android:text="Sao chép"
-            android:textColor="@color/white"
-            android:textSize="12dp" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:background="#E8E8E8" />
-
-    <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/layoutOpenType"
+        android:id="@+id/layoutPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/f2_ic_phone" />
+
+            <TextView
+                android:id="@+id/tvPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_regular"
+                android:textColor="#5E5E5E"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/btnCopy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/f2_bg_copy"
+                android:fontFamily="@font/roboto_medium"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="4dp"
+                android:text="Sao chép"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="#E8E8E8" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutOpenType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -200,11 +217,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/roboto_regular"
-                android:text="Mở cửa T2 - CN"
+
                 android:textColor="#5E5E5E"
                 android:textSize="12dp" />
 
             <TextView
+                android:id="@+id/viewTime"
                 android:layout_width="1dp"
                 android:layout_height="12dp"
                 android:layout_marginEnd="8dp"
@@ -216,7 +234,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/roboto_regular"
-                android:text="06:30 - 21:30"
+
                 android:textColor="#5E5E5E"
                 android:textSize="12dp" />
 
@@ -231,7 +249,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_medium"
-                android:text="Đang mở"
+
                 android:textColor="#0FB403"
                 android:textSize="12dp" />
 
@@ -269,7 +287,6 @@
             android:layout_marginEnd="8dp"
             android:layout_toEndOf="@id/imgIcon"
             android:fontFamily="@font/roboto_regular"
-            android:text="Từ 150.000 đ - 200.000 đ"
             android:textColor="#5E5E5E"
             android:textSize="12dp" />
 

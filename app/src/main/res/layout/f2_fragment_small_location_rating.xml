@@ -328,20 +328,20 @@
 
 
                                     <ProgressBar
-                                        android:id="@+id/progress1"
+                                        android:id="@+id/progress5"
                                         style="?android:attr/progressBarStyleHorizontal"
                                         android:layout_width="match_parent"
                                         android:layout_height="8dp"
                                         android:layout_marginEnd="10dp"
                                         android:layout_weight="1"
-                                        android:progress="90"
+                                        android:progress="0"
                                         android:progressDrawable="@drawable/f2_rounded_corners_progress_bar" />
 
                                     <TextView
-                                        android:id="@+id/tvCountRating1"
+                                        android:id="@+id/tvCountRating5"
                                         android:layout_width="60dp"
                                         android:layout_height="wrap_content"
-                                        android:text="987"
+                                        android:text="0"
                                         android:textColor="#676767" />
 
 
@@ -363,20 +363,20 @@
 
 
                                     <ProgressBar
-                                        android:id="@+id/progress2"
+                                        android:id="@+id/progress4"
                                         style="?android:attr/progressBarStyleHorizontal"
                                         android:layout_width="match_parent"
                                         android:layout_height="8dp"
                                         android:layout_marginEnd="10dp"
                                         android:layout_weight="1"
-                                        android:progress="80"
+                                        android:progress="0"
                                         android:progressDrawable="@drawable/f2_rounded_corners_progress_bar" />
 
                                     <TextView
-                                        android:id="@+id/tvCountRating2"
+                                        android:id="@+id/tvCountRating4"
                                         android:layout_width="60dp"
                                         android:layout_height="wrap_content"
-                                        android:text="100"
+                                        android:text="0"
                                         android:textColor="#676767" />
 
 
@@ -404,14 +404,14 @@
                                         android:layout_height="8dp"
                                         android:layout_marginEnd="10dp"
                                         android:layout_weight="1"
-                                        android:progress="10"
+                                        android:progress="0"
                                         android:progressDrawable="@drawable/f2_rounded_corners_progress_bar" />
 
                                     <TextView
                                         android:id="@+id/tvCountRating3"
                                         android:layout_width="60dp"
                                         android:layout_height="wrap_content"
-                                        android:text="10"
+                                        android:text="0"
                                         android:textColor="#676767" />
 
 
@@ -433,20 +433,20 @@
 
 
                                     <ProgressBar
-                                        android:id="@+id/progress4"
+                                        android:id="@+id/progress2"
                                         style="?android:attr/progressBarStyleHorizontal"
                                         android:layout_width="match_parent"
                                         android:layout_height="8dp"
                                         android:layout_marginEnd="10dp"
                                         android:layout_weight="1"
-                                        android:progress="1"
+                                        android:progress="0"
                                         android:progressDrawable="@drawable/f2_rounded_corners_progress_bar" />
 
                                     <TextView
-                                        android:id="@+id/tvCountRating4"
+                                        android:id="@+id/tvCountRating2"
                                         android:layout_width="60dp"
                                         android:layout_height="wrap_content"
-                                        android:text="1"
+                                        android:text="0"
                                         android:textColor="#676767" />
 
 
@@ -468,20 +468,20 @@
 
 
                                     <ProgressBar
-                                        android:id="@+id/progress5"
+                                        android:id="@+id/progress1"
                                         style="?android:attr/progressBarStyleHorizontal"
                                         android:layout_width="match_parent"
                                         android:layout_height="8dp"
                                         android:layout_marginEnd="10dp"
                                         android:layout_weight="1"
-                                        android:progress="10"
+                                        android:progress="0"
                                         android:progressDrawable="@drawable/f2_rounded_corners_progress_bar" />
 
                                     <TextView
-                                        android:id="@+id/tvCountRating5"
+                                        android:id="@+id/tvCountRating1"
                                         android:layout_width="60dp"
                                         android:layout_height="wrap_content"
-                                        android:text="10"
+                                        android:text="0"
                                         android:textColor="#676767" />
 
                                 </LinearLayout>

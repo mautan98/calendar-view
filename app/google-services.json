@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:442401811015:android:e8f390ad19852417755f62",
+        "mobilesdk_app_id": "1:442401811015:android:b8a54d38dc8c267b755f62",
         "android_client_info": {
-          "package_name": "com.namviet.vtvtravel"
+          "package_name": "com.vtv.travel"
         }
       },
       "oauth_client": [
@@ -32,10 +32,10 @@
               "client_type": 3
             },
             {
-              "client_id": "442401811015-5g81aeuqs0hfctb74i4ci9jv72h0q40q.apps.googleusercontent.com",
+              "client_id": "442401811015-e956unu4kpcmstf3aalebiae0mg5cpip.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.vtvnews.vtvtravel"
+                "bundle_id": "com.vtv.travel"
               }
             }
           ]
@@ -44,9 +44,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:442401811015:android:0c0a641e4e6be81b755f62",
+        "mobilesdk_app_id": "1:442401811015:android:2dd751da9ac5cad7755f62",
         "android_client_info": {
-          "package_name": "com.vtvnews.vtvtravel"
+          "package_name": "vn.vtv.vtvtravel"
         }
       },
       "oauth_client": [
@@ -68,10 +68,10 @@
               "client_type": 3
             },
             {
-              "client_id": "442401811015-5g81aeuqs0hfctb74i4ci9jv72h0q40q.apps.googleusercontent.com",
+              "client_id": "442401811015-e956unu4kpcmstf3aalebiae0mg5cpip.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.vtvnews.vtvtravel"
+                "bundle_id": "com.vtv.travel"
               }
             }
           ]

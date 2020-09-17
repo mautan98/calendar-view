@@ -9,7 +9,7 @@
         android:topRightRadius="4dp" />
 
     <solid android:color="#FFFFFF" />
-    <stroke android:color="@color/colorPrimary" android:width="1dp">
+    <stroke android:color="#C7C7C7" android:width="1dp">
 <!--        <gradient android:angle="270"-->
 <!--            android:endColor="#E2E2E2"-->
 <!--            android:startColor="#BABABA" />-->

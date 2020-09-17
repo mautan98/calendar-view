@@ -1,15 +1,9 @@
 package com.namviet.vtvtravel.view.fragment.f2video;
 
-import android.graphics.Color;
-import android.text.Html;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.TextPaint;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.longtailvideo.jwplayer.configuration.PlayerConfig;
@@ -17,20 +11,18 @@ import com.longtailvideo.jwplayer.events.FullscreenEvent;
 import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
 import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.adapter.f2video.TagVideoAdapter;
 import com.namviet.vtvtravel.databinding.F2FragmentDetailVideoBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.model.Video;
+import com.namviet.vtvtravel.model.f2event.OnUpdateCommentCount;
 import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
-import com.namviet.vtvtravel.ultils.DateUtltils;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.F2Util;
-import com.namviet.vtvtravel.ultils.JWEventHandler;
-import com.namviet.vtvtravel.ultils.KeepScreenOnHandler;
 import com.namviet.vtvtravel.ultils.ViewMoreUtils;
 import com.namviet.vtvtravel.view.f2.CommentActivity;
-import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +67,7 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
         }
         initJWPlayer("");
         try {
-            if (video.getShort_description().length() > 72){
+            if (video.getShort_description().length() > 72) {
                 ViewMoreUtils.makeTextViewResizable(getBinding().tvDescription, 2, "Xem thêm", true, "#FFFFFF");
             }
         } catch (Exception e) {
@@ -107,7 +99,13 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
             @Override
             public void onClick(View view) {
                 try {
-                    F2Util.startSenDataText(mActivity, video.getLink_share());
+                    F2Util.startSenDataText(mActivity, video.getStreaming_url());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    TrackingAnalytic.postEvent(TrackingAnalytic.SHARE, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -198,6 +196,45 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
             getBinding().jwPlayer.setFullscreen(true, true);
         } else {
             getBinding().jwPlayer.setFullscreen(false, true);
+        }
+    }
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        try {
+            if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                getBinding().jwPlayer.setFullscreen(true, true);
+            } else {
+                getBinding().jwPlayer.setFullscreen(false, true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onUpdateCommentCountVideo(OnUpdateCommentCount onUpdateCommentCount) {
+        try {
+            getBinding().tvNumberOfComment.setText(String.valueOf(Integer.parseInt(getBinding().tvNumberOfComment.getText().toString()) + Integer.parseInt(onUpdateCommentCount.getCount())));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

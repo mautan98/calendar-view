@@ -189,7 +189,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="0.5dp"
                     android:layout_marginTop="15dp"
                     android:background="#ECECEC" />
 
@@ -234,11 +234,11 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="12dp"
                         android:fontFamily="@font/roboto_regular"
-                        android:text="Tên hiển thị"
+                        android:text="Họ và tên"
                         android:textColor="#707070"
                         android:textSize="14sp" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/edtUsername"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -255,7 +255,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="0.5dp"
                         android:layout_marginTop="8dp"
                         android:background="#ECECEC" />
 
@@ -266,11 +266,12 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="12dp"
                         android:fontFamily="@font/roboto_regular"
-                        android:text="Họ và Tên"
+                        android:text="Tên hiển thị"
                         android:textColor="#707070"
                         android:textSize="14sp" />
 
                     <EditText
+                        android:singleLine="true"
                         android:id="@+id/edtFullname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -287,7 +288,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="0.5dp"
                         android:layout_marginTop="8dp"
                         android:background="#ECECEC" />
 
@@ -303,6 +304,7 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:singleLine="true"
                         android:id="@+id/edtNumberPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -319,7 +321,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="0.5dp"
                         android:layout_marginTop="8dp"
                         android:background="#ECECEC" />
 
@@ -335,6 +337,7 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:singleLine="true"
                         android:id="@+id/edtEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -351,7 +354,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="0.5dp"
                         android:layout_marginTop="8dp"
                         android:background="#ECECEC" />
 
@@ -382,7 +385,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="0.5dp"
                         android:layout_marginTop="8dp"
                         android:background="#ECECEC" />
 
@@ -415,7 +418,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="0.5dp"
                         android:layout_marginTop="8dp"
                         android:background="#ECECEC" />
 
@@ -432,6 +435,7 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:singleLine="true"
                         android:id="@+id/edtAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -448,7 +452,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="0.5dp"
                         android:layout_marginTop="8dp"
                         android:background="#ECECEC" />
                 </LinearLayout>
@@ -456,7 +460,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
-                    android:background="#ECECEC" />
+                    android:background="@color/white" />
 
                 <!--        Thông tin giấy tờ-->
                 <RelativeLayout
@@ -561,7 +565,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
-                    android:background="#ECECEC" />
+                    android:background="@color/white" />
 
                 <!--        Thông tin xuất hóa đơn VAT-->
                 <RelativeLayout

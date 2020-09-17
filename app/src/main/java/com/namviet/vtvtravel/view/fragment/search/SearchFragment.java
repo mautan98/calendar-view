@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,9 +32,10 @@ import com.namviet.vtvtravel.model.SearchVoucher;
 import com.namviet.vtvtravel.response.ResponseError;
 import com.namviet.vtvtravel.response.SearchResponse;
 import com.namviet.vtvtravel.ultils.FirebaseAnalytic;
-import com.namviet.vtvtravel.ultils.PreferenceUtil;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.viewmodel.SearchViewModel;
+import com.namviet.vtvtravel.tracking.TrackingViewModel;
 
 import java.util.List;
 import java.util.Objects;
@@ -73,6 +73,12 @@ public class SearchFragment extends MainFragment implements Observer, SearchSele
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
         mActivity.pushEvent(FirebaseAnalytic.SEARCH);
+
+        try {
+            TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

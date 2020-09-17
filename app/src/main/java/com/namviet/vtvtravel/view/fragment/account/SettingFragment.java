@@ -1,9 +1,7 @@
 package com.namviet.vtvtravel.view.fragment.account;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,7 +18,9 @@ import com.namviet.vtvtravel.databinding.FragmentSettingAccBinding;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndUpdateUserView;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
+import com.namviet.vtvtravel.tracking.TrackingViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -109,6 +109,12 @@ public class SettingFragment extends MainFragment {
                                 mActivity.updateLogin();
                                 EventBus.getDefault().post(new OnLoginSuccessAndUpdateUserView());
                                 mActivity.onBackPressed();
+
+                                try {
+                                    TrackingAnalytic.postEvent(TrackingAnalytic.SIGN_OUT, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                     })

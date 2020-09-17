@@ -10,12 +10,14 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.databinding.F2FragmentDetailDealWebviewBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2event.OnRegisterVipSuccess;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -26,15 +28,12 @@ public class VQMMWebviewFragment extends BaseFragment<F2FragmentDetailDealWebvie
     private String chanel = "android";
     private String langCode = "vi";
     private String link;
-    private String server = "http://103.21.148.54:8856/voucher-list?";
-
-    public void setLink(String link) {
-        this.link = link;
-    }
+    private String server = WSConfig.HOST_VQMM;
+    private String voucherId;
 
     @SuppressLint("ValidFragment")
-    public VQMMWebviewFragment(String link) {
-        this.link = link;
+    public VQMMWebviewFragment(String voucherId) {
+        this.voucherId = voucherId;
     }
 
     public VQMMWebviewFragment() {
@@ -67,6 +66,8 @@ public class VQMMWebviewFragment extends BaseFragment<F2FragmentDetailDealWebvie
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if(url.toUpperCase().equals("APP://REG_VIP")){
                     ServiceActivity.startScreen(mActivity);
+                }else if(url.toUpperCase().equals("APP://MY_VOUCHER")) {
+                    TravelVoucherActivity.openScreen(mActivity, false, TravelVoucherActivity.OpenType.LIST, false);
                 }else {
                     view.loadUrl(url);
                 }
@@ -140,6 +141,10 @@ public class VQMMWebviewFragment extends BaseFragment<F2FragmentDetailDealWebvie
     }
 
     private String genLink(){
-        return server+"token="+token+"&chanel="+chanel+"&langCode="+langCode;
+        if(voucherId != null && !voucherId.isEmpty()){
+            return server + "token=" + token + "&voucherId[]="+ voucherId+ "&chanel=" + chanel + "&langCode=" + langCode;
+        }else {
+            return server + "token=" + token + "&chanel=" + chanel + "&langCode=" + langCode;
+        }
     }
 }

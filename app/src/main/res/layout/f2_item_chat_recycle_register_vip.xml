@@ -4,19 +4,46 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="14dp"
-    android:background="#F2F2F2"
+    app:cardElevation="0dp"
     app:cardCornerRadius="4dp">
 
-    <TextView
-        android:id="@+id/tvDescription"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_regular"
-        android:paddingStart="7dp"
-        android:paddingEnd="7dp"
-        android:paddingTop="6dp"
-        android:paddingBottom="5dp"
-        android:text="Chào mừng quý khách đến với cổng du lịch thông minh VTVtravel."
-        android:textColor="#3D3D3D"
-        android:textSize="14sp" />
+        android:background="#F2F2F2"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:paddingStart="7dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="7dp"
+            android:paddingBottom="5dp"
+            android:text="Chào mừng quý khách đến với cổng du lịch thông minh VTVtravel."
+            android:textColor="#3D3D3D"
+            android:textSize="14sp" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tvLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/f2_bg_button"
+            android:fontFamily="@font/roboto_regular"
+            android:paddingStart="23dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="23dp"
+            android:paddingBottom="7dp"
+            android:text="Săn deal ngay"
+            android:textColor="#FFFF"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
 </android.support.v7.widget.CardView>

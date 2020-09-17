@@ -13,6 +13,7 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Video;
 import com.namviet.vtvtravel.response.f2video.DetailVideoResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.viewmodel.f2video.SubVideoViewModel;
 
 import java.util.ArrayList;
@@ -66,6 +67,7 @@ public class SubVideoFragment extends BaseFragment<F2FragmentSubVideoBinding> im
                 }
             }
         });
+
     }
 
     @Override

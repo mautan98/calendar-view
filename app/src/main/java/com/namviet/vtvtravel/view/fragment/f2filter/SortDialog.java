@@ -88,6 +88,8 @@ public class SortDialog extends BaseDialogBottom {
         binding.tvCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                resetSort();
+                doneSort.onDoneSort();
                 dismiss();
             }
         });
@@ -99,5 +101,15 @@ public class SortDialog extends BaseDialogBottom {
 
     public interface DoneSort{
         void onDoneSort();
+    }
+
+    private void resetSort(){
+        try {
+            for (int i = 0; i < sortSmallLocationResponse.getData().getItems().size() ; i++) {
+                sortSmallLocationResponse.getData().getItems().get(i).setChecked(false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

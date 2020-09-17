@@ -88,10 +88,12 @@ public class SubSuggestionLocationAdapter extends RecyclerView.Adapter<RecyclerV
         private LinearLayout linearPriceType;
 
         private int position;
+        private View viewTime;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
             imgBanner = itemView.findViewById(R.id.imgBanner);
+            viewTime = itemView.findViewById(R.id.viewTime);
             tvPlace = itemView.findViewById(R.id.tvPlace);
             tvName = itemView.findViewById(R.id.tvName);
             tvRate = itemView.findViewById(R.id.tvRate);
@@ -120,17 +122,45 @@ public class SubSuggestionLocationAdapter extends RecyclerView.Adapter<RecyclerV
             tvRate.setText(travel.getEvaluate());
             tvRateText.setText(travel.getEvaluate_text());
             tvPlace.setText(travel.getRegion_name());
-            tvCommentCount.setText(travel.getComment_count());
+
+            try {
+                if(travel.getComment_count().endsWith(".0")){
+                    tvCommentCount.setText(String.valueOf((int)Double.parseDouble(travel.getComment_count())));
+                }else {
+                    tvCommentCount.setText(travel.getComment_count());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                tvCommentCount.setText("");
+            }
 
             if (Constants.TypeDestination.RESTAURANTS.equals(travel.getContent_type()) || Constants.TypeDestination.HOTELS.equals(travel.getContent_type())) {
                 linearPriceType.setVisibility(View.VISIBLE);
                 linearOpenType.setVisibility(View.GONE);
-                tvPriceRange.setText(travel.getPrice_from() + " đ" + " - " + travel.getPrice_to() + " đ");
+
+                try {
+                    String priceFrom = "";
+                    String priceTo = "";
+
+                    if(travel.getPrice_from().endsWith(".0")){
+                        priceFrom = travel.getPrice_from().substring(0, travel.getPrice_from().length() - 2);
+                    }
+
+                    if(travel.getPrice_to().endsWith(".0")){
+                        priceTo = travel.getPrice_to().substring(0, travel.getPrice_to().length() - 2);
+                    }
+
+                    tvPriceRange.setText(priceFrom + " đ" + " - " + priceTo + " đ");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    tvPriceRange.setText(travel.getPrice_from() + " đ" + " - " + travel.getPrice_to() + " đ");
+                }
             } else {
                 linearPriceType.setVisibility(View.GONE);
                 linearOpenType.setVisibility(View.VISIBLE);
                 tvOpenDate.setText(travel.getOpen_week());
-                tvOpenTime.setText(travel.getRange_time());
+
+
                 tvStatus.setText(travel.getType_open());
                 if ("Đang đóng".equals(travel.getType_open())) {
                     tvStatus.setTextColor(Color.parseColor("#FF0000"));
@@ -138,12 +168,34 @@ public class SubSuggestionLocationAdapter extends RecyclerView.Adapter<RecyclerV
                     tvStatus.setTextColor(Color.parseColor("#0FB403"));
                 }
 
+
+                try {
+                    if(travel.getRange_time().isEmpty()){
+                        viewTime.setVisibility(View.GONE);
+                        tvOpenTime.setVisibility(View.GONE);
+                    }else {
+                        viewTime.setVisibility(View.VISIBLE);
+                        tvOpenTime.setText(travel.getRange_time());
+                        tvOpenTime.setVisibility(View.VISIBLE);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    viewTime.setVisibility(View.GONE);
+                    tvOpenTime.setVisibility(View.GONE);
+                }
+
+
             }
-            if (travel.getDistance() != null && !"".equals(travel.getDistance()) && Double.parseDouble(travel.getDistance()) < 1000) {
-                tvDistance.setText("Cách bạn " + travel.getDistance() + " m");
-            } else if (travel.getDistance() != null && !"".equals(travel.getDistance())) {
-                double finalValue = Math.round(Double.parseDouble(travel.getDistance()) / 1000 * 10.0) / 10.0;
-                tvDistance.setText("Cách bạn " + finalValue + " km");
+
+            if(travel.isHas_location()) {
+                if (travel.getDistance() != null && !"".equals(travel.getDistance()) && Double.parseDouble(travel.getDistance()) < 1000) {
+                    tvDistance.setText("Cách bạn " + travel.getDistance() + " m");
+                } else if (travel.getDistance() != null && !"".equals(travel.getDistance())) {
+                    double finalValue = Math.round(Double.parseDouble(travel.getDistance()) / 1000 * 10.0) / 10.0;
+                    tvDistance.setText("Cách bạn " + finalValue + " km");
+                }
+            }else {
+                tvDistance.setText("Không xác định");
             }
         }
     }

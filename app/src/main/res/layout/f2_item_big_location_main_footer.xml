@@ -33,6 +33,9 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:lines="2"
+                    android:maxLines="2"
+                    android:ellipsize="end"
                     android:id="@+id/tvName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -40,7 +43,7 @@
                     android:fontFamily="@font/roboto_bold"
                     android:paddingStart="6dp"
                     android:paddingEnd="6dp"
-                    android:text="Tour Ẩm Thực Phố Cổ Hà Nội dành riêng cho..."
+                    android:text="Tour Ẩm Thực "
                     android:textColor="#3B3B3B"
                     android:textSize="14dp" />
 
@@ -125,7 +128,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="1.967.649 đ - 1.967.649 đ"
                         android:textColor="#101010"
                         android:textSize="14dp" />
                 </LinearLayout>
@@ -156,7 +158,7 @@
                         android:layout_marginTop="6dp"
                         android:layout_marginEnd="6dp"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="Đang mở"
+
                         android:textColor="#0FB403"
                         android:textSize="12dp" />
 
@@ -181,12 +183,12 @@
                         android:src="@drawable/f2_ic_location" />
 
                     <TextView
+                        android:ellipsize="end"
                         android:id="@+id/tvAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"
                         android:singleLine="true"
-                        android:text="Ngõ Đình Đại, Hai Bà Trưng, Hà Nội"
                         android:textColor="#5E5E5E"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -210,7 +212,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:fontFamily="@font/roboto_regular"
-                        android:text="Cách 10 km"
+
                         android:textColor="#575757"
                         android:textSize="10dp" />
 

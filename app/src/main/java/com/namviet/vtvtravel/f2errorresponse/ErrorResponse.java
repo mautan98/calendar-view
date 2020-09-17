@@ -4,6 +4,16 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ErrorResponse {
+    private String codeToSplitCase;
+
+    public String getCodeToSplitCase() {
+        return codeToSplitCase;
+    }
+
+    public void setCodeToSplitCase(String codeToSplitCase) {
+        this.codeToSplitCase = codeToSplitCase;
+    }
+
     @Expose
     @SerializedName("success")
     private boolean success;

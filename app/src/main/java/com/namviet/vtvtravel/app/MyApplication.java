@@ -45,6 +45,7 @@ public class MyApplication extends Application implements Observer {
     private TravelService travelService;
     private TravelService travelService1;
     private TravelService travelService2;
+    private TravelService travelService3;
     private Scheduler scheduler;
     private static MyApplication ourInstance;
     private MyLocation myLocation;
@@ -179,6 +180,14 @@ public class MyApplication extends Application implements Observer {
 //        }
         travelService2 = TravelFactory.createServiceChat(TravelService.class);
         return travelService2;
+    }
+
+    public TravelService getTravelServiceAccNoneToken() {
+//        if (travelService1 == null) {
+//            travelService1 = TravelFactory.createServiceAcc(TravelService.class);
+//        }
+        travelService3 = TravelFactory.createServiceAccNoneToken(TravelService.class);
+        return travelService3;
     }
 
     public Scheduler subscribeScheduler() {

@@ -56,7 +56,7 @@ public class AccountViewModel extends BaseViewModel {
                 .subscribe(new Consumer<AccountResponse>() {
                     @Override
                     public void accept(AccountResponse baseResponse) throws Exception {
-                        if (null != baseResponse) {
+                        if (null != baseResponse && baseResponse.isSuccess()) {
                             requestSuccess(baseResponse);
                         } else {
                             requestSuccess(null);
@@ -84,7 +84,7 @@ public class AccountViewModel extends BaseViewModel {
                 .subscribe(new Consumer<AccountResponse>() {
                     @Override
                     public void accept(AccountResponse baseResponse) throws Exception {
-                        if (null != baseResponse) {
+                        if (null != baseResponse && baseResponse.isSuccess()) {
                             requestSuccess(baseResponse);
                         } else {
                             requestSuccess(null);
@@ -136,7 +136,7 @@ public class AccountViewModel extends BaseViewModel {
                 .subscribe(new Consumer<AccountResponse>() {
                     @Override
                     public void accept(AccountResponse baseResponse) throws Exception {
-                        if (null != baseResponse) {
+                        if (null != baseResponse && baseResponse.isSuccess()) {
                             requestSuccess(baseResponse);
                         } else {
                             requestSuccess(null);
@@ -163,7 +163,7 @@ public class AccountViewModel extends BaseViewModel {
                 .subscribe(new Consumer<AccountResponse>() {
                     @Override
                     public void accept(AccountResponse baseResponse) throws Exception {
-                        if (null != baseResponse) {
+                        if (null != baseResponse && baseResponse.isSuccess()) {
                             requestSuccess(baseResponse);
                         } else {
                             requestSuccess(null);
@@ -229,7 +229,7 @@ public class AccountViewModel extends BaseViewModel {
                 .subscribe(new Consumer<AccountResponse>() {
                     @Override
                     public void accept(AccountResponse baseResponse) throws Exception {
-                        if (null != baseResponse) {
+                        if (null != baseResponse && baseResponse.isSuccess()) {
                             requestSuccess(baseResponse);
                         } else {
                             requestSuccess(null);
@@ -256,7 +256,7 @@ public class AccountViewModel extends BaseViewModel {
                 .subscribe(new Consumer<AccountResponse>() {
                     @Override
                     public void accept(AccountResponse baseResponse) throws Exception {
-                        if (null != baseResponse) {
+                        if (null != baseResponse && baseResponse.isSuccess()) {
                             requestSuccess(baseResponse);
                         } else {
                             requestSuccess(null);
@@ -283,7 +283,7 @@ public class AccountViewModel extends BaseViewModel {
                 .subscribe(new Consumer<AccountResponse>() {
                     @Override
                     public void accept(AccountResponse baseResponse) throws Exception {
-                        if (null != baseResponse) {
+                        if (null != baseResponse && baseResponse.isSuccess()) {
                             requestSuccess(baseResponse);
                         } else {
                             requestSuccess(null);
@@ -311,7 +311,7 @@ public class AccountViewModel extends BaseViewModel {
                 .subscribe(new Consumer<AccountResponse>() {
                     @Override
                     public void accept(AccountResponse baseResponse) throws Exception {
-                        if (null != baseResponse) {
+                        if (null != baseResponse && baseResponse.isSuccess()) {
                             requestSuccess(baseResponse);
                         } else {
                             requestSuccess(null);
@@ -338,7 +338,7 @@ public class AccountViewModel extends BaseViewModel {
                 .subscribe(new Consumer<AccountResponse>() {
                     @Override
                     public void accept(AccountResponse baseResponse) throws Exception {
-                        if (null != baseResponse) {
+                        if (null != baseResponse && baseResponse.isSuccess()) {
                             requestSuccess(baseResponse);
                         } else {
                             requestSuccess(null);
@@ -365,7 +365,7 @@ public class AccountViewModel extends BaseViewModel {
                 .subscribe(new Consumer<AccountResponse>() {
                     @Override
                     public void accept(AccountResponse baseResponse) throws Exception {
-                        if (null != baseResponse) {
+                        if (null != baseResponse && baseResponse.isSuccess()) {
                             requestSuccess(baseResponse);
                         } else {
                             requestSuccess(null);
@@ -392,7 +392,7 @@ public class AccountViewModel extends BaseViewModel {
                 .subscribe(new Consumer<AccountResponse>() {
                     @Override
                     public void accept(AccountResponse baseResponse) throws Exception {
-                        if (null != baseResponse) {
+                        if (null != baseResponse && baseResponse.isSuccess()) {
                             requestSuccess(baseResponse);
                         } else {
                             requestSuccess(null);
@@ -444,7 +444,7 @@ public class AccountViewModel extends BaseViewModel {
                 .subscribe(new Consumer<AccountResponse>() {
                     @Override
                     public void accept(AccountResponse response) throws Exception {
-                        if (response != null && null != response.getData()) {
+                        if (response != null && null != response.getData() && response.isSuccess()) {
                             requestSuccess(response);
                         } else {
                             requestSuccess(null);
