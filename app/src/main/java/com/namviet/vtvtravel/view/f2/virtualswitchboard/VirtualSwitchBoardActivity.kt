@@ -22,10 +22,6 @@ import com.namviet.vtvtravel.view.f2.MyGiftActivity
 
 import com.namviet.vtvtravel.view.f2.virtualswitchboard.page.OnWaitingCountUpdateListener
 import com.namviet.vtvtravel.view.f2.OperatorInformationActivity
-
-import com.namviet.vtvtravel.view.f2.call.CallingOutAtOperatorLinPhone
-import com.namviet.vtvtravel.view.f2.call.EnterPhoneToTestDialog
-
 import com.namviet.vtvtravel.view.f2.virtualswitchboard.page.VirtualTicketPageFragment
 import kotlinx.android.synthetic.main.f2_activity_virtual_switch_board.*
 
@@ -118,14 +114,6 @@ class VirtualSwitchBoardActivity : BaseActivityNew<F2ActivityVirtualSwitchBoardB
     override fun setClick() {
         imgAvatar.setOnClickListener {
             OperatorInformationActivity.startScreen(this)
-        }
-
-
-        tv_header.setOnClickListener {
-            var enterPhoneToTestDialog  = EnterPhoneToTestDialog.newInstance("", EnterPhoneToTestDialog.ClickButton {
-                CallingOutAtOperatorLinPhone.startScreen(this, it)
-            })
-            enterPhoneToTestDialog.show(supportFragmentManager, null )
         }
     }
 

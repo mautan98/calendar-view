@@ -25,7 +25,7 @@
         <EditText
             android:id="@+id/domain"
             android:hint="Domain"
-            android:text="171.244.52.28:5069"
+            android:text="171.244.52.28:5060"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

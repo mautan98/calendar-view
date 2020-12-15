@@ -145,8 +145,8 @@ dependencies {
 //    implementation 'org.webrtc:google-webrtc:1.0.28513'
 //    implementation 'com.mahmudur85.lib:PjDroid:2.1.0'
 
-    debugImplementation "org.linphone.no-video:linphone-sdk-android-debug:4.4+"
-    releaseImplementation "org.linphone.no-video:linphone-sdk-android:4.4+"
+//    debugImplementation "org.linphone:linphone-sdk-android-debug:4.4+"
+//    releaseImplementation "org.linphone:linphone-sdk-android:4.4+"
 
 }
 apply plugin: 'com.google.gms.google-services'

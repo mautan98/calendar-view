@@ -1,7 +1,6 @@
 package com.namviet.vtvtravel.view.fragment.f2account;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -33,7 +32,6 @@ import com.namviet.vtvtravel.ultils.DeviceUtils;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.ValidateUtils;
-import com.namviet.vtvtravel.view.ConfigureAccountActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.viewmodel.AccountViewModel;
 
@@ -175,9 +173,6 @@ public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implem
                     PreferenceUtil.getInstance(mActivity).setValue(Constants.PrefKey.ACCOUNT, new Gson().toJson(accountResponse.getData()));
 
                     /*mActivity.onBackPressed();*/
-                    if(accountResponse.getData().isTravelingSupporter()){
-                        startActivity(new Intent(mActivity, ConfigureAccountActivity.class));
-                    }
                     mActivity.finish();
 
                 } else {

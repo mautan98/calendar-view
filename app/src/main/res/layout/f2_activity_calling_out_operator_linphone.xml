@@ -65,7 +65,7 @@
                     android:layout_marginEnd="24dp"
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="center"
-                    android:text=""
+                    android:text="0965457777"
                     android:textColor="@color/white"
                     android:textSize="40dp" />
 
@@ -119,15 +119,6 @@
                 <ImageView
                     android:foreground="@drawable/bg_round_ripple"
                     android:id="@+id/btnMic"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/f2_ic_enable_mic" />
-
-                <ImageView
-                    android:visibility="gone"
-                    android:alpha="0.3"
-                    android:foreground="@drawable/bg_round_ripple"
-                    android:id="@+id/btnMicDisabled"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:src="@drawable/f2_ic_enable_mic" />

@@ -15,7 +15,6 @@ import com.namviet.vtvtravel.model.virtualcall.ListTicketResponse
 import com.namviet.vtvtravel.model.virtualcall.VirtualTicket
 import com.namviet.vtvtravel.response.*
 import com.namviet.vtvtravel.response.f2room.CallRoomResponse
-import com.namviet.vtvtravel.view.f2.call.CallingOutAtOperatorLinPhone
 //import com.namviet.vtvtravel.view.f2.call.CallingOutAtOperatorLinPhone
 import com.namviet.vtvtravel.view.f2.virtualswitchboard.SelectVirtualCallTypeDialog
 import com.namviet.vtvtravel.view.f2.virtualswitchboard.SelectVirtualCallTypeDialog.ClickButton
@@ -90,30 +89,24 @@ class VirtualTicketPageFragment : BaseFragment<F2FragmentVirtualTicketPageBindin
                     object : VirtualTicketAdapter.OnVirtualTicketActionListener {
                         override fun onSelectTicket(virtualTicket: VirtualTicket) {
                             try {
-                                SelectVirtualCallTypeDialog.newInstance(virtualTicket,
-                                        object : ClickButton {
-                                            override fun onClickCallInApp(selectVirtualCallTypeDialog: SelectVirtualCallTypeDialog) {
+                                if(arguments?.getInt(K_TYPE) == 0 || arguments?.getInt(K_TYPE) == 1) {
+                                    SelectVirtualCallTypeDialog.newInstance(virtualTicket,
+                                            object : ClickButton {
+                                                override fun onClickCallInApp(selectVirtualCallTypeDialog: SelectVirtualCallTypeDialog) {
 //                                                selectVirtualCallTypeDialog.dismiss()
 //                                                virtualTicketPageVM?.getRoomId("123132", "1231232");
-                                            }
-
-                                            override fun onClickCallNormal(selectVirtualCallTypeDialog: SelectVirtualCallTypeDialog) {
-                                                try {
-                                                    Handler().postDelayed(Runnable {
-                                                        try {
-                                                            VirtualTicketDetailDialog.newInstance(virtualTicket).show(childFragmentManager, null)
-                                                        } catch (e: Exception) {
-                                                        }
-                                                    }, 200)
-
-                                                    CallingOutAtOperatorLinPhone.startScreen(mActivity, virtualTicket.creatorMobile.replaceFirst("84", "1039"))
-                                                } catch (e: Exception) {
-                                                    e.printStackTrace()
                                                 }
 
-                                            }
+                                                override fun onClickCallNormal(selectVirtualCallTypeDialog: SelectVirtualCallTypeDialog) {
+                                                    try {
+                                                        VirtualTicketDetailDialog.newInstance(virtualTicket).show(childFragmentManager, null)
+                                                    } catch (e: Exception) {
+                                                        e.printStackTrace()
+                                                    }
+                                                }
 
-                                        }).show(childFragmentManager, null)
+                                            }).show(childFragmentManager, null)
+                                }
                             } catch (e: Exception) {
                             }
                         }

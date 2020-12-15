@@ -104,7 +104,6 @@ import com.namviet.vtvtravel.response.SearchResponse;
 import com.namviet.vtvtravel.response.f2callnow.ZipVersionResponse;
 import com.namviet.vtvtravel.response.f2systeminbox.ConfirmEnterTrip;
 import com.namviet.vtvtravel.response.f2systeminbox.DataSystemInbox;
-import com.namviet.vtvtravel.service.LinphoneService;
 import com.namviet.vtvtravel.service.TrackLocationService;
 import com.namviet.vtvtravel.ultils.DeviceUtils;
 import com.namviet.vtvtravel.ultils.F2UnzipUtil;
@@ -191,11 +190,6 @@ import org.ankit.gpslibrary.ADLocation;
 import org.ankit.gpslibrary.MyTracker;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.linphone.core.Core;
-import org.linphone.core.CoreListenerStub;
-import org.linphone.core.PayloadType;
-import org.linphone.core.ProxyConfig;
-import org.linphone.core.RegistrationState;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -285,8 +279,8 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
     //for Linphone
 //    private Handler mHandler;
-    private CoreListenerStub mCoreListener;
-    private ImageView mLed;
+//    private CoreListenerStub mCoreListener;
+//    private ImageView mLed;
 
 
     //for pjsip
@@ -563,19 +557,19 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
     @Override
     protected void initView() {
         super.initView();
-        try {
-            mLed = findViewById(R.id.led);
-
-            // Monitors the registration state of our account(s) and update the LED accordingly
-            mCoreListener = new CoreListenerStub() {
-                @Override
-                public void onRegistrationStateChanged(Core core, ProxyConfig cfg, RegistrationState state, String message) {
-                    updateLed(state);
-                }
-            };
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            mLed = findViewById(R.id.led);
+//
+//            // Monitors the registration state of our account(s) and update the LED accordingly
+//            mCoreListener = new CoreListenerStub() {
+//                @Override
+//                public void onRegistrationStateChanged(Core core, ProxyConfig cfg, RegistrationState state, String message) {
+//                    updateLed(state);
+//                }
+//            };
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
 
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -1013,69 +1007,57 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
         MyApplication.activityResumed();
 
 
+//        try {
+//            LinphoneService.getCore().addListener(mCoreListener);
+//
+//            ProxyConfig proxyConfig = LinphoneService.getCore().getDefaultProxyConfig();
+//            if (proxyConfig != null) {
+//                updateLed(proxyConfig.getState());
+//            } else {
+//                // No account configured, we display the configuration activity
+//                startActivity(new Intent(this, ConfigureAccountActivity.class));
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
-        try {
-            LinphoneService.getCore().addListener(mCoreListener);
 
-            ProxyConfig proxyConfig = LinphoneService.getCore().getDefaultProxyConfig();
-            if (proxyConfig != null) {
-                updateLed(proxyConfig.getState());
-            } else {
-                // No account configured, we display the configuration activity
-                //startActivity(new Intent(this, ConfigureAccountActivity.class));
-            }
+//        startActivity(new Intent(this, ConfigCallPISIP.class));
 
-
-
-            Core core = LinphoneService.getCore();
-            if (core != null) {
-                for (final PayloadType pt : core.getAudioPayloadTypes()) {
-                    Log.e("type", "type");
-                    Log.e("Linphone debug", pt.getMimeType() + "----"+pt.enabled());
-                    pt.enable(true);
-//                    if(pt.getMimeType().equals("G722") && !pt.enabled()){
-//                        pt.enable(true);
-//                    }
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
     }
 
-    private void updateLed(RegistrationState state) {
-        try {
-            switch (state) {
-                case Ok: // This state means you are connected, to can make and receive calls & messages
-                    mLed.setImageResource(R.drawable.led_connected);
-                    break;
-                case None: // This state is the default state
-                case Cleared: // This state is when you disconnected
-                    mLed.setImageResource(R.drawable.led_disconnected);
-                    break;
-                case Failed: // This one means an error happened, for example a bad password
-                    mLed.setImageResource(R.drawable.led_error);
-                    break;
-                case Progress: // Connection is in progress, next state will be either Ok or Failed
-                    mLed.setImageResource(R.drawable.f2_ic_x);
-                    break;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    private void updateLed(RegistrationState state) {
+//        try {
+//            switch (state) {
+//                case Ok: // This state means you are connected, to can make and receive calls & messages
+//                    mLed.setImageResource(R.drawable.led_connected);
+//                    break;
+//                case None: // This state is the default state
+//                case Cleared: // This state is when you disconnected
+//                    mLed.setImageResource(R.drawable.led_disconnected);
+//                    break;
+//                case Failed: // This one means an error happened, for example a bad password
+//                    mLed.setImageResource(R.drawable.led_error);
+//                    break;
+//                case Progress: // Connection is in progress, next state will be either Ok or Failed
+//                    mLed.setImageResource(R.drawable.f2_ic_x);
+//                    break;
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @Override
     protected void onPause() {
         super.onPause();
         MyApplication.activityPaused();
-        try {
-            LinphoneService.getCore().removeListener(mCoreListener);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            LinphoneService.getCore().removeListener(mCoreListener);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override

@@ -17,7 +17,6 @@ import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.FragmentSettingAccBinding;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndUpdateUserView;
-import com.namviet.vtvtravel.service.LinphoneService;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.RuleActivity;
@@ -26,9 +25,6 @@ import com.namviet.vtvtravel.view.fragment.f2callnow.SettingNotiFragment;
 import com.namviet.vtvtravel.view.fragment.f2offline.RuleDialog;
 
 import org.greenrobot.eventbus.EventBus;
-import org.linphone.core.AuthInfo;
-import org.linphone.core.Core;
-import org.linphone.core.ProxyConfig;
 
 public class SettingFragment extends MainFragment {
     private FragmentSettingAccBinding binding;
@@ -122,7 +118,6 @@ public class SettingFragment extends MainFragment {
                                 MyApplication.getInstance().setAccount(new Account());
                                 mActivity.updateLogin();
                                 EventBus.getDefault().post(new OnLoginSuccessAndUpdateUserView());
-                                removeSIPAccount();
                                 mActivity.onBackPressed();
 
                                 try {
@@ -141,24 +136,6 @@ public class SettingFragment extends MainFragment {
 
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
-        }
-    }
-
-    private void removeSIPAccount(){
-        try {
-            ProxyConfig proxyConfig = LinphoneService.getCore().getDefaultProxyConfig();
-            AuthInfo mAuthInfo = proxyConfig.findAuthInfo();
-            Core core = LinphoneService.getCore();
-            if (core != null) {
-                if (proxyConfig != null) {
-                    core.removeProxyConfig(proxyConfig);
-                }
-                if (mAuthInfo != null) {
-                    core.removeAuthInfo(mAuthInfo);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }

@@ -220,7 +220,7 @@
     <include layout="@layout/f2_dialog_have_no_connection"/>
 
     <ImageView
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_marginStart="10dp"
         android:layout_marginTop="40dp"
         android:id="@+id/led"
