@@ -7,6 +7,16 @@ import java.util.List;
 
 public class MainResultSearchResponse extends BaseResponse {
 
+    private boolean isLoadMore;
+
+    public boolean isLoadMore() {
+        return isLoadMore;
+    }
+
+    public void setLoadMore(boolean loadMore) {
+        isLoadMore = loadMore;
+    }
+
     private Data data;
 
     public Data getData() {
@@ -19,8 +29,17 @@ public class MainResultSearchResponse extends BaseResponse {
 
     public static class Data {
         private String code;
+        private String more_link;
         private List<Travel> items;
         private List<Travel> items_news;
+
+        public String getMore_link() {
+            return more_link;
+        }
+
+        public void setMore_link(String more_link) {
+            this.more_link = more_link;
+        }
 
         public String getCode() {
             return code;

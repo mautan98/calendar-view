@@ -68,8 +68,36 @@ public class ItemImagePartResponse extends BaseResponse {
             private List<String> thumb_url;
             private String created;
             private String count_like;
-            private String count_comment;
+            private String comment_count;
             private String link_share;
+            private boolean isLiked;
+            private String likeCount;
+            private String category_tree_code;
+            private String category_tree_name;
+
+            public String getCategory_tree_code() {
+                return category_tree_code;
+            }
+
+            public String getCategory_tree_name() {
+                return category_tree_name;
+            }
+
+            public boolean isLiked() {
+                return isLiked;
+            }
+
+            public void setLiked(boolean liked) {
+                isLiked = liked;
+            }
+
+            public String getLikeCount() {
+                return likeCount;
+            }
+
+            public void setLikeCount(String likeCount) {
+                this.likeCount = likeCount;
+            }
 
             public String getId() {
                 return id;
@@ -128,7 +156,7 @@ public class ItemImagePartResponse extends BaseResponse {
             }
 
             public String getCount_comment() {
-                return count_comment;
+                return comment_count;
             }
 
             public String getLink_share() {

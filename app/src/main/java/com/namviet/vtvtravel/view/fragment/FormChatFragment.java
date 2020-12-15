@@ -1,9 +1,13 @@
 package com.namviet.vtvtravel.view.fragment;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.os.CountDownTimer;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +17,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.android.datetimepicker.date.DatePickerDialog;
-import com.baseapp.menu.SlideMenu;
 import com.baseapp.utils.KeyboardUtils;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2FragmentFormChatBinding;
-import com.namviet.vtvtravel.databinding.FragmentFormChatBinding;
+import com.namviet.vtvtravel.model.f2event.OnBackToChatBot;
 import com.namviet.vtvtravel.response.BaseResponse;
 import com.namviet.vtvtravel.response.ResponseError;
 import com.namviet.vtvtravel.ultils.ValidateUtils;
+import com.namviet.vtvtravel.view.fragment.f2chat.FormSuccessDialog;
 import com.namviet.vtvtravel.viewmodel.FormChatViewModel;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -47,6 +54,7 @@ public class FormChatFragment extends MainFragment implements Observer {
     private String mStartTime;
     private String mEndTime;
     private String mContent;
+    private String email;
 
     @Nullable
     @Override
@@ -64,6 +72,8 @@ public class FormChatFragment extends MainFragment implements Observer {
     @Override
     protected void initViews(View v) {
         super.initViews(v);
+        startCountDown();
+        detectActive();
         formChatViewModel = new FormChatViewModel();
         binding.setFormChatViewModel(formChatViewModel);
         formChatViewModel.addObserver(this);
@@ -82,6 +92,7 @@ public class FormChatFragment extends MainFragment implements Observer {
         binding.spinnerStart.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                startCountDown();
                 String a = parent.getItemAtPosition(position).toString();
                 Log.d("LamLV: ", a);
                 mEndList.clear();
@@ -116,6 +127,120 @@ public class FormChatFragment extends MainFragment implements Observer {
 
             }
         });
+
+
+    }
+
+
+    private void detectActive(){
+        binding.edtUsername.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                startCountDown();
+            }
+        });
+
+
+        binding.edtPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                startCountDown();
+            }
+        });
+
+        binding.edtBirth.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                startCountDown();
+            }
+        });
+
+        binding.edtContent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                startCountDown();
+            }
+        });
+
+        binding.edtEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                startCountDown();
+            }
+        });
+    }
+
+
+
+    private CountDownTimer mTimer60s;
+
+    private void startCountDown() {
+        final int[] i = {0};
+        if (mTimer60s != null) {
+            mTimer60s.cancel();
+            i[0] = 0;
+        }
+        mTimer60s = new CountDownTimer(60000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                i[0] = i[0] + 1;
+            }
+
+            public void onFinish() {
+                mActivity.finish();
+            }
+
+        }.start();
     }
 
     @Override
@@ -136,12 +261,14 @@ public class FormChatFragment extends MainFragment implements Observer {
                 break;
             case R.id.btnSend:
 
+                startCountDown();
                 mUsername = binding.edtUsername.getText().toString();
                 mPhone = binding.edtPhone.getText().toString();
                 mTimeContact = binding.edtBirth.getText().toString();
-                mStartTime = mTimeContact +" "+ binding.spinnerStart.getSelectedItem().toString() + ":00";
-                mEndTime = mTimeContact +" "+ binding.spinnerEnd.getSelectedItem().toString() + ":00";
+                mStartTime = mTimeContact + " " + binding.spinnerStart.getSelectedItem().toString() + ":00";
+                mEndTime = mTimeContact + " " + binding.spinnerEnd.getSelectedItem().toString() + ":00";
                 mContent = binding.edtContent.getText().toString();
+                email = binding.edtEmail.getText().toString();
 
 
                 if (mUsername.isEmpty() || mPhone.isEmpty() || mTimeContact.isEmpty() || mStartTime.isEmpty() || mEndTime.isEmpty() || mContent.isEmpty()) {
@@ -149,8 +276,17 @@ public class FormChatFragment extends MainFragment implements Observer {
                 } else if (!ValidateUtils.isValidPhoneNumber(mPhone)) {
                     Toast.makeText(mActivity, "Số điện thoai không chính xác!", Toast.LENGTH_SHORT).show();
                 } else {
-                    formChatViewModel.sendFormChat(mUsername, mPhone, mTimeContact, mStartTime, mEndTime, mContent);
-                    KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+
+                    if(!ValidateUtils.isValidEmail(email)){
+                        Toast.makeText(mActivity, "Email không đúng định dạng", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    formChatViewModel.sendFormChat(mUsername, mPhone, mTimeContact, mStartTime, mEndTime, mContent, email);
+                    try {
+                        KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+                    } catch (Exception e) {
+                    }
                 }
                 break;
             case R.id.ivBack:
@@ -174,13 +310,29 @@ public class FormChatFragment extends MainFragment implements Observer {
             if (arg instanceof BaseResponse) {
                 BaseResponse baseResponse = (BaseResponse) arg;
                 if (baseResponse.getStatus().equals("success")) {
-                    mActivity.onBackPressed();
-                    mActivity.switchFragment(SlideMenu.MenuType.FORM_SUCCESS_SCREEN);
+//                    mActivity.onBackPressed();
+//                    mActivity.switchFragment(SlideMenu.MenuType.FORM_SUCCESS_SCREEN);
+                    FormSuccessDialog formSuccessDialog = FormSuccessDialog.newInstance();
+                    formSuccessDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
                 }
             } else if (arg instanceof ResponseError) {
                 ResponseError responseError = (ResponseError) arg;
                 mActivity.showMessage(responseError.getMessage());
             }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        cancelTimer();
+        EventBus.getDefault().post(new OnBackToChatBot());
+    }
+
+
+    private void cancelTimer(){
+        if(mTimer60s != null){
+            mTimer60s.cancel();
         }
     }
 }

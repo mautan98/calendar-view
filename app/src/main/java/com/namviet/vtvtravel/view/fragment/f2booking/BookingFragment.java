@@ -1,50 +1,42 @@
 package com.namviet.vtvtravel.view.fragment.f2booking;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.adapter.f2offline.MainAdapter;
 import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.databinding.F2FragmentBookingBinding;
-import com.namviet.vtvtravel.databinding.F2FragmentVideoBinding;
-import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndGoToBooking;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndUpdateUserView;
-import com.namviet.vtvtravel.response.f2video.VideoResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
-import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
-import com.namviet.vtvtravel.view.fragment.f2video.SubVideoFragment;
-import com.namviet.vtvtravel.viewmodel.f2video.VideoViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.Observable;
-import java.util.Observer;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BookingFragment extends MainFragment {
     private F2FragmentBookingBinding binding;
     private String link = WSConfig.HOST_BOOKING;
-//    private String link = "http://103.21.148.54:8857/get-list?token=";
+    //    private String link = "http://103.21.148.54:8857/get-list?token=";
     private String token;
 
     private String loginHtml = "<!DOCTYPE html>\n" +
@@ -91,6 +83,11 @@ public class BookingFragment extends MainFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        try {
+            TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_VIEW, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.BOOKING, TrackingAnalytic.ScreenTitle.BOOKING).setScreen_class(this.getClass().getName()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         initViews(view);
     }
 
@@ -125,7 +122,9 @@ public class BookingFragment extends MainFragment {
         Account account = MyApplication.getInstance().getAccount();
         if (null != account && account.isLogin()) {
             token = account.getToken();
-            binding.webView.loadUrl(genLink());
+            Map<String, String> extraHeaders = new HashMap<>();
+            extraHeaders.put("token",token);
+            binding.webView.loadUrl(genLink(), extraHeaders);
         } else {
             Toast.makeText(mActivity, "Bạn cần đăng nhập để sử dụng chức năng này!", Toast.LENGTH_SHORT).show();
         }
@@ -133,7 +132,7 @@ public class BookingFragment extends MainFragment {
     }
 
     private String genLink() {
-        return link + token;
+        return link;
     }
 
     @Override
@@ -147,11 +146,13 @@ public class BookingFragment extends MainFragment {
     }
 
     @Subscribe
-    public void OnReload(OnLoginSuccessAndGoToBooking onLoginSuccessAndGoToBooking){
+    public void OnReload(OnLoginSuccessAndGoToBooking onLoginSuccessAndGoToBooking) {
         Account account = MyApplication.getInstance().getAccount();
         if (null != account && account.isLogin()) {
             token = account.getToken();
-            binding.webView.loadUrl(genLink());
+            Map<String, String> extraHeaders = new HashMap<>();
+            extraHeaders.put("token",token);
+            binding.webView.loadUrl(genLink(), extraHeaders);
         } else {
             LoginAndRegisterActivityNew.startScreen(mActivity, 0, false, true);
         }
@@ -171,4 +172,6 @@ public class BookingFragment extends MainFragment {
         }
 
     }
+
+
 }

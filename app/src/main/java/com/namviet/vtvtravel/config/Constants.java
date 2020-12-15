@@ -5,6 +5,19 @@ public class Constants {
     public static final String TAG_DIALOG = "dialog";
     public static final int TimeDelay = 300;
 
+    public class ShareLinkType{
+        public static final String NEWS = "news";
+        public static final String IMAGES = "galleries";
+        public static final String VIDEO = "videos";
+
+        public static final String PLACE = "places";
+        public static final String HOTELS = "hotels";
+        public static final String RESTAURANTS = "restaurants";
+        public static final String CENTERS = "centers";
+
+
+    }
+
     public class TypeItemHome {
         public static final String SEARCH_BOX = "APP_SEARCH_BOX";
         public static final String HIGHLIGHT = "APP_HIGHLIGHT";
@@ -53,7 +66,7 @@ public class Constants {
         public static final String ADMIN = "ADMIN";
         public static final String USER_SOCKET = "USER_SOCKET";
         public static final String AFTER_30S = "AFTER_30S";
-        public static final String AFTER_60S = "AFTER_60S";
+        public static final String YES_NO_REVIEW = "YES_NO_REVIEW";
         public static final String THANK = "THANK";
         public static final String OPTION = "OPTION";
         public static final String FORM = "FORM";
@@ -62,11 +75,16 @@ public class Constants {
         public static final String GET_USER_GUILD = "GET_USER_GUILD";
         public static final String USER_GUILD_TEXT = "USER_GUILD_TEXT";
         public static final String USER_GUILD_SLIDE = "USER_GUILD_SLIDE";
+        public static final String REVIEW = "REVIEW";
+        public static final String END = "END";
 //        public static final String USER_GUILD_BOOKING = "USER_GUILD_BOOKING";
     }
 
     public class IntentKey {
         public static final String KEY_ACTIVITY = "key_activity";
+        public static final String TITLE = "title";
+        public static final String IMAGE = "image";
+        public static final String CONTENT_TYPE = "contentType";
         public static final String KEY_FRAGMENT = "key_fragment";
         public static final String KEY_TRAVEL = "key_travel";
         public static final String KEY_ITEM = "key_item";
@@ -79,7 +97,9 @@ public class Constants {
         public static final String KEY_NOTIFY = "KEY_NOTIFY";
         public static final String KEY_COUNT_UNREAD = "KEY_COUNT_UNREAD";
         public static final String FROM_DISCONNECT_NOTI = "FROM_DISCONNECT_NOTI";
+        public static final String FROM_VIP_NOTI = "FROM_VIP_NOTI";
         public static final String IS_FROM_BUTTON_CALL_NOW = "IS_FROM_BUTTON_CALL_NOW";
+        public static final String IS_FROM_CHAT_BOT = "IS_FROM_CHAT_BOT";
         public static final String IS_FROM_BOOKING = "IS_FROM_BOOKING";
         public static final String IS_FROM_DEAL = "IS_FROM_DEAL";
         public static final String POSITION_LOGIN = "position_login";
@@ -102,10 +122,25 @@ public class Constants {
         public static final String LAT = "LAT";
         public static final String LONG = "LONG";
         public static final String ADDRESS = "ADDRESS";
+        public static final String SCHEDULE_ID = "SCHEDULE_ID";
+        public static final String NOTIFICATION_TYPE = "NOTIFICATION_TYPE";
+        public static final String NOTIFICATION = "NOTIFICATION";
+
+
+
+
+        public static final String ROOM_ID = "room_id";
+        public static final String FROM_TYPE = "from_type";
+        public static final String FULL_NAME = "full_name";
+        public static final String FROM_WHERE = "from_where";
+        public static final String PART_NAME = "part_name";
+        public static final String IS_VIDEO_CALL = "is_video_call";
+        public static final String NOTI_DATA = "noti_data";
     }
 
     public static class PrefKey {
         public static final String NEWS = "news";
+        public static final String REGION_ID = "region_id";
         public static final String FCM_TOKEN = "fcm_token";
         public static final String IS_FIRST = "is_first";
         public static final String VTVTravel = "VTVTravel";
@@ -126,6 +161,8 @@ public class Constants {
         public static final String RECENT_VIEW = "RECENT_VIEW";
         public static final String RECENT_SEARCH = "RECENT_SEARCH";
         public static final String CONTACT = "CONTACT";
+        public static final String DEVICE_TOKEN = "DEVICE_TOKEN";
+        public static final String ACCOUNT = "ACCOUNT";
 
 
     }
@@ -196,6 +233,7 @@ public class Constants {
         public static final String DATE_FORMAT_14 = "hh:mm a";
         public static final String DATE_FORMAT_15 = "EEEE dd/MM";
         public static final String DATE_FORMAT_16 = "dd MMMM yyyy";
+        public static final String DATE_FORMAT_17 = "EEEE, dd/MM/yyyy";
     }
 
     public static class KeyJSON {

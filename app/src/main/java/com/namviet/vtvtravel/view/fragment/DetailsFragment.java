@@ -1,9 +1,9 @@
 package com.namviet.vtvtravel.view.fragment;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +14,6 @@ import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.FragmentDetailsBinding;
 import com.namviet.vtvtravel.model.Details;
 import com.daimajia.slider.library.Travel;
-import com.namviet.vtvtravel.response.DetailResponse;
 import com.namviet.vtvtravel.response.ResponseError;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.viewmodel.DetailViewModel;

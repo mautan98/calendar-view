@@ -1,10 +1,7 @@
 package com.namviet.vtvtravel.view.fragment.f2mygift;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.view.View;
-import android.widget.Toast;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.mygift.ChildrenMenuAdapter;
@@ -13,14 +10,11 @@ import com.namviet.vtvtravel.databinding.F2FragmentMyGiftBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
-import com.namviet.vtvtravel.response.AccountResponse;
-import com.namviet.vtvtravel.response.ResponseError;
 import com.namviet.vtvtravel.response.f2menu.MenuItem;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.fragment.f2service.GetInfoResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
-import com.namviet.vtvtravel.view.fragment.f2service.ServiceResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceViewModel;
 
 import java.util.ArrayList;
@@ -102,13 +96,13 @@ public class MyGiftFragment extends BaseFragment<F2FragmentMyGiftBinding> implem
                 if (getInfoResponse.getData().getUser().getPackageCode() != null && getInfoResponse.getData().getUser().getPackageCode().equals("TRAVEL_VIP")) {
                     TravelVoucherActivity.openScreen(mActivity, false, TravelVoucherActivity.OpenType.LIST, false);
                 }else {
-                    NotifiDialog notifiDialog = NotifiDialog.newInstance("Thông báo", "Mời đăng ký gói VIP \nĐể tận hưởng ưu đãi từ VTV Travel", "Đồng ý", new NotifiDialog.ClickButton() {
+                    NotifyDialog notifyDialog = NotifyDialog.newInstance("Thông báo", "Mời đăng ký gói VIP \nĐể tận hưởng ưu đãi từ VTV Travel", "Đồng ý", new NotifyDialog.ClickButton() {
                         @Override
                         public void onClickButton() {
                             ServiceActivity.startScreen(mActivity);
                         }
                     });
-                    notifiDialog.show(mActivity.getSupportFragmentManager(), null);
+                    notifyDialog.show(mActivity.getSupportFragmentManager(), null);
 //                    AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
 //                    builder.setMessage("Mời đăng ký gói VIP để tận hưởng ưu đãi từ VTV Travel");
 //                    builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
@@ -135,5 +129,11 @@ public class MyGiftFragment extends BaseFragment<F2FragmentMyGiftBinding> implem
                 }
             }
         }
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.MY_GIFT, TrackingAnalytic.ScreenTitle.MY_GILF);
     }
 }

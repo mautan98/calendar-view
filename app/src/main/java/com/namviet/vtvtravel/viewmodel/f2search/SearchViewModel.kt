@@ -9,7 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import retrofit2.HttpException
 
 class SearchViewModel : BaseViewModel() {
-    fun getYourVoucher(link : String) {
+    fun getYourVoucher(link: String) {
         val myApplication = MyApplication.getInstance()
         val newsService = myApplication.travelService
         val disposable = newsService.getYourVoucher(link)
@@ -19,10 +19,11 @@ class SearchViewModel : BaseViewModel() {
         compositeDisposable.add(disposable)
     }
 
-    fun getTrend(link : String) {
+    fun getTrend(link: String) {
         val myApplication = MyApplication.getInstance()
         val newsService = myApplication.travelService
-        val disposable = newsService.getTrend(link)
+        val queryMap = Param.getDefault()
+        val disposable = newsService.getTrend(link, queryMap)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ videoResponse -> videoResponse?.let { requestSuccess(it) } }) { throwable -> requestFailed(throwable!!) }
@@ -41,15 +42,15 @@ class SearchViewModel : BaseViewModel() {
     }
 
 
-    fun getPreResultSearch(keyword:String, regionId:String?) {
+    fun getPreResultSearch(keyword: String, regionId: String?) {
         val myApplication = MyApplication.getInstance()
         val newsService = myApplication.travelService
         val queryMap = Param.getDefault()
         val disposable = newsService.getPreResultSearch(queryMap, keyword, regionId)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    videoResponse -> videoResponse?.let { requestSuccess(it) }
+                .subscribe({ videoResponse ->
+                    videoResponse?.let { requestSuccess(it) }
                 }) { throwable -> requestFailed(throwable!!) }
         compositeDisposable.add(disposable)
     }

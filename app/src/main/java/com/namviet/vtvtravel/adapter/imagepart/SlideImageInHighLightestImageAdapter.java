@@ -1,8 +1,7 @@
 package com.namviet.vtvtravel.adapter.imagepart;
 
-import android.app.Activity;
 import android.content.Context;
-import android.support.v4.view.PagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.response.newhome.AppVoucherResponse;
 import com.namviet.vtvtravel.view.f2.SlideImageActivity;
 
 import java.util.ArrayList;
@@ -20,13 +18,15 @@ public class SlideImageInHighLightestImageAdapter extends PagerAdapter {
     private Context context;
     private List<String> strings;
     private String type;
+    private ClickItem clickItem;
     public static final String LIST_TYPE = "LIST_TYPE";
     public static final String DETAIL_TYPE = "DETAIL_TYPE";
 
-    public SlideImageInHighLightestImageAdapter(Context context, List<String> strings, String type) {
+    public SlideImageInHighLightestImageAdapter(Context context, List<String> strings, String type, ClickItem clickItem) {
         this.context = context;
         this.strings = strings;
         this.type = type;
+        this.clickItem = clickItem;
     }
 
     @Override
@@ -39,7 +39,8 @@ public class SlideImageInHighLightestImageAdapter extends PagerAdapter {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SlideImageActivity.startScreen((Activity) context, (ArrayList<String>) strings, position);
+                    clickItem.onClickItem();
+                    SlideImageActivity.startScreen( context, (ArrayList<String>) strings, position);
                 }
             });
 
@@ -74,5 +75,9 @@ public class SlideImageInHighLightestImageAdapter extends PagerAdapter {
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return (view == object);
+    }
+
+    public interface ClickItem{
+        public void onClickItem();
     }
 }

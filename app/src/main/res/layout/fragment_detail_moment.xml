@@ -23,7 +23,7 @@
             android:id="@+id/toolBar"
             layout="@layout/toolbar_detail_moment" />
 
-        <android.support.v4.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/nesScroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -107,7 +107,7 @@
                             app:srcCompat="@drawable/vt_play" />
                     </RelativeLayout>
 
-                    <android.support.v4.view.ViewPager
+                    <androidx.viewpager.widget.ViewPager
                         android:id="@+id/vpSlideShow"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_350sdp"
@@ -154,12 +154,12 @@
                         android:gravity="center"
                         android:text="Tags: " />
 
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvTag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
                 </LinearLayout>
 
                 <com.daimajia.slider.library.RobotoTextView
@@ -205,7 +205,7 @@
                         app:typeface="roboto_regular" />
                 </LinearLayout>
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvComment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -225,7 +225,7 @@
                     android:textSize="@dimen/_13sdp"
                     app:typeface="roboto_bold" />
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvNewsRelated"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -258,7 +258,7 @@
                     android:textSize="@dimen/_13sdp"
                     app:typeface="roboto_bold" />
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvNewsSameCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -279,7 +279,7 @@
                     app:selectedDotRadius="4dp" />
                 </LinearLayout>
             </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
     </RelativeLayout>
 
 

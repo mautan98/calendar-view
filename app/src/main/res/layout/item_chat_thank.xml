@@ -16,5 +16,5 @@
         android:background="@drawable/bg_button_chat2"
         android:gravity="center"
         android:padding="16dp"
-        android:text="Cảm ơn A/C, VTV Travel luôn mong muốn được đồng hành cùng A/C trong thời gian tới. Xin cảm ơn!" />
+        android:text="Cảm ơn A/C, VTVTravel luôn mong muốn được đồng hành cùng A/C trong thời gian tới. Xin cảm ơn!" />
 </LinearLayout>

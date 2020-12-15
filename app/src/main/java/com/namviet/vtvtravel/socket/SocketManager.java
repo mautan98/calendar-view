@@ -12,6 +12,7 @@ import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.help.SocketOn;
 import com.namviet.vtvtravel.model.chat.ChatData;
+import com.namviet.vtvtravel.model.f2event.OnSocketSendSurvey;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
@@ -34,14 +35,18 @@ import okhttp3.OkHttpClient;
 
 public class SocketManager {
 
-//    private static final String URL = "http://103.21.148.54:8079";
-    private static final String URL = "https://chat.vtvtravel.vn";
+    public static final String URL_CALL = "http://103.21.148.54:8079";
+
+    private static final String URL = "http://103.21.148.54:8079";
+//    private static final String URL = "https://chat.vtvtravel.vn";
+
     public static Socket mSocket;
 
     private static final String SEND_MESSAGE = "send_message";
 
     private static final String RECEIVE_MESSAGE = "receive_message";
     private static final String NOT_REPLY_MESSAGE = "not_reply_message";
+    private static final String ADMIN_SEND_SURVEY = "admin_send_survey";
 
 
     /* Create socket + call connect */
@@ -143,6 +148,17 @@ public class SocketManager {
         });
     }
 
+    /* ON  RECEIVE A MESSAGE */
+    public static void onAdminSendSurvey() {
+        // ack from client to server
+        mSocket.on(ADMIN_SEND_SURVEY, new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                EventBus.getDefault().post(new OnSocketSendSurvey());
+            }
+        });
+    }
+
     /* NEW MESSAGE */
     private static ChatData newMessage(int type, Object... args) {
         ChatData chatData = new Gson().fromJson(args[0].toString(), ChatData.class);
@@ -171,7 +187,7 @@ public class SocketManager {
                 message.setType(Constants.TypeChat.NOT_REPLY);
 
                 ChatData.Sender sender = new ChatData.Sender();
-                sender.setFull_name("Tổng đài viên - VTV Travel");
+                sender.setFull_name("Tổng đài viên - VTVTravel");
                 message.setSender(new ChatData.Sender());
                 message.setCurrent_time(getCurrentTime());
                 break;

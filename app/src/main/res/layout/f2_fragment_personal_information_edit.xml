@@ -4,7 +4,7 @@
 
     <data></data>
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ECECEC">
@@ -86,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#ECECEC" />
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
@@ -136,9 +136,9 @@
                     app:layout_constraintBottom_toBottomOf="@id/imgArm"
                     app:layout_constraintStart_toEndOf="@id/imgArm"
                     app:layout_constraintTop_toTopOf="@id/imgArm" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 <!--            header edit-->
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layoutHeaderEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -167,7 +167,7 @@
                     app:civ_border_width="0.5dp"
                     app:layout_constraintEnd_toEndOf="@id/imgAvatarEdit"
                     app:layout_constraintTop_toTopOf="@id/imgAvatarEdit" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -228,7 +228,7 @@
                     android:layout_marginEnd="12dp"
                     android:background="@null"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="Sơn Bùi"
+
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
@@ -279,6 +279,7 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:inputType="phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
@@ -286,7 +287,7 @@
                     android:layout_marginEnd="12dp"
                     android:background="@null"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="0986343411"
+
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
@@ -308,6 +309,7 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:inputType="textEmailAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
@@ -346,7 +348,7 @@
                     android:layout_marginEnd="12dp"
                     android:background="@null"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="Nam"
+
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
@@ -376,7 +378,7 @@
                     android:layout_marginEnd="12dp"
                     android:background="@null"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="01/01/2020"
+
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
@@ -406,7 +408,6 @@
                     android:layout_marginEnd="12dp"
                     android:background="@null"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="Số 123, Thành Thái, Cầu Giấy, Hà Nội"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
@@ -707,5 +708,5 @@
 
             </LinearLayout>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </layout>

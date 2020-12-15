@@ -4,12 +4,12 @@
 
 
     <LinearLayout
-        android:foreground="@drawable/ripple_effect_click"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:foreground="@drawable/ripple_effect_click"
         android:orientation="vertical">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -29,7 +29,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -53,20 +53,20 @@
                 android:textSize="12dp" />
 
             <TextView
-                android:maxLines="1"
-                android:ellipsize="end"
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="8dp"
+                android:ellipsize="end"
                 android:fontFamily="@font/roboto_medium"
+                android:maxLines="1"
                 android:text="Tới Biển Đồi Dương Nghe Hiền Hòa Sóng Vỗ."
                 android:textColor="#000000"
                 android:textSize="14dp" />
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rclTag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -83,13 +83,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="11dp"
-            android:layout_marginTop="13dp"
             android:layout_marginEnd="18dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -140,19 +140,29 @@
                 android:layout_alignParentEnd="true"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:visibility="invisible"
-                    android:layout_width="20dp"
-                    android:layout_height="18dp"
+                <!--                <ImageView-->
+                <!--                    android:padding="5dp"-->
+                <!--                    android:id="@+id/imgHeart"-->
+                <!--                    android:layout_width="30dp"-->
+                <!--                    android:layout_height="28dp"-->
+                <!--                    android:layout_gravity="center"-->
+                <!--                    android:src="@drawable/f2_ic_gray_heart" />-->
+
+                <com.like.LikeButton
+                    android:id="@+id/imgHeart"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/f2_ic_red_heart" />
+                    app:anim_scale_factor="4.5"
+                    app:icon_size="15dp"
+                    app:like_drawable="@drawable/f2_ic_red_heart"
+                    app:unlike_drawable="@drawable/f2_ic_gray_heart" />
 
                 <TextView
-                    android:visibility="invisible"
+                    android:id="@+id/tvCountLike"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="7dp"
                     android:fontFamily="@font/roboto_regular"
                     android:text="38"
                     android:textColor="#878787"
@@ -160,10 +170,11 @@
 
                 <ImageView
                     android:id="@+id/btnShare"
-                    android:layout_width="27dp"
-                    android:layout_height="17dp"
+                    android:layout_width="37dp"
+                    android:layout_height="27dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="17dp"
+                    android:padding="5dp"
                     android:src="@drawable/f2_ic_share_new2" />
             </LinearLayout>
         </RelativeLayout>
@@ -172,7 +183,6 @@
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:layout_alignTop="@+id/rclActivity"
-            android:layout_marginTop="14dp"
             android:background="#ECECEC" />
     </LinearLayout>
 </layout>

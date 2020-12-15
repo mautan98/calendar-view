@@ -2,7 +2,7 @@ package com.namviet.vtvtravel.view.fragment.f2webview;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -11,10 +11,12 @@ import android.webkit.WebViewClient;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
-import com.namviet.vtvtravel.databinding.F2FragmentDetailDealWebviewBinding;
 import com.namviet.vtvtravel.databinding.F2FragmentMyOrderBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.model.Account;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class WebviewFragment extends BaseFragment<F2FragmentMyOrderBinding> {
     private String token;
@@ -73,7 +75,9 @@ public class WebviewFragment extends BaseFragment<F2FragmentMyOrderBinding> {
         Account account = MyApplication.getInstance().getAccount();
         if (null != account && account.isLogin()) {
             token = account.getToken();
-            getBinding().webView.loadUrl(genLink());
+            Map<String, String> extraHeaders = new HashMap<String, String>();
+            extraHeaders.put("token",token);
+            getBinding().webView.loadUrl(genLink(), extraHeaders);
         } else {
 //            mActivity.onBackPressed();
         }
@@ -125,6 +129,6 @@ public class WebviewFragment extends BaseFragment<F2FragmentMyOrderBinding> {
 
 
     private String genLink() {
-        return server + token;
+        return server;
     }
 }

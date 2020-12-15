@@ -1,14 +1,13 @@
 package com.namviet.vtvtravel.model.f2;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.TypeConverters;
-import android.graphics.Bitmap;
-import android.net.Uri;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 
 import com.google.gson.annotations.SerializedName;
@@ -40,6 +39,8 @@ public class Contact implements Parcelable {
     private String phoneToShow;
     private boolean isCallNow;
 
+    private boolean isSearched;
+
 
 
     public Contact() {
@@ -61,6 +62,7 @@ public class Contact implements Parcelable {
         isChecked = in.readByte() != 0;
         isHeader = in.readByte() !=0;
         isCallNow = in.readByte() !=0;
+        isSearched = in.readByte() !=0;
     }
 
     public static final Creator<Contact> CREATOR = new Creator<Contact>() {
@@ -74,6 +76,16 @@ public class Contact implements Parcelable {
             return new Contact[size];
         }
     };
+
+    public boolean isSearched() {
+        return isSearched;
+    }
+
+    public void setSearched(boolean searched) {
+        isSearched = searched;
+    }
+
+
 
     public boolean isHeader() {
         return isHeader;
@@ -198,6 +210,7 @@ public class Contact implements Parcelable {
         parcel.writeByte((byte) (isChecked ? 1 : 0));
         parcel.writeByte((byte) (isHeader ? 1 : 0));
         parcel.writeByte((byte) (isCallNow ? 1 : 0));
+        parcel.writeByte((byte) (isSearched ? 1 : 0));
     }
 
     public String getAvatar() {

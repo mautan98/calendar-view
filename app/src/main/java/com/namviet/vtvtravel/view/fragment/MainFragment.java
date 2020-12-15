@@ -6,17 +6,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AlertDialog;
-import android.view.KeyEvent;
+
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.appcompat.app.AlertDialog;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.baseapp.fragment.BaseFragment;
 import com.baseapp.menu.SlideMenu;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -27,12 +25,10 @@ import com.namviet.vtvtravel.api.TravelService;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.Account;
-import com.namviet.vtvtravel.model.ItemNotify;
 import com.namviet.vtvtravel.response.CountUnreadRespone;
 import com.namviet.vtvtravel.ultils.DeviceUtils;
 import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.dialog.LoadingDialog;
-import com.namviet.vtvtravel.view.fragment.f2service.Service;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
 
 import java.io.File;

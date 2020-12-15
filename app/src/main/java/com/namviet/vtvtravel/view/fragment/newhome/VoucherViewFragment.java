@@ -1,23 +1,19 @@
 package com.namviet.vtvtravel.view.fragment.newhome;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.baseapp.menu.SlideMenu;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.daimajia.slider.library.Travel;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.newhome.Voucher;
-import com.namviet.vtvtravel.view.fragment.MainFragment;
-import com.namviet.vtvtravel.view.fragment.PhotoViewFragment;
 
 public class VoucherViewFragment extends Fragment {
     private ImageView imageView;

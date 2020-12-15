@@ -1,6 +1,9 @@
 package com.namviet.vtvtravel.api;
 
 
+import com.namviet.vtvtravel.model.virtualcall.ListTicketHistoryResponse;
+import com.namviet.vtvtravel.model.virtualcall.ListTicketResponse;
+import com.namviet.vtvtravel.model.virtualcall.ProcessTicketResponse;
 import com.namviet.vtvtravel.response.AccountResponse;
 import com.namviet.vtvtravel.response.BannerResponse;
 import com.namviet.vtvtravel.response.BaseResponse;
@@ -43,27 +46,34 @@ import com.namviet.vtvtravel.response.f2biglocation.BigLocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.LocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.RegionResponse;
 import com.namviet.vtvtravel.response.f2biglocation.TopLocationResponse;
+import com.namviet.vtvtravel.response.f2chat.GetListThemeResponse;
 import com.namviet.vtvtravel.response.f2chat.GetUserGuildResponse;
+import com.namviet.vtvtravel.response.f2chat.GetUserThemeResponse;
+import com.namviet.vtvtravel.response.f2chat.HelloMessageResponse;
 import com.namviet.vtvtravel.response.f2chat.PostUserGuildResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByCodeResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByPageResponse;
-import com.namviet.vtvtravel.response.f2livetv.LiveTvResponse;
+import com.namviet.vtvtravel.response.f2operator.OperatorInformationResponse;
 import com.namviet.vtvtravel.response.f2review.CreateReviewResponse;
 import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
 import com.namviet.vtvtravel.response.f2review.UploadImageResponse;
+import com.namviet.vtvtravel.response.f2room.CallRoomResponse;
 import com.namviet.vtvtravel.response.f2searchmain.MainResultSearchResponse;
 import com.namviet.vtvtravel.response.f2searchmain.MainSearchResponse;
 import com.namviet.vtvtravel.response.f2searchmain.SubBaseSearch;
 import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SortSmallLocationResponse;
+import com.namviet.vtvtravel.response.f2systeminbox.ConfirmEnterTrip;
 import com.namviet.vtvtravel.response.f2systeminbox.CountSystemInbox;
 import com.namviet.vtvtravel.response.f2systeminbox.SystemInbox;
+import com.namviet.vtvtravel.response.f2systeminbox.TicketInfo;
 import com.namviet.vtvtravel.response.f2topexperience.SubTopExperienceResponse;
 import com.namviet.vtvtravel.response.f2travelvoucher.CategoryVoucherResponse;
 import com.namviet.vtvtravel.response.f2travelvoucher.CheckCanReceiver;
 import com.namviet.vtvtravel.response.f2travelvoucher.ListVoucherResponse;
 import com.namviet.vtvtravel.response.f2travelvoucher.RankVoucherResponse;
 import com.namviet.vtvtravel.response.f2travelvoucher.RegionVoucherResponse;
+import com.namviet.vtvtravel.response.f2video.VideoDetailResponse;
 import com.namviet.vtvtravel.response.f2video.VideoResponse;
 import com.namviet.vtvtravel.response.WeatherResponse;
 import com.namviet.vtvtravel.response.f2callnow.CallListResponse;
@@ -75,16 +85,20 @@ import com.namviet.vtvtravel.response.f2comment.DeleteCommentResponse;
 import com.namviet.vtvtravel.response.f2comment.UpdateCommentResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SmallLocationResponse;
 import com.namviet.vtvtravel.response.f2video.DetailVideoResponse;
+import com.namviet.vtvtravel.response.f2wheel.WheelAreasResponse;
+import com.namviet.vtvtravel.response.f2wheel.WheelChartResponse;
+import com.namviet.vtvtravel.response.f2wheel.WheelResultResponse;
+import com.namviet.vtvtravel.response.f2wheel.WheelRotateResponse;
 import com.namviet.vtvtravel.response.imagepart.ImagePartResponse;
 import com.namviet.vtvtravel.response.imagepart.ItemImagePartResponse;
 import com.namviet.vtvtravel.response.newhome.AppVoucherResponse;
 import com.namviet.vtvtravel.response.newhome.BaseResponseNewHome;
 import com.namviet.vtvtravel.response.newhome.BaseResponseSecondNewHome;
 import com.namviet.vtvtravel.response.newhome.BaseResponseSpecialNewHome;
+import com.namviet.vtvtravel.response.newhome.ConfigPopupResponse;
 import com.namviet.vtvtravel.response.newhome.HomeServiceResponse;
 import com.namviet.vtvtravel.response.newhome.ItemAppExperienceResponse;
 import com.namviet.vtvtravel.response.newhome.MobileFromViettelResponse;
-import com.namviet.vtvtravel.response.newhome.SettingResponse;
 import com.namviet.vtvtravel.response.travelnews.DetailNewsCategoryResponse;
 import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
 import com.namviet.vtvtravel.response.travelnews.NewsCategoryResponse;
@@ -96,6 +110,7 @@ import com.namviet.vtvtravel.view.fragment.f2service.ServiceResponse;
 
 import java.util.Map;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -396,7 +411,7 @@ public interface TravelService {
     Observable<DetailNewsCategoryResponse> getDetailNewsCategory(@Url String url);
 
     @GET
-    Observable<DetailTravelNewsResponse> getDetailNewsTravel(@Url String url);
+    Observable<DetailTravelNewsResponse> getDetailNewsTravel(@Url String url, @QueryMap Map<String, Object> queryMap);
 
     @POST(WSConfig.Api.COMMENTS_SEARCH)
     Observable<com.namviet.vtvtravel.response.f2comment.CommentResponse> getComment(@Body RequestBody jsonBodyObject);
@@ -504,8 +519,6 @@ public interface TravelService {
     Observable<BaseResponse> checkUserVoucherReceiver(@Body RequestBody jsonBodyObject);
 
 
-
-
     @GET
     Observable<BaseResponseNewHome> getLiveTvData(@Url String url);
 
@@ -533,15 +546,21 @@ public interface TravelService {
 
 
     @GET
-    Observable<SubBaseSearch<ItemAppExperienceResponse>> getTrend(@Url String url);
+    Observable<SubBaseSearch<ItemAppExperienceResponse>> getTrend(@Url String url, @QueryMap Map<String, Object> queryMap);
 
     @GET(WSConfig.Api.SEARCH_HOME)
     Observable<MainSearchResponse> getBlockSearch(@QueryMap Map<String, Object> queryMap);
 
 
     @GET(WSConfig.Api.SEARCH_PRE_RESULT)
-    Observable<MainResultSearchResponse> getPreResultSearch( @QueryMap Map<String, Object> queryMap, @Query("keyword") String keyword, @Query("region_id") String regionId);
+    Observable<MainResultSearchResponse> getPreResultSearch(@QueryMap Map<String, Object> queryMap, @Query("keyword") String keyword, @Query("region_id") String regionId);
 
+    @GET
+    Observable<MainResultSearchResponse> getPreResultSearch(@Url String url);
+
+
+    @POST(WSConfig.Api.CONFIRM_ENTER_SYSTEM_TRIP)
+    Observable<ConfirmEnterTrip> confirmEnterTrip(@Body RequestBody jsonBodyObject);
 
 
     //////////////////////////////////////////////
@@ -566,6 +585,71 @@ public interface TravelService {
     @GET(WSConfig.Api.USER_GUILD)
     Observable<GetUserGuildResponse> getUserGuild();
 
+    @GET(WSConfig.Api.USER_GUILD)
+    Observable<HelloMessageResponse> helloMessage();
+
     @POST(WSConfig.Api.USER_GUILD)
     Observable<PostUserGuildResponse> postUserGuild(@QueryMap Map<String, Object> queryMap);
+
+    @POST(WSConfig.Api.LIKE)
+    Completable likeEvent(@Body RequestBody body);
+
+    @POST(WSConfig.Api.WHEEL_ROTATE)
+    Observable<WheelRotateResponse> wheelRotate(@Body RequestBody body);
+
+    @POST(WSConfig.Api.WHEEL_RESULT)
+    Observable<WheelResultResponse> wheelResult(@Body RequestBody body);
+
+    @POST(WSConfig.Api.WHEEL_AREAS)
+    Observable<WheelAreasResponse> wheelAreas(@Body RequestBody body);
+
+    @GET(WSConfig.Api.WHEEL_CHARTS)
+    Observable<WheelChartResponse> getWheelChartResponse();
+
+    @GET
+    Observable<VideoDetailResponse> viewVideo(@Url String url);
+
+    @POST(WSConfig.Api.USER_REVIEW)
+    Observable<BaseResponse> reviewChat(@Body RequestBody body);
+
+    @POST(WSConfig.Api.USER_REVIEW_SYS)
+    Completable yesNoReview(@Body RequestBody body);
+
+
+    @POST(WSConfig.Api.USER_SUPPORTER)
+    Observable<OperatorInformationResponse> getOperatorInformation(@Body RequestBody body);
+
+    @POST(WSConfig.Api.USER_TICKET)
+    Observable<ListTicketResponse> getListTicket(@Body RequestBody body, @QueryMap Map<String, Object> queryMap);
+
+    @POST(WSConfig.Api.USER_TICKET_HISTORY)
+    Observable<ListTicketHistoryResponse> getTicketHistory(@Body RequestBody body);
+
+    @POST(WSConfig.Api.USER_TICKET_UPDATE)
+    Observable<BaseResponse> updateTicket(@Body RequestBody body);
+
+    @POST(WSConfig.Api.USER_TICKET)
+    Observable<ProcessTicketResponse> submitProcessTicket(@Body RequestBody body);
+
+    @POST(WSConfig.Api.USER_CREATE_ROOM)
+    Observable<CallRoomResponse> createRoomAndGetRoomId(@Body RequestBody body);
+
+    @POST(WSConfig.Api.SHARE)
+    Observable<BaseResponse> share(@Body RequestBody body);
+
+    @GET(WSConfig.Api.GET_HELLO_LOCATION)
+    Observable<ConfigPopupResponse> getConfigPopup(@QueryMap Map<String, Object> queryMap);
+
+    @POST(WSConfig.Api.GET_LIST_THEME)
+    Observable<GetListThemeResponse> getListTheme(@Body RequestBody body);
+
+    @POST(WSConfig.Api.UPDATE_THEME)
+    Completable updateTheme(@Body RequestBody body);
+
+    @POST(WSConfig.Api.GET_USER_THEME)
+    Observable<GetUserThemeResponse> getUserTheme(@Body RequestBody body);
+
+    @POST(WSConfig.Api.TICKET_INFO)
+    Observable<TicketInfo> ticketInfo(@Body RequestBody body);
+
 }

@@ -1,8 +1,9 @@
 package com.namviet.vtvtravel.adapter.comment;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import android.os.Handler;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.app.MyApplication;
+import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.ultils.DateUtltils;
+import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 
 import java.util.List;
 
@@ -66,7 +72,6 @@ public class SubCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgAvatar;
         private TextView tvName;
@@ -76,6 +81,7 @@ public class SubCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         private TextView tvCountLike;
         private TextView tvReply;
         private RecyclerView rclChildComment;
+        private LikeButton imgHeart;
         private int position;
 
         public HeaderViewHolder(View itemView) {
@@ -88,6 +94,7 @@ public class SubCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             tvCountLike = itemView.findViewById(R.id.tvCountLike);
             tvReply = itemView.findViewById(R.id.tvReply);
             rclChildComment = itemView.findViewById(R.id.rclChildComment);
+            imgHeart = itemView.findViewById(R.id.imgHeart);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -111,36 +118,87 @@ public class SubCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             });
 
+            imgHeart.setOnLikeListener(new OnLikeListener() {
+                @Override
+                public void liked(LikeButton likeButton) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            clickHeart();
+                        }
+                    }, 100);
+                }
+
+                @Override
+                public void unLiked(LikeButton likeButton) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            clickHeart();
+                        }
+                    }, 100);
+                }
+            });
+
+//            imgHeart.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    try {
+//                        Account account = MyApplication.getInstance().getAccount();
+//                        if (null != account && account.isLogin()) {
+//                            clickItem.likeEvent(position);
+//                        } else {
+//                            LoginAndRegisterActivityNew.startScreen(context, 0, false);
+//                        }
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
+
+        }
+
+        private void clickHeart(){
+            try {
+                Account account = MyApplication.getInstance().getAccount();
+                if (null != account && account.isLogin()) {
+                    clickItem.likeEvent(position);
+                } else {
+                    LoginAndRegisterActivityNew.startScreen(context, 0, false);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         public void bindItem(int position) {
-            this.position = position;
-            tvName.setText(comments.get(position).getUser().getFullname());
-            tvComment.setText(comments.get(position).getContent());
-            Glide.with(context).load(comments.get(position).getUser().getImageProfile()).apply(new RequestOptions().circleCrop()).into(imgAvatar);
-            tvTime.setText(DateUtltils.convertTime(comments.get(position).getCreated()));
-//            SubCommentAdapter commentAdapter = new SubCommentAdapter(comments.get(position).getChildren(), context, new ClickItem() {
-//
-//                @Override
-//                public void onClickItem(CommentResponse.Data.Comment comment) {
-//
-//                }
-//
-//                @Override
-//                public void onLongClickItem(CommentResponse.Data.Comment comment) {
-//
-//                }
-//            });
-//            rclChildComment.setAdapter(commentAdapter);
+            try {
+                this.position = position;
+                tvName.setText(comments.get(position).getUser().getFullname());
+                tvComment.setText(comments.get(position).getContent());
+                Glide.with(context).load(comments.get(position).getUser().getImageProfile()).apply(new RequestOptions().circleCrop()).into(imgAvatar);
+                tvTime.setText(DateUtltils.convertTime(comments.get(position).getCreated()));
+                tvCountLike.setText(comments.get(position).getLikeCount());
+                if (comments.get(position).isLiked()) {
+//                    imgHeart.setImageResource(R.drawable.f2_ic_red_heart);
+                    imgHeart.setLiked(true);
+                } else {
+//                    imgHeart.setImageResource(R.drawable.f2_ic_gray_heart);
+                    imgHeart.setLiked(false);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
-
     public interface ClickItem {
         void onClickItem(CommentResponse.Data.Comment comment);
+
         void onLongClickItem(CommentResponse.Data.Comment comment);
+
         void onClickReply(CommentResponse.Data.Comment comment);
+
+        void likeEvent(int i);
     }
-
-
 }

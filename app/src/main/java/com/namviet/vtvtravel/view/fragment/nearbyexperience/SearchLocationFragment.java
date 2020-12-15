@@ -134,9 +134,9 @@ public class SearchLocationFragment extends BaseFragment<F2FragmentSearchLocatio
                 .debounce(450, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(textViewAfterTextChangeEvent -> {
-                    if(getBinding().edtLocation.getText().toString().isEmpty()){
-                        getBinding().rclLocation.setVisibility(View.GONE);
-                    }else {
+//                    if(getBinding().edtLocation.getText().toString().isEmpty()){
+//                        getBinding().rclLocation.setVisibility(View.GONE);
+//                    }else {
                         getBinding().rclLocation.setVisibility(View.VISIBLE);
                         locations.clear();
                         for (int i = 0; i < locationsMain.size(); i++) {
@@ -145,12 +145,18 @@ public class SearchLocationFragment extends BaseFragment<F2FragmentSearchLocatio
                             }
                         }
                         searchAllLocationAdapter.notifyDataSetChanged();
-                    }
+//                    }
 
                 });
     }
 
     public interface DoneSearch{
         void onDoneSearch(Location location);
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen("SearchLocation", "Tìm kiếm địa điểm");
     }
 }

@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+     android:color="@color/f2_color_package_press">
 
-    <corners
+    <item android:id="@android:id/background">
+        <shape>
+            <corners
+                android:bottomLeftRadius="9dp"
+                android:bottomRightRadius="9dp"
+                android:topLeftRadius="9dp"
+                android:topRightRadius="9dp" />
 
-        android:bottomLeftRadius="9dp"
-        android:bottomRightRadius="9dp"
-        android:topLeftRadius="9dp"
-        android:topRightRadius="9dp" />
-
-    <stroke
-        android:width="1dp"
-        android:color="@color/f2_color_package" />
-
-
-    <solid android:color="@color/f2_color_package" />
+            <stroke
+                android:width="1dp"
+                android:color="@color/f2_color_package" />
 
 
-</shape>
+            <solid android:color="@color/f2_color_package" />
+        </shape>
+    </item>
+
+
+</ripple>

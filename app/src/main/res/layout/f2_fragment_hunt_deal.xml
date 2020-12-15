@@ -13,7 +13,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -26,14 +26,14 @@
                     app:layout_constraintDimensionRatio="375:176"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:minHeight="600dp"
                 android:id="@+id/recycler_hunt_deal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </LinearLayout>
     </ScrollView>

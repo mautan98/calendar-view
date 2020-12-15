@@ -57,6 +57,8 @@ public class Tracking {
     private String scroll_depth_threshold;
     private String scroll_depth_units;
     private String scroll_direction;
+    private String category_tree_code;
+    private String category_tree_name;
 
     public static Tracking Builder() {
         return new Tracking();
@@ -297,6 +299,16 @@ public class Tracking {
         return this;
     }
 
+    public Tracking setCategory_tree_code(String category_tree_code) {
+        this.category_tree_code = category_tree_code;
+        return this;
+    }
+
+    public Tracking setCategory_tree_name(String category_tree_name) {
+        this.category_tree_name = category_tree_name;
+        return this;
+    }
+
     public Tracking build() {
         Tracking tracking = new Tracking();
         tracking.platform = this.platform;
@@ -346,6 +358,8 @@ public class Tracking {
         tracking.screen_title = this.screen_title;
         tracking.client_ip = this.client_ip;
         tracking.user_agent = this.user_agent;
+        tracking.category_tree_code = this.category_tree_code;
+        tracking.category_tree_name = this.category_tree_name;
         return tracking;
     }
 

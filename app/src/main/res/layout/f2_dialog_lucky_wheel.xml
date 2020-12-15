@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data></data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="1dp"
+            app:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:src="@drawable/f2_img_banner_pop_up_lucky_wheel"
+                        app:layout_constraintDimensionRatio="321:155"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+                    <ImageView
+                        android:id="@+id/imgVip"
+                        android:src="@drawable/f2_img_vip_card"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="67dp"
+                        android:layout_height="67dp"/>
+
+
+                    <ImageView
+                        android:id="@+id/imgSad"
+                        android:src="@drawable/f2_ic_sad_lucky_wheel"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="67dp"
+                        android:layout_height="67dp"/>
+
+
+
+                    <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/imgAddTurn"
+                        android:src="@drawable/f2_ic_add_turn_luccky_wheel"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="71dp"
+                        android:layout_height="71dp"/>
+
+
+
+                    <ImageView
+                        android:visibility="visible"
+                        android:id="@+id/imgNotEnoughTurn"
+                        android:src="@drawable/f2_ic_not_enought_turn"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="67dp"
+                        android:layout_height="67dp"/>
+
+
+
+                    <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/imgBestWish"
+                        android:src="@drawable/f2_ic_best_wish_text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="199dp"
+                        android:layout_height="35dp"/>
+
+
+
+
+
+
+
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:paddingBottom="41dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layoutImage"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_marginBottom="41dp"
+                        android:id="@+id/tvMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="48dp"
+                        android:layout_marginEnd="30dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:gravity="center"
+                        android:text="Bạn chỉ được chọn tối đa 3 Voucher"
+                        android:textColor="#707070"
+                        android:textSize="20dp"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <ImageView
+                        android:id="@+id/btnConfirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="27dp"
+                        android:layout_marginTop="71dp"
+                        android:layout_marginEnd="27dp"
+                        android:src="@drawable/f2_ic_btn_confirm"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="278:48"
+                        app:layout_constraintTop_toBottomOf="@id/tvMessage" />
+
+
+                    <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/btnRegVip"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="27dp"
+                        android:layout_marginTop="71dp"
+                        android:layout_marginEnd="27dp"
+                        android:layout_marginBottom="41dp"
+                        android:src="@drawable/f2_ic_btn_reg_vip"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="278:48"
+                        app:layout_constraintTop_toBottomOf="@id/tvMessage" />
+
+
+                    <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/btnReceiverNow"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="27dp"
+                        android:layout_marginTop="71dp"
+                        android:layout_marginEnd="27dp"
+                        android:layout_marginBottom="41dp"
+                        android:src="@drawable/f2_ic_btn_receive_now"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="278:48"
+                        app:layout_constraintTop_toBottomOf="@id/tvMessage" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <ImageView
+            android:id="@+id/btnClose"
+            android:layout_marginTop="27dp"
+            android:src="@drawable/f2_btn_close_popup_lucky_wheel"
+            android:layout_width="37dp"
+            android:layout_height="37dp"/>
+
+    </LinearLayout>
+
+
+</layout>

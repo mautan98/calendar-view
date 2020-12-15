@@ -149,7 +149,7 @@
                                 android:layout_marginStart="11dp"
                                 android:layout_marginTop="7dp"
                                 android:fontFamily="@font/roboto_regular"
-                                android:text="Hạng hội viên"
+                                android:text="Hạng Hội viên"
                                 android:textColor="#A4A4A4"
                                 android:textSize="14dp" />
 
@@ -281,11 +281,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rclContent"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layoutManager="android.support.v7.widget.GridLayoutManager"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="2" />
 
 

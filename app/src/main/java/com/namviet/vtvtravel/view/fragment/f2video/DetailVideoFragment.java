@@ -2,33 +2,51 @@ package com.namviet.vtvtravel.view.fragment.f2video;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.os.Handler;
+import androidx.annotation.Nullable;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.longtailvideo.jwplayer.configuration.PlayerConfig;
 import com.longtailvideo.jwplayer.events.FullscreenEvent;
 import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
 import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.api.WSConfig;
+import com.namviet.vtvtravel.app.MyApplication;
+import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2FragmentDetailVideoBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.Video;
 import com.namviet.vtvtravel.model.f2event.OnUpdateCommentCount;
+import com.namviet.vtvtravel.response.f2video.VideoDetailResponse;
 import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.ultils.ViewMoreUtils;
 import com.namviet.vtvtravel.view.f2.CommentActivity;
+import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.view.f2.ShareActivity;
+import com.namviet.vtvtravel.view.fragment.share.ShareBottomDialog;
+import com.namviet.vtvtravel.viewmodel.f2video.DetailVideoViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBinding> implements VideoPlayerEvents.OnFullscreenListener {
+public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBinding> implements VideoPlayerEvents.OnFullscreenListener, Observer {
     private Video video;
+    private DetailVideoViewModel viewModel;
+
+    private String detailLink;
 
     public DetailVideoFragment() {
     }
@@ -37,8 +55,8 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
         return video;
     }
 
-    public void setVideo(Video video) {
-        this.video = video;
+    public void setVideo(String detailLink ) {
+        this.detailLink = detailLink;
     }
 
     @Override
@@ -49,36 +67,165 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
     @Override
     public void initView() {
         try {
-            Glide.with(mActivity).load(video.getLogo_url()).into(getBinding().imgBanner);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            getBinding().tvTitle.setText(video.getName());
-            try {
-                getBinding().tvType.setText(video.getCategory().getName());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            getBinding().tvNumberOfComment.setText(video.getComment_count());
-            getBinding().tvDescription.setText(video.getShort_description());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        initJWPlayer("");
-        try {
-            if (video.getShort_description().length() > 72) {
-                ViewMoreUtils.makeTextViewResizable(getBinding().tvDescription, 2, "Xem thêm", true, "#FFFFFF");
-            }
+            viewModel = new DetailVideoViewModel();
+            viewModel.addObserver(this);
+            viewModel.viewVideo(detailLink);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+//        try {
+//            Glide.with(mActivity).load(video.getLogo_url()).into(getBinding().imgBanner);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        try {
+//            getBinding().tvTitle.setText(video.getName());
+//            try {
+//                getBinding().tvType.setText(video.getCategory().getName());
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            getBinding().tvNumberOfComment.setText(video.getComment_count());
+//            getBinding().tvDescription.setText(video.getShort_description());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        initJWPlayer("");
+//        try {
+//            if (video.getShort_description().length() > 72) {
+//                ViewMoreUtils.makeTextViewResizable(getBinding().tvDescription, 2, "Xem thêm", true, "#FFFFFF");
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+        updateLikeEvent();
+
+        getBinding().imgHeart.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        clickHeart();
+                    }
+                }, 100);
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        clickHeart();
+                    }
+                }, 100);
+            }
+        });
+
+//        getBinding().imgHeart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                try {
+//                    Account account = MyApplication.getInstance().getAccount();
+//                    if (null != account && account.isLogin()) {
+//                        viewModel.likeEvent(video.getId(), video.getContent_type());
+//                        try {
+//                            TrackingAnalytic.postEvent(TrackingAnalytic.LIKE, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.VIDEO_DETAIL, TrackingAnalytic.ScreenTitle.VIDEO_DETAIL)
+//                                    .setContent_type(video.getContent_type())
+//                                    .setContent_id(video.getId())
+//                                    .setScreen_class(this.getClass().getName()));
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                        if (video.isLiked()) {
+//                            video.setLiked(false);
+//                            if (null != video.getLikeCount()) {
+//                                String likeCount = (Integer.parseInt(video.getLikeCount()) + 1) + "";
+//                                video.setLikeCount(likeCount);
+//                            }
+//                        } else {
+//                            video.setLiked(true);
+//                            if (null != video.getLikeCount()) {
+//                                String likeCount = (Integer.parseInt(video.getLikeCount()) - 1) + "";
+//                                video.setLikeCount(likeCount);
+//                            }
+//                        }
+//                        updateLikeEvent();
+//                    } else {
+//                        LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+
+    }
+
+    private void clickHeart(){
+        try {
+            Account account = MyApplication.getInstance().getAccount();
+            if (null != account && account.isLogin()) {
+                viewModel.likeEvent(video.getId(), video.getContent_type());
+                try {
+                    TrackingAnalytic.postEvent(TrackingAnalytic.LIKE, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.VIDEO_DETAIL, TrackingAnalytic.ScreenTitle.VIDEO_DETAIL)
+                            .setContent_type(video.getContent_type())
+                            .setContent_id(video.getId())
+                            .setScreen_class(this.getClass().getName()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if (video.isLiked()) {
+                    video.setLiked(false);
+                    if (null != video.getLikeCount()) {
+                        String likeCount = (Integer.parseInt(video.getLikeCount()) + 1) + "";
+                        video.setLikeCount(likeCount);
+                    }
+                } else {
+                    video.setLiked(true);
+                    if (null != video.getLikeCount()) {
+                        String likeCount = (Integer.parseInt(video.getLikeCount()) - 1) + "";
+                        video.setLikeCount(likeCount);
+                    }
+                }
+                updateLikeEvent();
+            } else {
+                LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateLikeEvent() {
+        try {
+            if (video.isLiked()) {
+//                getBinding().imgHeart.setImageResource(R.drawable.f2_ic_heart);
+                getBinding().imgHeart.setLiked(true);
+            } else {
+//                getBinding().imgHeart.setImageResource(R.drawable.f2_ic_white_heart);
+                getBinding().imgHeart.setLiked(false);
+            }
+            getBinding().tvCountLike.setText(video.getLikeCount());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void initData() {
-
+        try {
+            TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_VIEW, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.VIDEO_DETAIL, TrackingAnalytic.ScreenTitle.VIDEO_DETAIL)
+                    .setScreen_class(this.getClass().getName())
+                    .setContent_id(video.getId())
+                    .setCategory_tree_code(video.getCategory_tree_code())
+                    .setCategory_tree_name(video.getCategory_tree_name())
+                    .setContent_type("videos"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -99,13 +246,31 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
             @Override
             public void onClick(View view) {
                 try {
-                    F2Util.startSenDataText(mActivity, video.getStreaming_url());
+
+                    ShareBottomDialog shareBottomDialog = new ShareBottomDialog(new ShareBottomDialog.DoneClickShare() {
+                        @Override
+                        public void onDoneClickShare(boolean isVTVApp) {
+                            if (isVTVApp) {
+                                ShareActivity.startScreen(mActivity, video.getName(), video.getDetail_link(), video.getLogo_url(), "videos");
+                            } else {
+//                                String linkShare = WSConfig.HOST_LANDING+F2Util.genEndPointShareLink(Constants.ShareLinkType.VIDEO, detailLink);
+//                                F2Util.startSenDataText(mActivity, linkShare);
+                                F2Util.startSenDataText(mActivity, video.getLink_share());
+
+                            }
+                        }
+                    });
+
+                    shareBottomDialog.show(mActivity.getSupportFragmentManager(), null);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
                 try {
-                    TrackingAnalytic.postEvent(TrackingAnalytic.SHARE, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                    TrackingAnalytic.postEvent(TrackingAnalytic.SHARE, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.VIDEO_DETAIL, TrackingAnalytic.ScreenTitle.VIDEO_DETAIL)
+                            .setContent_id(video.getId())
+                            .setContent_type(video.getContent_type())
+                            .setScreen_class(this.getClass().getName()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -233,6 +398,61 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
     public void onUpdateCommentCountVideo(OnUpdateCommentCount onUpdateCommentCount) {
         try {
             getBinding().tvNumberOfComment.setText(String.valueOf(Integer.parseInt(getBinding().tvNumberOfComment.getText().toString()) + Integer.parseInt(onUpdateCommentCount.getCount())));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.VIDEO_DETAIL, TrackingAnalytic.ScreenTitle.VIDEO_DETAIL);
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+        hideLoading();
+        if (observable instanceof DetailVideoViewModel && null != o) {
+            if (o instanceof VideoDetailResponse) {
+                VideoDetailResponse response = (VideoDetailResponse) o;
+                video = response.getData().get(0);
+                setUpView();
+
+            } else if (o instanceof ErrorResponse) {
+                ErrorResponse responseError = (ErrorResponse) o;
+                try {
+
+                } catch (Exception e) {
+
+                }
+            }
+
+        }
+    }
+
+    private void setUpView(){
+        try {
+            Glide.with(mActivity).load(video.getLogo_url()).into(getBinding().imgBanner);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            getBinding().tvTitle.setText(video.getName());
+            try {
+                getBinding().tvType.setText(video.getCategory().getName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            getBinding().tvNumberOfComment.setText(video.getComment_count());
+            getBinding().tvDescription.setText(video.getShort_description());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        initJWPlayer("");
+        try {
+            if (video.getShort_description().length() > 72) {
+                ViewMoreUtils.makeTextViewResizable(getBinding().tvDescription, 2, "Xem thêm", true, "#FFFFFF");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +21,8 @@ import com.namviet.vtvtravel.response.f2menu.MenuItem;
 import com.namviet.vtvtravel.view.f2.ChatActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.MyGiftActivity;
-import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChildrenMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

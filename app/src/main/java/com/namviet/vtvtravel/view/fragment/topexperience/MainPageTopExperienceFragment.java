@@ -1,16 +1,15 @@
 package com.namviet.vtvtravel.view.fragment.topexperience;
 
 import android.annotation.SuppressLint;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.view.View;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2offline.MainAdapter;
 import com.namviet.vtvtravel.databinding.F2FragmentTopExperienceBinding;
-import com.namviet.vtvtravel.databinding.F2FragmentTravelNewsBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
-import com.namviet.vtvtravel.response.newhome.ItemAppExperienceResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,5 +84,11 @@ public class MainPageTopExperienceFragment extends BaseFragment<F2FragmentTopExp
 
     @Override
     public void setObserver() {
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.TOP_EXPERIENCE, TrackingAnalytic.ScreenTitle.TOP_EXPERICENCE);
     }
 }

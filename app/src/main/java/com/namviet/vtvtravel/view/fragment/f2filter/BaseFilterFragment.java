@@ -9,6 +9,7 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByCodeResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByPageResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,5 +115,11 @@ public class BaseFilterFragment extends BaseFragment<F2FragmentBaseFilterBinding
 
     public interface FinishBaseFilter{
         public void onFinishBaseFilter(FilterByCodeResponse filterByCodeResponse);
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.BASE_FILTER, TrackingAnalytic.ScreenTitle.BASE_FILTER);
     }
 }

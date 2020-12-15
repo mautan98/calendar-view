@@ -1,8 +1,8 @@
 package com.namviet.vtvtravel.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +11,6 @@ import android.webkit.WebView;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.holder.BaseHolder;
 import com.namviet.vtvtravel.model.Banner;
-import com.namviet.vtvtravel.model.News;
 
 import java.util.List;
 

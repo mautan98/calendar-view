@@ -1,8 +1,8 @@
 package com.namviet.vtvtravel.adapter.f2biglocation;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,23 +14,20 @@ import android.widget.Toast;
 
 import com.brucetoo.videoplayer.utils.Utils;
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2biglocation.sub.FooterBigLocationAdapter;
 import com.namviet.vtvtravel.adapter.f2biglocation.sub.HeaderBigLocation2Adapter;
 import com.namviet.vtvtravel.adapter.f2biglocation.sub.HeaderBigLocationAdapter;
 import com.namviet.vtvtravel.adapter.f2biglocation.sub.TravelTipBigLocationAdapter;
 import com.namviet.vtvtravel.adapter.f2biglocation.sub.VideoBigLocationAdapter;
-import com.namviet.vtvtravel.config.Constants;
-import com.namviet.vtvtravel.model.Video;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.WeatherResponse;
 import com.namviet.vtvtravel.response.f2biglocation.BigLocationResponse;
 import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
-import com.namviet.vtvtravel.view.f2.DetailVideoActivity;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.HighLightSeeMoreVideoActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
+import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
 import java.util.List;
 
@@ -44,6 +41,7 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
     private Context context;
     private ClickItem clickItem;
     private List<GetReviewResponse.Data.Content> reviews;
+    private BaseViewModel viewModel;
 
 
     public class TypeString {
@@ -73,21 +71,21 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
 
     private WeatherResponse weatherResponse;
 
-    public DetailBigLocationAdapter(List<BigLocationResponse.Data.Item> items, BigLocationResponse.Data.Region region, Context context, ClickItem clickItem) {
+    public DetailBigLocationAdapter(List<BigLocationResponse.Data.Item> items, BigLocationResponse.Data.Region region, Context context, ClickItem clickItem, BaseViewModel viewModel) {
         this.context = context;
         this.items = items;
         this.clickItem = clickItem;
         this.region = region;
+        this.viewModel = viewModel;
     }
-
 
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
-            return TYPE_OVERVIEW;
-        } else {
-            switch (items.get(position - 1).getCode()) {
+//        if (position == 0) {
+//            return TYPE_OVERVIEW;
+//        } else {
+            switch (items.get(position).getCode()) {
                 case TypeString.TYPE_APP_PLACE_HIGH_LIGHT:
                 case TypeString.APP_TOP_PLAY:
                     return TYPE_HEADER;
@@ -104,7 +102,7 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
                 case TypeString.TYPE_APP_VIDEO_HIGH_LIGHT:
                     return TYPE_APP_VIDEO_HIGH_LIGHT;
             }
-        }
+//        }
         return TYPE_HEADER;
     }
 
@@ -147,15 +145,15 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
                 ((OverViewViewHolder) holder).bindItem(position);
             }
             if (getItemViewType(position) == TYPE_HEADER) {
-                ((HeaderViewHolder) holder).bindItem(position - 1);
+                ((HeaderViewHolder) holder).bindItem(position);
             } else if (getItemViewType(position) == TYPE_HEADER_2) {
-                ((HeaderViewHolder2) holder).bindItem(position - 1);
+                ((HeaderViewHolder2) holder).bindItem(position);
             } else if (getItemViewType(position) == TYPE_FOOTER) {
-                ((FooterViewHolder) holder).bindItem(position - 1);
+                ((FooterViewHolder) holder).bindItem(position);
             } else if (getItemViewType(position) == TYPE_APP_TRAVEL_TIP) {
-                ((TravelTipViewHolder) holder).bindItem(position - 1);
+                ((TravelTipViewHolder) holder).bindItem(position);
             } else if (getItemViewType(position) == TYPE_APP_VIDEO_HIGH_LIGHT) {
-                ((VideoViewHolder) holder).bindItem(position - 1);
+                ((VideoViewHolder) holder).bindItem(position);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -165,7 +163,7 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public int getItemCount() {
         try {
-            return items.size() + 1;
+            return items.size();
         } catch (Exception e) {
             return 0;
         }
@@ -187,7 +185,40 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
 
         public void bindItem(int position) {
             this.position = position;
-            headerBigLocationAdapter = new HeaderBigLocationAdapter(items.get(position).getItems(), context, null);
+            headerBigLocationAdapter = new HeaderBigLocationAdapter(items.get(position).getItems(), context, new HeaderBigLocationAdapter.ClickItem() {
+                @Override
+                public void onClickItem(Travel travel) {
+
+                }
+
+                @Override
+                public void likeEvent(int i) {
+                    try {
+                        Travel travel = items.get(position).getItems().get(i);
+
+                        viewModel.likeEvent(travel.getId(), travel.getContent_type());
+
+
+                        try {
+                            TrackingAnalytic.postEvent(TrackingAnalytic.LIKE, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.BIG_LOCATION, TrackingAnalytic.ScreenTitle.BIG_LOCATION)
+                                    .setContent_id(travel.getId())
+                                    .setContent_type(travel.getContent_type())
+                                    .setScreen_class(this.getClass().getName()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        if (travel.isLiked()) {
+                            travel.setLiked(false);
+                        } else {
+                            travel.setLiked(true);
+                        }
+                        headerBigLocationAdapter.notifyItemChanged(i);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
             rclContent.setAdapter(headerBigLocationAdapter);
             tvTitle.setText(items.get(position).getName());
         }
@@ -207,7 +238,40 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
 
         public void bindItem(int position) {
             this.position = position;
-            headerBigLocationAdapter = new HeaderBigLocation2Adapter(items.get(position).getItems(), context, null);
+            headerBigLocationAdapter = new HeaderBigLocation2Adapter(items.get(position).getItems(), context, new HeaderBigLocation2Adapter.ClickItem() {
+                @Override
+                public void onClickItem(Travel travel) {
+
+                }
+
+                @Override
+                public void likeEvent(int i) {
+                    try {
+                        Travel travel = items.get(position).getItems().get(i);
+
+                        viewModel.likeEvent(travel.getId(), travel.getContent_type());
+
+
+                        try {
+                            TrackingAnalytic.postEvent(TrackingAnalytic.LIKE, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.BIG_LOCATION, TrackingAnalytic.ScreenTitle.BIG_LOCATION)
+                                    .setContent_id(travel.getId())
+                                    .setContent_type(travel.getContent_type())
+                                    .setScreen_class(this.getClass().getName()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        if (travel.isLiked()) {
+                            travel.setLiked(false);
+                        } else {
+                            travel.setLiked(true);
+                        }
+                        headerBigLocationAdapter.notifyItemChanged(i);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
             rclContent.setAdapter(headerBigLocationAdapter);
             tvTitle.setText(items.get(position).getName());
         }
@@ -231,7 +295,30 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
 
         public void bindItem(int position) {
             this.position = position;
-            headerBigLocationAdapter = new FooterBigLocationAdapter(items.get(position).getItems(), context, items.get(position).getCode_type(), null);
+            headerBigLocationAdapter = new FooterBigLocationAdapter(items.get(position).getItems(), context, items.get(position).getCode_type(), new FooterBigLocationAdapter.ClickItem() {
+                @Override
+                public void onClickItem(Travel travel) {
+
+                }
+
+                @Override
+                public void likeEvent(int i) {
+                    try {
+                        Travel travel = items.get(position).getItems().get(i);
+
+                        viewModel.likeEvent(travel.getId(), travel.getContent_type());
+
+                        if (travel.isLiked()) {
+                            travel.setLiked(false);
+                        } else {
+                            travel.setLiked(true);
+                        }
+                        headerBigLocationAdapter.notifyItemChanged(i);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
             rclContent.setAdapter(headerBigLocationAdapter);
             tvTitle.setText(items.get(position).getName());
 
@@ -239,18 +326,18 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
                 @Override
                 public void onClick(View view) {
                     try {
-                        switch (items.get(position).getCode_type()){
+                        switch (items.get(position).getCode_type()) {
                             case "HOTEL":
-                                SmallLocationActivity.startScreen(context, items.get(position).getLink(), "APP_WHERE_STAY", SmallLocationActivity.OpenType.LIST);
+                                SmallLocationActivity.startScreen(context, items.get(position).getLink(), "APP_WHERE_STAY", SmallLocationActivity.OpenType.LIST, region.getId());
                                 break;
                             case "RESTAURANT":
-                                SmallLocationActivity.startScreen(context, items.get(position).getLink(), "APP_WHAT_EAT", SmallLocationActivity.OpenType.LIST);
+                                SmallLocationActivity.startScreen(context, items.get(position).getLink(), "APP_WHAT_EAT", SmallLocationActivity.OpenType.LIST, region.getId());
                                 break;
                             case "CENTER":
-                                SmallLocationActivity.startScreen(context, items.get(position).getLink(), "APP_WHAT_PLAY", SmallLocationActivity.OpenType.LIST);
+                                SmallLocationActivity.startScreen(context, items.get(position).getLink(), "APP_WHAT_PLAY", SmallLocationActivity.OpenType.LIST, region.getId());
                                 break;
                             case "PLACE":
-                                SmallLocationActivity.startScreen(context, items.get(position).getLink(), "APP_WHERE_GO", SmallLocationActivity.OpenType.LIST);
+                                SmallLocationActivity.startScreen(context, items.get(position).getLink(), "APP_WHERE_GO", SmallLocationActivity.OpenType.LIST, region.getId());
                                 break;
                         }
                     } catch (Exception e) {
@@ -346,7 +433,7 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
 
         public void bindItem(int position) {
             this.position = position;
-            bigLocationTopTabAdapter = new BigLocationTopTabAdapter(region.getItems(), context, null);
+            bigLocationTopTabAdapter = new BigLocationTopTabAdapter(region.getItems(), context, region.getId(), null);
             rclActivity.setAdapter(bigLocationTopTabAdapter);
             Glide.with(context).load(region.getBanner_url()).into(imgAvatar);
             webView.loadDataWithBaseURL("", region.getDescription(), "text/html", "UTF-8", null);

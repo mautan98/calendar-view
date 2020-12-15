@@ -48,11 +48,11 @@
         </com.facebook.shimmer.ShimmerFrameLayout>
 
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rclHome"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
         <LinearLayout
@@ -62,7 +62,7 @@
             android:orientation="vertical"
             android:visibility="visible">
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -108,6 +108,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
+                                android:alpha="0"
                                 android:background="@drawable/f2_bg_round_see_more"
                                 android:fontFamily="@font/roboto_regular"
                                 android:paddingStart="5dp"
@@ -136,12 +137,12 @@
                                 android:textSize="17dp" />
 
                             <TextView
-                                android:drawablePadding="5dp"
-                                android:drawableEnd="@drawable/f2_ic_arrow_right"
                                 android:id="@+id/tvLoginRightNow"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/f2_bg_login_now"
+                                android:drawableEnd="@drawable/f2_ic_arrow_right"
+                                android:drawablePadding="5dp"
                                 android:fontFamily="@font/roboto_regular"
                                 android:paddingStart="5dp"
                                 android:paddingEnd="5dp"
@@ -168,40 +169,40 @@
 
 
                     <RelativeLayout
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
                         android:id="@+id/ivNotify"
                         android:layout_width="50dp"
-                        android:layout_height="45dp">
+                        android:layout_height="45dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true">
 
                         <ImageView
                             android:id="@+id/imgBell"
-                            android:layout_centerInParent="true"
                             android:layout_width="19dp"
                             android:layout_height="24dp"
+                            android:layout_centerInParent="true"
                             android:src="@drawable/ic_bell"
                             android:tint="@color/white" />
 
 
                         <TextView
-                            android:gravity="center"
-                            android:textColor="@color/white"
-                            android:background="@drawable/f2_bg_count_system_inbox"
-                            android:layout_marginEnd="10dp"
-                            android:layout_alignParentEnd="true"
-                            android:textSize="9dp"
-                            android:layout_marginTop="5dp"
-                            android:text="0"
                             android:id="@+id/tvCountNoti"
                             android:layout_width="15dp"
-                            android:layout_height="15dp"/>
+                            android:layout_height="15dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/f2_bg_count_system_inbox"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="@color/white"
+                            android:textSize="9dp" />
 
                     </RelativeLayout>
                 </RelativeLayout>
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/layoutToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -212,14 +213,14 @@
                 app:cardCornerRadius="9dp"
                 app:cardElevation="2dp">
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycleContent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="horizontal"
-                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
-            </android.support.v7.widget.CardView>
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 

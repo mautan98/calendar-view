@@ -2,13 +2,15 @@ package com.namviet.vtvtravel.view.f2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2ActivityDealWebviewBinding;
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
-import com.namviet.vtvtravel.view.fragment.f2webview.DetailDealWebviewFragment;
+import com.namviet.vtvtravel.view.fragment.f2webview.OldVQMMWebviewFragment;
 import com.namviet.vtvtravel.view.fragment.f2webview.VQMMWebviewFragment;
 
 public class VQMMWebviewActivity extends BaseActivityNew<F2ActivityDealWebviewBinding> {
@@ -47,7 +49,9 @@ public class VQMMWebviewActivity extends BaseActivityNew<F2ActivityDealWebviewBi
 
     @Override
     public BaseFragment initFragment() {
-        VQMMWebviewFragment vqmmWebviewFragment = new VQMMWebviewFragment(voucherId);
+//        OldVQMMWebviewFragment vqmmWebviewFragment = new OldVQMMWebviewFragment(voucherId);
+//        VQMMWebviewFragment vqmmWebviewFragment = new VQMMWebviewFragment(voucherId);
+        VQMMWebviewFragment vqmmWebviewFragment = new VQMMWebviewFragment();
         return vqmmWebviewFragment;
     }
 
@@ -55,5 +59,12 @@ public class VQMMWebviewActivity extends BaseActivityNew<F2ActivityDealWebviewBi
         Intent intent = new Intent(activity, VQMMWebviewActivity.class);
         intent.putExtra(Constants.IntentKey.DATA, voucherId);
         activity.startActivity(intent);
+    }
+
+    @Override
+    public void afterSetContentView() {
+        super.afterSetContentView();
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 }

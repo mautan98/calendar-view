@@ -9,14 +9,14 @@
             type="com.namviet.vtvtravel.viewmodel.PlaceViewModel" />
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg_moment"
         android:clickable="true"
         android:fitsSystemWindows="true">
 
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
             android:fitsSystemWindows="true"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <android.support.design.widget.CollapsingToolbarLayout
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_450sdp"
@@ -107,7 +107,7 @@
                         android:textSize="@dimen/_13sdp"
                         app:typeface="roboto_bold" />
 
-                    <android.support.v4.view.ViewPager
+                    <androidx.viewpager.widget.ViewPager
                         android:id="@+id/vpSlideShow"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -117,7 +117,7 @@
                         android:paddingEnd="@dimen/_30sdp" />
                 </RelativeLayout>
 
-                <android.support.v7.widget.Toolbar
+                <androidx.appcompat.widget.Toolbar
                     android:id="@+id/myToolbar"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_41sdp"
@@ -173,11 +173,11 @@
                                 app:typeface="roboto_regular" />
                         </RelativeLayout>
                     </RelativeLayout>
-                </android.support.v7.widget.Toolbar>
-            </android.support.design.widget.CollapsingToolbarLayout>
-        </android.support.design.widget.AppBarLayout>
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-        <android.support.v4.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -187,7 +187,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvYourMoment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -230,7 +230,7 @@
                         android:layout_marginBottom="@dimen/_4sdp"
                         android:background="@color/white" />
 
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvVideo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -249,7 +249,7 @@
                         app:selectedDotRadius="4dp" />
                 </LinearLayout>
             </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

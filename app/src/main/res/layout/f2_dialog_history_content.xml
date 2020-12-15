@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data></data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/viewOutside"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="26dp"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/f2_bg_white_corner_15"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tvCallInApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/roboto_regular"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:text="NỘI DUNG THAY ĐỔI"
+                android:textColor="@color/text_black_disable_gray"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/tvContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/roboto_regular"
+                android:maxLines="8"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="16dp"
+                android:scrollbars="vertical"
+                android:textColor="@color/text_black_disable_gray"
+                android:textSize="16dp"
+                tools:text="@tools:sample/lorem/random" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/color_border" />
+
+            <FrameLayout
+                android:id="@+id/btnClose"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_ripple_trans_rect">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Đóng"
+                    android:textColor="@color/f2_color_main"
+                    android:textSize="18dp" />
+
+            </FrameLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

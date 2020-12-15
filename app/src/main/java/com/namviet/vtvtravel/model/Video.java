@@ -27,6 +27,34 @@ public class Video implements Parcelable {
     private List<Ads> ads_vasts;
     private String comment_count;
     private String link_share;
+    private boolean isLiked;
+    private String likeCount;
+    private String category_tree_code;
+    private String category_tree_name;
+
+    public String getCategory_tree_code() {
+        return category_tree_code;
+    }
+
+    public String getCategory_tree_name() {
+        return category_tree_name;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
+    }
+
+    public String getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(String likeCount) {
+        this.likeCount = likeCount;
+    }
 
     public Video() {
     }
@@ -54,6 +82,8 @@ public class Video implements Parcelable {
         ads_vasts = in.createTypedArrayList(Ads.CREATOR);
         comment_count = in.readString();
         link_share = in.readString();
+        category_tree_code = in.readString();
+        category_tree_name = in.readString();
     }
 
     @Override
@@ -74,6 +104,8 @@ public class Video implements Parcelable {
         dest.writeTypedList(ads_vasts);
         dest.writeString(comment_count);
         dest.writeString(link_share);
+        dest.writeString(category_tree_code);
+        dest.writeString(category_tree_name);
     }
 
     @Override

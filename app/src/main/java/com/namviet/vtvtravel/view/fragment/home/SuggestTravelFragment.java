@@ -1,9 +1,9 @@
 package com.namviet.vtvtravel.view.fragment.home;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +16,6 @@ import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.FragmentSuggestTravelBinding;
 import com.namviet.vtvtravel.model.Account;
-import com.namviet.vtvtravel.model.HelloLocation;
-import com.namviet.vtvtravel.response.PlaceResponse;
 import com.namviet.vtvtravel.response.SuggestTravelResponse;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.viewmodel.PlaceViewModel;

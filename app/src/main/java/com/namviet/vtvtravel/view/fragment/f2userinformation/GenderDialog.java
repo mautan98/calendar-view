@@ -1,37 +1,22 @@
 package com.namviet.vtvtravel.view.fragment.f2userinformation;
 
 import android.annotation.SuppressLint;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.app.MyApplication;
-import com.namviet.vtvtravel.databinding.F2FragmentInviteBinding;
 import com.namviet.vtvtravel.databinding.F2LayoutBottomSheetGenderBinding;
-import com.namviet.vtvtravel.model.Account;
-import com.namviet.vtvtravel.model.f2.ClassForInvitedUser;
-import com.namviet.vtvtravel.response.BaseResponse;
-import com.namviet.vtvtravel.response.ResponseError;
-import com.namviet.vtvtravel.ultils.F2Util;
-import com.namviet.vtvtravel.ultils.ValidateUtils;
-import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.fragment.f2offline.BaseDialogBottom;
-import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonDialog;
-import com.namviet.vtvtravel.viewmodel.f2callnow.InviteDialogViewModel;
 
 import java.util.Objects;
-import java.util.Observable;
-import java.util.Observer;
 
 public class GenderDialog extends BaseDialogBottom implements View.OnClickListener {
     private F2LayoutBottomSheetGenderBinding binding;

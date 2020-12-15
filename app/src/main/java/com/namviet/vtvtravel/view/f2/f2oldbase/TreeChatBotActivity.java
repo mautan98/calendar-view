@@ -12,7 +12,6 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.view.MainActivity;
-import com.namviet.vtvtravel.view.fragment.account.SettingFragment;
 import com.namviet.vtvtravel.view.fragment.travel.DetailWhatEatFragment;
 import com.namviet.vtvtravel.view.fragment.travel.DetailWhereFragment;
 import com.namviet.vtvtravel.view.fragment.travel.DetailWhereStayFragment;

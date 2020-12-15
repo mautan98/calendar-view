@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="reviewChatViewModel"
+            type="com.namviet.vtvtravel.viewmodel.f2chat.ReviewChatViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#00918D"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_width="20dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="10dp"
+                android:padding="5dp"
+                android:src="@drawable/video_top_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Khảo sát mức độ hài lòng"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/imgClose"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="11dp"
+                android:padding="5dp"
+                android:src="@drawable/f2_ic_close" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_marginBottom="34dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="1. Cảm ơn Quý khách đã tin dung sản phẩm, dịch vụ của VTVTravel. Quý khách vui lòng đánh giá chất lượng phục vụ của nhân viên. VTV Travel theo thang điểm từ 1-10"
+                    android:textColor="#4A4A4A"
+                    android:textSize="16dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rclStar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:scrollbars="none"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="5" />
+
+                <LinearLayout
+                    android:layout_marginBottom="15dp"
+                    android:visibility="gone"
+                    android:id="@+id/layoutCheckbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="2. Nguyên nhân Quý khách chưa hài lòng"
+                        android:textColor="#4A4A4A"
+                        android:textSize="16dp" />
+
+
+                    <CheckBox
+                        android:id="@+id/cb1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:button="@drawable/f2_checkbox_review_chat"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingStart="16dp"
+                        android:text="Thời gian phản hồi chậm"
+                        android:textColor="#000000"
+                        android:textSize="14sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:button="@drawable/f2_checkbox_review_chat"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingStart="16dp"
+                        android:text="Thông tin tư vấn không đầy đủ, không rõ ràng"
+                        android:textColor="#000000"
+                        android:textSize="14sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:button="@drawable/f2_checkbox_review_chat"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingStart="16dp"
+                        android:text="Thái độ nhân viên tư vấn không tốt"
+                        android:textColor="#000000"
+                        android:textSize="14sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:button="@drawable/f2_checkbox_review_chat"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingStart="16dp"
+                        android:text="Nguyên nhân khác"
+                        android:textColor="#000000"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="3. Quý khách có đóng góp gì cho VTVTravel để cải tiến chất lượng phục vụ và chất lượng sản phẩm dịch vụ?"
+                    android:textColor="#4A4A4A"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/tvNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/f2_bg_textview_review_chat"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="start"
+                    android:hint="App rất tốt"
+                    android:lines="5"
+                    android:paddingStart="8dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvSend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="50dp"
+                    android:background="@drawable/f2_bg_button_chat_send"
+                    android:fontFamily="@font/roboto_medium"
+                    android:foreground="@drawable/ripple_effect_click"
+                    android:gravity="center"
+                    android:paddingTop="13dp"
+                    android:paddingBottom="12dp"
+                    android:text="Gửi đánh giá"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

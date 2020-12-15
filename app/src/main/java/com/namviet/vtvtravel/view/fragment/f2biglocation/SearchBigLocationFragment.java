@@ -1,12 +1,10 @@
 package com.namviet.vtvtravel.view.fragment.f2biglocation;
 
 import android.annotation.SuppressLint;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.view.View;
-import android.widget.EditText;
 
 import com.baseapp.utils.KeyboardUtils;
-import com.bumptech.glide.Glide;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2biglocation.SearchAllLocationAdapter;
@@ -15,7 +13,6 @@ import com.namviet.vtvtravel.databinding.F2FragmentSearchBigLocationBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.travelnews.Location;
-import com.namviet.vtvtravel.response.WeatherResponse;
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.LocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.TopLocationResponse;
@@ -184,5 +181,11 @@ public class SearchBigLocationFragment extends BaseFragment<F2FragmentSearchBigL
                     }
 
                 });
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.SEARCH_BIG_LOCATION, TrackingAnalytic.ScreenTitle.SEARCH_BIG_LOCATION);
     }
 }

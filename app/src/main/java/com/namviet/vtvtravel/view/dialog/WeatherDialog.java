@@ -1,30 +1,24 @@
 package com.namviet.vtvtravel.view.dialog;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.text.Editable;
-import android.text.TextWatcher;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.adapter.CityAdapter;
 import com.namviet.vtvtravel.adapter.WeatherAdapter;
 import com.namviet.vtvtravel.config.Constants;
-import com.namviet.vtvtravel.databinding.DialogCityBinding;
 import com.namviet.vtvtravel.databinding.DialogWeatherBinding;
 import com.namviet.vtvtravel.listener.CitySelectListener;
-import com.namviet.vtvtravel.model.City;
 import com.namviet.vtvtravel.model.ItemWeather;
-import com.namviet.vtvtravel.model.Weather;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class WeatherDialog extends BaseDialogFragment {
     private DialogWeatherBinding binding;

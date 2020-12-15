@@ -1,23 +1,21 @@
 package com.namviet.vtvtravel.view.fragment.f2menu;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
+
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2menu.MenuAdapter;
 import com.namviet.vtvtravel.adapter.f2menu.SubMenuAdapter;
-import com.namviet.vtvtravel.adapter.newhome.NewHomeAdapter;
-import com.namviet.vtvtravel.adapter.newhome.subnewhome.SubSmallHeaderAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2FragmentMenuBinding;
@@ -32,15 +30,11 @@ import com.namviet.vtvtravel.response.CityResponse;
 import com.namviet.vtvtravel.response.WeatherResponse;
 import com.namviet.vtvtravel.response.f2menu.MenuItem;
 import com.namviet.vtvtravel.response.f2menu.MenuResponse;
-import com.namviet.vtvtravel.response.newhome.HomeServiceResponse;
-import com.namviet.vtvtravel.response.newhome.SettingResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.dialog.CityDialogFragment;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.UserInformationActivity;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
-import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
-import com.namviet.vtvtravel.viewmodel.PlaceViewModel;
 import com.namviet.vtvtravel.viewmodel.newhome.NewHomeViewModel;
 
 import org.greenrobot.eventbus.EventBus;
@@ -50,8 +44,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
-import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 
 public class MenuFragment extends MainFragment implements Observer {
     private ArrayList<City> cityList;
@@ -92,10 +84,16 @@ public class MenuFragment extends MainFragment implements Observer {
 
     @Override
     protected void initViews(View v) {
+        try {
+            TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_VIEW, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.MENU, TrackingAnalytic.ScreenTitle.MENU).setScreen_class(this.getClass().getName()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         updateViews();
     }
 
     private MenuResponse menuResponse;
+
     @Override
     protected void updateViews() {
         super.updateViews();
@@ -123,14 +121,6 @@ public class MenuFragment extends MainFragment implements Observer {
             @Override
             public void onClick(View view) {
                 LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
-
-
-                try {
-                    TrackingAnalytic.postEvent(TrackingAnalytic.SIGN_IN, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
             }
         });
 
@@ -138,12 +128,6 @@ public class MenuFragment extends MainFragment implements Observer {
             @Override
             public void onClick(View view) {
                 LoginAndRegisterActivityNew.startScreen(mActivity, 1, false);
-
-                try {
-                    TrackingAnalytic.postEvent(TrackingAnalytic.SIGN_UP, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }
         });
 
@@ -174,6 +158,16 @@ public class MenuFragment extends MainFragment implements Observer {
                 itemMenusNormal.add(menuResponse.getData().getMenus().getLeft().get(i));
             }
         }
+
+        if (MyApplication.getInstance().getAccount() != null
+                && MyApplication.getInstance().getAccount().isTravelingSupporter()) {
+            MenuItem virtualCallMenu = new MenuItem();
+            virtualCallMenu.setName("Tổng đài số ảo");
+            virtualCallMenu.setCode_type("APP_MAIN_HEADER_VIRTUAL_CALL");
+            virtualCallMenu.setCode("HEADER");
+            itemMenusHeader.add(virtualCallMenu);
+        }
+
     }
 
     @Override
@@ -227,6 +221,18 @@ public class MenuFragment extends MainFragment implements Observer {
             binding.layoutUser.setVisibility(View.VISIBLE);
             binding.layoutUserNotYetLogin.setVisibility(View.GONE);
             binding.rclHeaderMenu.setVisibility(View.VISIBLE);
+            if (MyApplication.getInstance().getAccount() != null
+                    && MyApplication.getInstance().getAccount().isTravelingSupporter()) {
+                if (itemMenusHeader != null && itemMenusHeader.size() > 0
+                        && !"APP_MAIN_HEADER_VIRTUAL_CALL".equals(itemMenusHeader.get(itemMenusHeader.size() - 1).getCode_type())) {
+                    MenuItem virtualCallMenu = new MenuItem();
+                    virtualCallMenu.setName("Tổng đài số ảo");
+                    virtualCallMenu.setCode_type("APP_MAIN_HEADER_VIRTUAL_CALL");
+                    virtualCallMenu.setCode("HEADER");
+                    itemMenusHeader.add(virtualCallMenu);
+                }
+
+            }
         } else {
             binding.layoutUser.setVisibility(View.GONE);
             binding.layoutUserNotYetLogin.setVisibility(View.VISIBLE);

@@ -242,4 +242,10 @@ public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> 
             }
         }
     }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.LIVE_TV_DETAIL, TrackingAnalytic.ScreenTitle.LIVE_TV_DETAIL);
+    }
 }

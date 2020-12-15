@@ -9,14 +9,14 @@
             type="com.namviet.vtvtravel.viewmodel.PlaceViewModel" />
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         android:clickable="true"
         android:fitsSystemWindows="true">
 
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
             android:fitsSystemWindows="true"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <android.support.design.widget.CollapsingToolbarLayout
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp"
@@ -41,8 +41,7 @@
                         android:id="@+id/ivBanner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/bg_header" />
+                        android:scaleType="centerCrop" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -105,7 +104,7 @@
                 </RelativeLayout>
 
 
-                <android.support.v7.widget.Toolbar
+                <androidx.appcompat.widget.Toolbar
                     android:id="@+id/myToolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
@@ -148,10 +147,10 @@
                             android:layout_marginRight="@dimen/_10sdp"
                             app:srcCompat="@drawable/vt_search_white" />
                     </RelativeLayout>
-                </android.support.v7.widget.Toolbar>
-            </android.support.design.widget.CollapsingToolbarLayout>
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-            <android.support.design.widget.TabLayout
+            <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -163,7 +162,7 @@
                 app:tabMode="scrollable"
                 app:tabSelectedTextColor="@color/colorPrimary"
                 app:tabTextColor="@color/gray_99" />
-        </android.support.design.widget.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
         <com.namviet.vtvtravel.widget.CustomNestedScrollView
             android:id="@+id/nesScroll"
@@ -226,7 +225,7 @@
                     android:textSize="@dimen/_13sdp"
                     app:typeface="roboto_bold" />
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvPhotos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -261,8 +260,7 @@
                         android:id="@+id/ivBannerVideo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@mipmap/bg_header" />
+                        android:scaleType="centerCrop" />
 
                     <ImageView
                         android:id="@+id/ivIconPlay"
@@ -285,7 +283,7 @@
                     android:textSize="@dimen/_13sdp"
                     app:typeface="roboto_bold" />
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvSuggest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -303,7 +301,7 @@
                     android:textSize="@dimen/_13sdp"
                     app:typeface="roboto_bold" />
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvNearPlace"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -354,7 +352,7 @@
                         app:typeface="roboto_regular" />
                 </LinearLayout>
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvComment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -365,5 +363,5 @@
 
 
         </com.namviet.vtvtravel.widget.CustomNestedScrollView>
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

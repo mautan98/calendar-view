@@ -1,6 +1,11 @@
 package com.namviet.vtvtravel.model;
 
 public class Account {
+
+    public class Role {
+        public static final String USER = "USER";
+    }
+
     private Integer id;
     private String email;
     private String facebookId;
@@ -18,6 +23,11 @@ public class Account {
     private String birthday;
     private Integer gender;
     private String packageCode;
+    private boolean isTravelingSupporter;
+    private String sipDomain;
+    private String sipPassword;
+    private String sipAccount;
+    private String sipTransportType;
 
     public String getPackageCode() {
         return packageCode;
@@ -161,5 +171,45 @@ public class Account {
 
     public void setImageBackground(String imageBackground) {
         this.imageBackground = imageBackground;
+    }
+
+    public boolean isTravelingSupporter() {
+        return isTravelingSupporter;
+    }
+
+    public void setTravelingSupporter(boolean travelingSupporter) {
+        isTravelingSupporter = travelingSupporter;
+    }
+
+    public String getSipDomain() {
+        return sipDomain;
+    }
+
+    public void setSipDomain(String sipDomain) {
+        this.sipDomain = sipDomain;
+    }
+
+    public String getSipPassword() {
+        return sipPassword;
+    }
+
+    public void setSipPassword(String sipPassword) {
+        this.sipPassword = sipPassword;
+    }
+
+    public String getSipAccount() {
+        return sipAccount;
+    }
+
+    public void setSipAccount(String sipAccount) {
+        this.sipAccount = sipAccount;
+    }
+
+    public String getSipTransportType() {
+        return sipTransportType;
+    }
+
+    public void setSipTransportType(String sipTransportType) {
+        this.sipTransportType = sipTransportType;
     }
 }

@@ -2,15 +2,15 @@ package com.namviet.vtvtravel.view.fragment.f2biglocation;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2biglocation.BigLocationTopTabAdapter;
 import com.namviet.vtvtravel.adapter.f2biglocation.DetailBigLocationAdapter;
+import com.namviet.vtvtravel.adapter.f2biglocation.ParentDetailBigLocationAdapter;
 import com.namviet.vtvtravel.databinding.F2FragmentBigLocationBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
@@ -28,8 +28,17 @@ import java.util.Observer;
 
 public class BigLocationFragment extends BaseFragment<F2FragmentBigLocationBinding> implements Observer {
     private DetailBigLocationAdapter detailBigLocationAdapter;
+    private ParentDetailBigLocationAdapter parentDetailBigLocationAdapter;
     private BigLocationTopTabAdapter bigLocationTopTabAdapter;
     private List<BigLocationResponse.Data.Item> dataListMain = new ArrayList<>();
+    private List<BigLocationResponse.Data.Item> dataListWhere = new ArrayList<>();
+    private List<BigLocationResponse.Data.Item> dataListStay = new ArrayList<>();
+    private List<BigLocationResponse.Data.Item> dataListEat = new ArrayList<>();
+    private List<BigLocationResponse.Data.Item> dataListPlay = new ArrayList<>();
+
+    private BigLocationResponse.Data.Item travelTip;
+    private BigLocationResponse.Data.Item video;
+
     private List<BigLocationResponse.Data.Region.Items> dataListTab = new ArrayList<>();
     private BigLocationViewModel viewModel;
     private BigLocationResponse.Data.Region region;
@@ -65,8 +74,9 @@ public class BigLocationFragment extends BaseFragment<F2FragmentBigLocationBindi
     public void initData() {
         getBinding().rclContent.setHasFixedSize(true);
         getBinding().rclContent.setItemViewCacheSize(20);
-        detailBigLocationAdapter = new DetailBigLocationAdapter(dataListMain, region, mActivity, null);
-        getBinding().rclContent.setAdapter(detailBigLocationAdapter);
+        parentDetailBigLocationAdapter = new ParentDetailBigLocationAdapter(dataListMain, region, mActivity, viewModel, dataListWhere, dataListStay, dataListEat, dataListPlay, travelTip, video);
+//        detailBigLocationAdapter = new DetailBigLocationAdapter(dataListMain, region, mActivity, null, viewModel);
+        getBinding().rclContent.setAdapter(parentDetailBigLocationAdapter);
 
     }
 
@@ -127,8 +137,40 @@ public class BigLocationFragment extends BaseFragment<F2FragmentBigLocationBindi
                 dataListMain.clear();
                 dataListMain.addAll(response.getData().getListDataMain());
 //                detailBigLocationAdapter.notifyDataSetChanged();
-                detailBigLocationAdapter = new DetailBigLocationAdapter(dataListMain, response.getData().getRegion(), mActivity, null);
-                getBinding().rclContent.setAdapter(detailBigLocationAdapter);
+
+
+                for (int i  = 0; i < dataListMain.size(); i++){
+                    switch (i){
+                        case 0:
+                        case 1:
+                            dataListWhere.add(dataListMain.get(i));
+                            break;
+
+                        case 2:
+                        case 3:
+                            dataListStay.add(dataListMain.get(i));
+                            break;
+                        case 4:
+                        case 5:
+                            dataListEat.add(dataListMain.get(i));
+                            break;
+                        case 6:
+                        case 7:
+                            dataListPlay.add(dataListMain.get(i));
+                            break;
+                        case 8:
+                            travelTip = dataListMain.get(i);
+                            break;
+                        case 9:
+                            video = dataListMain.get(i);
+                            break;
+                    }
+                }
+
+
+//                detailBigLocationAdapter = new DetailBigLocationAdapter(dataListMain, response.getData().getRegion(), mActivity, null, viewModel);
+                parentDetailBigLocationAdapter = new ParentDetailBigLocationAdapter(dataListMain, response.getData().getRegion(), mActivity, viewModel, dataListWhere, dataListStay, dataListEat, dataListPlay, travelTip, video);
+                getBinding().rclContent.setAdapter(parentDetailBigLocationAdapter);
                 getBinding().tvRegionNameTop.setText(response.getData().getRegion().getName());
                 try {
                     viewModel.loadWeather(response.getData().getRegion().getId());
@@ -155,5 +197,11 @@ public class BigLocationFragment extends BaseFragment<F2FragmentBigLocationBindi
             }
 
         }
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.BIG_LOCATION, TrackingAnalytic.ScreenTitle.BIG_LOCATION);
     }
 }

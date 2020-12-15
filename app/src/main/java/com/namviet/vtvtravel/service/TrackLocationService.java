@@ -8,15 +8,13 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
-import android.support.annotation.Nullable;
-import android.widget.Toast;
+import androidx.annotation.Nullable;
 
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.ultils.DeviceUtils;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
-import org.ankit.gpslibrary.ADLocation;
 import org.ankit.gpslibrary.MyTracker;
 
 public class TrackLocationService extends Service {

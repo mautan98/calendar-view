@@ -5,7 +5,7 @@
     <data></data>
 
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white">
@@ -45,7 +45,7 @@
                     app:typeface="roboto_regular" />
             </RelativeLayout>
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvFilter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -62,5 +62,5 @@
                 android:text="@string/apply"
                 android:textColor="@color/white" />
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </layout>

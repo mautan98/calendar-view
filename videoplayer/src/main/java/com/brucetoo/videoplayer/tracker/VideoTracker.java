@@ -6,8 +6,8 @@ import android.content.res.Configuration;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.util.SimpleArrayMap;
+import androidx.annotation.NonNull;
+import androidx.collection.SimpleArrayMap;
 import android.view.View;
 import android.view.ViewGroup;
 

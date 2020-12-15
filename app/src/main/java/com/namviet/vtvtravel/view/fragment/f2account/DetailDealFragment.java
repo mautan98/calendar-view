@@ -86,4 +86,11 @@ public class DetailDealFragment extends BaseFragment<F2FragmentDetailDealBinding
 
         }
     }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        screenCode = TrackingAnalytic.ScreenCode.DEAL_DETAIL;
+        screenTitle = TrackingAnalytic.ScreenTitle.DEAL_DETAIL;
+    }
 }

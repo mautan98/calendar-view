@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -21,6 +22,7 @@
             android:layout_above="@+id/tabLayoutMain" />
 
         <LinearLayout
+            android:gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/tabLayoutMain"
@@ -28,45 +30,49 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <ImageView
+            <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/ivCall"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="@null"
-                android:src="@drawable/f2_ic_call2" />
+                android:src="@drawable/f2_ic_call_gif" />
 
-            <ImageView
+            <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/ivChat"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:background="@null"
-                android:src="@drawable/f2_ic_chat"
+                android:src="@drawable/f2_ic_chat3"
                 android:visibility="visible" />
         </LinearLayout>
 
         <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
             android:layout_above="@+id/tabLayoutMain"
-            android:background="#D6D6D6"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"/>
+            android:background="#D6D6D6" />
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
+            app:tabPaddingEnd="0dp"
+            app:tabPaddingStart="0dp"
+            app:tabIndicatorFullWidth="false"
             android:id="@+id/tabLayoutMain"
-            android:layout_alignParentBottom="true"
-            app:tabMode="fixed"
-            app:tabIndicatorHeight="0dp"
             android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="fixed" />
 
 
         <RelativeLayout
-            android:focusable="true"
-            android:clickable="true"
             android:id="@+id/layoutMenuFloat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone">
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <View
                 android:layout_width="match_parent"
@@ -110,19 +116,44 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/menuFooterFake"
-                    android:layout_marginBottom="35dp"
-                    android:layout_toStartOf="@+id/layoutFake"
+                    android:layout_alignBottom="@+id/layoutFake"
+                    android:layout_alignEnd="@+id/layoutFake"
+                    android:layout_marginBottom="70dp"
                     android:gravity="end"
                     android:orientation="vertical">
 
 
                     <LinearLayout
-                        android:layout_marginEnd="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
-                        android:layout_marginBottom="50dp"
+                        android:layout_marginEnd="25dp"
+                        android:id="@+id/btn_virtual_call"
+                        android:layout_marginBottom="25dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="11dp"
+                            android:text="Tổng đài\nsố ảo"
+                            android:gravity="end"
+                            android:textColor="@color/white" />
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/f2_ic_virtual_call" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="75dp"
+                        android:layout_marginBottom="35dp"
                         android:gravity="center_vertical">
 
                         <TextView
@@ -139,9 +170,9 @@
 
 
                             <ImageView
-                                android:src="@drawable/f2_ic_call_now"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
+                                android:layout_height="match_parent"
+                                android:src="@drawable/f2_ic_call_now" />
 
                         </LinearLayout>
 
@@ -149,10 +180,10 @@
 
 
                     <LinearLayout
-                        android:layout_marginEnd="28dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
+                        android:layout_marginEnd="90dp"
                         android:gravity="center_vertical">
 
                         <TextView
@@ -168,9 +199,9 @@
                             android:layout_height="50dp">
 
                             <ImageView
-                                android:src="@drawable/f2_ic_supporter"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
+                                android:layout_height="match_parent"
+                                android:src="@drawable/f2_ic_supporter" />
 
                         </LinearLayout>
 

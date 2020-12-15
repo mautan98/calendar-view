@@ -7,7 +7,7 @@
     android:layout_marginStart="5dp"
     android:layout_marginEnd="5dp">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardCornerRadius="4dp"
@@ -27,8 +27,7 @@
                     android:id="@+id/imvBanner"
                     android:layout_width="222dp"
                     android:layout_height="143dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/f2_item_highlight_place" />
+                    android:scaleType="centerCrop" />
 
                 <View
                     android:layout_width="222dp"
@@ -58,6 +57,6 @@
         </LinearLayout>
 
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

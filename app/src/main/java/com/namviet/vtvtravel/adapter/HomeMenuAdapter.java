@@ -1,10 +1,9 @@
 package com.namviet.vtvtravel.adapter;
 
 
-import android.databinding.DataBindingUtil;
-import android.support.v7.widget.RecyclerView;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.namviet.vtvtravel.R;
@@ -12,7 +11,6 @@ import com.namviet.vtvtravel.databinding.ItemMenuHomeBinding;
 import com.namviet.vtvtravel.model.ItemMenu;
 import com.namviet.vtvtravel.viewmodel.ItemMenuViewModel;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 

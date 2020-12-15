@@ -1,19 +1,17 @@
 package com.namviet.vtvtravel.view.fragment.account;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.baseapp.menu.SlideMenu;
 import com.baseapp.utils.KeyboardUtils;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
-import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.FragmentChangePassBinding;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.response.AccountResponse;
@@ -70,7 +68,11 @@ public class ChangePassFragment extends MainFragment implements Observer {
     public void onClick(View view) {
         super.onClick(view);
         if (view == binding.toolBar.ivBack) {
-            KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+            try {
+                KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+            } catch (Exception e) {
+
+            }
             mActivity.onBackPressed();
         } else if (view == binding.btUpdate) {
             String oldPass = binding.edPass.getText().toString().trim();

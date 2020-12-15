@@ -185,7 +185,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rclBigLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -194,7 +194,7 @@
                 android:layout_marginEnd="7dp"
                 android:layout_marginBottom="90dp"
                 android:visibility="visible"
-                app:layoutManager="android.support.v7.widget.GridLayoutManager"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2" />
 
             <LinearLayout
@@ -225,7 +225,7 @@
         </RelativeLayout>
 
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rclLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -234,7 +234,7 @@
             android:layout_marginEnd="7dp"
             android:overScrollMode="never"
             android:visibility="gone"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     </LinearLayout>
 </layout>

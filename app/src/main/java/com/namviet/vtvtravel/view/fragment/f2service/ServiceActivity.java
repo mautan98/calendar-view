@@ -2,15 +2,13 @@ package com.namviet.vtvtravel.view.fragment.f2service;
 
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.annotation.Nullable;
 
-import com.baseapp.activity.BaseActivity;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.databinding.F2ActivityServiceBinding;
 import com.namviet.vtvtravel.view.MainActivity;
 
 public class ServiceActivity extends MainActivity {

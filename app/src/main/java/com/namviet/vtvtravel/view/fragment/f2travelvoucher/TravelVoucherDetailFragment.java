@@ -98,7 +98,7 @@ public class TravelVoucherDetailFragment extends BaseFragment<F2FragmentTravelVo
                         showLoading();
                         travelVoucherViewModel.checkUserReceiver(voucher.getId(), "APP", "Android", "VQMM");
                         try {
-                            TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_RECEIVE_PROMOTION, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                            TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_RECEIVE_PROMOTION, TrackingAnalytic.getDefault("TravelVoucherDetail", "Chi tiết voucher").setScreen_class(this.getClass().getName()));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -154,5 +154,11 @@ public class TravelVoucherDetailFragment extends BaseFragment<F2FragmentTravelVo
             }
 
         }
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.VOUCHER_DETAIL, TrackingAnalytic.ScreenTitle.VOUCHER_DEATAIL);
     }
 }

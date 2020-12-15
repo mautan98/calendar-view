@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.databinding.F2LayoutViewImageProfileBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 
 public class ViewImageProfileFragment extends BaseFragment<F2LayoutViewImageProfileBinding> implements View.OnClickListener {
     private String urlImage;
@@ -61,5 +62,11 @@ public class ViewImageProfileFragment extends BaseFragment<F2LayoutViewImageProf
                 mActivity.onBackPressed();
                 break;
         }
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.VIEW_IMAGE_PROFILE, TrackingAnalytic.ScreenTitle.VIEW_IMAGE_PROFILE);
     }
 }

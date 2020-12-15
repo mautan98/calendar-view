@@ -1,9 +1,8 @@
 package com.namviet.vtvtravel.view.f2;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.View;
 
 import com.baseapp.utils.KeyboardUtils;
@@ -139,6 +138,5 @@ public class LoginAndRegisterActivityNew extends BaseActivityNew<F2ActivityLogin
     }
     public void hideWarning(){
         getBinding().layoutWarning.setVisibility(View.GONE);
-        KeyboardUtils.hideKeyboard(this, getBinding().getRoot());
     }
 }

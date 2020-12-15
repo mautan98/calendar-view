@@ -3,14 +3,14 @@ package com.namviet.vtvtravel.f2base.base;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +20,8 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.baseapp.utils.KeyboardUtils;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.F2Util;
-import com.namviet.vtvtravel.view.dialog.LoadingDialog;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 
 
@@ -49,6 +47,18 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
 
     private ProgressDialog mLoadingDialog;
 
+    public String screenTitle;
+    public String screenCode;
+
+    public void setScreenTitle(){
+
+    }
+
+    public void setDataScreen(String screenCode, String screenTitle){
+        this.screenCode = screenCode;
+        this.screenTitle = screenTitle;
+    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,9 +70,9 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
             mActivity = (BaseActivityNew) getActivity();
             inject();
             Log.d("LamLV: ", this.getClass().getName());
-
+            setScreenTitle();
             try {
-                TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_VIEW, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_VIEW, TrackingAnalytic.getDefault(screenCode, screenTitle).setScreen_class(this.getClass().getName()));
             } catch (Exception e) {
 
             }
@@ -107,6 +117,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
             try {
                 if(mActivity instanceof  LoginAndRegisterActivityNew){
                     ((LoginAndRegisterActivityNew) mActivity).hideWarning();
+                    KeyboardUtils.hideKeyboard(mActivity, getBinding().getRoot());
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -1,13 +1,16 @@
 package com.namviet.vtvtravel.adapter.f2menu;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
@@ -17,10 +20,11 @@ import com.namviet.vtvtravel.response.f2menu.MenuItem;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.MyGiftActivity;
+import com.namviet.vtvtravel.view.f2.MyTripActivity;
 import com.namviet.vtvtravel.view.f2.SystemInboxActivity;
 import com.namviet.vtvtravel.view.f2.WebviewActivity;
 import com.namviet.vtvtravel.view.f2.f2oldbase.SettingActivity;
-import com.namviet.vtvtravel.tracking.TrackingViewModel;
+import com.namviet.vtvtravel.view.f2.virtualswitchboard.VirtualSwitchBoardActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,10 +106,10 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    switch (items.get(position).getCode_type()){
+                    switch (items.get(position).getCode_type()) {
                         case "APP_MAIN_HEADER_MY_GIFT":
                             try {
-                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_MY_PROMOTION, TrackingAnalytic.getDefault());
+                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_MY_PROMOTION, TrackingAnalytic.getDefault("Menu", "Menu"));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -134,6 +138,32 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                             break;
 
+                        case "APP_MAIN_HEADER_MY_TRIP":
+                            Account account2 = MyApplication.getInstance().getAccount();
+                            if (null != account2 && account2.isLogin()) {
+                                MyTripActivity.startScreen(context);
+                            } else {
+                                LoginAndRegisterActivityNew.startScreen(context, 0, false);
+                            }
+
+                            break;
+
+                        case "APP_MAIN_HEADER_VIRTUAL_CALL":
+                            Account account3 = MyApplication.getInstance().getAccount();
+                            if (null != account3 && account3.isLogin()
+                                    && "APP_MAIN_HEADER_VIRTUAL_CALL".equals(items.get(position).getCode_type())) {
+                                    if(account3.isTravelingSupporter()){
+                                        VirtualSwitchBoardActivity.Companion.openActivity(context);
+                                    }else {
+                                        Toast.makeText(context, "Tính năng chỉ dành cho sở du lịch", Toast.LENGTH_SHORT).show();
+                                    }
+
+                            } else {
+                                LoginAndRegisterActivityNew.startScreen(context, 0, false);
+                            }
+
+                            break;
+
                     }
                 }
             });
@@ -141,8 +171,12 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public void bindItem(int position) {
             this.position = position;
-            Glide.with(context).load(items.get(position).getIcon_url()).into(imgAvatar);
             tvName.setText(items.get(position).getName());
+            if (!"APP_MAIN_HEADER_VIRTUAL_CALL".equals(items.get(position).getCode_type())) {
+                Glide.with(context).load(items.get(position).getIcon_url()).into(imgAvatar);
+            } else {
+                Glide.with(context).load(R.drawable.f2_ic_virtual_call).into(imgAvatar);
+            }
 
         }
     }

@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="8dp"
-            android:text="VTV Travel rất mong được hỗ trợ Qúy khách.Vui lòng chọn 1 trong các hình thức sau:" />
+            android:text="VTVTravel rất mong được hỗ trợ Qúy khách.Vui lòng chọn 1 trong các hình thức sau:" />
 
         <Button
             android:id="@+id/btnForm"

@@ -1,1 +1,1 @@
-include ':app', ':baseapp', ':libraryViewPager', ':LibDatePicker', ':videoplayer', ':libraryZoomView', ':gpslibrary', ':readmoreoption'
+include ':app', ':baseapp', ':libraryViewPager', ':LibDatePicker', ':videoplayer', ':gpslibrary', ':readmoreoption'

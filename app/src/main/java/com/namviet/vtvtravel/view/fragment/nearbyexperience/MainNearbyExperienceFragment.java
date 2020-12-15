@@ -1,20 +1,18 @@
 package com.namviet.vtvtravel.view.fragment.nearbyexperience;
 
 import android.annotation.SuppressLint;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.view.View;
-import android.widget.Toast;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2offline.MainAdapter;
 import com.namviet.vtvtravel.databinding.F2FragmentNearbyExperienceBinding;
-import com.namviet.vtvtravel.databinding.F2FragmentTopExperienceBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.model.travelnews.Location;
-import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.LocationResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.fragment.topexperience.SubTopExperienceFragment;
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel;
 
@@ -139,5 +137,11 @@ public class MainNearbyExperienceFragment extends BaseFragment<F2FragmentNearbyE
             }
 
         }
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.NEARBY_EXPERIENCE, TrackingAnalytic.ScreenTitle.NEARBY_EXPERIENCE);
     }
 }

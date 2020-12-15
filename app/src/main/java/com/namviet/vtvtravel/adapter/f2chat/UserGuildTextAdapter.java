@@ -1,8 +1,10 @@
 package com.namviet.vtvtravel.adapter.f2chat;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +18,12 @@ import java.util.List;
 public class UserGuildTextAdapter extends RecyclerView.Adapter<UserGuildTextAdapter.ViewHolder> {
     private Context context;
     private List<PostUserGuildResponse.Data.Item> itemList;
+    private ClickItem clickItem;
 
-    public UserGuildTextAdapter(Context context, List<PostUserGuildResponse.Data.Item> itemList) {
+    public UserGuildTextAdapter(Context context, List<PostUserGuildResponse.Data.Item> itemList, ClickItem clickItem) {
         this.context = context;
         this.itemList = itemList;
+        this.clickItem = clickItem;
     }
 
     @NonNull
@@ -52,15 +56,27 @@ public class UserGuildTextAdapter extends RecyclerView.Adapter<UserGuildTextAdap
         }
 
         public void onBind(int position) {
-            PostUserGuildResponse.Data.Item item = itemList.get(position);
-            if ("button".equals(item.getType())) {
-                tvLabel.setVisibility(View.VISIBLE);
-                tvLabel.setText(item.getLabel());
-            } else {
-                tvDescription.setText(item.getDescriptions());
-                tvLabel.setVisibility(View.GONE);
+            if (position == itemList.size() - 1) {
+                tvDescription.setOnClickListener(view -> clickItem.clickItem());
+            }
+
+            try {
+                PostUserGuildResponse.Data.Item item = itemList.get(position);
+                if ("button".equals(item.getType())) {
+                    tvLabel.setVisibility(View.VISIBLE);
+                    tvLabel.setText(item.getLabel());
+                } else {
+                    tvDescription.setText(item.getDescriptions());
+                    tvLabel.setVisibility(View.GONE);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
+    }
+
+    public interface ClickItem {
+        void clickItem();
     }
 }
 

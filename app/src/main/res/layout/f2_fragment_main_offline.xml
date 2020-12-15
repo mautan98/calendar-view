@@ -51,7 +51,7 @@
             android:layout_height="0.5dp"/>
         
         
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             app:tabIndicatorColor="@color/f2_color_package"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"/>
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/vpMainOffline"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -2,14 +2,23 @@ package com.namviet.vtvtravel.view.f2;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+
+import androidx.annotation.Nullable;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2ActivityChatBinding;
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
-import com.namviet.vtvtravel.view.fragment.f2chat.ChatFragment;
+import com.namviet.vtvtravel.model.f2event.OnReOpenChatScreen;
+import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.fragment.f2chat.ChatFragmentV2;
+import com.namviet.vtvtravel.view.fragment.f2chat.ReviewChatFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class ChatActivity extends BaseActivityNew<F2ActivityChatBinding> {
     @Override
@@ -32,6 +41,8 @@ public class ChatActivity extends BaseActivityNew<F2ActivityChatBinding> {
 
     }
 
+
+
     @Override
     public void setClick() {
 
@@ -40,6 +51,22 @@ public class ChatActivity extends BaseActivityNew<F2ActivityChatBinding> {
     @Override
     public BaseFragment initFragment() {
         return new ChatFragmentV2();
+//        return new ReviewChatFragment();
+    }
+
+    public void initFragment2(){
+        getSupportFragmentManager().beginTransaction().replace(getFrame(), new ChatFragmentV2()).commit();
+    }
+
+    @Subscribe
+    public void onReOpenChatScreen(OnReOpenChatScreen onReOpenChatScreen) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+//                ChatActivity.startScreen(MainActivity.this);
+                initFragment2();
+            }
+        }, 500);
     }
 
     public static void startScreen(Activity activity) {
@@ -52,5 +79,17 @@ public class ChatActivity extends BaseActivityNew<F2ActivityChatBinding> {
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.slide_from_top, R.anim.slide_in_top);
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

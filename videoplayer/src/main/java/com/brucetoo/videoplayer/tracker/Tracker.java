@@ -2,7 +2,7 @@ package com.brucetoo.videoplayer.tracker;
 
 import android.app.Activity;
 import android.content.res.Configuration;
-import android.support.v4.util.ArrayMap;
+import androidx.collection.ArrayMap;
 import android.view.View;
 
 import com.brucetoo.videoplayer.videomanage.interfaces.PlayerItemChangeListener;

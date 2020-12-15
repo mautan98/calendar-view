@@ -1,8 +1,8 @@
 package com.brucetoo.videoplayer.videomanage.interfaces;
 
 import android.graphics.SurfaceTexture;
-import android.support.annotation.FloatRange;
-import android.support.annotation.NonNull;
+import androidx.annotation.FloatRange;
+import androidx.annotation.NonNull;
 
 import com.brucetoo.videoplayer.tracker.IViewTracker;
 

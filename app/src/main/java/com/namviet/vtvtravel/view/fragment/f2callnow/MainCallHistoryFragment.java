@@ -1,12 +1,12 @@
 package com.namviet.vtvtravel.view.fragment.f2callnow;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +16,12 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2offline.MainAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.databinding.F2FragmentMainCallHisstoryBinding;
-import com.namviet.vtvtravel.databinding.F2FragmentMainCallNowBinding;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2callnow.CallNowHistory;
 import com.namviet.vtvtravel.model.f2event.OnDeleteSuccess;
 import com.namviet.vtvtravel.response.ResponseError;
 import com.namviet.vtvtravel.response.f2callnow.CallNowHistoryResponse;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
-import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonDialog;
 import com.namviet.vtvtravel.view.fragment.f2offline.TwoButtonDialog;
 import com.namviet.vtvtravel.viewmodel.f2callnow.MainCallHistoryViewModel;
 
@@ -31,7 +29,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data></data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:id="@+id/viewOutside"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="26dp"
+            android:layout_marginEnd="25dp"
+            android:background="#FFFFFF"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:id="@+id/btn_call_in_app"
+                android:background="@drawable/bg_ripple_trans_rect"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Gọi qua VTVTravel"
+                    android:textSize="18dp"
+                    android:paddingStart="29dp"
+                    android:paddingTop="20dp"
+                    android:id="@+id/tvCallInApp"
+                    android:paddingBottom="20dp"
+                    android:textColor="@color/text_black_disable_gray"
+                    android:fontFamily="@font/roboto_regular"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:id="@+id/ivCallInApp"
+                    android:layout_marginEnd="23dp"
+                    android:src="@drawable/ic_call_vtv"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_height="22dp"/>
+            </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_border"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:id="@+id/btn_call_normal"
+                android:background="@drawable/bg_ripple_trans_rect"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Gọi thoại thông thường"
+                    android:textSize="18dp"
+                    android:paddingStart="29dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:textColor="@color/text_black_disable_gray"
+                    android:fontFamily="@font/roboto_regular"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_marginEnd="23dp"
+                    android:src="@drawable/ic_virtual_call_normal"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_height="22dp"/>
+            </FrameLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

@@ -9,8 +9,7 @@
         android:id="@+id/ivItem"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg_header" />
+        android:scaleType="centerCrop" />
 
     <com.daimajia.slider.library.RobotoTextView
         android:id="@+id/tvName"

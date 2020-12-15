@@ -1,90 +1,303 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data></data>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_vqmm" />
 
         <RelativeLayout
-            android:id="@+id/layoutToolbar"
+            android:id="@+id/layoutNavi"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/colorPrimary">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
-            <LinearLayout
+            <ImageView
                 android:id="@+id/btnBack"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:gravity="center">
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/ic_back_vqmm" />
 
-                <ImageView
-                    android:layout_width="10dp"
-                    android:layout_height="18dp"
-                    android:src="@drawable/video_top_back" />
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/btnVolumeOff"
+                android:layout_marginEnd="20dp"
+                android:tint="@color/colorPrimary"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/btnMenu"
+                android:src="@drawable/f2_ic_volume_off_black_24dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
 
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/btnVolumeOn"
+                android:layout_marginEnd="20dp"
+                android:tint="@color/colorPrimary"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/btnMenu"
+                android:src="@drawable/f2_ic_volume_up_black_24dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
 
-
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:fontFamily="@font/roboto_medium"
-                android:gravity="center"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="18dp" />
-
+            <ImageView
+                android:id="@+id/btnMenu"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/f2_ic_menu_vqmm" />
 
         </RelativeLayout>
 
-        <WebView
-            android:id="@+id/webView"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginTop="-40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/f2_ic_logo_lucky_wheel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="260dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="186:188" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutFrame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/layoutToolbar" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layoutNavi"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="20dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="40dp"
+                android:src="@drawable/f2_img_bg_vqmm"
+                app:layout_constraintDimensionRatio="525:747"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rclScroll"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginBottom="40dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="@id/imgFrame"
+                app:layout_constraintTop_toTopOf="@+id/imgFrame" />
+
+            <ImageView
+                android:id="@+id/imgFrame"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/f2_img_frame_vqmm"
+                app:layout_constraintDimensionRatio="653:791"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <RelativeLayout
-            android:id="@+id/layoutLoading"
+            android:id="@+id/layoutRoll"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/layoutToolbar"
-            android:background="@color/white">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layoutFrame"
+            android:layout_marginTop="-20dp">
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_view_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:orientation="vertical">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="20dp"
+                android:layout_toStartOf="@id/btnStartRoll">
+
+                <ImageView
+                    android:id="@+id/imgChooseGift"
+                    android:layout_width="80dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/f2_btn_select_gift"
+                    app:layout_constraintDimensionRatio="140:84"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="chọn quà"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="9dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnStartRoll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <ImageView
+                    android:id="@+id/imgStart"
+                    android:layout_width="120dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/f2_btn_start_roll"
+                    app:layout_constraintDimensionRatio="238:102"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <include layout="@layout/data_placeholder_layout" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:gravity="center"
+                        android:text="Quay ngay"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="14dp" />
 
-                    <include layout="@layout/data_placeholder_layout" />
+                    <TextView
+                        android:id="@+id/tvTurnLeft"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="(Còn 0 lượt quay)"
+                        android:textColor="@color/white"
+                        android:textSize="9dp" />
 
-                    <include layout="@layout/data_placeholder_layout" />
-
-                    <include layout="@layout/data_placeholder_layout" />
-
-                    <include layout="@layout/data_placeholder_layout" />
-
-                    <include layout="@layout/data_placeholder_layout" />
-
-                    <include layout="@layout/data_placeholder_layout" />
 
                 </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </com.facebook.shimmer.ShimmerFrameLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:layout_toEndOf="@id/btnStartRoll">
+
+                <ImageView
+                    android:id="@+id/imgMyBonus"
+                    android:layout_width="80dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/f2_btn_my_bonus"
+                    app:layout_constraintDimensionRatio="140:84"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center"
+                    android:text="Giải thưởng \ncủa bạn"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="9dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         </RelativeLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layoutRoll"
+            android:layout_marginTop="5dp">
+
+            <ImageView
+                android:id="@+id/btnLeaderBoard"
+                android:layout_width="120dp"
+                android:layout_height="0dp"
+                android:background="@drawable/f2_ic_top_list"
+                app:layout_constraintDimensionRatio="238:56"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Bảng xếp hạng"
+                android:textColor="@color/white"
+                android:textSize="11dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <TextView
+            android:id="@+id/tvScroll"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:singleLine="true"
+            android:scrollHorizontally="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit ="marquee_forever"
+
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="15dp"
+            android:textColor="@color/md_black_1000"
+            android:paddingEnd="20dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:paddingStart="20dp"
+            android:text="Chúc mừng thuê bao 0966xxxxxx đã trúng giải voucher FREE VÉ VUI CHƠI PHÚ QUỐC... Chúc mừng thuê bao 0987xxxxxx đã trúng giải TOUR DU LỊCH ĐÀ NẴNG 4N3Đ"
+            android:background="@drawable/f2_bg_run_text"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
 
     </RelativeLayout>
 

@@ -1,19 +1,14 @@
 package com.namviet.vtvtravel.viewmodel;
 
 import android.content.Context;
-import android.databinding.BaseObservable;
-import android.databinding.BindingAdapter;
-import android.os.Bundle;
+import androidx.databinding.BaseObservable;
+import androidx.databinding.BindingAdapter;
+
 import android.view.View;
 import android.widget.ImageView;
 
-import com.baseapp.menu.SlideMenu;
 import com.bumptech.glide.Glide;
-import com.namviet.vtvtravel.app.MyApplication;
-import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.ItemMenu;
-import com.namviet.vtvtravel.model.ItemTravel;
-import com.namviet.vtvtravel.view.MainActivity;
 
 public class ItemMenuViewModel extends BaseObservable {
     private Context mContext;

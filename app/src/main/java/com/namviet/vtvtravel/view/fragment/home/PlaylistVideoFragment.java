@@ -7,11 +7,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +21,6 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.PlaylistVideoAdapter;
@@ -30,7 +29,6 @@ import com.namviet.vtvtravel.listener.VideoSelectListener;
 import com.namviet.vtvtravel.model.Video;
 import com.namviet.vtvtravel.response.PlaylistVideoResponse;
 import com.namviet.vtvtravel.response.ResponseError;
-import com.namviet.vtvtravel.response.VideoResponse;
 import com.namviet.vtvtravel.videomanage.controller.VideoControllerView;
 import com.namviet.vtvtravel.videomanage.controller.ViewAnimator;
 import com.namviet.vtvtravel.videomanage.manager.SingleVideoPlayerManager;
@@ -45,7 +43,6 @@ import com.namviet.vtvtravel.viewmodel.DisableRecyclerView;
 import com.namviet.vtvtravel.viewmodel.VideoViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 

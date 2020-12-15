@@ -9,7 +9,7 @@
     </data>
 
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/myToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -49,7 +49,7 @@
                 app:typeface="roboto_bold"
                 tools:text="Địa điểm" />
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switchEdit"
                 style="@style/SwitchStyle"
                 android:layout_width="wrap_content"
@@ -64,6 +64,6 @@
                 app:colorControlActivated="@color/colorPrimary"
                 app:switchPadding="@dimen/_5sdp" />
         </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
 </layout>

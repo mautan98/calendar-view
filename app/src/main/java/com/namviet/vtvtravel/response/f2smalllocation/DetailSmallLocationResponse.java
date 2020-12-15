@@ -62,6 +62,25 @@ public class DetailSmallLocationResponse extends BaseResponse {
         @SerializedName("tabs")
         private List<Tab> tabs;
 
+        private boolean isLiked;
+        private String likeCount;
+
+        public boolean isLiked() {
+            return isLiked;
+        }
+
+        public void setLiked(boolean liked) {
+            isLiked = liked;
+        }
+
+        public String getLikeCount() {
+            return likeCount;
+        }
+
+        public void setLikeCount(String likeCount) {
+            this.likeCount = likeCount;
+        }
+
         public List<Tab> getTabs() {
             return tabs;
         }
@@ -119,6 +138,10 @@ public class DetailSmallLocationResponse extends BaseResponse {
         }
 
         public class Tab {
+            @Expose
+            @SerializedName("type_open_color")
+            private String typeOpenColor;
+
 
             private boolean isShow;
 
@@ -131,6 +154,7 @@ public class DetailSmallLocationResponse extends BaseResponse {
             }
 
 
+            private String distance_text;
 
             private boolean has_location;
             @Expose
@@ -223,6 +247,34 @@ public class DetailSmallLocationResponse extends BaseResponse {
             @SerializedName("count_5")
             private String count_5;
 
+            private String category_tree_code;
+            private String category_tree_name;
+
+
+            public String getCategory_tree_code() {
+                return category_tree_code;
+            }
+
+            public String getCategory_tree_name() {
+                return category_tree_name;
+            }
+
+
+            public String getTypeOpenColor() {
+                return typeOpenColor;
+            }
+
+            public void setTypeOpenColor(String typeOpenColor) {
+                this.typeOpenColor = typeOpenColor;
+            }
+
+            public String getDistance_text() {
+                return distance_text;
+            }
+
+            public void setDistance_text(String distance_text) {
+                this.distance_text = distance_text;
+            }
 
             public boolean isHas_location() {
                 return has_location;

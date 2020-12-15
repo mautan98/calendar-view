@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    android:background="@null">
+
+    <TextView
+        android:id="@android:id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/selector_tab_virtual_switchboard"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="center"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textAllCaps="true"
+        android:textColor="@color/text_tab_virtual"
+        android:textSize="12dp"
+        tools:text="Chờ xử lý" />
+
+    <TextView
+        android:id="@+id/tv_number"
+        android:layout_width="36dp"
+        android:layout_height="20dp"
+        android:layout_gravity="end"
+        android:background="@drawable/shape_red_corner"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        tools:text="30" />
+</FrameLayout>

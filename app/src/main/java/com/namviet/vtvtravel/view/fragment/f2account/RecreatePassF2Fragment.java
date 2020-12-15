@@ -1,15 +1,10 @@
 package com.namviet.vtvtravel.view.fragment.f2account;
 
 import android.annotation.SuppressLint;
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.core.content.ContextCompat;
 import android.text.InputType;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -22,9 +17,8 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.f2event.OnReloadCountSystemInbox;
 import com.namviet.vtvtravel.response.AccountResponse;
-import com.namviet.vtvtravel.response.ResponseError;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
-import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.viewmodel.AccountViewModel;
 
 import org.greenrobot.eventbus.EventBus;
@@ -212,5 +206,11 @@ public class RecreatePassF2Fragment extends BaseFragment<F2FragmentRecreatePassB
                 .subscribe(textViewAfterTextChangeEvent -> {
                     linearLayout.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.f2_bg_login));
                 });
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.RECREATE_PASS, TrackingAnalytic.ScreenTitle.RECREATE_PASS);
     }
 }

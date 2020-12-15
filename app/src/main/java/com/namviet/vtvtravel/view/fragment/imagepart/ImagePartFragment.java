@@ -1,6 +1,6 @@
 package com.namviet.vtvtravel.view.fragment.imagepart;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.namviet.vtvtravel.R;
@@ -154,5 +154,11 @@ public class ImagePartFragment extends BaseFragment<F2FragmentImagePartBinding> 
             }
 
         }
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.CORNER_PHOTO, TrackingAnalytic.ScreenTitle.CORNER_PHOTO);
     }
 }

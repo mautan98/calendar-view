@@ -18,7 +18,7 @@
         android:orientation="vertical"
         android:clickable="true">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_41sdp"
@@ -71,7 +71,7 @@
                         app:typeface="roboto_regular" />
                 </RelativeLayout>
             </RelativeLayout>
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
         <com.flyco.tablayout.SlidingTabLayout
             android:id="@+id/tabVideo"
@@ -89,7 +89,7 @@
             app:tl_textUnselectColor="@color/gray_99"
             app:tl_textsize="@dimen/_12sdp" />
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/vpVideo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

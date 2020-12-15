@@ -1,12 +1,12 @@
 package com.namviet.vtvtravel.view.fragment.f2callnow;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +17,7 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.offline.ContactAdapter;
 import com.namviet.vtvtravel.databinding.F2FragmentContactCallNowBinding;
 import com.namviet.vtvtravel.model.f2.Contact;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.view.fragment.f2offline.InviteDialog;
@@ -43,6 +44,11 @@ public class ContactCallNowFragment extends MainFragment implements ContactAdapt
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        try {
+            TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_VIEW, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.CALL_NOW_CONTACT, TrackingAnalytic.ScreenTitle.CALL_NOW_CONTACT).setScreen_class(this.getClass().getName()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         initViews(view);
     }
 

@@ -6,11 +6,10 @@ import android.graphics.Canvas;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 import com.namviet.vtvtravel.R;
 
-public class RoundishImageView extends android.support.v7.widget.AppCompatImageView {
+public class RoundishImageView extends androidx.appcompat.widget.AppCompatImageView {
 
     public static final int CORNER_NONE = 0;
     public static final int CORNER_TOP_LEFT = 1;

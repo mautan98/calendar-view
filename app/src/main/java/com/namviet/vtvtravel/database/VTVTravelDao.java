@@ -3,16 +3,16 @@ package com.namviet.vtvtravel.database;
 
 
 
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.Query;
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.Query;
 
 import com.namviet.vtvtravel.model.f2.ClassForInvitedUser;
 import com.namviet.vtvtravel.model.f2.Contact;
 
 import java.util.List;
 
-import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
+import static androidx.room.OnConflictStrategy.REPLACE;
 
 @Dao
 public interface VTVTravelDao {

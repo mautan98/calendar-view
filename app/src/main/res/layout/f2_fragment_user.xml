@@ -179,7 +179,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="Về trang chủ VTV Travel"
+                    android:text="Về trang chủ VTVTravel"
                     android:textColor="@color/md_black_1000"
                     android:textSize="16dp" />
 

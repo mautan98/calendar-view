@@ -3,10 +3,12 @@ package com.namviet.vtvtravel.view.fragment.f2introduction;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.test.mock.MockPackageManager;
+import android.text.InputType;
 import android.view.View;
 
+import com.jakewharton.rxbinding2.view.RxView;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2introduction.IntroductionAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
@@ -15,6 +17,7 @@ import com.namviet.vtvtravel.databinding.F2FragmentIntroductionBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.model.MyLocation;
 import com.namviet.vtvtravel.service.TrackLocationService;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.DeviceUtils;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
 import com.namviet.vtvtravel.ultils.ServiceUltils;
@@ -23,6 +26,10 @@ import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
 import org.ankit.gpslibrary.ADLocation;
 import org.ankit.gpslibrary.MyTracker;
+
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class IntroductionFragment extends BaseFragment<F2FragmentIntroductionBinding> {
     String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -63,13 +70,21 @@ public class IntroductionFragment extends BaseFragment<F2FragmentIntroductionBin
 
     @Override
     public void setClickListener() {
-        getBinding().btnSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mActivity.startActivity(new Intent(mActivity, MainActivity.class));
-                mActivity.finish();
-            }
-        });
+//        getBinding().btnSkip.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//
+//            }
+//        });
+
+        RxView.clicks(getBinding().btnSkip)
+                .throttleFirst(1500, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(o -> {
+                    mActivity.startActivity(new Intent(mActivity, MainActivity.class));
+                    mActivity.finish();
+                }, Throwable::printStackTrace);
 
 //        getBinding().btnContinue.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -126,5 +141,11 @@ public class IntroductionFragment extends BaseFragment<F2FragmentIntroductionBin
                 break;
         }
 
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.INTRODUCTION, TrackingAnalytic.ScreenTitle.INTRODUCTION);
     }
 }

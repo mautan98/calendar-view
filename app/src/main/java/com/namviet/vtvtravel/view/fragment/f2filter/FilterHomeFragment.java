@@ -18,6 +18,7 @@ import com.namviet.vtvtravel.model.filter.ItemTab;
 import com.namviet.vtvtravel.response.f2filter.DistanceClass;
 import com.namviet.vtvtravel.response.f2filter.FilterByCodeResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByPageResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.viewmodel.f2filter.FilterHomeViewModel;
 
 import org.greenrobot.eventbus.EventBus;
@@ -412,5 +413,11 @@ public class FilterHomeFragment extends BaseFragment<F2FragmentFilterHomeBinding
             data.setField("all");
             filterByCodeResponse.getData().getItems().get(position).getDataHasLoaded().getData().add(0, data);
 
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.BASE_FILTER, TrackingAnalytic.ScreenTitle.BASE_FILTER);
     }
 }

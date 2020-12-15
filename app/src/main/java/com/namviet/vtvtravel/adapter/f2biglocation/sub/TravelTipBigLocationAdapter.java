@@ -2,8 +2,8 @@ package com.namviet.vtvtravel.adapter.f2biglocation.sub;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,7 +80,7 @@ public class TravelTipBigLocationAdapter extends RecyclerView.Adapter<RecyclerVi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    TravelNewsActivity.openScreenDetail((Activity)context, TravelNewsActivity.OpenType.DETAIL, items.get(position).getDetail_linkV2());
+                    TravelNewsActivity.openScreenDetail((Activity) context, TravelNewsActivity.OpenType.DETAIL, items.get(position).getDetail_linkV2());
                 }
             });
         }

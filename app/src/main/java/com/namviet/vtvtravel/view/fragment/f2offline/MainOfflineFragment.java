@@ -1,25 +1,20 @@
 package com.namviet.vtvtravel.view.fragment.f2offline;
 
-import android.app.Activity;
-import android.content.Context;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2offline.MainAdapter;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2FragmentMainOfflineBinding;
 import com.namviet.vtvtravel.model.offline.OfflineDynamic;
-import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 
 import java.io.IOException;

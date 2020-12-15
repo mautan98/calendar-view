@@ -17,7 +17,7 @@ public class After60sOptionViewModel extends BaseViewModel {
     public void createRoom(String username, String uuid) {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceChat();
-        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.createRoom(username, uuid).toString());
+        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.createRoom(username).toString());
         Disposable disposable = newsService.createRoomChat(jsonBodyObject)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -19,7 +19,7 @@
         android:paddingRight="@dimen/_10sdp"
         android:paddingBottom="@dimen/_5sdp">
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/cvItem"
             android:layout_width="@dimen/_120sdp"
             android:layout_height="@dimen/_70sdp"
@@ -30,9 +30,8 @@
                 android:id="@+id/ivPhoto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/bg_header" />
-        </android.support.v7.widget.CardView>
+                android:scaleType="centerCrop" />
+        </androidx.cardview.widget.CardView>
 
 
         <LinearLayout

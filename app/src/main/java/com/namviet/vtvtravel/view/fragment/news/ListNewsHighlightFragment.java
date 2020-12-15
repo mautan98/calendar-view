@@ -1,13 +1,13 @@
 package com.namviet.vtvtravel.view.fragment.news;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +29,6 @@ import com.namviet.vtvtravel.response.NewsResponse;
 import com.namviet.vtvtravel.response.ResponseError;
 import com.namviet.vtvtravel.response.SlideShowResponse;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
-import com.namviet.vtvtravel.view.fragment.home.PhotoNiceFragment;
 import com.namviet.vtvtravel.viewmodel.NewsViewModel;
 import com.namviet.vtvtravel.widget.EndlessRecyclerViewScrollListener;
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="12dp"
     android:orientation="vertical">
 
@@ -12,10 +12,10 @@
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:background="@drawable/f2_defaut_user"
             android:id="@+id/imgAvatar"
             android:layout_width="48dp"
-            android:layout_height="48dp" />
+            android:layout_height="48dp"
+            android:background="@drawable/f2_defaut_user" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,12 +39,12 @@
                     android:textSize="15dp" />
 
                 <ImageView
-                    android:visibility="gone"
                     android:id="@+id/imgLevel"
                     android:layout_width="17dp"
                     android:layout_height="19dp"
                     android:layout_marginStart="10dp"
-                    android:background="@color/colorPrimary" />
+                    android:background="@color/colorPrimary"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
@@ -94,7 +94,6 @@
             </LinearLayout>
 
 
-
             <TextView
                 android:id="@+id/tvComment"
                 android:layout_width="match_parent"
@@ -105,43 +104,57 @@
                 android:textSize="14dp" />
 
 
-            <android.support.v7.widget.RecyclerView
-                android:orientation="horizontal"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rclImage"
-                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="13dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <LinearLayout
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
+                android:layout_marginStart="8dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:visibility="gone"
-                    android:src="@drawable/f2_ic_gray_heart"
-                    android:layout_width="20dp"
-                    android:layout_height="18dp" />
+<!--                <ImageView-->
+<!--                    android:visibility="invisible"-->
+<!--                    android:id="@+id/imgHeart"-->
+<!--                    android:layout_width="30dp"-->
+<!--                    android:layout_height="28dp"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:src="@drawable/f2_ic_gray_heart" />-->
+                <com.like.LikeButton
+                    android:visibility="invisible"
+                    android:id="@+id/imgHeart"
+                    android:layout_width="30dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center"
+                    app:anim_scale_factor="5.0"
+                    app:icon_size="15dp"
+                    app:like_drawable="@drawable/f2_ic_red_heart"
+                    app:unlike_drawable="@drawable/f2_ic_gray_heart" />
 
                 <TextView
-                    android:layout_marginEnd="15dp"
-                    android:visibility="gone"
                     android:id="@+id/tvCountLike"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
+                    android:layout_marginEnd="15dp"
                     android:fontFamily="@font/roboto_regular"
                     android:text="2"
                     android:textColor="#7A7A7A"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"
+                    android:visibility="invisible" />
 
                 <ImageView
-                    android:src="@drawable/f2_ic_reply"
                     android:layout_width="20dp"
-                    android:layout_height="20dp" />
+                    android:layout_height="20dp"
+                    android:src="@drawable/f2_ic_reply"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tvReply"
@@ -151,7 +164,8 @@
                     android:fontFamily="@font/roboto_regular"
                     android:text="Trả lời"
                     android:textColor="#7A7A7A"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"
+                    android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
 

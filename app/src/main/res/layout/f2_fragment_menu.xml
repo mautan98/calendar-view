@@ -38,7 +38,7 @@
 
 
 
-        <android.support.v4.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/layoutToolbar">
@@ -113,7 +113,7 @@
                         </LinearLayout>
 
 
-                        <android.support.v7.widget.CardView
+                        <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -239,7 +239,7 @@ tính năng của VTVTravel"
                                         android:gravity="center"
                                         android:orientation="horizontal">
 
-                                        <android.support.v7.widget.CardView
+                                        <androidx.cardview.widget.CardView
                                             android:id="@+id/btnLogin"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
@@ -249,7 +249,7 @@ tính năng của VTVTravel"
                                             <TextView
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
-                                                android:background="#00918D"
+                                                android:background="@drawable/bg_ripple_main_rect"
                                                 android:paddingStart="24dp"
                                                 android:paddingTop="8dp"
                                                 android:paddingEnd="24dp"
@@ -257,10 +257,10 @@ tính năng của VTVTravel"
                                                 android:text="Đăng nhập"
                                                 android:textColor="@color/white" />
 
-                                        </android.support.v7.widget.CardView>
+                                        </androidx.cardview.widget.CardView>
 
 
-                                        <android.support.v7.widget.CardView
+                                        <androidx.cardview.widget.CardView
                                             android:id="@+id/btnRegister"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
@@ -270,7 +270,7 @@ tính năng của VTVTravel"
                                             <TextView
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
-                                                android:background="#00918D"
+                                                android:background="@drawable/bg_ripple_main_rect"
                                                 android:paddingStart="24dp"
                                                 android:paddingTop="8dp"
                                                 android:paddingEnd="24dp"
@@ -279,7 +279,7 @@ tính năng của VTVTravel"
                                                 android:textColor="@color/white" />
 
 
-                                        </android.support.v7.widget.CardView>
+                                        </androidx.cardview.widget.CardView>
 
 
                                     </LinearLayout>
@@ -288,33 +288,33 @@ tính năng của VTVTravel"
                                 </LinearLayout>
 
 
-                                <android.support.v7.widget.RecyclerView
+                                <androidx.recyclerview.widget.RecyclerView
                                     android:id="@+id/rclHeaderMenu"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+                                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
                             </LinearLayout>
 
 
-                        </android.support.v7.widget.CardView>
+                        </androidx.cardview.widget.CardView>
 
                     </LinearLayout>
 
 
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rclContent"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
                 </LinearLayout>
 
             </RelativeLayout>
 
-        </android.support.v4.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
     </RelativeLayout>
 

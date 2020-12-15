@@ -40,4 +40,9 @@ class NewsSearchFragment : BaseFragment<F2FragmentSearchNewsBinding>() {
     override fun setObserver() {
     }
 
+    override fun setScreenTitle() {
+        super.setScreenTitle()
+        setDataScreen("NEWS_SEARCH", "TÌM KIẾM TIN TỨC")
+    }
+
 }

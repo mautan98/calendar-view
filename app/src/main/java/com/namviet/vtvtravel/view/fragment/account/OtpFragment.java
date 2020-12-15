@@ -1,19 +1,16 @@
 package com.namviet.vtvtravel.view.fragment.account;
 
-import android.content.Context;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 
 import com.baseapp.menu.SlideMenu;
 import com.baseapp.utils.KeyboardUtils;
@@ -191,7 +188,11 @@ public class OtpFragment extends MainFragment implements Observer {
     @Override
     public void onStop() {
         super.onStop();
-        KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+        try {
+            KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+        } catch (Exception e) {
+
+        }
     }
 
 }

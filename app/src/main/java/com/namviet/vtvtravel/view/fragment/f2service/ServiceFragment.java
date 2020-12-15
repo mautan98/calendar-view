@@ -1,12 +1,12 @@
 package com.namviet.vtvtravel.view.fragment.f2service;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +21,7 @@ import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.response.AccountResponse;
 import com.namviet.vtvtravel.response.ResponseError;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -61,6 +62,11 @@ public class ServiceFragment extends MainFragment implements Observer {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        try {
+            TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_VIEW, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SERVICE_PACKAGE, TrackingAnalytic.ScreenTitle.SERVICE_PACKAGE).setScreen_class(this.getClass().getName()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         initView();
     }
 
@@ -79,7 +85,7 @@ public class ServiceFragment extends MainFragment implements Observer {
                     String code = String.valueOf(MyApplication.getInstance().getAccount().getId());
                     String token = String.valueOf(MyApplication.getInstance().getAccount().getToken());
                     serviceViewModel.getInfo(code, token);
-                    Toast.makeText(mActivity, "Đang lấy thông tin gói dịch vụ...", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mActivity, "Đang lấy thông tin gói dịch vụ...", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -144,6 +150,7 @@ public class ServiceFragment extends MainFragment implements Observer {
                 MyApplication.getInstance().setAccount(accountResponse.getData());
                 mActivity.updateLogin();
             } else if (arg instanceof GetInfoResponse) {
+                MyApplication.getInstance().setVipRegisted(false);
                 GetInfoResponse getInfoResponse = (GetInfoResponse) arg;
                 if(getInfoResponse.getData().getUser().getPackageCode() != null && getInfoResponse.getData().getUser().getPackageCode().equals("TRAVEL_VIP")){
                     MyApplication.getInstance().setVipRegisted(true);

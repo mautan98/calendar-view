@@ -86,7 +86,7 @@
         </RelativeLayout>
 
 
-        <android.support.v4.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/layoutToolbar"
@@ -103,7 +103,7 @@
                     android:layout_height="1dp"
                     android:background="#ECECEC" />
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layoutHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -114,7 +114,6 @@
                         android:id="@+id/imgAvatar"
                         android:layout_width="44dp"
                         android:layout_height="44dp"
-                        android:src="#FF00FF"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -154,9 +153,9 @@
                         app:layout_constraintBottom_toBottomOf="@id/imgArm"
                         app:layout_constraintStart_toEndOf="@id/imgArm"
                         app:layout_constraintTop_toTopOf="@id/imgArm" />
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layoutHeaderEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -185,7 +184,7 @@
                         app:civ_border_width="0.5dp"
                         app:layout_constraintEnd_toEndOf="@id/imgAvatarEdit"
                         app:layout_constraintTop_toTopOf="@id/imgAvatarEdit" />
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -249,7 +248,7 @@
                         android:fontFamily="@font/roboto_regular"
                         android:paddingTop="2dp"
                         android:paddingBottom="2dp"
-                        android:text="Sơn Bùi"
+
                         android:textColor="#000000"
                         android:textSize="16sp" />
 
@@ -304,6 +303,7 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:inputType="phone"
                         android:singleLine="true"
                         android:id="@+id/edtNumberPhone"
                         android:layout_width="match_parent"
@@ -315,7 +315,7 @@
                         android:fontFamily="@font/roboto_regular"
                         android:paddingTop="2dp"
                         android:paddingBottom="2dp"
-                        android:text="0986343411"
+
                         android:textColor="#000000"
                         android:textSize="16sp" />
 
@@ -337,6 +337,7 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:inputType="textEmailAddress"
                         android:singleLine="true"
                         android:id="@+id/edtEmail"
                         android:layout_width="match_parent"
@@ -379,7 +380,7 @@
                         android:layout_marginEnd="12dp"
                         android:background="@null"
                         android:fontFamily="@font/roboto_regular"
-                        android:text="Nam"
+
                         android:textColor="#000000"
                         android:textSize="16sp" />
 
@@ -412,7 +413,7 @@
                         android:fontFamily="@font/roboto_regular"
                         android:paddingTop="2dp"
                         android:paddingBottom="2dp"
-                        android:text="01/01/2020"
+
                         android:textColor="#000000"
                         android:textSize="16sp" />
 
@@ -446,7 +447,7 @@
                         android:fontFamily="@font/roboto_regular"
                         android:paddingTop="2dp"
                         android:paddingBottom="2dp"
-                        android:text="Số 123, Thành Thái, Cầu Giấy, Hà Nội"
+
                         android:textColor="#000000"
                         android:textSize="16sp" />
 
@@ -760,7 +761,7 @@
                 </LinearLayout>
 
             </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
     </RelativeLayout>
 </layout>

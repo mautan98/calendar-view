@@ -1,20 +1,17 @@
 package com.namviet.vtvtravel.adapter;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.databinding.DataBindingUtil;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.databinding.library.baseAdapters.BR;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.databinding.ItemNearDisBinding;
 import com.namviet.vtvtravel.databinding.ItemNearTypeBinding;
 import com.namviet.vtvtravel.listener.ItemChangeListener;
 import com.namviet.vtvtravel.model.NearType;
-import com.namviet.vtvtravel.viewmodel.ItemNearDisViewModel;
 import com.namviet.vtvtravel.viewmodel.ItemNearTypeViewModel;
 
 import java.util.List;
@@ -86,7 +83,7 @@ public class NearTypeAdapter extends RecyclerView.Adapter<NearTypeAdapter.NearTy
             } else {
                 binding.getItemNearType().setNearType(nearType);
             }
-            this.binding.setVariable(BR.itemNearType, binding.getItemNearType());
+//            this.binding.setVariable(BR.itemNearType, binding.getItemNearType());
         }
     }
 

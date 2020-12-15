@@ -2,13 +2,12 @@ package com.namviet.vtvtravel.view.fragment.f2account;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.baseapp.menu.SlideMenu;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
@@ -17,11 +16,10 @@ import com.namviet.vtvtravel.databinding.F2FragmentForgetPassBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.response.AccountResponse;
-import com.namviet.vtvtravel.response.ResponseError;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.StringUtils;
 import com.namviet.vtvtravel.ultils.ValidateUtils;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
-import com.namviet.vtvtravel.view.fragment.account.OtpFragment;
 import com.namviet.vtvtravel.viewmodel.AccountViewModel;
 
 import java.util.Observable;
@@ -175,5 +173,11 @@ public class ForgetPassF2Fragment extends BaseFragment<F2FragmentForgetPassBindi
                 .subscribe(textViewAfterTextChangeEvent -> {
                     linearLayout.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.f2_bg_login));
                 });
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.FORGET_PASS, TrackingAnalytic.ScreenTitle.FORGET_PASS);
     }
 }

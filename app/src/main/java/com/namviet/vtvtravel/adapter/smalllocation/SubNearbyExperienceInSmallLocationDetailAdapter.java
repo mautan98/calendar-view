@@ -1,10 +1,9 @@
 package com.namviet.vtvtravel.adapter.smalllocation;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -121,10 +120,10 @@ public class SubNearbyExperienceInSmallLocationDetailAdapter extends RecyclerVie
             try {
                 if(travel.isHas_location()) {
                     if (travel.getDistance() != null && !"".equals(travel.getDistance()) && Double.parseDouble(travel.getDistance()) < 1000) {
-                        tvDistance.setText("Cách bạn " + travel.getDistance() + " m");
+                        tvDistance.setText(travel.getDistance_text()+" " + travel.getDistance() + " m");
                     } else if (travel.getDistance() != null && !"".equals(travel.getDistance())) {
                         double finalValue = Math.round(Double.parseDouble(travel.getDistance()) / 1000 * 10.0) / 10.0;
-                        tvDistance.setText("Cách bạn " + finalValue + " km");
+                        tvDistance.setText(travel.getDistance_text()+" " + finalValue + " km");
                     }
                 }else {
                     tvDistance.setText("Không xác định");
@@ -136,10 +135,15 @@ public class SubNearbyExperienceInSmallLocationDetailAdapter extends RecyclerVie
 
             tvOpenState.setText(travel.getType_open());
 
-            if ("Đang đóng".equals(travel.getType_open())) {
-                tvOpenState.setTextColor(Color.parseColor("#FF0000"));
-            } else {
-                tvOpenState.setTextColor(Color.parseColor("#0FB403"));
+            try {
+                tvOpenState.setTextColor(Color.parseColor(travel.getTypeOpenColor()));
+            } catch (Exception e) {
+                try {
+                    tvOpenState.setTextColor(Color.parseColor("#FF0000"));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                e.printStackTrace();
             }
 
 

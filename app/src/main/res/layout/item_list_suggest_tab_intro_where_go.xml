@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="@dimen/_3sdp">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="@dimen/_70sdp"
         app:cardCornerRadius="@dimen/_3sdp"
@@ -16,9 +16,8 @@
             android:id="@+id/ivItem"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/bg_header" />
-    </android.support.v7.widget.CardView>
+            android:scaleType="centerCrop" />
+    </androidx.cardview.widget.CardView>
 
 
     <com.daimajia.slider.library.RobotoTextView

@@ -13,8 +13,8 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.v4.content.ContextCompat;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,7 +25,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.baseapp.utils.KeyboardUtils;
-import com.google.android.exoplayer2.C;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent;
@@ -42,7 +41,6 @@ import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
 import com.namviet.vtvtravel.response.f2review.UploadImageResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
-import com.namviet.vtvtravel.tracking.TrackingViewModel;
 import com.namviet.vtvtravel.viewmodel.f2review.ReviewViewModel;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.callback.BitmapLoadCallback;
@@ -193,7 +191,7 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
         getBinding().btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(getBinding().ratingReview.getRating() != 0 || !getBinding().edtReview.getText().toString().isEmpty()){
+                if (getBinding().ratingReview.getRating() != 0 || !getBinding().edtReview.getText().toString().isEmpty()) {
                     CancelReviewDialog cancelReviewDialog = CancelReviewDialog.newInstance(new CancelReviewDialog.ClickButton() {
                         @Override
                         public void onClickButton() {
@@ -202,7 +200,7 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
                         }
                     });
                     cancelReviewDialog.show(mActivity.getSupportFragmentManager(), null);
-                }else {
+                } else {
                     KeyboardUtils.hideKeyboard(mActivity, getBinding().edtReview);
                     mActivity.onBackPressed();
                 }
@@ -259,12 +257,12 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
     }
 
 
-    private void sendReview(){
-        if(getBinding().ratingReview.getRating() == 0){
+    private void sendReview() {
+        if (getBinding().ratingReview.getRating() == 0) {
             showToast("Bạn hãy chọn điểm cho đánh giá này!");
             return;
         }
-        if(getBinding().edtReview.getText().toString().isEmpty()){
+        if (getBinding().edtReview.getText().toString().isEmpty()) {
             showToast("Bạn hãy nhập nội dung đánh giá");
             return;
         }
@@ -277,7 +275,7 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
                 uploadImage();
             } else {
                 showProgress();
-                viewModel.createReview(null, String.valueOf(account.getId()), getBinding().edtReview.getText().toString(), contentId, contentType, String.valueOf((int)getBinding().ratingReview.getRating()), listUrl);
+                viewModel.createReview(null, String.valueOf(account.getId()), getBinding().edtReview.getText().toString(), contentId, contentType, String.valueOf((int) getBinding().ratingReview.getRating()), listUrl);
             }
 
         } else {
@@ -311,7 +309,10 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
                 genDialogSendReviewSuccess();
 
                 try {
-                    TrackingAnalytic.postEvent(TrackingAnalytic.REVIEW, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                    TrackingAnalytic.postEvent(TrackingAnalytic.REVIEW, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.REVIEW, TrackingAnalytic.ScreenTitle.REVIEW)
+                            .setComment(getBinding().edtReview.getText().toString())
+                            .setRating(String.valueOf(getBinding().ratingReview.getRating()))
+                            .setScreen_class(this.getClass().getName()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -325,7 +326,7 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
                     showToast("Tải ảnh lên hoàn tất, đang gửi đánh giá...");
                     Account account = MyApplication.getInstance().getAccount();
                     if (null != account && account.isLogin()) {
-                        viewModel.createReview(null, String.valueOf(account.getId()), getBinding().edtReview.getText().toString(), contentId, contentType, String.valueOf((int)getBinding().ratingReview.getRating()), listUrl);
+                        viewModel.createReview(null, String.valueOf(account.getId()), getBinding().edtReview.getText().toString(), contentId, contentType, String.valueOf((int) getBinding().ratingReview.getRating()), listUrl);
                     } else {
                         LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
                     }
@@ -340,7 +341,7 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
             } catch (Exception e) {
 
             }
-        }else {
+        } else {
             try {
                 showToast("Có lỗi xảy ra");
             } catch (Exception e) {
@@ -501,7 +502,7 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
         return file;
     }
 
-    private void genDialogSendReviewSuccess(){
+    private void genDialogSendReviewSuccess() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
         builder.setMessage("Gửi đánh giá thành công.");
         builder.setPositiveButton("Đóng", new DialogInterface.OnClickListener() {
@@ -515,7 +516,7 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
         builder.show();
     }
 
-    private void showProgress(){
+    private void showProgress() {
         try {
             progressDialog = new ProgressDialog(mActivity);
             progressDialog.setMessage("Đang gửi đánh giá...");
@@ -524,7 +525,8 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
             e.printStackTrace();
         }
     }
-    private void dismissDialog(){
+
+    private void dismissDialog() {
         try {
             progressDialog.dismiss();
         } catch (Exception e) {
@@ -532,4 +534,10 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
         }
     }
 
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.REVIEW, TrackingAnalytic.ScreenTitle.REVIEW);
+    }
 }

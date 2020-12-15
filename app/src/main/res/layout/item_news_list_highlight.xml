@@ -27,7 +27,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cvItem"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_80sdp"
@@ -38,9 +38,8 @@
                     android:id="@+id/ivPhoto"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/bg_header" />
-            </android.support.v7.widget.CardView>
+                    android:scaleType="centerCrop" />
+            </androidx.cardview.widget.CardView>
 
             <com.namviet.vtvtravel.widget.RobotoTextView
                 android:id="@+id/tvTitle"

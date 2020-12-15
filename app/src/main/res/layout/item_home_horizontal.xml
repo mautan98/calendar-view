@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/crvBigImage"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_160sdp"
@@ -20,8 +20,7 @@
                 android:id="@+id/ivItem1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/bg_header" />
+                android:scaleType="centerCrop" />
 
             <com.namviet.vtvtravel.widget.RobotoTextView
                 android:id="@+id/tvDescription1"
@@ -37,7 +36,7 @@
                 app:typeface="roboto_regular" />
 
         </RelativeLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,7 +52,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cvItem2"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_80sdp"
@@ -64,9 +63,8 @@
                     android:id="@+id/ivItem2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/bg_header" />
-            </android.support.v7.widget.CardView>
+                    android:scaleType="centerCrop" />
+            </androidx.cardview.widget.CardView>
 
             <com.namviet.vtvtravel.widget.RobotoTextView
                 android:id="@+id/tvDescription2"
@@ -87,7 +85,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cvItem3"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_80sdp"
@@ -98,9 +96,8 @@
                     android:id="@+id/ivItem3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/bg_header" />
-            </android.support.v7.widget.CardView>
+                    android:scaleType="centerCrop" />
+            </androidx.cardview.widget.CardView>
 
             <com.namviet.vtvtravel.widget.RobotoTextView
                 android:id="@+id/tvDescription3"

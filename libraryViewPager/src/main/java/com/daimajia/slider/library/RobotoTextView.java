@@ -11,7 +11,7 @@ import android.util.SparseArray;
  * Created by vn on 12/20/2016.
  */
 
-public class RobotoTextView extends android.support.v7.widget.AppCompatTextView {
+public class RobotoTextView extends androidx.appcompat.widget.AppCompatTextView {
     /*
      * Permissible values ??for the "typeface" attribute.
      */

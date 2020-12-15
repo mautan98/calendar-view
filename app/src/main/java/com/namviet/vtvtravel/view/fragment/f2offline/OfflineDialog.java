@@ -1,13 +1,13 @@
 package com.namviet.vtvtravel.view.fragment.f2offline;
 
 import android.app.Dialog;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -17,21 +17,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.offline.OfflineOptionAdapter;
 import com.namviet.vtvtravel.databinding.F2DialogOfflineBinding;
-import com.namviet.vtvtravel.model.offline.Items;
 import com.namviet.vtvtravel.model.offline.ItemsPopup;
 import com.namviet.vtvtravel.model.offline.OfflineDynamic;
-import com.namviet.vtvtravel.model.offline.OfflineOption;
 import com.namviet.vtvtravel.view.dialog.BaseDialogFragment;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 public class OfflineDialog extends BaseDialogFragment {
     private F2DialogOfflineBinding binding;

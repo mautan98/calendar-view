@@ -8,7 +8,7 @@
     </data>
 
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/rlToolBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -26,5 +26,5 @@
             android:padding="@dimen/_4sdp"/>
 
 
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 </layout>

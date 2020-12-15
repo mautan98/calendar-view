@@ -23,6 +23,17 @@ public class AppVideoResponse extends BaseResponse {
         private String description;
         private String streaming_url;
 
+        private String category_tree_code;
+        private String category_tree_name;
+
+        public String getCategory_tree_code() {
+            return category_tree_code;
+        }
+
+        public String getCategory_tree_name() {
+            return category_tree_name;
+        }
+
         public String getStreaming_url() {
             return streaming_url;
         }

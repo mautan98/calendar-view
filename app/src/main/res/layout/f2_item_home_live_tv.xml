@@ -5,7 +5,7 @@
 
     <data></data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -30,6 +30,6 @@
             android:id="@+id/imgAvatar"
             android:layout_width="48dp"
             android:layout_height="16dp" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -5,6 +5,7 @@ import android.view.View;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.databinding.F2FragmentPersonalInformationEditBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 
 public class UserInformationEditFragment extends BaseFragment<F2FragmentPersonalInformationEditBinding> implements View.OnClickListener, GenderDialog.Gender {
     private boolean checkMergeInfo = false;
@@ -121,4 +122,10 @@ public class UserInformationEditFragment extends BaseFragment<F2FragmentPersonal
             e.printStackTrace();
         }
     }
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.USER_INFO, TrackingAnalytic.ScreenTitle.USER_INFO);
+    }
+
 }

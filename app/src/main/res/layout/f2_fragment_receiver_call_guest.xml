@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data></data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00918D">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="100dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="1039"
+                android:textColor="@color/white"
+                android:textSize="40dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="72dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/btnHangup"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="135dp"
+                android:src="@drawable/f2_ic_end_call" />
+
+            <ImageView
+                android:id="@+id/btnAccept"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/f2_ic_in_call" />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

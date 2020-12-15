@@ -18,7 +18,7 @@ public class FormChatDialogViewModel extends BaseViewModel {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelService();
         RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                Param.sendFormChat(username, mobile, timeContact, startTime, endTime, content).toString());
+                Param.sendFormChat(username, mobile, timeContact, startTime, endTime, content, "").toString());
         Disposable disposable = newsService.sendFormChat(jsonBodyObject)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())

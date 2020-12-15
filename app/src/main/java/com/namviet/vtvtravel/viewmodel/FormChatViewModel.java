@@ -20,11 +20,11 @@ import okhttp3.RequestBody;
 
 public class FormChatViewModel extends BaseViewModel {
 
-    public void sendFormChat(String username, String mobile, String timeContact, String startTime, String endTime, String content) {
+    public void sendFormChat(String username, String mobile, String timeContact, String startTime, String endTime, String content, String email) {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelService();
         RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                Param.sendFormChat(username, mobile, timeContact, startTime, endTime, content).toString());
+                Param.sendFormChat(username, mobile, timeContact, startTime, endTime, content, email).toString());
         Disposable disposable = newsService.sendFormChat(jsonBodyObject)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())

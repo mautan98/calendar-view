@@ -2,12 +2,11 @@ package com.namviet.vtvtravel.view.fragment.f2account;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.namviet.vtvtravel.R;
@@ -22,7 +21,6 @@ import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.ValidateUtils;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.viewmodel.AccountViewModel;
-import com.namviet.vtvtravel.tracking.TrackingViewModel;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -50,7 +48,8 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
         accountViewModel.addObserver(this);
 
         handleValidateSuccess(getBinding().edtPhone, getBinding().linearUsername);
-        handleValidateSuccess(getBinding().edtName, getBinding().linearName);
+        handleValidateSuccess(getBinding().edtName, getBinding().edtName);
+
     }
 
     @Override
@@ -80,11 +79,11 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
                 if (phone.isEmpty()) {
                     handleValidateFail(getBinding().edtPhone, getBinding().linearUsername, getString(R.string.phone_empty_v2));
                 } else if (name.isEmpty()) {
-                    handleValidateFail(getBinding().edtName, getBinding().linearName, getString(R.string.name_empty));
+                    handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.name_empty));
                 } else if (name.length() > 60) {
-                    handleValidateFail(getBinding().edtName, getBinding().linearName, getString(R.string.name_invalid));
+                    handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.name_invalid));
                 } else if (ValidateUtils.isString(name)) {
-                    handleValidateFail(getBinding().edtName, getBinding().linearName, getString(R.string.special_charactor));
+                    handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.special_charactor));
                 } else if (!ValidateUtils.isValidPhoneNumberNew(phone)) {
                     handleValidateFail(getBinding().edtPhone, getBinding().linearUsername, getString(R.string.phone_invalid));
                 } else {
@@ -93,6 +92,12 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
                     }
                     showLoading();
                     accountViewModel.register(StringUtils.isPhoneValidateV2(phone, 84), name);
+
+                    try {
+                        TrackingAnalytic.postEvent(TrackingAnalytic.SIGN_UP, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.REGISTER, TrackingAnalytic.ScreenTitle.REGISTER).setScreen_class(this.getClass().getName()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
 
@@ -164,14 +169,14 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
         }
     }
 
-    private void handleValidateFail(EditText editText, LinearLayout linearLayout, String error) {
+    private void handleValidateFail(EditText editText, View linearLayout, String error) {
         ((LoginAndRegisterActivityNew) mActivity).showWarning(error);
         linearLayout.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.f2_bg_login_fail));
         editText.requestFocus();
     }
 
     @SuppressLint("CheckResult")
-    private void handleValidateSuccess(EditText editText, LinearLayout linearLayout) {
+    private void handleValidateSuccess(EditText editText, View linearLayout) {
         RxTextView.afterTextChangeEvents(editText)
                 .skipInitialValue()
                 .debounce(100, TimeUnit.MILLISECONDS)
@@ -179,5 +184,11 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
                 .subscribe(textViewAfterTextChangeEvent -> {
                     linearLayout.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.f2_bg_login));
                 });
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.REGISTER, TrackingAnalytic.ScreenTitle.REGISTER);
     }
 }

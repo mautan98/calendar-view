@@ -5,9 +5,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_marginStart="15dp"
         android:layout_width="158dp"
+        android:foreground="@drawable/bg_ripple_trans_rect"
         android:layout_height="110dp"
         app:cardCornerRadius="4dp">
 
@@ -46,6 +47,6 @@
 
         </RelativeLayout>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

@@ -14,7 +14,7 @@ import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
 import com.namviet.vtvtravel.view.fragment.f2video.DetailVideoFragment;
 
 public class DetailVideoActivity extends BaseActivityNew<F2ActivityDetailVideoBinding> {
-    private Video video;
+    private String videoLink;
     @Override
     public int getLayoutRes() {
         return R.layout.f2_activity_detail_video;
@@ -27,7 +27,7 @@ public class DetailVideoActivity extends BaseActivityNew<F2ActivityDetailVideoBi
 
     @Override
     public void getDataFromIntent() {
-        video =  getIntent().getExtras().getParcelable(Constants.IntentKey.DATA_VIDEO);
+        videoLink =  getIntent().getStringExtra(Constants.IntentKey.DATA_VIDEO);
 
     }
 
@@ -44,12 +44,12 @@ public class DetailVideoActivity extends BaseActivityNew<F2ActivityDetailVideoBi
     @Override
     public BaseFragment initFragment() {
         DetailVideoFragment detailVideoFragment = new DetailVideoFragment();
-        detailVideoFragment.setVideo(video);
+        detailVideoFragment.setVideo(videoLink);
         return detailVideoFragment;
     }
-    public static void startScreen(Context activity, Video video){
+    public static void startScreen(Context activity, String videoLink){
         Intent intent = new Intent(activity, DetailVideoActivity.class);
-        intent.putExtra(Constants.IntentKey.DATA_VIDEO, video);
+        intent.putExtra(Constants.IntentKey.DATA_VIDEO, videoLink);
         activity.startActivity(intent);
     }
 }

@@ -1,10 +1,10 @@
 package com.brucetoo.videoplayer.utils;
 
 import android.graphics.Rect;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPropertyAnimatorCompat;
-import android.support.v4.view.ViewPropertyAnimatorListener;
-import android.support.v4.view.ViewPropertyAnimatorUpdateListener;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewPropertyAnimatorCompat;
+import androidx.core.view.ViewPropertyAnimatorListener;
+import androidx.core.view.ViewPropertyAnimatorUpdateListener;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Interpolator;

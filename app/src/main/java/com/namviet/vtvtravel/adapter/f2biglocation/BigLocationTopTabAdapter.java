@@ -1,8 +1,8 @@
 package com.namviet.vtvtravel.adapter.f2biglocation;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +21,15 @@ public class BigLocationTopTabAdapter extends RecyclerView.Adapter<RecyclerView.
     private static final int TYPE_ITEM = 0;
     private Context context;
     private ClickItem clickItem;
+    private String regionId;
 
     private List<BigLocationResponse.Data.Region.Items> items;
 
-    public BigLocationTopTabAdapter(List<BigLocationResponse.Data.Region.Items> items, Context context, ClickItem clickItem) {
+    public BigLocationTopTabAdapter(List<BigLocationResponse.Data.Region.Items> items, Context context, String regionId,  ClickItem clickItem) {
         this.context = context;
         this.clickItem = clickItem;
         this.items = items;
+        this.regionId = regionId;
     }
 
     @Override
@@ -82,7 +84,7 @@ public class BigLocationTopTabAdapter extends RecyclerView.Adapter<RecyclerView.
                 @Override
                 public void onClick(View view) {
                     try {
-                        SmallLocationActivity.startScreen(context, items.get(position).getLink(), items.get(position).getCode(), SmallLocationActivity.OpenType.LIST);
+                        SmallLocationActivity.startScreen(context, items.get(position).getLink(), items.get(position).getCode(), SmallLocationActivity.OpenType.LIST, regionId);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

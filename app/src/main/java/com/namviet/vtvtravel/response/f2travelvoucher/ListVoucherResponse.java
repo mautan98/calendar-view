@@ -20,7 +20,7 @@ public class ListVoucherResponse extends BaseResponse {
         this.data = data;
     }
 
-    public class Data  {
+    public class Data {
         @Expose
         @SerializedName("items")
         private List<Voucher> vouchers;
@@ -33,7 +33,18 @@ public class ListVoucherResponse extends BaseResponse {
             this.vouchers = vouchers;
         }
 
-        public  class Voucher implements Serializable {
+        public class Voucher implements Serializable {
+            //
+            private boolean isSelectedLuckyWheel;
+
+            public boolean isSelectedLuckyWheel() {
+                return isSelectedLuckyWheel;
+            }
+
+            public void setSelectedLuckyWheel(boolean selectedLuckyWheel) {
+                isSelectedLuckyWheel = selectedLuckyWheel;
+            }
+
             @Expose
             @SerializedName("remainCoupon")
             private String remainCoupon;
@@ -299,7 +310,7 @@ public class ListVoucherResponse extends BaseResponse {
                 this.id = id;
             }
 
-            public  class Coupons implements Serializable {
+            public class Coupons implements Serializable {
                 @Expose
                 @SerializedName("modifiedAt")
                 private String modifiedAt;

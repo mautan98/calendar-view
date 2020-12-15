@@ -45,8 +45,8 @@ public class AccountViewModel extends BaseViewModel {
 
     }
 
-    public void login(String mobile, String pass) {
-        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(Param.login(mobile, pass)).toString());
+    public void login(String mobile, String pass, String deviceToken) {
+        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(Param.login(mobile, pass, deviceToken)).toString());
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
 

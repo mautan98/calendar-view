@@ -1,9 +1,9 @@
 package com.namviet.vtvtravel.view.fragment.f2callnow;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +15,7 @@ import com.namviet.vtvtravel.model.f2callnow.CallNowHistory;
 import com.namviet.vtvtravel.model.f2event.OnDeleteSuccess;
 import com.namviet.vtvtravel.response.BaseResponse;
 import com.namviet.vtvtravel.response.ResponseError;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.viewmodel.f2callnow.MainCallHistoryViewModel;
 
@@ -52,6 +53,11 @@ public class MissingCallFragment extends MainFragment implements MissingCallHist
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        try {
+            TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_VIEW, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.MISSING_CALL, TrackingAnalytic.ScreenTitle.MISSING_CALL).setScreen_class(this.getClass().getName()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         initViews(view);
     }
 

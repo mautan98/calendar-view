@@ -1,16 +1,23 @@
 package com.namviet.vtvtravel.app;
 
 import android.app.Application;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import android.util.Log;
 
+
+import androidx.annotation.NonNull;
 
 import com.daimajia.slider.library.NearDistance;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.namviet.vtvtravel.R;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.namviet.vtvtravel.api.TravelFactory;
 import com.namviet.vtvtravel.api.TravelService;
 import com.namviet.vtvtravel.config.Constants;
@@ -25,7 +32,6 @@ import com.namviet.vtvtravel.response.AccountResponse;
 import com.namviet.vtvtravel.ultils.DeviceUtils;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
 import com.namviet.vtvtravel.ultils.StringUtils;
-import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.viewmodel.AccountViewModel;
 
 import java.util.ArrayList;
@@ -122,8 +128,37 @@ public class MyApplication extends Application implements Observer {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        try {
+                            if (!task.isSuccessful()) {
+                                Log.w("messsss", "getInstanceId failed", task.getException());
+                                return;
+                            }
+
+                            // Get new Instance ID token
+                            String token = task.getResult().getToken();
+                            PreferenceUtil.getInstance(MyApplication.this).setValue(Constants.PrefKey.DEVICE_TOKEN, token);
+                            Log.e("tokennnn",  token);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+
         initDatabase();
         mAccount = new Account();
+        try {
+            Account  account  =  new Gson().fromJson(PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.ACCOUNT, ""), Account.class);
+            MyApplication.getInstance().setAccount(account);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         AccountViewModel accountViewModel = new AccountViewModel();
         accountViewModel.addObserver(this);
         boolean isLogin = PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.IS_LOGIN, false);
@@ -133,7 +168,7 @@ public class MyApplication extends Application implements Observer {
                 case Constants.TypeLogin.MOBILE:
                     String mobile = PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.MOBILE, "");
                     String password = PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.PASSWORD, "");
-                    accountViewModel.login(StringUtils.isPhoneValidateV2(mobile, 84), password);
+                    accountViewModel.login(StringUtils.isPhoneValidateV2(mobile, 84), password, PreferenceUtil.getInstance(MyApplication.this).getValue(Constants.PrefKey.DEVICE_TOKEN, ""));
                     break;
                 case Constants.TypeLogin.GOOGLE:
                     String googleId = PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.GOOGLE_ID, "");
@@ -258,6 +293,7 @@ public class MyApplication extends Application implements Observer {
                     AccountResponse accountResponse = (AccountResponse) o;
                     if (accountResponse.isSuccess()) {
                         PreferenceUtil.getInstance(getBaseContext()).setValue(Constants.PrefKey.IS_LOGIN, true);
+                        PreferenceUtil.getInstance(getBaseContext()).setValue(Constants.PrefKey.ACCOUNT, new Gson().toJson(accountResponse.getData()));
                         MyApplication.getInstance().setAccount(accountResponse.getData());
                         Intent intent = new Intent(Constants.KeyBroadcast.KEY_SAVE_LOGIN_SCREEN);
                         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);

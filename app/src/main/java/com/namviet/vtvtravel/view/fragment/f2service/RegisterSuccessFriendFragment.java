@@ -1,9 +1,9 @@
 package com.namviet.vtvtravel.view.fragment.f2service;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.baseapp.utils.KeyboardUtils;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.databinding.FragmentRegisterSuccessBinding;
-import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 
 import java.util.Objects;
@@ -31,7 +31,17 @@ public class RegisterSuccessFriendFragment extends MainFragment {
         super.onViewCreated(view, savedInstanceState);
         binding.btnBack.setOnClickListener(this);
         binding.btnBack.setText("Tiếp tục trải nghiệm VTVTravel");
-        KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+        try {
+            KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_VIEW, TrackingAnalytic.getDefault("RegisterPackageSuccess", "Đăng ký gói dịch vụ thành công").setScreen_class(this.getClass().getName()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -2,8 +2,8 @@ package com.namviet.vtvtravel.adapter.newhome.subnewhome;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.response.newhome.AppVideoResponse;
 import com.namviet.vtvtravel.response.newhome.ItemAppDiscoverResponse;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 
@@ -96,7 +95,11 @@ public class SubDiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     @Override
                     public void onClick(View view) {
                         try {
-                            TravelNewsActivity.openScreenDetail((Activity)context, TravelNewsActivity.OpenType.DETAIL, itemList.get(0).getDetail_link());
+                            if(itemList.get(0).getDetail_linkV2() != null && !itemList.get(0).getDetail_linkV2().isEmpty()){
+                                TravelNewsActivity.openScreenDetail((Activity)context, TravelNewsActivity.OpenType.DETAIL, itemList.get(0).getDetail_linkV2());
+                            }else {
+                                TravelNewsActivity.openScreenDetail((Activity) context, TravelNewsActivity.OpenType.DETAIL, itemList.get(0).getDetail_link());
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -113,7 +116,11 @@ public class SubDiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     @Override
                     public void onClick(View view) {
                         try {
-                            TravelNewsActivity.openScreenDetail((Activity)context, TravelNewsActivity.OpenType.DETAIL, itemList.get(1).getDetail_link());
+                            if(itemList.get(1).getDetail_linkV2() != null && !itemList.get(1).getDetail_linkV2().isEmpty()){
+                                TravelNewsActivity.openScreenDetail((Activity) context, TravelNewsActivity.OpenType.DETAIL, itemList.get(1).getDetail_linkV2());
+                            }else {
+                                TravelNewsActivity.openScreenDetail((Activity) context, TravelNewsActivity.OpenType.DETAIL, itemList.get(1).getDetail_link());
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -131,7 +138,12 @@ public class SubDiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     @Override
                     public void onClick(View view) {
                         try {
-                            TravelNewsActivity.openScreenDetail((Activity)context, TravelNewsActivity.OpenType.DETAIL, itemList.get(2).getDetail_link());
+                            if(itemList.get(2).getDetail_linkV2() != null && !itemList.get(2).getDetail_linkV2().isEmpty()){
+                                TravelNewsActivity.openScreenDetail((Activity)context, TravelNewsActivity.OpenType.DETAIL, itemList.get(2).getDetail_linkV2());
+                            }else {
+                                TravelNewsActivity.openScreenDetail((Activity)context, TravelNewsActivity.OpenType.DETAIL, itemList.get(2).getDetail_link());
+                            }
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -148,7 +160,11 @@ public class SubDiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     @Override
                     public void onClick(View view) {
                         try {
-                            TravelNewsActivity.openScreenDetail((Activity)context, TravelNewsActivity.OpenType.DETAIL, itemList.get(3).getDetail_link());
+                            if(itemList.get(3).getDetail_linkV2() != null && !itemList.get(3).getDetail_linkV2().isEmpty()) {
+                                TravelNewsActivity.openScreenDetail((Activity) context, TravelNewsActivity.OpenType.DETAIL, itemList.get(3).getDetail_linkV2());
+                            }else {
+                                TravelNewsActivity.openScreenDetail((Activity) context, TravelNewsActivity.OpenType.DETAIL, itemList.get(3).getDetail_link());
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

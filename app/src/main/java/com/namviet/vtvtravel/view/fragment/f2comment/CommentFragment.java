@@ -104,7 +104,7 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                 Account account = MyApplication.getInstance().getAccount();
                 if (null != account && account.isLogin()) {
                     userId = String.valueOf(account.getId());
-                    if(userId.equals(comment.getUserId())){
+                    if (userId.equals(comment.getUserId())) {
                         OptionCommentOfMineDialog optionCommentOfMineDialog = new OptionCommentOfMineDialog();
                         optionCommentOfMineDialog.setClickButton(new OptionCommentOfMineDialog.ClickButton() {
                             @Override
@@ -128,14 +128,14 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                             }
                         });
                         optionCommentOfMineDialog.show(mActivity.getSupportFragmentManager(), null);
-                    }else {
+                    } else {
                         OptionCommentDialog optionCommentDialog = new OptionCommentDialog();
                         optionCommentDialog.setClickButton(new OptionCommentDialog.ClickButton() {
 
                             @Override
                             public void onClickReply() {
                                 typeComment = TYPE_COMMENT_REPLY;
-                                getBinding().edtComment.setText("Trả lời: "+comment.getUser().getFullname());
+                                getBinding().edtComment.setText("Trả lời: " + comment.getUser().getFullname());
                                 CommentFragment.this.parentId = commentParent.getId();
                             }
 
@@ -160,10 +160,44 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
             @Override
             public void onClickReply(CommentResponse.Data.Comment comment, CommentResponse.Data.Comment commentParent) {
                 typeComment = TYPE_COMMENT_REPLY;
-                getBinding().edtComment.setText("#"+comment.getUser().getFullname());
+                getBinding().edtComment.setText("#" + comment.getUser().getFullname());
                 CommentFragment.this.parentId = commentParent.getId();
             }
-        });
+
+            @Override
+            public void likeEvent(int position) {
+                try {
+                    viewModel.likeEvent(comments.get(position).getId(), "comments");
+
+                    try {
+                        TrackingAnalytic.postEvent(TrackingAnalytic.LIKE, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.COMMENT, TrackingAnalytic.ScreenTitle.COMMENT)
+                                .setContent_id(comments.get(position).getId())
+                                .setContent_type("comments")
+                                .setScreen_class(this.getClass().getName()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                    if (comments.get(position).isLiked()) {
+                        comments.get(position).setLiked(false);
+                        if (null != comments.get(position).getLikeCount()) {
+                            String likeCount = (Integer.parseInt(comments.get(position).getLikeCount()) - 1) + "";
+                            comments.get(position).setLikeCount(likeCount);
+                        }
+                    } else {
+                        comments.get(position).setLiked(true);
+                        if (null != comments.get(position).getLikeCount()) {
+                            String likeCount = (Integer.parseInt(comments.get(position).getLikeCount()) + 1) + "";
+                            comments.get(position).setLikeCount(likeCount);
+                        }
+                    }
+                    commentAdapter.notifyItemChanged(position);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, viewModel);
         getBinding().rclComment.setAdapter(commentAdapter);
 
 
@@ -180,7 +214,7 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
 
     }
 
-    private void deleteComment(String commentId){
+    private void deleteComment(String commentId) {
         viewModel.deleteComment(commentId);
     }
 
@@ -200,21 +234,21 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                 if (null != account && account.isLogin()) {
                     userId = String.valueOf(account.getId());
 
-                    if(typeComment == TYPE_COMMENT_EDIT){
+                    if (typeComment == TYPE_COMMENT_EDIT) {
                         if (!getBinding().edtComment.getText().toString().isEmpty()) {
                             viewModel.updateComment(idCommentForEdit, getBinding().edtComment.getText().toString());
                             getBinding().edtComment.setText("");
                             getBinding().imgSend.setAlpha(1f);
                             typeComment = TYPE_COMMENT_NORMAL;
                         }
-                    }else if(typeComment == TYPE_COMMENT_REPLY){
+                    } else if (typeComment == TYPE_COMMENT_REPLY) {
                         if (!getBinding().edtComment.getText().toString().isEmpty()) {
                             postComment(parentId, getBinding().edtComment.getText().toString(), contentId, contentType);
                             getBinding().edtComment.setText("");
                             getBinding().imgSend.setAlpha(1f);
                             typeComment = TYPE_COMMENT_NORMAL;
                         }
-                    }else {
+                    } else {
                         if (!getBinding().edtComment.getText().toString().isEmpty()) {
                             postComment(null, getBinding().edtComment.getText().toString(), contentId, contentType);
                             getBinding().edtComment.setText("");
@@ -240,7 +274,7 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
         if (observable instanceof CommentViewModel && null != o) {
             if (o instanceof CommentResponse) {
                 CommentResponse response = (CommentResponse) o;
-                if(response.getData().getContent().size() > 0){
+                if (response.getData().getContent().size() > 0) {
                     getBinding().layoutNoComment.setVisibility(View.GONE);
                 }
                 comments.clear();
@@ -320,7 +354,11 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
 //                getBinding().rclComment.setAdapter(commentAdapter);
 
                 try {
-                    TrackingAnalytic.postEvent(TrackingAnalytic.COMMENT, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                    TrackingAnalytic.postEvent(TrackingAnalytic.COMMENT, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.COMMENT, TrackingAnalytic.ScreenTitle.COMMENT)
+                            .setContent_type(contentType)
+                            .setContent_id(contentId)
+                            .setComment(getBinding().edtComment.getText().toString())
+                            .setScreen_class(this.getClass().getName()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -394,5 +432,11 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.COMMENT, TrackingAnalytic.ScreenTitle.COMMENT);
     }
 }

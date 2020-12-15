@@ -2,10 +2,7 @@ package com.namviet.vtvtravel.view.f2;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 
-import com.baseapp.activity.BaseActivity;
 import com.longtailvideo.jwplayer.JWPlayerView;
 import com.longtailvideo.jwplayer.events.FullscreenEvent;
 import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
@@ -13,7 +10,6 @@ import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
-import com.namviet.vtvtravel.response.f2livetv.LiveTvResponse;
 
 public class FullVideoActivity extends BaseActivityNew implements VideoPlayerEvents.OnFullscreenListener {
     JWPlayerView jwPlayerView;

@@ -12,14 +12,14 @@ public class GetReviewResponse extends BaseResponse {
         return data;
     }
 
-    public class Data{
+    public class Data {
         private List<Content> content;
 
         public List<Content> getContent() {
             return content;
         }
 
-        public class Content{
+        public class Content {
             private String id;
             private String userId;
             private String contentId;
@@ -30,6 +30,30 @@ public class GetReviewResponse extends BaseResponse {
             private Account user;
             private String postRate;
             private List<String> galleryUris;
+
+            private boolean isLiked;
+            private String likeCount;
+            private String contentType;
+
+            public String getContentType() {
+                return contentType;
+            }
+
+            public boolean isLiked() {
+                return isLiked;
+            }
+
+            public void setLiked(boolean liked) {
+                isLiked = liked;
+            }
+
+            public String getLikeCount() {
+                return likeCount;
+            }
+
+            public void setLikeCount(String likeCount) {
+                this.likeCount = likeCount;
+            }
 
             public List<String> getGalleryUris() {
                 return galleryUris;

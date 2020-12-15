@@ -1,8 +1,9 @@
 package com.namviet.vtvtravel.adapter.smalllocation;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import android.os.Handler;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
 import com.namviet.vtvtravel.ultils.DateUtltils;
-import com.namviet.vtvtravel.ultils.F2Util;
 
 import java.util.List;
 
@@ -91,6 +93,8 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         private TextView tvComment;
         private TextView tvCountLike;
         private TextView tvReply;
+        private LikeButton imgHeart;
+        private TextView getTvCountLike;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -104,6 +108,8 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             rclImage = itemView.findViewById(R.id.rclImage);
             tvCountLike = itemView.findViewById(R.id.tvCountLike);
             tvReply = itemView.findViewById(R.id.tvReply);
+            imgHeart = itemView.findViewById(R.id.imgHeart);
+            tvCountLike = itemView.findViewById(R.id.tvCountLike);
         }
 
         public void bindItem(int position) {
@@ -132,12 +138,57 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 e.printStackTrace();
             }
 
+            try {
+                if (content.isLiked()) {
+//                    imgHeart.setImageResource(R.drawable.f2_ic_red_heart);
+                    imgHeart.setLiked(true);
+                } else {
+//                    imgHeart.setImageResource(R.drawable.f2_ic_gray_heart);
+                    imgHeart.setLiked(false);
+                }
+                tvCountLike.setText(content.getLikeCount());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+//            imgHeart.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    clickItem.likeEvent(position);
+//                }
+//            });
+            imgHeart.setOnLikeListener(new OnLikeListener() {
+                @Override
+                public void liked(LikeButton likeButton) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            clickHeart();
+                        }
+                    }, 100);
+                }
+
+                @Override
+                public void unLiked(LikeButton likeButton) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            clickHeart();
+                        }
+                    }, 100);
+                }
+            });
+        }
+
+        private void clickHeart(){
+            clickItem.likeEvent(position);
         }
     }
 
 
     public interface ClickItem {
         void onClickItem(Travel travel);
+
+        void likeEvent(int position);
     }
 
     private String genRatingText(int rate) {

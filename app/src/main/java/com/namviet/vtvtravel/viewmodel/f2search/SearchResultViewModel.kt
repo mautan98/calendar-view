@@ -9,7 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import retrofit2.HttpException
 
 class SearchResultViewModel : BaseViewModel() {
-    fun getYourVoucher(link : String) {
+    fun getYourVoucher(link: String) {
         val myApplication = MyApplication.getInstance()
         val newsService = myApplication.travelService
         val disposable = newsService.getYourVoucher(link)
@@ -19,10 +19,11 @@ class SearchResultViewModel : BaseViewModel() {
         compositeDisposable.add(disposable)
     }
 
-    fun getTrend(link : String) {
+    fun getTrend(link: String) {
         val myApplication = MyApplication.getInstance()
         val newsService = myApplication.travelService
-        val disposable = newsService.getTrend(link)
+        val queryMap = Param.getDefault()
+        val disposable = newsService.getTrend(link, queryMap)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ videoResponse -> videoResponse?.let { requestSuccess(it) } }) { throwable -> requestFailed(throwable!!) }
@@ -41,18 +42,40 @@ class SearchResultViewModel : BaseViewModel() {
     }
 
 
-    fun getPreResultSearch(keyword:String, regionId:String?) {
+    fun getPreResultSearch(keyword: String, regionId: String?, isLoadMore: Boolean) {
         val myApplication = MyApplication.getInstance()
         val newsService = myApplication.travelService
         val queryMap = Param.getDefault()
         val disposable = newsService.getPreResultSearch(queryMap, keyword, regionId)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    videoResponse -> videoResponse?.let { requestSuccess(it) }
+                .subscribe({ videoResponse ->
+                    videoResponse?.let {
+                        it.isLoadMore = isLoadMore
+                        requestSuccess(it)
+                    }
                 })
-                {
-                    throwable -> requestFailed(throwable!!)
+                { throwable ->
+                    requestFailed(throwable!!)
+                }
+        compositeDisposable.add(disposable)
+    }
+
+    fun getPreResultSearch(link: String, isLoadMore: Boolean) {
+        val myApplication = MyApplication.getInstance()
+        val newsService = myApplication.travelService
+        val queryMap = Param.getDefault()
+        val disposable = newsService.getPreResultSearch(link)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ videoResponse ->
+                    videoResponse?.let {
+                        it.isLoadMore = isLoadMore
+                        requestSuccess(it)
+                    }
+                })
+                { throwable ->
+                    requestFailed(throwable!!)
                 }
         compositeDisposable.add(disposable)
     }

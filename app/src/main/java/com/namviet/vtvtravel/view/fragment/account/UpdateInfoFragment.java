@@ -5,7 +5,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -13,12 +13,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,13 +29,9 @@ import android.widget.Toast;
 
 import com.android.datetimepicker.date.DatePickerDialog;
 import com.baseapp.utils.KeyboardUtils;
-import com.baseapp.utils.L;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.api.Param;
-import com.namviet.vtvtravel.api.TravelFactory;
-import com.namviet.vtvtravel.api.TravelService;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.FragmentUpdateInfoBinding;
@@ -52,16 +48,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Calendar;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -170,7 +159,11 @@ public class UpdateInfoFragment extends MainFragment implements Observer {
     public void onClick(View view) {
         super.onClick(view);
         if (view == binding.toolBar.ivBack) {
-            KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+            try {
+                KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+            } catch (Exception e) {
+
+            }
             mActivity.onBackPressed();
         } else if (view == binding.rlAvatar) {
             if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
@@ -229,7 +222,11 @@ public class UpdateInfoFragment extends MainFragment implements Observer {
             showDialogLoading();
         } else if (view == binding.btCancel){
             mActivity.onBackPressed();
-            KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+            try {
+                KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+            } catch (Exception e) {
+
+            }
         }
     }
 

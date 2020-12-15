@@ -1,13 +1,13 @@
 package com.namviet.vtvtravel.view.fragment.search;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -35,7 +35,6 @@ import com.namviet.vtvtravel.ultils.FirebaseAnalytic;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.viewmodel.SearchViewModel;
-import com.namviet.vtvtravel.tracking.TrackingViewModel;
 
 import java.util.List;
 import java.util.Objects;
@@ -75,7 +74,7 @@ public class SearchFragment extends MainFragment implements Observer, SearchSele
         mActivity.pushEvent(FirebaseAnalytic.SEARCH);
 
         try {
-            TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+            TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault("Search", "Tìm kiếm").setScreen_class(this.getClass().getName()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -192,7 +191,11 @@ public class SearchFragment extends MainFragment implements Observer, SearchSele
             binding.edSearch.setText("");
         } else if (view == binding.ivBack) {
             mActivity.onBackPressed();
-            KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+            try {
+                KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+            } catch (Exception e) {
+
+            }
         }
     }
 

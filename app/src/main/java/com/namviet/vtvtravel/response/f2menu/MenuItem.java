@@ -36,6 +36,14 @@ public  class MenuItem implements Serializable {
     @SerializedName("children")
     private List<MenuItem> menuChildren;
 
+    public MenuItem() {
+        html_icon = "";
+        link = "";
+        icon_enable_url = "";
+        icon_url = "";
+        id = "";
+    }
+
     public List<MenuItem> getMenuChildren() {
         return menuChildren;
     }

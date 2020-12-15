@@ -9,19 +9,19 @@
             type="com.namviet.vtvtravel.view.fragment.f2service.ServiceViewModel" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
-        android:focusable="true"
-        android:clickable="true"
-        android:background="@color/white"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true">
 
         <RelativeLayout
-            app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/rlToolBar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/colorPrimary">
+            android:background="@color/colorPrimary"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -30,13 +30,13 @@
                 android:fontFamily="@font/roboto_bold"
                 android:text="Gói dịch vụ"
                 android:textColor="@color/white"
-                android:textSize="14dp" />
+                android:textSize="18dp" />
 
             <LinearLayout
                 android:id="@+id/btnBack"
-                android:gravity="center"
                 android:layout_width="50dp"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:gravity="center">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -67,12 +67,12 @@
             app:tl_textUnselectColor="@color/gray_99"
             app:tl_textsize="16sp" />
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/vpVideo"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_below="@+id/tabVideo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tabVideo" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

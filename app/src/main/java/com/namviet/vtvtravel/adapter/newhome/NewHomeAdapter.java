@@ -2,15 +2,13 @@ package com.namviet.vtvtravel.adapter.newhome;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearSnapHelper;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.ViewPager;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +41,6 @@ import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2event.OnClickVideoInMenu;
-import com.namviet.vtvtravel.model.f2event.OnUpdateAccount;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.response.f2livetv.LiveTvResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
@@ -61,20 +58,20 @@ import com.namviet.vtvtravel.response.newhome.ItemAppVoucherNowResponse;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
 import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f2.BigLocationActivity;
+import com.namviet.vtvtravel.view.f2.CreateTripActivity;
 import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
 import com.namviet.vtvtravel.view.f2.FullVideoActivity;
-import com.namviet.vtvtravel.view.f2.HighLightSeeMoreVideoActivity;
 import com.namviet.vtvtravel.view.f2.LiveTVActivity;
+import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.NearbyExperienceActivity;
-import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.f2.TopExperienceActivity;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
+import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -110,6 +107,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private ClickItemSmallLocation clickItemSmallLocation;
     private ClickSearch clickSearch;
     private NewHomeFragment newHomeFragment;
+    private BaseViewModel viewModel;
 
 
     public class TypeString {
@@ -130,7 +128,8 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
 
-    public NewHomeAdapter(Context context, HomeServiceResponse homeServiceResponse, LoadData loadData, ClickUserView clickUserView, ClickItemSmallLocation clickItemSmallLocation, ClickSearch clickSearch, NewHomeFragment newHomeFragment) {
+    public NewHomeAdapter(Context context, HomeServiceResponse homeServiceResponse, LoadData loadData, ClickUserView clickUserView,
+                          ClickItemSmallLocation clickItemSmallLocation, ClickSearch clickSearch, NewHomeFragment newHomeFragment, BaseViewModel viewModel) {
         this.context = context;
         this.homeServiceResponse = homeServiceResponse;
         this.loadData = loadData;
@@ -138,6 +137,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.clickItemSmallLocation = clickItemSmallLocation;
         this.clickSearch = clickSearch;
         this.newHomeFragment = newHomeFragment;
+        this.viewModel = viewModel;
     }
 
     @Override
@@ -375,7 +375,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 loadData.onLoadData(homeServiceResponse.getData().get(position).getContent_link(), TypeString.APP_TOP_EXPERIENCE);
             }
 
-            subSuggestionLocationAdapter = new SubSuggestionLocationAdapter(context, itemAppExperienceResponse.getItems());
+            subSuggestionLocationAdapter = new SubSuggestionLocationAdapter(context, itemAppExperienceResponse.getItems(), viewModel);
             rclContent.setAdapter(subSuggestionLocationAdapter);
 
 
@@ -420,7 +420,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 loadData.onLoadDataFloorSecond(items.get(0).getContent_link(), TypeString.APP_EXPERIENCES_NEARBY, true);
             }
 
-            subSuggestionLocationAdapter = new SubSuggestionLocationAdapter(context, itemAppExperienceResponse.getItems());
+            subSuggestionLocationAdapter = new SubSuggestionLocationAdapter(context, itemAppExperienceResponse.getItems(), viewModel);
             rclContent.setAdapter(subSuggestionLocationAdapter);
 
             tabSuggestionLocationAdapter = new TabSuggestionLocationAdapter(homeServiceResponse.getData().get(position).getPositionClick(), homeServiceResponse.getData().get(position).getItems(), context, new TabSuggestionLocationAdapter.ClickTab() {
@@ -591,11 +591,12 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public class PromotionPartner extends RecyclerView.ViewHolder {
         private RecyclerView recyclerPartnerLink;
         private SubPromotionPartnerAdapter subPromotionPartnerAdapter;
+        private IndefinitePagerIndicator vpIndicator;
 
         public PromotionPartner(View itemView) {
             super(itemView);
             recyclerPartnerLink = itemView.findViewById(R.id.recyclerPartnerLink);
-
+            vpIndicator = itemView.findViewById(R.id.vpIndicator);
         }
 
         public void bindItem(int position) {
@@ -609,6 +610,11 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             subPromotionPartnerAdapter = new SubPromotionPartnerAdapter(context, appPromotionPartnerResponse.getItems());
             recyclerPartnerLink.setAdapter(subPromotionPartnerAdapter);
 
+            try {
+                vpIndicator.attachToRecyclerView(recyclerPartnerLink);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -670,6 +676,17 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             txtTitle = itemView.findViewById(R.id.txtTitle);
             txtDescription = itemView.findViewById(R.id.txtDescription);
             btnStart = itemView.findViewById(R.id.btnStart);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Account account = MyApplication.getInstance().getAccount();
+                    if (null != account && account.isLogin()) {
+                        CreateTripActivity.startScreen(context);
+                    } else {
+                        LoginAndRegisterActivityNew.startScreen(context, 0, false);
+                    }
+                }
+            });
 
         }
 

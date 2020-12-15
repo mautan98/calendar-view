@@ -8,6 +8,8 @@ import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.response.BaseResponse;
 
+import org.json.JSONObject;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -21,7 +23,7 @@ public class MainViewModel extends BaseViewModel {
 
     public void getInfo() {
 
-        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(null).toString());
+        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(new JSONObject()).toString());
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
 

@@ -1,7 +1,7 @@
 package com.namviet.vtvtravel.view.fragment.f2travelvoucher;
 
 import android.annotation.SuppressLint;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
@@ -19,7 +19,6 @@ import com.namviet.vtvtravel.response.f2travelvoucher.RegionVoucherResponse;
 import com.namviet.vtvtravel.response.f2travelvoucher.SortClass;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
-import com.namviet.vtvtravel.tracking.TrackingViewModel;
 import com.namviet.vtvtravel.viewmodel.f2travelvoucher.TravelVoucherViewModel;
 
 import java.io.IOException;
@@ -119,7 +118,7 @@ public class TravelVoucherFragment extends BaseFragment<F2FragmentTravelVoucherB
         }
 
         try {
-            TrackingAnalytic.postEvent(TrackingAnalytic.FILTER_PROMOTION, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+            TrackingAnalytic.postEvent(TrackingAnalytic.FILTER_PROMOTION, TrackingAnalytic.getDefault("Travel Voucher", "Danh sách voucher").setScreen_class(this.getClass().getName()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -163,7 +162,7 @@ public class TravelVoucherFragment extends BaseFragment<F2FragmentTravelVoucherB
                             Log.e("Travelllllllllllllllll", "1");
                             getVoucher("VTVTRAVEL", sortId, regionId, memberRankId, categoryId, page, isFromRegVip);
                         }
-                    }, "Khu vực");
+                    }, "Khu vực", RegionDialog.Type.VOUCHER_TYPE);
                     regionDialog.show(mActivity.getSupportFragmentManager(), null);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -184,7 +183,7 @@ public class TravelVoucherFragment extends BaseFragment<F2FragmentTravelVoucherB
                             Log.e("Travelllllllllllllllll", "2");
                             getVoucher("VTVTRAVEL", sortId, regionId, memberRankId, categoryId, page, isFromRegVip);
                         }
-                    }, "Danh mục");
+                    }, "Danh mục", CategoryDialog.Type.VOUCHER_TYPE);
                     categoryDialog.show(mActivity.getSupportFragmentManager(), null);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -207,7 +206,7 @@ public class TravelVoucherFragment extends BaseFragment<F2FragmentTravelVoucherB
                             e.printStackTrace();
                         }
                     }
-                }, "Sắp xếp");
+                }, "Sắp xếp", SortDialog.Type.VOUCHER_TYPE);
                 sortDialog.show(mActivity.getSupportFragmentManager(), null);
             }
         });
@@ -227,7 +226,7 @@ public class TravelVoucherFragment extends BaseFragment<F2FragmentTravelVoucherB
                             e.printStackTrace();
                         }
                     }
-                }, "Sắp xếp");
+                }, "Sắp xếp", SortDialog.Type.VOUCHER_TYPE);
                 sortDialog.show(mActivity.getSupportFragmentManager(), null);
             }
         });
@@ -259,7 +258,7 @@ public class TravelVoucherFragment extends BaseFragment<F2FragmentTravelVoucherB
                             Log.e("Travelllllllllllllllll", "5");
                             getVoucher("VTVTRAVEL", sortId, regionId, memberRankId, categoryId, page, isFromRegVip);
                         }
-                    }, "Hạng hội viên");
+                    }, "Hạng Hội viên");
                     rankDialog.show(mActivity.getSupportFragmentManager(), null);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -394,5 +393,11 @@ public class TravelVoucherFragment extends BaseFragment<F2FragmentTravelVoucherB
             return null;
         }
         return json;
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.VOUCHER_STORE, TrackingAnalytic.ScreenTitle.VOUCHER_STORE);
     }
 }

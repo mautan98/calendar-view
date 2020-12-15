@@ -2,8 +2,8 @@ package com.namviet.vtvtravel.adapter.f2menu;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +23,6 @@ import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
-import com.namviet.vtvtravel.tracking.TrackingViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -155,7 +154,7 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                                 LoginAndRegisterActivityNew.startScreen(context, 0, false);
                             }
                             try {
-                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_PACKAGE_REG, TrackingAnalytic.getDefault());
+                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_PACKAGE_REG, TrackingAnalytic.getDefault("Menu", "Menu"));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -182,7 +181,7 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                                 e.printStackTrace();
                             }
                             try {
-                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_DEAL_HUNT, TrackingAnalytic.getDefault());
+                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_DEAL_HUNT, TrackingAnalytic.getDefault("Menu", "Menu"));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

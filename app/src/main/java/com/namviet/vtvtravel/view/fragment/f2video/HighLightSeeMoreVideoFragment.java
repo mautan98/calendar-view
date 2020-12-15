@@ -1,20 +1,21 @@
 package com.namviet.vtvtravel.view.fragment.f2video;
 
 import android.annotation.SuppressLint;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2video.SubVideoAdapter;
+import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.databinding.F2FragmentHighLightSeeMoreVideoBinding;
-import com.namviet.vtvtravel.databinding.F2FragmentTagVideoBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.Video;
 import com.namviet.vtvtravel.response.f2video.DetailVideoResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
+import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.viewmodel.f2video.SubVideoViewModel;
-import com.namviet.vtvtravel.viewmodel.f2video.VideoViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +30,9 @@ public class HighLightSeeMoreVideoFragment extends BaseFragment<F2FragmentHighLi
     private String detailLink;
     private List<Video> videos = new ArrayList<>();
     private String loadMoreLink;
+
     @SuppressLint("ValidFragment")
-    public HighLightSeeMoreVideoFragment(String regionName, String regionId,  String detailLink) {
+    public HighLightSeeMoreVideoFragment(String regionName, String regionId, String detailLink) {
         this.regionId = regionId;
         this.detailLink = detailLink;
         this.regionName = regionName;
@@ -53,7 +55,7 @@ public class HighLightSeeMoreVideoFragment extends BaseFragment<F2FragmentHighLi
         subVideoViewModel = new SubVideoViewModel();
         getBinding().setSubVideoViewModel(subVideoViewModel);
         subVideoViewModel.addObserver(this);
-        subVideoViewModel.getDetailVideo(detailLink+"?region_id="+regionId, false);
+        subVideoViewModel.getDetailVideo(detailLink + "?region_id=" + regionId, false);
         getBinding().tvTitle.setText(regionName);
     }
 
@@ -64,9 +66,46 @@ public class HighLightSeeMoreVideoFragment extends BaseFragment<F2FragmentHighLi
             public void onClickItem(Video video) {
 
             }
+
+            @Override
+            public void likeEvent(int position) {
+                try {
+                    Account account = MyApplication.getInstance().getAccount();
+                    Video video = videos.get(position);
+                    if (null != account && account.isLogin()) {
+                        subVideoViewModel.likeEvent(video.getId(), video.getContent_type());
+                        try {
+                            TrackingAnalytic.postEvent(TrackingAnalytic.LIKE, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HIGH_LIGHT_SEE_MORE_VIDEO, TrackingAnalytic.ScreenTitle.HIGH_LIGHT_SEE_MORE_VIDEO)
+                                    .setContent_type(video.getContent_type())
+                                    .setContent_id(video.getId())
+                                    .setScreen_class(this.getClass().getName()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        if (video.isLiked()) {
+                            video.setLiked(false);
+                            if (null != video.getLikeCount()) {
+                                String likeCount = (Integer.parseInt(video.getLikeCount()) - 1) + "";
+                                video.setLikeCount(likeCount);
+                            }
+                        } else {
+                            video.setLiked(true);
+                            if (null != video.getLikeCount()) {
+                                String likeCount = (Integer.parseInt(video.getLikeCount()) + 1) + "";
+                                video.setLikeCount(likeCount);
+                            }
+                        }
+                        subVideoAdapter.notifyItemChanged(position);
+                    } else {
+                        LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         });
         getBinding().recycleContent.setAdapter(subVideoAdapter);
-
 
 
         getBinding().recycleContent.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -109,9 +148,9 @@ public class HighLightSeeMoreVideoFragment extends BaseFragment<F2FragmentHighLi
             if (o instanceof DetailVideoResponse) {
                 DetailVideoResponse response = (DetailVideoResponse) o;
                 loadMoreLink = response.getData().getMore_link();
-                if(response.isLoadMore()){
+                if (response.isLoadMore()) {
                     videos.addAll(response.getData().getItems());
-                }else {
+                } else {
                     videos.clear();
                     videos.addAll(response.getData().getItems());
                 }
@@ -127,6 +166,12 @@ public class HighLightSeeMoreVideoFragment extends BaseFragment<F2FragmentHighLi
             }
 
         }
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.HIGH_LIGHT_SEE_MORE_VIDEO, TrackingAnalytic.ScreenTitle.HIGH_LIGHT_SEE_MORE_VIDEO);
     }
 
 }

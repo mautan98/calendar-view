@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -41,29 +42,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="18dp"
-                android:gravity="end">
+                android:gravity="end|center_vertical">
 
 
-                <ImageView
-                    android:visibility="gone"
-                    android:layout_width="20dp"
-                    android:layout_height="17dp"
-                    android:src="@drawable/f2_ic_gray_heart" />
+
+                <com.like.LikeButton
+                    android:id="@+id/imgHeart"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    app:anim_scale_factor="4.5"
+                    app:icon_size="15dp"
+                    app:like_drawable="@drawable/f2_ic_red_heart"
+                    app:unlike_drawable="@drawable/f2_ic_gray_heart" />
 
 
                 <TextView
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="9" />
+                    android:text="9"
+                    android:visibility="gone" />
 
 
                 <ImageView
                     android:id="@+id/btnShareLink"
-                    android:layout_width="20dp"
-                    android:layout_height="17dp"
+                    android:layout_width="30dp"
+                    android:layout_height="28dp"
+
+                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="29dp"
+
+                    android:padding="5dp"
                     android:src="@drawable/f2_ic_share_new" />
 
             </LinearLayout>
@@ -82,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v4.widget.NestedScrollView
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white">
@@ -102,15 +112,15 @@
                         android:orientation="vertical">
 
                         <LinearLayout
-                            android:layout_marginTop="19dp"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="19dp">
 
                             <ImageView
-                                android:src="@drawable/f2_ic_arrow"
                                 android:layout_width="6dp"
                                 android:layout_height="11dp"
-                                android:layout_gravity="center" />
+                                android:layout_gravity="center"
+                                android:src="@drawable/f2_ic_arrow" />
 
                             <TextView
                                 android:id="@+id/tvCategory"
@@ -125,23 +135,23 @@
 
                         <TextView
                             android:id="@+id/tvTitle"
-                            android:layout_marginTop="4dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
                             android:fontFamily="@font/roboto_medium"
                             android:textColor="#000000"
                             android:textSize="20dp" />
 
                         <LinearLayout
-                            android:layout_marginTop="18dp"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="18dp">
 
                             <ImageView
-                                android:src="@drawable/f2_ic_time"
                                 android:layout_width="18dp"
                                 android:layout_height="16dp"
-                                android:layout_gravity="center" />
+                                android:layout_gravity="center"
+                                android:src="@drawable/f2_ic_time" />
 
                             <TextView
                                 android:id="@+id/tvDate"
@@ -161,10 +171,10 @@
                                 android:background="#B4B4B4" />
 
                             <ImageView
-                                android:src="@drawable/f2_ic_author"
                                 android:layout_width="18dp"
                                 android:layout_height="16dp"
-                                android:layout_gravity="center" />
+                                android:layout_gravity="center"
+                                android:src="@drawable/f2_ic_author" />
 
                             <TextView
                                 android:id="@+id/tvAuthor"
@@ -184,10 +194,10 @@
                                 android:background="#B4B4B4" />
 
                             <ImageView
-                                android:src="@drawable/f2_ic_gray_view"
                                 android:layout_width="18dp"
                                 android:layout_height="16dp"
-                                android:layout_gravity="center" />
+                                android:layout_gravity="center"
+                                android:src="@drawable/f2_ic_gray_view" />
 
                             <TextView
                                 android:id="@+id/tvView"
@@ -201,14 +211,25 @@
 
 
                         <TextView
-                            android:lineSpacingExtra="3dp"
-                            android:layout_marginTop="15dp"
-                            android:textColor="#585858"
-                            android:textSize="16dp"
-                            android:fontFamily="@font/roboto_medium_italic"
                             android:id="@+id/tvSapo"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:justificationMode="inter_word"
+                            android:lineSpacingExtra="3dp"
+                            android:textColor="#585858"
+                            android:textSize="16dp" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rclRelationNews"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:background="#DDFCFC"
+                            android:nestedScrollingEnabled="false"
+                            android:paddingTop="20dp"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
                     </LinearLayout>
 
 
@@ -221,38 +242,53 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="25dp"
-                            android:minHeight="500dp" />
+                            android:minHeight="500dp"
+                            tools:ignore="WebViewLayout" />
 
-                        <com.facebook.shimmer.ShimmerFrameLayout
+                        <RelativeLayout
                             android:id="@+id/shimmer_view_container"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="15dp"
-                            android:orientation="vertical">
+                            android:background="@color/white">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
+                                android:background="@color/white" />
+
+                            <com.facebook.shimmer.ShimmerFrameLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="15dp"
                                 android:orientation="vertical">
 
-                                <include layout="@layout/data_placeholder_layout" />
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
 
-                                <include layout="@layout/data_placeholder_layout" />
+                                    <include layout="@layout/data_placeholder_layout" />
 
-                                <include layout="@layout/data_placeholder_layout" />
+                                    <include layout="@layout/data_placeholder_layout" />
 
-                                <include layout="@layout/data_placeholder_layout" />
+                                    <include layout="@layout/data_placeholder_layout" />
 
-                                <include layout="@layout/data_placeholder_layout" />
+                                    <include layout="@layout/data_placeholder_layout" />
 
-                                <include layout="@layout/data_placeholder_layout" />
+                                    <include layout="@layout/data_placeholder_layout" />
 
-                                <include layout="@layout/data_placeholder_layout" />
+                                    <include layout="@layout/data_placeholder_layout" />
 
-                            </LinearLayout>
+                                    <include layout="@layout/data_placeholder_layout" />
 
-                        </com.facebook.shimmer.ShimmerFrameLayout>
+                                </LinearLayout>
+
+                            </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+                        </RelativeLayout>
 
 
                     </RelativeLayout>
@@ -280,21 +316,21 @@
                             android:textSize="18dp" />
 
 
-                        <android.support.v7.widget.RecyclerView
+                        <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rclComment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
                         <LinearLayout
-                            android:visibility="gone"
                             android:id="@+id/layoutViewAllComment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
                             android:layout_marginEnd="12dp"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <View
                                 android:layout_width="match_parent"
@@ -383,16 +419,17 @@
                         android:orientation="vertical">
 
                         <LinearLayout
-                            android:gravity="center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
                             android:layout_marginTop="15dp"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
                             <TextView
-                                android:layout_weight="1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:fontFamily="@font/roboto_bold"
                                 android:text="Các trải nghiệm lân cận"
                                 android:textColor="@color/md_black_1000"
@@ -400,25 +437,24 @@
 
 
                             <TextView
-                                android:visibility="invisible"
-                                android:layout_marginEnd="15dp"
-                                android:textColor="@color/colorPrimary"
-                                android:fontFamily="@font/roboto_regular"
-                                android:textSize="14dp"
-                                android:text="Xem thêm"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="15dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="Xem thêm"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="14dp"
+                                android:visibility="invisible" />
 
 
                         </LinearLayout>
 
 
-
-                        <android.support.v7.widget.RecyclerView
+                        <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rclNearBy"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
                     </LinearLayout>
@@ -426,7 +462,7 @@
 
                 </LinearLayout>
 
-            </android.support.v4.widget.NestedScrollView>
+            </androidx.core.widget.NestedScrollView>
 
 
             <RelativeLayout
@@ -435,9 +471,9 @@
                 android:layout_height="match_parent">
 
                 <View
-                    android:background="@color/white"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:background="@color/white" />
 
                 <com.facebook.shimmer.ShimmerFrameLayout
                     android:layout_width="match_parent"

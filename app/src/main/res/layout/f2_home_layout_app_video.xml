@@ -27,7 +27,6 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="12dp"
-        android:fontFamily="@font/roboto_regular"
         android:paddingStart="12dp"
         android:text="Đừng bỏ lỡ những thước phim hay chỉ có tại VTVTravel"
         android:textColor="#9F9F9F"
@@ -44,23 +43,23 @@
         android:textColor="#00918D"
         android:textSize="14dp" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerAppVideo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtDescription"
         android:layout_marginTop="14dp"
         android:orientation="horizontal"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/recyclerAppVideo"
         android:id="@+id/vpIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/recyclerAppVideo"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="2dp"
         app:dotColor="@color/gray_99"
         app:dotRadius="5dp"

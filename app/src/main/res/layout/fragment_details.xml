@@ -19,7 +19,7 @@
             android:id="@+id/toolBar"
             layout="@layout/toolbar_text" />
 
-        <android.support.v4.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/toolBar">
@@ -93,7 +93,7 @@
                     android:scaleType="centerCrop"
                     android:visibility="gone" />
             </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
 
     </RelativeLayout>

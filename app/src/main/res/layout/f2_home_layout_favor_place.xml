@@ -28,14 +28,14 @@
         android:textColor="#9F9F9F"
         android:textSize="14dp" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:minHeight="157dp"
         android:id="@+id/recyclerFavorPlace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:orientation="horizontal"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <View
         android:layout_width="match_parent"

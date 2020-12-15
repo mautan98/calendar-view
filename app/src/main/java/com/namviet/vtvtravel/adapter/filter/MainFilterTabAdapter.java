@@ -1,9 +1,9 @@
 package com.namviet.vtvtravel.adapter.filter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +14,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.model.filter.ItemTab;
-import com.namviet.vtvtravel.model.model.MainFilterType;
-import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 
 import java.util.List;
 

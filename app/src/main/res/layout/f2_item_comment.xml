@@ -70,26 +70,35 @@
                 android:textSize="14dp" />
 
             <LinearLayout
+                android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:visibility="gone"
-                    android:src="@drawable/f2_ic_gray_heart"
-                    android:layout_width="20dp"
-                    android:layout_height="18dp" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/imgHeart"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:src="@drawable/f2_ic_gray_heart"-->
+<!--                    android:layout_width="30dp"-->
+<!--                    android:layout_height="28dp" />-->
+
+                <com.like.LikeButton
+                    android:id="@+id/imgHeart"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    app:anim_scale_factor="4.5"
+                    app:icon_size="15dp"
+                    app:like_drawable="@drawable/f2_ic_red_heart"
+                    app:unlike_drawable="@drawable/f2_ic_gray_heart" />
 
                 <TextView
                     android:layout_marginEnd="15dp"
-                    android:visibility="gone"
                     android:id="@+id/tvCountLike"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="2"
+                    android:text="0"
                     android:textColor="#7A7A7A"
                     android:textSize="14dp" />
 
@@ -123,8 +132,8 @@
 
 
 
-    <android.support.v7.widget.RecyclerView
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+    <androidx.recyclerview.widget.RecyclerView
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_marginStart="58dp"
         android:id="@+id/rclChildComment"
         android:layout_width="match_parent"

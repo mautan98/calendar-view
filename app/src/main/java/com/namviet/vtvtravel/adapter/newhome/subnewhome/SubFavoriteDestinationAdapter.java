@@ -1,8 +1,8 @@
 package com.namviet.vtvtravel.adapter.newhome.subnewhome;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -112,11 +112,10 @@ public class SubFavoriteDestinationAdapter extends RecyclerView.Adapter<Recycler
 
         public SeeMoreViewHolder(View itemView) {
             super(itemView);
-            imvBanner = itemView.findViewById(R.id.imvBanner);
         }
 
         public void bindItem(int position) {
-            imvBanner.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     clickItem.onClickSeeMore();

@@ -1,32 +1,36 @@
 package com.namviet.vtvtravel.view.fragment.f2webview;
 
+import android.net.Uri;
 import android.net.UrlQuerySanitizer;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
+
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
-import com.namviet.vtvtravel.databinding.F2ActivityDealWebviewBinding;
-import com.namviet.vtvtravel.databinding.F2FragmentDetailDealBinding;
-import com.namviet.vtvtravel.databinding.F2FragmentDetailDealWebviewBinding;
 import com.namviet.vtvtravel.databinding.F2FragmentWebviewForDealBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndReloadDeal;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndUpdateUserView;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.UserInformationActivity;
 import com.namviet.vtvtravel.view.f2.f2oldbase.SettingActivity;
-import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DetailDealWebviewFragment extends BaseFragment<F2FragmentWebviewForDealBinding> {
     private String link;
@@ -46,7 +50,15 @@ public class DetailDealWebviewFragment extends BaseFragment<F2FragmentWebviewFor
 
     @Override
     public void initView() {
-        getBinding().webView.loadUrl(genLink());
+        Account account = MyApplication.getInstance().getAccount();
+        if (null != account && account.isLogin()) {
+            Map<String, String> extraHeaders = new HashMap<>();
+            extraHeaders.put("token",account.getToken());
+            getBinding().webView.loadUrl(genLink(), extraHeaders);
+        } else {
+            getBinding().webView.loadUrl(genLink());
+        }
+
         getBinding().webView.getSettings().setJavaScriptEnabled(true);
 
         getBinding().webView.setWebChromeClient(new WebChromeClient() {
@@ -105,16 +117,7 @@ public class DetailDealWebviewFragment extends BaseFragment<F2FragmentWebviewFor
 
     @Override
     public void setClickListener() {
-//        getBinding().btnBack.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if(getBinding().webView.canGoBack()){
-//                    getBinding().webView.goBack();
-//                }else {
-//                    mActivity.onBackPressed();
-//                }
-//            }
-//        });
+
     }
 
     @Override
@@ -123,30 +126,66 @@ public class DetailDealWebviewFragment extends BaseFragment<F2FragmentWebviewFor
     }
 
     private String genLink() {
-        Account account = MyApplication.getInstance().getAccount();
-        if (null != account && account.isLogin()) {
-            return link + "?platform=" + platform + "&token=" + account.getToken();
-        } else {
-            return link + "?platform=" + platform;
+
+        Uri builtUri = Uri.parse(link)
+                .buildUpon()
+                .appendQueryParameter("platform", platform)
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        return url.toString();
+
+    }
+
+    private String genLinkWithBackLink() {
+
+        Uri builtUri = Uri.parse(backLink)
+                .buildUpon()
+                .appendQueryParameter("platform", platform)
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return url.toString();
+
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        CookieManager cookieManager = CookieManager.getInstance();
-        cookieManager.removeSessionCookie();
-        cookieManager.removeAllCookie();
+        try {
+            CookieManager cookieManager = CookieManager.getInstance();
+            cookieManager.removeSessionCookie();
+            cookieManager.removeAllCookie();
+            getBinding().webView.clearCache(true);
+            getBinding().webView.clearHistory();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Subscribe
     public void onLoginSuccessAndReloadDeal(OnLoginSuccessAndReloadDeal onLoginSuccessAndReloadDeal) {
         Account account = MyApplication.getInstance().getAccount();
         if (null != account && account.isLogin()) {
-            getBinding().webView.loadUrl(backLink + "?platform=" + platform + "&token=" + account.getToken());
+            Map<String, String> extraHeaders = new HashMap<>();
+            extraHeaders.put("token",account.getToken());
+            getBinding().webView.loadUrl(genLinkWithBackLink(), extraHeaders);
         } else {
-            getBinding().webView.loadUrl(backLink + "?platform=" + platform);
+            getBinding().webView.loadUrl(genLinkWithBackLink());
         }
     }
 
@@ -155,7 +194,9 @@ public class DetailDealWebviewFragment extends BaseFragment<F2FragmentWebviewFor
     public void onReloadUserView(OnLoginSuccessAndUpdateUserView onLoginSuccessAndUpdateUserView) {
         Account account = MyApplication.getInstance().getAccount();
         if (null != account && account.isLogin()) {
-            getBinding().webView.loadUrl(genLink());
+            Map<String, String> extraHeaders = new HashMap<>();
+            extraHeaders.put("token",account.getToken());
+            getBinding().webView.loadUrl(genLink(), extraHeaders);
         } else {
             CookieManager cookieManager = CookieManager.getInstance();
             cookieManager.removeSessionCookie();
@@ -163,12 +204,19 @@ public class DetailDealWebviewFragment extends BaseFragment<F2FragmentWebviewFor
             getBinding().webView.loadUrl(genLink());
         }
 
+
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.DEAL_HOT, TrackingAnalytic.ScreenTitle.DEAL_HOT);
     }
 
 }

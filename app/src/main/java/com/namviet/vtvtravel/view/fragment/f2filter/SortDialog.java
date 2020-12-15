@@ -1,12 +1,12 @@
 package com.namviet.vtvtravel.view.fragment.f2filter;
 
 import android.annotation.SuppressLint;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +15,9 @@ import android.view.Window;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.filter.SortAdapter;
 import com.namviet.vtvtravel.databinding.F2DialogSortBinding;
-import com.namviet.vtvtravel.model.filter.Sort;
 import com.namviet.vtvtravel.response.f2smalllocation.SortSmallLocationResponse;
 import com.namviet.vtvtravel.view.fragment.f2offline.BaseDialogBottom;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 

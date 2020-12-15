@@ -16,7 +16,7 @@
         android:background="@color/bg"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_41sdp"
@@ -73,7 +73,7 @@
                         app:typeface="roboto_regular" />
                 </RelativeLayout>
             </RelativeLayout>
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
         <RelativeLayout
             android:layout_width="match_parent"

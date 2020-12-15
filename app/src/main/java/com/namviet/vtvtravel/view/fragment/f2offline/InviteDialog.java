@@ -1,13 +1,13 @@
 package com.namviet.vtvtravel.view.fragment.f2offline;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +26,6 @@ import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.ultils.ValidateUtils;
 import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.viewmodel.f2callnow.InviteDialogViewModel;
-import com.namviet.vtvtravel.viewmodel.f2callnow.MainCallHistoryViewModel;
 
 import java.util.Objects;
 import java.util.Observable;
@@ -122,7 +121,7 @@ public class InviteDialog extends BaseDialogBottom implements Observer {
                 }else if (state == 2){
                     try {
                         Account account = MyApplication.getInstance().getAccount();
-                        F2Util.startSenDataText((MainActivity)getBaseActivity(), "[QC] Bạn nhận được lời mời tham gia tính năng Call Now từ số điện thoại "+account.getMobile()+", truy cập [link] và tải ứng dụng VTVTravel ngay để được tham gia tính năng gọi thoại với mức cước cực kỳ hấp dẫn.");
+                        F2Util.startSenDataText((MainActivity)getBaseActivity(), "[QC] Bạn nhận được lời mời tham gia tính năng Call Now từ số điện thoại "+account.getMobile()+", truy cập https://play.google.com/store/apps/details?id=vn.vtv.vtvtravel và tải ứng dụng VTVTravel ngay để được tham gia tính năng gọi thoại với mức cước cực kỳ hấp dẫn.");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

@@ -2,8 +2,8 @@ package com.namviet.vtvtravel.view.fragment.f2search
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.support.design.widget.TabLayout
-import android.support.design.widget.TabLayout.OnTabSelectedListener
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnFocusChangeListener
@@ -111,7 +111,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                 searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId);
 
                 try {
-                    TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault().setScreen_class(this.javaClass.name))
+                    TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtKeyword.text.toString()).setScreen_class(this.javaClass.name))
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -196,7 +196,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                         searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId)
 
                         try {
-                            TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault().setScreen_class(this.javaClass.name))
+                            TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtKeyword.text.toString()).setScreen_class(this.javaClass.name))
                         } catch (e: Exception) {
                             e.printStackTrace()
                         }
@@ -222,7 +222,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                             searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId);
 
                             try {
-                                TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault().setScreen_class(this.javaClass.name))
+                                TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtKeyword.text.toString()).setScreen_class(this.javaClass.name))
                             } catch (e: Exception) {
                                 e.printStackTrace()
                             }
@@ -409,6 +409,11 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
         }
 
         override fun onTabReselected(tab: TabLayout.Tab) {}
+    }
+
+    override fun setScreenTitle() {
+        super.setScreenTitle()
+        setDataScreen(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH)
     }
 
 

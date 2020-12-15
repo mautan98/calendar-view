@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="15dp"
@@ -9,14 +8,14 @@
     android:paddingTop="15dp">
 
     <TextView
-        android:ellipsize="end"
-        android:maxLines="2"
         android:id="@+id/tvName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
+        android:ellipsize="end"
         android:fontFamily="@font/roboto_bold"
+        android:maxLines="2"
         android:text="Tới Biển Đồi Dương Nghe Hiền Hòa Sóng Vỗ."
         android:textColor="#000000"
         android:textSize="16dp" />
@@ -93,17 +92,16 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
-        android:layout_height="246dp">
+        android:layout_height="246dp"
+        android:layout_marginTop="15dp">
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/vpGallery"
             android:layout_width="match_parent"
             android:layout_height="246dp" />
 
         <TextView
-            android:textColor="@color/white"
             android:id="@+id/tvScrollPosition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -117,27 +115,38 @@
             android:paddingEnd="10dp"
             android:paddingBottom="4dp"
             android:text="1/2"
+            android:textColor="@color/white"
             android:textSize="14dp" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp">
+        android:gravity="center_vertical">
 
-        <ImageView
-            android:visibility="gone"
-            android:layout_width="20dp"
-            android:layout_height="18dp"
-            android:layout_marginStart="12dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/f2_ic_red_heart" />
+        <!--        <ImageView-->
+        <!--            android:padding="5dp"-->
+        <!--            android:id="@+id/imgHeart"-->
+        <!--            android:layout_width="30dp"-->
+        <!--            android:layout_height="28dp"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:layout_marginStart="12dp"-->
+        <!--            android:src="@drawable/f2_ic_red_heart" />-->
+
+        <com.like.LikeButton
+            android:id="@+id/imgHeart"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            app:anim_scale_factor="4.5"
+            app:icon_size="15dp"
+            app:like_drawable="@drawable/f2_ic_red_heart"
+            app:unlike_drawable="@drawable/f2_ic_gray_heart" />
 
         <TextView
-            android:visibility="gone"
+            android:id="@+id/tvCountLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="7dp"
             android:fontFamily="@font/roboto_regular"
             android:text="100"
             android:textColor="#4A4A4A"
@@ -171,7 +180,6 @@
     </LinearLayout>
 
     <TextView
-        android:layout_marginTop="15dp"
         android:id="@+id/tvDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -182,7 +190,6 @@
         android:textColor="#000000" />
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/tvReadMore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -190,5 +197,6 @@
         android:layout_marginEnd="12dp"
         android:fontFamily="@font/roboto_regular"
         android:text="Xem thêm"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:visibility="gone" />
 </LinearLayout>

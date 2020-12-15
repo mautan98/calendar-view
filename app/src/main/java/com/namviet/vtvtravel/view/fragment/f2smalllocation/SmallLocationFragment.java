@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.test.mock.MockPackageManager;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +19,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -27,44 +28,33 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.adapter.f2offline.MainAdapter;
-import com.namviet.vtvtravel.adapter.filter.MainFilterTabAdapter;
 import com.namviet.vtvtravel.adapter.smalllocation.SmallLocationAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2FragmentSmallLocationBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
-import com.namviet.vtvtravel.help.MySupportMapFragment;
+import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.MyLocation;
 import com.namviet.vtvtravel.model.f2event.OnDoneFilterOption;
 import com.namviet.vtvtravel.model.f2smalllocation.Travel;
-import com.namviet.vtvtravel.model.filter.ItemTab;
 import com.namviet.vtvtravel.model.travelnews.Location;
-import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.response.f2filter.DistanceClass;
 import com.namviet.vtvtravel.response.f2filter.FilterByCodeResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByPageResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SmallLocationResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SortSmallLocationResponse;
-import com.namviet.vtvtravel.response.travelnews.NewsCategoryResponse;
-import com.namviet.vtvtravel.response.travelnews.NotebookResponse;
 import com.namviet.vtvtravel.service.TrackLocationService;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.DeviceUtils;
-import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
 import com.namviet.vtvtravel.ultils.ServiceUltils;
 import com.namviet.vtvtravel.view.f2.FilterActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
-import com.namviet.vtvtravel.view.f2.MapActivity;
-import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.fragment.f2filter.SortDialog;
-import com.namviet.vtvtravel.view.fragment.f2travelnote.SubTravelNewsFragment;
 import com.namviet.vtvtravel.view.fragment.nearbyexperience.SearchLocationFragment;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 import com.namviet.vtvtravel.viewmodel.f2smalllocation.SmallLocationViewModel;
-import com.namviet.vtvtravel.viewmodel.f2travelnews.TravelNewsViewModel;
 
 import org.ankit.gpslibrary.ADLocation;
 import org.ankit.gpslibrary.MyTracker;
@@ -84,7 +74,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationBinding> implements Observer {
     String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final int REQUEST_CODE_PERMISSION = 2;
-    private MySupportMapFragment mapFragment;
+    private SupportMapFragment mapFragment;
     private GoogleMap mGoogleMap;
 
     private SmallLocationAdapter smallLocationAdapter;
@@ -102,9 +92,10 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
     private Marker lastMarker;
 
     @SuppressLint("ValidFragment")
-    public SmallLocationFragment(String link, String code) {
+    public SmallLocationFragment(String link, String code, String regionId) {
         this.link = link;
         this.code = code;
+        this.regionId = regionId;
     }
 
     public SmallLocationFragment() {
@@ -144,6 +135,35 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
             public void onClickItem(Travel travel) {
                 addFragment(new DetailSmallLocationFragment(travel.getDetail_link()));
             }
+
+            @Override
+            public void likeEvent(int position) {
+                try {
+                    Account account = MyApplication.getInstance().getAccount();
+                    Travel travel = travelList.get(position);
+                    if (null != account && account.isLogin()) {
+                        viewModel.likeEvent(travel.getId(), travel.getContent_type());
+                        try {
+                            TrackingAnalytic.postEvent(TrackingAnalytic.LIKE, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SMALL_LOCATIONS, TrackingAnalytic.ScreenTitle.SMALL_LOCATIONS)
+                                    .setContent_type(travel.getContent_type())
+                                    .setContent_id(travel.getId())
+                                    .setScreen_class(this.getClass().getName()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        if (travel.isLiked()) {
+                            travel.setLiked(false);
+                        } else {
+                            travel.setLiked(true);
+                        }
+                        smallLocationAdapter.notifyItemChanged(position);
+                    } else {
+                        LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         });
         getBinding().rclContent.setAdapter(smallLocationAdapter);
 
@@ -166,7 +186,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                 getBinding().edtSearch.setHint("Bạn muốn ở đâu");
                 break;
         }
-        viewModel.getSmallLocation(link + typeDestination, false);
+        viewModel.getSmallLocation(link + typeDestination + genLinkRegionId(), false);
         viewModel.getFilterByCode();
 
         viewModel.sortSmallLocation();
@@ -679,10 +699,10 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         try {
             if (travel.isHas_location()) {
                 if (travel.getDistance() != null && !"".equals(travel.getDistance()) && Double.parseDouble(travel.getDistance()) < 1000) {
-                    getBinding().tvDistance.setText("Cách bạn " + travel.getDistance() + " m");
+                    getBinding().tvDistance.setText(travel.getDistance_text() + " " + travel.getDistance() + " m");
                 } else if (travel.getDistance() != null && !"".equals(travel.getDistance())) {
                     double finalValue = Math.round(Double.parseDouble(travel.getDistance()) / 1000 * 10.0) / 10.0;
-                    getBinding().tvDistance.setText("Cách bạn " + finalValue + " km");
+                    getBinding().tvDistance.setText(travel.getDistance_text() + " " + finalValue + " km");
                 }
             } else {
                 getBinding().tvDistance.setText("Không xác định");
@@ -710,10 +730,16 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                     getBinding().tvOpenTime.setVisibility(View.VISIBLE);
                     getBinding().tvOpenDate.setText(travel.getOpen_week());
                     getBinding().tvStatus.setText(travel.getType_open());
-                    if ("Đang đóng".equals(travel.getType_open())) {
-                        getBinding().tvStatus.setTextColor(Color.parseColor("#FF0000"));
-                    } else {
-                        getBinding().tvStatus.setTextColor(Color.parseColor("#0FB403"));
+
+                    try {
+                        getBinding().tvStatus.setTextColor(Color.parseColor(travel.getTypeOpenColor()));
+                    } catch (Exception e) {
+                        try {
+                            getBinding().tvStatus.setTextColor(Color.parseColor("#FF0000"));
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        e.printStackTrace();
                     }
                 }
             } catch (Exception e) {
@@ -741,13 +767,8 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
     private void initMap() {
         try {
-            mapFragment = MySupportMapFragment.newInstance();
-            mapFragment.setListener(new MySupportMapFragment.OnTouchListener() {
-                @Override
-                public void onTouch() {
-                    //                    binding.nesScroll.requestDisallowInterceptTouchEvent(true);
-                }
-            });
+            mapFragment = SupportMapFragment.newInstance();
+
 
             mapFragment.getMapAsync(new OnMapReadyCallback() {
                 @Override
@@ -768,7 +789,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                                         travel.getId(),
                                         travel.getContent_type());
                             }
-                        } catch (NumberFormatException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
@@ -778,7 +799,6 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                         public boolean onMarkerClick(Marker marker) {
 
                             try {
-                                Log.d("LamLV: ", marker.getTitle());
 
                                 for (Travel travel : travelList) {
                                     if (marker.getSnippet().equals(travel.getId())) {
@@ -939,5 +959,9 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
     private void getIconForMarker() {
     }
 
-
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.SMALL_LOCATIONS, TrackingAnalytic.ScreenTitle.SMALL_LOCATIONS);
+    }
 }

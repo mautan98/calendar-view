@@ -1,26 +1,19 @@
 package com.namviet.vtvtravel.view.fragment.f2travelvoucher;
 
 import android.app.Dialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
-import android.content.Intent;
-import android.databinding.DataBindingUtil;
+
+import androidx.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.databinding.F2DialogCanReceiverBinding;
-import com.namviet.vtvtravel.databinding.F2DialogCopyVoucherBinding;
-import com.namviet.vtvtravel.response.f2travelvoucher.ListVoucherResponse;
 import com.namviet.vtvtravel.view.dialog.f2.BaseDialogFragment2;
 
 public class CanReceiverGiftDialog extends BaseDialogFragment2 {

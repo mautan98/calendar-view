@@ -1,22 +1,15 @@
 package com.namviet.vtvtravel.adapter.offline;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.model.f2.Contact;
-import com.namviet.vtvtravel.ultils.F2Util;
-import com.namviet.vtvtravel.view.MainActivity;
-import com.namviet.vtvtravel.view.fragment.f2callnow.SearchNumberFragment;
 
 import java.util.List;
 

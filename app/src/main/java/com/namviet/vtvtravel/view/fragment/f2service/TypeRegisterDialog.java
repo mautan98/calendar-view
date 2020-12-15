@@ -1,23 +1,19 @@
 package com.namviet.vtvtravel.view.fragment.f2service;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.baseapp.menu.SlideMenu;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
-import com.namviet.vtvtravel.databinding.DialogLoadingBinding;
 import com.namviet.vtvtravel.databinding.DialogTypeRegisterBinding;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
-import com.namviet.vtvtravel.model.Account;
-import com.namviet.vtvtravel.response.ResponseError;
 import com.namviet.vtvtravel.view.dialog.BaseDialogFragment;
 
 import java.util.Observable;

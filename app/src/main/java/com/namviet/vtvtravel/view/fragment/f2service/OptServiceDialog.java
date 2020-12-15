@@ -1,11 +1,11 @@
 package com.namviet.vtvtravel.view.fragment.f2service;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +19,6 @@ import com.namviet.vtvtravel.databinding.DialogOtpServiceBinding;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.dialog.BaseDialogFragment;
-import com.namviet.vtvtravel.tracking.TrackingViewModel;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -159,8 +158,8 @@ public class OptServiceDialog extends BaseDialogFragment implements Observer {
                         mActivity.switchFragment(SlideMenu.MenuType.REGISTER_SUCCESS_FRIEND_SCREEN);
                     }
                     try {
-                        TrackingAnalytic.postEvent(TrackingAnalytic.PACKAGE_REQUEST, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
-                        TrackingAnalytic.postEvent(TrackingAnalytic.PACKAGE_SUBSCRIBE_SUCCESS, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                        TrackingAnalytic.postEvent(TrackingAnalytic.PACKAGE_REQUEST, TrackingAnalytic.getDefault("", "").setScreen_class(this.getClass().getName()));
+                        TrackingAnalytic.postEvent(TrackingAnalytic.PACKAGE_SUBSCRIBE_SUCCESS, TrackingAnalytic.getDefault("", "").setScreen_class(this.getClass().getName()));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -178,12 +177,12 @@ public class OptServiceDialog extends BaseDialogFragment implements Observer {
                         registerFailDialog = RegisterFailDialog.newInstance();
                         registerFailDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
                         registerFailDialog.setCancelable(true);
-                        TrackingAnalytic.postEvent(TrackingAnalytic.PACKAGE_SUBSCRIBE_NOT_ENOUGH_CREDIT, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                        TrackingAnalytic.postEvent(TrackingAnalytic.PACKAGE_SUBSCRIBE_NOT_ENOUGH_CREDIT, TrackingAnalytic.getDefault("", "").setScreen_class(this.getClass().getName()));
                     } else {
                         registerFailDialog = RegisterFailDialog.newInstance(errorResponse.getMessage());
                         registerFailDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
                         registerFailDialog.setCancelable(true);
-                        TrackingAnalytic.postEvent(TrackingAnalytic.PACKAGE_SUBSCRIBE_FAIL, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                        TrackingAnalytic.postEvent(TrackingAnalytic.PACKAGE_SUBSCRIBE_FAIL, TrackingAnalytic.getDefault("", "").setScreen_class(this.getClass().getName()));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

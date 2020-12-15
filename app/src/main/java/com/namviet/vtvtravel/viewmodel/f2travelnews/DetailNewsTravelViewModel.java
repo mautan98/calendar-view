@@ -10,6 +10,8 @@ import com.namviet.vtvtravel.response.travelnews.DetailNewsCategoryResponse;
 import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
+import java.util.Map;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -21,8 +23,9 @@ public class DetailNewsTravelViewModel extends BaseViewModel {
     public void getDetailNewsTravel(String link) {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelService();
+        Map<String, Object> queryMap = Param.getDefault();
 
-        Disposable disposable = newsService.getDetailNewsTravel(link)
+        Disposable disposable = newsService.getDetailNewsTravel(link, queryMap)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<DetailTravelNewsResponse>() {

@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Handler;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.view.ViewPager;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.viewpager.widget.ViewPager;
 import android.view.View;
 
 import com.baseapp.utils.KeyboardUtils;
@@ -13,6 +13,7 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2offline.MainAdapter;
 import com.namviet.vtvtravel.databinding.F2FragmentPageMainLoginBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 
 import java.util.Objects;
 
@@ -85,11 +86,17 @@ public class MainPageLoginAndRegisterFragment extends BaseFragment<F2FragmentPag
 
             @Override
             public void onPageSelected(int position) {
-                KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+
                 if(position == 0){
                     tabLoginSelected();
                 }else {
                     tabRegisterSelected();
+                }
+
+                try {
+                    KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+                } catch (Exception e) {
+
                 }
             }
 
@@ -140,5 +147,11 @@ public class MainPageLoginAndRegisterFragment extends BaseFragment<F2FragmentPag
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.LOGIN_AND_REGISTER, TrackingAnalytic.ScreenTitle.LOGIN_AND_REGISTER);
     }
 }

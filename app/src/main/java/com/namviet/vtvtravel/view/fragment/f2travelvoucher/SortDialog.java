@@ -1,12 +1,13 @@
 package com.namviet.vtvtravel.view.fragment.f2travelvoucher;
 
 import android.annotation.SuppressLint;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,6 @@ import com.namviet.vtvtravel.response.f2smalllocation.SortSmallLocationResponse;
 import com.namviet.vtvtravel.response.f2travelvoucher.SortClass;
 import com.namviet.vtvtravel.view.fragment.f2offline.BaseDialogBottom;
 
-import java.util.List;
 import java.util.Objects;
 
 public class SortDialog extends BaseDialogBottom {
@@ -29,11 +29,19 @@ public class SortDialog extends BaseDialogBottom {
     private SortClass sortClass;
     private String title;
 
+    private int type = CategoryDialog.Type.VOUCHER_TYPE;
+
+    public class Type {
+        public static final int VOUCHER_TYPE = 0;
+        public static final int LUCKY_WHEEL_TYPE = 1;
+    }
+
     @SuppressLint("ValidFragment")
-    public SortDialog(SortClass sortClass, DoneSort doneSort, String title) {
+    public SortDialog(SortClass sortClass, DoneSort doneSort, String title, int type) {
         this.sortClass = sortClass;
         this.doneSort = doneSort;
         this.title = title;
+        this.type = type;
     }
 
     public SortDialog() {
@@ -84,6 +92,10 @@ public class SortDialog extends BaseDialogBottom {
             }
         });
         binding.recycleSort.setAdapter(sortAdapter);
+
+        if(type == CategoryDialog.Type.LUCKY_WHEEL_TYPE) {
+            binding.tvTitle.setBackground(ContextCompat.getDrawable(getBaseActivity(), R.drawable.f2_bg_title_sort_lucky_wheel));
+        }
     }
 
 

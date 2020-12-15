@@ -1,8 +1,8 @@
 package com.namviet.vtvtravel.viewmodel;
 
 import android.content.Context;
-import android.databinding.BaseObservable;
-import android.databinding.BindingAdapter;
+import androidx.databinding.BaseObservable;
+import androidx.databinding.BindingAdapter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;

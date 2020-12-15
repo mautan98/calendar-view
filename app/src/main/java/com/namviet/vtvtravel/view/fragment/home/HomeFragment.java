@@ -3,52 +3,45 @@ package com.namviet.vtvtravel.view.fragment.home;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baseapp.menu.SlideMenu;
 import com.baseapp.utils.MyFragment;
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.HomeMenuAdapter;
-import com.namviet.vtvtravel.adapter.f2menu.MenuAdapter;
-import com.namviet.vtvtravel.adapter.f2menu.SubMenuAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
-import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.FragmentHomeBinding;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
 
-import com.namviet.vtvtravel.model.f2.Contact;
 import com.namviet.vtvtravel.model.f2event.OnClickMomentInMenu;
 import com.namviet.vtvtravel.model.f2event.OnClickTab;
 import com.namviet.vtvtravel.model.f2event.OnClickVideoInMenu;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndGoToCallNow;
+import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndUpdateUserView;
 import com.namviet.vtvtravel.response.f2menu.MenuResponse;
-import com.namviet.vtvtravel.ultils.F2Util;
-import com.namviet.vtvtravel.ultils.PreferenceUtil;
-import com.namviet.vtvtravel.ultils.ValidateUtils;
-import com.namviet.vtvtravel.view.MainActivity;
 
+import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f2.ChatActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.view.f2.virtualswitchboard.VirtualSwitchBoardActivity;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.view.fragment.f2booking.BookingFragment;
 import com.namviet.vtvtravel.view.fragment.f2menu.MenuFragment;
@@ -61,9 +54,6 @@ import com.namviet.vtvtravel.widget.HomeMenuFooter;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -122,7 +112,31 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
                 binding.layoutMenuFloat.setVisibility(View.GONE);
             }
         });
+        Account account = MyApplication.getInstance().getAccount();
+        if (null != account && account.isLogin()
+                && account.isTravelingSupporter()) {
+            binding.btnVirtualCall.setVisibility(View.VISIBLE);
+        } else {
+//            binding.btnVirtualCall.setVisibility(View.GONE);
+        }
 
+        binding.btnVirtualCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.layoutMenuFloat.setVisibility(View.GONE);
+                Account account = MyApplication.getInstance().getAccount();
+                if (null != account && account.isLogin()) {
+                   if(account.isTravelingSupporter()){
+                       VirtualSwitchBoardActivity.Companion.openActivity(mActivity);
+                   }else {
+                       Toast.makeText(mActivity, "Tính năng chỉ dành cho sở du lịch", Toast.LENGTH_SHORT).show();
+                   }
+                } else {
+                    LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+                }
+
+            }
+        });
         binding.btnCallNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -364,6 +378,17 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
         }
     }
 
+    @Subscribe
+    public void onReloadUserView(OnLoginSuccessAndUpdateUserView onLoginSuccessAndUpdateUserView) {
+        Account account = MyApplication.getInstance().getAccount();
+        if (null != account && account.isLogin()
+                && account.isTravelingSupporter()) {
+            binding.btnVirtualCall.setVisibility(View.VISIBLE);
+        } else {
+//            binding.btnVirtualCall.setVisibility(View.GONE);
+        }
+    }
+
 
     @Subscribe
     public void onClickVideo(OnClickVideoInMenu onClickVideoInMenu) {
@@ -431,12 +456,6 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
 
     public void setOnSelectView(TabLayout tabLayout, int position) {
         try {

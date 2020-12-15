@@ -1,8 +1,8 @@
 package com.namviet.vtvtravel.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +14,7 @@ import com.namviet.vtvtravel.holder.BaseHolder;
 import com.namviet.vtvtravel.listener.VideoSelectListener;
 import com.namviet.vtvtravel.model.Video;
 import com.namviet.vtvtravel.ultils.DateUtltils;
-import com.namviet.vtvtravel.view.MainActivity;
 
-import java.util.Date;
 import java.util.List;
 
 public class ListVideoAdapter extends RecyclerView.Adapter<ListVideoAdapter.ItemVideoHolder> {

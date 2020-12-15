@@ -3,34 +3,31 @@ package com.namviet.vtvtravel.adapter.imagepart;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.borjabravo.readmoretextview.ReadMoreTextView;
-import com.bumptech.glide.Glide;
+import com.baseapp.activity.BaseActivity;
 import com.devs.readmoreoption.ReadMoreOption;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.model.f2imagepart.ImagePart;
-import com.namviet.vtvtravel.model.travelnews.Travel;
-import com.namviet.vtvtravel.response.imagepart.ImagePartResponse;
+import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.response.imagepart.ItemImagePartResponse;
 import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.ultils.F2Util;
-import com.namviet.vtvtravel.ultils.ViewMoreUtils;
 import com.namviet.vtvtravel.view.f2.CommentActivity;
+import com.namviet.vtvtravel.view.f2.ShareActivity;
+import com.namviet.vtvtravel.view.fragment.share.ShareBottomDialog;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.ButterKnife;
 
 public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
@@ -104,6 +101,8 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
         private ImageView imgComment;
         private TextView tvDescription;
         private TextView tvReadMore;
+        private TextView tvCountLike;
+        private LikeButton imgHeart;
         private int position;
         private SlideImageInHighLightestImageAdapter slideImageInHighLightestImageAdapter;
 
@@ -119,6 +118,8 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
             btnShare = itemView.findViewById(R.id.btnShare);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             imgComment = itemView.findViewById(R.id.imgComment);
+            tvCountLike = itemView.findViewById(R.id.tvCountLike);
+            imgHeart = itemView.findViewById(R.id.imgHeart);
         }
 
         public void bindItem(int position) {
@@ -127,14 +128,27 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
             tvName.setText(item.getName());
             tvAuthor.setText(item.getAuthor());
 
-            readMoreOption.addReadMoreTo(tvDescription, item.getContent());
+            readMoreOption.addReadMoreTo(tvDescription, item.getShort_description());
 
             tvCommentCount.setText(item.getCount_comment());
             tvView.setText(item.getView_count());
             tvDate.setText("" + DateUtltils.timeToString(Long.valueOf(item.getCreated())));
 
 
-            slideImageInHighLightestImageAdapter = new SlideImageInHighLightestImageAdapter(context, item.getThumb_url(), SlideImageInHighLightestImageAdapter.LIST_TYPE);
+            slideImageInHighLightestImageAdapter = new SlideImageInHighLightestImageAdapter(context, item.getThumb_url(), SlideImageInHighLightestImageAdapter.LIST_TYPE, new SlideImageInHighLightestImageAdapter.ClickItem() {
+                @Override
+                public void onClickItem() {
+                    try {
+                        TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_VIEW, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.CORNER_PHOTO, TrackingAnalytic.ScreenTitle.CORNER_PHOTO)
+                                .setContent_id(item.getId())
+                                .setContent_type(item.getContent_type())
+                                .setCategory_tree_name(item.getCategory_tree_name())
+                                .setCategory_tree_code(item.getCategory_tree_code()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
             vpGallery.setAdapter(slideImageInHighLightestImageAdapter);
             try {
                 tvScrollPosition.setText("1/" + item.getThumb_url().size());
@@ -157,15 +171,33 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
             btnShare.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     try {
-                        F2Util.startSenDataText((Activity) context, item.getLink_share());
+                        ShareBottomDialog shareBottomDialog = new ShareBottomDialog(new ShareBottomDialog.DoneClickShare() {
+                            @Override
+                            public void onDoneClickShare(boolean isVTVApp) {
+                                if (isVTVApp) {
+                                    ShareActivity.startScreen(context, item.getName(), "http://domain.vtv?gallery_id="+item.getId(), item.getLogo_url(), "galleries");
+                                }else {
+                                    F2Util.startSenDataText((Activity) context, item.getLink_share());
+                                }
+                            }
+                        });
+                        if(context instanceof BaseActivity) {
+                            shareBottomDialog.show(((BaseActivity) context).getSupportFragmentManager(), null);
+                        }else {
+                            shareBottomDialog.show(((BaseActivityNew) context).getSupportFragmentManager(), null);
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
 
                     try {
-                        TrackingAnalytic.postEvent(TrackingAnalytic.SHARE, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                        TrackingAnalytic.postEvent(TrackingAnalytic.SHARE, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HIGH_LIGHTEST_IMAGE, TrackingAnalytic.ScreenTitle.HIGH_LIGHTEST_IMAGE)
+                                .setContent_id(item.getId())
+                                .setContent_type(item.getContent_type())
+                                .setScreen_class(this.getClass().getName()));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -193,12 +225,44 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
                 }
             });
 
+            imgHeart.setOnLikeListener(new OnLikeListener() {
+                @Override
+                public void liked(LikeButton likeButton) {
+                    clickItem.likeEvent(position);
+                }
+
+                @Override
+                public void unLiked(LikeButton likeButton) {
+                    clickItem.likeEvent(position);
+                }
+            });
+
+//            imgHeart.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    clickItem.likeEvent(position);
+//                }
+//            });
+
+            try {
+                if (item.isLiked()){
+//                    imgHeart.setImageResource(R.drawable.f2_ic_red_heart);
+                    imgHeart.setLiked(true);
+                } else {
+//                    imgHeart.setImageResource(R.drawable.f2_ic_gray_heart);
+                    imgHeart.setLiked(false);
+                }
+                tvCountLike.setText(item.getLikeCount());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
 
     public interface ClickItem {
         void onClickItem(int position);
+        void likeEvent(int position);
     }
 
 

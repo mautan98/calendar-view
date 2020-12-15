@@ -19,6 +19,7 @@ public class ItemAppDiscoverResponse extends BaseResponse {
         private String url_alias;
         private String logo_url;
         private String detail_link;
+        private String detail_linkV2;
         private String short_description;
         private String description;
 
@@ -44,6 +45,10 @@ public class ItemAppDiscoverResponse extends BaseResponse {
 
         public String getDetail_link() {
             return detail_link;
+        }
+
+        public String getDetail_linkV2() {
+            return detail_linkV2;
         }
 
         public String getShort_description() {

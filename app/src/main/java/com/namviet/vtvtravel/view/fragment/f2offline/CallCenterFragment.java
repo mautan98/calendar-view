@@ -1,9 +1,9 @@
 package com.namviet.vtvtravel.view.fragment.f2offline;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +11,12 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2offline.CallCenterAdapter;
-import com.namviet.vtvtravel.adapter.f2offline.ServicePackageAdapter;
-import com.namviet.vtvtravel.adapter.f2offline.TopPackageAdapter;
-import com.namviet.vtvtravel.databinding.F2FragmentMainOfflineBinding;
 import com.namviet.vtvtravel.databinding.F2FragmentSwitchboardBinding;
 import com.namviet.vtvtravel.listener.F2ClickActionListener;
 import com.namviet.vtvtravel.model.offline.Action;
 import com.namviet.vtvtravel.model.offline.Items;
 import com.namviet.vtvtravel.model.offline.OfflineDynamic;
-import com.namviet.vtvtravel.model.offline.Package;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 
@@ -54,6 +51,11 @@ public class CallCenterFragment extends MainFragment implements F2ClickActionLis
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        try {
+            TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_VIEW, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.CALL_CENTER, TrackingAnalytic.ScreenTitle.CALL_CENTER).setScreen_class(this.getClass().getName()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         initViews(view);
     }
 

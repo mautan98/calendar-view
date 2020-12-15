@@ -7,7 +7,13 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Travel implements Serializable {
-    private String category;
+    @Expose
+    @SerializedName("type_open_color")
+    private String typeOpenColor;
+
+    private String category_name;
+    private String distance_text;
+
     private boolean has_location;
     private String is_video;
     private String id;
@@ -46,15 +52,56 @@ public class Travel implements Serializable {
     private String is_trend;
     private String icon;
 
-    private int typeItem = 1000;
+    private boolean isLiked;
+    private String likeCount;
 
+    private String category_tree_code;
+    private String category_tree_name;
 
-    public String getCategory() {
-        return category;
+    public String getCategory_tree_code() {
+        return category_tree_code;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public String getCategory_tree_name() {
+        return category_tree_name;
+    }
+
+    public String getTypeOpenColor() {
+        return typeOpenColor;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
+    }
+
+    public String getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(String likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    private int typeItem = 1000;
+
+    public String getDistance_text() {
+        return distance_text;
+    }
+
+    public void setDistance_text(String distance_text) {
+        this.distance_text = distance_text;
+    }
+
+    public String getCategoryName() {
+        return category_name;
+    }
+
+    public void setCategoryName(String category) {
+        this.category_name = category;
     }
 
     public boolean isHas_location() {

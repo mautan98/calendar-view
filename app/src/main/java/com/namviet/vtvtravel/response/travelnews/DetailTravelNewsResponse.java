@@ -17,7 +17,7 @@ public class DetailTravelNewsResponse extends BaseResponse implements Serializab
         this.data = data;
     }
 
-    public class Data  implements Serializable {
+    public class Data implements Serializable {
         private String id;
         private String content_type;
         private String type;
@@ -34,6 +34,40 @@ public class DetailTravelNewsResponse extends BaseResponse implements Serializab
         private String link_share;
         private NearBy nearBy;
         private String short_description;
+        private boolean isLiked;
+        private String likeCount;
+        private Relation related_news;
+        private String category_tree_code;
+        private String category_tree_name;
+
+
+        public String getCategory_tree_code() {
+            return category_tree_code;
+        }
+
+        public String getCategory_tree_name() {
+            return category_tree_name;
+        }
+
+        public Relation getRelations() {
+            return related_news;
+        }
+
+        public boolean isLiked() {
+            return isLiked;
+        }
+
+        public void setLiked(boolean liked) {
+            isLiked = liked;
+        }
+
+        public String getLikeCount() {
+            return likeCount;
+        }
+
+        public void setLikeCount(String likeCount) {
+            this.likeCount = likeCount;
+        }
 
         public String getShort_description() {
             return short_description;
@@ -99,7 +133,7 @@ public class DetailTravelNewsResponse extends BaseResponse implements Serializab
             this.nearBy = nearBy;
         }
 
-        public class NearBy implements Serializable{
+        public class NearBy implements Serializable {
             private String title;
             private List<Travel> items;
 
@@ -174,6 +208,16 @@ public class DetailTravelNewsResponse extends BaseResponse implements Serializab
 
         public void setLink_share(String link_share) {
             this.link_share = link_share;
+        }
+
+
+        public class Relation implements Serializable {
+
+            private List<Travel> items;
+
+            public List<Travel> getItems() {
+                return items;
+            }
         }
     }
 }

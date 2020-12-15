@@ -3,17 +3,15 @@ package com.namviet.vtvtravel.view.fragment.f2travelnote;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
+import androidx.annotation.Nullable;
+import com.google.android.material.tabs.TabLayout;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.adapter.f2offline.MainAdapter;
 import com.namviet.vtvtravel.adapter.travelnews.HighLightTravelNoteAdapter;
 import com.namviet.vtvtravel.adapter.vtvtabstyle.VTVTabStyleAdapter;
 import com.namviet.vtvtravel.databinding.F2FragmentTravelNewsBinding;
@@ -23,7 +21,7 @@ import com.namviet.vtvtravel.model.f2event.OnScrollTravelNews;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.travelnews.NewsCategoryResponse;
 import com.namviet.vtvtravel.response.travelnews.NotebookResponse;
-import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.f2oldbase.SearchActivity;
 import com.namviet.vtvtravel.viewmodel.f2travelnews.TravelNewsViewModel;
 
@@ -296,4 +294,10 @@ public class TravelNewsFragment extends BaseFragment<F2FragmentTravelNewsBinding
 
         }
     };
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.NEWS_DETAIL, TrackingAnalytic.ScreenTitle.NEWS_DETAIL);
+    }
 }

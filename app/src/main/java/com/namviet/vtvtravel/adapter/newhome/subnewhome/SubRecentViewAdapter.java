@@ -3,8 +3,8 @@ package com.namviet.vtvtravel.adapter.newhome.subnewhome;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.config.Constants;
-import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 
@@ -123,25 +122,30 @@ public class SubRecentViewAdapter extends RecyclerView.Adapter<RecyclerView.View
             tvPlace.setText(travel.getTabs().get(0).getRegion_name());
             tvCommentCount.setText(travel.getTabs().get(0).getComment_count());
 
-            if (Constants.TypeDestination.RESTAURANTS.equals(travel.getContent_type()) || Constants.TypeDestination.HOTELS.equals(travel.getContent_type())) {
-                linearPriceType.setVisibility(View.VISIBLE);
-                linearOpenType.setVisibility(View.GONE);
-                tvPriceRange.setText(travel.getTabs().get(1).getPrice_from() + " đ" + " - " + travel.getTabs().get(1).getPrice_to() + " đ");
-            } else {
+//            if (Constants.TypeDestination.RESTAURANTS.equals(travel.getContent_type()) || Constants.TypeDestination.HOTELS.equals(travel.getContent_type())) {
+//                linearPriceType.setVisibility(View.VISIBLE);
+//                linearOpenType.setVisibility(View.GONE);
+//                tvPriceRange.setText(travel.getTabs().get(1).getPrice_from() + " đ" + " - " + travel.getTabs().get(1).getPrice_to() + " đ");
+//            } else {
                 linearPriceType.setVisibility(View.GONE);
                 linearOpenType.setVisibility(View.VISIBLE);
 
-
                 tvOpenDate.setText(travel.getTabs().get(1).getOpen_week());
 
+                tvStatus.setText("("+travel.getTabs().get(1).getType_open()+")");
 
-
-                tvStatus.setText(travel.getTabs().get(1).getType_open());
-                if ("Đang đóng".equals(travel.getTabs().get(1).getType_open())) {
-                    tvStatus.setTextColor(Color.parseColor("#FF0000"));
-                } else {
-                    tvStatus.setTextColor(Color.parseColor("#0FB403"));
+                try {
+                    tvStatus.setTextColor(Color.parseColor(travel.getTabs().get(1).getTypeOpenColor()));
+                } catch (Exception e) {
+                    try {
+                        tvStatus.setTextColor(Color.parseColor("#FF0000"));
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    e.printStackTrace();
                 }
+
+
 
 
                 try {
@@ -159,14 +163,14 @@ public class SubRecentViewAdapter extends RecyclerView.Adapter<RecyclerView.View
                     tvOpenTime.setVisibility(View.GONE);
                 }
 
-            }
+//            }
 
             if(travel.getTabs().get(1).isHas_location()) {
                 if (travel.getTabs().get(1).getDistance() != null && !"".equals(travel.getTabs().get(1).getDistance()) && Double.parseDouble(travel.getTabs().get(1).getDistance()) < 1000) {
-                    tvDistance.setText("Cách bạn " + travel.getTabs().get(1).getDistance() + " m");
+                    tvDistance.setText(travel.getTabs().get(1).getDistance_text()+" " + travel.getTabs().get(1).getDistance() + " m");
                 } else if (travel.getTabs().get(1).getDistance() != null && !"".equals(travel.getTabs().get(1).getDistance())) {
                     double finalValue = Math.round(Double.parseDouble(travel.getTabs().get(1).getDistance()) / 1000 * 10.0) / 10.0;
-                    tvDistance.setText("Cách bạn " + finalValue + " km");
+                    tvDistance.setText(travel.getTabs().get(1).getDistance_text()+" " + finalValue + " km");
                 }
             }else {
                 tvDistance.setText("Không xác định");

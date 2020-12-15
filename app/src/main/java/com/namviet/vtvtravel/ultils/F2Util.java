@@ -1,16 +1,17 @@
 package com.namviet.vtvtravel.ultils;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.List;
 
 public class F2Util {
     public static void startCallIntent(Activity activity, String phone) {
@@ -36,6 +38,10 @@ public class F2Util {
         I.putExtra("address", new String(phone));
         I.putExtra("sms_body", mess);
         activity.startActivity(I);
+    }
+
+    public static String genEndPointShareLink(String cateId, String link){
+        return "?cateId="+cateId+"&link="+link;
     }
 
     public static void startSenDataText(Activity activity, String mess){
@@ -155,6 +161,22 @@ public class F2Util {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static boolean isAppRunning(Context context) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
+        if (appProcesses == null) {
+            return false;
+        }
+        final String packageName = context.getPackageName();
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            if (appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND && appProcess.processName.equals(packageName)) {
+                return true;
+            }
+        }
+        return false;
+
     }
 
 }

@@ -1,9 +1,9 @@
 package com.namviet.vtvtravel.view.fragment;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +13,10 @@ import com.namviet.vtvtravel.R;
 
 import com.namviet.vtvtravel.databinding.FragmentSplashBinding;
 import com.namviet.vtvtravel.model.MenuLeft;
-import com.namviet.vtvtravel.response.NotifyResponse;
-import com.namviet.vtvtravel.response.ResponseError;
-import com.namviet.vtvtravel.response.newhome.HomeServiceResponse;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
-import com.namviet.vtvtravel.model.MenuLeft;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
 import com.namviet.vtvtravel.viewmodel.HomeViewModel;
-import com.namviet.vtvtravel.viewmodel.NotifyViewModel;
 import com.namviet.vtvtravel.viewmodel.newhome.SplashViewModel;
 
 import java.text.SimpleDateFormat;

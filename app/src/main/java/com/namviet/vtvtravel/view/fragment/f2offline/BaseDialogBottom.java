@@ -1,20 +1,12 @@
 package com.namviet.vtvtravel.view.fragment.f2offline;
 
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.view.LayoutInflater;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-
-import com.baseapp.activity.BaseActivity;
-
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 public abstract class BaseDialogBottom extends BottomSheetDialogFragment {
     private Context mActivity;

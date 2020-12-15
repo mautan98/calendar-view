@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.model.chat;
 
 import com.namviet.vtvtravel.response.f2chat.GetUserGuildResponse;
+import com.namviet.vtvtravel.response.f2chat.HelloMessageResponse;
 import com.namviet.vtvtravel.response.f2chat.PostUserGuildResponse;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class ChatData {
     private boolean isOwner;
 
     private List<GetUserGuildResponse.Data.Item> itemGetUserGuild = new ArrayList<>();
+    private List<HelloMessageResponse.Data.Item> itemHello = new ArrayList<>();
     private List<PostUserGuildResponse.Data.Item> itemPostUserGuild = new ArrayList<>();
 
 
@@ -61,6 +63,14 @@ public class ChatData {
         this.text = text;
         this.current_time = current_time;
         this.avatar_url = avatar_url;
+    }
+
+    public List<HelloMessageResponse.Data.Item> getItemHello() {
+        return itemHello;
+    }
+
+    public void setItemHello(List<HelloMessageResponse.Data.Item> itemHello) {
+        this.itemHello = itemHello;
     }
 
     public List<String> getText_sensitive() {

@@ -1,12 +1,12 @@
 package com.namviet.vtvtravel.adapter;
 
-import android.databinding.DataBindingUtil;
-import android.support.v7.widget.RecyclerView;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.databinding.library.baseAdapters.BR;
+
 import com.namviet.vtvtravel.listener.ItemVideoClickListener;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.databinding.ItemViewVideoBinding;
@@ -73,7 +73,7 @@ public class ViewVideoApdater extends RecyclerView.Adapter<ViewVideoApdater.MyVi
                     }
                 }
             });
-            this.binding.setVariable(BR.itemTravel, binding.getTravelModel());
+//            this.binding.setVariable(BR.itemTravel, binding.getTravelModel());
 
         }
     }

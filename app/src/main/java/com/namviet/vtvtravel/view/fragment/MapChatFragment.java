@@ -1,18 +1,14 @@
 package com.namviet.vtvtravel.view.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.config.Constants;
-import com.namviet.vtvtravel.listener.MapChatListener;
 
 public class MapChatFragment extends MainFragment {
     private WebView mMapWv;

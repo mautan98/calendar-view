@@ -1,9 +1,10 @@
 package com.namviet.vtvtravel.view.fragment.f2account;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
@@ -11,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.gson.Gson;
+import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
@@ -30,9 +33,9 @@ import com.namviet.vtvtravel.ultils.DeviceUtils;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.ValidateUtils;
+import com.namviet.vtvtravel.view.ConfigureAccountActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.viewmodel.AccountViewModel;
-import com.namviet.vtvtravel.tracking.TrackingViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -45,12 +48,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implements Observer {
     private AccountViewModel accountViewModel;
     private PreferenceUtil mPreferenceUtil;
+    private boolean isShowingPass;
 
     @Override
     public int getLayoutRes() {
         return R.layout.f2_fragment_login;
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void initView() {
 
@@ -81,28 +86,35 @@ public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implem
                     PreferenceUtil.getInstance(getContext()).setValue(Constants.PrefKey.MOBILE, mobile);
                     PreferenceUtil.getInstance(getContext()).setValue(Constants.PrefKey.PASSWORD, password);
 
-                    accountViewModel.login(ValidateUtils.isPhoneValidateV2(mobile, 84), password);
+                    accountViewModel.login(ValidateUtils.isPhoneValidateV2(mobile, 84), password, PreferenceUtil.getInstance(mActivity).getValue(Constants.PrefKey.DEVICE_TOKEN, ""));
+
+
+                    try {
+                        TrackingAnalytic.postEvent(TrackingAnalytic.SIGN_IN, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.LOGIN, TrackingAnalytic.ScreenTitle.LOGIN).setScreen_class(this.getClass().getName()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
+        RxView.clicks(getBinding().imgEyeCovered)
+                .throttleFirst(100, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(o -> {
+                    if (isShowingPass) {
+                        isShowingPass = false;
+                        getBinding().edtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        getBinding().imgEyeCovered.setImageDrawable(getResources().getDrawable(R.drawable.f2_ic_eye_covered));
+                    } else {
+                        isShowingPass = true;
+                        getBinding().edtPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                        getBinding().imgEyeCovered.setImageDrawable(getResources().getDrawable(R.drawable.f2_ic_eye));
+                    }
+                    if(getBinding().edtPassword.hasFocus()){
+                        getBinding().edtPassword.setSelection(getBinding().edtPassword.length());
+                    }
+                }, Throwable::printStackTrace);
 
-        getBinding().imgEyeCovered.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getBinding().edtPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                getBinding().imgEyeCovered.setVisibility(View.GONE);
-                getBinding().imgEye.setVisibility(View.VISIBLE);
-            }
-        });
-
-        getBinding().imgEye.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getBinding().edtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                getBinding().imgEyeCovered.setVisibility(View.VISIBLE);
-                getBinding().imgEye.setVisibility(View.GONE);
-            }
-        });
     }
 
     @Override
@@ -150,9 +162,9 @@ public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implem
 //                mActivity.switchFragment(SlideMenu.MenuType.HOME_SCREEN);
                     if (((LoginAndRegisterActivityNew) mActivity).isFromButtonCallNow) {
                         EventBus.getDefault().post(new OnLoginSuccessAndGoToCallNow());
-                    }else if(((LoginAndRegisterActivityNew) mActivity).isFromBooking){
+                    } else if (((LoginAndRegisterActivityNew) mActivity).isFromBooking) {
                         EventBus.getDefault().post(new OnLoginSuccessAndGoToBooking());
-                    }else if(((LoginAndRegisterActivityNew) mActivity).isFromDeal){
+                    } else if (((LoginAndRegisterActivityNew) mActivity).isFromDeal) {
                         EventBus.getDefault().post(new OnLoginSuccessAndReloadDeal());
                     }
                     EventBus.getDefault().post(new OnLoginSuccessAndUpdateUserView());
@@ -160,8 +172,12 @@ public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implem
                     String token = FirebaseInstanceId.getInstance().getToken();
                     accountViewModel.notificationReg(DeviceUtils.getDeviceId(getContext()), token, "ANDROID");
                     mPreferenceUtil.setValue(Constants.PrefKey.ACCOUNT_ID, accountResponse.getData().getId().toString());
+                    PreferenceUtil.getInstance(mActivity).setValue(Constants.PrefKey.ACCOUNT, new Gson().toJson(accountResponse.getData()));
 
                     /*mActivity.onBackPressed();*/
+                    if(accountResponse.getData().isTravelingSupporter()){
+                        startActivity(new Intent(mActivity, ConfigureAccountActivity.class));
+                    }
                     mActivity.finish();
 
                 } else {
@@ -197,5 +213,11 @@ public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implem
                 .subscribe(textViewAfterTextChangeEvent -> {
                     linearLayout.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.f2_bg_login));
                 });
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.LOGIN, TrackingAnalytic.ScreenTitle.LOGIN);
     }
 }

@@ -1,24 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:minHeight="150dp"
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerPartnerLink"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="10dp"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+        android:paddingTop="12dp"
+        android:paddingBottom="8dp"
+        android:clipToPadding="false"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="2"
+        tools:listitem="@layout/f2_item_home_partner_link" />
+
+    <com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
+        android:id="@+id/vpIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/recyclerPartnerLink"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="4dp"
+        app:dotColor="@color/gray_99"
+        app:dotRadius="5dp"
+        app:selectedDotColor="@color/colorPrimary"
+        app:selectedDotRadius="5dp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_below="@id/vpIndicator"
+        android:layout_marginTop="4dp"
         android:background="#ECECEC" />
 
-</LinearLayout>
+</RelativeLayout>

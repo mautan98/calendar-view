@@ -1,41 +1,57 @@
 {
   "project_info": {
-    "project_number": "442401811015",
-    "firebase_url": "https://vtvtravel-fcc05.firebaseio.com",
-    "project_id": "vtvtravel-fcc05",
-    "storage_bucket": "vtvtravel-fcc05.appspot.com"
+    "project_number": "825791353386",
+    "firebase_url": "https://weather-652dd.firebaseio.com",
+    "project_id": "weather-652dd",
+    "storage_bucket": "weather-652dd.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:442401811015:android:b8a54d38dc8c267b755f62",
+        "mobilesdk_app_id": "1:825791353386:android:4a8b78121574676096a953",
         "android_client_info": {
-          "package_name": "com.vtv.travel"
+          "package_name": "com.namviet.ott.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "442401811015-vite16res0267sgdk757de34ql1aomks.apps.googleusercontent.com",
+          "client_id": "825791353386-43h6c7oosmqooq6012kh5a4lpkmg41hj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.namviet.ott.app",
+            "certificate_hash": "13c3425280e0fcd58aacf8cd6ede983a4e743c7b"
+          }
+        },
+        {
+          "client_id": "825791353386-lr78g4fscg4kp9vdukncd2dnfnb4a6fr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.namviet.ott.app",
+            "certificate_hash": "543b06a4573d807f75eca3ead37e8e35bce15894"
+          }
+        },
+        {
+          "client_id": "825791353386-gvpk56b001d0s6rfttnvcrfrt293susi.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB555R2w4AbgxYB3hzhAqVzzO6L4t6uiWE"
+          "current_key": "AIzaSyBABnwsuHk9g_N57sXx2T6kSmx5gP1uoXI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "442401811015-vite16res0267sgdk757de34ql1aomks.apps.googleusercontent.com",
+              "client_id": "825791353386-gvpk56b001d0s6rfttnvcrfrt293susi.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "442401811015-e956unu4kpcmstf3aalebiae0mg5cpip.apps.googleusercontent.com",
+              "client_id": "825791353386-vm6rpouni61ifilbllvopoi3ihidnitg.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.vtv.travel"
+                "bundle_id": "com.namviet.ott.app"
               }
             }
           ]
@@ -44,34 +60,34 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:442401811015:android:2dd751da9ac5cad7755f62",
+        "mobilesdk_app_id": "1:825791353386:android:9b3a4fe53d48f40496a953",
         "android_client_info": {
           "package_name": "vn.vtv.vtvtravel"
         }
       },
       "oauth_client": [
         {
-          "client_id": "442401811015-vite16res0267sgdk757de34ql1aomks.apps.googleusercontent.com",
+          "client_id": "825791353386-gvpk56b001d0s6rfttnvcrfrt293susi.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB555R2w4AbgxYB3hzhAqVzzO6L4t6uiWE"
+          "current_key": "AIzaSyBABnwsuHk9g_N57sXx2T6kSmx5gP1uoXI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "442401811015-vite16res0267sgdk757de34ql1aomks.apps.googleusercontent.com",
+              "client_id": "825791353386-gvpk56b001d0s6rfttnvcrfrt293susi.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "442401811015-e956unu4kpcmstf3aalebiae0mg5cpip.apps.googleusercontent.com",
+              "client_id": "825791353386-vm6rpouni61ifilbllvopoi3ihidnitg.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.vtv.travel"
+                "bundle_id": "com.namviet.ott.app"
               }
             }
           ]

@@ -7,9 +7,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp">
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:foreground="@drawable/ripple_effect_click"
             app:cardCornerRadius="9dp"
             app:cardElevation="1dp"
             app:cardUseCompatPadding="true">
@@ -22,7 +23,7 @@
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="142dp">
 
                     <ImageView
                         android:id="@+id/imgAvatar"
@@ -30,77 +31,108 @@
                         android:layout_height="142dp"
                         android:scaleType="centerCrop" />
 
+                    <!--                    <ImageView-->
+                    <!--                        android:id="@+id/imgHeart"-->
+                    <!--                        android:layout_width="32dp"-->
+                    <!--                        android:layout_height="36dp"-->
+                    <!--                        android:layout_alignParentEnd="true"-->
+                    <!--                        android:layout_marginTop="12dp"-->
+                    <!--                        android:layout_marginEnd="9dp"-->
+                    <!--                        android:src="@drawable/f2_ic_transparent_heart" />-->
+                    <com.like.LikeButton
+                        android:id="@+id/imgHeart"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_gravity="center"
+                        app:anim_scale_factor="4.5"
+                        app:icon_size="30dp"
+                        app:like_drawable="@drawable/f2_ic_heart"
+                        app:unlike_drawable="@drawable/f2_ic_transparent_heart" />
+
+
+                    <View
+                        android:layout_alignParentBottom="true"
+                        android:id="@+id/view"
+                        android:alpha="0.5"
+                        android:background="#000000"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="23dp"/>
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="23dp"
+                        android:orientation="horizontal"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp">
+
+                        <TextView
+                            android:id="@+id/tvRate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/f2_bg_score"
+                            android:fontFamily="@font/roboto_bold"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:text="9.8"
+                            android:textColor="#FFFFFF"
+                            android:textSize="10dp" />
+
+                        <TextView
+                            android:id="@+id/tvEvaluateText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_bold"
+                            android:paddingLeft="3dp"
+                            android:paddingRight="6dp"
+                            android:text="Tuyệt vời"
+                            android:textColor="@color/white"
+                            android:textSize="12dp" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="12dp"
+                            android:layout_gravity="center"
+                            android:background="#B4B4B4" />
+
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="6dp"
+                            android:src="@drawable/f2_ic_view" />
+
+                        <TextView
+                            android:id="@+id/tvCommentCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="205"
+                            android:textColor="@color/white"
+                            android:textSize="12dp" />
+                    </LinearLayout>
                 </RelativeLayout>
 
                 <TextView
-                    android:lines="2"
-                    android:maxLines="2"
-                    android:ellipsize="end"
                     android:id="@+id/tvName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    android:ellipsize="end"
                     android:fontFamily="@font/roboto_bold"
+                    android:lines="2"
+                    android:maxLines="2"
                     android:paddingStart="6dp"
                     android:paddingEnd="6dp"
                     android:text="Tour Ẩm Thực "
                     android:textColor="#3B3B3B"
                     android:textSize="14dp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal"
-                    android:paddingStart="6dp"
-                    android:paddingEnd="6dp">
 
-                    <TextView
-                        android:id="@+id/tvRate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/f2_bg_score"
-                        android:fontFamily="@font/roboto_bold"
-                        android:paddingLeft="6dp"
-                        android:paddingRight="6dp"
-                        android:text="9.8"
-                        android:textColor="#FFFFFF"
-                        android:textSize="10dp" />
-
-                    <TextView
-                        android:id="@+id/tvEvaluateText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_bold"
-                        android:paddingLeft="3dp"
-                        android:paddingRight="6dp"
-                        android:text="Tuyệt vời"
-                        android:textColor="#22558F"
-                        android:textSize="12dp" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="12dp"
-                        android:layout_gravity="center"
-                        android:background="#B4B4B4" />
-
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="6dp"
-                        android:src="@drawable/f2_ic_view" />
-
-                    <TextView
-                        android:id="@+id/tvCommentCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="3dp"
-                        android:fontFamily="@font/roboto_regular"
-                        android:text="205"
-                        android:textColor="#0081FF"
-                        android:textSize="12dp" />
-                </LinearLayout>
 
 
                 <LinearLayout
@@ -165,8 +197,6 @@
                 </LinearLayout>
 
 
-
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -183,10 +213,10 @@
                         android:src="@drawable/f2_ic_location" />
 
                     <TextView
-                        android:ellipsize="end"
                         android:id="@+id/tvAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
                         android:fontFamily="@font/roboto_regular"
                         android:singleLine="true"
                         android:textColor="#5E5E5E"
@@ -220,7 +250,7 @@
                 </LinearLayout>
 
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 </layout>

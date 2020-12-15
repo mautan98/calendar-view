@@ -2,19 +2,38 @@ package com.namviet.vtvtravel.api;
 
 public class WSConfig {
 
+
+
     //Server test
-//    public static final String HOST = "https://api1.travel.onex.vn/";
-//    public static final String HOST_ACC = "https://core1.travel.onex.vn/api/v1/";
-//    public static final String HOST_CHAT = "https://103.21.148.54:8090/";
-//    public static final String HOST_VQMM = "http://103.21.148.54:8856/lucky-wheel?";
-//    public static final String HOST_BOOKING = "http://103.21.148.54:8857/get-list?token=";
+    public static final String URL_SOCKET = "http://103.21.148.54:8079";
+    public static final String HOST = "https://api1.travel.onex.vn/";
+    public static final String HOST_ACC = "https://core1.travel.onex.vn/api/v1/";
+    public static final String HOST_ACC_2 = "https://core1.travel.onex.vn/";
+    public static final String HOST_CHAT = "https://103.21.148.54:8090/";
+    public static final String HOST_VQMM = "http://103.21.148.54:8856/lucky-wheel?";
+    public static final String HOST_BOOKING = "http://103.21.148.54:8857/get-list";
+    public static final String HOST_LANDING = "https://travel1.onex.vn/";
+    public static final String HOST_VQMM_HISTORY = "http://103.21.148.54:8856/histories-list?";
+    public static final String HOST_VQMM_RULE = "http://103.21.148.54:8856/page/LUCKY_WHEEL_RULE?";
+    public static final String HOST_VQMM_GUIDE = "http://103.21.148.54:8856/page/LUCKY_WHEEL_GUIDE?";
+    public static final String HOST_CREATE_TRIP = "http://103.21.148.54:8858/my-trip/create";
+    public static final String HOST_MY_TRIP = "http://103.21.148.54:8858/my-trip";
+    public static final String HOST_RECEIVE_TRIP = "http://103.21.148.54:8858/my-trip/detail";
 
     //Server product
-    public static final String HOST = "https://api.vtvtravel.vn/";
-    public static final String HOST_ACC = "https://core.vtvtravel.vn/api/v1/";
-    public static final String HOST_CHAT = "https://api-cskh.vtvtravel.vn/";
-    public static final String HOST_VQMM = "http://lucky.vtvtravel.vn/lucky-wheel?";
-    public static final String HOST_BOOKING = "http://booking.vtvtravel.vn/get-list?token=";
+//    public static final String URL_SOCKET = "https://chat.vtvtravel.vn";
+//    public static final String HOST = "https://api.vtvtravel.vn/";
+//    public static final String HOST_ACC = "https://core.vtvtravel.vn/api/v1/";
+//    public static final String HOST_CHAT = "https://api-cskh.vtvtravel.vn/";
+//    public static final String HOST_VQMM = "http://lucky.vtvtravel.vn/lucky-wheel?";
+//    public static final String HOST_BOOKING = "http://booking.vtvtravel.vn/get-list";
+//    public static final String HOST_LANDING = "https://travel1.onex.vn/";
+//    public static final String HOST_VQMM_HISTORY = "http://lucky.vtvtravel.vn/histories-list?";
+//    public static final String HOST_VQMM_RULE = "http://lucky.vtvtravel.vn/page/LUCKY_WHEEL_RULE?";
+//    public static final String HOST_VQMM_GUIDE = "http://lucky.vtvtravel.vn/page/LUCKY_WHEEL_GUIDE?";
+//    public static final String HOST_CREATE_TRIP = "http://tour.vtvtravel.vn/my-trip/create";
+//    public static final String HOST_MY_TRIP = "http://tour.vtvtravel.vn/my-trip";
+//    public static final String HOST_RECEIVE_TRIP = "http://tour.vtvtravel.vn/my-trip/detail";
 
     public static final String URL_ENCODE = "http://api.travel.onex.vn/test/rsa/decrypt";
     public static final String URL_DEFAULT_CHANNEL = "http://113.185.19.133:8443/namvietvtv/smil:vtv1.smil/playlist.m3u8";
@@ -121,6 +140,10 @@ public class WSConfig {
         public static final String ALL_LOCATION = "regions/select";
         public static final String POST_EVENT = "user/event";
         public static final String USER_GUILD = "user/guide";
+        public static final String USER_TICKET = "user/travel/ticket";
+        public static final String USER_TICKET_HISTORY = "user/travel/ticket/history";
+        public static final String USER_TICKET_UPDATE = "user/travel/ticket/update";
+        public static final String USER_CREATE_ROOM = "user/room/create";
 
         public static final String GET_SERVICE = "userPackage/package";
         public static final String REQUEST_SERVICE_OTP = "userPackage/register/request";
@@ -135,17 +158,27 @@ public class WSConfig {
         public static final String USER_VOUCHER_RECEIVER = "user/voucher/receive";
         public static final String SEARCH_HOME = "search/home";
         public static final String SEARCH_PRE_RESULT = "v3/search/suggestions";
-
+        public static final String LIKE = "like";
+        public static final String WHEEL_ROTATE = "wheel/rotate";
+        public static final String WHEEL_RESULT = "wheel/result";
+        public static final String WHEEL_AREAS = "wheel/wheelAreas";
+        public static final String WHEEL_CHARTS = "wheel/charts?page=0&size=100";
+        public static final String USER_REVIEW = "user/review";
+        public static final String USER_REVIEW_SYS = "user/reviewSys";
+        public static final String USER_SUPPORTER = "user/travel/supporter";
+        public static final String SHARE = "user/shares";
+        public static final String GET_LIST_THEME = "user/chat/themes/list";
+        public static final String UPDATE_THEME = "user/chat/themes/update";
+        public static final String GET_USER_THEME = "user/chat/themes";
+        public static final String TICKET_INFO = "user/travel/ticket/info";
 
         public static final String USAGE_RULES = "page/dieu-khoan-su-dung";
         public static final String DEAL_DETAIL = "page/chi-tiet-uu-dai-goi-travel-vip";
 
-
         public static final String SYSTEM_INBOX = "user/inbox";
         public static final String SYSTEM_INBOX_COUNT = "user/count";
         public static final String SYSTEM_UPDATE_INBOX = "user/updateInbox";
-
-
+        public static final String CONFIRM_ENTER_SYSTEM_TRIP = "user/customSchedule/addScheduleUser";
 
         public static final String HASH_TAG_SEARCH = "deals/getDealFilter";
         public static final String DEAL_HOT_HOME = "deals/getDealHot";
@@ -170,9 +203,12 @@ public class WSConfig {
         public static final String CONTENT = "content";
         public static final String CONTENT_ID = "contentId";
         public static final String CONTENT_TYPE = "contentType";
+        public static final String MOBILE_SHARE_LIST = "mobileShareList";
         public static final String PARENT_ID = "parentId";
         public static final String SHORT_CODE = "shortCode";
         public static final String PASSWORD = "password";
+        public static final String DEVICE_TOKEN = "deviceToken";
+        public static final String DEVICE_TYPE = "deviceType";
         public static final String OLD_PASSWORD = "oldPassword";
         public static final String MOBILE = "mobile";
         public static final String GOOGLE_ID = "googleId";
@@ -181,6 +217,8 @@ public class WSConfig {
         public static final String EMAIL = "email";
         public static final String OTP = "otp";
         public static final String ID = "id";
+        public static final String DETAIL_LINK = "detailLink";
+        public static final String SCHEDULE_CUSTOM_ID = "scheduleCustomId";
         public static final String USER_ID = "userId";
         public static final String TOUR_ID = "tourId";
         public static final String BIRTHDAY = "birthday";
@@ -202,7 +240,7 @@ public class WSConfig {
         public static final String END_TOUR = "end";
         public static final String END_START_TOUR = "endStart";
         public static final String PLATFORM = "platform";
-        public static final String DEVICE_TOKEN = "device_token";
+//        public static final String DEVICE_TOKEN = "device_token";
         public static final String DEVICE_ID = "device_id";
         // public static final String SEND_NOTIFY = "sendNotify";
         public static final String SEND_NOTIFY = "sendNotification";
@@ -227,6 +265,7 @@ public class WSConfig {
         public static final String CODE = "code";
         public static final String PATH = "path";
         public static final String MOBILES = "mobiles";
+        public static final String IPS = "ips";
         public static final String PACKAGE_CODE = "packageCode";
         public static final String GALLERY_ID = "gallery_id";
         public static final String TAG = "tag";
@@ -238,8 +277,24 @@ public class WSConfig {
         public static final String EVENT_NAME = "eventName";
         public static final String METHOD = "method";
         public static final String REQUEST = "request";
+        public static final String WHEEL_LOG_ID = "wheelLogId";
+        public static final String WHEEL_ID = "wheelId";
+        public static final String LIST_ID_VOUCHER = "listVoucherId";
+        public static final String OS = "os";
+        public static final String ADMIN = "admin";
+        public static final String NOTE = "note";
+        public static final String REASONS = "reasons";
+        public static final String RATE = "rate";
+        public static final String SATISFIED = "satisfied";
+        public static final String THEME_ID = "themeId";
+        public static final String TICKET_ID = "ticketId";
+        public static final String STATUS = "status";
+        public static final String FIELD = "field";
 
         public static final String USER_AGENT = "userAgent";
+
+        public static final String PROCESS_TICKET_CONTENT = "content";
+        public static final String TICKET_STATUS = "type";
     }
 
     public class KeySocket {

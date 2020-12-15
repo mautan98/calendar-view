@@ -2,19 +2,17 @@ package com.namviet.vtvtravel.adapter;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.model.DetailLiveChannel;
 import com.namviet.vtvtravel.ultils.DateUtltils;
-import com.namviet.vtvtravel.ultils.TimeUtilities;
 import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.fragment.travel.DetailLiveChannelFragment;
 

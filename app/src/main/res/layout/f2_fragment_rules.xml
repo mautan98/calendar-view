@@ -21,38 +21,38 @@
             android:orientation="vertical">
 
 
-            <RelativeLayout
-                android:id="@+id/layoutToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/colorPrimary">
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/layoutToolbar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:background="@color/colorPrimary">-->
 
-                <LinearLayout
-                    android:id="@+id/btnBack"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center">
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/btnBack"-->
+<!--                    android:layout_width="50dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:gravity="center">-->
 
-                    <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="18dp"
-                        android:src="@drawable/video_top_back" />
+<!--                    <ImageView-->
+<!--                        android:layout_width="10dp"-->
+<!--                        android:layout_height="18dp"-->
+<!--                        android:src="@drawable/video_top_back" />-->
 
-                </LinearLayout>
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:fontFamily="@font/roboto_medium"
-                    android:gravity="center"
-                    android:text="Các điều khoản"
-                    android:textColor="@color/white"
-                    android:textSize="18dp" />
+<!--                </LinearLayout>-->
 
 
-            </RelativeLayout>
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_centerInParent="true"-->
+<!--                    android:fontFamily="@font/roboto_medium"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="Các điều khoản"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="18dp" />-->
+
+
+<!--            </RelativeLayout>-->
 
             <WebView
                 android:id="@+id/webView"

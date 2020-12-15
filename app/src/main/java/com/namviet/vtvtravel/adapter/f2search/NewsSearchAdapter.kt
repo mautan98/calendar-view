@@ -2,7 +2,7 @@ package com.namviet.vtvtravel.adapter.f2search
 
 import android.app.Activity
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -72,7 +72,7 @@ class NewsSearchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         fun bindItem(position: Int) {
             this.position = position
             itemView.tvName.text = items?.get(position)?.name
-            itemView.tvType.text = items?.get(position)?.category
+            itemView.tvType.text = items?.get(position)?.categoryName
             Glide.with(context!!).load(items?.get(position)?.logo_url).into(itemView.imgAvatar);
         }
 

@@ -6,8 +6,8 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -17,22 +17,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.datetimepicker.date.DatePickerDialog;
 import com.baseapp.menu.SlideMenu;
-import com.baseapp.utils.KeyboardUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -43,22 +33,16 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
-import com.namviet.vtvtravel.holder.BaseHolder;
 import com.namviet.vtvtravel.listener.TravelSelectListener;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.chat.ChatAnswer;
 import com.namviet.vtvtravel.model.chat.ChatData;
 import com.namviet.vtvtravel.ultils.DateUtltils;
-import com.namviet.vtvtravel.ultils.ValidateUtils;
 import com.namviet.vtvtravel.view.MainActivity;
-import com.namviet.vtvtravel.widget.RobotoTextView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> {
     private MainActivity mContext;
@@ -106,7 +90,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
             return R.layout.item_chat_admin;
         } else if (Constants.TypeChat.USER_SOCKET.equals(chat)) {
             return R.layout.item_chat_user_socket;
-        } else if (Constants.TypeChat.AFTER_60S.equals(chat)) {
+        } else if (Constants.TypeChat.YES_NO_REVIEW.equals(chat)) {
             return R.layout.item_chat_after60s;
         } else if (Constants.TypeChat.THANK.equals(chat)) {
             return R.layout.item_chat_thank;
@@ -187,7 +171,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
             try {
                 mChatNameTv.setText(chatData.getSender().getFull_name());
             } catch (Exception e) {
-                mChatNameTv.setText("Bot");
+                mChatNameTv.setText("Chatbot" + ", ");
             }
 
             setImageUrl(chatData.getAvatar_url(), mChatTextImv);
@@ -516,7 +500,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
 
         public void bindItem(int position) {
             ChatData chatData = mListChat.get(position);
-            mChatNameTv.setText("Bot");
+            mChatNameTv.setText("Chatbot" + ", ");
             mChatTimeTv.setText(chatData.getCurrent_time());
 
             mChatTextImv.setImageResource(R.drawable.ic_bot);

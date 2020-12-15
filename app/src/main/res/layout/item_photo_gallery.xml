@@ -11,8 +11,7 @@
         android:id="@+id/ivItem"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_90sdp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg_header" />
+        android:scaleType="centerCrop" />
 
 
 </LinearLayout>

@@ -5,8 +5,10 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -36,12 +38,13 @@ import com.namviet.vtvtravel.model.chat.ChatAnswer;
 import com.namviet.vtvtravel.model.chat.ChatData;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.view.f2.ChatActivity;
-import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
 import com.namviet.vtvtravel.view.f2.f2oldbase.TreeChatBotActivity;
+import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> {
     private ChatActivity mContext;
@@ -56,22 +59,22 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
 
     public void updateChatList(final List<ChatData> chatBases, RecyclerView recyclerView) {
         mContext.runOnUiThread(() -> {
-            setChatList(chatBases);
-            recyclerView.scrollToPosition(mListChat.size() - 1);
+//            setChatList(chatBases);
+            recyclerView.smoothScrollToPosition(mListChat.size() - 1);
         });
     }
 
     public void removeLastIndex(final List<ChatData> chatBases, RecyclerView recyclerView) {
         mContext.runOnUiThread(() -> {
-            setChatList(chatBases);
-            recyclerView.scrollToPosition(mListChat.size() - 1);
+//            setChatList(chatBases);
+            recyclerView.smoothScrollToPosition(mListChat.size() - 1);
         });
     }
 
-    public void setChatList(List<ChatData> chatBases) {
-        this.mListChat = chatBases;
-        this.notifyDataSetChanged();
-    }
+//    public void setChatList(List<ChatData> chatBases) {
+//        this.mListChat = chatBases;
+//        this.notifyDataSetChanged();
+//    }
 
     @Override
     public int getItemViewType(int position) {
@@ -89,8 +92,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
             return R.layout.f2_item_chat_admin;
         } else if (Constants.TypeChat.USER_SOCKET.equals(chat)) {
             return R.layout.f2_item_chat_user_socket;
-        } else if (Constants.TypeChat.AFTER_60S.equals(chat)) {
-            return R.layout.f2_item_chat_after60s;
+        } else if (Constants.TypeChat.YES_NO_REVIEW.equals(chat)) {
+            return R.layout.f2_item_chat_yes_no_review;
         } else if (Constants.TypeChat.THANK.equals(chat)) {
             return R.layout.f2_item_chat_thank;
         } else if (Constants.TypeChat.OPTION.equals(chat)) {
@@ -107,6 +110,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
             return R.layout.f2_item_chat_user_guild_text;
         } else if (Constants.TypeChat.USER_GUILD_SLIDE.equals(chat)) {
             return R.layout.f2_item_chat_user_guild_slide;
+        } else if (Constants.TypeChat.REVIEW.equals(chat)) {
+            return R.layout.f2_item_chat_review;
         } else {
             return R.layout.f2_item_chat_text;
         }
@@ -129,8 +134,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
                 return new AdminHolder(v);
             case R.layout.f2_item_chat_user_socket:
                 return new UserSocketHolder(v);
-            case R.layout.f2_item_chat_after60s:
-                return new After60sHolder(v);
+            case R.layout.f2_item_chat_yes_no_review:
+                return new YesNoReviewHolder(v);
             case R.layout.f2_item_chat_thank:
                 return new ThankHolder(v);
             case R.layout.f2_item_chat_option:
@@ -145,6 +150,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
                 return new UserGuildTextHolder(v);
             case R.layout.f2_item_chat_user_guild_slide:
                 return new UserGuildSlideHolder(v);
+            case R.layout.f2_item_chat_review:
+                return new ReviewHolder(v);
             default:
                 return new ChatTextHolder(v);
         }
@@ -209,7 +216,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
 
             if (position == 0) {
                 mChatFirstTime.setVisibility(View.VISIBLE);
-                SimpleDateFormat sdf = new SimpleDateFormat(Constants.DateFormat.DATE_FORMAT_15);
+                Locale.setDefault(new Locale("vi", "VN"));
+                SimpleDateFormat sdf = new SimpleDateFormat(Constants.DateFormat.DATE_FORMAT_17, Locale.getDefault());
                 Date d = new Date();
                 mChatFirstTime.setText(sdf.format(d));
             } else {
@@ -361,7 +369,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
                 } else {
                     avatar.setImageResource(R.drawable.f2_defaut_user);
                 }
-                name.setText(account.getFullname() + ", ");
+                try {
+                    name.setText(account.getFullname() + ", ");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -421,7 +433,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
                 } else {
                     avatar.setImageResource(R.drawable.f2_defaut_user);
                 }
-                name.setText(account.getFullname() + ", ");
+                try {
+                    name.setText(account.getFullname() + ", ");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -473,7 +489,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
         }
     }
 
-    public class After60sHolder extends BaseItemChat {
+    public class YesNoReviewHolder extends BaseItemChat {
         private TextView mChatNameTv;
         private TextView mChatTextTv;
         private TextView mChatTimeTv;
@@ -481,7 +497,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
         private Button mNoBtn;
         private ImageView mChatTextImv;
 
-        public After60sHolder(View itemView) {
+        public YesNoReviewHolder(View itemView) {
             super(itemView);
             mChatNameTv = itemView.findViewById(R.id.tv_chat_name);
             mChatTextTv = itemView.findViewById(R.id.tv_chat_text);
@@ -493,25 +509,31 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
 
         public void bindItem(int position) {
             ChatData chatData = mListChat.get(position);
-            mChatNameTv.setText("Bot");
+            mChatNameTv.setText("Chatbot" + ", ");
             mChatTimeTv.setText(chatData.getCurrent_time());
 
-            mChatTextImv.setImageResource(R.drawable.ic_bot);
+//            mChatTextImv.setImageResource(R.drawable.ic_bot);
 
             String mess = mListChat.get(position).getText();
             Account account = MyApplication.getInstance().getAccount();
-            if (null != account && account.isLogin()) {
-                mChatTextTv.setText(spannableString(mess, 7, 7 + account.getFullname().length()));
-            } else {
+            try {
+                if (null != account && account.isLogin()) {
+                    mChatTextTv.setText(spannableString(mess, 7, 7 + account.getFullname().length()));
+                } else {
+                    mChatTextTv.setText(mess);
+                }
+            } catch (Exception e) {
+                //Không có fullname
                 mChatTextTv.setText(mess);
+                e.printStackTrace();
             }
 
             mYesBtn.setOnClickListener(v -> {
-                mChatListener.after60sYes();
+                mChatListener.clickYesReview();
             });
 
             mNoBtn.setOnClickListener(v -> {
-                mChatListener.after60sNo();
+                mChatListener.clickNoReview();
             });
         }
 
@@ -534,17 +556,29 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
         public void bindItem(int position) {
             String mess = mListChat.get(position).getText();
             Account account = MyApplication.getInstance().getAccount();
-            if (null != account && account.isLogin()) {
-                mThankTxt.setText(spannableString(mess, 7, 7 + account.getFullname().length()));
-            } else {
+            try {
+                if (null != account && account.isLogin()) {
+                    mThankTxt.setText(spannableString(mess, 7, 7 + account.getFullname().length()));
+                } else {
+                    mThankTxt.setText(mess);
+                }
+            } catch (Exception e) {
+                //khong có fullname
                 mThankTxt.setText(mess);
+                e.printStackTrace();
+            }
+
+            try {
+                mChatTimeTv.setText(mListChat.get(position).getCurrent_time());
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
         private SpannableString spannableString(String text, int start, int end) {
             SpannableString spannableString = new SpannableString(text);
-            spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#424242")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            spannableString.setSpan(new StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#424242")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            spannableString.setSpan(new StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         }
     }
@@ -554,14 +588,18 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
         private Button mChatBtn;
         private Button m1039Btn;
 
+
         public OptionHolder(View itemView) {
             super(itemView);
             mFormBtn = itemView.findViewById(R.id.btnForm);
             mChatBtn = itemView.findViewById(R.id.btnChat);
             m1039Btn = itemView.findViewById(R.id.btn1039);
+
+
         }
 
         public void bindItem(int position) {
+
             mFormBtn.setOnClickListener(v -> {
                 mChatListener.optionForm();
             });
@@ -571,6 +609,16 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
             m1039Btn.setOnClickListener(v -> {
                 mChatListener.option1039();
             });
+
+
+            try {
+                mChatTextTv.setText((mListChat.get(position).getText()));
+                mChatTimeTv.setText(mListChat.get(position).getCurrent_time());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
         }
     }
 
@@ -592,7 +640,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
 
         public void bindItem(int position) {
             ChatData chatData = mListChat.get(position);
-            mChatNameTv.setText(chatData.getSender().getFull_name() + ", ");
+//            mChatNameTv.setText(chatData.getSender().getFull_name() + ", ");
+            mChatNameTv.setText("Chatbot, ");
             mChatTextTv.setText(chatData.getText());
             mChatTimeTv.setText(chatData.getCurrent_time());
         }
@@ -611,6 +660,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
         private TextView mChatTextTv;
         private TextView mChatTimeTv;
         private TextView mChatFirstTime;
+        private LinearLayout btnFeedBack;
 
         public NotReplyHolder(View itemView) {
             super(itemView);
@@ -619,6 +669,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
             mChatTextTv = itemView.findViewById(R.id.tv_chat_text);
             mChatTimeTv = itemView.findViewById(R.id.tv_chat_time);
             mChatFirstTime = itemView.findViewById(R.id.tv_first_time);
+            btnFeedBack = itemView.findViewById(R.id.btnFeedBack);
         }
 
         public void bindItem(int position) {
@@ -633,6 +684,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            btnFeedBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mChatListener.optionForm();
+                }
+            });
         }
 
         public void setImageUrl(String ulrCs, ImageView image) {
@@ -667,7 +724,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
         }
     }
 
-    public class UserGuildTextHolder extends BaseItemChat {
+    public class UserGuildTextHolder extends BaseItemChat implements UserGuildTextAdapter.ClickItem {
         private RecyclerView recycleRegisterVip;
 
         public UserGuildTextHolder(View itemView) {
@@ -680,8 +737,24 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
             super.bindItem(position);
             ChatData chatData = mListChat.get(position);
 
-            UserGuildTextAdapter userGuildTextAdapter = new UserGuildTextAdapter(mContext, chatData.getItemPostUserGuild());
+            UserGuildTextAdapter userGuildTextAdapter = new UserGuildTextAdapter(mContext, chatData.getItemPostUserGuild(), this);
             recycleRegisterVip.setAdapter(userGuildTextAdapter);
+
+            try {
+                mChatTimeTv.setText(chatData.getCurrent_time());
+            } catch (Exception e) {
+                mChatTimeTv.setText("");
+            }
+            try {
+                mChatNameTv.setText(chatData.getSender().getFull_name() + ", ");
+            } catch (Exception e) {
+                mChatNameTv.setText("Chatbot" + ", ");
+            }
+        }
+
+        @Override
+        public void clickItem() {
+            mChatListener.clickShortLink();
         }
     }
 
@@ -701,18 +774,64 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
             UserGuildSlideAdapter userGuildSlideAdapter = new UserGuildSlideAdapter(mContext, chatData.getItemPostUserGuild());
             recycleDeal.setAdapter(userGuildSlideAdapter);
             userGuildSlideAdapter.setClickItem(this);
+
+            try {
+                mChatTimeTv.setText(chatData.getCurrent_time());
+            } catch (Exception e) {
+                mChatTimeTv.setText("");
+            }
+            try {
+                mChatNameTv.setText(chatData.getSender().getFull_name() + ", ");
+            } catch (Exception e) {
+                mChatNameTv.setText("Chatbot" + ", ");
+            }
         }
 
         @Override
         public void clickDealButton(String url) {
-            DetailDealWebviewActivity.startScreen(mContext, url);
+//            DetailDealWebviewActivity.startScreen(mContext, url);
+            mChatListener.clickWebViewDeal(url);
+        }
+    }
+
+    public class ReviewHolder extends BaseItemChat {
+        private TextView mChatNameTv;
+        private TextView mChatTimeTv;
+        private LinearLayout reviewBtn;
+
+        public ReviewHolder(View itemView) {
+            super(itemView);
+            mChatNameTv = itemView.findViewById(R.id.tv_chat_name);
+            mChatTimeTv = itemView.findViewById(R.id.tv_chat_time);
+            reviewBtn = itemView.findViewById(R.id.reviewBtn);
+        }
+
+        public void bindItem(int position) {
+            ChatData chatData = mListChat.get(position);
+            try {
+                mChatTimeTv.setText(chatData.getCurrent_time());
+            } catch (Exception e) {
+                mChatTimeTv.setText("");
+            }
+            try {
+                mChatNameTv.setText(chatData.getSender().getFull_name() + ", ");
+            } catch (Exception e) {
+                mChatNameTv.setText("Chatbot" + ", ");
+            }
+
+            reviewBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mChatListener.clickReview();
+                }
+            });
         }
     }
 
     public interface ChatListener {
-        void after60sYes();
+        void clickYesReview();
 
-        void after60sNo();
+        void clickNoReview();
 
         void optionForm();
 
@@ -722,5 +841,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
 
         void clickGetUserGuild(String code);
 
+        void clickReview();
+
+        void clickWebViewDeal(String url);
+
+        void clickShortLink();
     }
 }

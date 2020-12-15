@@ -2,7 +2,7 @@ package com.namviet.vtvtravel.view.fragment.f2search
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.support.design.widget.TabLayout
+import com.google.android.material.tabs.TabLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
@@ -33,6 +33,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     private var keyword: String? = null
     private var regionId: String? = null
 
+    private var loadMoreLink: String? = ""
+
 
 
 
@@ -58,7 +60,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     override fun initData() {
         genViewPagerSearchResult()
-        searchViewModel?.getPreResultSearch(keyword!!, regionId)
+        searchViewModel?.getPreResultSearch(keyword!!, regionId, false)
 
     }
 
@@ -72,16 +74,23 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         }
     }
 
+
+
     override fun setObserver() {
 
+    }
+
+    public fun getMoreData(){
+        searchViewModel?.getPreResultSearch(loadMoreLink!!, true)
+        loadMoreLink = ""
     }
 
     private fun genViewPagerSearchResult() {
 
         mainAdapter = SearchMainPageAdapter(childFragmentManager)
-        destinationSearchFragment = ResultDestinationSearchFragment()
+        destinationSearchFragment = ResultDestinationSearchFragment(this)
         mainAdapter!!.addFragment(destinationSearchFragment, "destinationSearchFragment")
-        newsSearchFragment = ResultNewsSearchFragment()
+        newsSearchFragment = ResultNewsSearchFragment(this)
         mainAdapter!!.addFragment(newsSearchFragment, "newsSearchFragment")
         vpContent.adapter = mainAdapter
         tabLayout.setupWithViewPager(vpContent)
@@ -112,8 +121,9 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         if(observable is SearchResultViewModel && null != o){
             when (o) {
                 is MainResultSearchResponse -> {
-                    destinationSearchFragment?.setList(o.data.items as java.util.ArrayList<Travel>?)
-                    newsSearchFragment?.setList(o.data.items_news as java.util.ArrayList<Travel>?)
+                    loadMoreLink = o.data.more_link;
+                    destinationSearchFragment?.setList(o.data.items as ArrayList<Travel>?, o.isLoadMore)
+                    newsSearchFragment?.setList(o.data.items_news as ArrayList<Travel>?,  o.isLoadMore)
 
                     tvCountResult.text = "Có "+(o.data.items.size + o.data.items_news.size)+" kết quả phù hợp với "+" \""+ keyword+"\"";
                 }
@@ -140,5 +150,10 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         }
 
         override fun onTabReselected(tab: TabLayout.Tab) {}
+    }
+
+    override fun setScreenTitle() {
+        super.setScreenTitle()
+        setDataScreen(TrackingAnalytic.ScreenCode.SEARCH_RESULT, TrackingAnalytic.ScreenTitle.SEARCH_RESULT)
     }
 }

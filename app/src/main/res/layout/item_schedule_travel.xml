@@ -19,8 +19,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/_9sdp"
             android:layout_marginTop="@dimen/_9sdp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/bg_header" />
+            android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/ivSelect"

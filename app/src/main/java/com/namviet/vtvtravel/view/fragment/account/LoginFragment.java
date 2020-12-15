@@ -1,30 +1,25 @@
 package com.namviet.vtvtravel.view.fragment.account;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.databinding.DataBindingUtil;
-import android.net.Uri;
+
+import androidx.databinding.DataBindingUtil;
+
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.baseapp.menu.SlideMenu;
 import com.baseapp.utils.KeyboardUtils;
 import com.baseapp.utils.L;
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -37,7 +32,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.util.SharedPreferencesUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -52,11 +46,9 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.FragmentLoginBinding;
-import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndGoToCallNow;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndUpdateUserView;
 import com.namviet.vtvtravel.response.AccountResponse;
-import com.namviet.vtvtravel.response.BaseResponse;
 import com.namviet.vtvtravel.response.ResponseError;
 import com.namviet.vtvtravel.ultils.DeviceUtils;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
@@ -238,7 +230,7 @@ public class LoginFragment extends MainFragment implements Observer {
                 PreferenceUtil.getInstance(getContext()).setValue(Constants.PrefKey.MOBILE, phone);
                 PreferenceUtil.getInstance(getContext()).setValue(Constants.PrefKey.PASSWORD, pass);
 //                KeyboardUtils.hideKeyboard1(mActivity);
-                accountViewModel.login(StringUtils.isPhoneValidateV2(phone, 84), pass);
+                accountViewModel.login(StringUtils.isPhoneValidateV2(phone, 84), pass, PreferenceUtil.getInstance(mActivity).getValue(Constants.PrefKey.DEVICE_TOKEN, ""));
             }
         } else if (view.getId() == R.id.ivLoginFb) {
             binding.btLoginFb.performClick();
@@ -374,6 +366,10 @@ public class LoginFragment extends MainFragment implements Observer {
     @Override
     public void onStop() {
         super.onStop();
-        KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+        try {
+            KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+        } catch (Exception e) {
+
+        }
     }
 }

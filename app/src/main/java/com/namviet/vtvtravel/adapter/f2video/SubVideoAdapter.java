@@ -2,33 +2,38 @@ package com.namviet.vtvtravel.adapter.f2video;
 
 import android.app.Activity;
 import android.content.Context;
-import android.media.Image;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import android.os.Handler;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.baseapp.activity.BaseActivity;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.android.flexbox.FlexboxLayoutManager;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.adapter.comment.SubCommentAdapter;
+import com.namviet.vtvtravel.api.WSConfig;
+import com.namviet.vtvtravel.app.MyApplication;
+import com.namviet.vtvtravel.config.Constants;
+import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
+import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.Video;
-import com.namviet.vtvtravel.model.travelnews.Travel;
-import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.ultils.F2Util;
-import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f2.DetailVideoActivity;
+import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.view.f2.ShareActivity;
 import com.namviet.vtvtravel.view.f2.TagVideoActivity;
+import com.namviet.vtvtravel.view.fragment.share.ContactShareFragment;
+import com.namviet.vtvtravel.view.fragment.share.ShareBottomDialog;
 
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class SubVideoAdapter extends RecyclerView.Adapter<SubVideoAdapter.HeaderViewHolder> {
     private Context context;
@@ -71,6 +76,8 @@ public class SubVideoAdapter extends RecyclerView.Adapter<SubVideoAdapter.Header
         private ImageView imgBanner;
         private ImageView btnShare;
         private TagVideoAdapter tagVideoAdapter;
+        private LikeButton imgHeart;
+        private TextView tvCountLike;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -82,6 +89,8 @@ public class SubVideoAdapter extends RecyclerView.Adapter<SubVideoAdapter.Header
             tvView = itemView.findViewById(R.id.tvView);
             btnShare = itemView.findViewById(R.id.btnShare);
             rclTag = itemView.findViewById(R.id.rclTag);
+            imgHeart = itemView.findViewById(R.id.imgHeart);
+            tvCountLike = itemView.findViewById(R.id.tvCountLike);
             FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(context);
             rclTag.setLayoutManager(flexboxLayoutManager);
         }
@@ -116,32 +125,118 @@ public class SubVideoAdapter extends RecyclerView.Adapter<SubVideoAdapter.Header
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    DetailVideoActivity.startScreen((Activity) context, videos.get(position));
+                    DetailVideoActivity.startScreen((Activity) context, videos.get(position).getDetail_link());
                 }
             });
             btnShare.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     try {
-                        F2Util.startSenDataText((Activity) context, videos.get(position).getStreaming_url());
+                        ShareBottomDialog shareBottomDialog = new ShareBottomDialog(new ShareBottomDialog.DoneClickShare() {
+                            @Override
+                            public void onDoneClickShare(boolean isVTVApp) {
+                                if (isVTVApp) {
+                                    ShareActivity.startScreen(context, videos.get(position).getName(), videos.get(position).getDetail_link(), videos.get(position).getLogo_url(), "videos");
+                                }else {
+//                                    String linkShare = WSConfig.HOST_LANDING+F2Util.genEndPointShareLink(Constants.ShareLinkType.VIDEO, videos.get(position).getDetail_link());
+//                                    F2Util.startSenDataText((Activity) context, linkShare);
+                                    F2Util.startSenDataText((Activity) context, videos.get(position).getLink_share());
+                                }
+                            }
+                        });
+                        if(context instanceof BaseActivity) {
+                            shareBottomDialog.show(((BaseActivity) context).getSupportFragmentManager(), null);
+                        }else {
+                            shareBottomDialog.show(((BaseActivityNew) context).getSupportFragmentManager(), null);
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
 
                     try {
-                        TrackingAnalytic.postEvent(TrackingAnalytic.SHARE, TrackingAnalytic.getDefault().setScreen_class(this.getClass().getName()));
+                        TrackingAnalytic.postEvent(TrackingAnalytic.SHARE, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.VIDEOS, TrackingAnalytic.ScreenTitle.VIDEOS)
+                                .setContent_type(videos.get(position).getContent_type())
+                                .setContent_id(videos.get(position).getId())
+                                .setScreen_class(this.getClass().getName()));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             });
+
+            try {
+                tvCountLike.setText(videos.get(position).getLikeCount());
+                if (videos.get(position).isLiked()) {
+//                    imgHeart.setImageResource(R.drawable.f2_ic_red_heart);
+                    imgHeart.setLiked(true);
+                } else {
+//                    imgHeart.setImageResource(R.drawable.f2_ic_gray_heart);
+                    imgHeart.setLiked(false);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            imgHeart.setOnLikeListener(new OnLikeListener() {
+                @Override
+                public void liked(LikeButton likeButton) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            clickHeart(position);
+                        }
+                    }, 100);
+                }
+
+                @Override
+                public void unLiked(LikeButton likeButton) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            clickHeart(position);
+                        }
+                    }, 100);
+                }
+            });
+
+//            imgHeart.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    try {
+//                        Account account = MyApplication.getInstance().getAccount();
+//                        if (null != account && account.isLogin()) {
+//                            clickItem.likeEvent(position);
+//                        } else {
+//                            LoginAndRegisterActivityNew.startScreen(context, 0, false);
+//                        }
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
+
+        }
+
+        private void clickHeart(int position){
+            try {
+                Account account = MyApplication.getInstance().getAccount();
+                if (null != account && account.isLogin()) {
+                    clickItem.likeEvent(position);
+                } else {
+                    LoginAndRegisterActivityNew.startScreen(context, 0, false);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
 
     public interface ClickItem {
         void onClickItem(Video video);
+
+        void likeEvent(int position);
     }
 
 

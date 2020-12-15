@@ -5,6 +5,8 @@ import android.content.res.Configuration;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.brucetoo.videoplayer.scrolldetector.IScrollDetector;
 import com.brucetoo.videoplayer.videomanage.controller.IControllerView;
 import com.brucetoo.videoplayer.videomanage.meta.MetaData;
@@ -105,7 +107,7 @@ public interface IViewTracker{
 
     /**
      * The view that call scroll vertical and hold the tracker view
-     * like {@link android.widget.ListView},{@link android.support.v7.widget.RecyclerView}
+     * like {@link android.widget.ListView},{@link RecyclerView}
      */
     View getVerticalScrollView();
 

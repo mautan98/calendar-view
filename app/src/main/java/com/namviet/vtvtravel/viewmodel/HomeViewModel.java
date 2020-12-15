@@ -1,7 +1,7 @@
 package com.namviet.vtvtravel.viewmodel;
 
 import android.content.Context;
-import android.databinding.ObservableInt;
+import androidx.databinding.ObservableInt;
 import android.view.View;
 
 import com.baseapp.menu.SlideMenu;
@@ -11,7 +11,6 @@ import com.namviet.vtvtravel.api.Param;
 import com.namviet.vtvtravel.api.TravelService;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.model.CategoryHome;
-import com.namviet.vtvtravel.model.MenuHeader;
 import com.namviet.vtvtravel.response.HomeResponse;
 import com.namviet.vtvtravel.response.ItemCategoryData;
 import com.namviet.vtvtravel.response.ItemCategoryResponse;

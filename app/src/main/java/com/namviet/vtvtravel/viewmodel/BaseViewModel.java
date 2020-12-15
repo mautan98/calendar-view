@@ -11,6 +11,7 @@ import com.namviet.vtvtravel.listener.F2LoadFailListener;
 import com.namviet.vtvtravel.model.f2event.OnLoadFail;
 import com.namviet.vtvtravel.ultils.ResponseUltils;
 import com.namviet.vtvtravel.view.MainActivity;
+import com.namviet.vtvtravel.view.fragment.f2service.ResentOtpServiceResponse;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -20,6 +21,8 @@ import java.util.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import okhttp3.RequestBody;
 import retrofit2.HttpException;
 
 public class BaseViewModel extends Observable implements F2LoadFailListener {
@@ -76,6 +79,24 @@ public class BaseViewModel extends Observable implements F2LoadFailListener {
         compositeDisposable.add(disposable);
 
     }
+
+    public void likeEvent(String contentId, String type) {
+        RequestBody jsonBodyObject = RequestBody.create(
+                okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                Param.getParams(Param.likeEvent(contentId, type)).toString());
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+
+        Disposable disposable = newsService.likeEvent(jsonBodyObject)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                }, throwable -> {
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
 
     @Override
     public void onLoadFail() {

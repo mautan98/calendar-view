@@ -29,6 +29,24 @@ public class CommentResponse extends BaseResponse {
             private String totalCommentInPost;
             private Account user;
             private List<Comment> children;
+            private boolean isLiked;
+            private String likeCount;
+
+            public boolean isLiked() {
+                return isLiked;
+            }
+
+            public void setLiked(boolean liked) {
+                isLiked = liked;
+            }
+
+            public String getLikeCount() {
+                return likeCount;
+            }
+
+            public void setLikeCount(String likeCount) {
+                this.likeCount = likeCount;
+            }
 
             public String getId() {
                 return id;

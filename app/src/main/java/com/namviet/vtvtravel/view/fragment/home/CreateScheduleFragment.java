@@ -1,24 +1,20 @@
 package com.namviet.vtvtravel.view.fragment.home;
 
-import android.content.DialogInterface;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.baseapp.menu.SlideMenu;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.GroupScheduleAdapter;
 import com.namviet.vtvtravel.adapter.SchedulePageAdapter;
@@ -28,12 +24,10 @@ import com.namviet.vtvtravel.databinding.FragmentCreateScheduleBinding;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.GroupSchedule;
 import com.namviet.vtvtravel.response.SaveScheduleResponse;
-import com.namviet.vtvtravel.response.ScheduleResponse;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.viewmodel.PlaceViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 

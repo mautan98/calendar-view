@@ -1,15 +1,13 @@
 package com.namviet.vtvtravel.adapter;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.model.NearItem;
 import com.namviet.vtvtravel.view.fragment.nofity.SystemFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NotifyPageAdapter extends FragmentStatePagerAdapter {

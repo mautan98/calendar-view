@@ -11,6 +11,7 @@ import com.namviet.vtvtravel.model.filter.ItemTab;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByCodeResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByPageResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 
 import java.util.List;
 
@@ -120,5 +121,11 @@ public class TypeFilterFragment extends BaseFragment<F2FragmentTypeFilterBinding
 
     public interface DoneOptionFilterType{
         void onDoneOptionFilterType();
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.FILTER_TYPE, TrackingAnalytic.ScreenTitle.FILTER_TYPE);
     }
 }

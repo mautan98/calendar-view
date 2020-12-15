@@ -1,12 +1,10 @@
 package com.namviet.vtvtravel.adapter.newhome;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.daimajia.slider.library.Travel;
 import com.namviet.vtvtravel.model.newhome.Voucher;
-import com.namviet.vtvtravel.view.fragment.PhotoViewFragment;
 import com.namviet.vtvtravel.view.fragment.newhome.VoucherViewFragment;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.namviet.vtvtravel.response;
 
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.namviet.vtvtravel.api.ApiClient;
 import com.namviet.vtvtravel.api.ApiInterface;

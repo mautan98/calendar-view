@@ -1,12 +1,12 @@
 package com.namviet.vtvtravel.view.fragment.f2callnow;
 
-import android.databinding.DataBindingUtil;
-import android.graphics.Color;
+import androidx.databinding.DataBindingUtil;
+
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +18,8 @@ import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2offline.MainAdapter;
-import com.namviet.vtvtravel.databinding.F2FragmentMainCallNowBinding;
 import com.namviet.vtvtravel.databinding.F2FragmentMainContactBinding;
-import com.namviet.vtvtravel.model.f2event.OnLoadContactSuccess;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.concurrent.TimeUnit;
 

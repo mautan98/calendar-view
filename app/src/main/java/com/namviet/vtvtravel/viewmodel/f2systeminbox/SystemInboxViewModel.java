@@ -6,7 +6,9 @@ import com.namviet.vtvtravel.api.TravelService;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.response.BaseResponse;
+import com.namviet.vtvtravel.response.f2systeminbox.ConfirmEnterTrip;
 import com.namviet.vtvtravel.response.f2systeminbox.SystemInbox;
+import com.namviet.vtvtravel.response.f2systeminbox.TicketInfo;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -46,6 +48,33 @@ public class SystemInboxViewModel extends BaseViewModel {
     }
 
 
+    public void confirmEnterTrip(String id, String userId) {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+        RequestBody jsonBodyObject = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), Param.getParams2(
+                Param.confirmEnterTrip(id, userId)).toString());
+        Disposable disposable = newsService.confirmEnterTrip(jsonBodyObject)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ConfirmEnterTrip>() {
+                    @Override
+                    public void accept(ConfirmEnterTrip response) throws Exception {
+                        if (response != null && response.isSuccess()) {
+                            requestSuccess(response);
+                        } else {
+                            requestSuccess(null);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable, "");
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
     public void getSystemInbox() {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
@@ -73,7 +102,32 @@ public class SystemInboxViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
+    public void ticketInfo(String ticketId) {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+        RequestBody jsonBodyObject = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), Param.getParams2(
+                Param.ticketInfo(ticketId)).toString());
+        Disposable disposable = newsService.ticketInfo(jsonBodyObject)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<TicketInfo>() {
+                    @Override
+                    public void accept(TicketInfo response) throws Exception {
+                        if (response != null && response.isSuccess()) {
+                            requestSuccess(response);
+                        } else {
+                            requestSuccess(null);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable, "");
+                    }
+                });
 
+        compositeDisposable.add(disposable);
+    }
 
     private void requestSuccess(Object object) {
         setChanged();

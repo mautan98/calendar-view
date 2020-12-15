@@ -8,10 +8,16 @@ import com.namviet.vtvtravel.response.BaseResponse;
 import com.namviet.vtvtravel.response.ChatResponse;
 import com.namviet.vtvtravel.response.CreateRoomResponse;
 import com.namviet.vtvtravel.response.DetailScheduleCreateResponse;
+import com.namviet.vtvtravel.response.f2chat.GetListThemeResponse;
 import com.namviet.vtvtravel.response.f2chat.GetUserGuildResponse;
+import com.namviet.vtvtravel.response.f2chat.GetUserThemeResponse;
+import com.namviet.vtvtravel.response.f2chat.HelloMessageResponse;
 import com.namviet.vtvtravel.response.f2chat.PostUserGuildResponse;
 import com.namviet.vtvtravel.ultils.ResponseUltils;
 
+import org.json.JSONObject;
+
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -54,10 +60,10 @@ public class ChatViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
-    public void createRoom(String username, String uuid) {
+    public void createRoom(String mobile) {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceChat();
-        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.createRoom(username, uuid).toString());
+        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.createRoom(mobile).toString());
         Disposable disposable = newsService.createRoomChat(jsonBodyObject)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -90,7 +96,33 @@ public class ChatViewModel extends BaseViewModel {
                 .subscribe(new Consumer<GetUserGuildResponse>() {
                     @Override
                     public void accept(GetUserGuildResponse baseResponse) throws Exception {
-                        if (null != baseResponse  && baseResponse.isSuccess()) {
+                        if (null != baseResponse && baseResponse.isSuccess()) {
+                            loadSuccess(baseResponse);
+                        } else {
+                            loadSuccess(null);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable);
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+    public void helloMessage() {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+
+        Disposable disposable = newsService.helloMessage()
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<HelloMessageResponse>() {
+                    @Override
+                    public void accept(HelloMessageResponse baseResponse) throws Exception {
+                        if (null != baseResponse && baseResponse.isSuccess()) {
                             loadSuccess(baseResponse);
                         } else {
                             loadSuccess(null);
@@ -137,7 +169,7 @@ public class ChatViewModel extends BaseViewModel {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelService();
         RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                Param.sendFormChat(username, mobile, timeContact, startTime, endTime, content).toString());
+                Param.sendFormChat(username, mobile, timeContact, startTime, endTime, content, "").toString());
         Disposable disposable = newsService.sendFormChat(jsonBodyObject)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -146,6 +178,51 @@ public class ChatViewModel extends BaseViewModel {
                     public void accept(BaseResponse baseResponse) throws Exception {
                         if (baseResponse != null) {
                             loadSuccess(baseResponse);
+                        } else {
+                            loadSuccess(null);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable);
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+    public void yesNoReview(String satisfied) {
+        RequestBody jsonBodyObject = RequestBody.create(
+                okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                Param.getParams(Param.yesNoReview(satisfied)).toString());
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+
+        Disposable disposable = newsService.yesNoReview(jsonBodyObject)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                    loadSuccess(new BaseResponse());
+                }, throwable -> {
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+    public void getUserTheme() {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                Param.getParams2(new JSONObject()).toString());
+        Disposable disposable = newsService.getUserTheme(jsonBodyObject)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<GetUserThemeResponse>() {
+                    @Override
+                    public void accept(GetUserThemeResponse response) throws Exception {
+                        if (response != null && response.isSuccess()) {
+                            loadSuccess(response);
                         } else {
                             loadSuccess(null);
                         }

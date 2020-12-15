@@ -1,10 +1,10 @@
 package com.namviet.vtvtravel.view.fragment.f2callnow;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.text.format.DateFormat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,24 +12,20 @@ import android.view.ViewGroup;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2callnow.AllCallHistoryAdapter;
 import com.namviet.vtvtravel.databinding.F2FragmentAllHistoryBinding;
-import com.namviet.vtvtravel.databinding.F2FragmentCallNowBinding;
 import com.namviet.vtvtravel.model.f2event.OnDeleteSuccess;
 import com.namviet.vtvtravel.response.BaseResponse;
 import com.namviet.vtvtravel.response.ResponseError;
-import com.namviet.vtvtravel.response.f2callnow.CallNowHistoryResponse;
 import com.namviet.vtvtravel.model.f2callnow.CallNowHistory;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.viewmodel.f2callnow.MainCallHistoryViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.List;
 
 
 public class AllCallHistoryFragment extends MainFragment implements Observer, AllCallHistoryAdapter.ClickItem {
@@ -62,6 +58,11 @@ public class AllCallHistoryFragment extends MainFragment implements Observer, Al
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        try {
+            TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_VIEW, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.ALL_CALL_HISTORY, TrackingAnalytic.ScreenTitle.ALL_CALL_HISTORY).setScreen_class(this.getClass().getName()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         initViews(view);
     }
 
@@ -121,4 +122,5 @@ public class AllCallHistoryFragment extends MainFragment implements Observer, Al
         }
 
     }
+
 }

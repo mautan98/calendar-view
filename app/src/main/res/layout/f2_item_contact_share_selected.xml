@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:gravity="center_horizontal"
+    android:paddingStart="16dp"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_width="40dp"
+        android:layout_height="40dp">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:src="@drawable/f2_defaut_user"
+            android:id="@+id/imgAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        
+        <ImageView
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/f2_ic_delete_share"
+            android:layout_width="14dp"
+            android:layout_height="14dp"/>
+
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tvName"
+        android:textColor="@color/md_black_1000"
+        android:fontFamily="@font/roboto_regular"
+        android:textSize="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="A Thành" />
+
+
+    <TextView
+        android:id="@+id/tvPhone"
+        android:textSize="12dp"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="#757575"
+        android:layout_marginTop="4dp"
+        android:text="0942461154"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

@@ -1,7 +1,7 @@
 package com.namviet.vtvtravel.adapter.f2callnow;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +14,6 @@ import com.namviet.vtvtravel.model.f2.Contact;
 import com.namviet.vtvtravel.model.f2callnow.CallNowHistory;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.view.MainActivity;
-import com.namviet.vtvtravel.view.fragment.f2callnow.SearchNumberFragment;
 
 import java.util.List;
 

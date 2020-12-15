@@ -25,7 +25,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -57,59 +57,69 @@
                 android:layout_gravity="center"
                 android:background="#B4B4B4" />
 
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="6dp"
-                android:src="@drawable/f2_ic_view" />
-
-            <TextView
-                android:id="@+id/tvCommentCount"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:fontFamily="@font/roboto_regular"
-                android:text="205"
-                android:textColor="#0081FF"
-                android:textSize="12dp" />
+                android:background="@drawable/bg_ripple_trans_rect"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:id="@+id/btnViewRating"
+                android:paddingBottom="5dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:fontFamily="@font/roboto_regular"
-                android:text="Đánh giá"
-                android:textColor="#0081FF"
-                android:textSize="12dp" />
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="6dp"
+                    android:src="@drawable/f2_ic_view" />
+
+                <TextView
+                    android:id="@+id/tvCommentCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="205"
+                    android:textColor="#0081FF"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Đánh giá"
+                    android:textColor="#0081FF"
+                    android:textSize="12dp" />
+            </LinearLayout>
         </LinearLayout>
 
         <WebView
-            android:visibility="gone"
             android:id="@+id/webView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:visibility="gone"
             tools:ignore="WebViewLayout" />
 
         <TextView
-            android:ellipsize="end"
-            android:maxLines="3"
-            android:layout_marginBottom="17dp"
-            android:textColor="@color/md_black_1000"
-            android:textSize="15dp"
-            android:visibility="visible"
-            android:layout_marginTop="15dp"
             android:id="@+id/tvShortDescription"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="17dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textColor="@color/md_black_1000"
+            android:textSize="15dp"
+            android:visibility="visible" />
 
         <TextView
-            android:layout_marginBottom="44dp"
             android:id="@+id/btnViewNews"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:layout_marginBottom="44dp"
             android:fontFamily="@font/roboto_regular"
             android:text="@string/view_article"
             android:textColor="#6685E9"

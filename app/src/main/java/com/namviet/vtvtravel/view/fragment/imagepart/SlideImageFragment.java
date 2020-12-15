@@ -1,6 +1,6 @@
 package com.namviet.vtvtravel.view.fragment.imagepart;
 
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 import android.view.View;
 
 import com.namviet.vtvtravel.R;
@@ -34,7 +34,12 @@ public class SlideImageFragment extends BaseFragment<F2FragmentSlideImageBinding
 
     @Override
     public void initView() {
-        slideImageInHighLightestImageAdapter = new SlideImageInHighLightestImageAdapter(mActivity, imageList, SlideImageInHighLightestImageAdapter.DETAIL_TYPE);
+        slideImageInHighLightestImageAdapter = new SlideImageInHighLightestImageAdapter(mActivity, imageList, SlideImageInHighLightestImageAdapter.DETAIL_TYPE, new SlideImageInHighLightestImageAdapter.ClickItem() {
+            @Override
+            public void onClickItem() {
+
+            }
+        });
         getBinding().vpGallery.setAdapter(slideImageInHighLightestImageAdapter);
         try {
             String currentPosition = String.valueOf(position + 1);
@@ -91,5 +96,11 @@ public class SlideImageFragment extends BaseFragment<F2FragmentSlideImageBinding
     @Override
     public void setObserver() {
 
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.SLIDE_IMAGES, TrackingAnalytic.ScreenTitle.SLIDE_IMAGES);
     }
 }

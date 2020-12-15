@@ -1,12 +1,12 @@
 package com.namviet.vtvtravel.view.fragment.f2callnow;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +21,11 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.offline.AllContactAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.databinding.F2FragmentSearchCallBinding;
-import com.namviet.vtvtravel.databinding.F2FragmentUserBinding;
 import com.namviet.vtvtravel.model.f2.ClassForInvitedUser;
 import com.namviet.vtvtravel.model.f2.Contact;
-import com.namviet.vtvtravel.model.f2event.OnBackToHome;
 import com.namviet.vtvtravel.response.ResponseError;
 import com.namviet.vtvtravel.response.f2callnow.VerifyUserResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.ultils.ValidateUtils;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
@@ -37,8 +36,6 @@ import com.namviet.vtvtravel.viewmodel.f2callnow.SearchNumberViewModel;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -84,6 +81,12 @@ public class SearchNumberFragment extends MainFragment implements AllContactAdap
         searchNumberViewModel = new SearchNumberViewModel();
         binding.setSearchNumberViewModel(searchNumberViewModel);
         searchNumberViewModel.addObserver(this);
+
+        try {
+            TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_VIEW, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH_NUMBER, TrackingAnalytic.ScreenTitle.SEARCH_NUMBER).setScreen_class(this.getClass().getName()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

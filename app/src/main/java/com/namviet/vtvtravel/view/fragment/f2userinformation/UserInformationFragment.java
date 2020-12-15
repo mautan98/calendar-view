@@ -8,14 +8,13 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.PopupMenu;
-import android.text.Layout;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.widget.PopupMenu;
+
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -25,13 +24,11 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2FragmentPersonalInformationBinding;
-import com.namviet.vtvtravel.databinding.FragmentUpdateInfoBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2event.OnUpdateAccount;
 import com.namviet.vtvtravel.response.AccountResponse;
-import com.namviet.vtvtravel.view.f2.UserInformationEditActivity;
-import com.namviet.vtvtravel.view.fragment.ChatFragment;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.fragment.f2chat.ChangeAvatarDialog;
 import com.namviet.vtvtravel.view.fragment.f2chat.ViewImageProfileFragment;
 import com.namviet.vtvtravel.viewmodel.AccountViewModel;
@@ -120,8 +117,8 @@ public class UserInformationFragment extends BaseFragment<F2FragmentPersonalInfo
             getBinding().edtAddress.setText(account.getAddress());
             try {
                 if (!"".equals(account.getImageProfile()) && account.getImageProfile() != null) {
-                    Glide.with(mActivity).load(account.getImageProfile()).into(getBinding().imgAvatar);
-                    Glide.with(mActivity).load(account.getImageProfile()).into(getBinding().imgAvatarEdit);
+                    Glide.with(mActivity).load(account.getImageProfile()).error(R.drawable.f2_defaut_user).into(getBinding().imgAvatar);
+                    Glide.with(mActivity).load(account.getImageProfile()).error(R.drawable.f2_defaut_user).into(getBinding().imgAvatarEdit);
                 } else {
                     getBinding().imgAvatar.setImageResource(R.drawable.f2_defaut_user);
                     getBinding().imgAvatarEdit.setImageResource(R.drawable.f2_defaut_user);
@@ -495,5 +492,9 @@ public class UserInformationFragment extends BaseFragment<F2FragmentPersonalInfo
         mActivity.getSupportFragmentManager().beginTransaction().add(mActivity.getFrame(), new ViewImageProfileFragment(urlImageProfile)).addToBackStack("TAG").commit();
     }
 
-
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.USER_INFO, TrackingAnalytic.ScreenTitle.USER_INFO);
+    }
 }

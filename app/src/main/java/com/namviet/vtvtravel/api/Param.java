@@ -1,7 +1,6 @@
 package com.namviet.vtvtravel.api;
 
 
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.baseapp.utils.StringUtils;
@@ -25,7 +24,6 @@ import java.util.List;
 import java.util.Map;
 
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class Param {
@@ -200,11 +198,13 @@ public class Param {
         return map;
     }
 
-    public static JSONObject login(String mobile, String pass) {
+    public static JSONObject login(String mobile, String pass, String deviceToken) {
         JSONObject map = new JSONObject();
         try {
             map.put(WSConfig.KeyParam.MOBILE, mobile);
             map.put(WSConfig.KeyParam.PASSWORD, pass);
+            map.put(WSConfig.KeyParam.DEVICE_TOKEN, deviceToken);
+            map.put(WSConfig.KeyParam.DEVICE_TYPE, "Android");
 
 
         } catch (JSONException e) {
@@ -506,18 +506,17 @@ public class Param {
         return map;
     }
 
-    public static JSONObject createRoom(String username, String uuid) {
+    public static JSONObject createRoom(String mobile) {
         JSONObject map = new JSONObject();
         try {
-            map.put(WSConfig.KeyParam.USERNAME, username);
-            map.put(WSConfig.KeyParam.UUID, uuid);
+            map.put(WSConfig.KeyParam.MOBILE, mobile);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return map;
     }
 
-    public static JSONObject sendFormChat(String username, String mobile, String timeContact, String startTime, String endTime, String content) {
+    public static JSONObject sendFormChat(String username, String mobile, String timeContact, String startTime, String endTime, String content, String email) {
         JSONObject map = new JSONObject();
         try {
             map.put(WSConfig.KeyParam.USERNAME, username);
@@ -526,6 +525,7 @@ public class Param {
             map.put(WSConfig.KeyParam.START_TIME, startTime);
             map.put(WSConfig.KeyParam.END_TIME, endTime);
             map.put(WSConfig.KeyParam.CONTENT, content);
+            map.put(WSConfig.KeyParam.EMAIL, email);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -623,6 +623,43 @@ public class Param {
         JSONObject map = new JSONObject();
         try {
             map.put(WSConfig.KeyParam.ID, id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static JSONObject share(String contentType, String detailLink, ArrayList<String> listContact) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.DETAIL_LINK, detailLink);
+            map.put(WSConfig.KeyParam.CONTENT_TYPE, contentType);
+            JSONArray jsonArray = new JSONArray();
+            for (String s : listContact) {
+                jsonArray.put(s);
+            }
+            map.put(WSConfig.KeyParam.MOBILE_SHARE_LIST, jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static JSONObject confirmEnterTrip(String id, String userId) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.SCHEDULE_CUSTOM_ID, id);
+            map.put(WSConfig.KeyParam.USER_ID, userId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static JSONObject ticketInfo(String ticketId) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.TICKET_ID, ticketId);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -830,5 +867,151 @@ public class Param {
         return map;
     }
 
+    public static JSONObject likeEvent(String contentId, String type) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.CONTENT_ID, contentId);
+            map.put(WSConfig.KeyParam.TYPE, type);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
 
+    public static JSONObject wheelRotate(String wheelLogId, String service, String wheelId) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.WHEEL_LOG_ID, wheelLogId);
+            map.put(WSConfig.KeyParam.SERVICE, service);
+            map.put(WSConfig.KeyParam.WHEEL_ID, wheelId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static JSONObject wheelResult(String service, String os, String channel) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.SERVICE, service);
+            map.put(WSConfig.KeyParam.OS, os);
+            map.put(WSConfig.KeyParam.CHANNEL, channel);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static JSONObject wheelAreas(String service, List<String> listIdVoucher) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.SERVICE, service);
+
+            JSONArray jsonArray = new JSONArray();
+            for (String s : listIdVoucher) {
+                jsonArray.put(s);
+            }
+
+            map.put(WSConfig.KeyParam.LIST_ID_VOUCHER, jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static JSONObject getRoomId(String myPhone, String guestPhone) {
+        JSONObject map = new JSONObject();
+        try {
+            JSONArray jsonArray = new JSONArray();
+            jsonArray.put(myPhone);
+            jsonArray.put(guestPhone);
+
+            JSONArray jsonArrayIP = new JSONArray();
+            jsonArrayIP.put("myPhone");
+            jsonArrayIP.put("guestPhone");
+
+
+            map.put(WSConfig.KeyParam.MOBILES, jsonArray);
+            map.put(WSConfig.KeyParam.IPS, jsonArrayIP);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static JSONObject reviewChat(String admin, String note, List<String> reasons, String rate) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.ADMIN, admin);
+            map.put(WSConfig.KeyParam.NOTE, note);
+
+            JSONArray jsonArray = new JSONArray();
+            for (String s : reasons) {
+                jsonArray.put(s);
+            }
+
+            map.put(WSConfig.KeyParam.REASONS, jsonArray);
+            map.put(WSConfig.KeyParam.RATE, rate);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static JSONObject processTicket(String content, int status) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.PROCESS_TICKET_CONTENT, content);
+            if (status > 0) {
+                map.put(WSConfig.KeyParam.TICKET_STATUS, status);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static JSONObject yesNoReview(String satisfied) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.SATISFIED, satisfied);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static JSONObject updateTheme(String themeId) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.THEME_ID, themeId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static JSONObject updateTicket(String ticketId, String content, String status) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.TICKET_ID, ticketId);
+
+            map.put(WSConfig.KeyParam.CONTENT, content);
+            map.put(WSConfig.KeyParam.STATUS, status);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static JSONObject getListHistoryTicket(String ticketId, String field) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.TICKET_ID, ticketId);
+            map.put(WSConfig.KeyParam.FIELD, field);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
 }

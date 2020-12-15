@@ -19,35 +19,33 @@ import android.content.pm.Signature;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.AudioAttributes;
-import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.provider.ContactsContract;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.test.mock.MockPackageManager;
 import android.util.Base64;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -81,6 +79,9 @@ import com.namviet.vtvtravel.api.ServiceGenerator;
 import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.fcm.Notification;
+import com.namviet.vtvtravel.fcm.NotificationType;
 import com.namviet.vtvtravel.listener.CitySelectListener;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.City;
@@ -92,17 +93,18 @@ import com.namviet.vtvtravel.model.MyLocation;
 import com.namviet.vtvtravel.model.News;
 import com.namviet.vtvtravel.model.chat.ChatBase;
 import com.namviet.vtvtravel.model.f2.Contact;
-import com.namviet.vtvtravel.model.f2event.OnLoadContactSuccess;
+import com.namviet.vtvtravel.model.f2event.OnGetLocation;
 import com.namviet.vtvtravel.model.f2event.OnLoadFail;
+import com.namviet.vtvtravel.model.f2event.OnReceiveNotiVip;
 import com.namviet.vtvtravel.model.f2event.OnUpdateLogin;
 import com.namviet.vtvtravel.model.offline.OfflineDynamic;
 import com.namviet.vtvtravel.receiver.ConnectivityReceiver;
-import com.namviet.vtvtravel.response.CityResponse;
 import com.namviet.vtvtravel.response.ResponseError;
 import com.namviet.vtvtravel.response.SearchResponse;
-import com.namviet.vtvtravel.response.WeatherResponse;
 import com.namviet.vtvtravel.response.f2callnow.ZipVersionResponse;
-import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
+import com.namviet.vtvtravel.response.f2systeminbox.ConfirmEnterTrip;
+import com.namviet.vtvtravel.response.f2systeminbox.DataSystemInbox;
+import com.namviet.vtvtravel.service.LinphoneService;
 import com.namviet.vtvtravel.service.TrackLocationService;
 import com.namviet.vtvtravel.ultils.DeviceUtils;
 import com.namviet.vtvtravel.ultils.F2UnzipUtil;
@@ -113,7 +115,15 @@ import com.namviet.vtvtravel.ultils.ServiceUltils;
 import com.namviet.vtvtravel.ultils.ValidateUtils;
 import com.namviet.vtvtravel.view.dialog.CityDialogFragment;
 import com.namviet.vtvtravel.view.dialog.WeatherDialog;
+import com.namviet.vtvtravel.view.dialog.f2.ReceiverTripInviteDialog;
+import com.namviet.vtvtravel.view.f2.DetailVideoActivity;
+import com.namviet.vtvtravel.view.f2.ImagePartActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.view.f2.ReceiveInviteTripDetailActivity;
+import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
+import com.namviet.vtvtravel.view.f2.SystemInboxActivity;
+import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
+import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.fragment.ChatFragment;
 import com.namviet.vtvtravel.view.fragment.DetailsFragment;
 import com.namviet.vtvtravel.view.fragment.EncodeDemoFragment;
@@ -136,6 +146,7 @@ import com.namviet.vtvtravel.view.fragment.account.SetPassFragment;
 import com.namviet.vtvtravel.view.fragment.account.SettingFragment;
 import com.namviet.vtvtravel.view.fragment.account.UpdateInfoFragment;
 import com.namviet.vtvtravel.view.fragment.f2callnow.MainCallNowFragment;
+import com.namviet.vtvtravel.view.fragment.f2mygift.NotifyDialog;
 import com.namviet.vtvtravel.view.fragment.f2offline.MainOfflineFragment;
 import com.namviet.vtvtravel.view.fragment.f2offline.MainPageLoginFragment;
 import com.namviet.vtvtravel.view.fragment.f2offline.OfflineDialog;
@@ -173,12 +184,18 @@ import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 import com.namviet.vtvtravel.viewmodel.HomeViewModel;
 import com.namviet.vtvtravel.viewmodel.PlaceViewModel;
 import com.namviet.vtvtravel.viewmodel.SearchViewModel;
+import com.namviet.vtvtravel.viewmodel.f2systeminbox.SystemInboxViewModel;
 import com.namviet.vtvtravel.widget.RobotoTextView;
 
 import org.ankit.gpslibrary.ADLocation;
 import org.ankit.gpslibrary.MyTracker;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.linphone.core.Core;
+import org.linphone.core.CoreListenerStub;
+import org.linphone.core.PayloadType;
+import org.linphone.core.ProxyConfig;
+import org.linphone.core.RegistrationState;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -187,15 +204,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URL;
-import java.nio.file.Files;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -209,7 +226,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MainActivity extends BaseActivity implements Observer, CitySelectListener, View.OnClickListener, ConnectivityReceiver.ConnectivityReceiverListener {
+public class MainActivity extends BaseActivity implements Observer, CitySelectListener, View.OnClickListener, ConnectivityReceiver.ConnectivityReceiverListener, Handler.Callback {
     private OnBackPress onBackPress;
     private Fragment mFragment;
     private Bundle bundle;
@@ -256,14 +273,51 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
     private List<ItemMenu> itemMenus = new ArrayList<>();
 
     private HomeViewModel homeViewModel;
+    private SystemInboxViewModel systemInboxViewModel;
 
     public List<Contact> listContact = new ArrayList<>();
     public HashMap<String, Contact> contactHashMap = new HashMap<>();
     public HashMap<Integer, Contact> listContactCallNow = new HashMap<>();
 
     private boolean fromNotification = false;
+    private boolean fromVIPNoti = false;
+
+
+    //for Linphone
+//    private Handler mHandler;
+    private CoreListenerStub mCoreListener;
+    private ImageView mLed;
+
+
+    //for pjsip
+//    public static MyApp app = null;
+//    public static MyCall currentCall = null;
+//    public static MyAccount sipAccount = null;
+//    public static AccountConfig accCfg = null;
+//    public static MyBroadcastReceiver receiverPJSIP = null;
+//    public static IntentFilter intentFilter = null;
+//
+//    private final Handler handler = new Handler(this);
+
+    @Override
+    public boolean handleMessage(@androidx.annotation.NonNull Message msg) {
+        return false;
+    }
+
+
+//    public class MSG_TYPE
+//    {
+//        public final static int INCOMING_CALL = 1;
+//        public final static int CALL_STATE = 2;
+//        public final static int REG_STATE = 3;
+//        public final static int BUDDY_STATE = 4;
+//        public final static int CALL_MEDIA_STATE = 5;
+//        public final static int CHANGE_NETWORK = 6;
+//    }
 
     private void initViewDrawerLayout() {
+
+
         mTvCity = findViewById(R.id.tvCity);
         mBtLogin = findViewById(R.id.btLogin);
         mBtRegister = findViewById(R.id.btRegister);
@@ -291,9 +345,10 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 //        menuLeft = getArguments().getParcelable(Constants.IntentKey.KEY_FRAGMENT);
 
         mRvSlideMenu.setLayoutManager(new LinearLayoutManager(this));
-
         homeViewModel = new HomeViewModel(this);
         homeViewModel.addObserver(this);
+        systemInboxViewModel = new SystemInboxViewModel();
+        systemInboxViewModel.addObserver(this);
 
 //        slideMenuAdapter = new SlideMenuAdapter(this, itemMenus);
 //
@@ -452,7 +507,6 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
         registerNetWork();
 
 
-
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
@@ -481,6 +535,10 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
         initSentry();
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+
+//        Intent serviceIntent = new Intent(this, ForegroundService.class);
+//        ContextCompat.startForegroundService(this, serviceIntent);
     }
 
     public void pushEvent(String key) {
@@ -505,6 +563,21 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
     @Override
     protected void initView() {
         super.initView();
+        try {
+            mLed = findViewById(R.id.led);
+
+            // Monitors the registration state of our account(s) and update the LED accordingly
+            mCoreListener = new CoreListenerStub() {
+                @Override
+                public void onRegistrationStateChanged(Core core, ProxyConfig cfg, RegistrationState state, String message) {
+                    updateLed(state);
+                }
+            };
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         drawerLayout = findViewById(R.id.drawer_layout);
 
 
@@ -796,6 +869,8 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
         }
     }
 
+    private boolean backPressOnce = false;
+
     @Override
     public void onBackPressed() {
         if (layoutNoInternet.getVisibility() == View.VISIBLE) {
@@ -813,7 +888,19 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
             if (faFragmentManager.getBackStackEntryCount() > 0) {
                 faFragmentManager.popBackStack();
             } else {
+//                if (backPressOnce) {
                 super.onBackPressed();
+//                } else {
+//                    backPressOnce = true;
+//                    Toast.makeText(this, getString(R.string.press_one_more_to_exit), Toast.LENGTH_SHORT).show();
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            backPressOnce = false;
+//                        }
+//                    }, 2000);
+//                    return;
+//                }
             }
             if (faFragmentManager.getBackStackEntryCount() == 1) {
                 setDrawerEnabled(false);
@@ -842,7 +929,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
             case MY_PERMISSIONS_REQUEST_READ_CONTACTS:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getContacts(this);
-                }else {
+                } else {
                     Toast.makeText(this, "Bạn cần cấp quyền truy cập danh bạ để ứng dụng có thể lấy danh sách liên hệ", Toast.LENGTH_LONG).show();
                 }
                 break;
@@ -874,6 +961,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
                         Intent intent = new Intent(MainActivity.this, TrackLocationService.class);
                         startService(intent);
                     }
+                    EventBus.getDefault().post(new OnGetLocation());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -923,12 +1011,71 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
     protected void onResume() {
         super.onResume();
         MyApplication.activityResumed();
+
+
+
+        try {
+            LinphoneService.getCore().addListener(mCoreListener);
+
+            ProxyConfig proxyConfig = LinphoneService.getCore().getDefaultProxyConfig();
+            if (proxyConfig != null) {
+                updateLed(proxyConfig.getState());
+            } else {
+                // No account configured, we display the configuration activity
+                //startActivity(new Intent(this, ConfigureAccountActivity.class));
+            }
+
+
+
+            Core core = LinphoneService.getCore();
+            if (core != null) {
+                for (final PayloadType pt : core.getAudioPayloadTypes()) {
+                    Log.e("type", "type");
+                    Log.e("Linphone debug", pt.getMimeType() + "----"+pt.enabled());
+                    pt.enable(true);
+//                    if(pt.getMimeType().equals("G722") && !pt.enabled()){
+//                        pt.enable(true);
+//                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void updateLed(RegistrationState state) {
+        try {
+            switch (state) {
+                case Ok: // This state means you are connected, to can make and receive calls & messages
+                    mLed.setImageResource(R.drawable.led_connected);
+                    break;
+                case None: // This state is the default state
+                case Cleared: // This state is when you disconnected
+                    mLed.setImageResource(R.drawable.led_disconnected);
+                    break;
+                case Failed: // This one means an error happened, for example a bad password
+                    mLed.setImageResource(R.drawable.led_error);
+                    break;
+                case Progress: // Connection is in progress, next state will be either Ok or Failed
+                    mLed.setImageResource(R.drawable.f2_ic_x);
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         MyApplication.activityPaused();
+        try {
+            LinphoneService.getCore().removeListener(mCoreListener);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -1034,6 +1181,8 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
         }
         mTvTemp.setOnClickListener(this);
         mTvHumidity.setOnClickListener(this);
+
+
     }
 
     public void updateListMenu() {
@@ -1124,6 +1273,17 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 //                cityList = response.getData();
 //                MyApplication.getInstance().setCityList(response.getData());
 //            }
+        }
+
+        if (observable instanceof SystemInboxViewModel && null != o) {
+            if (o instanceof ConfirmEnterTrip) {
+                ReceiveInviteTripDetailActivity.startScreen(this, dataSystemInbox.getScheduleCustomId());
+            } else if (o instanceof ErrorResponse) {
+                ErrorResponse responseError = (ErrorResponse) o;
+                try {
+                } catch (Exception e) {
+                }
+            }
         }
     }
 
@@ -1333,13 +1493,12 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
     }
 
     private ConnectivityReceiver connectivityReceiver;
+
     private void registerNetWork() {
         connectivityReceiver = new ConnectivityReceiver();
         connectivityReceiver.setConnectivityReceiverListener(this);
         registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
-
-
 
 
     private void sendNotificationMessage() {
@@ -1396,13 +1555,12 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
 
     @Subscribe
-    public void OnUpdateLogin(OnUpdateLogin onUpdateLogin){
+    public void OnUpdateLogin(OnUpdateLogin onUpdateLogin) {
         updateLogin();
     }
 
 
-
-    public void showDialogNoCon(){
+    public void showDialogNoCon() {
         try {
             if (!F2Util.isOnline(this)) {
                 layoutNoInternet.setVisibility(View.VISIBLE);
@@ -1436,10 +1594,122 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
     }
 
+
+    private DataSystemInbox dataSystemInbox;
+
     private void getDataFromIntent() {
         fromNotification = getIntent().getBooleanExtra(Constants.IntentKey.FROM_DISCONNECT_NOTI, false);
         if (F2Util.isOnline(this)) {
             fromNotification = false;
+        }
+
+        fromVIPNoti = getIntent().getBooleanExtra(Constants.IntentKey.FROM_VIP_NOTI, false);
+
+        if (fromVIPNoti) {
+            TravelVoucherActivity.openScreen(MainActivity.this, true, TravelVoucherActivity.OpenType.LIST, true);
+        }
+
+
+        int notificationType = getIntent().getIntExtra(Constants.IntentKey.NOTIFICATION_TYPE, 1000);
+
+        switch (notificationType) {
+            case NotificationType.INVITE_TRIP:
+                Notification notification = (Notification) getIntent().getSerializableExtra(Constants.IntentKey.NOTIFICATION);
+                dataSystemInbox = notification.getDataSystemInbox();
+                openDialogTripInvite();
+                break;
+            case NotificationType.VIP:
+                SystemInboxActivity.startScreen(this);
+                break;
+            case NotificationType.SHARE:
+                SystemInboxActivity.startScreen(this);
+                break;
+            case NotificationType.TICKET:
+                SystemInboxActivity.startScreen(this);
+                break;
+        }
+
+        handleLinkShare();
+        handleLinkShareFromIntent();
+
+
+    }
+
+
+    //xử lý dữ liệu lấy từ share được mở từ deeplink
+    private void handleLinkShare() {
+        String cateId = "news";
+        String link = "";
+        Uri data = getIntent().getData();
+        if (data == null) {
+            return;
+        }
+
+        Map<String, String> mapQuery = null;
+        try {
+            mapQuery = splitQuery(data);
+            cateId = mapQuery.get("cateId");
+            link = mapQuery.get("link");
+
+
+            switch (cateId) {
+                case Constants.ShareLinkType.IMAGES:
+                    ImagePartActivity.startScreen(this, ImagePartActivity.Type.DETAIL, link);
+                    break;
+                case Constants.ShareLinkType.NEWS:
+                    TravelNewsActivity.openScreenDetail(this, TravelNewsActivity.OpenType.DETAIL, link);
+                    break;
+                case Constants.ShareLinkType.VIDEO:
+                    DetailVideoActivity.startScreen(this, link);
+                    break;
+                case Constants.ShareLinkType.PLACE:
+                case Constants.ShareLinkType.CENTERS:
+                case Constants.ShareLinkType.RESTAURANTS:
+                case Constants.ShareLinkType.HOTELS:
+                    SmallLocationActivity.startScreenDetail(this, SmallLocationActivity.OpenType.DETAIL, link);
+                    break;
+
+            }
+
+        } catch (Exception e) {
+
+        }
+    }
+
+
+    // xử lý dữ liệu lấy từ share được mở từ wap
+    private void handleLinkShareFromIntent() {
+        String cateId = "news";
+        String link = "";
+        cateId = getIntent().getStringExtra("cateId");
+        link = getIntent().getStringExtra("link");
+        if (cateId == null) {
+            return;
+        }
+
+        try {
+
+            switch (cateId) {
+                case Constants.ShareLinkType.IMAGES:
+                    ImagePartActivity.startScreen(this, ImagePartActivity.Type.DETAIL, link);
+                    break;
+                case Constants.ShareLinkType.NEWS:
+                    TravelNewsActivity.openScreenDetail(this, TravelNewsActivity.OpenType.DETAIL, link);
+                    break;
+                case Constants.ShareLinkType.VIDEO:
+                    DetailVideoActivity.startScreen(this, link);
+                    break;
+                case Constants.ShareLinkType.PLACE:
+                case Constants.ShareLinkType.CENTERS:
+                case Constants.ShareLinkType.RESTAURANTS:
+                case Constants.ShareLinkType.HOTELS:
+                    SmallLocationActivity.startScreenDetail(this, SmallLocationActivity.OpenType.DETAIL, link);
+                    break;
+
+            }
+
+        } catch (Exception e) {
+
         }
     }
 
@@ -1559,6 +1829,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
 
     private void downloadFile(String hash) {
+        Log.e("Download file", "ok");
         DownloadAPI apiInterface = ServiceGenerator.createService(DownloadAPI.class);
 
         Call<ResponseBody> call = apiInterface.downloadFileWithFixedUrl();
@@ -1567,14 +1838,15 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
+                    Log.e("Download file", "ok");
 //                    try {
-                        boolean writtenToDisk = writeResponseBodyToDisk(response.body());
+                    boolean writtenToDisk = writeResponseBodyToDisk(response.body());
 
-                        String file_path = getExternalFilesDir(null) + File.separator + "/VTVTravelData";
-                        F2UnzipUtil f2UnzipUtil = new F2UnzipUtil(getExternalFilesDir(null) + File.separator + "Call_Now.zip", file_path);
-                        f2UnzipUtil.unzip();
+                    String file_path = getExternalFilesDir(null) + File.separator + "/VTVTravelData";
+                    F2UnzipUtil f2UnzipUtil = new F2UnzipUtil(getExternalFilesDir(null) + File.separator + "Call_Now.zip", file_path);
+                    f2UnzipUtil.unzip();
 
-                        File futureStudioIconFile = new File(getExternalFilesDir(null) + File.separator + "/VTVTravelDataCall_Now/Call_Now.json");
+                    File futureStudioIconFile = new File(getExternalFilesDir(null) + File.separator + "/VTVTravelDataCall_Now/Call_Now.json");
                     try {
                         offlineDynamic = new Gson().fromJson(readJson(futureStudioIconFile), OfflineDynamic.class);
 
@@ -1591,7 +1863,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                Log.e("Download file", "fail");
             }
         });
     }
@@ -1680,8 +1952,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
     }
 
 
-
-    private void addContactToDB(List<Contact> contacts){
+    private void addContactToDB(List<Contact> contacts) {
         try {
             List<Contact> contactList = new ArrayList<>();
             contactList.addAll(contacts);
@@ -1692,16 +1963,17 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
     }
 
-    private List<Contact> getContactFromDB(){
+    private List<Contact> getContactFromDB() {
         try {
 
             List<Contact> contacts;
             String json = PreferenceUtil.getInstance(this).getValue(Constants.PrefKey.CONTACT, "");
-            if(json.isEmpty()){
+            if (json.isEmpty()) {
                 contacts = new ArrayList<>();
-            }else {
-                contacts  = new Gson().fromJson(json,
-                        new TypeToken<ArrayList<Contact>>() {}.getType());
+            } else {
+                contacts = new Gson().fromJson(json,
+                        new TypeToken<ArrayList<Contact>>() {
+                        }.getType());
             }
             return contacts;
         } catch (Exception e) {
@@ -1711,4 +1983,130 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
         }
     }
 
+
+    @Subscribe
+    public void OnReceiveNotiVip(OnReceiveNotiVip onReceiveNotiVip) {
+        NotifyDialog notifyDialog = NotifyDialog.newInstance("Thông báo", "Bạn đã đăng ký VIP Thành công, mời bạn nhận thưởng", "Đồng ý", new NotifyDialog.ClickButton() {
+            @Override
+            public void onClickButton() {
+                TravelVoucherActivity.openScreen(MainActivity.this, true, TravelVoucherActivity.OpenType.LIST, true);
+            }
+        });
+        notifyDialog.show(getSupportFragmentManager(), null);
+    }
+
+
+    private void openDialogTripInvite() {
+        ReceiverTripInviteDialog notifiDialog = ReceiverTripInviteDialog.newInstance(dataSystemInbox.getTitle(), dataSystemInbox.getContent(), "Đồng ý tham gia", new ReceiverTripInviteDialog.ClickButton() {
+            @Override
+            public void onClickButton() {
+                try {
+
+                    Account account = MyApplication.getInstance().getAccount();
+                    if (null != account && account.isLogin()) {
+                        systemInboxViewModel.confirmEnterTrip(dataSystemInbox.getScheduleCustomId(), String.valueOf(account.getId()));
+                    } else {
+                        LoginAndRegisterActivityNew.startScreen(MainActivity.this, 0, false);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        notifiDialog.show(getSupportFragmentManager(), null);
+    }
+
+
+    public Map<String, String> splitQuery(Uri url) throws UnsupportedEncodingException {
+        Map<String, String> query_pairs = new LinkedHashMap<>();
+        String query = url.getQuery();
+        String[] pairs = query.split("&");
+        for (String pair : pairs) {
+            int idx = pair.indexOf("=");
+            if (idx != -1) {
+                query_pairs.put(URLDecoder.decode(pair.substring(0, idx), "UTF-8"), URLDecoder.decode(pair.substring(idx + 1), "UTF-8"));
+            }
+        }
+        return query_pairs;
+    }
+
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+
+        int notificationType = getIntent().getIntExtra(Constants.IntentKey.NOTIFICATION_TYPE, 1000);
+
+        switch (notificationType) {
+            case NotificationType.INVITE_TRIP:
+                Notification notification = (Notification) getIntent().getSerializableExtra(Constants.IntentKey.NOTIFICATION);
+                dataSystemInbox = notification.getDataSystemInbox();
+                openDialogTripInvite();
+                break;
+            case NotificationType.VIP:
+                SystemInboxActivity.startScreen(this);
+                break;
+            case NotificationType.SHARE:
+                SystemInboxActivity.startScreen(this);
+                break;
+            case NotificationType.TICKET:
+                SystemInboxActivity.startScreen(this);
+                break;
+        }
+
+        handleLinkShare();
+        handleLinkShareFromIntent();
+    }
+
+
+    // for pjsip
+
+//    private void registerSIP(){
+//        String acc_id 	 = "sip:1001@171.244.52.28:5060";
+//        String registrar = "sip:171.244.52.28:5060";
+//        String proxy 	 = "<sip:171.244.52.28:5060;transport=tcp>";
+//        String username  = "1001";
+//        String password  = "Namviet@2020!@#";
+//    }
+//
+//    public void notifyChangeNetwork()
+//    {
+//        Message m = Message.obtain(handler, MSG_TYPE.CHANGE_NETWORK, null);
+//        m.sendToTarget();
+//    }
+//
+//    private class MyBroadcastReceiver extends BroadcastReceiver {
+//        private String conn_name = "";
+//
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            if (isNetworkChange(context))
+//                notifyChangeNetwork();
+//        }
+//
+//        private boolean isNetworkChange(Context context) {
+//            boolean network_changed = false;
+//            ConnectivityManager connectivity_mgr =
+//                    ((ConnectivityManager)context.getSystemService(
+//                            Context.CONNECTIVITY_SERVICE));
+//
+//            NetworkInfo net_info = connectivity_mgr.getActiveNetworkInfo();
+//            if(net_info != null && net_info.isConnectedOrConnecting() &&
+//                    !conn_name.equalsIgnoreCase(""))
+//            {
+//                String new_con = net_info.getExtraInfo();
+//                if (new_con != null && !new_con.equalsIgnoreCase(conn_name))
+//                    network_changed = true;
+//
+//                conn_name = (new_con == null)?"":new_con;
+//            } else {
+//                if (conn_name.equalsIgnoreCase(""))
+//                    conn_name = net_info.getExtraInfo();
+//            }
+//            return network_changed;
+//        }
+//    }
 }

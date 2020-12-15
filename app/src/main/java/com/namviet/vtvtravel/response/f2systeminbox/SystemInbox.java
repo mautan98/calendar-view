@@ -43,13 +43,26 @@ public class SystemInbox extends BaseResponse {
             private String type;
             @Expose
             @SerializedName("content")
-            private String content;
+            private DataSystemInbox content;
             @Expose
             @SerializedName("mobile")
             private String mobile;
             @Expose
             @SerializedName("id")
             private String id;
+
+            @Expose
+            @SerializedName("title")
+            private String title;
+
+
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
 
             public String getCreatedAt() {
                 return createdAt;
@@ -75,11 +88,11 @@ public class SystemInbox extends BaseResponse {
                 this.type = type;
             }
 
-            public String getContent() {
+            public DataSystemInbox getContent() {
                 return content;
             }
 
-            public void setContent(String content) {
+            public void setContent(DataSystemInbox content) {
                 this.content = content;
             }
 

@@ -1,28 +1,25 @@
 package com.namviet.vtvtravel.view.fragment.home;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.datetimepicker.date.DatePickerDialog;
-import com.baseapp.menu.SlideMenu;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.FragmentDetailScheduleBinding;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.Schedule;
-import com.namviet.vtvtravel.response.CityResponse;
 import com.namviet.vtvtravel.response.DetailScheduleResponse;
 import com.namviet.vtvtravel.response.SaveScheduleResponse;
-import com.namviet.vtvtravel.response.ScheduleResponse;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.viewmodel.PlaceViewModel;

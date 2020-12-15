@@ -1,14 +1,11 @@
 package com.namviet.vtvtravel.view.f2;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.v4.app.Fragment;
-import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2ActivityUserInformationBinding;
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;

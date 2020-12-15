@@ -1,8 +1,8 @@
 package com.namviet.vtvtravel.adapter.travelnews;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +11,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.like.LikeButton;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.adapter.comment.CommentAdapter;
-import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class CommentInDetailTravelNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
@@ -81,6 +79,7 @@ public class CommentInDetailTravelNewsAdapter extends RecyclerView.Adapter<Recyc
         private TextView tvCountLike;
         private TextView tvReply;
         private int position;
+        private LikeButton imgHeart;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -91,6 +90,11 @@ public class CommentInDetailTravelNewsAdapter extends RecyclerView.Adapter<Recyc
             tvComment = itemView.findViewById(R.id.tvComment);
             tvCountLike = itemView.findViewById(R.id.tvCountLike);
             tvReply = itemView.findViewById(R.id.tvReply);
+            try {
+                imgHeart = itemView.findViewById(R.id.imgHeart);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             tvReply.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -103,6 +107,11 @@ public class CommentInDetailTravelNewsAdapter extends RecyclerView.Adapter<Recyc
 
         public void bindItem(int position) {
             this.position = position;
+            try {
+                imgHeart.setEnabled(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             tvName.setText(comments.get(position).getUser().getFullname());
             tvComment.setText(comments.get(position).getContent());
             Glide.with(context).load(comments.get(position).getUser().getImageProfile()).apply(new RequestOptions().circleCrop()).into(imgAvatar);

@@ -1,21 +1,19 @@
 package com.namviet.vtvtravel.view.fragment;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.baseapp.menu.SlideMenu;
 import com.baseapp.utils.KeyboardUtils;
@@ -169,7 +167,11 @@ public class ChatFragment extends MainFragment implements Observer, ChatAdapter.
         super.onClick(view);
         switch (view.getId()) {
             case R.id.ivBack:
-                KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+                try {
+                    KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 mActivity.onBackPressed();
                 break;
             case R.id.btn_send:
@@ -252,10 +254,10 @@ public class ChatFragment extends MainFragment implements Observer, ChatAdapter.
                     } else {
                         chatResponse2.getData().setCurrent_time(getCurrentTime());
 
-                        String mess = "Welcome Quý khách to VTV Travel. Xin chào a/c, VTV Travel rất mong được hỗ trợ.";
+                        String mess = "Welcome Quý khách to VTVTravel. Xin chào a/c, VTVTravel rất mong được hỗ trợ.";
                         Account account = MyApplication.getInstance().getAccount();
                         if (null != account && account.isLogin()) {
-                            mess = "Welcome " + account.getFullname() + " to VTV Travel. Xin chào a/c, VTV Travel rất mong được hỗ trợ.";
+                            mess = "Welcome " + account.getFullname() + " to VTVTravel. Xin chào a/c, VTVTravel rất mong được hỗ trợ.";
                         }
 
                         chatResponse2.getData().setText(mess);
@@ -286,15 +288,19 @@ public class ChatFragment extends MainFragment implements Observer, ChatAdapter.
 
             public void onFinish() {
                 binding.llEditChat.setVisibility(View.GONE);
-                KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+                try {
+                    KeyboardUtils.hideKeyboard(mActivity, Objects.requireNonNull(mActivity.getCurrentFocus()));
+                } catch (Exception e) {
 
-                String mess = "Cảm ơn Quý khách đã đồng hành cùng VTV Travel. Quý khách có hài lòng với câu trả lời của Chatbot không?";
-                Account account = MyApplication.getInstance().getAccount();
-                if (null != account && account.isLogin()) {
-                    mess = "Cảm ơn " + account.getFullname() + " đã đồng hành cùng VTV Travel. Quý khách có hài lòng với câu trả lời của Chatbot không?";
                 }
 
-                handleChat(mess, getCurrentTime(), Constants.TypeChat.AFTER_60S, "Bot", true);
+                String mess = "Cảm ơn Quý khách đã đồng hành cùng VTVTravel. Quý khách có hài lòng với câu trả lời của Chatbot không?";
+                Account account = MyApplication.getInstance().getAccount();
+                if (null != account && account.isLogin()) {
+                    mess = "Cảm ơn " + account.getFullname() + " đã đồng hành cùng VTVTravel. Quý khách có hài lòng với câu trả lời của Chatbot không?";
+                }
+
+                handleChat(mess, getCurrentTime(), Constants.TypeChat.ADMIN_FIRST, "Bot", true);
 
                 mTimer30s = new CountDownTimer(30000, 1000) {
 
@@ -307,10 +313,10 @@ public class ChatFragment extends MainFragment implements Observer, ChatAdapter.
                     public void onFinish() {
                         binding.llEditChat.setVisibility(View.VISIBLE);
                         removeLastIndex();
-                        String mess = "Cảm ơn Quý khách, VTV Travel luôn mong muốn được đồng hành cùng Quý khách trong thời gian tới. Xin cảm ơn!";
+                        String mess = "Cảm ơn Quý khách, VTVTravel luôn mong muốn được đồng hành cùng Quý khách trong thời gian tới. Xin cảm ơn!";
                         Account account = MyApplication.getInstance().getAccount();
                         if (null != account && account.isLogin()) {
-                            mess = "Cảm ơn " + account.getFullname() + ", VTV Travel luôn mong muốn được đồng hành cùng Quý khách trong thời gian tới. Xin cảm ơn!";
+                            mess = "Cảm ơn " + account.getFullname() + ", VTVTravel luôn mong muốn được đồng hành cùng Quý khách trong thời gian tới. Xin cảm ơn!";
                         }
                         handleChat(mess, getCurrentTime(), Constants.TypeChat.THANK);
                     }
@@ -432,7 +438,7 @@ public class ChatFragment extends MainFragment implements Observer, ChatAdapter.
                 message.setType(Constants.TypeChat.NOT_REPLY);
 
                 ChatData.Sender sender = new ChatData.Sender();
-                sender.setFull_name("Tổng đài viên - VTV Travel");
+                sender.setFull_name("Tổng đài viên - VTVTravel");
                 message.setSender(new ChatData.Sender());
                 message.setCurrent_time(getCurrentTime());
                 break;
@@ -457,10 +463,10 @@ public class ChatFragment extends MainFragment implements Observer, ChatAdapter.
         cancelTimer30s();
         removeLastIndex();
 
-        String mess = "Cảm ơn Quý khách, VTV Travel luôn mong muốn được đồng hành cùng Quý khách trong thời gian tới. Xin cảm ơn!";
+        String mess = "Cảm ơn Quý khách, VTVTravel luôn mong muốn được đồng hành cùng Quý khách trong thời gian tới. Xin cảm ơn!";
         Account account = MyApplication.getInstance().getAccount();
         if (null != account && account.isLogin()) {
-            mess = "Cảm ơn " + account.getFullname() + ", VTV Travel luôn mong muốn được đồng hành cùng Quý khách trong thời gian tới. Xin cảm ơn!";
+            mess = "Cảm ơn " + account.getFullname() + ", VTVTravel luôn mong muốn được đồng hành cùng Quý khách trong thời gian tới. Xin cảm ơn!";
         }
         handleChat(mess, getCurrentTime(), Constants.TypeChat.THANK);
         binding.llEditChat.setVisibility(View.VISIBLE);
@@ -484,7 +490,7 @@ public class ChatFragment extends MainFragment implements Observer, ChatAdapter.
     public void optionChat() {
         cancelTimer30s();
         removeLastIndex();
-        handleChat("Chào bạn! Bạn mong muốn chúng tôi hỗ trợ về vấn đề gì?", getCurrentTime(), Constants.TypeChat.ADMIN_FIRST, "Tổng đài viên - VTV Travel", true);
+        handleChat("Chào bạn! Bạn mong muốn chúng tôi hỗ trợ về vấn đề gì?", getCurrentTime(), Constants.TypeChat.ADMIN_FIRST, "Tổng đài viên - VTVTravel", true);
         binding.llEditChat.setVisibility(View.VISIBLE);
         MyApplication.getInstance().setChatBot(false);
         try {
@@ -495,7 +501,7 @@ public class ChatFragment extends MainFragment implements Observer, ChatAdapter.
             } else if (MyApplication.getInstance().getAccount() != null && !MyApplication.getInstance().getAccount().getMobile().isEmpty()) {
                 username = MyApplication.getInstance().getAccount().getMobile();
             }
-            mChatViewModel.createRoom(username, uuid);
+            mChatViewModel.createRoom(username);
         } catch (Exception e) {
             e.printStackTrace();
         }

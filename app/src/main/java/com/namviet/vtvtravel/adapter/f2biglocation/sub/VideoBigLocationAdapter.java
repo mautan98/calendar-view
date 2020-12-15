@@ -1,9 +1,8 @@
 package com.namviet.vtvtravel.adapter.f2biglocation.sub;
 
-import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,7 +84,7 @@ public class VideoBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.V
                 public void onClick(View view) {
                     try {
                         Video video = new Gson().fromJson(new Gson().toJson(items.get(position)), Video.class);
-                        DetailVideoActivity.startScreen(context, video);
+                        DetailVideoActivity.startScreen(context, video.getDetail_link());
                     } catch (JsonSyntaxException e) {
                         e.printStackTrace();
                     }

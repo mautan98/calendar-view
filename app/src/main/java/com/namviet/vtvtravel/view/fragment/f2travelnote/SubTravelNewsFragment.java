@@ -1,25 +1,19 @@
 package com.namviet.vtvtravel.view.fragment.f2travelnote;
 
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.travelnews.SubTravelNewsAdapter;
 import com.namviet.vtvtravel.databinding.F2FragmentSubTravelNewsBinding;
-import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.f2event.OnScrollTravelNews;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.travelnews.DetailNewsCategoryResponse;
-import com.namviet.vtvtravel.response.travelnews.NewsCategoryResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
-import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.viewmodel.f2travelnews.SubTravelNewsViewModel;
-import com.namviet.vtvtravel.viewmodel.f2travelnews.TravelNewsViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -165,5 +159,11 @@ public class SubTravelNewsFragment extends BaseFragment<F2FragmentSubTravelNewsB
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    @Override
+    public void setScreenTitle() {
+        super.setScreenTitle();
+        setDataScreen(TrackingAnalytic.ScreenCode.NEWS_DETAIL, TrackingAnalytic.ScreenTitle.NEWS_DETAIL);
     }
 }

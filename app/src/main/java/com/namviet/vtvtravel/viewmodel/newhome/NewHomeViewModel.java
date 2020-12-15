@@ -11,6 +11,7 @@ import com.namviet.vtvtravel.model.City;
 import com.namviet.vtvtravel.response.BaseResponse;
 import com.namviet.vtvtravel.response.CityResponse;
 import com.namviet.vtvtravel.response.ResponseError;
+import com.namviet.vtvtravel.response.SuggestTravelResponse;
 import com.namviet.vtvtravel.response.WeatherResponse;
 import com.namviet.vtvtravel.response.f2menu.MenuResponse;
 import com.namviet.vtvtravel.response.f2systeminbox.CountSystemInbox;
@@ -18,6 +19,7 @@ import com.namviet.vtvtravel.response.f2systeminbox.SystemInbox;
 import com.namviet.vtvtravel.response.newhome.BaseResponseNewHome;
 import com.namviet.vtvtravel.response.newhome.BaseResponseSecondNewHome;
 import com.namviet.vtvtravel.response.newhome.BaseResponseSpecialNewHome;
+import com.namviet.vtvtravel.response.newhome.ConfigPopupResponse;
 import com.namviet.vtvtravel.response.newhome.HomeServiceResponse;
 import com.namviet.vtvtravel.response.newhome.MobileFromViettelResponse;
 import com.namviet.vtvtravel.response.newhome.SettingResponse;
@@ -53,6 +55,33 @@ public class NewHomeViewModel extends BaseViewModel {
                             }
                         }
 
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable);
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+
+    public void getConfigRegion() {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelService();
+        Map<String, Object> queryMap = Param.getDefault();
+        Disposable disposable = newsService.getConfigPopup(queryMap)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ConfigPopupResponse>() {
+                    @Override
+                    public void accept(ConfigPopupResponse suggestTravelResponse) throws Exception {
+                        if (suggestTravelResponse != null) {
+                            requestSuccess(suggestTravelResponse);
+                        } else {
+                            requestSuccess(null);
+                        }
                     }
                 }, new Consumer<Throwable>() {
                     @Override

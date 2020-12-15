@@ -4,7 +4,7 @@
 
     <data></data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#000000">
@@ -26,7 +26,7 @@
 
         </LinearLayout>
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ctlBanner"
             android:layout_width="match_parent"
             android:layout_height="180dp"
@@ -47,29 +47,41 @@
                 android:id="@+id/jwPlayer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
+<!--        <ImageView-->
+<!--            android:id="@+id/imgHeart"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="44dp"-->
+<!--            android:layout_marginRight="18dp"-->
+<!--            android:src="@drawable/f2_ic_white_heart"-->
+<!--            android:visibility="invisible"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/ctlBanner" />-->
+
+        <com.like.LikeButton
             android:id="@+id/imgHeart"
-            android:layout_width="20dp"
-            android:layout_height="17dp"
-            android:layout_marginRight="18dp"
-            android:layout_marginBottom="2dp"
-            android:src="@drawable/f2_ic_red_heart"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ctlBanner"
+            app:anim_scale_factor="4.5"
+            app:icon_size="30dp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@id/ctlBanner"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:like_drawable="@drawable/f2_ic_heart"
+            app:unlike_drawable="@drawable/f2_ic_white_heart" />
 
         <TextView
-            android:id="@+id/tvNumberOfHeart"
+            android:visibility="invisible"
+            android:id="@+id/tvCountLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
             android:fontFamily="@font/roboto_regular"
             android:text="100"
             android:textColor="#FFFFFF"
             android:textSize="14dp"
-            android:visibility="invisible"
             app:layout_constraintLeft_toLeftOf="@id/imgHeart"
             app:layout_constraintRight_toRightOf="@+id/imgHeart"
             app:layout_constraintTop_toBottomOf="@id/imgHeart" />
@@ -82,9 +94,9 @@
             android:layout_marginTop="18dp"
             android:src="@drawable/f2_ic_reply"
             android:tint="@color/white"
-            app:layout_constraintLeft_toLeftOf="@id/tvNumberOfHeart"
-            app:layout_constraintRight_toRightOf="@+id/tvNumberOfHeart"
-            app:layout_constraintTop_toBottomOf="@id/tvNumberOfHeart" />
+            app:layout_constraintLeft_toLeftOf="@id/tvCountLike"
+            app:layout_constraintRight_toRightOf="@+id/tvCountLike"
+            app:layout_constraintTop_toBottomOf="@id/tvCountLike" />
 
         <TextView
             android:id="@+id/tvNumberOfComment"
@@ -93,7 +105,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="2dp"
             android:fontFamily="@font/roboto_regular"
-            android:text="9"
+            android:text="0"
             android:textColor="#FFFFFF"
             android:textSize="14dp"
             app:layout_constraintLeft_toLeftOf="@id/imgComment"
@@ -128,7 +140,6 @@
             app:layout_constraintTop_toTopOf="@+id/imgComment" />
 
 
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -139,9 +150,9 @@
             app:layout_constraintTop_toBottomOf="@id/tvType">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tvTitle"
@@ -172,5 +183,5 @@
                     app:layout_constraintTop_toBottomOf="@id/tvTitle" />
             </LinearLayout>
         </ScrollView>
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

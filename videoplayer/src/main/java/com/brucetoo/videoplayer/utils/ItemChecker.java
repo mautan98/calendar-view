@@ -1,7 +1,7 @@
 package com.brucetoo.videoplayer.utils;
 
 import android.graphics.Rect;
-import android.support.annotation.IdRes;
+import androidx.annotation.IdRes;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;

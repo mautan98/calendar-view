@@ -1,9 +1,9 @@
 package com.namviet.vtvtravel.view.fragment.f2offline;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +15,10 @@ import com.namviet.vtvtravel.adapter.f2offline.CallNowAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2FragmentCallNowBinding;
-import com.namviet.vtvtravel.databinding.F2FragmentMainOfflineBinding;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.offline.Items;
 import com.namviet.vtvtravel.model.offline.OfflineDynamic;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 
 import java.io.File;
@@ -58,6 +58,11 @@ public class CallNowFragment  extends MainFragment {
         super.onViewCreated(view, savedInstanceState);
         getParenLink();
         initViews(view);
+        try {
+            TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_VIEW, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.CALL_NOW, TrackingAnalytic.ScreenTitle.CALL_NOW).setScreen_class(this.getClass().getName()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

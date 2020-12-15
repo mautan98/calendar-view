@@ -1,10 +1,9 @@
 package com.namviet.vtvtravel.view.fragment;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,24 +11,11 @@ import android.widget.Button;
 
 import com.baseapp.utils.L;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.api.Param;
 import com.namviet.vtvtravel.api.TravelService;
 import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.encode.RSA;
-import com.namviet.vtvtravel.encode.RsaExample;
 import com.namviet.vtvtravel.response.BaseResponse;
-import com.namviet.vtvtravel.response.ShowAllResponse;
-
-import java.nio.charset.Charset;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.util.Map;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
