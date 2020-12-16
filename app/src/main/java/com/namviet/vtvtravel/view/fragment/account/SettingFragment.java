@@ -109,6 +109,7 @@ public class SettingFragment extends MainFragment {
                                 PreferenceUtil.getInstance(getContext()).setValue(Constants.PrefKey.PASSWORD, "");
                                 PreferenceUtil.getInstance(getContext()).setValue(Constants.PrefKey.LOGIN, 0);
                                 PreferenceUtil.getInstance(getContext()).setValue(Constants.PrefKey.ACCOUNT_ID, "");
+                                PreferenceUtil.getInstance(getContext()).setValue(Constants.PrefKey.ACCOUNT, "");
 
                                 MyApplication.getInstance().setVipRegisted(false);
                                 MyApplication.getInstance().setChatBot(true);
