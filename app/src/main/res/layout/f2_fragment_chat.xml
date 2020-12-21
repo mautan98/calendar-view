@@ -57,7 +57,7 @@
                     android:layout_height="35dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="5dp"
-                    android:layout_marginEnd="32dp"
+                    android:layout_marginEnd="24dp"
                     android:foreground="@drawable/ripple_effect_click"
                     android:padding="5dp"
                     android:rotation="90"
@@ -70,11 +70,11 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:layout_width="19dp"
-                        android:layout_height="11dp"
+                        android:layout_width="16dp"
+                        android:layout_height="10dp"
                         android:layout_gravity="center"
                         android:layout_marginEnd="18dp"
-                        android:src="@drawable/f2_ic_arrow2"
+                        android:src="@drawable/f2_ic_arrow_3"
                         android:tint="@color/white" />
 
                 </LinearLayout>
