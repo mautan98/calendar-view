@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.baseapp.utils.KeyboardUtils;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
+import com.namviet.vtvtravel.databinding.F2FragmentChangePassBinding;
 import com.namviet.vtvtravel.databinding.FragmentChangePassBinding;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.response.AccountResponse;
@@ -25,7 +26,7 @@ import java.util.Observer;
 
 public class ChangePassFragment extends MainFragment implements Observer {
 
-    private FragmentChangePassBinding binding;
+    private F2FragmentChangePassBinding binding;
     private AccountViewModel accountViewModel;
 
     @Override
@@ -36,7 +37,7 @@ public class ChangePassFragment extends MainFragment implements Observer {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_change_pass, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.f2_fragment_change_pass, container, false);
         ((AppCompatActivity) getActivity()).setSupportActionBar(binding.toolBar.myToolbar);
         return binding.getRoot();
     }
