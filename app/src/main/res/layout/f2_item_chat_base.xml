@@ -59,12 +59,13 @@
                     android:paddingTop="6dp"
                     android:paddingEnd="7dp"
                     android:paddingBottom="5dp"
-                    android:text="Chào mừng quý khách đến với cổng du lịch thông minh VTVtravel."
+                    android:text="Chào mừng quý khách đến với cổng du lịch thông minh VTVTravel."
                     android:textColor="#3D3D3D"
                     android:textSize="14sp" />
             </androidx.cardview.widget.CardView>
 
             <LinearLayout
+                android:layout_gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
