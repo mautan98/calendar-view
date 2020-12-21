@@ -130,6 +130,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
+                        android:visibility="gone"
                         android:id="@+id/imgArm"
                         android:layout_width="17dp"
                         android:layout_height="19dp"
@@ -139,6 +140,7 @@
                         app:layout_constraintTop_toBottomOf="@id/txtName" />
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/f2_item_bg_regency"
@@ -302,7 +304,7 @@
                         android:textColor="#707070"
                         android:textSize="14sp" />
 
-                    <EditText
+                    <TextView
                         android:inputType="phone"
                         android:singleLine="true"
                         android:id="@+id/edtNumberPhone"

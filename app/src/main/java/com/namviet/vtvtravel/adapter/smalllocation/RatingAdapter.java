@@ -115,13 +115,23 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public void bindItem(int position) {
             this.position = position;
             GetReviewResponse.Data.Content content = items.get(position);
-            imageAdapter = new ImageAdapter(content.getGalleryUris(), context, new ImageAdapter.ClickItem() {
-                @Override
-                public void onClickItem(int position) {
 
+            try {
+                if(content.getGalleryUris().size() == 0){
+                    rclImage.setVisibility(View.GONE);
+                }else {
+                    rclImage.setVisibility(View.VISIBLE);
+                    imageAdapter = new ImageAdapter(content.getGalleryUris(), context, new ImageAdapter.ClickItem() {
+                        @Override
+                        public void onClickItem(int position) {
+
+                        }
+                    });
+                    rclImage.setAdapter(imageAdapter);
                 }
-            });
-            rclImage.setAdapter(imageAdapter);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             tvName.setText(content.getUser().getFullname());
             tvComment.setText(content.getContent());

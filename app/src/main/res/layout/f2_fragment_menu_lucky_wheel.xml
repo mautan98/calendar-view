@@ -40,6 +40,18 @@
             android:src="@drawable/f2_ic_back" />
 
 
+        <TextView
+            android:textSize="16dp"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/white"
+            android:textAllCaps="true"
+            android:text="Menu"
+            android:layout_width="wrap_content"
+            android:layout_height="59dp"/>
+
+
         <androidx.cardview.widget.CardView
             android:id="@+id/layoutUser"
             android:layout_below="@+id/layoutBanner"

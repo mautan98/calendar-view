@@ -11,8 +11,8 @@
 
 
     <LinearLayout
-        android:paddingStart="6dp"
-        android:paddingEnd="6dp"
+        android:paddingStart="3dp"
+        android:paddingEnd="3dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -47,8 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="TIN TỨC DU LỊCH"
-                    android:textAllCaps="true" />
+                    android:text="TIN TỨC DU LỊCH" />
 
 
             </LinearLayout>
