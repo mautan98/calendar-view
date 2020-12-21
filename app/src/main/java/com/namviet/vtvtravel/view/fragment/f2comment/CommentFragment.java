@@ -238,21 +238,21 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                         if (!getBinding().edtComment.getText().toString().isEmpty()) {
                             viewModel.updateComment(idCommentForEdit, getBinding().edtComment.getText().toString());
                             getBinding().edtComment.setText("");
-                            getBinding().imgSend.setAlpha(1f);
+//                            getBinding().imgSend.setAlpha(1f);
                             typeComment = TYPE_COMMENT_NORMAL;
                         }
                     } else if (typeComment == TYPE_COMMENT_REPLY) {
                         if (!getBinding().edtComment.getText().toString().isEmpty()) {
                             postComment(parentId, getBinding().edtComment.getText().toString(), contentId, contentType);
                             getBinding().edtComment.setText("");
-                            getBinding().imgSend.setAlpha(1f);
+//                            getBinding().imgSend.setAlpha(1f);
                             typeComment = TYPE_COMMENT_NORMAL;
                         }
                     } else {
                         if (!getBinding().edtComment.getText().toString().isEmpty()) {
                             postComment(null, getBinding().edtComment.getText().toString(), contentId, contentType);
                             getBinding().edtComment.setText("");
-                            getBinding().imgSend.setAlpha(1f);
+//                            getBinding().imgSend.setAlpha(1f);
                         }
                     }
                 } else {
@@ -408,9 +408,9 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                     @Override
                     public void accept(TextViewAfterTextChangeEvent textViewAfterTextChangeEvent) throws Exception {
                         if (getBinding().edtComment.getText().toString().isEmpty()) {
-                            getBinding().imgSend.setAlpha(0.3f);
+//                            getBinding().imgSend.setAlpha(0.3f);
                         } else {
-                            getBinding().imgSend.setAlpha(1f);
+//                            getBinding().imgSend.setAlpha(1f);
                         }
                     }
                 });

@@ -59,7 +59,7 @@
                     android:paddingTop="6dp"
                     android:paddingEnd="7dp"
                     android:paddingBottom="5dp"
-                    android:text="Mời bạn đánh giá để nâng cao chất lượng dịch vụ của VTVTravel."
+                    android:text="Mời Quý khách đánh giá để nâng cao chất lượng dịch vụ của VTVTravel."
                     android:textColor="#3D3D3D"
                     android:textSize="14sp" />
             </androidx.cardview.widget.CardView>
