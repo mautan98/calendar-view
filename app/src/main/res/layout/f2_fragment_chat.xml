@@ -33,13 +33,15 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:scaleType="centerCrop"
                     android:id="@+id/btnChatBot"
-                    android:layout_width="55dp"
-                    android:layout_height="43dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="13dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="14dp"
-                    android:background="@drawable/f2_ic_chat2" />
+                    android:background="@drawable/f2_ic_chat3" />
 
                 <TextView
                     android:layout_width="0dp"
