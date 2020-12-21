@@ -101,6 +101,8 @@
             android:layout_width="match_parent"
             android:layout_height="246dp" />
 
+
+
         <TextView
             android:id="@+id/tvScrollPosition"
             android:layout_width="wrap_content"
@@ -117,6 +119,20 @@
             android:text="1/2"
             android:textColor="@color/white"
             android:textSize="14dp" />
+
+
+        <com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
+            android:layout_alignParentBottom="true"
+            android:id="@+id/vpIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recyclerPartnerLink"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="6dp"
+            app:dotColor="@color/gray_99"
+            app:dotRadius="3dp"
+            app:selectedDotColor="@color/white"
+            app:selectedDotRadius="3dp" />
     </RelativeLayout>
 
     <LinearLayout
