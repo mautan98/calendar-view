@@ -26,6 +26,7 @@ import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.view.f2.CommentActivity;
 import com.namviet.vtvtravel.view.f2.ShareActivity;
 import com.namviet.vtvtravel.view.fragment.share.ShareBottomDialog;
+import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
 
 import java.util.List;
 
@@ -105,6 +106,7 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
         private LikeButton imgHeart;
         private int position;
         private SlideImageInHighLightestImageAdapter slideImageInHighLightestImageAdapter;
+        private IndefinitePagerIndicator vpIndicator;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -120,6 +122,7 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
             imgComment = itemView.findViewById(R.id.imgComment);
             tvCountLike = itemView.findViewById(R.id.tvCountLike);
             imgHeart = itemView.findViewById(R.id.imgHeart);
+            vpIndicator = itemView.findViewById(R.id.vpIndicator);
         }
 
         public void bindItem(int position) {
@@ -253,6 +256,13 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
                     imgHeart.setLiked(false);
                 }
                 tvCountLike.setText(item.getLikeCount());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            try {
+                vpIndicator.attachToViewPager(vpGallery);
             } catch (Exception e) {
                 e.printStackTrace();
             }
