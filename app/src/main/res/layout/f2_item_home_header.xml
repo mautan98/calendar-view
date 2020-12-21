@@ -24,8 +24,8 @@
 
             <ImageView
                 android:id="@+id/imgAvatar"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
                 android:src="@drawable/f2_icon_hotel" />
 
 
