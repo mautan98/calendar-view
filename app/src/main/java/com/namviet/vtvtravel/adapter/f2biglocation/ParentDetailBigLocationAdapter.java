@@ -21,6 +21,7 @@ import com.namviet.vtvtravel.adapter.f2biglocation.sub.HeaderBigLocation2Adapter
 import com.namviet.vtvtravel.adapter.f2biglocation.sub.HeaderBigLocationAdapter;
 import com.namviet.vtvtravel.adapter.f2biglocation.sub.TravelTipBigLocationAdapter;
 import com.namviet.vtvtravel.adapter.f2biglocation.sub.VideoBigLocationAdapter;
+import com.namviet.vtvtravel.model.ItemWeather;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.WeatherResponse;
 import com.namviet.vtvtravel.response.f2biglocation.BigLocationResponse;
@@ -299,6 +300,7 @@ public class ParentDetailBigLocationAdapter extends RecyclerView.Adapter<Recycle
 
         }
     }
+
 
 
     public class DetailBigLocationViewHolder extends RecyclerView.ViewHolder {

@@ -98,14 +98,18 @@ public class RatingSmallLocationFragment extends BaseFragment<F2FragmentSmallLoc
         }
 
 
-        try {
-            DetailSmallLocationResponse.Data.Tab tab = detailSmallLocationResponse.getData().getTabs().get(0);
 
-            if (tab.getDistance() != null && !"".equals(tab.getDistance()) && Double.parseDouble(tab.getDistance()) < 1000) {
-                getBinding().tvDistance.setText(tab.getDistance_text() + " " + tab.getDistance() + " m");
-            } else if (tab.getDistance() != null && !"".equals(tab.getDistance())) {
-                double finalValue = Math.round(Double.parseDouble(tab.getDistance()) / 1000 * 10.0) / 10.0;
-                getBinding().tvDistance.setText(tab.getDistance_text() + " " + finalValue + " km");
+        try {
+            DetailSmallLocationResponse.Data.Tab tab = detailSmallLocationResponse.getData().getTabs().get(1);
+            if (tab.isHas_location()) {
+                if (tab.getDistance() != null && !"".equals(tab.getDistance()) && Double.parseDouble(tab.getDistance()) < 1000) {
+                    getBinding().tvDistance.setText(tab.getDistance_text() + " " + tab.getDistance() + " m");
+                } else if (tab.getDistance() != null && !"".equals(tab.getDistance())) {
+                    double finalValue = Math.round(Double.parseDouble(tab.getDistance()) / 1000 * 10.0) / 10.0;
+                    getBinding().tvDistance.setText(tab.getDistance_text() + " " + finalValue + " km");
+                }
+            } else {
+                getBinding().tvDistance.setText("Không xác định");
             }
         } catch (Exception e) {
             e.printStackTrace();

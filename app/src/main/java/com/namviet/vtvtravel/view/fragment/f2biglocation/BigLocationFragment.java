@@ -186,7 +186,7 @@ public class BigLocationFragment extends BaseFragment<F2FragmentBigLocationBindi
                 RegionResponse response1 = (RegionResponse) o;
             }else if (o instanceof WeatherResponse) {
                 WeatherResponse response = (WeatherResponse) o;
-                detailBigLocationAdapter.setWeatherResponse(response);
+                parentDetailBigLocationAdapter.setWeatherResponse(response);
             } else if (o instanceof ErrorResponse) {
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
