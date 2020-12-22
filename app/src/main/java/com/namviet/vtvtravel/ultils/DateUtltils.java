@@ -141,7 +141,7 @@ public class DateUtltils {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        spf = new SimpleDateFormat("dd MMMM yyyy");
+        spf = new SimpleDateFormat("dd MMMM, yyyy");
         return spf.format(newDate);
     }
 }

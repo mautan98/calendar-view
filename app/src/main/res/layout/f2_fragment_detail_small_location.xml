@@ -108,7 +108,7 @@
                                 android:id="@+id/btnShareLink"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:layout_marginStart="29dp"
+                                android:layout_marginStart="8dp"
                                 android:padding="15dp"
                                 android:src="@drawable/f2_ic_share_new"
                                 android:tint="@color/white" />

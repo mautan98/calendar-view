@@ -24,7 +24,7 @@ class MenuLuckyWheelFragment : BaseFragment<F2FragmentMenuLuckyWheelBinding?>() 
             } else {
                 binding!!.imgAvatar.setImageResource(R.drawable.f2_defaut_user)
             }
-            binding!!.tvName.text = "Chào "+account.fullname
+            binding!!.tvName.text = "Chào, "+account.fullname
 
         } else {
         }
