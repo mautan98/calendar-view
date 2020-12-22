@@ -26,13 +26,13 @@
                 layout="@layout/toolbar_text" />
 
             <TextView
-                android:textColor="#000000"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/roboto_medium"
                 android:text="Thay đổi mật khẩu"
+                android:textColor="#000000"
                 android:textSize="16dp" />
 
             <LinearLayout
@@ -60,10 +60,11 @@
                     android:layout_marginTop="4dp"
                     android:textColorHint="@color/gray_99"
                     app:hintTextAppearance="@style/HintText"
+                    app:passwordToggleDrawable="@drawable/color_password_toggle"
                     app:passwordToggleEnabled="true">
 
-                    <EditText
-                        android:backgroundTint="#ECECEC"
+
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edPass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -93,10 +94,11 @@
                     android:layout_marginTop="4dp"
                     android:textColorHint="@color/gray_99"
                     app:hintTextAppearance="@style/HintText"
+                    app:passwordToggleDrawable="@drawable/color_password_toggle"
                     app:passwordToggleEnabled="true">
 
-                    <EditText
-                        android:backgroundTint="#ECECEC"
+
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edNewPass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -125,10 +127,10 @@
                     android:layout_marginTop="4dp"
                     android:textColorHint="@color/gray_99"
                     app:hintTextAppearance="@style/HintText"
+                    app:passwordToggleDrawable="@drawable/color_password_toggle"
                     app:passwordToggleEnabled="true">
 
-                    <EditText
-                        android:backgroundTint="#ECECEC"
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edReNewPass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -161,30 +163,30 @@
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="gone"
-            android:paddingBottom="15dp"
             android:id="@+id/layoutWarning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFB300"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="15dp"
+            android:visibility="gone">
 
             <ImageView
-                android:src="@drawable/f2_ic_error"
-                android:layout_marginTop="15dp"
                 android:layout_width="21dp"
                 android:layout_height="21dp"
-                android:layout_marginStart="18dp" />
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/f2_ic_error" />
 
 
             <TextView
                 android:id="@+id/tvWarningMessage"
-                android:layout_marginTop="15dp"
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
+                android:layout_weight="1"
                 android:fontFamily="@font/roboto_regular"
                 android:text="Xác nhận mật khẩu phải trùng với thông tin mật khẩu"
                 android:textColor="@color/white"
@@ -192,23 +194,21 @@
 
 
             <LinearLayout
-                android:gravity="bottom"
                 android:layout_width="32dp"
-                android:layout_height="32dp">
+                android:layout_height="32dp"
+                android:gravity="bottom">
 
                 <ImageView
-                    android:src="@drawable/f2_ic_close"
                     android:id="@+id/btnClose"
                     android:layout_width="13dp"
-                    android:layout_height="13dp" />
+                    android:layout_height="13dp"
+                    android:src="@drawable/f2_ic_close" />
 
             </LinearLayout>
 
 
         </LinearLayout>
     </RelativeLayout>
-
-
 
 
 </layout>
