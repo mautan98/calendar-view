@@ -96,7 +96,7 @@ public class MyGiftFragment extends BaseFragment<F2FragmentMyGiftBinding> implem
                 if (getInfoResponse.getData().getUser().getPackageCode() != null && getInfoResponse.getData().getUser().getPackageCode().equals("TRAVEL_VIP")) {
                     TravelVoucherActivity.openScreen(mActivity, false, TravelVoucherActivity.OpenType.LIST, false);
                 }else {
-                    NotifyDialog notifyDialog = NotifyDialog.newInstance("Thông báo", "Mời đăng ký gói VIP \nĐể tận hưởng ưu đãi từ VTV Travel", "Đồng ý", new NotifyDialog.ClickButton() {
+                    NotifyDialog notifyDialog = NotifyDialog.newInstance("Thông báo", "Mời đăng ký gói VIP \nĐể tận hưởng ưu đãi từ VTVTravel", "Đồng ý", new NotifyDialog.ClickButton() {
                         @Override
                         public void onClickButton() {
                             ServiceActivity.startScreen(mActivity);

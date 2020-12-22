@@ -628,7 +628,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
                 EventBus.getDefault().post(new OnReOpenChatScreen());
 //                mActivity.finish();
             }
-        }, 1000);
+        }, 10000);
     }
 
     @Subscribe
@@ -736,7 +736,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
                             e.printStackTrace();
                         }
                     }
-                }, 1000);
+                }, 10000);
 
 
 //                mActivity.runOnUiThread(new Runnable() {
@@ -959,7 +959,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
                 EventBus.getDefault().post(new OnReOpenChatScreen());
 //                mActivity.finish();
             }
-        }, 1000);
+        }, 10000);
 
     }
 
