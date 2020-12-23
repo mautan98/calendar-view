@@ -92,13 +92,13 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
 
 
     fun playSound(index: Int) {
-        try {
-            val streamVolume = mAudioManager!!.getStreamVolume(AudioManager.STREAM_MUSIC)
-            if (isSoundOn!!) {
-                mSoundPool!!.play(mSoundPoolMap!![index], 18f, 18f, 1, 0, 1f)
-            }
-        } catch (e: Exception) {
-        }
+//        try {
+//            val streamVolume = mAudioManager!!.getStreamVolume(AudioManager.STREAM_MUSIC)
+//            if (isSoundOn!!) {
+//                mSoundPool!!.play(mSoundPoolMap!![index], 18f, 18f, 1, 0, 1f)
+//            }
+//        } catch (e: Exception) {
+//        }
     }
 
     fun setData(wheelAreasResponse: WheelAreasResponse) {
@@ -120,14 +120,14 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
     }
 
     fun setSound() {
-        mAudioManager = mActivity.getSystemService(Context.AUDIO_SERVICE) as AudioManager?
-        mSoundPool = SoundPool(100, AudioManager.STREAM_MUSIC, 0)
-
-        mSoundPoolMap = SparseArray()
-
-        for (i in 0 until 200) {
-            mSoundPoolMap!!.put(i, mSoundPool!!.load(mActivity, R.raw.spin_0, 1))
-        }
+//        mAudioManager = mActivity.getSystemService(Context.AUDIO_SERVICE) as AudioManager?
+//        mSoundPool = SoundPool(100, AudioManager.STREAM_MUSIC, 0)
+//
+//        mSoundPoolMap = SparseArray()
+//
+//        for (i in 0 until 200) {
+//            mSoundPoolMap!!.put(i, mSoundPool!!.load(mActivity, R.raw.spin_0, 1))
+//        }
     }
 
     override fun inject() {}
@@ -269,8 +269,8 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
 
                     scrollAdapter?.highLight(targetPosition)
                     if (isSoundOn!!) {
-                        var mediaPlayer = MediaPlayer.create(mActivity, R.raw.win_sound)
-                        mediaPlayer.start()
+//                        var mediaPlayer = MediaPlayer.create(mActivity, R.raw.win_sound)
+//                        mediaPlayer.start()
                     }
                     Handler().postDelayed({
                         isScroll = false
