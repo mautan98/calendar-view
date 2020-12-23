@@ -12,8 +12,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginStart="54dp"
-            android:layout_marginEnd="52dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
             android:background="@drawable/f2_bg_dialog_15"
             android:orientation="vertical">
 
@@ -30,12 +30,12 @@
 
             <TextView
                 android:id="@+id/tvDescription"
-                android:textSize="16dp"
+                android:textSize="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="21dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center"
                 android:text="tin nhắn"

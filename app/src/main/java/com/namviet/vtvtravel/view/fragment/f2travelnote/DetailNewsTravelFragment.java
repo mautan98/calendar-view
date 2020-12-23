@@ -39,6 +39,7 @@ import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.ultils.F2Util;
+import com.namviet.vtvtravel.ultils.TextJustification;
 import com.namviet.vtvtravel.view.f2.CommentActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.ShareActivity;
@@ -368,6 +369,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                     } else {
                         getBinding().tvSapo.setVisibility(View.VISIBLE);
                         getBinding().tvSapo.setText(detailTravelNewsResponse.getData().getShort_description());
+                        TextJustification.justify(getBinding().tvSapo);
                     }
                 } catch (Exception e) {
                     getBinding().tvSapo.setVisibility(View.GONE);

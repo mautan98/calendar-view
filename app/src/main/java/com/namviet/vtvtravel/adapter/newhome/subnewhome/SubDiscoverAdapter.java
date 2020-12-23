@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.response.newhome.ItemAppDiscoverResponse;
+import com.namviet.vtvtravel.ultils.TextJustification;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 
 import java.util.List;
@@ -105,6 +106,7 @@ public class SubDiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         }
                     }
                 });
+                TextJustification.justify(tv1);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -126,6 +128,7 @@ public class SubDiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         }
                     }
                 });
+                TextJustification.justify(tv2);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -149,6 +152,7 @@ public class SubDiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         }
                     }
                 });
+                TextJustification.justify(tv3);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -170,6 +174,7 @@ public class SubDiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         }
                     }
                 });
+                TextJustification.justify(tv4);
             } catch (Exception e) {
                 e.printStackTrace();
             }

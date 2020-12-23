@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.ultils.DateUtltils;
+import com.namviet.vtvtravel.ultils.TextJustification;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -118,6 +119,7 @@ public class SubTravelNewsAdapter extends RecyclerView.Adapter<RecyclerView.View
             this.position = position;
             try {
                 tvTitle.setText(travels.get(position).getName());
+                TextJustification.justify(tvTitle);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -134,7 +136,20 @@ public class SubTravelNewsAdapter extends RecyclerView.Adapter<RecyclerView.View
                 e.printStackTrace();
             }
 
-            tvViewCount.setText(travels.get(position).getView_count());
+            try {
+                tvViewCount.setText(travels.get(position).getView_count());
+
+                double value = Double.parseDouble(travels.get(position).getView_count());
+                if (value > 1000) {
+                    double finalValue = Math.round(value / 1000 * 10.0) / 10.0;
+                    tvViewCount.setText(finalValue + "k");
+                } else {
+                    tvViewCount.setText(travels.get(position).getView_count());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
 
             try {
                 if (travels.get(position).getIs_video().equals("1")) {

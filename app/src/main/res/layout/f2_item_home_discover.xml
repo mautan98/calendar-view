@@ -32,7 +32,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="2"
+                        android:layout_weight="1.8"
                         app:cardCornerRadius="4dp"
                         tools:ignore="NestedWeights">
 
@@ -56,7 +56,7 @@
 
 
                             <TextView
-                                android:maxLines="2"
+                                android:maxLines="3"
                                 android:ellipsize="end"
                                 android:id="@+id/tv1"
                                 android:layout_width="match_parent"
@@ -65,7 +65,7 @@
                                 android:layout_margin="6dp"
                                 android:fontFamily="@font/roboto_medium"
                                 android:textColor="@color/white"
-                                android:textSize="16dp" />
+                                android:textSize="14dp" />
 
 
                         </RelativeLayout>
@@ -100,7 +100,7 @@
 
 
                             <TextView
-                                android:maxLines="2"
+                                android:maxLines="3"
                                 android:ellipsize="end"
                                 android:id="@+id/tv3"
                                 android:layout_width="match_parent"
@@ -109,7 +109,7 @@
                                 android:layout_margin="6dp"
                                 android:fontFamily="@font/roboto_medium"
                                 android:textColor="@color/white"
-                                android:textSize="16dp" />
+                                android:textSize="14dp" />
 
 
                         </RelativeLayout>
@@ -156,7 +156,7 @@
 
 
                             <TextView
-                                android:maxLines="2"
+                                android:maxLines="3"
                                 android:ellipsize="end"
                                 android:id="@+id/tv2"
                                 android:layout_width="match_parent"
@@ -165,7 +165,7 @@
                                 android:layout_margin="6dp"
                                 android:fontFamily="@font/roboto_medium"
                                 android:textColor="@color/white"
-                                android:textSize="16dp" />
+                                android:textSize="14dp" />
 
 
                         </RelativeLayout>
@@ -201,7 +201,7 @@
 
 
                             <TextView
-                                android:maxLines="2"
+                                android:maxLines="3"
                                 android:ellipsize="end"
                                 android:id="@+id/tv4"
                                 android:layout_width="match_parent"
@@ -210,7 +210,7 @@
                                 android:layout_margin="6dp"
                                 android:fontFamily="@font/roboto_medium"
                                 android:textColor="@color/white"
-                                android:textSize="16dp" />
+                                android:textSize="14dp" />
 
 
                         </RelativeLayout>

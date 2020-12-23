@@ -23,6 +23,7 @@ import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.ultils.F2Util;
+import com.namviet.vtvtravel.ultils.TextJustification;
 import com.namviet.vtvtravel.view.f2.CommentActivity;
 import com.namviet.vtvtravel.view.f2.ShareActivity;
 import com.namviet.vtvtravel.view.fragment.share.ShareBottomDialog;
@@ -132,6 +133,12 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
             tvAuthor.setText(item.getAuthor());
 
             readMoreOption.addReadMoreTo(tvDescription, item.getShort_description());
+
+            try {
+                TextJustification.justify(tvDescription);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             tvCommentCount.setText(item.getCount_comment());
             tvView.setText(item.getView_count());

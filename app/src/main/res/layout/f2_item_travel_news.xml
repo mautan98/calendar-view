@@ -53,7 +53,7 @@
 
 
                 <TextView
-                    android:maxLines="2"
+                    android:maxLines="3"
                     android:ellipsize="end"
                     android:id="@+id/tvTitle"
                     android:layout_width="match_parent"
@@ -64,7 +64,7 @@
                     android:fontFamily="@font/roboto_medium"
                     android:text="Gợi ý 6 địa điểm vui chơi cho trẻ em ở..."
                     android:textColor="@color/md_black_1000"
-                    android:textSize="16dp" />
+                    android:textSize="14dp" />
 
 
                 <LinearLayout
