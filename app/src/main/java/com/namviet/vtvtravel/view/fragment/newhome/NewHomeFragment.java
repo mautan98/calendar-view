@@ -237,7 +237,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 //            homeServiceResponse.getData().get(0).setDescriptionUser("Đăng kí hội viên ngay");
 //            homeServiceResponse.getData().get(0).setAvatar(account.getImageProfile());
 
-            binding.tvName.setText("Xin chào, " + s);
+            binding.tvName.setText("Chào, " + s);
             binding.tvLoginRightNow.setText("Đăng kí hội viên ngay");
             binding.tvLoginRightNow.setVisibility(View.GONE);
             binding.tvLevel.setVisibility(View.VISIBLE);
@@ -632,7 +632,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                 homeServiceResponse.getData().get(1).setTipUser("Bạn đang là Hội viên của #VTVTravel, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:");
                 homeServiceResponse.getData().get(1).setShowBtnRegisterNow(false);
 
-                binding.tvName.setText("Xin chào, " + s);
+                binding.tvName.setText("Chào, " + s);
                 binding.tvLoginRightNow.setText("Đăng kí hội viên ngay");
                 binding.tvLoginRightNow.setVisibility(View.GONE);
                 binding.tvLevel.setVisibility(View.VISIBLE);
@@ -646,7 +646,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 //                    homeServiceResponse.getData().get(0).setUsername("Xin chào, " + phoneNumberDetectedFrom3G);
 //                    homeServiceResponse.getData().get(0).setDescriptionUser("Đăng ký ngay");
 
-                    binding.tvName.setText("Xin chào, " + phoneNumberDetectedFrom3G);
+                    binding.tvName.setText("Chào, " + phoneNumberDetectedFrom3G);
                     binding.tvLoginRightNow.setText("Đăng ký ngay");
                     binding.tvLoginRightNow.setVisibility(View.VISIBLE);
                 } else {
@@ -731,7 +731,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
         Account account = MyApplication.getInstance().getAccount();
         if (null != account && account.isLogin()) {
             String s = account.getFullname() != null ? account.getFullname() : "Bạn";
-            binding.tvName.setText("Xin chào, " + s);
+            binding.tvName.setText("Chào, " + s);
             if (!"".equals(account.getImageProfile()) && account.getImageProfile() != null) {
                 Glide.with(mActivity).load(account.getImageProfile()).error(R.drawable.f2_defaut_user).into(binding.imgAvatar);
             }

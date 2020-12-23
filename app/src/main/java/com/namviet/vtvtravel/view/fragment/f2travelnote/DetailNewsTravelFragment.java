@@ -249,10 +249,21 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                     detailTravelNewsResponse.getData().setLiked(false);
 //                            getBinding().imgHeart.setImageResource(R.drawable.f2_ic_gray_heart);
                     getBinding().imgHeart.setLiked(false);
+
+                    try {
+                        getBinding().tvLikeCount.setText(String.valueOf(Integer.parseInt(getBinding().tvLikeCount.getText().toString()) - 1));
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     detailTravelNewsResponse.getData().setLiked(true);
 //                            getBinding().imgHeart.setImageResource(R.drawable.f2_ic_red_heart);
                     getBinding().imgHeart.setLiked(true);
+                    try {
+                        getBinding().tvLikeCount.setText(String.valueOf(Integer.parseInt(getBinding().tvLikeCount.getText().toString()) + 1));
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
                 }
             } else {
                 LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
@@ -275,6 +286,12 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
 
                 getBinding().shimmerMain.setVisibility(View.GONE);
                 detailTravelNewsResponse = (DetailTravelNewsResponse) o;
+
+                try {
+                    getBinding().tvLikeCount.setText(detailTravelNewsResponse.getData().getLikeCount());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 try {
                     if (detailTravelNewsResponse.getData().isLiked()) {
@@ -369,7 +386,6 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                     } else {
                         getBinding().tvSapo.setVisibility(View.VISIBLE);
                         getBinding().tvSapo.setText(detailTravelNewsResponse.getData().getShort_description());
-                        TextJustification.justify(getBinding().tvSapo);
                     }
                 } catch (Exception e) {
                     getBinding().tvSapo.setVisibility(View.GONE);

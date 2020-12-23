@@ -1,5 +1,6 @@
 package com.namviet.vtvtravel.adapter.f2biglocation;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,8 +28,10 @@ import com.namviet.vtvtravel.response.WeatherResponse;
 import com.namviet.vtvtravel.response.f2biglocation.BigLocationResponse;
 import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
+import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f2.HighLightSeeMoreVideoActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
+import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
@@ -171,17 +174,26 @@ public class ParentDetailBigLocationAdapter extends RecyclerView.Adapter<Recycle
         private RecyclerView rclContent;
         private TextView tvTitle;
         private TravelTipBigLocationAdapter travelTipBigLocationAdapter;
+        private TextView btnSeeMore;
 
         public TravelTipViewHolder(View itemView) {
             super(itemView);
             rclContent = itemView.findViewById(R.id.rclContent);
             tvTitle = itemView.findViewById(R.id.tvTitle);
+            btnSeeMore = itemView.findViewById(R.id.btnSeeMore);
         }
 
         public void bindItem() {
             travelTipBigLocationAdapter = new TravelTipBigLocationAdapter(travelTip.getItems(), context, null);
             rclContent.setAdapter(travelTipBigLocationAdapter);
             tvTitle.setText(travelTip.getName());
+
+            btnSeeMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    TravelNewsActivity.openScreen((Activity) context, true, TravelNewsActivity.OpenType.LIST);
+                }
+            });
 
         }
     }

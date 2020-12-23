@@ -62,23 +62,23 @@
         
         
         <ImageView
-            android:padding="5dp"
+            android:padding="7dp"
             android:visibility="gone"
             android:src="@drawable/f2_ic_selected_lucky_wheel"
             android:id="@+id/imgSelected"
             android:layout_marginStart="11dp"
             android:layout_marginEnd="11dp"
-            android:layout_width="29dp"
-            android:layout_height="29dp"/>
+            android:layout_width="33dp"
+            android:layout_height="33dp"/>
 
         <ImageView
-            android:padding="5dp"
+            android:padding="7dp"
             android:src="@drawable/f2_ic_unselected_lucky_wheel"
             android:id="@+id/imgUnSelected"
             android:layout_marginStart="11dp"
             android:layout_marginEnd="11dp"
-            android:layout_width="29dp"
-            android:layout_height="29dp"/>
+            android:layout_width="33dp"
+            android:layout_height="33dp"/>
         
         
         

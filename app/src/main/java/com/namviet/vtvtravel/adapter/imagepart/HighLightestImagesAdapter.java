@@ -134,11 +134,6 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
 
             readMoreOption.addReadMoreTo(tvDescription, item.getShort_description());
 
-            try {
-                TextJustification.justify(tvDescription);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
             tvCommentCount.setText(item.getCount_comment());
             tvView.setText(item.getView_count());

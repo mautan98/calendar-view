@@ -119,7 +119,6 @@ public class SubTravelNewsAdapter extends RecyclerView.Adapter<RecyclerView.View
             this.position = position;
             try {
                 tvTitle.setText(travels.get(position).getName());
-                TextJustification.justify(tvTitle);
             } catch (Exception e) {
                 e.printStackTrace();
             }

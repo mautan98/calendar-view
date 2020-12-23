@@ -106,7 +106,6 @@ public class SubDiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         }
                     }
                 });
-                TextJustification.justify(tv1);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -128,7 +127,6 @@ public class SubDiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         }
                     }
                 });
-                TextJustification.justify(tv2);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -152,7 +150,6 @@ public class SubDiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         }
                     }
                 });
-                TextJustification.justify(tv3);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -174,7 +171,6 @@ public class SubDiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         }
                     }
                 });
-                TextJustification.justify(tv4);
             } catch (Exception e) {
                 e.printStackTrace();
             }

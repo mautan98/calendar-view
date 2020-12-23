@@ -45,24 +45,32 @@
                 android:gravity="end|center_vertical">
 
 
-
-                <com.like.LikeButton
-                    android:id="@+id/imgHeart"
+                <RelativeLayout
                     android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_gravity="center"
-                    app:anim_scale_factor="4.5"
-                    app:icon_size="15dp"
-                    app:like_drawable="@drawable/f2_ic_red_heart"
-                    app:unlike_drawable="@drawable/f2_ic_gray_heart" />
+                    android:layout_height="wrap_content">
+
+                    <com.like.LikeButton
+                        android:id="@+id/imgHeart"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center"
+                        app:anim_scale_factor="4.5"
+                        app:icon_size="15dp"
+                        app:like_drawable="@drawable/f2_ic_red_heart"
+                        app:unlike_drawable="@drawable/f2_ic_gray_heart" />
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:text="9"
-                    android:visibility="gone" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:id="@+id/tvLikeCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="0"
+                        android:visibility="visible" />
+
+                </RelativeLayout>
 
 
                 <ImageView
@@ -71,7 +79,7 @@
                     android:layout_height="28dp"
 
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="12dp"
 
                     android:padding="5dp"
                     android:src="@drawable/f2_ic_share_new" />
