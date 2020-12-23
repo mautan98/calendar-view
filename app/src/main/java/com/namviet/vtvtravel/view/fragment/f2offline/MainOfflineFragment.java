@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.google.android.material.tabs.TabLayout;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2offline.MainAdapter;
+import com.namviet.vtvtravel.adapter.vtvtabstyle.VTVTabStyleAdapter;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2FragmentMainOfflineBinding;
 import com.namviet.vtvtravel.model.offline.OfflineDynamic;
@@ -94,9 +95,9 @@ public class MainOfflineFragment extends MainFragment {
     }
 
 
-    private MainAdapter mainAdapter;
+    private VTVTabStyleAdapter mainAdapter;
     private void renderViewPager() {
-        mainAdapter = new MainAdapter(getChildFragmentManager());
+        mainAdapter = new VTVTabStyleAdapter(getChildFragmentManager());
 
         for (int i = 0; i < offlineDynamic.getListScreens().size(); i++) {
             if (offlineDynamic.getListScreens().get(i).getId().equals("1")) {
@@ -136,9 +137,9 @@ public class MainOfflineFragment extends MainFragment {
 //        binding.tabLayout.getTabAt(2).setText("Gói dịch vụ");
 //        binding.tabLayout.getTabAt(3).setText("Tổng đài 1039");
 
-        for (int i = 0; i < offlineDynamic.getListScreens().size(); i++) {
-            binding.tabLayout.getTabAt(i).setText(offlineDynamic.getListScreens().get(i).getName());
-        }
+//        for (int i = 0; i < offlineDynamic.getListScreens().size(); i++) {
+//            binding.tabLayout.getTabAt(i).setText(offlineDynamic.getListScreens().get(i).getName());
+//        }
 
 
         for (int i = 0; i < offlineDynamic.getListScreens().size(); i++) {
