@@ -1,6 +1,8 @@
 package com.namviet.vtvtravel.view.fragment.f2offline;
 
 import androidx.databinding.DataBindingUtil;
+
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,8 +10,10 @@ import androidx.core.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.tabs.TabLayout;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2offline.MainAdapter;
 import com.namviet.vtvtravel.config.Constants;
@@ -90,8 +94,9 @@ public class MainOfflineFragment extends MainFragment {
     }
 
 
+    private MainAdapter mainAdapter;
     private void renderViewPager() {
-        MainAdapter mainAdapter = new MainAdapter(getChildFragmentManager());
+        mainAdapter = new MainAdapter(getChildFragmentManager());
 
         for (int i = 0; i < offlineDynamic.getListScreens().size(); i++) {
             if (offlineDynamic.getListScreens().get(i).getId().equals("1")) {
@@ -124,7 +129,7 @@ public class MainOfflineFragment extends MainFragment {
 
 
     private void renderTabLayout() {
-        binding.tabLayout.setTabTextColors(ContextCompat.getColor(mActivity, R.color.md_black_1000), ContextCompat.getColor(mActivity, R.color.f2_color_package));
+//        binding.tabLayout.setTabTextColors(ContextCompat.getColor(mActivity, R.color.md_black_1000), ContextCompat.getColor(mActivity, R.color.f2_color_package));
         binding.tabLayout.setupWithViewPager(binding.vpMainOffline);
 //        binding.tabLayout.getTabAt(0).setText("Call Now");
 //        binding.tabLayout.getTabAt(1).setText("Săn deal");
@@ -134,6 +139,26 @@ public class MainOfflineFragment extends MainFragment {
         for (int i = 0; i < offlineDynamic.getListScreens().size(); i++) {
             binding.tabLayout.getTabAt(i).setText(offlineDynamic.getListScreens().get(i).getName());
         }
+
+
+        for (int i = 0; i < offlineDynamic.getListScreens().size(); i++) {
+            View tabHome = LayoutInflater.from(mActivity).inflate(R.layout.f2_custom_tab_vtv_style, null);
+            TextView tvHome = tabHome.findViewById(R.id.tvTitle);
+            tvHome.setText((offlineDynamic.getListScreens().get(i).getName()));
+            if (i == 0) {
+                tvHome.setTextColor(Color.parseColor("#00918D"));
+            } else {
+                tvHome.setTextColor(Color.parseColor("#101010"));
+            }
+            View view = tabHome.findViewById(R.id.indicator);
+            if (i == 0) {
+                view.setVisibility(View.VISIBLE);
+            } else {
+                view.setVisibility(View.INVISIBLE);
+            }
+            binding.tabLayout.getTabAt(i).setCustomView(tabHome);
+        }
+        binding.tabLayout.addOnTabSelectedListener(OnTabSelectedListener);
     }
 
     //    @Override
@@ -168,4 +193,23 @@ public class MainOfflineFragment extends MainFragment {
         }
         return json;
     }
+
+    private TabLayout.OnTabSelectedListener OnTabSelectedListener = new TabLayout.OnTabSelectedListener() {
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+            int c = tab.getPosition();
+            mainAdapter.SetOnSelectView(binding.tabLayout, c);
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+            int c = tab.getPosition();
+            mainAdapter.SetUnSelectView(binding.tabLayout, c);
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+
+        }
+    };
 }

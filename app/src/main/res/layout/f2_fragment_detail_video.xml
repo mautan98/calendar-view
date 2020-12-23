@@ -29,7 +29,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ctlBanner"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -44,9 +44,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.longtailvideo.jwplayer.JWPlayerView
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="16:9"
                 android:id="@+id/jwPlayer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="0dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 <!--        <ImageView-->
