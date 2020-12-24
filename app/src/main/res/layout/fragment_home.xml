@@ -39,11 +39,11 @@
 
             <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/ivChat"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_marginTop="10dp"
                 android:background="@null"
-                android:src="@drawable/f2_ic_chat3"
+                android:src="@drawable/f2_ic_chat5"
                 android:visibility="visible" />
         </LinearLayout>
 
