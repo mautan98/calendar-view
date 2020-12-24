@@ -11,6 +11,8 @@ import com.namviet.vtvtravel.response.f2comment.DeleteCommentResponse;
 import com.namviet.vtvtravel.response.f2comment.UpdateCommentResponse;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
+import java.util.Map;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -19,11 +21,14 @@ import retrofit2.HttpException;
 
 public class CommentViewModel extends BaseViewModel {
 
-    public void getComment(String contentId) {
+    public void getComment(String contentId, int page) {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
         RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(Param.getComment(contentId)).toString());
-        Disposable disposable = newsService.getComment(jsonBodyObject)
+
+        Map<String, Object> queryMap = Param.getComment(page);
+
+        Disposable disposable = newsService.getComment(jsonBodyObject, queryMap)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<CommentResponse>() {

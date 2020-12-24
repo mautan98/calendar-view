@@ -414,6 +414,9 @@ public interface TravelService {
     Observable<DetailTravelNewsResponse> getDetailNewsTravel(@Url String url, @QueryMap Map<String, Object> queryMap);
 
     @POST(WSConfig.Api.COMMENTS_SEARCH)
+    Observable<com.namviet.vtvtravel.response.f2comment.CommentResponse> getComment(@Body RequestBody jsonBodyObject, @QueryMap Map<String, Object> queryMap);
+
+    @POST(WSConfig.Api.COMMENTS_SEARCH)
     Observable<com.namviet.vtvtravel.response.f2comment.CommentResponse> getComment(@Body RequestBody jsonBodyObject);
 
     @POST(WSConfig.Api.COMMENTS_CREATE)

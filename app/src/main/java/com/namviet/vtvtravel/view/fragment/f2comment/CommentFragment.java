@@ -5,6 +5,9 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.view.View;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent;
@@ -25,6 +28,7 @@ import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.viewmodel.f2comment.CommentViewModel;
+import com.namviet.vtvtravel.widget.EndlessRecyclerViewScrollListener;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -55,6 +59,10 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
     private List<CommentResponse.Data.Comment> comments = new ArrayList<>();
 
     private int commentAdd = 0;
+
+    private int page = 0;
+
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     public CommentFragment() {
     }
@@ -89,14 +97,14 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
         contentId = detailTravelNewsResponse.getData().getId();
         contentType = detailTravelNewsResponse.getData().getContent_type();
 
-        viewModel.getComment(detailTravelNewsResponse.getData().getId());
+        viewModel.getComment(detailTravelNewsResponse.getData().getId(), page);
 //        viewModel.updateComment("616", "ahihi");
 //        viewModel.deleteComment("616");
 
         commentAdapter = new CommentAdapter(comments, mActivity, new CommentAdapter.ClickItem() {
             @Override
             public void onClickItem(CommentResponse.Data.Comment comment) {
-
+                viewModel.getComment(detailTravelNewsResponse.getData().getId(), page);
             }
 
             @Override
@@ -207,6 +215,14 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
         } else {
         }
 
+
+        scrollListener = new EndlessRecyclerViewScrollListener((LinearLayoutManager) getBinding().rclComment.getLayoutManager()) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+
+            }
+        };
+
     }
 
     @Override
@@ -277,9 +293,15 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                 if (response.getData().getContent().size() > 0) {
                     getBinding().layoutNoComment.setVisibility(View.GONE);
                 }
-                comments.clear();
-                comments.addAll(response.getData().getContent());
-                commentAdapter.notifyDataSetChanged();
+                if(page == 0) {
+                    comments.clear();
+                    comments.addAll(response.getData().getContent());
+                    commentAdapter.notifyDataSetChanged();
+                }else {
+                    comments.addAll(response.getData().getContent());
+                    commentAdapter.notifyDataSetChanged();
+                }
+                page = page + 1;
 //                commentAdapter = new CommentAdapter(response.getData().getContent(), mActivity, new CommentAdapter.ClickItem() {
 //                    @Override
 //                    public void onClickItem(CommentResponse.Data.Comment comment) {
@@ -367,20 +389,23 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                 CreateCommentResponse response = (CreateCommentResponse) o;
                 if (response != null && response.isSuccess()) {
                     EventBus.getDefault().post(new OnCommentSuccessInTravelNews());
-                    viewModel.getComment(detailTravelNewsResponse.getData().getId());
+                    viewModel.getComment(detailTravelNewsResponse.getData().getId(), page);
+                    page = 0;
                     commentAdd = commentAdd + 1;
                 }
             } else if (o instanceof DeleteCommentResponse) {
                 DeleteCommentResponse response = (DeleteCommentResponse) o;
                 if (response != null && response.isSuccess()) {
                     EventBus.getDefault().post(new OnCommentSuccessInTravelNews());
-                    viewModel.getComment(detailTravelNewsResponse.getData().getId());
+                    viewModel.getComment(detailTravelNewsResponse.getData().getId(), page);
+                    page = 0;
                     commentAdd = commentAdd - 1;
                 }
             } else if (o instanceof UpdateCommentResponse) {
                 UpdateCommentResponse response = (UpdateCommentResponse) o;
                 if (response != null && response.isSuccess()) {
-                    viewModel.getComment(detailTravelNewsResponse.getData().getId());
+                    viewModel.getComment(detailTravelNewsResponse.getData().getId(), page);
+                    page = 0;
                 }
             } else if (o instanceof ErrorResponse) {
                 ErrorResponse responseError = (ErrorResponse) o;

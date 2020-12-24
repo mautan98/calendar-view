@@ -835,6 +835,12 @@ public class Param {
         return map;
     }
 
+    public static Map<String, Object> getComment(int page) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(WSConfig.KeyParam.PAGE, page);
+        return map;
+    }
+
     public static JSONObject postEvent(String eventName) {
         JSONObject map = new JSONObject();
         try {
