@@ -240,6 +240,19 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
             binding.tvName.setText("Chào, " + s);
             binding.tvLoginRightNow.setText("Đăng kí hội viên ngay");
             binding.tvLoginRightNow.setVisibility(View.GONE);
+            try {
+                String cut = account.getMobile().substring(3, 8);
+                String mobile = account.getMobile().replace(cut, "xxxxx");
+                binding.tvLoginRightNow.setText(mobile);
+                binding.tvLoginRightNow.setVisibility(View.VISIBLE);
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    binding.tvLoginRightNow.setVisibility(View.GONE);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            }
             binding.tvLevel.setVisibility(View.VISIBLE);
             if (!"".equals(account.getImageProfile()) && account.getImageProfile() != null) {
                 Glide.with(mActivity).load(account.getImageProfile()).error(R.drawable.f2_defaut_user).into(binding.imgAvatar);
@@ -635,6 +648,19 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                 binding.tvName.setText("Chào, " + s);
                 binding.tvLoginRightNow.setText("Đăng kí hội viên ngay");
                 binding.tvLoginRightNow.setVisibility(View.GONE);
+                try {
+                    String cut = account.getMobile().substring(3, 8);
+                    String mobile = account.getMobile().replace(cut, "xxxxx");
+                    binding.tvLoginRightNow.setText(mobile);
+                    binding.tvLoginRightNow.setVisibility(View.VISIBLE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    try {
+                        binding.tvLoginRightNow.setVisibility(View.GONE);
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                    }
+                }
                 binding.tvLevel.setVisibility(View.VISIBLE);
                 if (!"".equals(account.getImageProfile()) && account.getImageProfile() != null) {
                     Glide.with(mActivity).load(account.getImageProfile()).error(R.drawable.f2_defaut_user).into(binding.imgAvatar);

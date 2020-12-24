@@ -490,7 +490,7 @@ public class ChatFragment extends MainFragment implements Observer, ChatAdapter.
     public void optionChat() {
         cancelTimer30s();
         removeLastIndex();
-        handleChat("Chào bạn! Bạn mong muốn chúng tôi hỗ trợ về vấn đề gì?", getCurrentTime(), Constants.TypeChat.ADMIN_FIRST, "Tổng đài viên - VTVTravel", true);
+        handleChat("Chào Quý khách! Quý khách mong muốn chúng tôi hỗ trợ về vấn đề gì?", getCurrentTime(), Constants.TypeChat.ADMIN_FIRST, "Tổng đài viên - VTVTravel", true);
         binding.llEditChat.setVisibility(View.VISIBLE);
         MyApplication.getInstance().setChatBot(false);
         try {

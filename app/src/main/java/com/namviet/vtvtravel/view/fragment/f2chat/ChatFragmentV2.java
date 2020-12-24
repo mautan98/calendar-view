@@ -584,7 +584,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
         Account account = MyApplication.getInstance().getAccount();
         if (null != account && account.isLogin()) {
             removeLastIndex();
-            handleChat("Chào bạn! Bạn mong muốn chúng tôi hỗ trợ về vấn đề gì?", getCurrentTime(), Constants.TypeChat.ADMIN_FIRST, "Chatbot", true);
+            handleChat("Chào Quý khách! Quý khách mong muốn chúng tôi hỗ trợ về vấn đề gì?", getCurrentTime(), Constants.TypeChat.ADMIN_FIRST, "Chatbot", true);
             MyApplication.getInstance().setChatBot(false);
             try {
                 String mobile = "anonymous";
