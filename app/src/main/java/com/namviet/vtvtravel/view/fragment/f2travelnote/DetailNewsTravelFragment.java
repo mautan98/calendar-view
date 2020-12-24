@@ -90,6 +90,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
             @Override
             public void run() {
                 viewModel = new DetailNewsTravelViewModel();
+
                 getBinding().setDetailNewsTravelViewModel(viewModel);
                 viewModel.addObserver(DetailNewsTravelFragment.this);
                 viewModel.getDetailNewsTravel(detailLink);
@@ -386,6 +387,11 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                     } else {
                         getBinding().tvSapo.setVisibility(View.VISIBLE);
                         getBinding().tvSapo.setText(detailTravelNewsResponse.getData().getShort_description());
+                        try {
+                            TextJustification.justify(getBinding().tvSapo);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 } catch (Exception e) {
                     getBinding().tvSapo.setVisibility(View.GONE);
