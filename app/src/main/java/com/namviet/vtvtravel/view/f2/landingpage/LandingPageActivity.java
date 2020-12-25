@@ -62,10 +62,14 @@ public class LandingPageActivity extends BaseActivityNew<F2ActivityLandingPageBi
         });
 
         getBinding().webView.loadUrl(genLink());
+        getBinding().btnBack.setOnClickListener(view -> {
+            finish();
+        });
     }
 
     @Override
     public void setClick() {
+
     }
 
     @Override
