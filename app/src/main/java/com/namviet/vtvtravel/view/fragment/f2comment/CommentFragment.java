@@ -219,11 +219,11 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
         scrollListener = new EndlessRecyclerViewScrollListener((LinearLayoutManager) getBinding().rclComment.getLayoutManager()) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-//                try {
-//                    viewModel.getComment(detailTravelNewsResponse.getData().getId(), CommentFragment.this.page);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    viewModel.getComment(detailTravelNewsResponse.getData().getId(), CommentFragment.this.page);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         };
 
@@ -395,16 +395,16 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                 CreateCommentResponse response = (CreateCommentResponse) o;
                 if (response != null && response.isSuccess()) {
                     EventBus.getDefault().post(new OnCommentSuccessInTravelNews());
-                    viewModel.getComment(detailTravelNewsResponse.getData().getId(), page);
                     page = 0;
+                    viewModel.getComment(detailTravelNewsResponse.getData().getId(), page);
                     commentAdd = commentAdd + 1;
                 }
             } else if (o instanceof DeleteCommentResponse) {
                 DeleteCommentResponse response = (DeleteCommentResponse) o;
                 if (response != null && response.isSuccess()) {
                     EventBus.getDefault().post(new OnCommentSuccessInTravelNews());
-                    viewModel.getComment(detailTravelNewsResponse.getData().getId(), page);
                     page = 0;
+                    viewModel.getComment(detailTravelNewsResponse.getData().getId(), page);
                     commentAdd = commentAdd - 1;
                 }
             } else if (o instanceof UpdateCommentResponse) {

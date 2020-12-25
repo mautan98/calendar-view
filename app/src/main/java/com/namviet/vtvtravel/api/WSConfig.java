@@ -35,7 +35,7 @@ public class WSConfig {
 //    public static final String HOST_CREATE_TRIP = "http://tour.vtvtravel.vn/my-trip/create";
 //    public static final String HOST_MY_TRIP = "http://tour.vtvtravel.vn/my-trip";
 //    public static final String HOST_RECEIVE_TRIP = "http://tour.vtvtravel.vn/my-trip/detail";
-//    public static final String HOST_LANDING_PAGE = "https://travel1.onex.vn/LandingPage1039";
+//    public static final String HOST_LANDING_PAGE = "https://m.vtvtravel.vn/LandingPage1039";
 
     public static final String URL_ENCODE = "http://api.travel.onex.vn/test/rsa/decrypt";
     public static final String URL_DEFAULT_CHANNEL = "http://113.185.19.133:8443/namvietvtv/smil:vtv1.smil/playlist.m3u8";
