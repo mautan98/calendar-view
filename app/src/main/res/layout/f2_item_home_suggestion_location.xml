@@ -141,6 +141,7 @@
 
 
                         <ImageView
+                            android:layout_marginTop="3dp"
                             android:layout_width="14dp"
                             android:layout_height="14dp"
                             android:src="@drawable/f2_ic_view" />

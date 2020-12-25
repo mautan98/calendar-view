@@ -443,7 +443,19 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            getBinding().tvNumberOfComment.setText(video.getComment_count());
+
+            try {
+                double value = Double.parseDouble(video.getComment_count());
+                if (value > 1000) {
+                    double finalValue = Math.round(value / 1000 * 10.0) / 10.0;
+                    getBinding().tvNumberOfComment.setText(finalValue + "k");
+                } else {
+                    getBinding().tvNumberOfComment.setText(video.getComment_count());
+                }
+            } catch (Exception e) {
+                getBinding().tvNumberOfComment.setText(video.getComment_count());
+            }
+
             getBinding().tvDescription.setText(video.getShort_description());
         } catch (Exception e) {
             e.printStackTrace();
