@@ -121,7 +121,7 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
         }
         if (viewType == TYPE_HEADER_2) {
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_item_big_location_main, parent, false);
-            return new HeaderViewHolder2(v);
+            return new HeaderViewHolder(v);
         }
         if (viewType == TYPE_FOOTER) {
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_item_big_location_main_2, parent, false);
@@ -147,7 +147,7 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
             if (getItemViewType(position) == TYPE_HEADER) {
                 ((HeaderViewHolder) holder).bindItem(position);
             } else if (getItemViewType(position) == TYPE_HEADER_2) {
-                ((HeaderViewHolder2) holder).bindItem(position);
+                ((HeaderViewHolder) holder).bindItem(position);
             } else if (getItemViewType(position) == TYPE_FOOTER) {
                 ((FooterViewHolder) holder).bindItem(position);
             } else if (getItemViewType(position) == TYPE_APP_TRAVEL_TIP) {
