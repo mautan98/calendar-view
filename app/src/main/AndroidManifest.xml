@@ -326,6 +326,7 @@
         <activity android:name=".view.f2.ShareActivity" />
         <activity android:name=".view.f2.RuleActivity" />
         <activity android:name=".view.CallActivity" />
+        <activity android:name=".view.f2.landingpage.LandingPageActivity" />
 
 
         <service android:name=".service.TrackLocationService" />

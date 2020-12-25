@@ -24,6 +24,7 @@ import com.namviet.vtvtravel.view.f2.MyTripActivity;
 import com.namviet.vtvtravel.view.f2.SystemInboxActivity;
 import com.namviet.vtvtravel.view.f2.WebviewActivity;
 import com.namviet.vtvtravel.view.f2.f2oldbase.SettingActivity;
+import com.namviet.vtvtravel.view.f2.landingpage.LandingPageActivity;
 import com.namviet.vtvtravel.view.f2.virtualswitchboard.VirtualSwitchBoardActivity;
 
 import java.util.ArrayList;
@@ -162,6 +163,19 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                 LoginAndRegisterActivityNew.startScreen(context, 0, false);
                             }
 
+                            break;
+
+                        case "APP_MAIN_HEADER_TDDL":
+                            Account accountTDDL = MyApplication.getInstance().getAccount();
+                            if (null != accountTDDL && accountTDDL.isLogin()) {
+                                if(accountTDDL.isTravelingSupporter()){
+                                    VirtualSwitchBoardActivity.Companion.openActivity(context);
+                                }else {
+                                    LandingPageActivity.startScreen(context);
+                                }
+                            } else {
+                                LandingPageActivity.startScreen(context);
+                            }
                             break;
 
                     }

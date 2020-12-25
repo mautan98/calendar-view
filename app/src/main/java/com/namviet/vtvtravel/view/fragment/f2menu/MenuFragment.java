@@ -159,14 +159,14 @@ public class MenuFragment extends MainFragment implements Observer {
             }
         }
 
-        if (MyApplication.getInstance().getAccount() != null
-                && MyApplication.getInstance().getAccount().isTravelingSupporter()) {
-            MenuItem virtualCallMenu = new MenuItem();
-            virtualCallMenu.setName("Tổng đài số ảo");
-            virtualCallMenu.setCode_type("APP_MAIN_HEADER_VIRTUAL_CALL");
-            virtualCallMenu.setCode("HEADER");
-            itemMenusHeader.add(virtualCallMenu);
-        }
+//        if (MyApplication.getInstance().getAccount() != null
+//                && MyApplication.getInstance().getAccount().isTravelingSupporter()) {
+//            MenuItem virtualCallMenu = new MenuItem();
+//            virtualCallMenu.setName("Tổng đài số ảo");
+//            virtualCallMenu.setCode_type("APP_MAIN_HEADER_VIRTUAL_CALL");
+//            virtualCallMenu.setCode("HEADER");
+//            itemMenusHeader.add(virtualCallMenu);
+//        }
 
     }
 
@@ -221,18 +221,18 @@ public class MenuFragment extends MainFragment implements Observer {
             binding.layoutUser.setVisibility(View.VISIBLE);
             binding.layoutUserNotYetLogin.setVisibility(View.GONE);
             binding.rclHeaderMenu.setVisibility(View.VISIBLE);
-            if (MyApplication.getInstance().getAccount() != null
-                    && MyApplication.getInstance().getAccount().isTravelingSupporter()) {
-                if (itemMenusHeader != null && itemMenusHeader.size() > 0
-                        && !"APP_MAIN_HEADER_VIRTUAL_CALL".equals(itemMenusHeader.get(itemMenusHeader.size() - 1).getCode_type())) {
-                    MenuItem virtualCallMenu = new MenuItem();
-                    virtualCallMenu.setName("Tổng đài số ảo");
-                    virtualCallMenu.setCode_type("APP_MAIN_HEADER_VIRTUAL_CALL");
-                    virtualCallMenu.setCode("HEADER");
-                    itemMenusHeader.add(virtualCallMenu);
-                }
-
-            }
+//            if (MyApplication.getInstance().getAccount() != null
+//                    && MyApplication.getInstance().getAccount().isTravelingSupporter()) {
+//                if (itemMenusHeader != null && itemMenusHeader.size() > 0
+//                        && !"APP_MAIN_HEADER_VIRTUAL_CALL".equals(itemMenusHeader.get(itemMenusHeader.size() - 1).getCode_type())) {
+//                    MenuItem virtualCallMenu = new MenuItem();
+//                    virtualCallMenu.setName("Tổng đài số ảo");
+//                    virtualCallMenu.setCode_type("APP_MAIN_HEADER_VIRTUAL_CALL");
+//                    virtualCallMenu.setCode("HEADER");
+//                    itemMenusHeader.add(virtualCallMenu);
+//                }
+//
+//            }
         } else {
             binding.layoutUser.setVisibility(View.GONE);
             binding.layoutUserNotYetLogin.setVisibility(View.VISIBLE);

@@ -41,6 +41,7 @@ import com.namviet.vtvtravel.response.f2menu.MenuResponse;
 import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f2.ChatActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.view.f2.landingpage.LandingPageActivity;
 import com.namviet.vtvtravel.view.f2.virtualswitchboard.VirtualSwitchBoardActivity;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.view.fragment.f2booking.BookingFragment;
@@ -129,10 +130,10 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
                    if(account.isTravelingSupporter()){
                        VirtualSwitchBoardActivity.Companion.openActivity(mActivity);
                    }else {
-                       Toast.makeText(mActivity, "Tính năng chỉ dành cho sở du lịch", Toast.LENGTH_SHORT).show();
+                       LandingPageActivity.startScreen(mActivity);
                    }
                 } else {
-                    LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+                    LandingPageActivity.startScreen(mActivity);
                 }
 
             }
