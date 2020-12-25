@@ -83,6 +83,9 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
     private CountDownTimer mTimer60s;
     private boolean isBot = true;
 
+
+    private Handler handler;
+
     @Override
     public int getLayoutRes() {
         return R.layout.f2_fragment_chat;
@@ -413,6 +416,9 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
 
     @Override
     public void onDestroy() {
+        if(handler != null){
+            handler.removeCallbacksAndMessages(null);
+        }
         if (mTimer60s != null) {
             mTimer60s.cancel();
         }
@@ -614,22 +620,32 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
 
     @Subscribe
     public void onBackToChatBot(OnBackToChatBot onBackToChatBot) {
-        String mess = "Tạm biệt Quý khách, VTVTravel luôn mong muốn được đồng hành cùng bạn trong thời gian tới. Xin cảm ơn!";
-        Account account = MyApplication.getInstance().getAccount();
-        if (null != account && account.isLogin() && account.getFullname() != null && !"".equals(account.getFullname())) {
-            mess = "Tạm biệt " + account.getFullname() + ", VTVTravel luôn mong muốn được đồng hành cùng bạn trong thời gian tới. Xin cảm ơn!";
-        }
-        handleChat(mess, getCurrentTime(), Constants.TypeChat.ADMIN_FIRST, "Chatbot", true);
-
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                EventBus.getDefault().post(new OnReOpenChatScreen());
-//                mActivity.finish();
+        try {
+            String mess = "Tạm biệt Quý khách, VTVTravel luôn mong muốn được đồng hành cùng bạn trong thời gian tới. Xin cảm ơn!";
+            Account account = MyApplication.getInstance().getAccount();
+            if (null != account && account.isLogin() && account.getFullname() != null && !"".equals(account.getFullname())) {
+                mess = "Tạm biệt " + account.getFullname() + ", VTVTravel luôn mong muốn được đồng hành cùng bạn trong thời gian tới. Xin cảm ơn!";
             }
-        }, 10000);
+            handleChat(mess, getCurrentTime(), Constants.TypeChat.ADMIN_FIRST, "Chatbot", true);
+
+
+            if (handler != null) {
+                handler.removeCallbacksAndMessages(null);
+            }
+            handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    EventBus.getDefault().post(new OnReOpenChatScreen());
+                    //                mActivity.finish();
+                }
+            }, 10000);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     @Subscribe
     public void onSocketSendSurvey(OnSocketSendSurvey onSocketSendSurvey) {
@@ -726,7 +742,11 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
                 }
 
 
-                new Handler().postDelayed(new Runnable() {
+                if (handler != null) {
+                    handler.removeCallbacksAndMessages(null);
+                }
+                handler = new Handler();
+                handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         try {
@@ -953,7 +973,11 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
         handleChat(mess, getCurrentTime(), Constants.TypeChat.ADMIN_FIRST, "Chatbot", true);
 
 
-        new Handler().postDelayed(new Runnable() {
+        if(handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 EventBus.getDefault().post(new OnReOpenChatScreen());
