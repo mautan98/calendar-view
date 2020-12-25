@@ -19,7 +19,7 @@ public class WSConfig {
     public static final String HOST_CREATE_TRIP = "http://103.21.148.54:8858/my-trip/create";
     public static final String HOST_MY_TRIP = "http://103.21.148.54:8858/my-trip";
     public static final String HOST_RECEIVE_TRIP = "http://103.21.148.54:8858/my-trip/detail";
-    public static final String HOST_LANDING_PAGE = "http://travel1.onex.vn/LandingPage1039";
+    public static final String HOST_LANDING_PAGE = "https://travel1.onex.vn/LandingPage1039";
 
     //Server product
 //    public static final String URL_SOCKET = "https://chat.vtvtravel.vn";
@@ -35,7 +35,7 @@ public class WSConfig {
 //    public static final String HOST_CREATE_TRIP = "http://tour.vtvtravel.vn/my-trip/create";
 //    public static final String HOST_MY_TRIP = "http://tour.vtvtravel.vn/my-trip";
 //    public static final String HOST_RECEIVE_TRIP = "http://tour.vtvtravel.vn/my-trip/detail";
-//    public static final String HOST_LANDING_PAGE = "http://travel1.onex.vn/LandingPage1039";
+//    public static final String HOST_LANDING_PAGE = "https://travel1.onex.vn/LandingPage1039";
 
     public static final String URL_ENCODE = "http://api.travel.onex.vn/test/rsa/decrypt";
     public static final String URL_DEFAULT_CHANNEL = "http://113.185.19.133:8443/namvietvtv/smil:vtv1.smil/playlist.m3u8";
