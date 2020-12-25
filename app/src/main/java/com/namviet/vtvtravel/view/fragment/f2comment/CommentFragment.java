@@ -219,9 +219,15 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
         scrollListener = new EndlessRecyclerViewScrollListener((LinearLayoutManager) getBinding().rclComment.getLayoutManager()) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-
+//                try {
+//                    viewModel.getComment(detailTravelNewsResponse.getData().getId(), CommentFragment.this.page);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
             }
         };
+
+        getBinding().rclComment.addOnScrollListener(scrollListener);
 
     }
 
