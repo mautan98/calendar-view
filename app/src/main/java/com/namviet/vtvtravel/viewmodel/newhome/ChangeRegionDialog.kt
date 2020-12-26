@@ -59,8 +59,8 @@ class ChangeRegionDialog : BaseDialogFragment2() {
     private fun setData() {
         try {
             Glide.with(context!!).load(banner).into(binding?.imgBanner!!)
-            Glide.with(context!!).load(button).into(binding?.btnViewNow!!)
-            binding?.tvTitle?.text = Html.fromHtml(title)
+//            Glide.with(context!!).load(button).into(binding?.btnViewNow!!)
+//            binding?.tvTitle?.text = Html.fromHtml(title)
 
             binding!!.imgBanner.setOnClickListener {
                 click?.onClick()
