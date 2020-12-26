@@ -48,7 +48,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="Trợ lý ảo VTVTravel"
+                    android:text="Hỗ trợ VTVTravel"
                     android:textColor="#FFFFFF"
                     android:textSize="20sp" />
 
