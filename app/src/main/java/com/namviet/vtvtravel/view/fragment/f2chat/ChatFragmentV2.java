@@ -510,7 +510,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
     public void optionForm() {
         Account account = MyApplication.getInstance().getAccount();
         if (null != account && account.isLogin()) {
-            removeLastIndex();
+//            removeLastIndex();
             FormChatActivity.startScreen(mActivity);
             getBinding().layoutChat.setVisibility(View.GONE);
             getBinding().view.setVisibility(View.GONE);
