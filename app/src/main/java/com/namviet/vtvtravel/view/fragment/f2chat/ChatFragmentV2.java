@@ -718,7 +718,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
             mTimer60s.cancel();
             i[0] = 0;
         }
-        mTimer60s = new CountDownTimer(60000, 1000) {
+        mTimer60s = new CountDownTimer(180000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 i[0] = i[0] + 1;

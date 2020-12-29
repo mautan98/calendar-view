@@ -293,6 +293,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
     @Override
     public void onMenuClick(int position) {
         postEventBusClickTab();
+        binding.layoutButton.setVisibility(View.VISIBLE);
 //        binding.menuFooter.setIndexCurrent(position);
         switchFragment(SlideMenu.MenuType.NEW_MENU);
         mActivity.showDialogNoCon();
@@ -301,6 +302,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 
     @Override
     public void onHotClick(int position) {
+        binding.layoutButton.setVisibility(View.VISIBLE);
 //        binding.menuFooter.setIndexCurrent(position);
         switchFragment(SlideMenu.MenuType.HIGHLIGHT_SCREEN);
         mActivity.showDialogNoCon();
@@ -310,6 +312,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
     @Override
     public void onSuggestClick(int position) {
         postEventBusClickTab();
+        binding.layoutButton.setVisibility(View.GONE);
 //        binding.menuFooter.setIndexCurrent(position);
         switchFragment(SlideMenu.MenuType.BOOKING_SCREEN);
         mActivity.showDialogNoCon();
@@ -323,6 +326,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
     @Override
     public void onMomentClick(int position) {
         postEventBusClickTab();
+        binding.layoutButton.setVisibility(View.VISIBLE);
 //        binding.menuFooter.setIndexCurrent(position);
         switchFragment(SlideMenu.MenuType.MOMENT_TRAVEL_SCREEN);
         mActivity.showDialogNoCon();
@@ -331,6 +335,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
     @Override
     public void onVideoClick(int position) {
         postEventBusClickTab();
+        binding.layoutButton.setVisibility(View.VISIBLE);
 //        binding.menuFooter.setIndexCurrent(position);
         switchFragment(SlideMenu.MenuType.LIST_VIDEO_SCREEN);
         mActivity.showDialogNoCon();

@@ -69,7 +69,6 @@
                     android:fontFamily="@font/roboto_regular"
                     android:hint="Nhập từ khoá để tìm kiếm"
                     android:imeOptions="actionSearch"
-                    android:maxLength="12"
                     android:singleLine="true"
                     android:textColorHint="#878787"
                     android:textSize="16dp" />

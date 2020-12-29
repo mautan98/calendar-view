@@ -141,7 +141,11 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            tvRating.setText(content.getPostRate() == null ? "0" : content.getPostRate());
+            try {
+                tvRating.setText(content.getPostRate() == null ? "0" : String.valueOf(Integer.parseInt(content.getPostRate())*2));
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
             try {
                 tvContentRating.setText(genRatingText(content.getPostRate() == null ? 0 : Integer.parseInt(content.getPostRate())));
             } catch (Exception e) {
