@@ -77,6 +77,7 @@ public class Constants {
         public static final String USER_GUILD_SLIDE = "USER_GUILD_SLIDE";
         public static final String REVIEW = "REVIEW";
         public static final String END = "END";
+        public static final String DEFECT_TEXT = "DEFECT_TEXT";
 //        public static final String USER_GUILD_BOOKING = "USER_GUILD_BOOKING";
     }
 
