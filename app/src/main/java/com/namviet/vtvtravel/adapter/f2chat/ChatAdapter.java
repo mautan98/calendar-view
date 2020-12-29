@@ -90,6 +90,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
             return R.layout.item_chat_direction;
         } else if (Constants.TypeChat.ADMIN.equals(chat)) {
             return R.layout.f2_item_chat_admin;
+        } else if (Constants.TypeChat.DEFECT_TEXT.equals(chat)) {
+            return R.layout.f2_item_chat_defect_text;
         } else if (Constants.TypeChat.USER_SOCKET.equals(chat)) {
             return R.layout.f2_item_chat_user_socket;
         } else if (Constants.TypeChat.YES_NO_REVIEW.equals(chat)) {
@@ -132,6 +134,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
                 return new DirectionHolder(v);
             case R.layout.f2_item_chat_admin:
                 return new AdminHolder(v);
+            case R.layout.f2_item_chat_defect_text:
+                return new DefectTextHolder(v);
             case R.layout.f2_item_chat_user_socket:
                 return new UserSocketHolder(v);
             case R.layout.f2_item_chat_yes_no_review:
@@ -475,6 +479,34 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
                 mChatTextTv.setText(chatData.getContent());
                 setImageUrl(chatData.getSender().getAvatarUrl(), mChatTextImv);
                 String time = DateUtltils.timeToString4((long) chatData.getCreated());
+                mChatTimeTv.setText(chatData.getCurrent_time());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public void setImageUrl(String ulrCs, ImageView image) {
+            RequestOptions requestOptions = new RequestOptions();
+            requestOptions.placeholder(com.daimajia.slider.library.R.drawable.img_placeholder);
+            requestOptions.error(com.daimajia.slider.library.R.drawable.img_placeholder);
+            Glide.with(mContext).setDefaultRequestOptions(requestOptions).load(ulrCs).thumbnail(0.2f).into(image);
+        }
+    }
+
+    public class DefectTextHolder extends BaseItemChat {
+        private TextView mChatTextTv;
+        private TextView mChatTimeTv;
+
+        public DefectTextHolder(View itemView) {
+            super(itemView);
+            mChatTextTv = itemView.findViewById(R.id.tv_chat_text);
+            mChatTimeTv = itemView.findViewById(R.id.tv_chat_time);
+        }
+
+        public void bindItem(int position) {
+            try {
+                ChatData chatData = mListChat.get(position);
+                mChatTextTv.setText(chatData.getContent());
                 mChatTimeTv.setText(chatData.getCurrent_time());
             } catch (Exception e) {
                 e.printStackTrace();

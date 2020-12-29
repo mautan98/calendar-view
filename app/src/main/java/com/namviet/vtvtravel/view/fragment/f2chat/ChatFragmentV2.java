@@ -416,7 +416,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
 
     @Override
     public void onDestroy() {
-        if(handler != null){
+        if (handler != null) {
             handler.removeCallbacksAndMessages(null);
         }
         if (mTimer60s != null) {
@@ -855,8 +855,15 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
             public void call(Object... args) {
                 try {
 
-                    SocketOn socketOn = new SocketOn(0, args);
-                    ChatData newMessage = newMessage(socketOn.getI(), socketOn.getArgs());
+//                    SocketOn socketOn = new SocketOn(0, args);
+
+                    ChatData chatData = new Gson().fromJson(args[0].toString(), ChatData.class);
+                    ChatData newMessage;
+                    if ("2".equals(chatData.getType())) {
+                        newMessage = newMessage(2, chatData);
+                    } else {
+                        newMessage = newMessage(0, chatData);
+                    }
                     mListChat.add(newMessage);
 //                    mChatAdapter.updateChatList(mListChat, getBinding().recyclerChat);
 //                    handleChat("Chào bạn! Bạn mong muốn chúng tôi hỗ trợ về vấn đề gì?", getCurrentTime(), Constants.TypeChat.ADMIN_FIRST, "Chatbot", true);
@@ -885,7 +892,8 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
             public void call(Object... args) {
                 try {
                     SocketOn socketOn = new SocketOn(1, args);
-                    ChatData newMessage = newMessage(socketOn.getI(), socketOn.getArgs());
+                    ChatData chatData = new Gson().fromJson(args[0].toString(), ChatData.class);
+                    ChatData newMessage = newMessage(socketOn.getI(), chatData);
                     mListChat.add(newMessage);
                     mActivity.runOnUiThread(new Runnable() {
                         @Override
@@ -915,8 +923,8 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
     }
 
     /* NEW MESSAGE */
-    private ChatData newMessage(int type, Object... args) {
-        ChatData chatData = new Gson().fromJson(args[0].toString(), ChatData.class);
+    private ChatData newMessage(int type, ChatData chatData) {
+//        ChatData chatData = new Gson().fromJson(args[0].toString(), ChatData.class);
         return updateMessageByType(chatData, type);
     }
 
@@ -946,6 +954,15 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
                 message.setSender(new ChatData.Sender());
                 message.setCurrent_time(getCurrentTime());
                 break;
+            case 2:
+                message.setOwner(false);
+                message.setType(Constants.TypeChat.DEFECT_TEXT);
+
+                ChatData.Sender sender2 = new ChatData.Sender();
+                sender2.setFull_name("Tổng đài viên - VTVTravel");
+                message.setSender(sender2);
+                message.setCurrent_time(getCurrentTime());
+                break;
             default:
                 break;
         }
@@ -973,7 +990,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
         handleChat(mess, getCurrentTime(), Constants.TypeChat.ADMIN_FIRST, "Chatbot", true);
 
 
-        if(handler != null) {
+        if (handler != null) {
             handler.removeCallbacksAndMessages(null);
         }
         handler = new Handler();

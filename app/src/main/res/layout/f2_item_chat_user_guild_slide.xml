@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
-    android:layout_marginBottom="20dp"
     android:orientation="vertical">
 
     <include layout="@layout/f2_item_chat_base" />
