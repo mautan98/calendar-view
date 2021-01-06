@@ -130,7 +130,19 @@ public class SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             tvName.setText(itemList.get(position).getName());
             tvUserTotal.setText(itemList.get(position).getUserTotal() + " người đang săn deal");
-            tvDiscount.setText("-"+itemList.get(position).getDiscount() + "%");
+            try {
+                if(itemList.get(position).getDiscount() != null) {
+                    tvDiscount.setText("-" + itemList.get(position).getDiscount() + "%");
+                    tvDiscount.setVisibility(View.VISIBLE);
+                }else {
+                    tvDiscount.setVisibility(View.GONE);
+                    tvDiscount.setText("");
+                }
+            } catch (Exception e) {
+                tvDiscount.setVisibility(View.GONE);
+                tvDiscount.setText("");
+                e.printStackTrace();
+            }
             tvDayLeft.setText(getDayLeft(Long.parseLong(itemList.get(position).getEndAt())));
             progressBar.setProgress(getPercentProgress(Long.parseLong(itemList.get(position).getBeginAt()), Long.parseLong(itemList.get(position).getEndAt())));
         }
