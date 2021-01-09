@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,34 +8,38 @@
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
+        app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/recyclerPartnerLink"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="12dp"
-        android:paddingBottom="8dp"
         android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="2"
         tools:listitem="@layout/f2_item_home_partner_link" />
 
     <com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerPartnerLink"
         android:id="@+id/vpIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/recyclerPartnerLink"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="4dp"
-        app:dotColor="@color/gray_99"
-        app:dotRadius="5dp"
+        android:layout_marginBottom="7dp"
+        app:dotColor="#D9EFEE"
+        app:dotRadius="4dp"
         app:selectedDotColor="@color/colorPrimary"
-        app:selectedDotRadius="5dp" />
+        app:selectedDotRadius="4dp" />
 
     <View
+        app:layout_constraintTop_toBottomOf="@+id/recyclerPartnerLink"
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:layout_below="@id/vpIndicator"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:background="#ECECEC" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

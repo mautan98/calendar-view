@@ -44,13 +44,17 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
         this.clickItem = clickItem;
         this.images = images;
 
-        readMoreOption = new ReadMoreOption.Builder(context)
-                .labelUnderLine(true)
-                .lessLabel(" Ẩn bớt")
-                .lessLabelColor(Color.parseColor("#000000"))
-                .moreLabel(" Xem thêm")
-                .moreLabelColor(Color.parseColor("#000000"))
-                .build();
+        try {
+            readMoreOption = new ReadMoreOption.Builder(context)
+                    .labelUnderLine(true)
+                    .lessLabel(" Ẩn bớt")
+                    .lessLabelColor(Color.parseColor("#000000"))
+                    .moreLabel(" Xem thêm")
+                    .moreLabelColor(Color.parseColor("#000000"))
+                    .build();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -123,6 +127,7 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
             imgComment = itemView.findViewById(R.id.imgComment);
             tvCountLike = itemView.findViewById(R.id.tvCountLike);
             imgHeart = itemView.findViewById(R.id.imgHeart);
+            tvReadMore = itemView.findViewById(R.id.tvReadMore);
             vpIndicator = itemView.findViewById(R.id.vpIndicator);
         }
 
@@ -132,7 +137,40 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
             tvName.setText(item.getName());
             tvAuthor.setText(item.getAuthor());
 
-            readMoreOption.addReadMoreTo(tvDescription, item.getShort_description());
+//            readMoreOption.addReadMoreTo(tvDescription, item.getShort_description());
+
+            if(item.isHideTextShowMore()){
+                tvReadMore.setVisibility(View.GONE);
+                tvDescription.setMaxLines(10);
+            }else {
+
+                tvReadMore.setVisibility(View.VISIBLE);
+                tvDescription.setMaxLines(2);
+            }
+
+            try {
+                tvDescription.setText(item.getShort_description());
+                TextJustification.justify(tvDescription);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            tvReadMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    tvReadMore.setVisibility(View.GONE);
+                    tvDescription.setMaxLines(10);
+
+                    try {
+                        tvDescription.setText(item.getShort_description());
+                        TextJustification.justify(tvDescription);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    item.setHideTextShowMore(true);
+                }
+            });
 
 
             tvCommentCount.setText(item.getCount_comment());

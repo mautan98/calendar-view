@@ -75,6 +75,16 @@ public class ItemImagePartResponse extends BaseResponse {
             private String category_tree_code;
             private String category_tree_name;
 
+            private boolean isHideTextShowMore;
+
+            public boolean isHideTextShowMore() {
+                return isHideTextShowMore;
+            }
+
+            public void setHideTextShowMore(boolean isHideTextShowMore) {
+                isHideTextShowMore = isHideTextShowMore;
+            }
+
             public String getCategory_tree_code() {
                 return category_tree_code;
             }

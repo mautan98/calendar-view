@@ -231,15 +231,15 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
                 e.printStackTrace();
             }
 
-            if (Constants.TypeDestination.RESTAURANTS.equals(travel.getContent_type()) || Constants.TypeDestination.HOTELS.equals(travel.getContent_type())) {
-                linearPriceType.setVisibility(View.VISIBLE);
-                layoutForRestaurant.setVisibility(View.GONE);
-                tvStatus.setVisibility(View.GONE);
-                tvOpenDate.setVisibility(View.GONE);
-                tvOpenTime.setVisibility(View.GONE);
-                tvPriceRange.setVisibility(View.VISIBLE);
-                tvPriceRange.setText(travel.getPrice_from() + " đ - " + travel.getPrice_to()+" đ");
-            } else {
+//            if (Constants.TypeDestination.RESTAURANTS.equals(travel.getContent_type()) || Constants.TypeDestination.HOTELS.equals(travel.getContent_type())) {
+//                linearPriceType.setVisibility(View.VISIBLE);
+//                layoutForRestaurant.setVisibility(View.GONE);
+//                tvStatus.setVisibility(View.GONE);
+//                tvOpenDate.setVisibility(View.GONE);
+//                tvOpenTime.setVisibility(View.GONE);
+//                tvPriceRange.setVisibility(View.VISIBLE);
+//                tvPriceRange.setText(travel.getPrice_from() + " đ - " + travel.getPrice_to()+" đ");
+//            } else {
                 tvPriceRange.setVisibility(View.GONE);
                 linearPriceType.setVisibility(View.GONE);
                 layoutForRestaurant.setVisibility(View.VISIBLE);
@@ -274,7 +274,7 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
                     viewTime.setVisibility(View.GONE);
                     tvOpenTime.setVisibility(View.GONE);
                 }
-            }
+//            }
         }
     }
 

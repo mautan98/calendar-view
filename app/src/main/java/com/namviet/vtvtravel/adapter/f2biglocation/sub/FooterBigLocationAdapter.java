@@ -134,11 +134,11 @@ public class FooterBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
             tvCommentCount.setText(travel.getComment_count());
             tvAddress.setText(travel.getAddress());
 
-            if (code.equals("RESTAURANT") || code.equals("HOTEL")) {
-                layoutPrice.setVisibility(View.VISIBLE);
-                layoutOpen.setVisibility(View.GONE);
-                tvPrice.setText(travel.getPrice_from() + " đ" + " - " + travel.getPrice_to() + " đ");
-            } else {
+//            if (code.equals("RESTAURANT") || code.equals("HOTEL")) {
+//                layoutPrice.setVisibility(View.VISIBLE);
+//                layoutOpen.setVisibility(View.GONE);
+//                tvPrice.setText(travel.getPrice_from() + " đ" + " - " + travel.getPrice_to() + " đ");
+//            } else {
                 layoutPrice.setVisibility(View.GONE);
                 layoutOpen.setVisibility(View.VISIBLE);
                 tvOpenState.setText(travel.getType_open());
@@ -156,7 +156,7 @@ public class FooterBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
                 }
 
 
-            }
+//            }
 
             try {
                 if(travel.isHas_location()) {

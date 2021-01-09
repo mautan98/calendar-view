@@ -14,7 +14,6 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
         android:fontFamily="@font/roboto_medium"
-        android:paddingStart="12dp"
         android:text="Video nổi bật"
         android:textColor="#101010"
         android:textSize="20dp" />
@@ -27,7 +26,6 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="12dp"
-        android:paddingStart="12dp"
         android:text="Đừng bỏ lỡ những thước phim hay chỉ có tại VTVTravel"
         android:textColor="#9F9F9F"
         android:textSize="14dp" />
@@ -61,10 +59,10 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="2dp"
-        app:dotColor="@color/gray_99"
-        app:dotRadius="5dp"
+        app:dotColor="#D9EFEE"
+        app:dotRadius="4dp"
         app:selectedDotColor="@color/colorPrimary"
-        app:selectedDotRadius="5dp" />
+        app:selectedDotRadius="4dp" />
 
     <View
         android:layout_width="match_parent"

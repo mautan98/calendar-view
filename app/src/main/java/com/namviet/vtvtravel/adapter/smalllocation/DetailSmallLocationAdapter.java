@@ -469,7 +469,7 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
     public class ImageViewHolder extends RecyclerView.ViewHolder {
         private int position;
         private RecyclerView rclContent;
-        private ImageAdapter imageAdapter;
+        private GalleryImageAdapter imageAdapter;
 
         public ImageViewHolder(View itemView) {
             super(itemView);
@@ -485,7 +485,7 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
 
         public void bindItem(int position) {
             this.position = position;
-            imageAdapter = new ImageAdapter(items.get(position).getItemsGallery(), context, new ImageAdapter.ClickItem() {
+            imageAdapter = new GalleryImageAdapter(items.get(position).getItemsGallery(), context, new GalleryImageAdapter.ClickItem() {
                 @Override
                 public void onClickItem(int position) {
                     openImageScreen(position, ImageViewHolder.this.position);
