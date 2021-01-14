@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.flexbox.JustifyContent;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.model.travelnews.Travel;
+import com.namviet.vtvtravel.ultils.TextJustification;
 
 import java.util.List;
 
@@ -86,6 +88,7 @@ public class RelationNewsInTravelDetailAdapter extends RecyclerView.Adapter<Recy
             this.position = position;
             Travel travel = travels.get(position);
             tvName.setText(travel.getName());
+            TextJustification.justify(tvName);
         }
     }
 
