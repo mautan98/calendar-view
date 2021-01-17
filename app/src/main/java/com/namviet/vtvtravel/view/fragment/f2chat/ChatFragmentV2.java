@@ -463,10 +463,10 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
     public void clickYesReview() {
         if (isBot) {
             removeLastIndex();
-            String mess = "Cảm ơn Quý khách, Chúc Quý khách có những trải nghiệm tuyệt vời khi sử dụng dịch vụ của VTVTravel!";
+            String mess = "Cảm ơn Quý khách! Chúc Quý khách có những trải nghiệm tuyệt vời khi sử dụng dịch vụ của VTVTravel!";
             Account account = MyApplication.getInstance().getAccount();
             if (null != account && account.isLogin() && account.getFullname() != null && !"".equals(account.getFullname())) {
-                mess = "Cảm ơn " + account.getFullname() + ", Chúc " + account.getFullname() + " có những trải nghiệm tuyệt vời khi sử dụng dịch vụ của VTVTravel!";
+                mess = "Cảm ơn " + account.getFullname() + "! Chúc " + account.getFullname() + " có những trải nghiệm tuyệt vời khi sử dụng dịch vụ của VTVTravel!";
             }
             handleChat(mess, getCurrentTime(), Constants.TypeChat.THANK);
             mChatViewModel.yesNoReview("Có");
@@ -484,7 +484,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
         Account account = MyApplication.getInstance().getAccount();
         if (null != account && account.isLogin()) {
             removeLastIndex();
-            handleChat("Để hỗ trợ Qúy khách tốt hơn và nâng cao chất lượng dịch vụ, vui lòng chọn một trong các hình thức sau:", getCurrentTime(), Constants.TypeChat.OPTION);
+            handleChat("Để hỗ trợ Quý khách tốt hơn và nâng cao chất lượng dịch vụ, vui lòng chọn một trong các hình thức sau:", getCurrentTime(), Constants.TypeChat.OPTION);
             mChatViewModel.yesNoReview("Không");
             startCountDown();
             getBinding().layoutChat.setVisibility(View.GONE);
@@ -565,10 +565,10 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
         if (!isBot) {
             return;
         }
-        String mess = "Cảm ơn Quý khách đã đồng hành cùng VTVTravel. Quý khách có hài lòng với câu trả lời của Chatbot không?";
+        String mess = "Cảm ơn Quý khách đã đồng hành cùng VTVTravel. Quý khách có hài lòng với câu trả lời của chúng tôi không?";
         Account account = MyApplication.getInstance().getAccount();
         if (null != account && account.isLogin() && account.getFullname() != null && !"".equals(account.getFullname())) {
-            mess = "Cảm ơn " + account.getFullname() + " đã đồng hành cùng VTVTravel. Quý khách có hài lòng với câu trả lời của Chatbot không?";
+            mess = "Cảm ơn " + account.getFullname() + " đã đồng hành cùng VTVTravel. Quý khách có hài lòng với câu trả lời của chúng tôi không?";
         }
         handleChat(mess, getCurrentTime(), Constants.TypeChat.YES_NO_REVIEW, "Chatbot, ", true);
         startCountDown();
@@ -731,10 +731,10 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
 
                 }
                 try {
-                    String mess = "Tạm biệt Quý khách, VTVTravel luôn mong muốn được đồng hành cùng bạn trong thời gian tới. Xin cảm ơn!";
+                    String mess = "Tạm biệt Quý khách! VTVTravel luôn mong muốn được đồng hành cùng bạn trong thời gian tới. Xin cảm ơn!";
                     Account account = MyApplication.getInstance().getAccount();
                     if (null != account && account.isLogin() && account.getFullname() != null && !"".equals(account.getFullname())) {
-                        mess = "Tạm biệt " + account.getFullname() + ", VTVTravel luôn mong muốn được đồng hành cùng bạn trong thời gian tới. Xin cảm ơn!";
+                        mess = "Tạm biệt " + account.getFullname() + "! VTVTravel luôn mong muốn được đồng hành cùng bạn trong thời gian tới. Xin cảm ơn!";
                     }
                     handleChat(mess, getCurrentTime(), Constants.TypeChat.ADMIN_FIRST, "Chatbot", true);
                 } catch (Exception e) {
@@ -982,10 +982,10 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
 
     @Subscribe
     public void onReviewSuccess(OnReviewSuccess onReviewSuccess) {
-        String mess = "Tạm biệt Quý khách, VTVTravel luôn mong muốn được đồng hành cùng bạn trong thời gian tới. Xin cảm ơn!";
+        String mess = "Tạm biệt Quý khách! VTVTravel luôn mong muốn được đồng hành cùng bạn trong thời gian tới. Xin cảm ơn!";
         Account account = MyApplication.getInstance().getAccount();
         if (null != account && account.isLogin() && account.getFullname() != null && !"".equals(account.getFullname())) {
-            mess = "Tạm biệt " + account.getFullname() + ", VTVTravel luôn mong muốn được đồng hành cùng bạn trong thời gian tới. Xin cảm ơn!";
+            mess = "Tạm biệt " + account.getFullname() + "! VTVTravel luôn mong muốn được đồng hành cùng bạn trong thời gian tới. Xin cảm ơn!";
         }
         handleChat(mess, getCurrentTime(), Constants.TypeChat.ADMIN_FIRST, "Chatbot", true);
 

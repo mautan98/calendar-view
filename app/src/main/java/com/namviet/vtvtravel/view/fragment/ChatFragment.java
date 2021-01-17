@@ -294,10 +294,10 @@ public class ChatFragment extends MainFragment implements Observer, ChatAdapter.
 
                 }
 
-                String mess = "Cảm ơn Quý khách đã đồng hành cùng VTVTravel. Quý khách có hài lòng với câu trả lời của Chatbot không?";
+                String mess = "Cảm ơn Quý khách đã đồng hành cùng VTVTravel. Quý khách có hài lòng với câu trả lời của chúng tôi không?";
                 Account account = MyApplication.getInstance().getAccount();
                 if (null != account && account.isLogin()) {
-                    mess = "Cảm ơn " + account.getFullname() + " đã đồng hành cùng VTVTravel. Quý khách có hài lòng với câu trả lời của Chatbot không?";
+                    mess = "Cảm ơn " + account.getFullname() + " đã đồng hành cùng VTVTravel. Quý khách có hài lòng với câu trả lời của chúng tôi không?";
                 }
 
                 handleChat(mess, getCurrentTime(), Constants.TypeChat.ADMIN_FIRST, "Bot", true);
