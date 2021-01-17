@@ -731,10 +731,10 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
 
                 }
                 try {
-                    String mess = "Tạm biệt Quý khách! VTVTravel luôn mong muốn được đồng hành cùng bạn trong thời gian tới. Xin cảm ơn!";
+                    String mess = "Tạm biệt Quý khách, VTVTravel luôn mong muốn được đồng hành cùng bạn trong thời gian tới. Xin cảm ơn!";
                     Account account = MyApplication.getInstance().getAccount();
                     if (null != account && account.isLogin() && account.getFullname() != null && !"".equals(account.getFullname())) {
-                        mess = "Tạm biệt " + account.getFullname() + "! VTVTravel luôn mong muốn được đồng hành cùng bạn trong thời gian tới. Xin cảm ơn!";
+                        mess = "Tạm biệt " + account.getFullname() + ", VTVTravel luôn mong muốn được đồng hành cùng bạn trong thời gian tới. Xin cảm ơn!";
                     }
                     handleChat(mess, getCurrentTime(), Constants.TypeChat.ADMIN_FIRST, "Chatbot", true);
                 } catch (Exception e) {
@@ -982,10 +982,10 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
 
     @Subscribe
     public void onReviewSuccess(OnReviewSuccess onReviewSuccess) {
-        String mess = "Tạm biệt Quý khách! VTVTravel luôn mong muốn được đồng hành cùng bạn trong thời gian tới. Xin cảm ơn!";
+        String mess = "Tạm biệt Quý khách, VTVTravel luôn mong muốn được đồng hành cùng bạn trong thời gian tới. Xin cảm ơn!";
         Account account = MyApplication.getInstance().getAccount();
         if (null != account && account.isLogin() && account.getFullname() != null && !"".equals(account.getFullname())) {
-            mess = "Tạm biệt " + account.getFullname() + "! VTVTravel luôn mong muốn được đồng hành cùng bạn trong thời gian tới. Xin cảm ơn!";
+            mess = "Tạm biệt " + account.getFullname() + ", VTVTravel luôn mong muốn được đồng hành cùng bạn trong thời gian tới. Xin cảm ơn!";
         }
         handleChat(mess, getCurrentTime(), Constants.TypeChat.ADMIN_FIRST, "Chatbot", true);
 
