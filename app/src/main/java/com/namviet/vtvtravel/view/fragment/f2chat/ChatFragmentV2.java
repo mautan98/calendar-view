@@ -253,7 +253,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
                 mActivity.finish();
                 break;
             case R.id.layoutSend:
-                startCountDown();
+                startCountDown(180000);
                 String mess = getBinding().edtTypeMessage.getText().toString();
 
                 if (mess != null && mess.isEmpty()) {
@@ -316,7 +316,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
             public void afterTextChanged(Editable s) {
                 if (s.length() > 0) {
                     enableSend();
-                    startCountDown();
+                    startCountDown(180000);
                 } else {
                     disableSend();
                 }
@@ -452,7 +452,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
 
                 @Override
                 public void clickExit() {
-                    startCountDown();
+                    startCountDown(60000);
                 }
             });
             requestAccountDialog.show(mActivity.getSupportFragmentManager(), null);
@@ -470,7 +470,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
             }
             handleChat(mess, getCurrentTime(), Constants.TypeChat.THANK);
             mChatViewModel.yesNoReview("Có");
-            startCountDown();
+            startCountDown(15000);
             getBinding().layoutChat.setVisibility(View.GONE);
             getBinding().view.setVisibility(View.GONE);
         }
@@ -486,7 +486,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
             removeLastIndex();
             handleChat("Để hỗ trợ Quý khách tốt hơn và nâng cao chất lượng dịch vụ, vui lòng chọn một trong các hình thức sau:", getCurrentTime(), Constants.TypeChat.OPTION);
             mChatViewModel.yesNoReview("Không");
-            startCountDown();
+            startCountDown(60000);
             getBinding().layoutChat.setVisibility(View.GONE);
             getBinding().view.setVisibility(View.GONE);
         } else {
@@ -499,7 +499,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
 
                 @Override
                 public void clickExit() {
-                    startCountDown();
+                    startCountDown(60000);
                 }
             });
             requestAccountDialog.show(mActivity.getSupportFragmentManager(), null);
@@ -525,7 +525,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
 
                 @Override
                 public void clickExit() {
-                    startCountDown();
+                    startCountDown(60000);
                 }
             });
             requestAccountDialog.show(mActivity.getSupportFragmentManager(), null);
@@ -547,7 +547,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
         getBinding().layoutChat.setVisibility(View.GONE);
         getBinding().view.setVisibility(View.GONE);
         call(getString(R.string.calling_address));
-        startCountDown();
+        startCountDown(60000);
     }
 
     @Override
@@ -571,7 +571,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
             mess = "Cảm ơn " + account.getFullname() + " đã đồng hành cùng VTVTravel. Quý khách có hài lòng với câu trả lời của chúng tôi không?";
         }
         handleChat(mess, getCurrentTime(), Constants.TypeChat.YES_NO_REVIEW, "Chatbot, ", true);
-        startCountDown();
+        startCountDown(60000);
         getBinding().layoutChat.setVisibility(View.GONE);
         getBinding().view.setVisibility(View.GONE);
     }
@@ -584,13 +584,13 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
 
     @Override
     public void optionChat() {
-        startCountDown();
+        startCountDown(180000);
         getBinding().layoutChat.setVisibility(View.VISIBLE);
         getBinding().view.setVisibility(View.VISIBLE);
         Account account = MyApplication.getInstance().getAccount();
         if (null != account && account.isLogin()) {
             removeLastIndex();
-            handleChat("Chào Quý khách! Quý khách mong muốn chúng tôi hỗ trợ về vấn đề gì?", getCurrentTime(), Constants.TypeChat.ADMIN_FIRST, "Chatbot", true);
+            handleChat("Chào Quý khách, Quý khách mong muốn chúng tôi hỗ trợ về vấn đề gì?", getCurrentTime(), Constants.TypeChat.ADMIN_FIRST, "Chatbot", true);
             MyApplication.getInstance().setChatBot(false);
             try {
                 String mobile = "anonymous";
@@ -611,7 +611,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
 
                 @Override
                 public void clickExit() {
-                    startCountDown();
+                    startCountDown(60000);
                 }
             });
             requestAccountDialog.show(mActivity.getSupportFragmentManager(), null);
@@ -712,16 +712,17 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
         mChatAdapter.updateChatList(mListChat, getBinding().recyclerChat);
     }
 
-    private void startCountDown() {
+    private void startCountDown(int milliSecond) {
         final int[] i = {0};
         if (mTimer60s != null) {
             mTimer60s.cancel();
             i[0] = 0;
         }
-        mTimer60s = new CountDownTimer(180000, 1000) {
+        mTimer60s = new CountDownTimer(milliSecond, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 i[0] = i[0] + 1;
+                Toast.makeText(mActivity, i[0]+"----"+milliSecond, Toast.LENGTH_SHORT).show();
             }
 
             public void onFinish() {
@@ -1010,7 +1011,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
         super.onResume();
         if (isAlreadyCall) {
             isAlreadyCall = false;
-            startCountDown();
+            startCountDown(60000);
         }
     }
 }

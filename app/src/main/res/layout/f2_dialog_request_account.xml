@@ -39,7 +39,7 @@
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center"
-                android:text="Bạn phải là thành viên của VTVTravel để có thể sử dụng tính năng này"
+                android:text="Quý khách phải là thành viên của VTVTravel để có thể sử dụng tính năng này"
                 android:textColor="#000000"
                 android:textSize="16dp" />
 

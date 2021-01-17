@@ -550,7 +550,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
             Account account = MyApplication.getInstance().getAccount();
             try {
                 if (null != account && account.isLogin()) {
-                    mChatTextTv.setText(spannableString(mess, 7, 7 + account.getFullname().length()));
+                    mChatTextTv.setText(mess);
+//                    mChatTextTv.setText(spannableString(mess, 7, 7 + account.getFullname().length()));
                 } else {
                     mChatTextTv.setText(mess);
                 }
@@ -569,12 +570,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
             });
         }
 
-        private SpannableString spannableString(String text, int start, int end) {
-            SpannableString spannableString = new SpannableString(text);
-            spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#424242")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            spannableString.setSpan(new StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            return spannableString;
-        }
+//        private SpannableString spannableString(String text, int start, int end) {
+//            SpannableString spannableString = new SpannableString(text);
+//            spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#424242")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            spannableString.setSpan(new StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            return spannableString;
+//        }
     }
 
     public class ThankHolder extends BaseItemChat {
