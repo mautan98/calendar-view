@@ -718,11 +718,11 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
             mTimer60s.cancel();
             i[0] = 0;
         }
-        mTimer60s = new CountDownTimer(milliSecond, 1000) {
+//        mTimer60s = new CountDownTimer(milliSecond, 1000) {
+        mTimer60s = new CountDownTimer(180000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 i[0] = i[0] + 1;
-                Toast.makeText(mActivity, i[0]+"----"+milliSecond, Toast.LENGTH_SHORT).show();
             }
 
             public void onFinish() {
