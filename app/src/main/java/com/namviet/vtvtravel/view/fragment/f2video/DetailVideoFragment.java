@@ -3,7 +3,9 @@ package com.namviet.vtvtravel.view.fragment.f2video;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
+
 import androidx.annotation.Nullable;
+
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -55,7 +57,7 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
         return video;
     }
 
-    public void setVideo(String detailLink ) {
+    public void setVideo(String detailLink) {
         this.detailLink = detailLink;
     }
 
@@ -164,7 +166,7 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
 
     }
 
-    private void clickHeart(){
+    private void clickHeart() {
         try {
             Account account = MyApplication.getInstance().getAccount();
             if (null != account && account.isLogin()) {
@@ -430,7 +432,7 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
         }
     }
 
-    private void setUpView(){
+    private void setUpView() {
         try {
             Glide.with(mActivity).load(video.getLogo_url()).into(getBinding().imgBanner);
         } catch (Exception e) {
