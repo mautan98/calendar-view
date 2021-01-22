@@ -49,6 +49,43 @@
                 android:id="@+id/jwPlayer"
                 android:layout_width="match_parent"
                 android:layout_height="0dp" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutSound"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="0dp"
+                android:layout_height="0dp">
+
+                <ImageView
+                    android:id="@+id/btnSoundEnable"
+                    android:src="@drawable/ic_sound_enable"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginEnd="70dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="18dp"
+                    android:layout_height="17dp"/>
+
+                <ImageView
+                    android:id="@+id/btnSoundDisabled"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_sound_disable"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginEnd="70dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="18dp"
+                    android:layout_height="17dp"/>
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 <!--        <ImageView-->

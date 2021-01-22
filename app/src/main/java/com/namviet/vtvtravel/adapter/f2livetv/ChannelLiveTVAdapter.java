@@ -65,13 +65,22 @@ public class ChannelLiveTVAdapter extends RecyclerView.Adapter<ChannelLiveTVAdap
 
         public void onBind(int position) {
             this.position = position;
-            if (position == positionSelected) {
-                viewBg.setVisibility(View.VISIBLE);
-            } else {
-                viewBg.setVisibility(View.GONE);
+
+            try {
+                if(position == positionSelected){
+                    Glide.with(context).load(channelList.get(position).getLogo_url()).into(imgChannel);
+                }else {
+                    Glide.with(context).load(channelList.get(position).getLogo_disabled()).into(imgChannel);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    Glide.with(context).load(channelList.get(position).getLogo_url()).into(imgChannel);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
 
-            Glide.with(context).load(channelList.get(position).getLogo_url()).into(imgChannel);
             imgChannel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
