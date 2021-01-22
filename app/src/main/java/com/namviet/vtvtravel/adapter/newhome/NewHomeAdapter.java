@@ -367,6 +367,13 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             rclContent = itemView.findViewById(R.id.rclContent);
             btnSeeMore = itemView.findViewById(R.id.btnSeeMore);
             tvTitle = itemView.findViewById(R.id.tvTitle);
+
+            try {
+                SnapHelper helper = new LinearSnapHelper();
+                helper.attachToRecyclerView(rclContent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         public void bindItem(int position) {
@@ -409,6 +416,14 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             rclTab = itemView.findViewById(R.id.rclTab);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             btnSeeMore = itemView.findViewById(R.id.btnSeeMore);
+
+
+            try {
+                SnapHelper helper = new LinearSnapHelper();
+                helper.attachToRecyclerView(rclContent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
 
         }
@@ -548,6 +563,13 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             btnSeeMore = itemView.findViewById(R.id.btnSeeMore);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+
+            try {
+                SnapHelper helper = new LinearSnapHelper();
+                helper.attachToRecyclerView(recyclerNearPlace);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         public void bindItem(int position) {
@@ -597,6 +619,13 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(itemView);
             recyclerPartnerLink = itemView.findViewById(R.id.recyclerPartnerLink);
             vpIndicator = itemView.findViewById(R.id.vpIndicator);
+
+            try {
+                SnapHelper helper = new LinearSnapHelper();
+                helper.attachToRecyclerView(recyclerPartnerLink);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         public void bindItem(int position) {
@@ -632,6 +661,14 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             recyclerFavorPlace = itemView.findViewById(R.id.recyclerFavorPlace);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+
+            try {
+                SnapHelper helper = new LinearSnapHelper();
+                helper.attachToRecyclerView(recyclerFavorPlace);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -789,7 +826,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             try {
                 SnapHelper helper = new LinearSnapHelper();
                 helper.attachToRecyclerView(recyclerAppVideo);
-            } catch (IllegalStateException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -997,6 +1034,13 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(itemView);
             rclContent = itemView.findViewById(R.id.rclContent);
             layoutRoot = itemView.findViewById(R.id.layoutRoot);
+            try {
+                SnapHelper helper = new LinearSnapHelper();
+                helper.attachToRecyclerView(rclContent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
 
         public void bindItem(int position) {

@@ -7,11 +7,16 @@ import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.baseapp.utils.KeyboardUtils;
@@ -72,10 +77,15 @@ public class SearchNumberFragment extends MainFragment implements AllContactAdap
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         try {
-            mActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+            mActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         } catch (Exception e) {
             e.printStackTrace();
         }
+//        try {
+//            mActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         initViews(view);
 
         searchNumberViewModel = new SearchNumberViewModel();
@@ -97,6 +107,7 @@ public class SearchNumberFragment extends MainFragment implements AllContactAdap
     @Override
     protected void initViews(View v) {
         super.initViews(v);
+        setUpEditTextAndKeyboard();
         updateViews();
         setClick();
         if (phone == null || (phone != null && phone.isEmpty())) {
@@ -120,13 +131,25 @@ public class SearchNumberFragment extends MainFragment implements AllContactAdap
                 new KeyboardVisibilityEventListener() {
                     @Override
                     public void onVisibilityChanged(boolean isOpen) {
+//                        if (isOpen) {
+//                            binding.layout.setVisibility(View.VISIBLE);
+//                        } else {
+//                            binding.layout.setVisibility(View.GONE);
+//                        }
+
                         if (isOpen) {
-                            binding.layout.setVisibility(View.VISIBLE);
+                            KeyboardUtils.hideKeyboard(mActivity, binding.edtPhone);
                         } else {
-                            binding.layout.setVisibility(View.GONE);
                         }
                     }
                 });
+
+        binding.edtPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                KeyboardUtils.hideKeyboard(mActivity, binding.edtPhone);
+            }
+        });
 
 
         new Handler().postDelayed(new Runnable() {
@@ -395,5 +418,14 @@ public class SearchNumberFragment extends MainFragment implements AllContactAdap
             }
         }
 
+    }
+
+    private void setUpEditTextAndKeyboard(){
+        binding.edtPhone.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        binding.edtPhone.setTextIsSelectable(true);
+        binding.edtPhone.setShowSoftInputOnFocus(false);
+
+        InputConnection ic = binding.edtPhone.onCreateInputConnection(new EditorInfo());
+        binding.keyboard.setInputConnection(ic);
     }
 }
