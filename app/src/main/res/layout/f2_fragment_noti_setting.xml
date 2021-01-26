@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:fontFamily="@font/roboto_bold"
-                android:text="Thông báo"
+                android:text="Tuỳ chỉnh thông báo"
                 android:textColor="@color/white"
                 android:textSize="14dp" />
 
@@ -63,22 +63,40 @@
                 android:padding="16dp">
 
                 <TextView
+                    android:layout_centerVertical="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="Cho phép hiện thông báo"
+                    android:text="Notification"
                     android:textColor="#343434"
                     android:textSize="16dp" />
 
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/switchAutoUpdateContact"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                
+                
+                <LinearLayout
+                    android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_centerInParent="true"
-                    android:checked="true"
-                    app:colorControlActivated="@color/colorPrimary" />
+                    android:orientation="vertical"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp">
+                    <ImageView
+                        android:src="@drawable/f2_ic_swith_disable"
+                        android:id="@+id/btnEnable"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                    <ImageView
+                        android:src="@drawable/f2_ic_swith_enable"
+                        android:id="@+id/btnDisable"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+
+
+
+                </LinearLayout>
+                
 
             </RelativeLayout>
 

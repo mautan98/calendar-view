@@ -36,9 +36,11 @@ public class SettingNotiFragment extends MainFragment {
         super.initViews(v);
         boolean b = PreferenceUtil.getInstance(mActivity).getValue(Constants.PrefKey.NOTI_ENABLE, true);
         if(b){
-            binding.switchAutoUpdateContact.setChecked(true);
+            binding.btnEnable.setVisibility(View.VISIBLE);
+            binding.btnDisable.setVisibility(View.GONE);
         }else {
-            binding.switchAutoUpdateContact.setChecked(false);
+            binding.btnEnable.setVisibility(View.GONE);
+            binding.btnDisable.setVisibility(View.VISIBLE);
         }
         setClick();
     }
@@ -51,12 +53,23 @@ public class SettingNotiFragment extends MainFragment {
             }
         });
 
-        binding.switchAutoUpdateContact.setOnCheckedChangeListener(
-                new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        PreferenceUtil.getInstance(mActivity).setValue(Constants.PrefKey.NOTI_ENABLE, b);
-                    }
-                });
+
+        binding.btnEnable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.btnEnable.setVisibility(View.GONE);
+                binding.btnDisable.setVisibility(View.VISIBLE);
+                PreferenceUtil.getInstance(mActivity).setValue(Constants.PrefKey.NOTI_ENABLE, false);
+            }
+        });
+
+        binding.btnDisable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.btnEnable.setVisibility(View.VISIBLE);
+                binding.btnDisable.setVisibility(View.GONE);
+                PreferenceUtil.getInstance(mActivity).setValue(Constants.PrefKey.NOTI_ENABLE, true);
+            }
+        });
     }
 }
