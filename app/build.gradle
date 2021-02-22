@@ -147,6 +147,7 @@ dependencies {
 
 //    debugImplementation "org.linphone:linphone-sdk-android-debug:4.4+"
 //    releaseImplementation "org.linphone:linphone-sdk-android:4.4+"
+    implementation 'com.google.android.gms:play-services-ads:16.0.0'
 
 }
 apply plugin: 'com.google.gms.google-services'
