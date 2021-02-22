@@ -164,6 +164,9 @@ public class Constants {
         public static final String CONTACT = "CONTACT";
         public static final String DEVICE_TOKEN = "DEVICE_TOKEN";
         public static final String ACCOUNT = "ACCOUNT";
+        public static final String HOME_DATA = "HOME_DATA";
+        public static final String MENU_DATA = "MENU_DATA";
+
 
 
     }

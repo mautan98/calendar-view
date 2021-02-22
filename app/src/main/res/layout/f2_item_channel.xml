@@ -5,6 +5,7 @@
     android:layout_height="wrap_content">
 
     <View
+        android:visibility="gone"
         android:id="@+id/viewBg"
         android:layout_width="0dp"
         android:layout_height="0dp"

@@ -13,6 +13,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:text="Giải thưởng dành cho bạn"
             android:id="@+id/tvTitle"
             android:layout_weight="1"
             android:textColor="@color/md_black_1000"
@@ -37,6 +38,7 @@
     </LinearLayout>
 
     <TextView
+        android:text="Nhận nhiều ưu đãi cực lớn dành cho quý hội viên"
         android:id="@+id/tvDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

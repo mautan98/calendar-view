@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.newhome.NewHomeAdapter;
 import com.namviet.vtvtravel.adapter.newhome.subnewhome.SubSmallHeaderAdapter;
@@ -112,6 +113,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
     @Override
     protected void initViews(View v) {
         super.initViews(v);
+        getDataHomeFromCache();
         updateViews();
         setClick();
         if (haveNetworkConnection()) {
@@ -369,6 +371,17 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 
     private HomeServiceResponse homeServiceResponse;
 
+    private void getDataHomeFromCache(){
+        try {
+            String json = PreferenceUtil.getInstance(mActivity).getValue(Constants.PrefKey.HOME_DATA,  new Gson().toJson(homeServiceResponse));
+            homeServiceResponse = new Gson().fromJson(json, HomeServiceResponse.class);
+            newHomeAdapter = new NewHomeAdapter(mActivity, homeServiceResponse, this, this, this, this, this, newHomeViewModel);
+            binding.rclHome.setAdapter(newHomeAdapter);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void update(Observable observable, Object o) {
         new Handler().postDelayed(new Runnable() {
@@ -394,6 +407,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                     }
                 } else if (o instanceof HomeServiceResponse) {
                     homeServiceResponse = (HomeServiceResponse) o;
+                    PreferenceUtil.getInstance(mActivity).setValue(Constants.PrefKey.HOME_DATA,  new Gson().toJson(homeServiceResponse));
                     try {
                         setDataForUserViewInRcl();
                     } catch (Exception e) {

@@ -3,13 +3,20 @@ package com.namviet.vtvtravel.view.fragment.f2video;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
+
 import androidx.annotation.Nullable;
+
+import android.util.Log;
+
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.google.android.exoplayer2.analytics.AnalyticsListener;
+import com.google.android.exoplayer2.source.MediaSourceEventListener;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.longtailvideo.jwplayer.configuration.PlayerConfig;
+import com.longtailvideo.jwplayer.events.ControlBarVisibilityEvent;
 import com.longtailvideo.jwplayer.events.FullscreenEvent;
 import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
 import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
@@ -42,7 +49,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBinding> implements VideoPlayerEvents.OnFullscreenListener, Observer {
+public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBinding> implements VideoPlayerEvents.OnFullscreenListener, VideoPlayerEvents.OnControlBarVisibilityListener,  Observer {
     private Video video;
     private DetailVideoViewModel viewModel;
 
@@ -55,7 +62,7 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
         return video;
     }
 
-    public void setVideo(String detailLink ) {
+    public void setVideo(String detailLink) {
         this.detailLink = detailLink;
     }
 
@@ -164,7 +171,7 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
 
     }
 
-    private void clickHeart(){
+    private void clickHeart() {
         try {
             Account account = MyApplication.getInstance().getAccount();
             if (null != account && account.isLogin()) {
@@ -292,6 +299,24 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
                 }
             }
         });
+
+        getBinding().btnSoundDisabled.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getBinding().jwPlayer.setMute(false);
+                getBinding().btnSoundEnable.setVisibility(View.VISIBLE);
+                getBinding().btnSoundDisabled.setVisibility(View.GONE);
+            }
+        });
+
+        getBinding().btnSoundEnable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getBinding().jwPlayer.setMute(true);
+                getBinding().btnSoundEnable.setVisibility(View.GONE);
+                getBinding().btnSoundDisabled.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -312,6 +337,19 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
                     .build();
             getBinding().jwPlayer.setup(config);
             getBinding().jwPlayer.addOnFullscreenListener(this);
+            getBinding().jwPlayer.addOnControlBarVisibilityListener(this);
+
+            getBinding().jwPlayer.setAnalyticsListener(new AnalyticsListener() {
+                @Override
+                public void onBandwidthEstimate(EventTime eventTime, int totalLoadTimeMs, long totalBytesLoaded, long bitrateEstimate) {
+                    Log.e("hihihihihi", "totalBytesLoaded");
+
+                }
+
+
+
+
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -430,7 +468,7 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
         }
     }
 
-    private void setUpView(){
+    private void setUpView() {
         try {
             Glide.with(mActivity).load(video.getLogo_url()).into(getBinding().imgBanner);
         } catch (Exception e) {
@@ -467,6 +505,15 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onControlBarVisibilityChanged(ControlBarVisibilityEvent controlBarVisibilityEvent) {
+        if(controlBarVisibilityEvent.isVisible()){
+            getBinding().layoutSound.setVisibility(View.VISIBLE);
+        }else {
+            getBinding().layoutSound.setVisibility(View.GONE);
         }
     }
 }

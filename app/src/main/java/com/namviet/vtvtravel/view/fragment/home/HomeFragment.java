@@ -24,9 +24,13 @@ import android.widget.Toast;
 import com.baseapp.menu.SlideMenu;
 import com.baseapp.utils.MyFragment;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.HomeMenuAdapter;
+import com.namviet.vtvtravel.adapter.newhome.NewHomeAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
+import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.FragmentHomeBinding;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
@@ -38,6 +42,8 @@ import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndGoToCallNow;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndUpdateUserView;
 import com.namviet.vtvtravel.response.f2menu.MenuResponse;
 
+import com.namviet.vtvtravel.response.newhome.HomeServiceResponse;
+import com.namviet.vtvtravel.ultils.PreferenceUtil;
 import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f2.ChatActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
@@ -92,6 +98,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
     @Override
     protected void initViews(View v) {
         super.initViews(v);
+        getMenuDataFromCache();
         viewModel = new NewHomeViewModel();
         viewModel.addObserver(this);
         viewModel.getSetting();
@@ -204,6 +211,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
                 }
             } else if (o instanceof MenuResponse) {
                 menuResponse = (MenuResponse) o;
+                PreferenceUtil.getInstance(mActivity).setValue(Constants.PrefKey.MENU_DATA,  new Gson().toJson(menuResponse));
                 getMainMenu();
             }
 
@@ -432,11 +440,22 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
         onMomentClick(1);
     }
 
+    private void getMenuDataFromCache(){
+        try {
+            String json = PreferenceUtil.getInstance(mActivity).getValue(Constants.PrefKey.MENU_DATA,  new Gson().toJson(menuResponse));
+            menuResponse = new Gson().fromJson(json, MenuResponse.class);
+            getMainMenu();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private MenuResponse menuResponse;
     private void getMainMenu() {
 //        menuResponse = new Gson().fromJson(json, MenuResponse.class);
         try {
+            binding.tabLayoutMain.removeAllTabs();
             int size  = menuResponse.getData().getMenus().getFooter().size();
 
             for (int i = 0; i < size; i++) {
