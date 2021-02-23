@@ -52,6 +52,7 @@ public class WSConfig {
 
     public static class Api {
         public static final String LOGIN = "user/login";
+        public static final String REFRESH_TOKEN = "user/refreshToken";
         public static final String REGISTER = "user/create";
         public static final String RESENT_OTP = "user/resendOtp";
         public static final String GET_INFO = "user/getInfo";

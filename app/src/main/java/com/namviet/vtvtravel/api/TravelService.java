@@ -163,6 +163,9 @@ public interface TravelService {
     @POST(WSConfig.Api.LOGIN)
     Observable<AccountResponse> login(@Body RequestBody body);
 
+    @POST(WSConfig.Api.REFRESH_TOKEN)
+    Observable<AccountResponse> refreshToken(@Body RequestBody body, @Header(WSConfig.KeyParam.HEADER_TOKEN) String token);
+
     @POST(WSConfig.Api.REGISTER)
     Observable<AccountResponse> register(@Body RequestBody body);
 

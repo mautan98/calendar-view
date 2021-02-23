@@ -543,15 +543,19 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
     }
 
     private void initSentry() {
-        Context ctx = this.getApplicationContext();
+        try {
+            Context ctx = this.getApplicationContext();
 
-        // Use the Sentry DSN (client key) from the Project Settings page on Sentry
-        String sentryDsn = WSConfig.URL_SENTRY_DSN;
-        Sentry.init(sentryDsn, new AndroidSentryClientFactory(ctx));
+            // Use the Sentry DSN (client key) from the Project Settings page on Sentry
+            String sentryDsn = WSConfig.URL_SENTRY_DSN;
+            Sentry.init(sentryDsn, new AndroidSentryClientFactory(ctx));
 
-        // Alternatively, if you configured your DSN in a `sentry.properties`
-        // file (see the configuration documentation).
-        Sentry.init(new AndroidSentryClientFactory(ctx));
+            // Alternatively, if you configured your DSN in a `sentry.properties`
+            // file (see the configuration documentation).
+            Sentry.init(new AndroidSentryClientFactory(ctx));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

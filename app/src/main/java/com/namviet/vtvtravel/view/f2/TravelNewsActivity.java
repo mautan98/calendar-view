@@ -60,7 +60,7 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
     public void doAfterOnCreate() {
         MobileAds.initialize(this);
         adView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("323D3E715DE154B6B9929289FFA35B5E").build();
         adView.loadAd(adRequest);
 
         adView.setAdListener(new AdListener(){
@@ -102,7 +102,7 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
 
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        mInterstitialAd.loadAd(new AdRequest.Builder().addTestDevice("323D3E715DE154B6B9929289FFA35B5E").build());
 
         mInterstitialAd.setAdListener(new AdListener(){
             @Override

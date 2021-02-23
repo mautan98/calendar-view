@@ -171,7 +171,7 @@ public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implem
                     accountViewModel.notificationReg(DeviceUtils.getDeviceId(getContext()), token, "ANDROID");
                     mPreferenceUtil.setValue(Constants.PrefKey.ACCOUNT_ID, accountResponse.getData().getId().toString());
                     PreferenceUtil.getInstance(mActivity).setValue(Constants.PrefKey.ACCOUNT, new Gson().toJson(accountResponse.getData()));
-
+                    setCurrentTimeStampToCache();
                     /*mActivity.onBackPressed();*/
                     mActivity.finish();
 
@@ -191,6 +191,11 @@ public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implem
             }
 
         }
+    }
+
+    private void setCurrentTimeStampToCache(){
+        long tsLong = System.currentTimeMillis()/1000;
+        PreferenceUtil.getInstance(mActivity).setValue(Constants.PrefKey.TIME_STAMP, tsLong);
     }
 
     private void handleValidateFail(EditText editText, LinearLayout linearLayout, String error) {

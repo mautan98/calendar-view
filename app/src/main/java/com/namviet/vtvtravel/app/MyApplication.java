@@ -2,9 +2,11 @@ package com.namviet.vtvtravel.app;
 
 import android.app.Application;
 import android.content.Intent;
+
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import android.util.Log;
 
 
@@ -127,6 +129,7 @@ public class MyApplication extends Application implements Observer {
     @Override
     public void onCreate() {
         super.onCreate();
+        setTimeStamp();
         instance = this;
         FirebaseMessaging.getInstance().setAutoInitEnabled(true);
 
@@ -143,7 +146,7 @@ public class MyApplication extends Application implements Observer {
                             // Get new Instance ID token
                             String token = task.getResult().getToken();
                             PreferenceUtil.getInstance(MyApplication.this).setValue(Constants.PrefKey.DEVICE_TOKEN, token);
-                            Log.e("tokennnn",  token);
+                            Log.e("tokennnn", token);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -154,7 +157,7 @@ public class MyApplication extends Application implements Observer {
         initDatabase();
         mAccount = new Account();
         try {
-            Account  account  =  new Gson().fromJson(PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.ACCOUNT, ""), Account.class);
+            Account account = new Gson().fromJson(PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.ACCOUNT, ""), Account.class);
             MyApplication.getInstance().setAccount(account);
         } catch (Exception e) {
             e.printStackTrace();
@@ -168,7 +171,13 @@ public class MyApplication extends Application implements Observer {
                 case Constants.TypeLogin.MOBILE:
                     String mobile = PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.MOBILE, "");
                     String password = PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.PASSWORD, "");
-                    accountViewModel.login(StringUtils.isPhoneValidateV2(mobile, 84), password, PreferenceUtil.getInstance(MyApplication.this).getValue(Constants.PrefKey.DEVICE_TOKEN, ""));
+//                    accountViewModel.login(StringUtils.isPhoneValidateV2(mobile, 84), password, PreferenceUtil.getInstance(MyApplication.this).getValue(Constants.PrefKey.DEVICE_TOKEN, ""));
+                    long currentTime = System.currentTimeMillis()/1000;
+                    long cacheTime = getTimeStamp();
+
+                    if((currentTime - cacheTime) > 518400){
+                        accountViewModel.refreshToken();
+                    }
                     break;
                 case Constants.TypeLogin.GOOGLE:
                     String googleId = PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.GOOGLE_ID, "");
@@ -292,6 +301,7 @@ public class MyApplication extends Application implements Observer {
                 if (o instanceof AccountResponse) {
                     AccountResponse accountResponse = (AccountResponse) o;
                     if (accountResponse.isSuccess()) {
+                        setCurrentTimeStampToCache();
                         PreferenceUtil.getInstance(getBaseContext()).setValue(Constants.PrefKey.IS_LOGIN, true);
                         PreferenceUtil.getInstance(getBaseContext()).setValue(Constants.PrefKey.ACCOUNT, new Gson().toJson(accountResponse.getData()));
                         MyApplication.getInstance().setAccount(accountResponse.getData());
@@ -319,8 +329,9 @@ public class MyApplication extends Application implements Observer {
     }
 
     private static String SECTION_ID = "";
+
     public static String getSessionId() {
-        if ("".equals(SECTION_ID)){
+        if ("".equals(SECTION_ID)) {
             long time = System.currentTimeMillis();
             SECTION_ID = String.valueOf(time);
         }
@@ -345,7 +356,7 @@ public class MyApplication extends Application implements Observer {
         this.cityList = cityList;
     }
 
-    private void initDatabase(){
+    private void initDatabase() {
         database = AppDatabase.getInMemoryDatabase(this);
     }
 
@@ -359,6 +370,25 @@ public class MyApplication extends Application implements Observer {
 
     public AppDatabase getDatabase() {
         return database;
+    }
+
+    private void setTimeStamp() {
+        long timeStamp = PreferenceUtil.getInstance(this).getValueLong(Constants.PrefKey.TIME_STAMP, 0);
+
+        if(timeStamp == 0){
+            long tsLong = System.currentTimeMillis()/1000;
+            PreferenceUtil.getInstance(this).setValue(Constants.PrefKey.TIME_STAMP, tsLong);
+        }
+
+    }
+
+    private long getTimeStamp(){
+        return PreferenceUtil.getInstance(this).getValueLong(Constants.PrefKey.TIME_STAMP, 0);
+    }
+
+    private void setCurrentTimeStampToCache(){
+        long tsLong = System.currentTimeMillis()/1000;
+        PreferenceUtil.getInstance(this).setValue(Constants.PrefKey.TIME_STAMP, tsLong);
     }
 
 }

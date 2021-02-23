@@ -16,6 +16,7 @@ import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.response.AccountResponse;
 import com.namviet.vtvtravel.response.BaseResponse;
 import com.namviet.vtvtravel.response.ResponseError;
+import com.namviet.vtvtravel.response.f2travelvoucher.ListVoucherResponse;
 import com.namviet.vtvtravel.ultils.ResponseUltils;
 
 import org.json.JSONObject;
@@ -71,6 +72,41 @@ public class AccountViewModel extends BaseViewModel {
 
         compositeDisposable.add(disposable);
     }
+
+
+    public void refreshToken() {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAccNoneToken();
+        String refreshToken = String.valueOf(MyApplication.getInstance().getAccount().getRefreshToken());
+
+        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                Param.getParams2(new JSONObject()).toString());
+
+
+        Disposable disposable = newsService.refreshToken(jsonBodyObject, refreshToken)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<AccountResponse>() {
+                    @Override
+                    public void accept(AccountResponse response) throws Exception {
+                        if (response.isSuccess()) {
+                            requestSuccess(response);
+                        } else {
+                            requestSuccess(null);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable);
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+
+
 
     public void register(String mobile, String name) {
 
