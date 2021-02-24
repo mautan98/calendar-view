@@ -18,8 +18,7 @@
         <FrameLayout
             android:id="@+id/frHome"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/tabLayoutMain" />
+            android:layout_height="match_parent" />
 
         <LinearLayout
             android:id="@+id/layoutButton"
@@ -48,19 +47,15 @@
                 android:visibility="visible" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_above="@+id/tabLayoutMain"
-            android:background="#D6D6D6" />
 
         <com.google.android.material.tabs.TabLayout
+            android:background="@drawable/bg_bottom_menu"
             app:tabPaddingEnd="0dp"
             app:tabPaddingStart="0dp"
             app:tabIndicatorFullWidth="false"
             android:id="@+id/tabLayoutMain"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:layout_alignParentBottom="true"
             app:tabIndicatorHeight="0dp"
             app:tabMode="fixed" />

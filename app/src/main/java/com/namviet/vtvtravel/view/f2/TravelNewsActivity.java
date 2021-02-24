@@ -38,7 +38,8 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
     private String detailLink;
     private int screenType;
 
-    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/9214589741";
+//    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/9214589741";
+    private static final String AD_UNIT_ID = "ca-app-pub-4768094881665076/6869444301";
     private FrameLayout adContainerView;
     private AdView adView;
 
@@ -149,11 +150,11 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (mInterstitialAd != null) {
-            mInterstitialAd.show(this);
-        } else {
-            Log.d("TAG", "The interstitial ad wasn't ready yet.");
-        }
+//        if (mInterstitialAd != null) {
+//            mInterstitialAd.show(this);
+//        } else {
+//            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+//        }
     }
 
     @Override
