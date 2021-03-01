@@ -38,8 +38,7 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
     private String detailLink;
     private int screenType;
 
-//    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/9214589741";
-    private static final String AD_UNIT_ID = "ca-app-pub-4768094881665076/6869444301";
+    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/9214589741";
     private FrameLayout adContainerView;
     private AdView adView;
 
@@ -67,7 +66,7 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
         screenType = getIntent().getIntExtra(Constants.IntentKey.SCREEN_TYPE, SmallLocationActivity.OpenType.LIST);
         if (screenType == SmallLocationActivity.OpenType.LIST) {
             isTravelNews = getIntent().getBooleanExtra(DATA, true);
-        }else {
+        } else {
             detailLink = getIntent().getStringExtra(Constants.IntentKey.DETAIL_LINK);
         }
     }
@@ -77,7 +76,8 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {}
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
         });
 
         MobileAds.setRequestConfiguration(
@@ -93,9 +93,8 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
         });
 
 
-
-        AdRequest adRequest = new AdRequest.Builder().build();
-        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", adRequest, new InterstitialAdLoadCallback() {
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("323D3E715DE154B6B9929289FFA35B5E").build();
+        InterstitialAd.load(this, "ca-app-pub-4335218320583369/4759152255", adRequest, new InterstitialAdLoadCallback() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                 // The mInterstitialAd reference will be null until
@@ -113,7 +112,6 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
         });
 
 
-
     }
 
     @Override
@@ -123,9 +121,9 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
 
     @Override
     public BaseFragment initFragment() {
-        if(screenType == OpenType.LIST) {
+        if (screenType == OpenType.LIST) {
             return new TravelNewsFragment(isTravelNews);
-        }else {
+        } else {
             DetailNewsTravelFragment detailNewsTravelFragment = new DetailNewsTravelFragment();
             detailNewsTravelFragment.setDetailLink(detailLink);
             return detailNewsTravelFragment;
@@ -139,7 +137,7 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
         activity.startActivity(intent);
     }
 
-    public static void openScreenDetail(Activity activity, int screenType, String detailLink ) {
+    public static void openScreenDetail(Activity activity, int screenType, String detailLink) {
         Intent intent = new Intent(activity, TravelNewsActivity.class);
         intent.putExtra(Constants.IntentKey.SCREEN_TYPE, screenType);
         intent.putExtra(Constants.IntentKey.DETAIL_LINK, detailLink);
@@ -150,11 +148,11 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-//        if (mInterstitialAd != null) {
-//            mInterstitialAd.show(this);
-//        } else {
-//            Log.d("TAG", "The interstitial ad wasn't ready yet.");
-//        }
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(this);
+        } else {
+            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+        }
     }
 
     @Override
@@ -165,7 +163,9 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
         super.onPause();
     }
 
-    /** Called when returning to the activity */
+    /**
+     * Called when returning to the activity
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -174,7 +174,9 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
         }
     }
 
-    /** Called before the activity is destroyed */
+    /**
+     * Called before the activity is destroyed
+     */
     @Override
     public void onDestroy() {
         if (adView != null) {

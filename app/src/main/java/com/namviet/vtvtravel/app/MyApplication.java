@@ -178,6 +178,7 @@ public class MyApplication extends Application implements Observer {
                     if((currentTime - cacheTime) > 518400){
                         accountViewModel.refreshToken();
                     }
+                    Log.e("rangetimeeeee", (currentTime - cacheTime)+"");
                     break;
                 case Constants.TypeLogin.GOOGLE:
                     String googleId = PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.GOOGLE_ID, "");
