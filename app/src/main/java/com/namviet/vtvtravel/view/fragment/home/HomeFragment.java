@@ -468,11 +468,19 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
                     tvHome.setTextColor(Color.parseColor("#65676B"));
                 }
 
+
+
+
                 ImageView imgHome = tabHome.findViewById(R.id.imgAvatar);
                 if(i == 0){
                     Glide.with(mActivity).load(menuResponse.getData().getMenus().getFooter().get(i).getIcon_enable_url()).into(imgHome);
                 }else {
                     Glide.with(mActivity).load(menuResponse.getData().getMenus().getFooter().get(i).getIcon_url()).into(imgHome);
+                }
+
+                if(i == 2){
+                    tvHome.setVisibility(View.GONE);
+                    imgHome.setVisibility(View.GONE);
                 }
 
                 binding.tabLayoutMain.addTab(binding.tabLayoutMain.newTab().setCustomView(tabHome));
@@ -500,7 +508,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
                     onMomentClick(0);
                     break;
                 case "APP_FOOTER_BOOKING":
-                    onSuggestClick(0);
+//                    onSuggestClick(0);
                     break;
                 case "APP_FOOTER_VIDEO":
                     onVideoClick(0);

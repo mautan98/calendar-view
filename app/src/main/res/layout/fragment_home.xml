@@ -49,7 +49,7 @@
 
 
         <com.google.android.material.tabs.TabLayout
-            android:background="@color/white"
+            android:background="@drawable/bg_bottom_menu"
             app:tabPaddingEnd="0dp"
             app:tabPaddingStart="0dp"
             app:tabIndicatorFullWidth="false"
