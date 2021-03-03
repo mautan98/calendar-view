@@ -71,6 +71,8 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
     private HomeViewModel homeViewModel;
     private HomeMenuAdapter adapter;
 
+    private boolean isShowBottomMenu = false;
+
     private Fragment mFragment = null;
 
     @Override
@@ -168,6 +170,22 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             @Override
             public void onClick(View view) {
                 call(getString(R.string.calling_address));
+            }
+        });
+
+
+        binding.btnShowBottomMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isShowBottomMenu){
+                    binding.layoutBottomMenu.setVisibility(View.GONE);
+                    binding.viewCoverBottomMenu.setVisibility(View.GONE);
+                    isShowBottomMenu = false;
+                }else {
+                    binding.layoutBottomMenu.setVisibility(View.VISIBLE);
+                    binding.viewCoverBottomMenu.setVisibility(View.VISIBLE);
+                    isShowBottomMenu = true;
+                }
             }
         });
 
