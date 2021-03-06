@@ -16,6 +16,7 @@
         android:background="@color/white">
 
         <FrameLayout
+            android:layout_above="@+id/tabLayoutMain"
             android:id="@+id/frHome"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

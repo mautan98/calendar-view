@@ -104,6 +104,7 @@ public class DetailDealWebviewFragment extends BaseFragment<F2FragmentWebviewFor
     }
 
 
+
     @Override
     public void initData() {
         CookieManager cookieManager = CookieManager.getInstance();
@@ -129,7 +130,7 @@ public class DetailDealWebviewFragment extends BaseFragment<F2FragmentWebviewFor
 
         Uri builtUri = Uri.parse(link)
                 .buildUpon()
-                .appendQueryParameter("platform", platform)
+                .appendQueryParameter("channel", platform)
                 .build();
 
         URL url = null;
@@ -147,7 +148,7 @@ public class DetailDealWebviewFragment extends BaseFragment<F2FragmentWebviewFor
 
         Uri builtUri = Uri.parse(backLink)
                 .buildUpon()
-                .appendQueryParameter("platform", platform)
+                .appendQueryParameter("channel", platform)
                 .build();
 
         URL url = null;
