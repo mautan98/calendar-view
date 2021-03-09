@@ -189,7 +189,63 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             }
         });
 
+
+
+        binding.imgSan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideBottomMenu();
+
+            }
+        });
+
+        binding.imgCreateTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideBottomMenu();
+
+            }
+        });
+
+        binding.imgPrize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideBottomMenu();
+
+            }
+        });
+
+        binding.imgLuckyWheel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideBottomMenu();
+
+            }
+        });
+
+        binding.viewCoverBottomMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideBottomMenu();
+            }
+        });
+
+
+        binding.viewAboveBottomMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideBottomMenu();
+            }
+        });
+
+
         updateViews();
+    }
+
+    private void hideBottomMenu(){
+        binding.layoutBottomMenu.setVisibility(View.GONE);
+        binding.viewCoverBottomMenu.setVisibility(View.GONE);
+        isShowBottomMenu = false;
     }
 
     @Override
