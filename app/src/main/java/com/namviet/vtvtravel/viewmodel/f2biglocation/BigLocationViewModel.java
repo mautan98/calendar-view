@@ -7,6 +7,7 @@ import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.response.WeatherResponse;
+import com.namviet.vtvtravel.response.f2biglocation.BigLocationBaseResponse;
 import com.namviet.vtvtravel.response.f2biglocation.BigLocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.LocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.RegionResponse;
@@ -61,6 +62,30 @@ public class BigLocationViewModel extends BaseViewModel {
                 .subscribe(new Consumer<BigLocationResponse>() {
                     @Override
                     public void accept(BigLocationResponse response) throws Exception {
+                        if (response != null) {
+                            requestSuccess(response);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable);
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+    public void getBigLocationBase(String regionId) {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelService();
+        Map<String, Object> queryMap = Param.getBigLocation(regionId);
+        Disposable disposable = newsService.getBigLocationBase(queryMap)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<BigLocationBaseResponse>() {
+                    @Override
+                    public void accept(BigLocationBaseResponse response) throws Exception {
                         if (response != null) {
                             requestSuccess(response);
                         }
