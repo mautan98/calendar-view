@@ -381,9 +381,22 @@ public class BigLocationResponse extends BaseResponse {
             @SerializedName("id")
             private String id;
 
+
+            @Expose
+            @SerializedName("api_items")
+            private String api_items;
+
             @Expose
             @SerializedName("items")
             private List<Travel> items;
+
+            public String getApi_items() {
+                return api_items;
+            }
+
+            public void setApi_items(String api_items) {
+                this.api_items = api_items;
+            }
 
             public List<Travel> getItems() {
                 return items;
