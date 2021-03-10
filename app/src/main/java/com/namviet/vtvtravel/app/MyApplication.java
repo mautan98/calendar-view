@@ -175,9 +175,9 @@ public class MyApplication extends Application implements Observer {
                     long currentTime = System.currentTimeMillis()/1000;
                     long cacheTime = getTimeStamp();
 
-                    if((currentTime - cacheTime) > 518400){
+//                    if((currentTime - cacheTime) > 518400){
                         accountViewModel.refreshToken();
-                    }
+//                    }
                     Log.e("rangetimeeeee", (currentTime - cacheTime)+"");
                     break;
                 case Constants.TypeLogin.GOOGLE:
