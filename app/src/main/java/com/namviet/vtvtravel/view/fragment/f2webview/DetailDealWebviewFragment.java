@@ -131,6 +131,7 @@ public class DetailDealWebviewFragment extends BaseFragment<F2FragmentWebviewFor
         Uri builtUri = Uri.parse(link)
                 .buildUpon()
                 .appendQueryParameter("channel", platform)
+                .appendQueryParameter("platform", platform)
                 .build();
 
         URL url = null;
@@ -149,6 +150,7 @@ public class DetailDealWebviewFragment extends BaseFragment<F2FragmentWebviewFor
         Uri builtUri = Uri.parse(backLink)
                 .buildUpon()
                 .appendQueryParameter("channel", platform)
+                .appendQueryParameter("platform", platform)
                 .build();
 
         URL url = null;
