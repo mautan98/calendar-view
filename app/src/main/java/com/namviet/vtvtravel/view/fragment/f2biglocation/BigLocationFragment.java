@@ -202,7 +202,7 @@ public class BigLocationFragment extends BaseFragment<F2FragmentBigLocationBindi
                                 dataListStay.get(i).setItems(response.getItems());
                                 parentDetailBigLocationAdapter.notifyDataSetChanged();
                             }
-                        }
+                          }
                         break;
 
                     case "APP_TOP_RESTAURANT":

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -344,11 +345,13 @@ public class ParentDetailBigLocationAdapter extends RecyclerView.Adapter<Recycle
         private ImageView imgBackground;
         private DetailBigLocationAdapter detailBigLocationAdapter;
         private int position;
+        private RelativeLayout layoutProgressBar;
 
         public DetailBigLocationViewHolder(View itemView) {
             super(itemView);
             rclContent = itemView.findViewById(R.id.rclContent);
             imgBackground = itemView.findViewById(R.id.imgBackground);
+            layoutProgressBar = itemView.findViewById(R.id.layoutProgressBar);
         }
 
         public void bindItem(List<BigLocationResponse.Data.Item> dataList, int position) {
@@ -364,6 +367,8 @@ public class ParentDetailBigLocationAdapter extends RecyclerView.Adapter<Recycle
                     if (dataList.get(i).getItems() == null) {
                         dataList.get(i).getApi_items();
                         callRequest.onCallRequest(dataList.get(i).getApi_items(), dataList.get(i).getCode());
+                    }else {
+                        layoutProgressBar.setVisibility(View.GONE);
                     }
                 }
             } catch (Exception e) {
