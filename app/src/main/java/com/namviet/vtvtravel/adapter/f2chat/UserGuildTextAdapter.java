@@ -5,6 +5,9 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.BackgroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +70,10 @@ public class UserGuildTextAdapter extends RecyclerView.Adapter<UserGuildTextAdap
                     tvLabel.setText(item.getLabel());
                 } else {
                     tvDescription.setText(item.getDescriptions());
+
                     tvLabel.setVisibility(View.GONE);
+
+                    setHighLightedText(tvDescription, "đây");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -77,6 +83,22 @@ public class UserGuildTextAdapter extends RecyclerView.Adapter<UserGuildTextAdap
 
     public interface ClickItem {
         void clickItem();
+    }
+
+    public void setHighLightedText(TextView tv, String textToHighlight) {
+        String tvt = tv.getText().toString();
+        int ofe = tvt.indexOf(textToHighlight, 0);
+        Spannable wordToSpan = new SpannableString(tv.getText());
+        for (int ofs = 0; ofs < tvt.length() && ofe != -1; ofs = ofe + 1) {
+            ofe = tvt.indexOf(textToHighlight, ofs);
+            if (ofe == -1)
+                break;
+            else {
+                // set color here
+                wordToSpan.setSpan(new BackgroundColorSpan(0xFFFFFF00), ofe, ofe + textToHighlight.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                tv.setText(wordToSpan, TextView.BufferType.SPANNABLE);
+            }
+        }
     }
 }
 
