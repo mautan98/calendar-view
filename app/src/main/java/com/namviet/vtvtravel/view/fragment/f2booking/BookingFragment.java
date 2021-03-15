@@ -119,15 +119,16 @@ public class BookingFragment extends MainFragment {
             }
         });
 
-        Account account = MyApplication.getInstance().getAccount();
-        if (null != account && account.isLogin()) {
-            token = account.getToken();
-            Map<String, String> extraHeaders = new HashMap<>();
-            extraHeaders.put("token",token);
-            binding.webView.loadUrl(genLink(), extraHeaders);
-        } else {
-            Toast.makeText(mActivity, "Bạn cần đăng nhập để sử dụng chức năng này!", Toast.LENGTH_SHORT).show();
-        }
+//        Account account = MyApplication.getInstance().getAccount();
+//        if (null != account && account.isLogin()) {
+//            token = account.getToken();
+//            Map<String, String> extraHeaders = new HashMap<>();
+//            extraHeaders.put("token",token);
+//            binding.webView.loadUrl(genLink(), extraHeaders);
+            binding.webView.loadUrl(genLink());
+//        } else {
+//            Toast.makeText(mActivity, "Bạn cần đăng nhập để sử dụng chức năng này!", Toast.LENGTH_SHORT).show();
+//        }
 
     }
 
