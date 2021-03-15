@@ -1,11 +1,14 @@
 package com.namviet.vtvtravel.view.fragment.f2booking;
 
 import androidx.databinding.DataBindingUtil;
+
+import android.net.UrlQuerySanitizer;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +28,8 @@ import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndGoToBooking;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndUpdateUserView;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.view.f2.UserInformationActivity;
+import com.namviet.vtvtravel.view.f2.f2oldbase.SettingActivity;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -38,6 +43,7 @@ public class BookingFragment extends MainFragment {
     private String link = WSConfig.HOST_BOOKING;
     //    private String link = "http://103.21.148.54:8857/get-list?token=";
     private String token;
+    private String backLink;
 
     private String loginHtml = "<!DOCTYPE html>\n" +
             "<html>\n" +
@@ -119,21 +125,43 @@ public class BookingFragment extends MainFragment {
             }
         });
 
-//        Account account = MyApplication.getInstance().getAccount();
-//        if (null != account && account.isLogin()) {
-//            token = account.getToken();
-//            Map<String, String> extraHeaders = new HashMap<>();
-//            extraHeaders.put("token",token);
-//            binding.webView.loadUrl(genLink(), extraHeaders);
+
+        binding.webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                try {
+                    if (url.equals("app://login")) {
+                        backLink = new UrlQuerySanitizer(url).getValue("backlink");
+                        LoginAndRegisterActivityNew.startScreen(mActivity, 0, false, false, true);
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return true;
+            }
+        });
+
+
+        Account account = MyApplication.getInstance().getAccount();
+        if (null != account && account.isLogin()) {
+            token = account.getToken();
+            Map<String, String> extraHeaders = new HashMap<>();
+            extraHeaders.put("token", token);
+            binding.webView.loadUrl(genLink(), extraHeaders);
+        } else {
             binding.webView.loadUrl(genLink());
-//        } else {
 //            Toast.makeText(mActivity, "Bạn cần đăng nhập để sử dụng chức năng này!", Toast.LENGTH_SHORT).show();
-//        }
+        }
 
     }
 
     private String genLink() {
         return link;
+    }
+
+    private String genLinkWithBackLink(){
+        return backLink;
     }
 
     @Override
@@ -152,8 +180,8 @@ public class BookingFragment extends MainFragment {
         if (null != account && account.isLogin()) {
             token = account.getToken();
             Map<String, String> extraHeaders = new HashMap<>();
-            extraHeaders.put("token",token);
-            binding.webView.loadUrl(genLink(), extraHeaders);
+            extraHeaders.put("token", token);
+            binding.webView.loadUrl(genLinkWithBackLink(), extraHeaders);
         } else {
             LoginAndRegisterActivityNew.startScreen(mActivity, 0, false, true);
         }

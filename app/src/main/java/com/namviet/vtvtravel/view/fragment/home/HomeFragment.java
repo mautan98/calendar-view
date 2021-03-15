@@ -324,11 +324,11 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 //        binding.menuFooter.setIndexCurrent(position);
         switchFragment(SlideMenu.MenuType.BOOKING_SCREEN);
         mActivity.showDialogNoCon();
-        Account account = MyApplication.getInstance().getAccount();
-        if (null != account && account.isLogin()) {
-        } else {
-            LoginAndRegisterActivityNew.startScreen(mActivity, 0, false, true);
-        }
+//        Account account = MyApplication.getInstance().getAccount();
+//        if (null != account && account.isLogin()) {
+//        } else {
+//            LoginAndRegisterActivityNew.startScreen(mActivity, 0, false, true);
+//        }
     }
 
     @Override
