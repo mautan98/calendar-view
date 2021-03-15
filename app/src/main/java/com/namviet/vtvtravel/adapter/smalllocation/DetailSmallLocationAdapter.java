@@ -184,6 +184,9 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
         private View btnViewRating;
         private TextView btnShowMoreAndShowLess;
         private TextView tvShortDescription;
+        private RelativeLayout btnControl;
+        private ImageView imgDown;
+        private ImageView imgUp;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -196,6 +199,9 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
             btnViewRating = itemView.findViewById(R.id.btnViewRating);
             btnViewNews = itemView.findViewById(R.id.btnViewNews);
             btnShowMoreAndShowLess = itemView.findViewById(R.id.btnShowMoreAndShowLess);
+            btnControl = itemView.findViewById(R.id.btnControl);
+            imgDown = itemView.findViewById(R.id.imgDown);
+            imgUp = itemView.findViewById(R.id.imgUp);
             webView.getSettings().setJavaScriptEnabled(true);
             btnViewRating.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -220,14 +226,18 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
                 webView.setVisibility(View.VISIBLE);
                 btnViewNews.setVisibility(View.VISIBLE);
                 tvShortDescription.setVisibility(View.GONE);
+                imgDown.setVisibility(View.GONE);
+                imgUp.setVisibility(View.VISIBLE);
             } else {
                 btnShowMoreAndShowLess.setText("Xem thêm");
                 webView.setVisibility(View.GONE);
                 btnViewNews.setVisibility(View.GONE);
                 tvShortDescription.setVisibility(View.VISIBLE);
+                imgDown.setVisibility(View.VISIBLE);
+                imgUp.setVisibility(View.GONE);
             }
 
-            btnShowMoreAndShowLess.setOnClickListener(new View.OnClickListener() {
+            btnControl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (tab.isShow()) {
@@ -236,12 +246,16 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
                         btnViewNews.setVisibility(View.GONE);
                         tvShortDescription.setVisibility(View.VISIBLE);
                         items.get(position).setShow(false);
+                        imgDown.setVisibility(View.VISIBLE);
+                        imgUp.setVisibility(View.GONE);
                     } else {
                         items.get(position).setShow(true);
                         btnShowMoreAndShowLess.setText("Ẩn bớt");
                         tvShortDescription.setVisibility(View.GONE);
                         webView.setVisibility(View.VISIBLE);
                         btnViewNews.setVisibility(View.VISIBLE);
+                        imgDown.setVisibility(View.GONE);
+                        imgUp.setVisibility(View.VISIBLE);
                     }
                 }
             });

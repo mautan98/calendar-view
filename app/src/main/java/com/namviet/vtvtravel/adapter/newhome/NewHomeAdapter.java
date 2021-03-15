@@ -662,12 +662,12 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDescription = itemView.findViewById(R.id.tvDescription);
 
-            try {
-                SnapHelper helper = new LinearSnapHelper();
-                helper.attachToRecyclerView(recyclerFavorPlace);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            try {
+//                SnapHelper helper = new LinearSnapHelper();
+//                helper.attachToRecyclerView(recyclerFavorPlace);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

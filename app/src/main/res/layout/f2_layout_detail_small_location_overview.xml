@@ -58,12 +58,12 @@
                 android:background="#B4B4B4" />
 
             <LinearLayout
+                android:id="@+id/btnViewRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_ripple_trans_rect"
                 android:orientation="horizontal"
                 android:paddingTop="5dp"
-                android:id="@+id/btnViewRating"
                 android:paddingBottom="5dp">
 
                 <ImageView
@@ -125,18 +125,49 @@
             android:textColor="#6685E9"
             android:textSize="14dp" />
 
-        <TextView
-            android:id="@+id/btnShowMoreAndShowLess"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+
+        <RelativeLayout
+            android:id="@+id/btnControl"
             android:background="@drawable/f2_bg_button_hidden"
-            android:fontFamily="@font/roboto_regular"
-            android:gravity="center"
-            android:paddingTop="11dp"
-            android:paddingBottom="9dp"
-            android:text="Ẩn bớt"
-            android:textColor="#0D9793"
-            android:textSize="14dp" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/imgDown"
+                android:layout_marginEnd="10.4dp"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/btnShowMoreAndShowLess"
+                android:src="@drawable/f2_ic_down_small"
+                android:layout_width="11dp"
+                android:layout_height="6dp"/>
+
+
+            <ImageView
+                android:rotationX="180"
+                android:id="@+id/imgUp"
+                android:layout_marginEnd="10.4dp"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/btnShowMoreAndShowLess"
+                android:src="@drawable/f2_ic_down_small"
+                android:layout_width="11dp"
+                android:layout_height="6dp"/>
+
+
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:id="@+id/btnShowMoreAndShowLess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:paddingTop="11dp"
+                android:paddingBottom="11dp"
+                android:text="Ẩn bớt"
+                android:textColor="#0D9793"
+                android:textSize="14dp" />
+        </RelativeLayout>
     </LinearLayout>
 
     <View
