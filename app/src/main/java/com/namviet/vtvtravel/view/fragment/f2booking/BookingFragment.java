@@ -130,10 +130,12 @@ public class BookingFragment extends MainFragment {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 try {
-                    if (url.equals("app://login")) {
+                    if (url.startsWith("app://login")) {
                         backLink = new UrlQuerySanitizer(url).getValue("backlink");
-                        LoginAndRegisterActivityNew.startScreen(mActivity, 0, false, false, true);
+                        LoginAndRegisterActivityNew.startScreen(mActivity, 0, false, true, true);
 
+                    }else {
+                        view.loadUrl(url);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -178,6 +180,11 @@ public class BookingFragment extends MainFragment {
     public void OnReload(OnLoginSuccessAndGoToBooking onLoginSuccessAndGoToBooking) {
         Account account = MyApplication.getInstance().getAccount();
         if (null != account && account.isLogin()) {
+            CookieManager cookieManager = CookieManager.getInstance();
+            cookieManager.removeSessionCookie();
+            binding.webView.clearCache(true);
+            binding.webView.clearHistory();
+
             token = account.getToken();
             Map<String, String> extraHeaders = new HashMap<>();
             extraHeaders.put("token", token);
@@ -197,7 +204,8 @@ public class BookingFragment extends MainFragment {
             cookieManager.removeSessionCookie();
             binding.webView.clearCache(true);
             binding.webView.clearHistory();
-            binding.webView.loadDataWithBaseURL("", loginHtml, "text/html", "UTF-8", null);
+            binding.webView.loadUrl(genLink());
+//            binding.webView.loadDataWithBaseURL("", loginHtml, "text/html", "UTF-8", null);
         }
 
     }
