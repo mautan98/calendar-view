@@ -9,10 +9,10 @@
         android:background="@color/md_black_1000">
 
         <androidx.viewpager.widget.ViewPager
+            android:layout_marginTop="64dp"
             android:id="@+id/vpGallery"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true" />
+            android:layout_height="match_parent" />
 
         <RelativeLayout
             android:layout_width="match_parent"

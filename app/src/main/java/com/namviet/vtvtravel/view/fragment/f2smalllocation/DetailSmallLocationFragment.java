@@ -385,7 +385,11 @@ public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSm
 
     @Override
     public void onClickImage(int position, List<String> listImage) {
-
+        try {
+            SlideImageActivity.startScreen( mActivity, (ArrayList<String>) listImage, position);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

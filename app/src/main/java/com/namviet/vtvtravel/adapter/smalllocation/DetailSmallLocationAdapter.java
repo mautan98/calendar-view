@@ -34,8 +34,10 @@ import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
 import com.namviet.vtvtravel.view.f2.MapActivity;
+import com.namviet.vtvtravel.view.f2.SlideImageActivity;
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.DetailSmallLocationFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -484,15 +486,28 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
         private int position;
         private RecyclerView rclContent;
         private GalleryImageAdapter imageAdapter;
+        private TextView btnSeeAll;
 
         public ImageViewHolder(View itemView) {
             super(itemView);
             rclContent = itemView.findViewById(R.id.rclContent);
+            btnSeeAll = itemView.findViewById(R.id.btnSeeAll);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     openImageScreen(0, position);
+                }
+            });
+
+            btnSeeAll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        SlideImageActivity.startScreen( context, (ArrayList<String>) items.get(position).getItemsGallery(), 0);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }

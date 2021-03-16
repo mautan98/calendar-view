@@ -147,6 +147,7 @@ dependencies {
 //    releaseImplementation "org.linphone:linphone-sdk-android:4.4+"
     implementation 'com.google.android.gms:play-services-ads:19.7.0'
     implementation 'com.google.firebase:firebase-crashlytics:17.3.1'
+    implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.2.1"
 
 }
 apply plugin: 'com.google.gms.google-services'

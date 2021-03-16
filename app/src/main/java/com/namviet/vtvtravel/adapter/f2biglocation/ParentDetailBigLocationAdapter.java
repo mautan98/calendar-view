@@ -2,40 +2,37 @@ package com.namviet.vtvtravel.adapter.f2biglocation;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.brucetoo.videoplayer.utils.Utils;
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.adapter.f2biglocation.sub.FooterBigLocationAdapter;
-import com.namviet.vtvtravel.adapter.f2biglocation.sub.HeaderBigLocation2Adapter;
-import com.namviet.vtvtravel.adapter.f2biglocation.sub.HeaderBigLocationAdapter;
 import com.namviet.vtvtravel.adapter.f2biglocation.sub.TravelTipBigLocationAdapter;
 import com.namviet.vtvtravel.adapter.f2biglocation.sub.VideoBigLocationAdapter;
-import com.namviet.vtvtravel.model.ItemWeather;
-import com.namviet.vtvtravel.model.travelnews.Travel;
+import com.namviet.vtvtravel.adapter.imagepart.SlideImageInHighLightestImageAdapter;
 import com.namviet.vtvtravel.response.WeatherResponse;
 import com.namviet.vtvtravel.response.f2biglocation.BigLocationResponse;
 import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
-import com.namviet.vtvtravel.tracking.TrackingAnalytic;
-import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f2.HighLightSeeMoreVideoActivity;
-import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
+import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 public class ParentDetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_OVERVIEW = -1;
@@ -242,10 +239,18 @@ public class ParentDetailBigLocationAdapter extends RecyclerView.Adapter<Recycle
         private ImageView imgWeather;
         private TextView tvWeather;
 
+        private ViewPager viewPagerAvatar;
+
+        private SlideImageInHeaderBigLocationAdapter slideImageInHighLightestImageAdapter;
+
+        private ScrollingPagerIndicator indicator;
+
 
         public OverViewViewHolder(View itemView) {
             super(itemView);
             tvRegionName = itemView.findViewById(R.id.tvRegionName);
+            indicator = itemView.findViewById(R.id.indicator);
+            viewPagerAvatar = itemView.findViewById(R.id.viewAvatar);
             imgWeather = itemView.findViewById(R.id.imgWeather);
             tvWeather = itemView.findViewById(R.id.tvWeather);
             btnShare = itemView.findViewById(R.id.btnShare);
@@ -260,7 +265,23 @@ public class ParentDetailBigLocationAdapter extends RecyclerView.Adapter<Recycle
         public void bindItem() {
             bigLocationTopTabAdapter = new BigLocationTopTabAdapter(region.getItems(), context, region.getId(), null);
             rclActivity.setAdapter(bigLocationTopTabAdapter);
-            Glide.with(context).load(region.getBanner_url()).into(imgAvatar);
+//            Glide.with(context).load(region.getBanner_url()).into(imgAvatar);
+
+            try {
+                slideImageInHighLightestImageAdapter = new SlideImageInHeaderBigLocationAdapter(context, region.getThumb_url());
+                viewPagerAvatar.setAdapter(slideImageInHighLightestImageAdapter);
+                indicator.attachToPager(viewPagerAvatar);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewPagerAvatar.setCurrentItem(1);
+                    }
+                }, 100);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
             webView.loadDataWithBaseURL("", region.getDescription(), "text/html", "UTF-8", null);
 
             if (region.isShow()) {
