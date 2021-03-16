@@ -17,7 +17,9 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
 import com.namviet.vtvtravel.ultils.DateUtltils;
+import com.namviet.vtvtravel.view.f2.SlideImageActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -124,7 +126,11 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     imageAdapter = new ImageAdapter(content.getGalleryUris(), context, new ImageAdapter.ClickItem() {
                         @Override
                         public void onClickItem(int position) {
-
+                            try {
+                                SlideImageActivity.startScreen( context, (ArrayList<String>) content.getGalleryUris(), position);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     });
                     rclImage.setAdapter(imageAdapter);

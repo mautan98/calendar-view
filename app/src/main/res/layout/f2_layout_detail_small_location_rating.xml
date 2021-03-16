@@ -301,9 +301,10 @@
             android:visibility="visible">
 
             <View
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/colorPrimary" />
+                android:background="#EEEEEE" />
 
 
             <LinearLayout
@@ -334,9 +335,10 @@
             </LinearLayout>
 
             <View
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/colorPrimary" />
+                android:background="#EEEEEE" />
 
 
         </LinearLayout>

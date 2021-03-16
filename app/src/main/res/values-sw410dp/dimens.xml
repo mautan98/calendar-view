@@ -9,7 +9,8 @@
 
 
 
-    <dimen name="dimen320dp">312dp</dimen>
+
+    <dimen name="dimen320dp">340dp</dimen>
 
 
 </resources>

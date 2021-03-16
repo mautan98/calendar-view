@@ -18,7 +18,7 @@
             app:cardUseCompatPadding="true">
 
             <LinearLayout
-                android:layout_width="320dp"
+                android:layout_width="@dimen/dimen320dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
