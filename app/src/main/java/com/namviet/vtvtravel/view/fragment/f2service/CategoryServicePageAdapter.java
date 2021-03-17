@@ -32,6 +32,14 @@ public class CategoryServicePageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return list.get(position).getName();
+        try {
+            if(position == 0){
+                return "Friend Travel Free";
+            }else {
+                return "Travel VIP";
+            }
+        } catch (Exception e) {
+            return "Friend Travel Free";
+        }
     }
 }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
+import com.namviet.vtvtravel.databinding.F2FragmentTabServiceBinding;
 import com.namviet.vtvtravel.databinding.FragmentTabServiceBinding;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
@@ -20,7 +21,7 @@ import com.namviet.vtvtravel.view.fragment.MainFragment;
 public class ServiceTabFragment extends MainFragment {
 
     private Service service;
-    private FragmentTabServiceBinding binding;
+    private F2FragmentTabServiceBinding binding;
     private TypeRegisterDialog typeRegisterDialog;
 
     public static ServiceTabFragment newInstance(Service service) {
@@ -43,7 +44,7 @@ public class ServiceTabFragment extends MainFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tab_service, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.f2_fragment_tab_service, container, false);
         return binding.getRoot();
     }
 
@@ -117,6 +118,46 @@ public class ServiceTabFragment extends MainFragment {
         binding.txtContent1.setText(service.getAbout());
         binding.txtContent2.setText(service.getTarget());
         binding.txtContent3.setText(service.getNotes());
+
+
+        binding.btnShowHide1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(binding.txtContent1.getVisibility() == View.GONE){
+                    binding.txtContent1.setVisibility(View.VISIBLE);
+                    binding.img1.setRotationX(0f);
+                }else {
+                    binding.txtContent1.setVisibility(View.GONE);
+                    binding.img1.setRotationX(180f);
+                }
+            }
+        });
+
+        binding.btnShowHide2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(binding.txtContent2.getVisibility() == View.GONE){
+                    binding.txtContent2.setVisibility(View.VISIBLE);
+                    binding.img2.setRotationX(0f);
+                }else {
+                    binding.txtContent2.setVisibility(View.GONE);
+                    binding.img2.setRotationX(180f);
+                }
+            }
+        });
+
+        binding.btnShowHide3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(binding.txtContent3.getVisibility() == View.GONE){
+                    binding.txtContent3.setVisibility(View.VISIBLE);
+                    binding.img3.setRotationX(0f);
+                }else {
+                    binding.txtContent3.setVisibility(View.GONE);
+                    binding.img3.setRotationX(180f);
+                }
+            }
+        });
     }
 
     private boolean checkSdkLower16() {

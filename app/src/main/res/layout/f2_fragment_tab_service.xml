@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="serviceViewModel"
+            type="com.namviet.vtvtravel.view.fragment.f2service.ServiceViewModel" />
+    </data>
+
+
+    <LinearLayout
+        android:background="#F6F6F6"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/f2_bg_service_package"
+                        app:layout_constraintDimensionRatio="375:101"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"/>
+
+
+
+                    <LinearLayout
+                        android:layout_marginEnd="18dp"
+                        android:layout_marginStart="18dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:id="@+id/txt_header_title"
+                            android:textAllCaps="true"
+                            android:textSize="18dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:textColor="#004AB9"
+                            android:text="Giá cước:"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+
+
+
+
+
+                    </LinearLayout>
+                    
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+                <LinearLayout
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:id="@+id/btnShowHide1"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="37dp">
+
+                        <ImageView
+                            android:src="@drawable/f2_ic_info_service_package"
+                            android:layout_marginStart="12dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"/>
+
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_marginStart="10dp"
+                            android:textSize="14dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:textColor="#757575"
+                            android:text="Giới thiệu về gói cước:"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+
+                        <ImageView
+                            android:id="@+id/img1"
+                            android:layout_marginEnd="18dp"
+                            android:src="@drawable/f2_ic_down_small"
+                            android:layout_width="11dp"
+                            android:layout_height="6dp"/>
+
+
+
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:background="#F6F6F6"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"/>
+
+
+                    <TextView
+                        android:paddingBottom="12dp"
+                        android:textColor="@color/md_black_1000"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="14dp"
+                        android:text="Gói Travel VIP là gói dịch vụ ưu đãi dành riêng cho Khách hàng của Hệ sinh thái du lịch VTVTravel. Khi đăng ký gói dịch vụ, Khác hàng sẽ được hưởng các Chương trình ưu đãi bao gồm:"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginStart="12dp"
+                        android:id="@+id/txt_content_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:id="@+id/btnShowHide2"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="37dp">
+
+                        <ImageView
+                            android:src="@drawable/f2_ic_target_mem_service_package"
+                            android:layout_marginStart="12dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"/>
+
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_marginStart="10dp"
+                            android:textSize="14dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:textColor="#757575"
+                            android:text="Đối tượng sử dụng:"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+
+                        <ImageView
+                            android:id="@+id/img2"
+                            android:layout_marginEnd="18dp"
+                            android:src="@drawable/f2_ic_down_small"
+                            android:layout_width="11dp"
+                            android:layout_height="6dp"/>
+
+
+
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:background="#F6F6F6"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"/>
+
+
+                    <TextView
+                        android:paddingBottom="12dp"
+                        android:textColor="@color/md_black_1000"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="14dp"
+                        android:text="Gói Travel VIP là gói dịch vụ ưu đãi dành riêng cho Khách hàng của Hệ sinh thái du lịch VTVTravel. Khi đăng ký gói dịch vụ, Khác hàng sẽ được hưởng các Chương trình ưu đãi bao gồm:"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginStart="12dp"
+                        android:id="@+id/txt_content_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:id="@+id/btnShowHide3"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="37dp">
+
+                        <ImageView
+                            android:src="@drawable/f2_ic_note_service_package"
+                            android:layout_marginStart="12dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"/>
+
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_marginStart="10dp"
+                            android:textSize="14dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:textColor="#757575"
+                            android:text="Lưu ý"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+
+                        <ImageView
+                            android:id="@+id/img3"
+                            android:layout_marginEnd="18dp"
+                            android:src="@drawable/f2_ic_down_small"
+                            android:layout_width="11dp"
+                            android:layout_height="6dp"/>
+
+
+
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:background="#F6F6F6"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"/>
+
+
+                    <TextView
+                        android:paddingBottom="12dp"
+                        android:textColor="@color/md_black_1000"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="14dp"
+                        android:text="Gói Travel VIP là gói dịch vụ ưu đãi dành riêng cho Khách hàng của Hệ sinh thái du lịch VTVTravel. Khi đăng ký gói dịch vụ, Khác hàng sẽ được hưởng các Chương trình ưu đãi bao gồm:"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginStart="12dp"
+                        android:id="@+id/txt_content_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+
+
+
+                <Button
+                    android:layout_marginBottom="50dp"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
+                    android:layout_gravity="center_horizontal"
+                    android:clickable="false"
+                    android:id="@+id/btn_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="27dp"
+                    android:background="@drawable/bg_register_service2"
+                    android:text="ĐĂNG KÝ NGAY"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_content_3" />
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </LinearLayout>
+</layout>

@@ -93,6 +93,7 @@ public class ServiceFragment extends MainFragment implements Observer {
         }, Constants.TimeDelay);
 
         binding.btnBack.setOnClickListener(this);
+
     }
 
     @Override
@@ -108,18 +109,10 @@ public class ServiceFragment extends MainFragment implements Observer {
         pagerAdapter.setList(list);
         binding.vpVideo.setAdapter(pagerAdapter);
 
-        binding.tabVideo.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelect(int position) {
-            }
 
-            @Override
-            public void onTabReselect(int position) {
-            }
-        });
-        binding.tabVideo.setViewPager(binding.vpVideo);
-        binding.tabVideo.setCurrentTab(1);
+        binding.tabVideo.setupWithViewPager(binding.vpVideo);
         binding.vpVideo.setOffscreenPageLimit(list.size());
+        binding.vpVideo.setCurrentItem(1);
 
     }
 
