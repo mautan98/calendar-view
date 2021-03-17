@@ -124,15 +124,12 @@
 
 
                         <ImageView
-                            android:padding="1.5dp"
-                            android:background="@color/colorPrimary"
                             android:visibility="visible"
                             android:layout_width="14dp"
-                            android:layout_height="10dp"
+                            android:layout_height="14dp"
                             android:layout_gravity="center"
                             android:layout_marginStart="8dp"
-                            android:src="@drawable/f2_ic_arrow2"
-                            android:tint="@color/white" />
+                            android:src="@drawable/f2_ic_popup_degree" />
                     </LinearLayout>
 
                 </LinearLayout>
