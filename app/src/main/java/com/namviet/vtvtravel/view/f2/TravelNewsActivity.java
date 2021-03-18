@@ -38,7 +38,7 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
     private String detailLink;
     private int screenType;
 
-    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/9214589741";
+    private static final String AD_UNIT_ID = "ca-app-pub-3459722054810147/3413504313";
     private FrameLayout adContainerView;
     private AdView adView;
 
@@ -94,7 +94,7 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
 
 
         AdRequest adRequest = new AdRequest.Builder().addTestDevice("323D3E715DE154B6B9929289FFA35B5E").build();
-        InterstitialAd.load(this, "ca-app-pub-4335218320583369/4759152255", adRequest, new InterstitialAdLoadCallback() {
+        InterstitialAd.load(this, "ca-app-pub-3459722054810147/6126463410", adRequest, new InterstitialAdLoadCallback() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                 // The mInterstitialAd reference will be null until

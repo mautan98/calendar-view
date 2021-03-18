@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data></data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="#EEEEEE"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <RelativeLayout
+            android:background="#00918D"
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+
+
+            <LinearLayout
+                android:id="@+id/btnBack"
+                android:gravity="center"
+                android:layout_width="44dp"
+                android:layout_height="44dp">
+
+                <ImageView
+                    android:tint="@color/white"
+                    android:src="@drawable/f2_ic_back"
+                    android:layout_width="11dp"
+                    android:layout_height="19dp"/>
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textSize="16dp"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="@color/white"
+                android:textAllCaps="true"
+                android:text="Menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+
+
+        </RelativeLayout>
+
+
+
+
+        <LinearLayout
+            android:background="@color/white"
+            android:id="@+id/layoutUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="14dp"
+            android:paddingTop="14dp"
+            android:paddingEnd="14dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="12dp"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
+                android:background="@drawable/f2_defaut_user"
+                android:scaleType="centerCrop" />
+
+
+            <LinearLayout
+                android:id="@+id/layoutUserInformation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Chào Thành"
+                    android:textColor="#5D5D5D"
+                    android:textSize="20dp" />
+
+
+                <TextView
+                    android:id="@+id/tvPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="0986xxxx15"
+                    android:textColor="#515151"
+                    android:textSize="15dp" />
+
+
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:tint="#8A8A8A"
+                android:rotation="180"
+                android:src="@drawable/f2_ic_back"
+                android:layout_width="6dp"
+                android:layout_height="11dp" />
+
+
+        </LinearLayout>
+
+        <View
+            android:background="#ECECEC"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+
+
+        <LinearLayout
+            android:id="@+id/btnRule"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingBottom="11.5dp"
+            android:paddingTop="11.5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:src="@drawable/f2_ic_menu_lucky_2"
+                android:layout_marginStart="14dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"/>
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_marginStart="22dp"
+                android:textColor="#393939"
+                android:textSize="14dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Thể lệ"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <ImageView
+                android:layout_marginEnd="15dp"
+                android:tint="#8A8A8A"
+                android:rotation="180"
+                android:src="@drawable/f2_ic_back"
+                android:layout_width="6dp"
+                android:layout_height="11dp" />
+
+
+        </LinearLayout>
+
+        <View
+            android:background="#ECECEC"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:id="@+id/btnGift"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingBottom="11.5dp"
+            android:paddingTop="11.5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:src="@drawable/f2_ic_menu_lucky_3"
+                android:layout_marginStart="14dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"/>
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_marginStart="22dp"
+                android:textColor="#393939"
+                android:textSize="14dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Phần thưởng"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <ImageView
+                android:layout_marginEnd="15dp"
+                android:tint="#8A8A8A"
+                android:rotation="180"
+                android:src="@drawable/f2_ic_back"
+                android:layout_width="6dp"
+                android:layout_height="11dp" />
+
+
+        </LinearLayout>
+
+        <View
+            android:background="#ECECEC"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:id="@+id/btnPlayRule"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingBottom="11.5dp"
+            android:paddingTop="11.5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:src="@drawable/f2_ic_menu_lucky_1"
+                android:layout_marginStart="14dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"/>
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_marginStart="22dp"
+                android:textColor="#393939"
+                android:textSize="14dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Cách thức chơi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <ImageView
+                android:layout_marginEnd="15dp"
+                android:tint="#8A8A8A"
+                android:rotation="180"
+                android:src="@drawable/f2_ic_back"
+                android:layout_width="6dp"
+                android:layout_height="11dp" />
+
+
+        </LinearLayout>
+
+        <View
+            android:background="#ECECEC"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:id="@+id/btnListGift"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingBottom="11.5dp"
+            android:paddingTop="11.5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:src="@drawable/f2_ic_menu_lucky_4"
+                android:layout_marginStart="14dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"/>
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_marginStart="22dp"
+                android:textColor="#393939"
+                android:textSize="14dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Danh sách trúng thưởng"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <ImageView
+                android:layout_marginEnd="15dp"
+                android:tint="#8A8A8A"
+                android:rotation="180"
+                android:src="@drawable/f2_ic_back"
+                android:layout_width="6dp"
+                android:layout_height="11dp" />
+
+
+        </LinearLayout>
+
+        <View
+            android:background="#ECECEC"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        
+        
+
+    </LinearLayout>
+</layout>
