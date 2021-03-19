@@ -18,12 +18,51 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <RelativeLayout
+                android:background="#00918D"
+                android:layout_width="match_parent"
+                android:layout_height="44dp">
+
+
+                <LinearLayout
+                    android:id="@+id/btnBack"
+                    android:gravity="center"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp">
+
+                    <ImageView
+                        android:tint="@color/white"
+                        android:src="@drawable/f2_ic_back"
+                        android:layout_width="11dp"
+                        android:layout_height="19dp"/>
+
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textColor="@color/white"
+                    android:text="Thể lệ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+
+
+            </RelativeLayout>
+
             <WebView
+                android:layout_marginTop="44dp"
                 android:id="@+id/webView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
             <RelativeLayout
+                android:layout_marginTop="44dp"
                 android:id="@+id/layoutLoading"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

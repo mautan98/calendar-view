@@ -16,6 +16,8 @@ public class WSConfig {
 //    public static final String HOST_VQMM_HISTORY = "http://103.21.148.54:8856/histories-list?";
 //    public static final String HOST_VQMM_RULE = "http://103.21.148.54:8856/page/LUCKY_WHEEL_RULE?";
 //    public static final String HOST_VQMM_GUIDE = "http://103.21.148.54:8856/page/LUCKY_WHEEL_GUIDE?";
+//    public static final String API_VQMM_RULE = "https://api1.travel.onex.vn/page/60542239c28629466576d339";
+//    public static final String API_VQMM_GUIDE = "https://api1.travel.onex.vn/page/60542047c28629466576d338";
 //    public static final String HOST_CREATE_TRIP = "http://103.21.148.54:8858/my-trip/create";
 //    public static final String HOST_MY_TRIP = "http://103.21.148.54:8858/my-trip";
 //    public static final String HOST_RECEIVE_TRIP = "http://103.21.148.54:8858/my-trip/detail";
@@ -32,6 +34,8 @@ public class WSConfig {
     public static final String HOST_VQMM_HISTORY = "http://lucky.vtvtravel.vn/histories-list?";
     public static final String HOST_VQMM_RULE = "http://lucky.vtvtravel.vn/page/LUCKY_WHEEL_RULE?";
     public static final String HOST_VQMM_GUIDE = "http://lucky.vtvtravel.vn/page/LUCKY_WHEEL_GUIDE?";
+    public static final String API_VQMM_RULE = "https://api.vtvtravel.vn/page/60542239c28629466576d339";
+    public static final String API_VQMM_GUIDE = "https://api.vtvtravel.vn/page/60542047c28629466576d338";
     public static final String HOST_CREATE_TRIP = "http://tour.vtvtravel.vn/my-trip/create";
     public static final String HOST_MY_TRIP = "http://tour.vtvtravel.vn/my-trip";
     public static final String HOST_RECEIVE_TRIP = "http://tour.vtvtravel.vn/my-trip/detail";

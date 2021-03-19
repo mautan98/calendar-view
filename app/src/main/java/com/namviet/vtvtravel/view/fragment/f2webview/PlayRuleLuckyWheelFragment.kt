@@ -10,14 +10,13 @@ import com.namviet.vtvtravel.app.MyApplication
 import com.namviet.vtvtravel.databinding.F2FragmentMenuLuckyWheelBinding
 import com.namviet.vtvtravel.databinding.F2FragmentRuleLuckyWheelBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.viewmodel.f2luckywheel.LuckyWheelViewModel
 import kotlinx.android.synthetic.main.f2_fragment_rule_lucky_wheel.*
+import java.util.*
 
-class PlayRuleLuckyWheelFragment : BaseFragment<F2FragmentRuleLuckyWheelBinding?>() {
-    private var token: String? = null
-    private val chanel = "android"
-    private val langCode = "vi"
-    private val link: String? = null
-    private val server = WSConfig.HOST_VQMM_GUIDE
+class PlayRuleLuckyWheelFragment : BaseFragment<F2FragmentRuleLuckyWheelBinding?>(), Observer {
+    private var luckyWheelViewModel : LuckyWheelViewModel? = null
+    private val server = WSConfig.API_VQMM_GUIDE
     override fun getLayoutRes(): Int {
         return R.layout.f2_fragment_rule_lucky_wheel
     }
@@ -50,26 +49,25 @@ class PlayRuleLuckyWheelFragment : BaseFragment<F2FragmentRuleLuckyWheelBinding?
             }
         }
 
-        val account = MyApplication.getInstance().account
-        if (null != account && account.isLogin) {
-            token = account.token
-            webView.loadUrl(genLink())
-        } else { //            mActivity.onBackPressed();
-        }
     }
     override fun initData() {
 
-
+        luckyWheelViewModel = LuckyWheelViewModel()
+        luckyWheelViewModel?.addObserver(this)
+        luckyWheelViewModel?.getRuleOrPlayRuleLuckyWheel(server)
 
     }
     override fun inject() {}
     override fun setClickListener() {
-
+        btnBack.setOnClickListener {
+            mActivity.onBackPressed()
+        }
 
     }
     override fun setObserver() {}
-
-    private fun genLink(): String? {
-        return server + "token=" + token + "&chanel=" + chanel + "&langCode=" + langCode
+    override fun update(o: Observable?, arg: Any?) {
+        shimmer_view_container?.stopShimmer()
+        layoutLoading?.visibility = View.GONE
     }
+
 }

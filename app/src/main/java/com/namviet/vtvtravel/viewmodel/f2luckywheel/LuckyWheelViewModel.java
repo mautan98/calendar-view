@@ -8,6 +8,7 @@ import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.response.f2chat.GetUserGuildResponse;
 import com.namviet.vtvtravel.response.f2review.CreateReviewResponse;
 import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
+import com.namviet.vtvtravel.response.f2topexperience.SubTopExperienceResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelAreasResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelChartResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelResultResponse;
@@ -136,6 +137,30 @@ public class LuckyWheelViewModel extends BaseViewModel {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         requestFailed(throwable, "wheelAreas");
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+
+    public void getRuleOrPlayRuleLuckyWheel(String link) {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelService();
+        Disposable disposable = newsService.getSubTopExperience(link)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object response) throws Exception {
+                        if (response != null) {
+                            requestSuccess(response);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable, "");
                     }
                 });
 

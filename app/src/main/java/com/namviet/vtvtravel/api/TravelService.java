@@ -502,6 +502,11 @@ public interface TravelService {
     Observable<SubTopExperienceResponse> getSubTopExperience(@Url String url);
 
 
+    @GET
+    Observable<Object> getRuleOrPlayRuleLuckyWheel(@Url String url);
+
+
+
     @POST(WSConfig.Api.GET_OWNED_VOUCHER)
     Observable<ListVoucherResponse> getOwnedVoucher(@Body RequestBody jsonBodyObject, @QueryMap Map<String, Object> queryMap);
 
