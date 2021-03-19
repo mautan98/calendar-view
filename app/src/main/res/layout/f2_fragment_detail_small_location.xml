@@ -91,7 +91,7 @@
                                 android:layout_gravity="center"
                                 android:padding="5dp"
                                 app:anim_scale_factor="4.5"
-                                app:icon_size="15dp"
+                                app:icon_size="20dp"
                                 app:like_drawable="@drawable/f2_ic_red_heart"
                                 app:unlike_drawable="@drawable/f2_ic_white_border_heart" />
 

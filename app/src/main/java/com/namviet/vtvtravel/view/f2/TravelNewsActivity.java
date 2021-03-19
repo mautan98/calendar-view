@@ -93,23 +93,23 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
         });
 
 
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice("323D3E715DE154B6B9929289FFA35B5E").build();
-        InterstitialAd.load(this, "ca-app-pub-3459722054810147/6126463410", adRequest, new InterstitialAdLoadCallback() {
-            @Override
-            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                // The mInterstitialAd reference will be null until
-                // an ad is loaded.
-                mInterstitialAd = interstitialAd;
-
-            }
-
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                // Handle the error
-
-                mInterstitialAd = null;
-            }
-        });
+//        AdRequest adRequest = new AdRequest.Builder().addTestDevice("323D3E715DE154B6B9929289FFA35B5E").build();
+//        InterstitialAd.load(this, "ca-app-pub-3459722054810147/6126463410", adRequest, new InterstitialAdLoadCallback() {
+//            @Override
+//            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+//                // The mInterstitialAd reference will be null until
+//                // an ad is loaded.
+//                mInterstitialAd = interstitialAd;
+//
+//            }
+//
+//            @Override
+//            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+//                // Handle the error
+//
+//                mInterstitialAd = null;
+//            }
+//        });
 
 
     }
@@ -149,7 +149,7 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
     public void onBackPressed() {
         super.onBackPressed();
         if (mInterstitialAd != null) {
-            mInterstitialAd.show(this);
+//            mInterstitialAd.show(this);
         } else {
             Log.d("TAG", "The interstitial ad wasn't ready yet.");
         }
