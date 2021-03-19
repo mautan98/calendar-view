@@ -10,7 +10,5 @@
 
 
 
-    <dimen name="dimen320dp">355dp</dimen>
-
-
+    <dimen name="dimen320dp">338dp</dimen>
 </resources>
