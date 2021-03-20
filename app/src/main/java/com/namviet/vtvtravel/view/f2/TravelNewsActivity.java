@@ -72,6 +72,12 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
     }
 
     @Override
+    public void getLocation() {
+        super.getLocation();
+        getMainLocation();
+    }
+
+    @Override
     public void doAfterOnCreate() {
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {

@@ -49,6 +49,12 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
     }
 
     @Override
+    public void getLocation() {
+        super.getLocation();
+        getMainLocation();
+    }
+
+    @Override
     public void doAfterOnCreate() {
 
     }

@@ -104,6 +104,7 @@ import com.namviet.vtvtravel.response.SearchResponse;
 import com.namviet.vtvtravel.response.f2callnow.ZipVersionResponse;
 import com.namviet.vtvtravel.response.f2systeminbox.ConfirmEnterTrip;
 import com.namviet.vtvtravel.response.f2systeminbox.DataSystemInbox;
+import com.namviet.vtvtravel.service.GPSTracker;
 import com.namviet.vtvtravel.service.TrackLocationService;
 import com.namviet.vtvtravel.ultils.DeviceUtils;
 import com.namviet.vtvtravel.ultils.F2UnzipUtil;
@@ -490,9 +491,12 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
     }
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = new Intent(this, GPSTracker.class);
+        startService(intent);
         getJson();
         getDataFromIntent();
         EventBus.getDefault().register(this);

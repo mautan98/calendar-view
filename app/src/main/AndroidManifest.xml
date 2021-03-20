@@ -332,6 +332,7 @@
         <service android:name=".service.TrackLocationService" />
 
         <service android:name=".service.InCallForegroundService" />
+        <service android:name=".service.GPSTracker" />
 
         <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data

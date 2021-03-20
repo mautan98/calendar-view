@@ -2,10 +2,15 @@ package com.namviet.vtvtravel.f2base.base;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.annotation.Nullable;
+
+import com.namviet.vtvtravel.service.GPSTracker;
+import com.namviet.vtvtravel.ultils.ServiceUltils;
 
 
 public abstract class BaseActivityNew<T extends ViewDataBinding> extends AppCompatActivity {
@@ -22,6 +27,7 @@ public abstract class BaseActivityNew<T extends ViewDataBinding> extends AppComp
         super.onCreate(savedInstanceState);
         try {
             afterSetContentView();
+            getLocation();
             binding = DataBindingUtil.setContentView(this, getLayoutRes());
             getDataFromIntent();
             doAfterOnCreate();
@@ -39,5 +45,16 @@ public abstract class BaseActivityNew<T extends ViewDataBinding> extends AppComp
     public void afterSetContentView(){
 
     }
+
+    public void getLocation(){
+
+    }
+
+
+    public void getMainLocation(){
+        Intent intent = new Intent(this, GPSTracker.class);
+        startService(intent);
+    }
+
 
 }
