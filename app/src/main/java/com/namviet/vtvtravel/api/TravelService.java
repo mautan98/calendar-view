@@ -85,6 +85,7 @@ import com.namviet.vtvtravel.response.f2comment.DeleteCommentResponse;
 import com.namviet.vtvtravel.response.f2comment.UpdateCommentResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SmallLocationResponse;
 import com.namviet.vtvtravel.response.f2video.DetailVideoResponse;
+import com.namviet.vtvtravel.response.f2wheel.RuleLuckyWheel;
 import com.namviet.vtvtravel.response.f2wheel.WheelAreasResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelChartResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelResultResponse;
@@ -503,7 +504,7 @@ public interface TravelService {
 
 
     @GET
-    Observable<Object> getRuleOrPlayRuleLuckyWheel(@Url String url);
+    Observable<RuleLuckyWheel> getRuleOrPlayRuleLuckyWheel(@Url String url);
 
 
 

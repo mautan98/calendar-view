@@ -9,6 +9,7 @@ import com.namviet.vtvtravel.response.f2chat.GetUserGuildResponse;
 import com.namviet.vtvtravel.response.f2review.CreateReviewResponse;
 import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
 import com.namviet.vtvtravel.response.f2topexperience.SubTopExperienceResponse;
+import com.namviet.vtvtravel.response.f2wheel.RuleLuckyWheel;
 import com.namviet.vtvtravel.response.f2wheel.WheelAreasResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelChartResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelResultResponse;
@@ -147,12 +148,12 @@ public class LuckyWheelViewModel extends BaseViewModel {
     public void getRuleOrPlayRuleLuckyWheel(String link) {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelService();
-        Disposable disposable = newsService.getSubTopExperience(link)
+        Disposable disposable = newsService.getRuleOrPlayRuleLuckyWheel(link)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Object>() {
+                .subscribe(new Consumer<RuleLuckyWheel>() {
                     @Override
-                    public void accept(Object response) throws Exception {
+                    public void accept(RuleLuckyWheel response) throws Exception {
                         if (response != null) {
                             requestSuccess(response);
                         }

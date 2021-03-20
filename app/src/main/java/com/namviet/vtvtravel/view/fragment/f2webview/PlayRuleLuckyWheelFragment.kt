@@ -10,6 +10,7 @@ import com.namviet.vtvtravel.app.MyApplication
 import com.namviet.vtvtravel.databinding.F2FragmentMenuLuckyWheelBinding
 import com.namviet.vtvtravel.databinding.F2FragmentRuleLuckyWheelBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.response.f2wheel.RuleLuckyWheel
 import com.namviet.vtvtravel.viewmodel.f2luckywheel.LuckyWheelViewModel
 import kotlinx.android.synthetic.main.f2_fragment_rule_lucky_wheel.*
 import java.util.*
@@ -65,9 +66,18 @@ class PlayRuleLuckyWheelFragment : BaseFragment<F2FragmentRuleLuckyWheelBinding?
 
     }
     override fun setObserver() {}
-    override fun update(o: Observable?, arg: Any?) {
+    override fun update(observable: Observable?,o: Any?) {
         shimmer_view_container?.stopShimmer()
         layoutLoading?.visibility = View.GONE
+        if (observable is LuckyWheelViewModel && null != o) {
+            when (o) {
+                is RuleLuckyWheel -> {
+                    val response = o as RuleLuckyWheel
+                    webView.loadDataWithBaseURL("", o.data.description, "text/html", "UTF-8", null)
+                }
+            }
+
+        }
     }
 
 }

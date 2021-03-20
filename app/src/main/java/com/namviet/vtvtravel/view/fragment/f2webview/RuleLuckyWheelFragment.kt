@@ -6,17 +6,16 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.api.WSConfig
-import com.namviet.vtvtravel.app.MyApplication
 import com.namviet.vtvtravel.databinding.F2FragmentRuleLuckyWheelBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.response.f2wheel.RuleLuckyWheel
 import com.namviet.vtvtravel.viewmodel.f2luckywheel.LuckyWheelViewModel
 import kotlinx.android.synthetic.main.f2_fragment_rule_lucky_wheel.*
 import java.util.*
-import kotlin.collections.HashMap
 
 class RuleLuckyWheelFragment : BaseFragment<F2FragmentRuleLuckyWheelBinding?>(), Observer {
     private val server = WSConfig.API_VQMM_RULE
-    private var luckyWheelViewModel : LuckyWheelViewModel? = null
+    private var luckyWheelViewModel: LuckyWheelViewModel? = null
     override fun getLayoutRes(): Int {
         return R.layout.f2_fragment_rule_lucky_wheel
     }
@@ -51,6 +50,7 @@ class RuleLuckyWheelFragment : BaseFragment<F2FragmentRuleLuckyWheelBinding?>(),
 
 
     }
+
     override fun initData() {
         luckyWheelViewModel = LuckyWheelViewModel()
         luckyWheelViewModel?.addObserver(this)
@@ -58,17 +58,28 @@ class RuleLuckyWheelFragment : BaseFragment<F2FragmentRuleLuckyWheelBinding?>(),
 
 
     }
+
     override fun inject() {}
     override fun setClickListener() {
         btnBack.setOnClickListener {
             mActivity.onBackPressed()
         }
     }
+
     override fun setObserver() {}
-    override fun update(o: Observable?, arg: Any?) {
+    override fun update(observable: Observable?, o: Any?) {
         shimmer_view_container?.stopShimmer()
         layoutLoading?.visibility = View.GONE
+        if (observable is LuckyWheelViewModel && null != o) {
+            when (o) {
+                is RuleLuckyWheel -> {
+                    val response = o as RuleLuckyWheel
+                    webView.loadDataWithBaseURL("", o.data.description, "text/html", "UTF-8", null)
+
+                }
+            }
+
+        }
 
     }
-
 }
