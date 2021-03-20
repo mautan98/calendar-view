@@ -95,7 +95,7 @@ public class VQMMAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public void bindItem(int position) {
 
-            Glide.with(context).load(items.get(position).getLogo()).into(imgAvatar);
+            Glide.with(context).load(items.get(position).getLogo()).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(imgAvatar);
             tvTitle.setText(items.get(position).getName());
 
             if (position == highLightPosition) {

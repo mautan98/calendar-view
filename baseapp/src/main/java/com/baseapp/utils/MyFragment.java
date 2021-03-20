@@ -198,7 +198,7 @@ public class MyFragment {
         FragmentManager manager = fragmentActivity.getSupportFragmentManager();
         final FragmentTransaction transaction = manager.beginTransaction();
         String tag = fragmentClazz.getName();
-        transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+//        transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
         L.d("openFragment tag: " + tag);
         //kieu animation rieng theo man hinh
   /*      if("mkul.namviet.vn.mkul.ui.DetailPlayScreen.DetailPlayFragment".equals(tag)){
