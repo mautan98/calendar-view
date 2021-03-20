@@ -194,10 +194,14 @@ public class GPSTracker extends Service implements LocationListener {
     }
 
     private void getBestLocation() {
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, null);
-            locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, this, null);
+        try {
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, null);
+                locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, this, null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
