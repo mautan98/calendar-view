@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.view.fragment.f2booking;
 
 import androidx.databinding.DataBindingUtil;
 
+import android.graphics.Bitmap;
 import android.net.UrlQuerySanitizer;
 import android.os.Bundle;
 
@@ -14,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -142,6 +145,26 @@ public class BookingFragment extends MainFragment {
                 }
                 return true;
             }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+            }
+
+            @Override
+            public void onLoadResource(WebView view, String url) {
+                super.onLoadResource(view, url);
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+            }
         });
 
 
@@ -180,10 +203,10 @@ public class BookingFragment extends MainFragment {
     public void OnReload(OnLoginSuccessAndGoToBooking onLoginSuccessAndGoToBooking) {
         Account account = MyApplication.getInstance().getAccount();
         if (null != account && account.isLogin()) {
-            CookieManager cookieManager = CookieManager.getInstance();
-            cookieManager.removeSessionCookie();
-            binding.webView.clearCache(true);
-            binding.webView.clearHistory();
+//            CookieManager cookieManager = CookieManager.getInstance();
+//            cookieManager.removeSessionCookie();
+//            binding.webView.clearCache(true);
+//            binding.webView.clearHistory();
 
             token = account.getToken();
             Map<String, String> extraHeaders = new HashMap<>();
