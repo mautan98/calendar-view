@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="13dp"
+    android:paddingStart="12dp"
+    android:orientation="horizontal"
+    android:paddingEnd="18dp"
+    android:gravity="center_vertical"
+    android:paddingBottom="13dp">
+
+    <ImageView
+        android:layout_marginEnd="4dp"
+        android:src="@drawable/f2_ic_time"
+        android:layout_width="18dp"
+        android:layout_height="16dp"/>
+
+
+    <TextView
+        android:layout_weight="1"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        android:fontFamily="@font/roboto_regular"
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Món ngon nhất hà nội" />
+
+
+    <ImageView
+        android:layout_marginStart="10dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"/>
+
+
+</LinearLayout>

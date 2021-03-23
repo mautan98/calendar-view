@@ -142,6 +142,7 @@ public class WSConfig {
         public static final String UPLOAD_IMAGE = "userMetadata/uploadImage";
         public static final String SORT_SMALL_LOCATION = "sort";
         public static final String GET_BIG_LOCATION = "region/Info";
+        public static final String GET_BIG_LOCATION_BASE = "V3/region/Info";
         public static final String LOCATION = "regions/location";
         public static final String TOP_LOCATION = "regions/top";
         public static final String ALL_LOCATION = "regions/select";

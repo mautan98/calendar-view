@@ -42,8 +42,10 @@ import com.namviet.vtvtravel.response.TypeMomentResponse;
 import com.namviet.vtvtravel.response.VideoMomentResponse;
 import com.namviet.vtvtravel.response.f2account.HtmlResponse;
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse;
+import com.namviet.vtvtravel.response.f2biglocation.BigLocationBaseResponse;
 import com.namviet.vtvtravel.response.f2biglocation.BigLocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.LocationResponse;
+import com.namviet.vtvtravel.response.f2biglocation.PartBigLocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.RegionResponse;
 import com.namviet.vtvtravel.response.f2biglocation.TopLocationResponse;
 import com.namviet.vtvtravel.response.f2chat.GetListThemeResponse;
@@ -481,8 +483,11 @@ public interface TravelService {
     @GET(WSConfig.Api.SORT_SMALL_LOCATION)
     Observable<SortSmallLocationResponse> sortSmallLocation();
 
-    @GET(WSConfig.Api.GET_BIG_LOCATION)
+    @GET(WSConfig.Api.GET_BIG_LOCATION_BASE)
     Observable<BigLocationResponse> getBigLocation(@QueryMap Map<String, Object> queryMap);
+
+    @GET(WSConfig.Api.GET_BIG_LOCATION_BASE)
+    Observable<BigLocationBaseResponse> getBigLocationBase(@QueryMap Map<String, Object> queryMap);
 
     @GET(WSConfig.Api.LOCATION)
     Observable<LocationResponse> getLocation(@QueryMap Map<String, Object> queryMap);
@@ -501,6 +506,9 @@ public interface TravelService {
 
     @GET
     Observable<SubTopExperienceResponse> getSubTopExperience(@Url String url);
+
+    @GET
+    Observable<PartBigLocationResponse> getPartBigLocation(@Url String url);
 
 
     @GET

@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
+
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +60,8 @@ public class ParentDetailBigLocationAdapter extends RecyclerView.Adapter<Recycle
     private List<BigLocationResponse.Data.Item> items;
     private BigLocationResponse.Data.Region region;
 
+    private CallRequest callRequest;
+
     public void setWeatherResponse(WeatherResponse weatherResponse) {
         try {
             this.weatherResponse = weatherResponse;
@@ -77,7 +82,8 @@ public class ParentDetailBigLocationAdapter extends RecyclerView.Adapter<Recycle
             , List<BigLocationResponse.Data.Item> dataListEat
             , List<BigLocationResponse.Data.Item> dataListPlay
             , BigLocationResponse.Data.Item travelTip
-            , BigLocationResponse.Data.Item video) {
+            , BigLocationResponse.Data.Item video
+            , CallRequest callRequest) {
         this.context = context;
         this.items = items;
         this.region = region;
@@ -88,6 +94,7 @@ public class ParentDetailBigLocationAdapter extends RecyclerView.Adapter<Recycle
         this.dataListWhere = dataListWhere;
         this.travelTip = travelTip;
         this.video = video;
+        this.callRequest = callRequest;
     }
 
 
@@ -143,14 +150,14 @@ public class ParentDetailBigLocationAdapter extends RecyclerView.Adapter<Recycle
         try {
             if (getItemViewType(position) == TYPE_OVERVIEW) {
                 ((OverViewViewHolder) holder).bindItem();
-            } else if (getItemViewType(position) == TYPE_WHERE ) {
-                ((DetailBigLocationViewHolder) holder).bindItem(dataListWhere);
-            }else if (getItemViewType(position) == TYPE_STAY ) {
-                ((DetailBigLocationViewHolder) holder).bindItem(dataListStay);
-            }else if (getItemViewType(position) == TYPE_EAT ) {
-                ((DetailBigLocationViewHolder) holder).bindItem(dataListEat);
-            }else if (getItemViewType(position) == TYPE_PLAY ) {
-                ((DetailBigLocationViewHolder) holder).bindItem(dataListPlay);
+            } else if (getItemViewType(position) == TYPE_WHERE) {
+                ((DetailBigLocationViewHolder) holder).bindItem(dataListWhere, position);
+            } else if (getItemViewType(position) == TYPE_STAY) {
+                ((DetailBigLocationViewHolder) holder).bindItem(dataListStay, position);
+            } else if (getItemViewType(position) == TYPE_EAT) {
+                ((DetailBigLocationViewHolder) holder).bindItem(dataListEat, position);
+            } else if (getItemViewType(position) == TYPE_PLAY) {
+                ((DetailBigLocationViewHolder) holder).bindItem(dataListPlay, position);
             } else if (getItemViewType(position) == TYPE_APP_TRAVEL_TIP) {
                 ((TravelTipViewHolder) holder).bindItem();
             } else if (getItemViewType(position) == TYPE_APP_VIDEO_HIGH_LIGHT) {
@@ -185,6 +192,16 @@ public class ParentDetailBigLocationAdapter extends RecyclerView.Adapter<Recycle
             rclContent.setAdapter(travelTipBigLocationAdapter);
             tvTitle.setText(travelTip.getName());
 
+
+            try {
+                if (travelTip.getItems() == null) {
+                    callRequest.onCallRequest(travelTip.getApi_items(), travelTip.getCode());
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             btnSeeMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -214,6 +231,17 @@ public class ParentDetailBigLocationAdapter extends RecyclerView.Adapter<Recycle
             videoBigLocationAdapter = new VideoBigLocationAdapter(video.getItems(), context, null);
             rclContent.setAdapter(videoBigLocationAdapter);
             tvTitle.setText(video.getName());
+
+
+            try {
+                if (video.getItems() == null) {
+                    callRequest.onCallRequest(video.getApi_items(), video.getCode());
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             btnSeeMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -335,23 +363,42 @@ public class ParentDetailBigLocationAdapter extends RecyclerView.Adapter<Recycle
     }
 
 
-
     public class DetailBigLocationViewHolder extends RecyclerView.ViewHolder {
         private RecyclerView rclContent;
         private ImageView imgBackground;
         private DetailBigLocationAdapter detailBigLocationAdapter;
+        private int position;
+        private RelativeLayout layoutProgressBar;
 
         public DetailBigLocationViewHolder(View itemView) {
             super(itemView);
             rclContent = itemView.findViewById(R.id.rclContent);
             imgBackground = itemView.findViewById(R.id.imgBackground);
+            layoutProgressBar = itemView.findViewById(R.id.layoutProgressBar);
         }
 
-        public void bindItem(List<BigLocationResponse.Data.Item> dataList) {
+        public void bindItem(List<BigLocationResponse.Data.Item> dataList, int position) {
+            this.position = position;
             detailBigLocationAdapter = new DetailBigLocationAdapter(dataList, region, context, null, viewModel);
             rclContent.setAdapter(detailBigLocationAdapter);
 
             Glide.with(context).load(dataList.get(0).getBanner_url()).into(imgBackground);
+
+
+            try {
+                for (int i = 0; i < dataList.size(); i++) {
+                    if (dataList.get(i).getItems() == null) {
+                        dataList.get(i).getApi_items();
+                        callRequest.onCallRequest(dataList.get(i).getApi_items(), dataList.get(i).getCode());
+                    }else {
+                        layoutProgressBar.setVisibility(View.GONE);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
         }
     }
 
@@ -359,6 +406,10 @@ public class ParentDetailBigLocationAdapter extends RecyclerView.Adapter<Recycle
     public interface ClickItem {
         void onClickItem(BigLocationResponse.Data.Item item);
 
+    }
+
+    public interface CallRequest {
+        void onCallRequest(String link, String code);
     }
 
 
