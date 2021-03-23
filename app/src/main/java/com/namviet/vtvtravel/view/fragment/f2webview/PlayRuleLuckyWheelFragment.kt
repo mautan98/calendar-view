@@ -56,6 +56,7 @@ class PlayRuleLuckyWheelFragment : BaseFragment<F2FragmentRuleLuckyWheelBinding?
         luckyWheelViewModel = LuckyWheelViewModel()
         luckyWheelViewModel?.addObserver(this)
         luckyWheelViewModel?.getRuleOrPlayRuleLuckyWheel(server)
+        tvTitle.text = "Cách thức chơi"
 
     }
     override fun inject() {}
