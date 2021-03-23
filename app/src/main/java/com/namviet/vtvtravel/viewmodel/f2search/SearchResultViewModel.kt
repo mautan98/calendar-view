@@ -80,6 +80,7 @@ class SearchResultViewModel : BaseViewModel() {
         compositeDisposable.add(disposable)
     }
 
+
     private fun requestSuccess(param: Any?) {
         setChanged()
         notifyObservers(param)

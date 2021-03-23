@@ -178,6 +178,7 @@ public class WSConfig {
         public static final String UPDATE_THEME = "user/chat/themes/update";
         public static final String GET_USER_THEME = "user/chat/themes";
         public static final String TICKET_INFO = "user/travel/ticket/info";
+        public static final String SEARCH_SUGGESTION = "keyup/search/suggestions";
 
         public static final String USAGE_RULES = "page/dieu-khoan-su-dung";
         public static final String DEAL_DETAIL = "page/chi-tiet-uu-dai-goi-travel-vip";

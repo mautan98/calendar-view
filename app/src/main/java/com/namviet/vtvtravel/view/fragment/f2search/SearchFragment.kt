@@ -30,6 +30,7 @@ import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse
 import com.namviet.vtvtravel.response.f2biglocation.LocationResponse
 import com.namviet.vtvtravel.response.f2searchmain.MainResultSearchResponse
 import com.namviet.vtvtravel.response.f2searchmain.MainSearchResponse
+import com.namviet.vtvtravel.response.f2searchmain.SearchSuggestionResponse
 import com.namviet.vtvtravel.response.f2searchmain.SubBaseSearch
 import com.namviet.vtvtravel.response.newhome.AppVoucherResponse
 import com.namviet.vtvtravel.response.newhome.ItemAppExperienceResponse
@@ -193,7 +194,8 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                     } else {
                         binding!!.scrollMainSearch.visibility = View.GONE
                         binding!!.layoutSearchResult.visibility = View.VISIBLE
-                        searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId)
+//                        searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId)
+                        searchViewModel?.getSearchSuggestion(edtKeyword.text.toString())
 
                         try {
                             TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtKeyword.text.toString()).setScreen_class(this.javaClass.name))
@@ -341,6 +343,10 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
 
                 is LocationResponse -> {
                     edtRegion.setText(o.data.name)
+                }
+
+                is SearchSuggestionResponse -> {
+
                 }
 
 

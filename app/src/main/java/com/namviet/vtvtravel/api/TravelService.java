@@ -60,6 +60,7 @@ import com.namviet.vtvtravel.response.f2review.UploadImageResponse;
 import com.namviet.vtvtravel.response.f2room.CallRoomResponse;
 import com.namviet.vtvtravel.response.f2searchmain.MainResultSearchResponse;
 import com.namviet.vtvtravel.response.f2searchmain.MainSearchResponse;
+import com.namviet.vtvtravel.response.f2searchmain.SearchSuggestionResponse;
 import com.namviet.vtvtravel.response.f2searchmain.SubBaseSearch;
 import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SortSmallLocationResponse;
@@ -296,6 +297,9 @@ public interface TravelService {
 
     @GET(WSConfig.Api.GET_SEARCH_TREND)
     Observable<SearchResponse> loadSearchTrend(@QueryMap Map<String, Object> param);
+
+    @GET(WSConfig.Api.SEARCH_SUGGESTION)
+    Observable<SearchSuggestionResponse> getSearchSuggestion(@QueryMap Map<String, Object> param, @Query("keyword") String keyword);
 
     @GET(WSConfig.Api.GET_SEARCH_RESULT)
     Observable<SearchResultResponse> loadSearchResult(@QueryMap Map<String, Object> param);

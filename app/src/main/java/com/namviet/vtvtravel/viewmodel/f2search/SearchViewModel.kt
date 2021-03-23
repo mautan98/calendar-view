@@ -55,6 +55,24 @@ class SearchViewModel : BaseViewModel() {
         compositeDisposable.add(disposable)
     }
 
+    fun getSearchSuggestion(keyword: String) {
+        val myApplication = MyApplication.getInstance()
+        val newsService = myApplication.travelService
+        val queryMap = Param.getDefault()
+        val disposable = newsService.getSearchSuggestion(queryMap, keyword)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ videoResponse ->
+                    videoResponse?.let {
+                        requestSuccess(it)
+                    }
+                })
+                { throwable ->
+                    requestFailed(throwable!!)
+                }
+        compositeDisposable.add(disposable)
+    }
+
 
     fun getLocation() {
         val myApplication = MyApplication.getInstance()
