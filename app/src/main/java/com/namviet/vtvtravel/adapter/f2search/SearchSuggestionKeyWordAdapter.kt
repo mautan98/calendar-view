@@ -14,7 +14,7 @@ class SearchSuggestionKeyWordAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
     public var clickItem: ClickItem? = null
     private var searchKeywordSuggestion: List<SearchSuggestionResponse.Data.Item>? = null
 
-    constructor(searchKeywordSuggestion: List<SearchSuggestionResponse.Data.Item>, context: Context, clickItem: ClickItem) {
+    constructor(searchKeywordSuggestion: List<SearchSuggestionResponse.Data.Item>?, context: Context, clickItem: ClickItem) {
         this.context = context
         this.clickItem = clickItem
         this.searchKeywordSuggestion = searchKeywordSuggestion
@@ -26,7 +26,11 @@ class SearchSuggestionKeyWordAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     override fun getItemViewType(position: Int): Int {
-        return TYPE_ITEM
+        return if(searchKeywordSuggestion?.get(position)?.type == "category"){
+            TYPE_CATEGORY
+        }else{
+            TYPE_ITEM
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -35,7 +39,8 @@ class SearchSuggestionKeyWordAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
             v = LayoutInflater.from(parent.context).inflate(R.layout.f2_item_search_suggestion_2, parent, false)
             return HeaderViewHolder(v)
         }else{
-
+            v = LayoutInflater.from(parent.context).inflate(R.layout.f2_item_search_category, parent, false)
+            return CategoryHolder(v)
         }
 //        return null
     }
@@ -59,6 +64,22 @@ class SearchSuggestionKeyWordAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     inner class HeaderViewHolder : RecyclerView.ViewHolder {
+        private var position: Int? = 0
+
+        constructor(itemView: View?) : super(itemView!!) {
+            itemView?.setOnClickListener {
+                clickItem?.onClickItem(position?.let { it1 -> searchKeywordSuggestion?.get(it1) })
+            }
+        }
+
+
+        fun bindItem(position: Int?) {
+            this.position = position
+            itemView.tvTitle.text = position?.let { searchKeywordSuggestion?.get(it)?.getTitle() }
+        }
+    }
+
+    inner class CategoryHolder : RecyclerView.ViewHolder {
         private var position: Int? = 0
 
         constructor(itemView: View?) : super(itemView!!) {

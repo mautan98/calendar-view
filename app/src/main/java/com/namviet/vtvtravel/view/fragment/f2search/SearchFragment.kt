@@ -20,6 +20,7 @@ import com.namviet.vtvtravel.adapter.f2search.RecentAdapter
 import com.namviet.vtvtravel.adapter.f2search.RecentAdapter.NoItem
 import com.namviet.vtvtravel.adapter.f2search.SearchBlockAdapter
 import com.namviet.vtvtravel.adapter.f2search.SearchMainPageAdapter
+import com.namviet.vtvtravel.adapter.f2search.SearchSuggestionKeyWordAdapter
 import com.namviet.vtvtravel.config.Constants
 import com.namviet.vtvtravel.databinding.F2FragmentSearchBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
@@ -61,6 +62,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
     private var locationsMain: ArrayList<Location> = ArrayList()
     private val locations: ArrayList<Location>? = ArrayList()
     private var blocks: ArrayList<MainSearchResponse.Data>? = ArrayList()
+    private var searchSuggestions: ArrayList<SearchSuggestionResponse.Data.Item>? = ArrayList()
 
 
     private var viewModel: SearchBigLocationViewModel? = null
@@ -69,6 +71,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
     private var recentAdapter: RecentAdapter? = null
     private var searchAllLocationAdapter: SearchAllLocationAdapter? = null
     private var blockAdapter: SearchBlockAdapter? = null
+    private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
 
     private var regionId: String? = null;
 
@@ -121,6 +124,23 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
 
         blockAdapter = SearchBlockAdapter(blocks, mActivity)
         rclBlock.adapter = blockAdapter
+
+
+        searchSuggestionKeyWordAdapter = SearchSuggestionKeyWordAdapter(searchSuggestions, mActivity, object : SearchSuggestionKeyWordAdapter.ClickItem{
+            override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
+                try {
+                    edtKeyword.setText(searchKeywordSuggestion?.title)
+                    addRecentSearch(edtKeyword.text.toString())
+                    recentAdapter?.setData(getRecentSearch())
+                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId))
+                    KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
+                    edtKeyword.clearFocus()
+                } catch (e: Exception) {
+                }
+            }
+
+        })
+        rclSearchSuggestion.adapter = searchSuggestionKeyWordAdapter
 
 
         rclLocation.adapter = searchAllLocationAdapter
@@ -346,7 +366,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                 }
 
                 is SearchSuggestionResponse -> {
-
+                    searchSuggestionKeyWordAdapter?.setData(o.data.items)
                 }
 
 
