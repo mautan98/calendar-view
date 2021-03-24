@@ -88,7 +88,7 @@
             
             <LinearLayout
                 android:gravity="center"
-                android:layout_width="80dp"
+                android:layout_width="60dp"
                 android:layout_height="match_parent">
                 <ImageView
                     android:alpha="0.5"
@@ -111,7 +111,7 @@
 
             <LinearLayout
                 android:gravity="center"
-                android:layout_width="80dp"
+                android:layout_width="60dp"
                 android:layout_height="match_parent">
                 <ImageView
                     android:src="@drawable/f2_itemclick_offline"
