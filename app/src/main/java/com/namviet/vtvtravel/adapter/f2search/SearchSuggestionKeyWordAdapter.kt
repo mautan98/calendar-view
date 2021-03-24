@@ -18,6 +18,8 @@ class SearchSuggestionKeyWordAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
         this.context = context
         this.clickItem = clickItem
         this.searchKeywordSuggestion = searchKeywordSuggestion
+
+        
     }
 
     fun setData(comments: List<SearchSuggestionResponse.Data.Item>) {
