@@ -11,7 +11,7 @@
 
     <ImageView
         android:layout_marginEnd="4dp"
-        android:src="@drawable/f2_ic_time"
+        android:src="@drawable/f2_ic_search"
         android:layout_width="18dp"
         android:layout_height="16dp"/>
 
@@ -28,6 +28,7 @@
 
 
     <ImageView
+        android:src="@drawable/f2_ic_search_arrow_1"
         android:layout_marginStart="10dp"
         android:layout_width="15dp"
         android:layout_height="15dp"/>

@@ -11,7 +11,6 @@
 
     <ImageView
         android:layout_marginEnd="8dp"
-        android:src="@drawable/f2_ic_time"
         android:layout_width="33dp"
         android:layout_height="32dp"/>
 
@@ -25,7 +24,7 @@
             android:textColor="@color/black"
             android:textSize="14dp"
             android:fontFamily="@font/roboto_bold"
-            android:id="@+id/tvTitle"
+            android:id="@+id/tvCategoryTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Món ngon" />

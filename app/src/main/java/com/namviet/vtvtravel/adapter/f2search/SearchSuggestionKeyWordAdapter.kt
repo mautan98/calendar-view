@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.response.f2searchmain.SearchSuggestionResponse
-import kotlinx.android.synthetic.main.f2_item_search_recent.view.*
+import kotlinx.android.synthetic.main.f2_item_search_suggestion_2.view.*
+import kotlinx.android.synthetic.main.f2_item_search_category.view.*
 
 class SearchSuggestionKeyWordAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private var context: Context? = null
@@ -51,6 +52,8 @@ class SearchSuggestionKeyWordAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
         try {
             if (getItemViewType(position) == TYPE_ITEM) {
                 (holder as HeaderViewHolder).bindItem(position)
+            }else{
+                (holder as CategoryHolder).bindItem(position)
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -93,7 +96,7 @@ class SearchSuggestionKeyWordAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
 
         fun bindItem(position: Int?) {
             this.position = position
-            itemView.tvTitle.text = position?.let { searchKeywordSuggestion?.get(it)?.getTitle() }
+            itemView.tvCategoryTitle.text = position?.let { searchKeywordSuggestion?.get(it)?.getTitle() }
         }
     }
 

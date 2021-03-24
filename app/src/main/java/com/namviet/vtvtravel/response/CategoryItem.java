@@ -14,6 +14,10 @@ public class CategoryItem implements Parcelable {
         link = in.readString();
     }
 
+    public CategoryItem(){
+
+    }
+
     public static final Creator<CategoryItem> CREATOR = new Creator<CategoryItem>() {
         @Override
         public CategoryItem createFromParcel(Parcel in) {

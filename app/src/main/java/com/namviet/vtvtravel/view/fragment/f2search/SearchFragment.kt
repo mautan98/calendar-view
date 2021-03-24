@@ -42,6 +42,8 @@ import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import com.namviet.vtvtravel.viewmodel.f2search.SearchViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.f2_fragment_search.*
+import kotlinx.android.synthetic.main.f2_layout_keyword.*
+import kotlinx.android.synthetic.main.f2_layout_keyword.view.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
@@ -216,6 +218,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                         binding!!.layoutSearchResult.visibility = View.VISIBLE
 //                        searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId)
                         searchViewModel?.getSearchSuggestion(edtKeyword.text.toString())
+                        layoutKeyword.tvSearchFollow.text = "Tìm kiếm theo "+ edtKeyword.text.toString();
 
                         try {
                             TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtKeyword.text.toString()).setScreen_class(this.javaClass.name))
