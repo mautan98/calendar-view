@@ -85,10 +85,11 @@ class SearchResultViewModel : BaseViewModel() {
         val myApplication = MyApplication.getInstance()
         val newsService = myApplication.travelService
         val queryMap = Param.getDefault()
-        val disposable = newsService.searchAll(queryMap, path, keyword, regionId)
+        val disposable = newsService.searchAll(path, queryMap,  keyword, regionId)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ videoResponse ->
+                .subscribe({
+                    videoResponse ->
                     videoResponse?.let {
                         it.type = type
                         requestSuccess(it)

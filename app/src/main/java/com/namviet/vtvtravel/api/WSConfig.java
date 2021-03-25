@@ -183,7 +183,7 @@ public class WSConfig {
 
         public static final String USAGE_RULES = "page/dieu-khoan-su-dung";
         public static final String DEAL_DETAIL = "page/chi-tiet-uu-dai-goi-travel-vip";
-        public static final String SEARCH_ALL = "v3/search";
+        public static final String SEARCH_ALL = "v3/search/{path}";
 
         public static final String SYSTEM_INBOX = "user/inbox";
         public static final String SYSTEM_INBOX_COUNT = "user/count";
