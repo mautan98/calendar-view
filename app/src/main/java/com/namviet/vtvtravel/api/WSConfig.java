@@ -183,6 +183,9 @@ public class WSConfig {
 
         public static final String USAGE_RULES = "page/dieu-khoan-su-dung";
         public static final String DEAL_DETAIL = "page/chi-tiet-uu-dai-goi-travel-vip";
+        public static final String SEARCH_VIDEO = "v3/search/video";
+        public static final String SEARCH_NEWS = "v3/search/new";
+        public static final String SEARCH_DESTINATION = "v3/search/place";
 
         public static final String SYSTEM_INBOX = "user/inbox";
         public static final String SYSTEM_INBOX_COUNT = "user/count";

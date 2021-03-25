@@ -487,7 +487,7 @@ public interface TravelService {
     @GET(WSConfig.Api.SORT_SMALL_LOCATION)
     Observable<SortSmallLocationResponse> sortSmallLocation();
 
-    @GET(WSConfig.Api.GET_BIG_LOCATION_BASE)
+    @GET(WSConfig.Api.GET_BIG_LOCATION)
     Observable<BigLocationResponse> getBigLocation(@QueryMap Map<String, Object> queryMap);
 
     @GET(WSConfig.Api.GET_BIG_LOCATION_BASE)
