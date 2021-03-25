@@ -65,6 +65,7 @@ import com.namviet.vtvtravel.response.f2searchmain.MainSearchResponse;
 import com.namviet.vtvtravel.response.f2searchmain.SearchSuggestionResponse;
 import com.namviet.vtvtravel.response.f2searchmain.SubBaseSearch;
 import com.namviet.vtvtravel.response.f2searchmain.result.ResultSearch;
+import com.namviet.vtvtravel.response.f2searchmain.result.ResultVideoSearch;
 import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SortSmallLocationResponse;
 import com.namviet.vtvtravel.response.f2systeminbox.ConfirmEnterTrip;
@@ -303,14 +304,20 @@ public interface TravelService {
     Observable<SearchResponse> loadSearchTrend(@QueryMap Map<String, Object> param);
 
     @GET(WSConfig.Api.SEARCH_SUGGESTION)
-    Observable<SearchSuggestionResponse> getSearchSuggestion(@QueryMap Map<String, Object> param, @Query("keyword") String keyword);
+    Observable<SearchSuggestionResponse> getSearchSuggestion(@QueryMap Map<String, Object> param, @Query("keyword") String keyword, @Query("region_id") String regionId);
 
 
     @GET(WSConfig.Api.SEARCH_ALL)
     Observable<ResultSearch> searchAll(@Path ("path") String path, @QueryMap Map<String, Object> queryMap,@Query("keyword") String keyword, @Query("region_id") String regionId);
 
     @GET
-    Observable<ResultSearch> searchAllWithFullLink(@QueryMap Map<String, Object> param, @Url String url);
+    Observable<ResultSearch> searchAllWithFullLink( @Url String url, @QueryMap Map<String, Object> param);
+
+    @GET(WSConfig.Api.SEARCH_ALL)
+    Observable<ResultVideoSearch> searchAllVideo(@Path ("path") String path, @QueryMap Map<String, Object> queryMap, @Query("keyword") String keyword, @Query("region_id") String regionId);
+
+    @GET
+    Observable<ResultVideoSearch> searchAllVideoWithFullLink(@Url String url, @QueryMap Map<String, Object> param);
 
     @GET(WSConfig.Api.GET_SEARCH_RESULT)
     Observable<SearchResultResponse> loadSearchResult(@QueryMap Map<String, Object> param);

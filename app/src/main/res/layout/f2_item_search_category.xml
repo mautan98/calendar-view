@@ -46,6 +46,7 @@
 
 
     <ImageView
+        android:src="@drawable/f2_ic_search_arrow_1"
         android:layout_marginStart="10dp"
         android:layout_width="15dp"
         android:layout_height="15dp"/>

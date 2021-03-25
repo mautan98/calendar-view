@@ -25,6 +25,7 @@ import com.namviet.vtvtravel.config.Constants
 import com.namviet.vtvtravel.databinding.F2FragmentSearchBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
+import com.namviet.vtvtravel.model.Suggestion
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.model.travelnews.Travel
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse
@@ -217,7 +218,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                         binding!!.scrollMainSearch.visibility = View.GONE
                         binding!!.layoutSearchResult.visibility = View.VISIBLE
 //                        searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId)
-                        searchViewModel?.getSearchSuggestion(edtKeyword.text.toString())
+                        searchViewModel?.getSearchSuggestion(edtKeyword.text.toString(), regionId)
                         layoutKeyword.tvSearchFollow.text = "Tìm kiếm theo "+ edtKeyword.text.toString();
 
                         try {
@@ -369,7 +370,9 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                 }
 
                 is SearchSuggestionResponse -> {
-                    searchSuggestionKeyWordAdapter?.setData(o.data.items)
+                    var list = o.data.items
+                    list.addAll(0, getSuggestionInRecentSearch())
+                    searchSuggestionKeyWordAdapter?.setData(list)
                 }
 
 
@@ -381,6 +384,20 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                 }
             }
         }
+    }
+
+    private fun getSuggestionInRecentSearch() : ArrayList<SearchSuggestionResponse.Data.Item>{
+        var result = ArrayList<SearchSuggestionResponse.Data.Item>()
+        var recent = getRecentSearch()
+        for (i in 0 until recent.size){
+            if(recent[i].toLowerCase().contains(edtKeyword.text.toString().toLowerCase())){
+                var suggestion = SearchSuggestionResponse().Data().Item()
+                suggestion.setTitle(recent[i])
+                suggestion.setType("recent")
+                result.add(suggestion)
+            }
+        }
+        return result
     }
 
 

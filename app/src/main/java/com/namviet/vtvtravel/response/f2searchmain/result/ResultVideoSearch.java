@@ -1,5 +1,6 @@
 package com.namviet.vtvtravel.response.f2searchmain.result;
 
+import com.namviet.vtvtravel.model.Video;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.BaseResponse;
 
@@ -19,7 +20,12 @@ public class ResultVideoSearch extends BaseResponse {
     public class Data{
 
         private String total;
-        private List<Travel> items;
+        private List<Video> items;
+        private String more_link;
+
+        public String getMore_link() {
+            return more_link;
+        }
 
         public String getTotal() {
             return total;
@@ -29,11 +35,11 @@ public class ResultVideoSearch extends BaseResponse {
             this.total = total;
         }
 
-        public List<Travel> getItems() {
+        public List<Video> getItems() {
             return items;
         }
 
-        public void setItems(List<Travel> items) {
+        public void setItems(List<Video> items) {
             this.items = items;
         }
     }
