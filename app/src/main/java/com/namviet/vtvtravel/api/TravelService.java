@@ -64,6 +64,7 @@ import com.namviet.vtvtravel.response.f2searchmain.MainResultSearchResponse;
 import com.namviet.vtvtravel.response.f2searchmain.MainSearchResponse;
 import com.namviet.vtvtravel.response.f2searchmain.SearchSuggestionResponse;
 import com.namviet.vtvtravel.response.f2searchmain.SubBaseSearch;
+import com.namviet.vtvtravel.response.f2searchmain.result.ResultSearch;
 import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SortSmallLocationResponse;
 import com.namviet.vtvtravel.response.f2systeminbox.ConfirmEnterTrip;
@@ -128,6 +129,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
@@ -302,6 +304,13 @@ public interface TravelService {
 
     @GET(WSConfig.Api.SEARCH_SUGGESTION)
     Observable<SearchSuggestionResponse> getSearchSuggestion(@QueryMap Map<String, Object> param, @Query("keyword") String keyword);
+
+
+    @GET(WSConfig.Api.SEARCH_ALL)
+    Observable<ResultSearch> searchAll(@QueryMap Map<String, Object> queryMap, @Path ("path") String path ,@Query("keyword") String keyword, @Query("region_id") String regionId);
+
+    @GET
+    Observable<ResultSearch> searchAllWithFullLink(@QueryMap Map<String, Object> param, @Url String url);
 
     @GET(WSConfig.Api.GET_SEARCH_RESULT)
     Observable<SearchResultResponse> loadSearchResult(@QueryMap Map<String, Object> param);
