@@ -2,10 +2,10 @@ package com.namviet.vtvtravel.view.fragment.f2search
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import com.google.android.material.tabs.TabLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import com.google.android.material.tabs.TabLayout
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.adapter.f2search.SearchMainPageAdapter
 import com.namviet.vtvtravel.databinding.F2FragmentResultSearchBinding
@@ -13,6 +13,10 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.travelnews.Travel
 import com.namviet.vtvtravel.response.f2searchmain.MainResultSearchResponse
+import com.namviet.vtvtravel.response.f2searchmain.result.ResultNewsSearch
+import com.namviet.vtvtravel.response.f2searchmain.result.ResultSearch
+import com.namviet.vtvtravel.response.f2searchmain.result.ResultVideoSearch
+import com.namviet.vtvtravel.response.f2searchmain.result.SearchType
 import com.namviet.vtvtravel.tracking.TrackingAnalytic
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultDestinationSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultNewsSearchFragment
@@ -22,6 +26,8 @@ import java.util.*
 
 @SuppressLint("ValidFragment")
 class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observer {
+
+
 
     //viewpager
 
@@ -34,10 +40,6 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     private var regionId: String? = null
 
     private var loadMoreLink: String? = ""
-
-
-
-
 
 
     private var searchViewModel: SearchResultViewModel? = null
@@ -60,7 +62,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     override fun initData() {
         genViewPagerSearchResult()
-        searchViewModel?.getPreResultSearch(keyword!!, regionId, false)
+//        searchViewModel?.getPreResultSearch(keyword!!, regionId, false)
 
     }
 
@@ -75,14 +77,17 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     }
 
 
-
     override fun setObserver() {
 
     }
 
-    public fun getMoreData(){
-        searchViewModel?.getPreResultSearch(loadMoreLink!!, true)
-        loadMoreLink = ""
+    public fun searchAll(type : String?) {
+        searchViewModel?.searchAll(type, keyword, regionId, type)
+    }
+
+    public fun getMoreData() {
+//        searchViewModel?.getPreResultSearch(loadMoreLink!!, true)
+//        loadMoreLink = ""
     }
 
     private fun genViewPagerSearchResult() {
@@ -118,14 +123,32 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     }
 
     override fun update(observable: Observable?, o: Any?) {
-        if(observable is SearchResultViewModel && null != o){
+        if (observable is SearchResultViewModel && null != o) {
             when (o) {
                 is MainResultSearchResponse -> {
-                    loadMoreLink = o.data.more_link;
-                    destinationSearchFragment?.setList(o.data.items as ArrayList<Travel>?, o.isLoadMore)
-                    newsSearchFragment?.setList(o.data.items_news as ArrayList<Travel>?,  o.isLoadMore)
+//                    loadMoreLink = o.data.more_link;
+//                    destinationSearchFragment?.setList(o.data.items as ArrayList<Travel>?, o.isLoadMore)
+//                    newsSearchFragment?.setList(o.data.items_news as ArrayList<Travel>?, o.isLoadMore)
+//
+//                    tvCountResult.text = "Có " + (o.data.items.size + o.data.items_news.size) + " kết quả phù hợp với " + " \"" + keyword + "\"";
+                }
 
-                    tvCountResult.text = "Có "+(o.data.items.size + o.data.items_news.size)+" kết quả phù hợp với "+" \""+ keyword+"\"";
+                is ResultSearch -> {
+                    when (o.type) {
+                        SearchType.NEWS -> {
+                            newsSearchFragment?.setList(o.data.items as ArrayList<Travel>?, o.data.more_link)
+                        }
+
+                        SearchType.DESTINATION -> {
+                            destinationSearchFragment?.setList(o.data.items as ArrayList<Travel>?, o.data.more_link)
+                        }
+
+                        SearchType.VIDEO -> {
+
+                        }
+
+                    }
+
                 }
 
                 is ErrorResponse -> {

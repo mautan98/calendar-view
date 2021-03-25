@@ -10,6 +10,7 @@ import com.namviet.vtvtravel.app.MyApplication
 import com.namviet.vtvtravel.databinding.F2FragmentSearchDestinationResultBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.model.travelnews.Travel
+import com.namviet.vtvtravel.response.f2searchmain.result.SearchType
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity
 import com.namviet.vtvtravel.view.fragment.f2search.ResultSearchFragment
@@ -20,6 +21,7 @@ import kotlin.collections.ArrayList
 class ResultDestinationSearchFragment(private var resultSearchFragment: ResultSearchFragment?) : BaseFragment<F2FragmentSearchDestinationResultBinding>() {
     private var subTravelNewsAdapter: NearByInTravelDetailAdapter? = null
     private var travels: ArrayList<Travel>? = ArrayList()
+    private var moreLink: String? = null
     override fun getLayoutRes(): Int {
         return R.layout.f2_fragment_search_destination_result
     }
@@ -27,13 +29,14 @@ class ResultDestinationSearchFragment(private var resultSearchFragment: ResultSe
     override fun initView() {
     }
 
-    public fun setList(travels: ArrayList<Travel>?, isLoadMore: Boolean) {
-        if (isLoadMore) {
+    public fun setList(travels: ArrayList<Travel>?, moreLink: String?) {
+//        if (isLoadMore) {
             travels?.let { this.travels?.addAll(it) }
-        } else {
-            this.travels?.clear()
-            travels?.let { this.travels?.addAll(it) }
-        }
+        this.moreLink = moreLink
+//        } else {
+//            this.travels?.clear()
+//            travels?.let { this.travels?.addAll(it) }
+//        }
 
         subTravelNewsAdapter?.notifyDataSetChanged()
 
@@ -53,6 +56,8 @@ class ResultDestinationSearchFragment(private var resultSearchFragment: ResultSe
             }
         })
         rclContent.adapter = subTravelNewsAdapter
+
+        resultSearchFragment?.searchAll(SearchType.DESTINATION)
     }
 
     override fun inject() {

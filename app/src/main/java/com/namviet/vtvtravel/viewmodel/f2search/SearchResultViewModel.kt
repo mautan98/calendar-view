@@ -81,6 +81,44 @@ class SearchResultViewModel : BaseViewModel() {
     }
 
 
+    fun searchAll(path: String?, keyword: String?, regionId: String?, type:String?) {
+        val myApplication = MyApplication.getInstance()
+        val newsService = myApplication.travelService
+        val queryMap = Param.getDefault()
+        val disposable = newsService.searchAll(queryMap, path, keyword, regionId)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ videoResponse ->
+                    videoResponse?.let {
+                        it.type = type
+                        requestSuccess(it)
+                    }
+                })
+                { throwable ->
+                    requestFailed(throwable!!)
+                }
+        compositeDisposable.add(disposable)
+    }
+
+    fun searchAllWithFullLink(link:String?, type: String?) {
+        val myApplication = MyApplication.getInstance()
+        val newsService = myApplication.travelService
+        val queryMap = Param.getDefault()
+        val disposable = newsService.searchAllWithFullLink(queryMap, link)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ videoResponse ->
+                    videoResponse?.let {
+                        it.type = type
+                        requestSuccess(it)
+                    }
+                })
+                { throwable ->
+                    requestFailed(throwable!!)
+                }
+        compositeDisposable.add(disposable)
+    }
+
     private fun requestSuccess(param: Any?) {
         setChanged()
         notifyObservers(param)
