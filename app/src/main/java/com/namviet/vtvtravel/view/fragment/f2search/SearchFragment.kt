@@ -71,7 +71,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
     private var recentAdapter: RecentAdapter? = null
     private var searchAllLocationAdapter: SearchAllLocationAdapter? = null
     private var blockAdapter: SearchBlockAdapter? = null
-    private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
+//    private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
 
     private var regionId: String? = null;
 
@@ -126,21 +126,21 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
         rclBlock.adapter = blockAdapter
 
 
-        searchSuggestionKeyWordAdapter = SearchSuggestionKeyWordAdapter(searchSuggestions, mActivity, object : SearchSuggestionKeyWordAdapter.ClickItem{
-            override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
-                try {
-                    edtKeyword.setText(searchKeywordSuggestion?.title)
-                    addRecentSearch(edtKeyword.text.toString())
-                    recentAdapter?.setData(getRecentSearch())
-                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId))
-                    KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
-                    edtKeyword.clearFocus()
-                } catch (e: Exception) {
-                }
-            }
-
-        })
-        rclSearchSuggestion.adapter = searchSuggestionKeyWordAdapter
+//        searchSuggestionKeyWordAdapter = SearchSuggestionKeyWordAdapter(searchSuggestions, mActivity, object : SearchSuggestionKeyWordAdapter.ClickItem{
+//            override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
+//                try {
+//                    edtKeyword.setText(searchKeywordSuggestion?.title)
+//                    addRecentSearch(edtKeyword.text.toString())
+//                    recentAdapter?.setData(getRecentSearch())
+//                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId))
+//                    KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
+//                    edtKeyword.clearFocus()
+//                } catch (e: Exception) {
+//                }
+//            }
+//
+//        })
+//        rclSearchSuggestion.adapter = searchSuggestionKeyWordAdapter
 
 
         rclLocation.adapter = searchAllLocationAdapter
@@ -214,8 +214,8 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                     } else {
                         binding!!.scrollMainSearch.visibility = View.GONE
                         binding!!.layoutSearchResult.visibility = View.VISIBLE
-//                        searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId)
-                        searchViewModel?.getSearchSuggestion(edtKeyword.text.toString())
+                        searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId)
+//                        searchViewModel?.getSearchSuggestion(edtKeyword.text.toString())
 
                         try {
                             TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtKeyword.text.toString()).setScreen_class(this.javaClass.name))
@@ -365,9 +365,9 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                     edtRegion.setText(o.data.name)
                 }
 
-                is SearchSuggestionResponse -> {
-                    searchSuggestionKeyWordAdapter?.setData(o.data.items)
-                }
+//                is SearchSuggestionResponse -> {
+//                    searchSuggestionKeyWordAdapter?.setData(o.data.items)
+//                }
 
 
                 is ErrorResponse -> {

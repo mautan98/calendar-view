@@ -778,6 +778,13 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             rclDiscover = itemView.findViewById(R.id.rclDiscover);
             btnReadMore = itemView.findViewById(R.id.btnReadMore);
 
+            try {
+                SnapHelper helper = new LinearSnapHelper();
+                helper.attachToRecyclerView(rclDiscover);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
 
         public void bindItem(int position) {
