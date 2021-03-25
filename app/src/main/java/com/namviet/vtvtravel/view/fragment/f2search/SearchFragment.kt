@@ -372,6 +372,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                 is SearchSuggestionResponse -> {
                     var list = o.data.items
                     list.addAll(0, getSuggestionInRecentSearch())
+                    searchSuggestionKeyWordAdapter?.setKeyword(edtKeyword.text.toString())
                     searchSuggestionKeyWordAdapter?.setData(list)
                 }
 

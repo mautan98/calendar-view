@@ -1,10 +1,12 @@
 package com.namviet.vtvtravel.adapter.f2search
 
 import android.content.Context
+import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,19 +15,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.response.f2searchmain.SearchSuggestionResponse
 import kotlinx.android.synthetic.main.f2_item_search_category.view.*
+import kotlinx.android.synthetic.main.f2_item_search_recent_2.view.*
 import kotlinx.android.synthetic.main.f2_item_search_suggestion_2.view.*
 
 class SearchSuggestionKeyWordAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private var context: Context? = null
     public var clickItem: ClickItem? = null
     private var searchKeywordSuggestion: List<SearchSuggestionResponse.Data.Item>? = null
+    private var keyword: String = ""
 
     constructor(searchKeywordSuggestion: List<SearchSuggestionResponse.Data.Item>?, context: Context, clickItem: ClickItem) {
         this.context = context
         this.clickItem = clickItem
         this.searchKeywordSuggestion = searchKeywordSuggestion
 
-        
+
+    }
+
+    fun setKeyword(keyword: String) {
+        this.keyword = keyword
     }
 
     fun setData(comments: List<SearchSuggestionResponse.Data.Item>) {
@@ -34,11 +42,11 @@ class SearchSuggestionKeyWordAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if(searchKeywordSuggestion?.get(position)?.type == "category"){
+        return if (searchKeywordSuggestion?.get(position)?.type == "category") {
             TYPE_CATEGORY
-        }else if(searchKeywordSuggestion?.get(position)?.type == "suggestion"){
+        } else if (searchKeywordSuggestion?.get(position)?.type == "suggestion") {
             TYPE_ITEM
-        }else{
+        } else {
             TYPE_RECENT
         }
     }
@@ -48,10 +56,10 @@ class SearchSuggestionKeyWordAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
         if (viewType == TYPE_ITEM) {
             v = LayoutInflater.from(parent.context).inflate(R.layout.f2_item_search_suggestion_2, parent, false)
             return HeaderViewHolder(v)
-        }else if (viewType == TYPE_CATEGORY){
+        } else if (viewType == TYPE_CATEGORY) {
             v = LayoutInflater.from(parent.context).inflate(R.layout.f2_item_search_category, parent, false)
             return CategoryHolder(v)
-        }else{
+        } else {
             v = LayoutInflater.from(parent.context).inflate(R.layout.f2_item_search_recent_2, parent, false)
             return RecentHolder(v)
         }
@@ -62,9 +70,9 @@ class SearchSuggestionKeyWordAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
         try {
             if (getItemViewType(position) == TYPE_ITEM) {
                 (holder as HeaderViewHolder).bindItem(position)
-            }else if (getItemViewType(position) == TYPE_CATEGORY){
+            } else if (getItemViewType(position) == TYPE_CATEGORY) {
                 (holder as CategoryHolder).bindItem(position)
-            }else{
+            } else {
                 (holder as RecentHolder).bindItem(position)
             }
         } catch (e: Exception) {
@@ -93,6 +101,7 @@ class SearchSuggestionKeyWordAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
         fun bindItem(position: Int?) {
             this.position = position
             itemView.tvTitle.text = position?.let { searchKeywordSuggestion?.get(it)?.getTitle() }
+            setHighLightedText(itemView.tvTitle, keyword!!)
         }
     }
 
@@ -124,8 +133,8 @@ class SearchSuggestionKeyWordAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
 
         fun bindItem(position: Int?) {
             this.position = position
-            itemView.tvCategoryTitle.text = position?.let { searchKeywordSuggestion?.get(it)?.getTitle() }
-//            setHighLightedText(itemView.tvCategoryTitle, )
+            itemView.tvRecentTitle.text = position?.let { searchKeywordSuggestion?.get(it)?.getTitle() }
+            setHighLightedText(itemView.tvRecentTitle, keyword!!)
         }
     }
 
@@ -135,8 +144,8 @@ class SearchSuggestionKeyWordAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
 
 
     fun setHighLightedText(tv: TextView, textToHighlight: String) {
-        val tvt = tv.text.toString()
-        var ofe = tvt.indexOf(textToHighlight, 0)
+        val tvt = tv.text.toString().toLowerCase()
+        var ofe = tvt.indexOf(textToHighlight.toLowerCase(), 0)
         val wordToSpan: Spannable = SpannableString(tv.text)
         var ofs = 0
         while (ofs < tvt.length && ofe != -1) {
@@ -144,6 +153,7 @@ class SearchSuggestionKeyWordAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
             if (ofe == -1) break else {
                 // set color here
                 wordToSpan.setSpan(ForegroundColorSpan(context!!.resources!!.getColor(R.color.md_black_1000)), ofe, ofe + textToHighlight.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                wordToSpan.setSpan(StyleSpan(Typeface.BOLD), ofe, ofe + textToHighlight.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 tv.setText(wordToSpan, TextView.BufferType.SPANNABLE)
             }
             ofs = ofe + 1
