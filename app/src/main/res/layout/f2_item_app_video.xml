@@ -7,34 +7,49 @@
     android:layout_marginStart="10dp">
 
     <androidx.cardview.widget.CardView
-        android:foreground="@drawable/ripple_effect_click"
-        app:cardUseCompatPadding="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:foreground="@drawable/ripple_effect_click"
         app:cardCornerRadius="4dp"
+        app:cardUseCompatPadding="true"
         card_view:cardElevation="2dp">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
 
-                <ImageView
-                    android:id="@+id/imvBanner"
-                    android:layout_width="222dp"
-                    android:layout_height="143dp"
-                    android:scaleType="centerCrop" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                <View
-                    android:layout_width="222dp"
-                    android:layout_height="143dp"
-                    android:alpha="0.3"
-                    android:background="@color/md_black_1000" />
+                    <ImageView
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:id="@+id/imvBanner"
+                        android:layout_width="222dp"
+                        app:layout_constraintDimensionRatio="375:203"
+                        android:layout_height="0dp"
+                        android:scaleType="centerCrop" />
+
+                    <View
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:alpha="0.3"
+                        android:background="@color/md_black_1000" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
                 <ImageView
                     android:layout_width="50dp"
@@ -46,14 +61,14 @@
             </RelativeLayout>
 
             <TextView
-                android:lines="2"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:id="@+id/tvTitle"
                 android:layout_width="222dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/imvBanner"
+                android:ellipsize="end"
                 android:fontFamily="@font/roboto_medium"
+                android:lines="2"
+                android:maxLines="2"
                 android:padding="8dp"
                 android:text="Ghé Ninh Thuận tham quan công viên đá"
                 android:textColor="#000000"

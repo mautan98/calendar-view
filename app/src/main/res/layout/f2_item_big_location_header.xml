@@ -63,8 +63,8 @@
 
                         <com.like.LikeButton
                             android:id="@+id/imgHeart"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_alignParentEnd="true"
                             android:layout_gravity="center"
                             app:anim_scale_factor="4.5"
@@ -251,8 +251,7 @@
                                 android:layout_marginStart="3dp"
                                 android:ellipsize="end"
                                 android:fontFamily="@font/roboto_regular"
-                                android:maxLines="1"
-                                android:singleLine="true"
+                                android:maxLines="2"
                                 android:textColor="#5E5E5E"
                                 android:textSize="11dp" />
                         </LinearLayout>

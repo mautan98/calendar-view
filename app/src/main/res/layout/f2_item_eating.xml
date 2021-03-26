@@ -55,14 +55,14 @@
 
                 <com.like.LikeButton
                     android:id="@+id/imgHeart"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_alignParentEnd="true"
                     android:layout_gravity="center"
                     app:anim_scale_factor="4.5"
-                    app:icon_size="15dp"
-                    app:like_drawable="@drawable/f2_ic_red_heart"
-                    app:unlike_drawable="@drawable/f2_ic_gray_heart" />
+                    app:icon_size="30dp"
+                    app:like_drawable="@drawable/f2_ic_heart"
+                    app:unlike_drawable="@drawable/f2_ic_transparent_heart" />
 
             </RelativeLayout>
 
