@@ -2,6 +2,11 @@ package com.namviet.vtvtravel.view.fragment.f2search
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.Typeface
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
@@ -116,6 +121,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         resultVideosSearchFragment = ResultVideosSearchFragment(this)
         mainAdapter!!.addFragment(resultVideosSearchFragment, "resultVideosSearchFragment")
         vpContent.adapter = mainAdapter
+        vpContent.offscreenPageLimit = 3
         tabLayout.setupWithViewPager(vpContent)
 
 
@@ -151,40 +157,36 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     override fun update(observable: Observable?, o: Any?) {
         if (observable is SearchResultViewModel && null != o) {
-            when (o) {
-                is MainResultSearchResponse -> {
-//                    loadMoreLink = o.data.more_link;
-//                    destinationSearchFragment?.setList(o.data.items as ArrayList<Travel>?, o.isLoadMore)
-//                    newsSearchFragment?.setList(o.data.items_news as ArrayList<Travel>?, o.isLoadMore)
-//
-//                    tvCountResult.text = "Có " + (o.data.items.size + o.data.items_news.size) + " kết quả phù hợp với " + " \"" + keyword + "\"";
-                }
+            try {
+                when (o) {
 
-                is ResultSearch -> {
-                    when (o.type) {
-                        SearchType.NEWS -> {
-                            newsSearchFragment?.setList(o.data.items as ArrayList<Travel>?, o.data.more_link)
+                    is ResultSearch -> {
+                        when (o.type) {
+                            SearchType.NEWS -> {
+                                newsSearchFragment?.setList(o.data.items as ArrayList<Travel>?, o.data.more_link, o.data.total, keyword!!)
+                            }
+
+                            SearchType.DESTINATION -> {
+                                destinationSearchFragment?.setList(o.data.items as ArrayList<Travel>?, o.data.more_link, o.data.total, keyword!!)
+                            }
+
+
                         }
-
-                        SearchType.DESTINATION -> {
-                            destinationSearchFragment?.setList(o.data.items as ArrayList<Travel>?, o.data.more_link)
-                        }
-
 
                     }
 
-                }
+                    is ResultVideoSearch -> {
+                        resultVideosSearchFragment?.setList(o.data.items as ArrayList<Video>?, o.data.more_link, o.data.total, keyword!!)
+                    }
 
-                is ResultVideoSearch -> {
-                    resultVideosSearchFragment?.setList(o.data.items as ArrayList<Video>?, o.data.more_link)
-                }
-
-                is ErrorResponse -> {
-                    val responseError = o
-                    try { //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
-                    } catch (e: Exception) {
+                    is ErrorResponse -> {
+                        val responseError = o
+                        try { //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
+                        } catch (e: Exception) {
+                        }
                     }
                 }
+            } catch (e: Exception) {
             }
         }
     }
@@ -206,5 +208,25 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     override fun setScreenTitle() {
         super.setScreenTitle()
         setDataScreen(TrackingAnalytic.ScreenCode.SEARCH_RESULT, TrackingAnalytic.ScreenTitle.SEARCH_RESULT)
+    }
+
+    public fun setHighLightedText(tv: TextView, textToHighlight: String) {
+        try {
+            val tvt = tv.text.toString().toLowerCase()
+            var ofe = tvt.indexOf(textToHighlight.toLowerCase(), 0)
+            val wordToSpan: Spannable = SpannableString(tv.text)
+            var ofs = 0
+            while (ofs < tvt.length && ofe != -1) {
+                ofe = tvt.indexOf(textToHighlight, ofs)
+                if (ofe == -1) break else {
+                    // set color here
+                    wordToSpan.setSpan(ForegroundColorSpan(context!!.resources!!.getColor(R.color.md_black_1000)), ofe, ofe + textToHighlight.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    wordToSpan.setSpan(StyleSpan(Typeface.BOLD), ofe, ofe + textToHighlight.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    tv.setText(wordToSpan, TextView.BufferType.SPANNABLE)
+                }
+                ofs = ofe + 1
+            }
+        } catch (e: Exception) {
+        }
     }
 }

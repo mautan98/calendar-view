@@ -12,7 +12,7 @@ import com.namviet.vtvtravel.model.Video
 import com.namviet.vtvtravel.model.travelnews.Travel
 import com.namviet.vtvtravel.response.f2searchmain.result.SearchType
 import com.namviet.vtvtravel.view.fragment.f2search.ResultSearchFragment
-import kotlinx.android.synthetic.main.f2_fragment_search_destination.*
+import kotlinx.android.synthetic.main.f2_fragment_search_destination_result.*
 
 
 @SuppressLint("ValidFragment")
@@ -27,13 +27,12 @@ class ResultVideosSearchFragment(private var resultSearchFragment: ResultSearchF
     override fun initView() {
     }
 
-    public fun setList(travels: ArrayList<Video>?, moreLink: String?) {
+    public fun setList(travels: ArrayList<Video>?, moreLink: String?,  count: String, keyword: String) {
         travels?.let { this.travels?.addAll(travels) }
         this.moreLink = moreLink
-
-
         subTravelNewsAdapter?.notifyDataSetChanged()
-
+        tvCountResult.text = "Có $count kết quả tìm kiếm video khớp với \"$keyword\""
+        resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
     }
 
     override fun initData() {

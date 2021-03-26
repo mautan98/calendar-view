@@ -2,6 +2,11 @@ package com.namviet.vtvtravel.view.fragment.f2search
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.Typeface
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import android.view.LayoutInflater
@@ -219,7 +224,8 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                         binding!!.layoutSearchResult.visibility = View.VISIBLE
 //                        searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId)
                         searchViewModel?.getSearchSuggestion(edtKeyword.text.toString(), regionId)
-                        layoutKeyword.tvSearchFollow.text = "Tìm kiếm theo "+ edtKeyword.text.toString();
+                        layoutKeyword.tvSearchFollow.text = "Tìm kiếm theo \""+ edtKeyword.text.toString()+"\"";
+                        setHighLightedText(layoutKeyword.tvSearchFollow, "\""+ edtKeyword.text.toString()+"\"")
 
                         try {
                             TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtKeyword.text.toString()).setScreen_class(this.javaClass.name))
@@ -229,6 +235,27 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                     }
                 }
 
+    }
+
+
+    public fun setHighLightedText(tv: TextView, textToHighlight: String) {
+        try {
+            val tvt = tv.text.toString().toLowerCase()
+            var ofe = tvt.indexOf(textToHighlight.toLowerCase(), 0)
+            val wordToSpan: Spannable = SpannableString(tv.text)
+            var ofs = 0
+            while (ofs < tvt.length && ofe != -1) {
+                ofe = tvt.indexOf(textToHighlight, ofs)
+                if (ofe == -1) break else {
+                    // set color here
+                    wordToSpan.setSpan(ForegroundColorSpan(context!!.resources!!.getColor(R.color.md_black_1000)), ofe, ofe + textToHighlight.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    wordToSpan.setSpan(StyleSpan(Typeface.BOLD), ofe, ofe + textToHighlight.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    tv.setText(wordToSpan, TextView.BufferType.SPANNABLE)
+                }
+                ofs = ofe + 1
+            }
+        } catch (e: Exception) {
+        }
     }
 
 
@@ -301,6 +328,14 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
 
         btnCurrentLocation.setOnClickListener {
             searchViewModel?.getLocation()
+        }
+
+        layoutKeyword.setOnClickListener {
+            addRecentSearch(edtKeyword.text.toString())
+            recentAdapter?.setData(getRecentSearch())
+            addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId))
+            KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
+            edtKeyword.clearFocus()
         }
 
 

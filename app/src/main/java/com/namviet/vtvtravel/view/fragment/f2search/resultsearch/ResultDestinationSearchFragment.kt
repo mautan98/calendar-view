@@ -14,7 +14,7 @@ import com.namviet.vtvtravel.response.f2searchmain.result.SearchType
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity
 import com.namviet.vtvtravel.view.fragment.f2search.ResultSearchFragment
-import kotlinx.android.synthetic.main.f2_fragment_search_destination.*
+import kotlinx.android.synthetic.main.f2_fragment_search_destination_result.*
 import kotlin.collections.ArrayList
 
 @SuppressLint("ValidFragment")
@@ -29,21 +29,16 @@ class ResultDestinationSearchFragment(private var resultSearchFragment: ResultSe
     override fun initView() {
     }
 
-    public fun setList(travels: ArrayList<Travel>?, moreLink: String?) {
-//        if (isLoadMore) {
-            travels?.let { this.travels?.addAll(it) }
+    public fun setList(travels: ArrayList<Travel>?, moreLink: String?, count: String, keyword: String) {
+        travels?.let { this.travels?.addAll(it) }
         this.moreLink = moreLink
-//        } else {
-//            this.travels?.clear()
-//            travels?.let { this.travels?.addAll(it) }
-//        }
-
         subTravelNewsAdapter?.notifyDataSetChanged()
-
+        tvCountResult.text = "Có $count kết quả tìm kiếm điểm đến khớp với \"$keyword\""
+        resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
     }
 
     override fun initData() {
-        subTravelNewsAdapter = NearByInTravelDetailAdapter(mActivity, travels, object :ClickItem {
+        subTravelNewsAdapter = NearByInTravelDetailAdapter(mActivity, travels, object : ClickItem {
             override fun likeEvent(position: Int) {
             }
 

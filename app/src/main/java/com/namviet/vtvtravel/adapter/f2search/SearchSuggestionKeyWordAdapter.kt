@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.response.f2searchmain.SearchSuggestionResponse
 import kotlinx.android.synthetic.main.f2_item_search_category.view.*
@@ -118,6 +119,11 @@ class SearchSuggestionKeyWordAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
         fun bindItem(position: Int?) {
             this.position = position
             itemView.tvCategoryTitle.text = position?.let { searchKeywordSuggestion?.get(it)?.getTitle() }
+            itemView.tvCategory.text = position?.let { searchKeywordSuggestion?.get(it)?.getParentName() }
+            try {
+                Glide.with(context!!).load(searchKeywordSuggestion!![position!!].getIcon()).into(itemView.imgAvatar)
+            } catch (e: Exception) {
+            }
         }
     }
 

@@ -7,6 +7,7 @@
     android:orientation="horizontal"
     android:paddingEnd="18dp"
     android:gravity="center_vertical"
+    android:foreground="@drawable/ripple_effect_click"
     android:paddingBottom="13dp">
 
     <ImageView

@@ -11,7 +11,7 @@ import com.namviet.vtvtravel.model.travelnews.Travel
 import com.namviet.vtvtravel.response.f2searchmain.result.SearchType
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity
 import com.namviet.vtvtravel.view.fragment.f2search.ResultSearchFragment
-import kotlinx.android.synthetic.main.f2_fragment_search_destination.*
+import kotlinx.android.synthetic.main.f2_fragment_search_news_result.*
 import java.util.*
 
 @SuppressLint("ValidFragment")
@@ -32,16 +32,12 @@ class ResultNewsSearchFragment(private var resultSearchFragment: ResultSearchFra
 
     }
 
-    public fun setList(travels: ArrayList<Travel>?, moreLink: String) {
-//        if (isLoadMore) {
+    public fun setList(travels: ArrayList<Travel>?, moreLink: String, count: String, keyword: String) {
         travels?.let { this.travels?.addAll(it) }
         this.moreLink = moreLink
-//        } else {
-//            this.travels?.clear()
-//            travels?.let { this.travels?.addAll(it) }
-//        }
-
         subTravelNewsAdapter?.notifyDataSetChanged()
+        tvCountResult.text = "Có $count kết quả tìm kiếm tin tức khớp với \"$keyword\""
+        resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
 
     }
 
