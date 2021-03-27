@@ -121,6 +121,7 @@ public class SubVideoAdapter extends RecyclerView.Adapter<SubVideoAdapter.Header
                 if(videos.get(position).getCategory() != null){
                     tvType.setText(videos.get(position).getCategory().getName());
                 }
+                tvType.setText(videos.get(position).getCategory_tree_name());
             } catch (Exception e) {
                 e.printStackTrace();
             }

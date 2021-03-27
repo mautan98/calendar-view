@@ -47,6 +47,7 @@ import com.namviet.vtvtravel.ultils.PreferenceUtil
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import com.namviet.vtvtravel.viewmodel.f2search.SearchViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.f2_dialog_comment1.*
 import kotlinx.android.synthetic.main.f2_fragment_search.*
 import kotlinx.android.synthetic.main.f2_layout_keyword.*
 import kotlinx.android.synthetic.main.f2_layout_keyword.view.*
@@ -110,8 +111,10 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
             override fun onNoItem(b: Boolean) {
                 if (b) {
                     tvHaveNoRecent.visibility = View.VISIBLE
+                    btnDeleteHistory.visibility = View.GONE
                 } else {
                     tvHaveNoRecent.visibility = View.GONE
+                    btnDeleteHistory.visibility = View.VISIBLE
                 }
             }
         })
@@ -295,6 +298,11 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
 
 
     override fun setClickListener() {
+
+        btnDeleteHistory.setOnClickListener {
+            clearRecentSearch()
+            recentAdapter?.setData(getRecentSearch())
+        }
         btnBack.setOnClickListener { mActivity.onBackPressed() }
 
         edtKeyword.setOnEditorActionListener { _, actionId, _ ->
@@ -462,6 +470,10 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    private fun clearRecentSearch(){
+        PreferenceUtil.getInstance(context).setValue(Constants.PrefKey.RECENT_SEARCH, "")
     }
 
     private fun getRecentSearch(): ArrayList<String> {

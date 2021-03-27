@@ -184,6 +184,7 @@
 
 
                                 <TextView
+                                    android:layout_weight="1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="8dp"
@@ -191,6 +192,18 @@
                                     android:text="Đã tìm kiếm gần đây"
                                     android:textColor="#878787"
                                     android:textSize="16dp" />
+
+
+                                <TextView
+                                    android:id="@+id/btnDeleteHistory"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:text="Xoá lịch sử"
+                                    android:textColor="#878787"
+                                    android:textSize="15dp" />
 
 
                             </LinearLayout>
