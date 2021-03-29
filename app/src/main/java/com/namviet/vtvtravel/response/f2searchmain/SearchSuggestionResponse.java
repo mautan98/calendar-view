@@ -42,6 +42,9 @@ public class SearchSuggestionResponse extends BaseResponse {
             @Expose
             @SerializedName("parent_name")
             public String parentName;
+            @Expose
+            @SerializedName("category_code")
+            public String categoryCode;
 
             public String getParentName() {
                 return parentName;
@@ -73,6 +76,14 @@ public class SearchSuggestionResponse extends BaseResponse {
 
             public void setTitle(String title) {
                 this.title = title;
+            }
+
+            public String getCategoryCode() {
+                return categoryCode;
+            }
+
+            public void setCategoryCode(String categoryCode) {
+                this.categoryCode = categoryCode;
             }
         }
     }
