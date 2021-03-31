@@ -3,27 +3,35 @@ package com.namviet.vtvtravel.view.fragment.f2travelnote;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.RenderProcessGoneDetail;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 import com.baseapp.activity.BaseActivity;
+import com.google.android.material.tabs.TabLayout;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.adapter.f2offline.MainAdapter;
 import com.namviet.vtvtravel.adapter.travelnews.CommentInDetailTravelNewsAdapter;
 import com.namviet.vtvtravel.adapter.travelnews.NearByInTravelDetailAdapter;
+import com.namviet.vtvtravel.adapter.travelnews.RelationNewInTravelNewsAdapter;
 import com.namviet.vtvtravel.adapter.travelnews.RelationNewsInTravelDetailAdapter;
+import com.namviet.vtvtravel.adapter.vtvtabstyle.VTVTabStyleAdapter;
 import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
@@ -33,9 +41,11 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2event.OnCommentSuccessInTravelNews;
+import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
+import com.namviet.vtvtravel.response.travelnews.PlaceNearByResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.ultils.F2Util;
@@ -46,6 +56,7 @@ import com.namviet.vtvtravel.view.f2.ShareActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.view.fragment.share.ShareBottomDialog;
+import com.namviet.vtvtravel.view.fragment.topexperience.SubTopExperienceFragment;
 import com.namviet.vtvtravel.viewmodel.f2travelnews.DetailNewsTravelViewModel;
 
 import org.greenrobot.eventbus.EventBus;
@@ -62,6 +73,15 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
     private NearByInTravelDetailAdapter nearByInTravelDetailAdapter;
     private RelationNewsInTravelDetailAdapter relationNewsInTravelDetailAdapter;
     private DetailTravelNewsResponse detailTravelNewsResponse;
+
+    private SubTopExperienceFragment relationDestinationFragment;
+    private SubTopExperienceFragment nearDestinationFragment;
+
+    private RelationNewInTravelNewsAdapter relationNewInTravelNewsAdapter;
+
+
+
+    private VTVTabStyleAdapter mainAdapter;
 
     public DetailNewsTravelFragment() {
     }
@@ -287,6 +307,13 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
 
                 getBinding().shimmerMain.setVisibility(View.GONE);
                 detailTravelNewsResponse = (DetailTravelNewsResponse) o;
+                try {
+                    viewModel.getPlaceNearBy(detailTravelNewsResponse.getData().getRelatedNews().getApi_link());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                genPlaceView(detailTravelNewsResponse.getData().getRelatedPlaces().getApi_link(), detailTravelNewsResponse.getData().getPlaceNearBy().getApi_link());
 
                 try {
                     getBinding().tvLikeCount.setText(detailTravelNewsResponse.getData().getLikeCount());
@@ -446,7 +473,18 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                     }
                 });
                 getBinding().rclComment.setAdapter(commentInDetailTravelNewsAdapter);
-            } else if (o instanceof ErrorResponse) {
+            } else if(o instanceof PlaceNearByResponse){
+                PlaceNearByResponse placeNearByResponse = (PlaceNearByResponse) o;
+//                getBinding().rclRelation.
+                relationNewInTravelNewsAdapter = new RelationNewInTravelNewsAdapter(mActivity, placeNearByResponse.getData().getPlaces(), new RelationNewInTravelNewsAdapter.ClickItem() {
+                    @Override
+                    public void onClickItem(Travel travel) {
+
+                    }
+                });
+
+                getBinding().rclRelation.setAdapter(relationNewInTravelNewsAdapter);
+            }else if (o instanceof ErrorResponse) {
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
@@ -531,6 +569,62 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
         super.setScreenTitle();
         setDataScreen(TrackingAnalytic.ScreenCode.NEWS_DETAIL, TrackingAnalytic.ScreenTitle.NEWS_DETAIL);
     }
+
+
+    private void genPlaceView(String detailLink1, String detailLink2) {
+        try {
+
+            mainAdapter = new VTVTabStyleAdapter(getChildFragmentManager());
+            getBinding().vpDestination.setOffscreenPageLimit(2);
+            relationDestinationFragment =  new SubTopExperienceFragment(detailLink1);
+            mainAdapter.addFragment(relationDestinationFragment, "");
+
+            nearDestinationFragment =  new SubTopExperienceFragment(detailLink2);
+            mainAdapter.addFragment(nearDestinationFragment, "");
+
+            getBinding().vpDestination.setAdapter(mainAdapter);
+            getBinding().tabLayout.setupWithViewPager(getBinding().vpDestination);
+
+            View tabHome = LayoutInflater.from(mActivity).inflate(R.layout.f2_custom_tab_vtv_style_in_travel_news, null);
+            TextView tvHome = tabHome.findViewById(R.id.tvTitle);
+            tvHome.setText("Địa điểm liên quan");
+            tvHome.setTextColor(Color.parseColor("#101010"));
+            View view = tabHome.findViewById(R.id.indicator);
+            view.setVisibility(View.VISIBLE);
+            getBinding().tabLayout.getTabAt(0).setCustomView(tabHome);
+
+            View tabPlace = LayoutInflater.from(mActivity).inflate(R.layout.f2_custom_tab_vtv_style_in_travel_news, null);
+            TextView tvPlace = tabPlace.findViewById(R.id.tvTitle);
+            tvPlace.setText("Địa điểm gần bạn");
+            tvPlace.setTextColor(Color.parseColor("#00918D"));
+            View view1 = tabPlace.findViewById(R.id.indicator);
+            view1.setVisibility(View.INVISIBLE);
+            getBinding().tabLayout.getTabAt(1).setCustomView(tabPlace);
+            getBinding().tabLayout.addOnTabSelectedListener(OnTabSelectedListener);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private TabLayout.OnTabSelectedListener OnTabSelectedListener = new TabLayout.OnTabSelectedListener() {
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+            int c = tab.getPosition();
+            mainAdapter.SetOnSelectView(getBinding().tabLayout, c);
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+            int c = tab.getPosition();
+            mainAdapter.SetUnSelectView(getBinding().tabLayout, c);
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+
+        }
+    };
 
 
 }

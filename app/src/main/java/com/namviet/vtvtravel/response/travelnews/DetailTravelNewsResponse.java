@@ -1,9 +1,12 @@
 package com.namviet.vtvtravel.response.travelnews;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.BaseResponse;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DetailTravelNewsResponse extends BaseResponse implements Serializable {
@@ -40,6 +43,30 @@ public class DetailTravelNewsResponse extends BaseResponse implements Serializab
         private String category_tree_code;
         private String category_tree_name;
 
+
+        @Expose
+        @SerializedName("near_by")
+        private PlaceNearBy placeNearBy;
+
+        @Expose
+        @SerializedName("api_related_news")
+        private PlaceNearBy relatedNews;
+
+        @Expose
+        @SerializedName("api_related_place")
+        private PlaceNearBy relatedPlaces;
+
+        public PlaceNearBy getRelatedNews() {
+            return relatedNews;
+        }
+
+        public PlaceNearBy getRelatedPlaces() {
+            return relatedPlaces;
+        }
+
+        public PlaceNearBy getPlaceNearBy() {
+            return placeNearBy;
+        }
 
         public String getCategory_tree_code() {
             return category_tree_code;
@@ -217,6 +244,77 @@ public class DetailTravelNewsResponse extends BaseResponse implements Serializab
 
             public List<Travel> getItems() {
                 return items;
+            }
+        }
+
+        public  class PlaceNearBy {
+            @Expose
+            @SerializedName("api_link")
+            private String api_link;
+            @Expose
+            @SerializedName("title")
+            private String title;
+
+            private ArrayList<Tab> tabs;
+
+            public String getApi_link() {
+                return api_link;
+            }
+
+            public void setApi_link(String api_link) {
+                this.api_link = api_link;
+            }
+
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
+
+            public ArrayList<Tab> getTabs() {
+                return tabs;
+            }
+
+            public void setTabs(ArrayList<Tab> tabs) {
+                this.tabs = tabs;
+            }
+
+            public class Tab {
+                @Expose
+                @SerializedName("content_link")
+                private String content_link;
+                @Expose
+                @SerializedName("code")
+                private String code;
+                @Expose
+                @SerializedName("name")
+                private String name;
+
+                public String getContent_link() {
+                    return content_link;
+                }
+
+                public void setContent_link(String content_link) {
+                    this.content_link = content_link;
+                }
+
+                public String getCode() {
+                    return code;
+                }
+
+                public void setCode(String code) {
+                    this.code = code;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
             }
         }
     }

@@ -480,6 +480,7 @@
                                 android:layout_height="wrap_content">
 
                                 <TextView
+                                    android:layout_marginStart="12dp"
                                     android:layout_weight="1"
                                     android:fontFamily="@font/roboto_bold"
                                     android:textSize="18dp"
@@ -499,6 +500,7 @@
 
 
                             <androidx.recyclerview.widget.RecyclerView
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                                 android:id="@+id/rclRelation"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"/>
@@ -512,12 +514,13 @@
                             android:layout_height="wrap_content">
 
                             <com.google.android.material.tabs.TabLayout
+                                app:tabIndicatorHeight="0dp"
                                 android:id="@+id/tabLayout"
                                 android:layout_width="match_parent"
                                 android:layout_height="57dp"/>
 
 
-                            <androidx.viewpager.widget.ViewPager
+                            <com.namviet.vtvtravel.widget.WrapContentHeightViewPager
                                 android:id="@+id/vpDestination"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"/>
