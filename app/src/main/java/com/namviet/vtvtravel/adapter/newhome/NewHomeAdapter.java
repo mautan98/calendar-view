@@ -389,7 +389,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             btnSeeMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    TopExperienceActivity.startScreen(context, homeServiceResponse.getData().get(position));
+                    TopExperienceActivity.startScreen(context, homeServiceResponse.getData().get(position), TopExperienceActivity.Type.TOP_EXPERIENCE);
                 }
             });
 

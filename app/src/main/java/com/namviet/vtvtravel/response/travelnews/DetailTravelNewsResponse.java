@@ -247,7 +247,7 @@ public class DetailTravelNewsResponse extends BaseResponse implements Serializab
             }
         }
 
-        public  class PlaceNearBy {
+        public  class PlaceNearBy implements Serializable {
             @Expose
             @SerializedName("api_link")
             private String api_link;
@@ -281,7 +281,7 @@ public class DetailTravelNewsResponse extends BaseResponse implements Serializab
                 this.tabs = tabs;
             }
 
-            public class Tab {
+            public class Tab implements Serializable {
                 @Expose
                 @SerializedName("content_link")
                 private String content_link;

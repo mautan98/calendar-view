@@ -1,7 +1,6 @@
 package com.namviet.vtvtravel.view.fragment.f2travelnote;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
@@ -9,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,28 +18,22 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
-import com.baseapp.activity.BaseActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.adapter.f2offline.MainAdapter;
 import com.namviet.vtvtravel.adapter.travelnews.CommentInDetailTravelNewsAdapter;
 import com.namviet.vtvtravel.adapter.travelnews.NearByInTravelDetailAdapter;
 import com.namviet.vtvtravel.adapter.travelnews.RelationNewInTravelNewsAdapter;
 import com.namviet.vtvtravel.adapter.travelnews.RelationNewsInTravelDetailAdapter;
 import com.namviet.vtvtravel.adapter.vtvtabstyle.VTVTabStyleAdapter;
-import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
-import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2FragmentDetailNewsTravelBinding;
-import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2event.OnCommentSuccessInTravelNews;
-import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
@@ -54,6 +46,7 @@ import com.namviet.vtvtravel.view.f2.CommentActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.ShareActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
+import com.namviet.vtvtravel.view.f2.TopExperienceActivity;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.view.fragment.share.ShareBottomDialog;
 import com.namviet.vtvtravel.view.fragment.topexperience.SubTopExperienceFragment;
@@ -251,6 +244,24 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
 //                }
 //            }
 //        });
+
+        getBinding().btnReadMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(getBinding().vpDestination.getCurrentItem() == 0) {
+                    TopExperienceActivity.startScreenFromTravelNews(mActivity, detailTravelNewsResponse.getData().getRelatedNews(), TopExperienceActivity.Type.RELATION_EXPERIENCE);
+                }else {
+                    TopExperienceActivity.startScreenFromTravelNews(mActivity, detailTravelNewsResponse.getData().getPlaceNearBy(), TopExperienceActivity.Type.NEAR_BY_EXPERIENCE);
+                }
+            }
+        });
+
+        getBinding().btnSeeMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addFragment(new RelationNewsFragment(detailTravelNewsResponse.getData().getRelatedNews()));
+            }
+        });
     }
 
     private void clickHeart() {
@@ -313,7 +324,9 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                     e.printStackTrace();
                 }
 
+
                 genPlaceView(detailTravelNewsResponse.getData().getRelatedPlaces().getApi_link(), detailTravelNewsResponse.getData().getPlaceNearBy().getApi_link());
+                getBinding().btnReadMore.setVisibility(View.VISIBLE);
 
                 try {
                     getBinding().tvLikeCount.setText(detailTravelNewsResponse.getData().getLikeCount());
