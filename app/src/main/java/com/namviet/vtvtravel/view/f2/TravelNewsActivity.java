@@ -38,7 +38,7 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
     private String detailLink;
     private int screenType;
 
-    private static final String AD_UNIT_ID = "ca-app-pub-3459722054810147/3413504313";
+    private static final String AD_UNIT_ID = "ca-app-pub-3459722054810147/1909888360";
     private FrameLayout adContainerView;
     private AdView adView;
 
@@ -87,7 +87,9 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
         });
 
         MobileAds.setRequestConfiguration(
-                new RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("323D3E715DE154B6B9929289FFA35B5E")).build());
+                new RequestConfiguration.Builder()
+//                        .setTestDeviceIds(Arrays.asList("323D3E715DE154B6B9929289FFA35B5E"))
+                        .build());
 
         adContainerView = findViewById(R.id.ad_view_container);
 
