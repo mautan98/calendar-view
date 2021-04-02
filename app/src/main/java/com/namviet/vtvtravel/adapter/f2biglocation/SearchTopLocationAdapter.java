@@ -50,14 +50,14 @@ public class SearchTopLocationAdapter extends RecyclerView.Adapter<SearchTopLoca
 
     @Override
     public int getItemCount() {
-//        return locationList != null ? locationList.size() : 0;
-        if (!isShowAll && locationList != null) {
-            return locationList.size() < 6 ? locationList.size() : 6;
-        } else if (isShowAll && locationList != null) {
-            return locationList.size();
-        } else {
-            return 0;
-        }
+        return locationList != null ? locationList.size() : 0;
+//        if (!isShowAll && locationList != null) {
+//            return locationList.size() < 6 ? locationList.size() : 6;
+//        } else if (isShowAll && locationList != null) {
+//            return locationList.size();
+//        } else {
+//            return 0;
+//        }
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

@@ -192,12 +192,12 @@
                 android:layout_marginStart="7dp"
                 android:layout_marginTop="14dp"
                 android:layout_marginEnd="7dp"
-                android:layout_marginBottom="90dp"
                 android:visibility="visible"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/btnReadMore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
