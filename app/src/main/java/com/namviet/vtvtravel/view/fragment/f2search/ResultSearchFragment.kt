@@ -47,15 +47,17 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     private var keyword: String? = null
     private var regionId: String? = null
+    private var categoryId: String? = null
 
     private var loadMoreLink: String? = ""
 
 
     private var searchViewModel: SearchResultViewModel? = null
 
-    constructor(keyword: String?, regionId: String?) {
+    constructor(keyword: String?, regionId: String?, categoryId: String?) {
         this.keyword = keyword
-        this.regionId = regionId;
+        this.regionId = regionId
+        this.categoryId = categoryId
     }
 
     constructor()
@@ -91,7 +93,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     }
 
     public fun searchAll(type : String?) {
-        searchViewModel?.searchAll(type, keyword, regionId, type)
+        searchViewModel?.searchAll(type, keyword, regionId, type, categoryId)
     }
 
     public fun searchAllWithLink(link : String?, type : String?) {
@@ -99,7 +101,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     }
 
     public fun searchAllVideo(type : String?) {
-        searchViewModel?.searchAllVideo(type, keyword, regionId, type)
+        searchViewModel?.searchAllVideo(type, keyword, regionId, type, categoryId)
     }
 
     public fun searchAllVideoWithLink(link : String?, type : String?) {

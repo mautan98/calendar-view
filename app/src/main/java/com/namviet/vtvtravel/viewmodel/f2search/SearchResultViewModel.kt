@@ -81,11 +81,11 @@ class SearchResultViewModel : BaseViewModel() {
     }
 
 
-    fun searchAll(path: String?, keyword: String?, regionId: String?, type:String?) {
+    fun searchAll(path: String?, keyword: String?, regionId: String?, type:String?, categoryCode: String?) {
         val myApplication = MyApplication.getInstance()
         val newsService = myApplication.travelService
         val queryMap = Param.getDefault()
-        val disposable = newsService.searchAll(path, queryMap,  keyword, regionId)
+        val disposable = newsService.searchAll(path, queryMap,  keyword, regionId, categoryCode)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -121,11 +121,11 @@ class SearchResultViewModel : BaseViewModel() {
     }
 
 
-    fun searchAllVideo(path: String?, keyword: String?, regionId: String?, type:String?) {
+    fun searchAllVideo(path: String?, keyword: String?, regionId: String?, type:String?, categoryCode : String?) {
         val myApplication = MyApplication.getInstance()
         val newsService = myApplication.travelService
         val queryMap = Param.getDefault()
-        val disposable = newsService.searchAllVideo(path, queryMap,  keyword, regionId)
+        val disposable = newsService.searchAllVideo(path, queryMap,  keyword, regionId, categoryCode)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

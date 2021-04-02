@@ -32,19 +32,19 @@ public class SearchSuggestionResponse extends BaseResponse {
 
             @Expose
             @SerializedName("icon")
-            public String icon;
+            private String icon;
             @Expose
             @SerializedName("type")
-            public String type;
+            private String type;
             @Expose
             @SerializedName("title")
-            public String title;
+            private String title;
             @Expose
             @SerializedName("parent_name")
-            public String parentName;
+            private String parentName;
             @Expose
             @SerializedName("category_code")
-            public String categoryCode;
+            private String categoryCode;
 
             public String getParentName() {
                 return parentName;

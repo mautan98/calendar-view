@@ -308,13 +308,13 @@ public interface TravelService {
 
 
     @GET(WSConfig.Api.SEARCH_ALL)
-    Observable<ResultSearch> searchAll(@Path ("path") String path, @QueryMap Map<String, Object> queryMap,@Query("keyword") String keyword, @Query("region_id") String regionId);
+    Observable<ResultSearch> searchAll(@Path ("path") String path, @QueryMap Map<String, Object> queryMap,@Query("keyword") String keyword, @Query("region_id") String regionId, @Query("category_code") String categoryCode );
 
     @GET
     Observable<ResultSearch> searchAllWithFullLink( @Url String url, @QueryMap Map<String, Object> param);
 
     @GET(WSConfig.Api.SEARCH_ALL)
-    Observable<ResultVideoSearch> searchAllVideo(@Path ("path") String path, @QueryMap Map<String, Object> queryMap, @Query("keyword") String keyword, @Query("region_id") String regionId);
+    Observable<ResultVideoSearch> searchAllVideo(@Path ("path") String path, @QueryMap Map<String, Object> queryMap, @Query("keyword") String keyword, @Query("region_id") String regionId, @Query("category_code") String categoryCode);
 
     @GET
     Observable<ResultVideoSearch> searchAllVideoWithFullLink(@Url String url, @QueryMap Map<String, Object> param);

@@ -104,7 +104,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
 
         recentAdapter = RecentAdapter(getRecentSearch(), mActivity, object : RecentAdapter.ClickItem {
             override fun onClickItem(string: String?) {
-                addFragment(ResultSearchFragment(string, regionId))
+                addFragment(ResultSearchFragment(string, regionId, ""))
                 KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
             }
         }, object : NoItem {
@@ -143,7 +143,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                     edtKeyword.setText(searchKeywordSuggestion?.title)
                     addRecentSearch(edtKeyword.text.toString())
                     recentAdapter?.setData(getRecentSearch())
-                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId))
+                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, searchKeywordSuggestion?.categoryCode))
                     KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
                     edtKeyword.clearFocus()
                 } catch (e: Exception) {
@@ -310,7 +310,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                 if (edtKeyword.text.isNotEmpty()) {
                     addRecentSearch(edtKeyword.text.toString())
                     recentAdapter?.setData(getRecentSearch())
-                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId))
+                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, ""))
                     KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
                     edtKeyword.clearFocus()
                 }
@@ -341,7 +341,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
         layoutKeyword.setOnClickListener {
             addRecentSearch(edtKeyword.text.toString())
             recentAdapter?.setData(getRecentSearch())
-            addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId))
+            addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, ""))
             KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
             edtKeyword.clearFocus()
         }
