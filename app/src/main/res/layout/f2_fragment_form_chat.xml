@@ -33,18 +33,18 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
                     android:text="Để lại thông tin, nhân viên CSKH sẽ liên hệ tư vấn:"
                     android:textColor="#2B2A2A"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/roboto_regular"/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:fontFamily="@font/roboto_bold"
                     android:text="Họ và Tên"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/roboto_bold"/>
+                    android:textColor="#000000" />
 
                 <EditText
                     android:id="@+id/edtUsername"
@@ -59,9 +59,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:fontFamily="@font/roboto_bold"
                     android:text="Số điện thoại"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/roboto_bold"/>
+                    android:textColor="#000000" />
 
                 <EditText
                     android:id="@+id/edtPhone"
@@ -69,19 +69,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:background="@drawable/selector_edittext"
-                    android:textColor="#000000"
                     android:inputType="number"
                     android:maxLength="11"
                     android:padding="8dp"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColor="#000000" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:fontFamily="@font/roboto_bold"
                     android:text="Email"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/roboto_bold"/>
+                    android:textColor="#000000" />
 
                 <EditText
                     android:id="@+id/edtEmail"
@@ -89,18 +89,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:background="@drawable/selector_edittext"
-                    android:textColor="#000000"
                     android:inputType="textEmailAddress"
                     android:padding="8dp"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColor="#000000" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:fontFamily="@font/roboto_bold"
                     android:text="Thời gian có thể liên hệ"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/roboto_bold"/>
+                    android:textColor="#000000" />
 
                 <com.namviet.vtvtravel.widget.RobotoTextView
                     android:id="@+id/edtBirth"
@@ -124,36 +124,95 @@
                     android:layout_marginTop="8dp"
                     android:gravity="center">
 
-                    <Spinner
-                        android:id="@+id/spinnerStart"
+                    <RelativeLayout
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2" />
+                        android:layout_height="35dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/selector_edittext">
+
+                        <Spinner
+                            android:id="@+id/spinnerStart"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:background="@color/transparent" />
+
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:background="@drawable/bg_ed_search_stroke_2" />
+
+
+                        <LinearLayout
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="8dp"
+                                android:layout_height="8dp"
+                                android:src="@drawable/f2_ic_arrow_down" />
+                        </LinearLayout>
+
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/roboto_regular"
                         android:gravity="center"
                         android:text="Đến"
                         android:textColor="#000000"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
-                    <Spinner
-                        android:id="@+id/spinnerEnd"
+                    <RelativeLayout
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2" />
+                        android:layout_height="35dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/selector_edittext">
+
+                        <Spinner
+                            android:id="@+id/spinnerEnd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:background="@color/transparent" />
+
+
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:background="@drawable/bg_ed_search_stroke_2" />
+
+
+                        <LinearLayout
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="8dp"
+                                android:layout_height="8dp"
+                                android:src="@drawable/f2_ic_arrow_down" />
+                        </LinearLayout>
+
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:fontFamily="@font/roboto_bold"
                     android:text="Nội dung cần tư vấn"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/roboto_bold"/>
+                    android:textColor="#000000" />
 
                 <EditText
                     android:id="@+id/edtContent"
@@ -161,11 +220,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:background="@drawable/selector_edittext"
+                    android:fontFamily="@font/roboto_regular"
                     android:gravity="start"
                     android:minLines="3"
                     android:padding="8dp"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/roboto_regular"/>
+                    android:textSize="14sp" />
 
                 <Button
                     android:id="@+id/btnSend"

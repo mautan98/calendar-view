@@ -39,7 +39,6 @@
                 android:src="@drawable/f2_ic_call_gif" />
 
             <pl.droidsonroids.gif.GifImageView
-                android:padding="10dp"
                 android:id="@+id/ivChat"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
