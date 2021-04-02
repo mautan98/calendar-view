@@ -528,6 +528,7 @@
 
 
                             <LinearLayout
+                                android:layout_marginBottom="20dp"
                                 android:visibility="gone"
                                 android:id="@+id/btnReadMore"
                                 android:layout_width="match_parent"
@@ -557,8 +558,8 @@
                                 </LinearLayout>
 
                                 <TextView
-                                    android:textColor="@color/white"
-                                    android:layout_width="wrap_content"
+                                    android:textColor="#00918D"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:gravity="center"

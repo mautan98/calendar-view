@@ -38,6 +38,7 @@ public class TopExperienceActivity extends BaseActivityNew<F2ActivityTopExperien
     public void getDataFromIntent() {
         type = getIntent().getIntExtra(TYPE_KEY, 0);
         itemHomeService = (ItemHomeService) getIntent().getSerializableExtra(Constants.IntentKey.DATA);
+        placeNearBy = (DetailTravelNewsResponse.Data.PlaceNearBy) getIntent().getSerializableExtra(PLACE_KEY);
     }
 
     @Override

@@ -254,7 +254,8 @@ public class DetailTravelNewsResponse extends BaseResponse implements Serializab
             @Expose
             @SerializedName("title")
             private String title;
-
+            @Expose
+            @SerializedName("tab")
             private ArrayList<Tab> tabs;
 
             public String getApi_link() {
