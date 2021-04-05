@@ -248,7 +248,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
             val wordToSpan: Spannable = SpannableString(tv.text)
             var ofs = 0
             while (ofs < tvt.length && ofe != -1) {
-                ofe = tvt.indexOf(textToHighlight, ofs)
+                ofe = tvt.indexOf(textToHighlight, ofs, true)
                 if (ofe == -1) break else {
                     // set color here
                     wordToSpan.setSpan(ForegroundColorSpan(context!!.resources!!.getColor(R.color.md_black_1000)), ofe, ofe + textToHighlight.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
