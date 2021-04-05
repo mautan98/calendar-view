@@ -15,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.response.f2searchmain.SearchSuggestionResponse
+import com.namviet.vtvtravel.ultils.highlight.HighLightController
+import com.namviet.vtvtravel.ultils.highlight.IHighLightText
+import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
 import kotlinx.android.synthetic.main.f2_item_search_category.view.*
 import kotlinx.android.synthetic.main.f2_item_search_recent_2.view.*
 import kotlinx.android.synthetic.main.f2_item_search_suggestion_2.view.*
@@ -149,21 +152,11 @@ class SearchSuggestionKeyWordAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
 
-    fun setHighLightedText(tv: TextView, textToHighlight: String) {
-        val tvt = tv.text.toString().toLowerCase()
-        var ofe = tvt.indexOf(textToHighlight.toLowerCase(), 0)
-        val wordToSpan: Spannable = SpannableString(tv.text)
-        var ofs = 0
-        while (ofs < tvt.length && ofe != -1) {
-            ofe = tvt.indexOf(textToHighlight, ofs, true)
-            if (ofe == -1) break else {
-                // set color here
-                wordToSpan.setSpan(ForegroundColorSpan(context!!.resources!!.getColor(R.color.md_black_1000)), ofe, ofe + textToHighlight.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                wordToSpan.setSpan(StyleSpan(Typeface.BOLD), ofe, ofe + textToHighlight.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                tv.setText(wordToSpan, TextView.BufferType.SPANNABLE)
-            }
-            ofs = ofe + 1
-        }
+
+    fun setHighLightedText (tv: TextView, textToHighlight: String){
+        var iHighLightText  = SearchHighLightText()
+        var highLightController =  HighLightController(iHighLightText)
+        highLightController.highLight(context!!, tv, textToHighlight)
     }
 
 

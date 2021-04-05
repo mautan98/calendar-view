@@ -44,6 +44,8 @@ import com.namviet.vtvtravel.response.newhome.ItemAppExperienceResponse
 import com.namviet.vtvtravel.tracking.TrackingAnalytic
 import com.namviet.vtvtravel.ultils.F2Util
 import com.namviet.vtvtravel.ultils.PreferenceUtil
+import com.namviet.vtvtravel.ultils.highlight.HighLightController
+import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import com.namviet.vtvtravel.viewmodel.f2search.SearchViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -242,23 +244,9 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
 
 
     public fun setHighLightedText(tv: TextView, textToHighlight: String) {
-        try {
-            val tvt = tv.text.toString().toLowerCase()
-            var ofe = tvt.indexOf(textToHighlight.toLowerCase(), 0)
-            val wordToSpan: Spannable = SpannableString(tv.text)
-            var ofs = 0
-            while (ofs < tvt.length && ofe != -1) {
-                ofe = tvt.indexOf(textToHighlight, ofs, true)
-                if (ofe == -1) break else {
-                    // set color here
-                    wordToSpan.setSpan(ForegroundColorSpan(context!!.resources!!.getColor(R.color.md_black_1000)), ofe, ofe + textToHighlight.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    wordToSpan.setSpan(StyleSpan(Typeface.BOLD), ofe, ofe + textToHighlight.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    tv.setText(wordToSpan, TextView.BufferType.SPANNABLE)
-                }
-                ofs = ofe + 1
-            }
-        } catch (e: Exception) {
-        }
+        val iHighLightText  = SearchHighLightText()
+        val highLightController =  HighLightController(iHighLightText)
+        highLightController.highLight(mActivity, tv, textToHighlight)
     }
 
 

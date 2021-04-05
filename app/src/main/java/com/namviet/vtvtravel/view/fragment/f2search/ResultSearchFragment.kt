@@ -24,6 +24,8 @@ import com.namviet.vtvtravel.response.f2searchmain.result.ResultSearch
 import com.namviet.vtvtravel.response.f2searchmain.result.ResultVideoSearch
 import com.namviet.vtvtravel.response.f2searchmain.result.SearchType
 import com.namviet.vtvtravel.tracking.TrackingAnalytic
+import com.namviet.vtvtravel.ultils.highlight.HighLightController
+import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultDestinationSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultNewsSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultVideosSearchFragment
@@ -213,22 +215,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     }
 
     public fun setHighLightedText(tv: TextView, textToHighlight: String) {
-        try {
-            val tvt = tv.text.toString().toLowerCase()
-            var ofe = tvt.indexOf(textToHighlight.toLowerCase(), 0)
-            val wordToSpan: Spannable = SpannableString(tv.text)
-            var ofs = 0
-            while (ofs < tvt.length && ofe != -1) {
-                ofe = tvt.indexOf(textToHighlight, ofs, true)
-                if (ofe == -1) break else {
-                    // set color here
-                    wordToSpan.setSpan(ForegroundColorSpan(context!!.resources!!.getColor(R.color.md_black_1000)), ofe, ofe + textToHighlight.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    wordToSpan.setSpan(StyleSpan(Typeface.BOLD), ofe, ofe + textToHighlight.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    tv.setText(wordToSpan, TextView.BufferType.SPANNABLE)
-                }
-                ofs = ofe + 1
-            }
-        } catch (e: Exception) {
-        }
+        var iHighLightText  = SearchHighLightText()
+        var highLightController =  HighLightController(iHighLightText)
+        highLightController.highLight(context!!, tv, textToHighlight)
     }
 }
