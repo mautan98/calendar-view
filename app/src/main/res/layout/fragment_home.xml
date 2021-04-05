@@ -42,7 +42,7 @@
                 android:id="@+id/ivChat"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:background="@null"
                 android:src="@drawable/f2_ic_chat6"
                 android:visibility="visible" />

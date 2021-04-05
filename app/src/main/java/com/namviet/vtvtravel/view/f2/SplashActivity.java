@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class SplashActivity extends BaseActivityNew<F2ActivitySplashBinding> {
+    private Handler handler;
     @Override
     public int getLayoutRes() {
         return R.layout.f2_activity_splash;
@@ -35,7 +36,8 @@ public class SplashActivity extends BaseActivityNew<F2ActivitySplashBinding> {
     @Override
     public void doAfterOnCreate() {
         checkDateForInvitedUser();
-        new Handler().postDelayed(new Runnable() {
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (PreferenceUtil.getInstance(SplashActivity.this).getValue("firstTime", false)) {
@@ -47,7 +49,7 @@ public class SplashActivity extends BaseActivityNew<F2ActivitySplashBinding> {
                     finish();
                 }
             }
-        }, 500);
+        }, 3000);
     }
 
     @Override
@@ -75,5 +77,13 @@ public class SplashActivity extends BaseActivityNew<F2ActivitySplashBinding> {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
     }
 }
