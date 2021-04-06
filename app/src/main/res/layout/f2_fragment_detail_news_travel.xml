@@ -429,6 +429,7 @@
                         android:orientation="vertical">
 
                         <LinearLayout
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -466,7 +467,6 @@
                             android:layout_height="wrap_content"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-
                         <LinearLayout
                             android:orientation="vertical"
                             android:layout_width="match_parent"
@@ -491,6 +491,7 @@
 
 
                                 <TextView
+                                    android:layout_marginEnd="12dp"
                                     android:id="@+id/btnSeeMore"
                                     android:fontFamily="@font/roboto_regular"
                                     android:text="Xem thêm"
@@ -506,6 +507,13 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"/>
 
+
+                            <View
+                                android:layout_marginTop="30dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                android:background="#E8E8E8" />
+
                         </LinearLayout>
 
 
@@ -520,9 +528,30 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="57dp"/>
 
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="#E8E8E8" />
+
+
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                android:visibility="visible"
+                                android:id="@+id/rclRelationPlace"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                android:visibility="gone"
+                                android:id="@+id/rclNearByPlace"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
 
                             <com.namviet.vtvtravel.widget.WrapContentHeightViewPager
                                 android:id="@+id/vpDestination"
+                                android:visibility="gone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"/>
 

@@ -12,11 +12,12 @@ import com.namviet.vtvtravel.databinding.FragmentRelationNewsBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RelationNewsFragment extends BaseFragment<FragmentRelationNewsBinding> {
 
-    private List<SubRelationNewsFragment> subRelationNewsFragments;
+    private List<SubRelationNewsFragment> subRelationNewsFragments = new ArrayList<>();
     private VTVTabStyleAdapter vtvTabStyleAdapter;
     private DetailTravelNewsResponse.Data.PlaceNearBy relationNews;
 
@@ -39,10 +40,12 @@ public class RelationNewsFragment extends BaseFragment<FragmentRelationNewsBindi
 
     @Override
     public void initData() {
+        vtvTabStyleAdapter = new VTVTabStyleAdapter(getChildFragmentManager());
         for (int i = 0; i < relationNews.getTabs().size(); i++) {
             SubRelationNewsFragment subRelationNewsFragment = new SubRelationNewsFragment();
             subRelationNewsFragment.setContentLink(relationNews.getTabs().get(i).getContent_link());
             vtvTabStyleAdapter.addFragment(subRelationNewsFragment, "");
+            subRelationNewsFragments.add(subRelationNewsFragment);
         }
 
         getBinding().vpContent.setAdapter(vtvTabStyleAdapter);
@@ -76,7 +79,16 @@ public class RelationNewsFragment extends BaseFragment<FragmentRelationNewsBindi
 
     @Override
     public void setClickListener() {
-
+        getBinding().btnScrollToTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    subRelationNewsFragments.get(getBinding().vpContent.getCurrentItem()).scrollToTop();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override

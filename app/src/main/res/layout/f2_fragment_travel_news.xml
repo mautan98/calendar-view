@@ -148,7 +148,6 @@
                         app:tabMode="scrollable" />
 
 
-
                     <androidx.viewpager.widget.ViewPager
                         android:id="@+id/vpContent"
                         android:layout_width="match_parent"

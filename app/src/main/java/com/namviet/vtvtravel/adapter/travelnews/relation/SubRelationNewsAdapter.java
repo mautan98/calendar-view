@@ -1,4 +1,4 @@
-package com.namviet.vtvtravel.adapter.travelnews;
+package com.namviet.vtvtravel.adapter.travelnews.relation;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,15 +16,15 @@ import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
-public class RelationNewInTravelNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class SubRelationNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
-
     private Context context;
     private List<Travel> travels;
     private ClickItem clickItem;
 
-    public RelationNewInTravelNewsAdapter(Context context, List<Travel> travels, ClickItem clickItem) {
+    public SubRelationNewsAdapter(Context context, List<Travel> travels, ClickItem clickItem) {
         this.travels = travels;
         this.context = context;
         this.clickItem = clickItem;
@@ -32,7 +32,6 @@ public class RelationNewInTravelNewsAdapter extends RecyclerView.Adapter<Recycle
 
     @Override
     public int getItemViewType(int position) {
-
         return TYPE_ITEM;
     }
 
@@ -69,25 +68,17 @@ public class RelationNewInTravelNewsAdapter extends RecyclerView.Adapter<Recycle
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgAvatar;
-        //        private ImageView imgVideoType;
         private TextView tvTitle;
         private TextView tvTime;
         private TextView tvViewCount;
         private int position;
-        private View view;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
             imgAvatar = itemView.findViewById(R.id.imgAvatar);
-//            imgVideoType = itemView.findViewById(R.id.imgVideoType);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvTime = itemView.findViewById(R.id.tvTime);
             tvViewCount = itemView.findViewById(R.id.tvViewCount);
-            try {
-                view = itemView.findViewById(R.id.view);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -131,28 +122,6 @@ public class RelationNewInTravelNewsAdapter extends RecyclerView.Adapter<Recycle
                     tvViewCount.setText(finalValue + "k");
                 } else {
                     tvViewCount.setText(travels.get(position).getView_count());
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
-//            try {
-//                if (travels.get(position).getIs_video().equals("1")) {
-//                    imgVideoType.setVisibility(View.VISIBLE);
-//                } else {
-//                    imgVideoType.setVisibility(View.GONE);
-//                }
-//            } catch (Exception e) {
-//                imgVideoType.setVisibility(View.GONE);
-//                e.printStackTrace();
-//            }
-
-            try {
-                if(position == travels.size() - 1){
-                    view.setVisibility(View.GONE);
-                }else {
-                    view.setVisibility(View.VISIBLE);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

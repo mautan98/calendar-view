@@ -6,10 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.adapter.travelnews.SubTravelNewsAdapter;
-import com.namviet.vtvtravel.adapter.vtvtabstyle.VTVTabStyleAdapter;
-import com.namviet.vtvtravel.databinding.FragmentRelationNewsBinding;
-import com.namviet.vtvtravel.databinding.FragmentSubRelationNewsBinding;
+import com.namviet.vtvtravel.adapter.travelnews.relation.SubRelationNewsAdapter;
+import com.namviet.vtvtravel.databinding.F2FragmentSubRelationNewsBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.f2event.OnScrollTravelNews;
@@ -24,15 +22,14 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public class SubRelationNewsFragment extends BaseFragment<FragmentSubRelationNewsBinding> implements Observer {
+public class SubRelationNewsFragment extends BaseFragment<F2FragmentSubRelationNewsBinding> implements Observer {
     private String contentLink;
 
     private SubTravelNewsViewModel subTravelNewsViewModel;
-    private SubTravelNewsAdapter subTravelNewsAdapter;
+    private SubRelationNewsAdapter subRelationNewsAdapter;
     private int position;
     private List<Travel> travels = new ArrayList<>();
     private String loadMoreLink;
-    private StaggeredGridLayoutManager linearLayoutManager;
     public void setContentLink(String contentLink) {
         this.contentLink = contentLink;
     }
@@ -45,7 +42,7 @@ public class SubRelationNewsFragment extends BaseFragment<FragmentSubRelationNew
 
     @Override
     public int getLayoutRes() {
-        return R.layout.fragment_relation_news;
+        return R.layout.f2_fragment_sub_relation_news;
     }
 
     @Override
@@ -57,18 +54,15 @@ public class SubRelationNewsFragment extends BaseFragment<FragmentSubRelationNew
 
     @Override
     public void initData() {
-        subTravelNewsAdapter = new SubTravelNewsAdapter(mActivity, travels, new SubTravelNewsAdapter.ClickItem() {
+        subRelationNewsAdapter = new SubRelationNewsAdapter(mActivity, travels, new SubRelationNewsAdapter.ClickItem() {
             @Override
             public void onClickItem(Travel travel) {
                 DetailNewsTravelFragment detailNewsTravelFragment = new DetailNewsTravelFragment();
-                detailNewsTravelFragment.setDetailLink(travel.getDetail_linkV2());
+                detailNewsTravelFragment.setDetailLink(travel.getDetail_link());
                 addFragment(detailNewsTravelFragment);
             }
         });
-
-        linearLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        getBinding().rclContent.setLayoutManager(linearLayoutManager);
-        getBinding().rclContent.setAdapter(subTravelNewsAdapter);
+        getBinding().rclContent.setAdapter(subRelationNewsAdapter);
     }
 
     public void scrollToTop(){
@@ -134,7 +128,7 @@ public class SubRelationNewsFragment extends BaseFragment<FragmentSubRelationNew
 
     @Override
     public void update(Observable observable, Object o) {
-//        getBinding().shimmerViewContainer.setVisibility(View.GONE);
+        getBinding().shimmerViewContainer.setVisibility(View.GONE);
         hideLoading();
         if (observable instanceof SubTravelNewsViewModel && null != o) {
             if (o instanceof DetailNewsCategoryResponse) {
@@ -146,7 +140,7 @@ public class SubRelationNewsFragment extends BaseFragment<FragmentSubRelationNew
                     travels.clear();
                     travels.addAll(response.getData().getItems());
                 }
-                subTravelNewsAdapter.notifyDataSetChanged();
+                subRelationNewsAdapter.notifyDataSetChanged();
 
             } else if (o instanceof ErrorResponse) {
                 ErrorResponse responseError = (ErrorResponse) o;

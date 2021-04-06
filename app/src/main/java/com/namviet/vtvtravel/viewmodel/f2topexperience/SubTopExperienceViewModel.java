@@ -41,6 +41,30 @@ public class SubTopExperienceViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
+    public void getSubTopExperience(String url, int type) {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelService();
+        Disposable disposable = newsService.getSubTopExperience(url)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<SubTopExperienceResponse>() {
+                    @Override
+                    public void accept(SubTopExperienceResponse response) throws Exception {
+                        if (response != null) {
+                            response.setType(type);
+                            requestSuccess(response);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable);
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
     private void requestSuccess(Object object) {
         setChanged();
         notifyObservers(object);

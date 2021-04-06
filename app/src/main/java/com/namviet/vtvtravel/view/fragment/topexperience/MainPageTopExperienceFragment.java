@@ -76,9 +76,15 @@ public class MainPageTopExperienceFragment extends BaseFragment<F2FragmentTopExp
         getBinding().vpContent.setAdapter(mainAdapter);
         getBinding().tabLayout.setTabTextColors(ContextCompat.getColor(mActivity, R.color.md_black_1000), ContextCompat.getColor(mActivity, R.color.f2_color_package));
         getBinding().tabLayout.setupWithViewPager(getBinding().vpContent);
-        for (int i = 0; i < itemHomeService.getItems().size(); i++) {
-            List<ItemHomeService.Item> itemHomeServices = itemHomeService.getItems();
-            getBinding().tabLayout.getTabAt(i).setText(itemHomeServices.get(i).getName());
+        if(type == Type.FROM_HOME) {
+            for (int i = 0; i < itemHomeService.getItems().size(); i++) {
+                List<ItemHomeService.Item> itemHomeServices = itemHomeService.getItems();
+                getBinding().tabLayout.getTabAt(i).setText(itemHomeServices.get(i).getName());
+            }
+        }else {
+            for (int i = 0; i < placeNearBy.getTabs().size(); i++) {
+                getBinding().tabLayout.getTabAt(i).setText(placeNearBy.getTabs().get(i).getName());
+            }
         }
     }
 

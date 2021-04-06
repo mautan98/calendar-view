@@ -6,6 +6,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -76,6 +77,30 @@
 
 
         </LinearLayout>
+
+
+        <TextView
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/btnScrollToTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/f2_bg_scroll_top"
+            android:drawableLeft="@drawable/f2_ic_go_fisrt"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:paddingStart="30dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="15dp"
+            android:text="Lên đầu trang"
+            android:textColor="#000000"
+            android:textSize="16dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
