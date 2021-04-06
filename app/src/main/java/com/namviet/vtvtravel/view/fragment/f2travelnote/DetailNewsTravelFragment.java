@@ -62,7 +62,14 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.subjects.PublishSubject;
+
 public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsTravelBinding> implements Observer {
+    private PublishSubject<Boolean> btnReadMoreStatus;
+
+
     private DetailNewsTravelViewModel viewModel;
     private String detailLink;
     private CommentInDetailTravelNewsAdapter commentInDetailTravelNewsAdapter;
@@ -77,7 +84,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
 
 
 
-    private VTVTabStyleAdapter mainAdapter;
+
 
 
 
@@ -109,11 +116,43 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
     }
 
 
+    private io.reactivex.Observer<Boolean> getObserverOfBtnShowMore(){
+        return new io.reactivex.Observer<Boolean>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(@NonNull Boolean aBoolean) {
+                if(aBoolean){
+                    getBinding().btnReadMore.setVisibility(View.VISIBLE);
+                }else {
+                    getBinding().btnReadMore.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+    }
+
+
     @Override
     public void initData() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                btnReadMoreStatus = PublishSubject.create();
+                btnReadMoreStatus.subscribe(getObserverOfBtnShowMore());
+
                 viewModel = new DetailNewsTravelViewModel();
 
                 getBinding().setDetailNewsTravelViewModel(viewModel);
@@ -381,7 +420,8 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
 
 
                 genPlaceView(detailTravelNewsResponse.getData().getRelatedPlaces().getApi_link(), detailTravelNewsResponse.getData().getPlaceNearBy().getApi_link());
-                getBinding().btnReadMore.setVisibility(View.VISIBLE);
+                btnReadMoreStatus.onNext(true);
+
 
                 try {
                     getBinding().tvLikeCount.setText(detailTravelNewsResponse.getData().getLikeCount());
@@ -655,19 +695,6 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
     private void genPlaceView(String detailLink1, String detailLink2) {
         try {
 
-            mainAdapter = new VTVTabStyleAdapter(getChildFragmentManager());
-            getBinding().vpDestination.setOffscreenPageLimit(2);
-
-
-            nearDestinationFragment =  new SubTopExperienceFragment(detailLink2);
-            mainAdapter.addFragment(nearDestinationFragment, "");
-
-            relationDestinationFragment =  new SubTopExperienceFragment(detailLink1);
-            mainAdapter.addFragment(relationDestinationFragment, "");
-
-            getBinding().vpDestination.setAdapter(mainAdapter);
-            getBinding().tabLayout.setupWithViewPager(getBinding().vpDestination);
-
             subTopExperienceViewModel.getSubTopExperience(detailLink1, 0);
             subTopExperienceViewModel.getSubTopExperience(detailLink2, 1);
 
@@ -677,7 +704,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
             tvHome.setTextColor(Color.parseColor("#101010"));
             View view = tabHome.findViewById(R.id.indicator);
             view.setVisibility(View.VISIBLE);
-            getBinding().tabLayout.getTabAt(0).setCustomView(tabHome);
+            getBinding().tabLayout.addTab(getBinding().tabLayout.newTab().setCustomView(tabHome));
 
             View tabPlace = LayoutInflater.from(mActivity).inflate(R.layout.f2_custom_tab_vtv_style_in_travel_news, null);
             TextView tvPlace = tabPlace.findViewById(R.id.tvTitle);
@@ -685,7 +712,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
             tvPlace.setTextColor(Color.parseColor("#00918D"));
             View view1 = tabPlace.findViewById(R.id.indicator);
             view1.setVisibility(View.INVISIBLE);
-            getBinding().tabLayout.getTabAt(1).setCustomView(tabPlace);
+            getBinding().tabLayout.addTab(getBinding().tabLayout.newTab().setCustomView(tabPlace));
             getBinding().tabLayout.addOnTabSelectedListener(OnTabSelectedListener);
         } catch (Exception e) {
             e.printStackTrace();
@@ -697,7 +724,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
             int c = tab.getPosition();
-            mainAdapter.SetOnSelectView(getBinding().tabLayout, c);
+            setOnSelectView(getBinding().tabLayout, c);
             if(tab.getPosition() == 0){
                 getBinding().rclRelationPlace.setVisibility(View.VISIBLE);
                 getBinding().rclNearByPlace.setVisibility(View.GONE);
@@ -710,7 +737,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
         @Override
         public void onTabUnselected(TabLayout.Tab tab) {
             int c = tab.getPosition();
-            mainAdapter.SetUnSelectView(getBinding().tabLayout, c);
+            setUnSelectView(getBinding().tabLayout, c);
         }
 
         @Override
@@ -718,6 +745,27 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
 
         }
     };
+
+
+    public void setOnSelectView(TabLayout tabLayout, int position) {
+        TabLayout.Tab tab = tabLayout.getTabAt(position);
+        View selected = tab.getCustomView();
+        TextView iv_text = selected.findViewById(R.id.tvTitle);
+        View view = selected.findViewById(R.id.indicator);
+        view.setVisibility(View.VISIBLE);
+        iv_text.setTextColor(Color.parseColor("#00918D"));
+
+    }
+
+    public void setUnSelectView(TabLayout tabLayout, int position) {
+        TabLayout.Tab tab = tabLayout.getTabAt(position);
+        View selected = tab.getCustomView();
+        TextView iv_text = selected.findViewById(R.id.tvTitle);
+        View view = selected.findViewById(R.id.indicator);
+        view.setVisibility(View.INVISIBLE);
+        iv_text.setTextColor(Color.parseColor("#101010"));
+
+    }
 
 
 }
