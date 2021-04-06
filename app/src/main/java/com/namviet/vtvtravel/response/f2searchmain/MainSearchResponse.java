@@ -83,6 +83,18 @@ public class MainSearchResponse extends BaseResponse {
         @SerializedName("icon_url")
         private String icon_url;
 
+        @Expose
+        @SerializedName("banner_url")
+        private String banner_url;
+
+        public String getBanner_url() {
+            return banner_url;
+        }
+
+        public void setBanner_url(String banner_url) {
+            this.banner_url = banner_url;
+        }
+
         public String getLink() {
             return link;
         }

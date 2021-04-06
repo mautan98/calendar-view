@@ -37,7 +37,7 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
         if (viewType == TYPE_ITEM) {
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_item_search_discovery, parent, false);
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_item_home_near_place, parent, false);
             return new HeaderViewHolder(v);
         }
         return null;
@@ -70,11 +70,13 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         private int position;
         private TextView tvTitle;
         private ImageView imgAvatar;
+        private ImageView imgBanner;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             imgAvatar = itemView.findViewById(R.id.imgAvatar);
+            imgBanner = itemView.findViewById(R.id.imgBanner);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -90,8 +92,13 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         public void bindItem(int position) {
             this.position = position;
+//            tvTitle.setText(items.get(position).getName());
+//            Glide.with(context).load(items.get(position).getIcon_url()).into(imgAvatar);
+
+
             tvTitle.setText(items.get(position).getName());
             Glide.with(context).load(items.get(position).getIcon_url()).into(imgAvatar);
+            Glide.with(context).load(items.get(position).getBanner_url()).into(imgBanner);
 
         }
     }
