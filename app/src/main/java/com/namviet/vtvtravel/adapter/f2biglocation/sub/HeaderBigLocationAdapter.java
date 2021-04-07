@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -17,6 +18,7 @@ import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
+import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
@@ -91,6 +93,8 @@ public class HeaderBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
         private TextView tvOpenTime;
 //        private View viewTime;
         private LikeButton imgHeart;
+        private LinearLayout layoutStandardRate;
+        private TextView tvStandardRate;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -108,6 +112,8 @@ public class HeaderBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
             tvLocationName = itemView.findViewById(R.id.tvLocationName);
             tvRateText = itemView.findViewById(R.id.tvRateText);
             imgHeart = itemView.findViewById(R.id.imgHeart);
+            layoutStandardRate = itemView.findViewById(R.id.layoutStandardRate);
+            tvStandardRate = itemView.findViewById(R.id.tvStandardRate);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -223,6 +229,19 @@ public class HeaderBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
                     }, 100);
                 }
             });
+
+
+            try {
+                if(Constants.TypeDestination.HOTELS.equals(travel.getContent_type())){
+                    layoutStandardRate.setVisibility(View.VISIBLE);
+                    tvStandardRate.setText(travel.getStandard_rate());
+                }else {
+                    layoutStandardRate.setVisibility(View.GONE);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                layoutStandardRate.setVisibility(View.GONE);
+            }
 
 //            imgHeart.setOnClickListener(new View.OnClickListener() {
 //                @Override

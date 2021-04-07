@@ -18,6 +18,7 @@ import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
+import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
@@ -93,6 +94,8 @@ public class FooterBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
         private LinearLayout layoutPrice;
         private LikeButton imgHeart;
         private TextView tvOpenTime;
+        private LinearLayout layoutStandardRate;
+        private TextView tvStandardRate;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -111,6 +114,8 @@ public class FooterBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
             layoutPrice = itemView.findViewById(R.id.layoutPrice);
             imgHeart = itemView.findViewById(R.id.imgHeart);
             tvOpenTime = itemView.findViewById(R.id.tvOpenTime);
+            layoutStandardRate = itemView.findViewById(R.id.layoutStandardRate);
+            tvStandardRate = itemView.findViewById(R.id.tvStandardRate);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -239,6 +244,18 @@ public class FooterBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
                 e.printStackTrace();
 //                viewTime.setVisibility(View.GONE);
                 tvOpenTime.setVisibility(View.GONE);
+            }
+
+            try {
+                if(Constants.TypeDestination.HOTELS.equals(travel.getContent_type())){
+                    layoutStandardRate.setVisibility(View.VISIBLE);
+                    tvStandardRate.setText(travel.getStandard_rate());
+                }else {
+                    layoutStandardRate.setVisibility(View.GONE);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                layoutStandardRate.setVisibility(View.GONE);
             }
         }
 

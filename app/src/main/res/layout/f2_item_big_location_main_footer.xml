@@ -114,6 +114,38 @@
                             android:text="205"
                             android:textColor="@color/white"
                             android:textSize="12dp" />
+
+
+                        <LinearLayout
+                            android:id="@+id/layoutStandardRate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <View
+                                android:layout_marginStart="6dp"
+                                android:layout_width="1dp"
+                                android:layout_height="12dp"
+                                android:layout_gravity="center"
+                                android:background="#B4B4B4" />
+
+
+                            <TextView
+                                android:id="@+id/tvStandardRate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="6dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="5"
+                                android:textColor="#EFAC41"
+                                android:textSize="12dp" />
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="13dp"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="6dp"
+                                android:src="@drawable/f2_ic_standar_rate" />
+                        </LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
 

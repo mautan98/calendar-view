@@ -37,7 +37,6 @@
                             android:scaleType="centerCrop" />
 
                         <TextView
-                            android:visibility="visible"
                             android:id="@+id/tvLocationName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -51,7 +50,8 @@
                             android:paddingBottom="1dp"
                             android:text="Hà Nội"
                             android:textColor="@color/white"
-                            android:textSize="12dp" />
+                            android:textSize="12dp"
+                            android:visibility="visible" />
 
                         <!--                        <ImageView-->
                         <!--                            android:id="@+id/imgHeart"-->
@@ -84,10 +84,10 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_marginTop="7dp"
                         android:id="@+id/tvName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
                         android:ellipsize="end"
                         android:fontFamily="@font/roboto_bold"
                         android:maxLines="2"
@@ -96,9 +96,9 @@
                         android:textSize="14dp" />
 
                     <LinearLayout
-                        android:layout_marginTop="2dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -146,11 +146,39 @@
                             android:text="205"
                             android:textColor="#0081FF"
                             android:textSize="12dp" />
+
+
+                        <LinearLayout
+                            android:id="@+id/layoutStandardRate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <View
+                                android:layout_marginStart="6dp"
+                                android:layout_width="1dp"
+                                android:layout_height="12dp"
+                                android:layout_gravity="center"
+                                android:background="#B4B4B4" />
+
+
+                            <TextView
+                                android:id="@+id/tvStandardRate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="6dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="5"
+                                android:textColor="#EFAC41"
+                                android:textSize="12dp" />
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="13dp"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="6dp"
+                                android:src="@drawable/f2_ic_standar_rate" />
+                        </LinearLayout>
                     </LinearLayout>
-
-
-
-
 
 
                     <LinearLayout
@@ -158,8 +186,6 @@
                         android:layout_height="match_parent"
                         android:gravity="bottom"
                         android:orientation="vertical">
-
-
 
 
                         <LinearLayout
@@ -202,26 +228,26 @@
                                 android:textColor="#000000"
                                 android:textSize="12dp" />
 
-<!--                            <View-->
-<!--                                android:visibility="gone"-->
-<!--                                android:id="@+id/viewTime"-->
-<!--                                android:layout_width="1dp"-->
-<!--                                android:layout_height="12dp"-->
-<!--                                android:layout_gravity="center"-->
-<!--                                android:layout_marginStart="5dp"-->
-<!--                                android:layout_marginEnd="5dp"-->
-<!--                                android:background="#B4B4B4" />-->
+                            <!--                            <View-->
+                            <!--                                android:visibility="gone"-->
+                            <!--                                android:id="@+id/viewTime"-->
+                            <!--                                android:layout_width="1dp"-->
+                            <!--                                android:layout_height="12dp"-->
+                            <!--                                android:layout_gravity="center"-->
+                            <!--                                android:layout_marginStart="5dp"-->
+                            <!--                                android:layout_marginEnd="5dp"-->
+                            <!--                                android:background="#B4B4B4" />-->
                             <TextView
-                                android:gravity="center"
-                                android:layout_weight="1"
-                                android:layout_marginStart="25dp"
-                                android:layout_marginEnd="10dp"
                                 android:id="@+id/tvStatus"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textStyle="italic"
+                                android:layout_marginStart="25dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
                                 android:textColor="#FF0000"
                                 android:textSize="10dp"
+                                android:textStyle="italic"
                                 android:visibility="visible" />
 
                         </LinearLayout>
