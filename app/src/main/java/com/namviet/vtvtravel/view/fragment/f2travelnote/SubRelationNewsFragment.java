@@ -13,6 +13,7 @@ import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.f2event.OnScrollTravelNews;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.travelnews.DetailNewsCategoryResponse;
+import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.viewmodel.f2travelnews.SubTravelNewsViewModel;
 
 import org.greenrobot.eventbus.EventBus;
@@ -57,9 +58,14 @@ public class SubRelationNewsFragment extends BaseFragment<F2FragmentSubRelationN
         subRelationNewsAdapter = new SubRelationNewsAdapter(mActivity, travels, new SubRelationNewsAdapter.ClickItem() {
             @Override
             public void onClickItem(Travel travel) {
-                DetailNewsTravelFragment detailNewsTravelFragment = new DetailNewsTravelFragment();
-                detailNewsTravelFragment.setDetailLink(travel.getDetail_link());
-                addFragment(detailNewsTravelFragment);
+//                DetailNewsTravelFragment detailNewsTravelFragment = new DetailNewsTravelFragment();
+//                detailNewsTravelFragment.setDetailLink(travel.getDetail_link());
+//                addFragment(detailNewsTravelFragment);
+                try {
+                    TravelNewsActivity.openScreenDetail(mActivity, TravelNewsActivity.OpenType.DETAIL, travel.getDetail_link());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
         getBinding().rclContent.setAdapter(subRelationNewsAdapter);
