@@ -92,6 +92,7 @@ public class FooterBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
         private LinearLayout layoutOpen;
         private LinearLayout layoutPrice;
         private LikeButton imgHeart;
+        private TextView tvOpenTime;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -109,6 +110,7 @@ public class FooterBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
             layoutOpen = itemView.findViewById(R.id.layoutOpen);
             layoutPrice = itemView.findViewById(R.id.layoutPrice);
             imgHeart = itemView.findViewById(R.id.imgHeart);
+            tvOpenTime = itemView.findViewById(R.id.tvOpenTime);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -222,6 +224,22 @@ public class FooterBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
 //                    }
 //                }
 //            });
+
+
+            try {
+                if (travel.getRange_time().isEmpty()) {
+//                    viewTime.setVisibility(View.GONE);
+                    tvOpenTime.setVisibility(View.GONE);
+                } else {
+//                    viewTime.setVisibility(View.VISIBLE);
+                    tvOpenTime.setText(travel.getRange_time());
+                    tvOpenTime.setVisibility(View.VISIBLE);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+//                viewTime.setVisibility(View.GONE);
+                tvOpenTime.setVisibility(View.GONE);
+            }
         }
 
         private void clickHeart(){
