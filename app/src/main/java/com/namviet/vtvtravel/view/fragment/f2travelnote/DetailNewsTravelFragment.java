@@ -167,7 +167,11 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
 
                     @Override
                     public void likeEvent(int position) {
-
+                        try {
+                            likeOrUnLike(travelsNearBy.get(position));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
                 getBinding().rclNearByPlace.setAdapter(nearByPlaceAdapter);
@@ -184,7 +188,11 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
 
                     @Override
                     public void likeEvent(int position) {
-
+                        try {
+                            likeOrUnLike(travelsRelation.get(position));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
                 getBinding().rclRelationPlace.setAdapter(relationPlaceAdapter);
@@ -605,6 +613,34 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                     nearByPlaceAdapter.notifyDataSetChanged();
                 }
             }
+        }
+    }
+
+
+    private void likeOrUnLike(Travel travel){
+        try {
+            Account account = MyApplication.getInstance().getAccount();
+            if (null != account && account.isLogin()) {
+                viewModel.likeEvent(travel.getId(), travel.getContent_type());
+                try {
+                    TrackingAnalytic.postEvent(TrackingAnalytic.LIKE, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.NEWS_DETAIL, TrackingAnalytic.ScreenTitle.NEWS_DETAIL)
+                            .setContent_type(travel.getContent_type())
+                            .setContent_id(travel.getId())
+                            .setScreen_class(this.getClass().getName()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+//                if (travel.isLiked()) {
+//                    travel.setLiked(false);
+//                } else {
+//                    travel.setLiked(true);
+//                }
+//                nearByInTravelDetailAdapter.notifyItemChanged(position);
+            } else {
+                LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
