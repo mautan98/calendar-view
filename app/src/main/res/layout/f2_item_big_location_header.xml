@@ -149,49 +149,7 @@
                     </LinearLayout>
 
 
-                    <LinearLayout
-                        android:layout_marginTop="9dp"
-                        android:id="@+id/layoutForRestaurant"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:visibility="visible">
 
-                        <TextView
-                            android:id="@+id/tvOpenDate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_medium"
-                            android:textColor="#000000"
-                            android:textSize="12dp" />
-
-                        <View
-                            android:id="@+id/viewTime"
-                            android:layout_width="1dp"
-                            android:layout_height="12dp"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:background="#B4B4B4" />
-
-                        <TextView
-                            android:id="@+id/tvOpenTime"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_medium"
-                            android:textColor="#000000"
-                            android:textSize="12dp" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_marginTop="4dp"
-                        android:id="@+id/tvStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textStyle="italic"
-                        android:textColor="#FF0000"
-                        android:textSize="12dp"
-                        android:visibility="visible" />
 
 
 
@@ -229,7 +187,53 @@
 
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:id="@+id/layoutForRestaurant"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
 
+                            <TextView
+                                android:id="@+id/tvOpenDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_medium"
+                                android:textColor="#000000"
+                                android:textSize="12dp" />
+
+<!--                            <View-->
+<!--                                android:visibility="gone"-->
+<!--                                android:id="@+id/viewTime"-->
+<!--                                android:layout_width="1dp"-->
+<!--                                android:layout_height="12dp"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginStart="5dp"-->
+<!--                                android:layout_marginEnd="5dp"-->
+<!--                                android:background="#B4B4B4" />-->
+                            <TextView
+                                android:gravity="center"
+                                android:layout_weight="1"
+                                android:layout_marginStart="25dp"
+                                android:layout_marginEnd="10dp"
+                                android:id="@+id/tvStatus"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textStyle="italic"
+                                android:textColor="#FF0000"
+                                android:textSize="10dp"
+                                android:visibility="visible" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_marginBottom="8dp"
+                            android:id="@+id/tvOpenTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textColor="#7E7E7E"
+                            android:textSize="12dp" />
 
 
                         <LinearLayout

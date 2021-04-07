@@ -89,7 +89,7 @@ public class HeaderBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
         private TextView tvOpenDate;
         private TextView tvStatus;
         private TextView tvOpenTime;
-        private View viewTime;
+//        private View viewTime;
         private LikeButton imgHeart;
 
         public HeaderViewHolder(View itemView) {
@@ -98,7 +98,7 @@ public class HeaderBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
             tvOpenDate = itemView.findViewById(R.id.tvOpenDate);
             tvStatus = itemView.findViewById(R.id.tvStatus);
             tvOpenTime = itemView.findViewById(R.id.tvOpenTime);
-            viewTime = itemView.findViewById(R.id.viewTime);
+//            viewTime = itemView.findViewById(R.id.viewTime);
             tvName = itemView.findViewById(R.id.tvName);
             tvRate = itemView.findViewById(R.id.tvRate);
             tvCommentCount = itemView.findViewById(R.id.tvCommentCount);
@@ -177,16 +177,16 @@ public class HeaderBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
 
             try {
                 if (travel.getRange_time().isEmpty()) {
-                    viewTime.setVisibility(View.GONE);
+//                    viewTime.setVisibility(View.GONE);
                     tvOpenTime.setVisibility(View.GONE);
                 } else {
-                    viewTime.setVisibility(View.VISIBLE);
+//                    viewTime.setVisibility(View.VISIBLE);
                     tvOpenTime.setText(travel.getRange_time());
                     tvOpenTime.setVisibility(View.VISIBLE);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                viewTime.setVisibility(View.GONE);
+//                viewTime.setVisibility(View.GONE);
                 tvOpenTime.setVisibility(View.GONE);
             }
 
