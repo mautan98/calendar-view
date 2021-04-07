@@ -67,7 +67,11 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
     @Override
     public int getItemCount() {
         try {
-            return travels.size();
+            if(travels.size() >=4){
+                return 4;
+            }else {
+                return travels.size();
+            }
         } catch (Exception e) {
             return 0;
         }

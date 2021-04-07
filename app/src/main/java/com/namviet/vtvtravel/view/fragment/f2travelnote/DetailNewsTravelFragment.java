@@ -77,17 +77,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
     private RelationNewsInTravelDetailAdapter relationNewsInTravelDetailAdapter;
     private DetailTravelNewsResponse detailTravelNewsResponse;
 
-    private SubTopExperienceFragment relationDestinationFragment;
-    private SubTopExperienceFragment nearDestinationFragment;
-
     private RelationNewInTravelNewsAdapter relationNewInTravelNewsAdapter;
-
-
-
-
-
-
-
 
     private SubTopExperienceViewModel subTopExperienceViewModel;
     private NearByInTravelDetailAdapter nearByPlaceAdapter;
@@ -201,6 +191,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
 
                 getBinding().rclNearByPlace.setNestedScrollingEnabled(false);
                 getBinding().rclRelationPlace.setNestedScrollingEnabled(false);
+                getBinding().rclRelation.setNestedScrollingEnabled(false);
 
             }
         }, 500);
