@@ -85,6 +85,7 @@ public class MainPageTopExperienceFragment extends BaseFragment<F2FragmentTopExp
             for (int i = 0; i < placeNearBy.getTabs().size(); i++) {
                 getBinding().tabLayout.getTabAt(i).setText(placeNearBy.getTabs().get(i).getName());
             }
+            getBinding().tvTitle.setText(placeNearBy.getTitle());
         }
     }
 

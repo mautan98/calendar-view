@@ -333,7 +333,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
         getBinding().btnReadMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(getBinding().vpDestination.getCurrentItem() == 0) {
+                if(getBinding().rclRelationPlace.getVisibility() == View.VISIBLE) {
                     TopExperienceActivity.startScreenFromTravelNews(mActivity, detailTravelNewsResponse.getData().getRelatedPlaces(), TopExperienceActivity.Type.RELATION_EXPERIENCE);
                 }else {
                     TopExperienceActivity.startScreenFromTravelNews(mActivity, detailTravelNewsResponse.getData().getPlaceNearBy(), TopExperienceActivity.Type.NEAR_BY_EXPERIENCE);

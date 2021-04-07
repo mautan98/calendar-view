@@ -429,13 +429,12 @@
                         android:orientation="vertical">
 
                         <LinearLayout
-                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
                             android:layout_marginTop="15dp"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            android:visibility="gone">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -491,6 +490,7 @@
 
 
                                 <TextView
+                                    android:foreground="@drawable/ripple_effect_click"
                                     android:layout_marginEnd="12dp"
                                     android:id="@+id/btnSeeMore"
                                     android:fontFamily="@font/roboto_regular"
