@@ -9,7 +9,7 @@
         android:layout_height="match_parent" >
 
         <pl.droidsonroids.gif.GifImageView
-            android:src="@drawable/loading_splash"
+            android:src="@drawable/splash_loading"
             android:scaleType="centerCrop"
             android:id="@+id/imgAvatar"
             android:layout_width="match_parent"
