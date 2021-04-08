@@ -72,7 +72,10 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
     override fun initData() {
         Handler().postDelayed(Runnable {
 
-            tvScroll.isSelected = true
+            try {
+                tvScroll.isSelected = true
+            } catch (e: Exception) {
+            }
             scrollAdapter = VQMMAdapter(context, datas)
             rclScroll.layoutManager = SpeedyLinearLayoutManager(mActivity, SpeedyLinearLayoutManager.VERTICAL, false)
             rclScroll.adapter = scrollAdapter

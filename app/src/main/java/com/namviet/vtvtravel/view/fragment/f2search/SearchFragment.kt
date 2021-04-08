@@ -235,29 +235,32 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                 .debounce(450, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    if (edtRegion.text.toString().isEmpty()) {
-                        locations?.clear()
-                        locations?.addAll(locationsMain)
-                        searchAllLocationAdapter!!.notifyDataSetChanged()
-                        regionId = null
-                        if(edtKeyword.text.isNotEmpty()) {
-                            searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId);
+                    try {
+                        if (edtRegion.text.toString().isEmpty()) {
+                            locations?.clear()
+                            locations?.addAll(locationsMain)
+                            searchAllLocationAdapter!!.notifyDataSetChanged()
+                            regionId = null
+                            if(edtKeyword.text.isNotEmpty()) {
+                                searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId);
 
-                            try {
-                                TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtKeyword.text.toString()).setScreen_class(this.javaClass.name))
-                            } catch (e: Exception) {
-                                e.printStackTrace()
+                                try {
+                                    TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtKeyword.text.toString()).setScreen_class(this.javaClass.name))
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
                             }
-                        }
-                    } else {
-                        rclLocation.visibility = View.VISIBLE
-                        locations!!.clear()
-                        for (i in locationsMain.indices) {
-                            if (F2Util.removeAccent(locationsMain[i].name.toLowerCase()).contains(F2Util.removeAccent(edtRegion.text.toString().toLowerCase()))) {
-                                locations.add(locationsMain[i])
+                        } else {
+                            rclLocation.visibility = View.VISIBLE
+                            locations!!.clear()
+                            for (i in locationsMain.indices) {
+                                if (F2Util.removeAccent(locationsMain[i].name.toLowerCase()).contains(F2Util.removeAccent(edtRegion.text.toString().toLowerCase()))) {
+                                    locations.add(locationsMain[i])
+                                }
                             }
+                            searchAllLocationAdapter!!.notifyDataSetChanged()
                         }
-                        searchAllLocationAdapter!!.notifyDataSetChanged()
+                    } catch (e: Exception) {
                     }
                 }
     }

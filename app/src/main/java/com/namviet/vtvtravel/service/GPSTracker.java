@@ -114,7 +114,11 @@ public class GPSTracker extends Service implements LocationListener {
     public void onDestroy() {
         super.onDestroy();
         Log.e("destroy service", "ok");
-        timer.cancel();
+        try {
+            timer.cancel();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void getBestLocation() {
