@@ -5,9 +5,12 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +76,7 @@ public class UserGuildTextAdapter extends RecyclerView.Adapter<UserGuildTextAdap
 
                     tvLabel.setVisibility(View.GONE);
 
-                    setHighLightedText(tvDescription, "đây");
+                    setHighLightedText(tvDescription, "tại đây");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -95,8 +98,10 @@ public class UserGuildTextAdapter extends RecyclerView.Adapter<UserGuildTextAdap
                 break;
             else {
                 // set color here
-                wordToSpan.setSpan(new BackgroundColorSpan(0xFFFFFF00), ofe, ofe + textToHighlight.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                wordToSpan.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.md_blue_600)), ofe, ofe + textToHighlight.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                wordToSpan.setSpan(new StyleSpan(Typeface.BOLD), ofe, ofe + textToHighlight.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 tv.setText(wordToSpan, TextView.BufferType.SPANNABLE);
+
             }
         }
     }
