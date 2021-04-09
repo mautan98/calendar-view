@@ -70,6 +70,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:minHeight="120dp"
             android:id="@+id/rclContent"
             android:visibility="visible"
             android:layout_marginTop="20dp"

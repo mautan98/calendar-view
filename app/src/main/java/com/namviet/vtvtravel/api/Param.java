@@ -899,6 +899,17 @@ public class Param {
         return map;
     }
 
+
+    public static JSONObject userGuideNew(String code) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.CODE, code);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
     public static JSONObject wheelResult(String service, String os, String channel) {
         JSONObject map = new JSONObject();
         try {

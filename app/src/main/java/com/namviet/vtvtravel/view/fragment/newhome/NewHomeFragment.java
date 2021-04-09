@@ -67,6 +67,7 @@ import com.namviet.vtvtravel.view.f2.SystemInboxActivity;
 
 import com.namviet.vtvtravel.view.f2.UserInformationActivity;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
+import com.namviet.vtvtravel.view.fragment.f2webview.HomeSpeedyLinearLayoutManager;
 import com.namviet.vtvtravel.viewmodel.newhome.ChangeRegionDialog;
 import com.namviet.vtvtravel.viewmodel.newhome.NewHomeViewModel;
 
@@ -381,6 +382,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
             e.printStackTrace();
         }
     }
+
 
     @Override
     public void update(Observable observable, Object o) {

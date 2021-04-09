@@ -606,14 +606,18 @@ public interface TravelService {
 
     /////////////////////////////////////////////
 
-    @GET(WSConfig.Api.USER_GUILD)
-    Observable<GetUserGuildResponse> getUserGuild();
+    @POST(WSConfig.Api.USER_GUILD)
+    Observable<GetUserGuildResponse> getUserGuild(@Body RequestBody body);
 
     @GET(WSConfig.Api.USER_GUILD)
     Observable<HelloMessageResponse> helloMessage();
 
     @POST(WSConfig.Api.USER_GUILD)
     Observable<PostUserGuildResponse> postUserGuild(@QueryMap Map<String, Object> queryMap);
+
+
+    @POST(WSConfig.Api.USER_GUILD)
+    Observable<PostUserGuildResponse> postUserGuild(@Body RequestBody body);
 
     @POST(WSConfig.Api.LIKE)
     Completable likeEvent(@Body RequestBody body);

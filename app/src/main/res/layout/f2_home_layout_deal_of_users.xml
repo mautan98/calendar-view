@@ -50,7 +50,7 @@
         android:textSize="14dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:minHeight="142dp"
+        android:minHeight="255dp"
         android:id="@+id/recyclerNearPlace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

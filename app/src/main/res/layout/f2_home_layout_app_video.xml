@@ -43,6 +43,7 @@
         android:textSize="14dp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:minHeight="100dp"
         android:id="@+id/recyclerAppVideo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

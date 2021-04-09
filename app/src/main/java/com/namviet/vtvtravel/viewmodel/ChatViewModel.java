@@ -87,10 +87,13 @@ public class ChatViewModel extends BaseViewModel {
     }
 
     public void getUserGuild() {
+        RequestBody jsonBodyObject = RequestBody.create(
+                okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                Param.getParams2(Param.userGuideNew("")).toString());
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
 
-        Disposable disposable = newsService.getUserGuild()
+        Disposable disposable = newsService.getUserGuild(jsonBodyObject)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<GetUserGuildResponse>() {
@@ -139,10 +142,13 @@ public class ChatViewModel extends BaseViewModel {
     }
 
     public void postUserGuild(String code) {
+        RequestBody jsonBodyObject = RequestBody.create(
+                okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                Param.getParams2(Param.userGuideNew(code)).toString());
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
-        Map<String, Object> map = Param.postUserGuild(code);
-        Disposable disposable = newsService.postUserGuild(map)
+//        Map<String, Object> map = Param.postUserGuild(code);
+        Disposable disposable = newsService.postUserGuild(jsonBodyObject)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<PostUserGuildResponse>() {

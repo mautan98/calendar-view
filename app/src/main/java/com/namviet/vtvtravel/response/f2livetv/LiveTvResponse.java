@@ -9,6 +9,7 @@ public class LiveTvResponse extends BaseResponse implements Serializable {
 
     private String widget_class;
     private String widget_type;
+    private String description;
 
     private List<Channel> items;
 
@@ -22,6 +23,10 @@ public class LiveTvResponse extends BaseResponse implements Serializable {
 
     public List<Channel> getItems() {
         return items;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public class Channel implements Serializable {

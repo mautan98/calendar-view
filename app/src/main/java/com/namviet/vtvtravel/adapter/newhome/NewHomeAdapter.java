@@ -944,12 +944,14 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private TextView tvScheduleLiveTv;
         private LiveTvResponse liveTvResponse;
         private ImageView imgFullScreen;
+        private TextView tvDescription;
 
         private int currentPosition = 0;
 
         public LiveTVViewHolder(View itemView) {
             super(itemView);
             recycleLiveTv = itemView.findViewById(R.id.recycleLiveTv);
+            tvDescription = itemView.findViewById(R.id.tvDescription);
             jwplayer = itemView.findViewById(R.id.jwplayer);
             tvScheduleLiveTv = itemView.findViewById(R.id.tvScheduleLiveTv);
             imgFullScreen = itemView.findViewById(R.id.imgFullScreen);
@@ -987,6 +989,12 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         .file(liveTvResponse.getItems().get(0).getStreaming_urls().get(0).getUrl())
                         .build();
                 jwplayer.load(pi);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                tvDescription.setText(homeServiceResponse.getData().get(position).getDescription());
             } catch (Exception e) {
                 e.printStackTrace();
             }
