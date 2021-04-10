@@ -945,6 +945,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private LiveTvResponse liveTvResponse;
         private ImageView imgFullScreen;
         private TextView tvDescription;
+        private TextView tvTitle;
 
         private int currentPosition = 0;
 
@@ -952,6 +953,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(itemView);
             recycleLiveTv = itemView.findViewById(R.id.recycleLiveTv);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+            tvTitle = itemView.findViewById(R.id.tvTitle);
             jwplayer = itemView.findViewById(R.id.jwplayer);
             tvScheduleLiveTv = itemView.findViewById(R.id.tvScheduleLiveTv);
             imgFullScreen = itemView.findViewById(R.id.imgFullScreen);
@@ -995,6 +997,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             try {
                 tvDescription.setText(homeServiceResponse.getData().get(position).getDescription());
+                tvTitle.setText(homeServiceResponse.getData().get(position).getName());
             } catch (Exception e) {
                 e.printStackTrace();
             }

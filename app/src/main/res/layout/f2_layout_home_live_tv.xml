@@ -45,7 +45,6 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="10dp"
         android:fontFamily="@font/roboto_regular"
-        android:text="Miễn phí cước 3G khi xem TV tại VTVTravel"
         android:textColor="#9F9F9F"
         android:textSize="14dp" />
 
