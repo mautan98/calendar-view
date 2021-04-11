@@ -76,6 +76,13 @@ public class HistoryLuckyWheelActivity extends BaseActivityNew<F2ActivityLitterP
             }
         });
 
+        getBinding().btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         Account account = MyApplication.getInstance().getAccount();
         if (null != account && account.isLogin()) {
             token = account.getToken();

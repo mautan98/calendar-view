@@ -6,7 +6,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.app.MyApplication
 import com.namviet.vtvtravel.databinding.F2FragmentMenuLuckyWheel2Binding
-import com.namviet.vtvtravel.databinding.F2FragmentMenuLuckyWheelBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.view.f2.HistoryLuckyWheelActivity
 import kotlinx.android.synthetic.main.f2_fragment_menu_lucky_wheel_2.*
@@ -27,6 +26,9 @@ class MenuLuckyWheelFragment : BaseFragment<F2FragmentMenuLuckyWheel2Binding?>()
             }
             binding!!.tvName.text = "Chào, "+account.fullname
 
+            val cut = account.mobile.substring(3, 8)
+            val mobile = account.mobile.replace(cut, "xxxxx")
+            binding!!.tvPhone.text = mobile
         } else {
         }
 

@@ -48,7 +48,7 @@
         </com.facebook.shimmer.ShimmerFrameLayout>
 
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.namviet.vtvtravel.view.fragment.f2webview.CustomRecyclerView
             android:id="@+id/rclHome"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

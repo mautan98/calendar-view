@@ -43,6 +43,7 @@
 
 
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_marginEnd="18dp"
                         android:layout_marginStart="18dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -61,7 +62,15 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
 
-
+                        <TextView
+                            android:visibility="gone"
+                            android:id="@+id/tvDescription"
+                            android:textSize="15dp"
+                            android:textColor="#FE860D"
+                            android:fontFamily="@font/roboto_bolditalic"
+                            android:text="(Gia hạn hàng ngày)"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
 
 
@@ -131,7 +140,6 @@
                         android:textColor="@color/md_black_1000"
                         android:fontFamily="@font/roboto_regular"
                         android:textSize="14dp"
-                        android:text="Gói Travel VIP là gói dịch vụ ưu đãi dành riêng cho Khách hàng của Hệ sinh thái du lịch VTVTravel. Khi đăng ký gói dịch vụ, Khác hàng sẽ được hưởng các Chương trình ưu đãi bao gồm:"
                         android:layout_marginTop="11dp"
                         android:layout_marginEnd="12dp"
                         android:layout_marginStart="12dp"
@@ -199,7 +207,6 @@
                         android:textColor="@color/md_black_1000"
                         android:fontFamily="@font/roboto_regular"
                         android:textSize="14dp"
-                        android:text="Gói Travel VIP là gói dịch vụ ưu đãi dành riêng cho Khách hàng của Hệ sinh thái du lịch VTVTravel. Khi đăng ký gói dịch vụ, Khác hàng sẽ được hưởng các Chương trình ưu đãi bao gồm:"
                         android:layout_marginTop="11dp"
                         android:layout_marginEnd="12dp"
                         android:layout_marginStart="12dp"
@@ -267,7 +274,6 @@
                         android:textColor="@color/md_black_1000"
                         android:fontFamily="@font/roboto_regular"
                         android:textSize="14dp"
-                        android:text="Gói Travel VIP là gói dịch vụ ưu đãi dành riêng cho Khách hàng của Hệ sinh thái du lịch VTVTravel. Khi đăng ký gói dịch vụ, Khác hàng sẽ được hưởng các Chương trình ưu đãi bao gồm:"
                         android:layout_marginTop="11dp"
                         android:layout_marginEnd="12dp"
                         android:layout_marginStart="12dp"

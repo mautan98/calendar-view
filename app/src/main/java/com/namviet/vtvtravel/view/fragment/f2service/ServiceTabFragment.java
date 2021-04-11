@@ -67,14 +67,29 @@ public class ServiceTabFragment extends MainFragment {
 //
 //        }
 
-        if (service.isRegistered() || isVipRegisted) {
-            binding.btnRegister.setClickable(false);
-            binding.btnRegister.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.bg_register_service2));
-            binding.btnRegister.setVisibility(View.GONE);
-        } else {
-            binding.btnRegister.setClickable(true);
-            binding.btnRegister.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.bg_register_service));
-            binding.btnRegister.setVisibility(View.VISIBLE);
+        try {
+            if (service.isRegistered() || isVipRegisted) {
+                binding.btnRegister.setClickable(false);
+                binding.btnRegister.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.bg_register_service2));
+                binding.btnRegister.setVisibility(View.GONE);
+            } else {
+                binding.btnRegister.setClickable(true);
+                binding.btnRegister.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.bg_register_service));
+                binding.btnRegister.setVisibility(View.VISIBLE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            if(service.getCode().equals("FRIEND_TRAVEL_FREE")){
+                binding.tvDescription.setVisibility(View.GONE);
+            }else {
+                binding.tvDescription.setVisibility(View.VISIBLE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
 
