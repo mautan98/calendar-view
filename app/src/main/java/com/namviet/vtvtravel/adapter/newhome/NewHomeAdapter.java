@@ -40,6 +40,7 @@ import com.namviet.vtvtravel.adapter.newhome.subnewhome.tab.TabVoucherNowAdapter
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.Account;
+import com.namviet.vtvtravel.model.Schedule;
 import com.namviet.vtvtravel.model.f2event.OnClickVideoInMenu;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.response.f2livetv.LiveTvResponse;
@@ -78,7 +79,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Callable;
 
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import me.crosswall.lib.coverflow.CoverFlow;
 import me.crosswall.lib.coverflow.core.PageItemClickListener;
 import me.crosswall.lib.coverflow.core.PagerContainer;
@@ -986,14 +991,28 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             newHomeFragment.setPauseVideo(this);
 
 
-            try {
-                PlaylistItem pi = new PlaylistItem.Builder()
-                        .file(liveTvResponse.getItems().get(0).getStreaming_urls().get(0).getUrl())
-                        .build();
-                jwplayer.load(pi);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Observable.fromCallable(new Callable<PlaylistItem>() {
+                @Override
+                public PlaylistItem call() throws Exception {
+                    PlaylistItem pi = null;
+                    try {
+                        pi = new PlaylistItem.Builder()
+                                .file(liveTvResponse.getItems().get(0).getStreaming_urls().get(0).getUrl())
+                                .build();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return pi;
+                }
+            }).subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .subscribe(new Consumer<PlaylistItem>() {
+                        @Override
+                        public void accept(PlaylistItem playlistItem) throws Exception {
+                            jwplayer.load(playlistItem);
+                        }
+                    });
+
 
             try {
                 tvDescription.setText(homeServiceResponse.getData().get(position).getDescription());

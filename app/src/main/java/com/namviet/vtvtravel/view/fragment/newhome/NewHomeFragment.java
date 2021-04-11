@@ -58,6 +58,7 @@ import com.namviet.vtvtravel.response.newhome.ItemAppVoucherNowResponse;
 import com.namviet.vtvtravel.response.newhome.MobileFromViettelResponse;
 import com.namviet.vtvtravel.response.newhome.SettingResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
+import com.namviet.vtvtravel.ultils.DeviceUtils;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
 import com.namviet.vtvtravel.view.f2.BigLocationActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
@@ -70,6 +71,7 @@ import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.view.fragment.f2webview.HomeSpeedyLinearLayoutManager;
 import com.namviet.vtvtravel.viewmodel.newhome.ChangeRegionDialog;
 import com.namviet.vtvtravel.viewmodel.newhome.NewHomeViewModel;
+import com.namviet.vtvtravel.widget.PreCachingLayoutManager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -169,6 +171,9 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
         super.updateViews();
         binding.rclHome.setHasFixedSize(true);
         binding.rclHome.setItemViewCacheSize(20);
+        PreCachingLayoutManager preCachingLayoutManager = new PreCachingLayoutManager(mActivity);
+        preCachingLayoutManager.setExtraLayoutSpace(10000);
+        binding.rclHome.setLayoutManager(preCachingLayoutManager);
         newHomeViewModel = new NewHomeViewModel();
         binding.setNewHomeViewModel(newHomeViewModel);
         newHomeViewModel.addObserver(this);
