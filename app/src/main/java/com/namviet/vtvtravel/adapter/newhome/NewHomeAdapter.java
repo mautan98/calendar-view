@@ -1094,27 +1094,37 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             newHomeFragment.setPauseVideo(this);
 
 
-            Observable.fromCallable(new Callable<PlaylistItem>() {
-                @Override
-                public PlaylistItem call() throws Exception {
-                    PlaylistItem pi = null;
-                    try {
-                        pi = new PlaylistItem.Builder()
-                                .file(liveTvResponse.getItems().get(0).getStreaming_urls().get(0).getUrl())
-                                .build();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    return pi;
-                }
-            }).subscribeOn(Schedulers.io())
-                    .observeOn(Schedulers.io())
-                    .subscribe(new Consumer<PlaylistItem>() {
-                        @Override
-                        public void accept(PlaylistItem playlistItem) throws Exception {
-                            jwplayer.load(playlistItem);
-                        }
-                    });
+            try {
+                PlaylistItem pi = new PlaylistItem.Builder()
+                        .file(liveTvResponse.getItems().get(0).getStreaming_urls().get(0).getUrl())
+                        .build();
+                jwplayer.load(pi);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+//            Observable.fromCallable(new Callable<PlaylistItem>() {
+//                @Override
+//                public PlaylistItem call() throws Exception {
+//                    PlaylistItem pi = null;
+//                    try {
+//                        pi = new PlaylistItem.Builder()
+//                                .file(liveTvResponse.getItems().get(0).getStreaming_urls().get(0).getUrl())
+//                                .build();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                    return pi;
+//                }
+//            }).subscribeOn(Schedulers.io())
+//                    .observeOn(Schedulers.io())
+//                    .subscribe(new Consumer<PlaylistItem>() {
+//                        @Override
+//                        public void accept(PlaylistItem playlistItem) throws Exception {
+//                            jwplayer.load(playlistItem);
+//                        }
+//                    });
 
 
             try {
