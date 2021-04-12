@@ -116,7 +116,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
     @Override
     protected void initViews(View v) {
         super.initViews(v);
-        getDataHomeFromCache();
+//        getDataHomeFromCache();
         updateViews();
         setClick();
         if (haveNetworkConnection()) {

@@ -492,11 +492,15 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
 
 
+    private void getLocationByService(){
+        Intent intent = new Intent(this, GPSTracker.class);
+        startService(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(this, GPSTracker.class);
-        startService(intent);
+        getLocationByService();
         getJson();
         getDataFromIntent();
         EventBus.getDefault().register(this);
