@@ -672,12 +672,12 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                     }
                 }
             }
-            else if (!isLoadFail) {
-                    getDataHomeFromCache();
-                    binding.shimmerViewContainer.stopShimmer();
-                    binding.shimmerViewContainer.setVisibility(View.GONE);
-                    isLoadFail = true;
-                }
+//            else if (!isLoadFail) {
+//                    getDataHomeFromCache();
+//                    binding.shimmerViewContainer.stopShimmer();
+//                    binding.shimmerViewContainer.setVisibility(View.GONE);
+//                    isLoadFail = true;
+//                }
 
         } catch (Exception e) {
             e.printStackTrace();
