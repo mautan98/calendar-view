@@ -87,6 +87,7 @@ public class TabVoucherNowAdapter extends RecyclerView.Adapter<RecyclerView.View
                 public void onClick(View view) {
                     selectedItem = position;
                     clickTab.onClickTab(selectedItem);
+                    notifyDataSetChanged();
                 }
             });
 

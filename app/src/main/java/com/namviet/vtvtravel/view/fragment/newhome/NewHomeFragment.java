@@ -88,6 +88,16 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
     private String phoneNumberDetectedFrom3G;
     private PauseVideo pauseVideo;
     private boolean isScroll = true;
+    private IOnClickTabReloadData mIOnClickTabReloadData;
+    private boolean isFirtLoad = true;
+    public interface IOnClickTabReloadData {
+        void onTabClick(String code);
+    }
+
+    public void setmIOnClickTabReloadData(IOnClickTabReloadData mIOnClickTabReloadData) {
+        isFirtLoad = false;
+        this.mIOnClickTabReloadData = mIOnClickTabReloadData;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -391,18 +401,6 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 
     @Override
     public void update(Observable observable, Object o) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    binding.shimmerViewContainer.stopShimmer();
-                    binding.shimmerViewContainer.setVisibility(View.GONE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }, 1000);
-
         try {
             if (observable instanceof NewHomeViewModel && null != o) {
                 if (o instanceof CountSystemInbox) {
@@ -426,12 +424,16 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 
                     subSmallHeaderAdapter = new SubSmallHeaderAdapter(homeServiceResponse.getData().get(0).getMenus(), mActivity);
                     binding.recycleContent.setAdapter(subSmallHeaderAdapter);
+                    binding.shimmerViewContainer.stopShimmer();
+                    binding.shimmerViewContainer.setVisibility(View.GONE);
                 } else if (o instanceof ErrorResponse) {
                     ErrorResponse responseError = (ErrorResponse) o;
                     try {
                         Toast.makeText(mActivity, responseError.getMessage(), Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                     }
+                    binding.shimmerViewContainer.stopShimmer();
+                    binding.shimmerViewContainer.setVisibility(View.GONE);
                 } else if (o instanceof SettingResponse) {
                     SettingResponse settingResponse = (SettingResponse) o;
                 } else if (o instanceof MobileFromViettelResponse) {
@@ -539,7 +541,13 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                                     } else {
                                         homeServiceResponse.getData().get(i).setDataExtraSecondAfterClickTab(appVoucherResponse);
                                     }
-                                    newHomeAdapter.notifyItemChanged(i);
+                                    if(isFirtLoad){
+                                        newHomeAdapter.notifyItemChanged(i);
+                                    }
+                                    else if(mIOnClickTabReloadData != null){
+                                        mIOnClickTabReloadData.onTabClick(NewHomeAdapter.TypeString.APP_VOUCHER_NOW);
+                                        isFirtLoad = true;
+                                    }
                                     break;
                                 }
                             }
@@ -553,7 +561,13 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                                     } else {
                                         homeServiceResponse.getData().get(i).setDataExtraSecondAfterClickTab(itemAppExperienceResponse);
                                     }
-                                    newHomeAdapter.notifyItemChanged(i);
+                                    if(isFirtLoad){
+                                        newHomeAdapter.notifyItemChanged(i);
+                                    }
+                                    else if(mIOnClickTabReloadData != null){
+                                        mIOnClickTabReloadData.onTabClick(NewHomeAdapter.TypeString.APP_EXPERIENCES_NEARBY);
+                                        isFirtLoad = true;
+                                    }
                                     break;
                                 }
                             }
@@ -568,7 +582,13 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                                     } else {
                                         homeServiceResponse.getData().get(i).setDataExtraSecondAfterClickTab(itemAppDiscoverResponse);
                                     }
-                                    newHomeAdapter.notifyItemChanged(i);
+                                    if(isFirtLoad){
+                                        newHomeAdapter.notifyItemChanged(i);
+                                    }
+                                    else if(mIOnClickTabReloadData != null){
+                                        mIOnClickTabReloadData.onTabClick(NewHomeAdapter.TypeString.APP_DISCOVER);
+                                        isFirtLoad = true;
+                                    }
                                     break;
                                 }
                             }

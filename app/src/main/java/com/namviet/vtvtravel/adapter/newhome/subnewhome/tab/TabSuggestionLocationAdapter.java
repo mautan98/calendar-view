@@ -87,6 +87,7 @@ public class TabSuggestionLocationAdapter extends RecyclerView.Adapter<RecyclerV
                 public void onClick(View view) {
                     selectedItem = position;
                     clickTab.onClickTab(selectedItem);
+                    notifyDataSetChanged();
                 }
             });
 
