@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.longtailvideo.jwplayer.JWPlayerView;
@@ -407,21 +408,24 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    public class SuggestionLocationViewHolder extends RecyclerView.ViewHolder {
+    public class SuggestionLocationViewHolder extends RecyclerView.ViewHolder implements NewHomeFragment.IOnClickTabReloadData {
         private SubSuggestionLocationAdapter subSuggestionLocationAdapter;
         private TabSuggestionLocationAdapter tabSuggestionLocationAdapter;
         private RecyclerView rclContent;
         private RecyclerView rclTab;
         private TextView tvTitle;
         private TextView btnSeeMore;
-
+        private ShimmerFrameLayout mShimmerFrameLayout;
+        private int mPosition;
         public SuggestionLocationViewHolder(View itemView) {
             super(itemView);
             rclContent = itemView.findViewById(R.id.rclContent);
             rclTab = itemView.findViewById(R.id.rclTab);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             btnSeeMore = itemView.findViewById(R.id.btnSeeMore);
-
+            mShimmerFrameLayout = itemView.findViewById(R.id.shimmer_view_container);
+            mShimmerFrameLayout.setVisibility(View.VISIBLE);
+            mShimmerFrameLayout.startShimmer();
 
             try {
                 SnapHelper helper = new LinearSnapHelper();
@@ -434,6 +438,8 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         public void bindItem(int position) {
+            mPosition = position;
+
             ItemAppExperienceResponse itemAppExperienceResponse = (ItemAppExperienceResponse) homeServiceResponse.getData().get(position).getDataExtraSecond();
             if (itemAppExperienceResponse == null) {
                 List<ItemHomeService.Item> items = homeServiceResponse.getData().get(position).getItems();
@@ -446,9 +452,18 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             tabSuggestionLocationAdapter = new TabSuggestionLocationAdapter(homeServiceResponse.getData().get(position).getPositionClick(), homeServiceResponse.getData().get(position).getItems(), context, new TabSuggestionLocationAdapter.ClickTab() {
                 @Override
                 public void onClickTab(int positionClick) {
-                    homeServiceResponse.getData().get(position).setPositionClick(positionClick);
-                    List<ItemHomeService.Item> items = homeServiceResponse.getData().get(position).getItems();
-                    loadData.onLoadDataFloorSecond(items.get(positionClick).getContent_link(), TypeString.APP_EXPERIENCES_NEARBY, true);
+                    try {
+                        newHomeFragment.setmIOnClickTabReloadData(SuggestionLocationViewHolder.this);
+                        homeServiceResponse.getData().get(position).setPositionClick(positionClick);
+                        List<ItemHomeService.Item> items = homeServiceResponse.getData().get(position).getItems();
+                        loadData.onLoadDataFloorSecond(items.get(positionClick).getContent_link(), TypeString.APP_EXPERIENCES_NEARBY, true);
+                        mShimmerFrameLayout.setVisibility(View.VISIBLE);
+                        rclContent.setVisibility(View.INVISIBLE);
+                        mShimmerFrameLayout.startShimmer();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 }
             });
             rclTab.setAdapter(tabSuggestionLocationAdapter);
@@ -467,7 +482,30 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            mShimmerFrameLayout.stopShimmer();
+            mShimmerFrameLayout.setVisibility(View.GONE);
+            rclContent.setVisibility(View.VISIBLE);
 
+        }
+
+        @Override
+        public void onTabClick(String code) {
+            try {
+                if(code.equals(TypeString.APP_EXPERIENCES_NEARBY)){
+                    ItemAppExperienceResponse itemAppExperienceResponse = (ItemAppExperienceResponse) homeServiceResponse.getData().get(mPosition).getDataExtraSecond();
+                    if (itemAppExperienceResponse == null) {
+                        List<ItemHomeService.Item> items = homeServiceResponse.getData().get(APP_EXPERIENCES_NEARBY).getItems();
+                        loadData.onLoadDataFloorSecond(items.get(0).getContent_link(), TypeString.APP_EXPERIENCES_NEARBY, true);
+                    }
+                    subSuggestionLocationAdapter = new SubSuggestionLocationAdapter(context, itemAppExperienceResponse.getItems(), viewModel);
+                    rclContent.setAdapter(subSuggestionLocationAdapter);
+                    mShimmerFrameLayout.stopShimmer();
+                    mShimmerFrameLayout.setVisibility(View.GONE);
+                    rclContent.setVisibility(View.VISIBLE);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }
     }
@@ -769,20 +807,23 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    public class DiscoverViewHolder extends RecyclerView.ViewHolder {
+    public class DiscoverViewHolder extends RecyclerView.ViewHolder implements NewHomeFragment.IOnClickTabReloadData {
 
         private TabDiscoverAdapter tabDiscoverAdapter;
         private RecyclerView rclTab;
         private SubDiscoverAdapter subDiscoverAdapter;
         private RecyclerView rclDiscover;
         private LinearLayout btnReadMore;
-
+        private ShimmerFrameLayout mShimmerFrameLayout;
+        private int mPosition;
         public DiscoverViewHolder(View itemView) {
             super(itemView);
             rclTab = itemView.findViewById(R.id.rclTab);
             rclDiscover = itemView.findViewById(R.id.rclDiscover);
             btnReadMore = itemView.findViewById(R.id.btnReadMore);
-
+            mShimmerFrameLayout = itemView.findViewById(R.id.shimmer_view_container);
+            mShimmerFrameLayout.setVisibility(View.VISIBLE);
+            mShimmerFrameLayout.startShimmer();
             try {
                 SnapHelper helper = new LinearSnapHelper();
                 helper.attachToRecyclerView(rclDiscover);
@@ -793,6 +834,8 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         public void bindItem(int position) {
+            mPosition = position;
+
             ItemAppDiscoverResponse itemAppDiscoverResponse = (ItemAppDiscoverResponse) homeServiceResponse.getData().get(position).getDataExtraSecond();
             if (itemAppDiscoverResponse == null) {
                 List<ItemHomeService.Item> items = homeServiceResponse.getData().get(position).getItems();
@@ -806,9 +849,13 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             tabDiscoverAdapter = new TabDiscoverAdapter(homeServiceResponse.getData().get(position).getPositionClick(), homeServiceResponse.getData().get(position).getItems(), context, new TabDiscoverAdapter.ClickTab() {
                 @Override
                 public void onClickTab(int positionClick) {
+                    newHomeFragment.setmIOnClickTabReloadData(DiscoverViewHolder.this);
                     homeServiceResponse.getData().get(position).setPositionClick(positionClick);
                     List<ItemHomeService.Item> items = homeServiceResponse.getData().get(position).getItems();
                     loadData.onLoadDataFloorSecond(items.get(positionClick).getContent_link(), TypeString.APP_DISCOVER, true);
+                    rclDiscover.setVisibility(View.INVISIBLE);
+                    mShimmerFrameLayout.setVisibility(View.VISIBLE);
+                    mShimmerFrameLayout.startShimmer();
 
                 }
             });
@@ -820,6 +867,30 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     TravelNewsActivity.openScreen((MainActivity) context, true, TravelNewsActivity.OpenType.LIST);
                 }
             });
+            mShimmerFrameLayout.stopShimmer();
+            rclDiscover.setVisibility(View.VISIBLE);
+            mShimmerFrameLayout.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onTabClick(String code) {
+            try {
+                if(code.equals(TypeString.APP_DISCOVER)){
+                    ItemAppDiscoverResponse itemAppDiscoverResponse = (ItemAppDiscoverResponse) homeServiceResponse.getData().get(mPosition).getDataExtraSecond();
+                    if (itemAppDiscoverResponse == null) {
+                        List<ItemHomeService.Item> items = homeServiceResponse.getData().get(mPosition).getItems();
+                        loadData.onLoadDataFloorSecond(items.get(0).getContent_link(), TypeString.APP_DISCOVER, true);
+                    }
+                    subDiscoverAdapter = new SubDiscoverAdapter(context, itemAppDiscoverResponse.getItems());
+                    rclDiscover.setAdapter(subDiscoverAdapter);
+                    mShimmerFrameLayout.stopShimmer();
+                    mShimmerFrameLayout.setVisibility(View.GONE);
+                    rclDiscover.setVisibility(View.VISIBLE);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
@@ -882,7 +953,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    public class VoucherNowViewHolder extends RecyclerView.ViewHolder {
+    public class VoucherNowViewHolder extends RecyclerView.ViewHolder implements NewHomeFragment.IOnClickTabReloadData {
         private RecyclerView rclContent;
         private SubVoucherNowAdapter subVideoAdapter;
 
@@ -891,17 +962,21 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         private TextView tvTitle;
         private TextView btnSeeMore;
-
+        private int mPosition;
+        private ShimmerFrameLayout mShimmerFrameLayout;
         public VoucherNowViewHolder(View itemView) {
             super(itemView);
             rclContent = itemView.findViewById(R.id.rclContent);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             btnSeeMore = itemView.findViewById(R.id.btnSeeMore);
             rclTab = itemView.findViewById(R.id.rclTab);
-
+            mShimmerFrameLayout = itemView.findViewById(R.id.shimmer_view_container);
+            mShimmerFrameLayout.setVisibility(View.VISIBLE);
+            mShimmerFrameLayout.startShimmer();
         }
 
         public void bindItem(int position) {
+            mPosition = position;
 
             ItemAppVoucherNowResponse itemAppVoucherNowResponse = (ItemAppVoucherNowResponse) homeServiceResponse.getData().get(position).getDataExtraSecond();
             if (itemAppVoucherNowResponse == null) {
@@ -918,6 +993,11 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     homeServiceResponse.getData().get(position).setPositionClick(positionClick);
                     List<ItemHomeService.Item> items = homeServiceResponse.getData().get(position).getItems();
                     loadData.onLoadDataFloorSecond(items.get(positionClick).getContent_link(), TypeString.APP_VOUCHER_NOW, true);
+                    mShimmerFrameLayout.setVisibility(View.VISIBLE);
+                    rclContent.setVisibility(View.INVISIBLE);
+                    mShimmerFrameLayout.startShimmer();
+                    newHomeFragment.setmIOnClickTabReloadData(VoucherNowViewHolder.this);
+
                 }
             });
             rclTab.setAdapter(tabVoucherNowAdapter);
@@ -935,6 +1015,29 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         }
                     }
                 });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            mShimmerFrameLayout.stopShimmer();
+            mShimmerFrameLayout.setVisibility(View.GONE);
+            rclContent.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onTabClick(String code) {
+            try {
+                if(TypeString.APP_VOUCHER_NOW.equals(code)){
+                    ItemAppVoucherNowResponse itemAppVoucherNowResponse = (ItemAppVoucherNowResponse) homeServiceResponse.getData().get(mPosition).getDataExtraSecond();
+                    if (itemAppVoucherNowResponse == null) {
+                        List<ItemHomeService.Item> items = homeServiceResponse.getData().get(mPosition).getItems();
+                        loadData.onLoadDataFloorSecond(items.get(0).getContent_link(), TypeString.APP_VOUCHER_NOW, true);
+                    }
+                    subVideoAdapter = new SubVoucherNowAdapter(itemAppVoucherNowResponse, context);
+                    rclContent.setAdapter(subVideoAdapter);
+                    mShimmerFrameLayout.stopShimmer();
+                    mShimmerFrameLayout.setVisibility(View.GONE);
+                    rclContent.setVisibility(View.VISIBLE);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

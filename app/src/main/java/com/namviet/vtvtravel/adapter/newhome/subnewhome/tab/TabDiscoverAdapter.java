@@ -82,6 +82,7 @@ public class TabDiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 public void onClick(View view) {
                     selectedItem = position;
                     clickTab.onClickTab(selectedItem);
+                    notifyDataSetChanged();
                 }
             });
 
