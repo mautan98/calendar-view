@@ -131,6 +131,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public static final String APP_VOUCHER_NOW = "APP_VOUCHER_NOW";
         public static final String APP_TV = "APP_TV";
         public static final String APP_RECENTLY_VIEWED = "APP_RECENTLY_VIEWED";
+        public static final String APP_HOME = "APP_HOME";
     }
 
 

@@ -106,6 +106,34 @@
             android:layout_weight="1"
             android:visibility="visible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:layout_below="@id/layoutToolbar"
+            android:id="@+id/shimmer_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/data_placeholder_layout" />
+
+                <include layout="@layout/data_placeholder_layout" />
+
+                <include layout="@layout/data_placeholder_layout" />
+                <include layout="@layout/data_placeholder_layout" />
+
+                <include layout="@layout/data_placeholder_layout" />
+
+                <include layout="@layout/data_placeholder_layout" />
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
 
         <RelativeLayout
             android:id="@+id/layoutMap"

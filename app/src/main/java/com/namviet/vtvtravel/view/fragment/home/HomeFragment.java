@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -180,11 +182,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
         binding.tabLayoutMain.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-
                 setOnSelectView(binding.tabLayoutMain, tab.getPosition());
-
-
-
             }
 
             @Override
@@ -194,7 +192,9 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                if(tab.getPosition() == 0){
+                   getActivity().sendBroadcast(new Intent("SCROLL_TO_TOP"));
+                }
             }
         });
 //        checkPermission();
@@ -314,7 +314,6 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 //        binding.menuFooter.setIndexCurrent(position);
         switchFragment(SlideMenu.MenuType.HIGHLIGHT_SCREEN);
         mActivity.showDialogNoCon();
-
     }
 
     @Override

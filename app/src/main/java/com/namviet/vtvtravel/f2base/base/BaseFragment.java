@@ -163,6 +163,9 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
             if (null != mLoadingDialog) {
                 mLoadingDialog.dismiss();
             }
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }

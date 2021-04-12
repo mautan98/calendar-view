@@ -87,6 +87,7 @@ public class VideoFragment extends MainFragment implements Observer {
                 try {
                     binding.shimmerViewContainer.stopShimmer();
                     binding.shimmerViewContainer.setVisibility(View.GONE);
+                    binding.vpContent.setVisibility(View.VISIBLE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -10,11 +10,14 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Handler;
 import android.test.mock.MockPackageManager;
 import android.util.Log;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -125,6 +128,9 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         getBinding().setSmallLocationViewModel(viewModel);
         viewModel.addObserver(this);
         getIconForMarker();
+        getBinding().rclContent.setVisibility(View.INVISIBLE);
+        getBinding().shimmerViewContainer.setVisibility(View.VISIBLE);
+        getBinding().shimmerViewContainer.startShimmer();
 
     }
 
@@ -337,6 +343,21 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
     @Override
     public void update(Observable observable, Object o) {
+        Log.e("xxx", "update: observable" );
+        try {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    getBinding().rclContent.setVisibility(View.VISIBLE);
+                    getBinding().shimmerViewContainer.setVisibility(View.GONE);
+                    getBinding().shimmerViewContainer.stopShimmer();
+                }
+            },500);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         hideLoading();
         if (observable instanceof SmallLocationViewModel && null != o) {
             if (o instanceof SmallLocationResponse) {

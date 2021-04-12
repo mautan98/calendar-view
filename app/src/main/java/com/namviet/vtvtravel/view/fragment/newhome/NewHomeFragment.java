@@ -3,10 +3,13 @@ package com.namviet.vtvtravel.view.fragment.newhome;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -79,6 +82,8 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.Observable;
 import java.util.Observer;
 
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+
 public class NewHomeFragment extends MainFragment implements Observer, NewHomeAdapter.LoadData, NewHomeAdapter.ClickUserView, NewHomeAdapter.ClickItemSmallLocation, NewHomeAdapter.ClickSearch {
     private F2FragmentHomeBinding binding;
     private NewHomeAdapter newHomeAdapter;
@@ -90,6 +95,18 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
     private boolean isScroll = true;
     private IOnClickTabReloadData mIOnClickTabReloadData;
     private boolean isFirtLoad = true;
+    private Context mContext;
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("SCROLL_TO_TOP")) {
+                binding.rclHome.smoothScrollToPosition(0);
+            }
+        }
+
+    };
+    private boolean isLoadFail = false;
+
     public interface IOnClickTabReloadData {
         void onTabClick(String code);
     }
@@ -97,6 +114,12 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
     public void setmIOnClickTabReloadData(IOnClickTabReloadData mIOnClickTabReloadData) {
         isFirtLoad = false;
         this.mIOnClickTabReloadData = mIOnClickTabReloadData;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
     }
 
     @Override
@@ -126,7 +149,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
     @Override
     protected void initViews(View v) {
         super.initViews(v);
-    //    getDataHomeFromCache();
+        //    getDataHomeFromCache();
         updateViews();
         setClick();
         if (haveNetworkConnection()) {
@@ -134,6 +157,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
         }
         getCountSystemInbox();
         newHomeViewModel.getSetting();
+        mContext.registerReceiver(receiver, new IntentFilter("SCROLL_TO_TOP"));
     }
 
     private void setClick() {
@@ -181,9 +205,12 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
         super.updateViews();
         binding.rclHome.setHasFixedSize(true);
         binding.rclHome.setItemViewCacheSize(20);
+        OverScrollDecoratorHelper.setUpOverScroll(binding.rclHome, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
         PreCachingLayoutManager preCachingLayoutManager = new PreCachingLayoutManager(mActivity);
         preCachingLayoutManager.setExtraLayoutSpace(10000);
         binding.rclHome.setLayoutManager(preCachingLayoutManager);
+
+
         newHomeViewModel = new NewHomeViewModel();
         binding.setNewHomeViewModel(newHomeViewModel);
         newHomeViewModel.addObserver(this);
@@ -222,6 +249,15 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
     @Override
     public void onDestroy() {
         super.onDestroy();
+        try {
+            if (mContext != null) {
+                if (receiver != null) {
+                    mContext.unregisterReceiver(receiver);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         EventBus.getDefault().unregister(this);
         try {
             TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_EXIT, TrackingAnalytic.getDefault("Home", "Home").setScreen_class(this.getClass().getName()));
@@ -387,9 +423,9 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 
     private HomeServiceResponse homeServiceResponse;
 
-    private void getDataHomeFromCache(){
+    private void getDataHomeFromCache() {
         try {
-            String json = PreferenceUtil.getInstance(mActivity).getValue(Constants.PrefKey.HOME_DATA,  new Gson().toJson(homeServiceResponse));
+            String json = PreferenceUtil.getInstance(mActivity).getValue(Constants.PrefKey.HOME_DATA, new Gson().toJson(homeServiceResponse));
             homeServiceResponse = new Gson().fromJson(json, HomeServiceResponse.class);
             newHomeAdapter = new NewHomeAdapter(mActivity, homeServiceResponse, this, this, this, this, this, newHomeViewModel);
             binding.rclHome.setAdapter(newHomeAdapter);
@@ -412,7 +448,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                     }
                 } else if (o instanceof HomeServiceResponse) {
                     homeServiceResponse = (HomeServiceResponse) o;
-                    PreferenceUtil.getInstance(mActivity).setValue(Constants.PrefKey.HOME_DATA,  new Gson().toJson(homeServiceResponse));
+                    PreferenceUtil.getInstance(mActivity).setValue(Constants.PrefKey.HOME_DATA, new Gson().toJson(homeServiceResponse));
                     try {
                         setDataForUserViewInRcl();
                     } catch (Exception e) {
@@ -428,12 +464,16 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                     binding.shimmerViewContainer.setVisibility(View.GONE);
                 } else if (o instanceof ErrorResponse) {
                     ErrorResponse responseError = (ErrorResponse) o;
-                    try {
-                        Toast.makeText(mActivity, responseError.getMessage(), Toast.LENGTH_SHORT).show();
-                    } catch (Exception e) {
+                    if(responseError.getErrorCode().equals(NewHomeAdapter.TypeString.APP_HOME)){
+                        try {
+                            Toast.makeText(mActivity, responseError.getErrorCode(), Toast.LENGTH_SHORT).show();
+                            getDataHomeFromCache();
+                            binding.shimmerViewContainer.stopShimmer();
+                            binding.shimmerViewContainer.setVisibility(View.GONE);
+                        } catch (Exception e) {
+                        }
+
                     }
-                    binding.shimmerViewContainer.stopShimmer();
-                    binding.shimmerViewContainer.setVisibility(View.GONE);
                 } else if (o instanceof SettingResponse) {
                     SettingResponse settingResponse = (SettingResponse) o;
                 } else if (o instanceof MobileFromViettelResponse) {
@@ -541,10 +581,9 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                                     } else {
                                         homeServiceResponse.getData().get(i).setDataExtraSecondAfterClickTab(appVoucherResponse);
                                     }
-                                    if(isFirtLoad){
+                                    if (isFirtLoad) {
                                         newHomeAdapter.notifyItemChanged(i);
-                                    }
-                                    else if(mIOnClickTabReloadData != null){
+                                    } else if (mIOnClickTabReloadData != null) {
                                         mIOnClickTabReloadData.onTabClick(NewHomeAdapter.TypeString.APP_VOUCHER_NOW);
                                         isFirtLoad = true;
                                     }
@@ -561,10 +600,9 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                                     } else {
                                         homeServiceResponse.getData().get(i).setDataExtraSecondAfterClickTab(itemAppExperienceResponse);
                                     }
-                                    if(isFirtLoad){
+                                    if (isFirtLoad) {
                                         newHomeAdapter.notifyItemChanged(i);
-                                    }
-                                    else if(mIOnClickTabReloadData != null){
+                                    } else if (mIOnClickTabReloadData != null) {
                                         mIOnClickTabReloadData.onTabClick(NewHomeAdapter.TypeString.APP_EXPERIENCES_NEARBY);
                                         isFirtLoad = true;
                                     }
@@ -582,10 +620,9 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                                     } else {
                                         homeServiceResponse.getData().get(i).setDataExtraSecondAfterClickTab(itemAppDiscoverResponse);
                                     }
-                                    if(isFirtLoad){
+                                    if (isFirtLoad) {
                                         newHomeAdapter.notifyItemChanged(i);
-                                    }
-                                    else if(mIOnClickTabReloadData != null){
+                                    } else if (mIOnClickTabReloadData != null) {
                                         mIOnClickTabReloadData.onTabClick(NewHomeAdapter.TypeString.APP_DISCOVER);
                                         isFirtLoad = true;
                                     }
@@ -635,6 +672,13 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                     }
                 }
             }
+            else if (!isLoadFail) {
+                    getDataHomeFromCache();
+                    binding.shimmerViewContainer.stopShimmer();
+                    binding.shimmerViewContainer.setVisibility(View.GONE);
+                    isLoadFail = true;
+                }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

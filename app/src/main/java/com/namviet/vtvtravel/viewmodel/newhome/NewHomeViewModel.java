@@ -1,5 +1,7 @@
 package com.namviet.vtvtravel.viewmodel.newhome;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.namviet.vtvtravel.adapter.newhome.NewHomeAdapter;
 import com.namviet.vtvtravel.api.Param;
@@ -111,7 +113,7 @@ public class NewHomeViewModel extends BaseViewModel {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        requestFailed(throwable);
+                        requestFailedHome(throwable);
                     }
                 });
 
@@ -312,6 +314,23 @@ public class NewHomeViewModel extends BaseViewModel {
         notifyObservers(object);
     }
 
+    private void requestFailedHome(Throwable throwable) {
+        try {
+            onLoadFail();
+        } catch (Exception e) {
+
+        }
+
+        try {
+            ErrorResponse errorResponse = new ErrorResponse();
+            errorResponse.setErrorCode(NewHomeAdapter.TypeString.APP_HOME);
+            setChanged();
+            notifyObservers(errorResponse);
+        } catch (Exception e) {
+            setChanged();
+            notifyObservers();
+        }
+    }
     private void requestFailed(Throwable throwable) {
         try {
             onLoadFail();
