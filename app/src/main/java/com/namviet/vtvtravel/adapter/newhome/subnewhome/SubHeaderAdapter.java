@@ -14,6 +14,7 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.view.MainActivity;
+import com.namviet.vtvtravel.view.f3.commingsoon.view.ComingSoonActivity;
 import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
 
 import java.util.ArrayList;
@@ -78,9 +79,14 @@ public class SubHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+//                    try {
+//                        OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+//                        oneButtonTitleImageDialog.show(((MainActivity) context).getSupportFragmentManager(), Constants.TAG_DIALOG);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
                     try {
-                        OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-                        oneButtonTitleImageDialog.show(((MainActivity) context).getSupportFragmentManager(), Constants.TAG_DIALOG);
+                        ComingSoonActivity.Companion.openActivity(context, items.get(getAdapterPosition()).getName());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

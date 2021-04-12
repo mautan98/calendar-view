@@ -75,25 +75,25 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
 
-<!--                <data-->
-<!--                    android:host="travel1.onex.vn"-->
-<!--                    android:pathPrefix="/"-->
-<!--                    android:scheme="http" />-->
+                <!--                <data-->
+                <!--                    android:host="travel1.onex.vn"-->
+                <!--                    android:pathPrefix="/"-->
+                <!--                    android:scheme="http" />-->
 
-<!--                <data-->
-<!--                    android:host="travel1.onex.vn"-->
-<!--                    android:pathPrefix="/"-->
-<!--                    android:scheme="https" />-->
+                <!--                <data-->
+                <!--                    android:host="travel1.onex.vn"-->
+                <!--                    android:pathPrefix="/"-->
+                <!--                    android:scheme="https" />-->
 
-<!--                <data-->
-<!--                    android:host="m1.travel.onex.vn"-->
-<!--                    android:pathPrefix="/"-->
-<!--                    android:scheme="https" />-->
+                <!--                <data-->
+                <!--                    android:host="m1.travel.onex.vn"-->
+                <!--                    android:pathPrefix="/"-->
+                <!--                    android:scheme="https" />-->
 
-<!--                <data-->
-<!--                    android:host="m1.travel.onex.vn"-->
-<!--                    android:pathPrefix="/"-->
-<!--                    android:scheme="http" />-->
+                <!--                <data-->
+                <!--                    android:host="m1.travel.onex.vn"-->
+                <!--                    android:pathPrefix="/"-->
+                <!--                    android:scheme="http" />-->
 
                 <data
                     android:host="vtvtravel.com"
@@ -195,6 +195,9 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".view.f2.TravelNewsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.f3.commingsoon.view.ComingSoonActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.f2.CommentActivity"
@@ -317,11 +320,11 @@
         </activity>
 
         <activity android:name=".view.f2.virtualswitchboard.VirtualSwitchBoardActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity android:name=".view.f2.ShareActivity" />
         <activity android:name=".view.f2.RuleActivity" />

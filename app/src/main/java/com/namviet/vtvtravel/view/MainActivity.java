@@ -493,13 +493,18 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
 
     private void getLocationByService(){
-        Intent intent = new Intent(this, GPSTracker.class);
-        startService(intent);
+        try {
+            Intent intent = new Intent(this, GPSTracker.class);
+            startService(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getLocationFromCache();
         getLocationByService();
         getJson();
         getDataFromIntent();
@@ -2024,6 +2029,18 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
             }
         }
         return query_pairs;
+    }
+
+    private void getLocationFromCache(){
+        try {
+            String defLat = PreferenceUtil.getInstance(this).getValue(Constants.PrefKey.LAT_LOCATION, "");
+            String defLong = PreferenceUtil.getInstance(this).getValue(Constants.PrefKey.LNG_LOCATION, "");
+            if(!defLat.isEmpty()){
+                MyApplication.getInstance().setMyLocation(new MyLocation("", "", "", Double.parseDouble(defLat), Double.parseDouble(defLong)));
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
     }
 
 

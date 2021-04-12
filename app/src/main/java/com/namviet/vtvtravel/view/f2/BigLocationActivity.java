@@ -65,6 +65,12 @@ public class BigLocationActivity extends BaseActivityNew<F2ActivityBigLocationBi
     }
 
     @Override
+    public void getLocationByService() {
+        super.getLocationByService();
+        getMainLocation();
+    }
+
+    @Override
     public BaseFragment initFragment() {
         if (openSearch) {
             return new SearchBigLocationFragment();

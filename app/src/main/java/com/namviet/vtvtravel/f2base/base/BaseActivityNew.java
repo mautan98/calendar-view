@@ -27,7 +27,7 @@ public abstract class BaseActivityNew<T extends ViewDataBinding> extends AppComp
         super.onCreate(savedInstanceState);
         try {
             afterSetContentView();
-            getLocation();
+            getLocationByService();
             binding = DataBindingUtil.setContentView(this, getLayoutRes());
             getDataFromIntent();
             doAfterOnCreate();
@@ -46,14 +46,18 @@ public abstract class BaseActivityNew<T extends ViewDataBinding> extends AppComp
 
     }
 
-    public void getLocation(){
+    public void getLocationByService(){
 
     }
 
 
     public void getMainLocation(){
-        Intent intent = new Intent(this, GPSTracker.class);
-        startService(intent);
+        try {
+            Intent intent = new Intent(this, GPSTracker.class);
+            startService(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

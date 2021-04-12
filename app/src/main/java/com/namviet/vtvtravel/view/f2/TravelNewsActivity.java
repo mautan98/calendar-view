@@ -72,8 +72,8 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
     }
 
     @Override
-    public void getLocation() {
-        super.getLocation();
+    public void getLocationByService() {
+        super.getLocationByService();
         getMainLocation();
     }
 

@@ -390,6 +390,7 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
 
                         showDialog(LuckyWheelDialog.Type.VIP_TYPE, "Đăng ký vip để tham gia vòng quay may mắn")
                     } else if (response.errorCode == "NO_TURN") {
+                        canRoll = true
                         showDialog(LuckyWheelDialog.Type.NOT_ENOUGH_TYPE, "Rất tiếc, bạn đã hết lượt quay")
                     } else {
                         scrollAdapter?.resetHighLight()
