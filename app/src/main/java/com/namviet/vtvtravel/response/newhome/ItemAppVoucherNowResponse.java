@@ -25,8 +25,17 @@ public class ItemAppVoucherNowResponse extends BaseResponse {
         private String name;
         private String code;
         private String categoryId;
+        private String homeUri;
         private int memberRankId;
 
+
+        public String getHomeUri() {
+            return homeUri;
+        }
+
+        public void setHomeUri(String homeUri) {
+            this.homeUri = homeUri;
+        }
 
         public Long getStartAt() {
             return startAt;

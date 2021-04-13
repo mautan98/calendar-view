@@ -84,7 +84,7 @@
                             android:src="@drawable/test_image"
                             android:id="@+id/imgAvatar"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintDimensionRatio="375:160"
+                            app:layout_constraintDimensionRatio="375:174"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"/>
 

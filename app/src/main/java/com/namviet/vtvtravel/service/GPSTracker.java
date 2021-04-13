@@ -44,18 +44,18 @@ public class GPSTracker extends Service implements LocationListener {
             PreferenceUtil.getInstance(GPSTracker.this).setValue(Constants.PrefKey.LNG_LOCATION, "" + location.getLongitude());
 
             MyApplication.getInstance().setMyLocation(new MyLocation("", "", "", location.getLatitude(), location.getLongitude()));
-            Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(new Runnable() {
-
-                @Override
-                public void run() {
-                    try {
-                        Toast.makeText(GPSTracker.this,location.getLatitude()+"----"+location.getLongitude(),Toast.LENGTH_SHORT).show();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
+//            Handler handler = new Handler(Looper.getMainLooper());
+//            handler.post(new Runnable() {
+//
+//                @Override
+//                public void run() {
+//                    try {
+//                        Toast.makeText(GPSTracker.this,location.getLatitude()+"----"+location.getLongitude(),Toast.LENGTH_SHORT).show();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
         } catch (Exception e) {
             e.printStackTrace();
         }

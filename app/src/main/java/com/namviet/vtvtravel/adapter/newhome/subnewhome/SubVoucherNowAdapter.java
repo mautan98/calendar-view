@@ -72,7 +72,7 @@ public class SubVoucherNowAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
 
         public void bindItem(int position) {
-            Glide.with(context).load(itemAppVoucherNowResponse.getItems().get(position).getAvatarUri()).into(imvBanner);
+            Glide.with(context).load(itemAppVoucherNowResponse.getItems().get(position).getHomeUri()).into(imvBanner);
             imvBanner.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
