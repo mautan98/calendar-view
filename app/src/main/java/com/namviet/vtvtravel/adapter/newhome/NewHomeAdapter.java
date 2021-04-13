@@ -115,7 +115,6 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private NewHomeFragment newHomeFragment;
     private BaseViewModel viewModel;
 
-
     public class TypeString {
         public static final String APP_SEARCH_BOX = "APP_SEARCH_BOX";
         public static final String APP_VOUCHER = "APP_VOUCHER";
@@ -133,7 +132,6 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public static final String APP_RECENTLY_VIEWED = "APP_RECENTLY_VIEWED";
         public static final String APP_HOME = "APP_HOME";
     }
-
 
     public NewHomeAdapter(Context context, HomeServiceResponse homeServiceResponse, LoadData loadData, ClickUserView clickUserView,
                           ClickItemSmallLocation clickItemSmallLocation, ClickSearch clickSearch, NewHomeFragment newHomeFragment, BaseViewModel viewModel) {
@@ -355,8 +353,8 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            subHeaderAdapter = new SubHeaderAdapter(homeServiceResponse.getData().get(position).getMenus(), context);
+            String url_deal = homeServiceResponse.getData().get(2).getLink_home_deal();
+            subHeaderAdapter = new SubHeaderAdapter(homeServiceResponse.getData().get(position).getMenus(),url_deal, context);
             rclHeader.setAdapter(subHeaderAdapter);
 
         }

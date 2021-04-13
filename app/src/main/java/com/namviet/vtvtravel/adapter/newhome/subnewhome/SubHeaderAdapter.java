@@ -3,6 +3,8 @@ package com.namviet.vtvtravel.adapter.newhome.subnewhome;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
+import com.namviet.vtvtravel.response.newhome.HomeServiceResponse;
 import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f3.commingsoon.view.ComingSoonActivity;
 import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
@@ -24,10 +27,12 @@ public class SubHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private static final int TYPE_ITEM = 0;
     private List<ItemHomeService.Item> items = new ArrayList<>();
     private Context context;
+    private String mUrlDeal;
 
-    public SubHeaderAdapter(List<ItemHomeService.Item> items, Context context) {
+    public SubHeaderAdapter(List<ItemHomeService.Item> items, String urlDeal, Context context) {
         this.items = items;
         this.context = context;
+        this.mUrlDeal = urlDeal;
     }
 
     @Override
@@ -86,7 +91,7 @@ public class SubHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 //                        e.printStackTrace();
 //                    }
                     try {
-                        ComingSoonActivity.Companion.openActivity(context, items.get(getAdapterPosition()).getName());
+                        ComingSoonActivity.Companion.openActivity(context, items.get(getAdapterPosition()).getName(),mUrlDeal);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

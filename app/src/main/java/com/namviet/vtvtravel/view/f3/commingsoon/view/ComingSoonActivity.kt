@@ -13,6 +13,7 @@ import com.namviet.vtvtravel.view.f2.virtualswitchboard.VirtualSwitchBoardActivi
 
 class ComingSoonActivity : BaseActivityNew<ActivityCommingSoonBinding>() {
     private var type: String? = null
+    private var url: String? = null
 
     override fun getLayoutRes(): Int {
         return R.layout.activity_comming_soon
@@ -24,6 +25,7 @@ class ComingSoonActivity : BaseActivityNew<ActivityCommingSoonBinding>() {
 
     override fun getDataFromIntent() {
         type = intent.getStringExtra(Constants.IntentKey.DATA)
+        url = intent.getStringExtra(Constants.IntentKey.URL_DEAL)
     }
 
     override fun doAfterOnCreate() {
@@ -35,13 +37,14 @@ class ComingSoonActivity : BaseActivityNew<ActivityCommingSoonBinding>() {
     }
 
     override fun initFragment(): BaseFragment<*> {
-        return ComingSoonFragment(type)
+        return ComingSoonFragment(type,url)
     }
 
     companion object{
-        fun openActivity(context: Context, type: String) {
+        fun openActivity(context: Context, type: String, url: String) {
             var intent = Intent(context, ComingSoonActivity::class.java)
             intent.putExtra(Constants.IntentKey.DATA, type)
+            intent.putExtra(Constants.IntentKey.URL_DEAL, url)
             context.startActivity(intent)
         }
     }
