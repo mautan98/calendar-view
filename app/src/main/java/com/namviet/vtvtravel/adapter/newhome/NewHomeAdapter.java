@@ -9,6 +9,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -1099,6 +1101,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         .build();
                 jwplayer.load(pi);
             } catch (Exception e) {
+                Log.e("loadLiveTV", e.getMessage()+"");
                 e.printStackTrace();
             }
 
