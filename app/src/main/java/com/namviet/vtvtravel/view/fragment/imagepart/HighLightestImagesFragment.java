@@ -140,6 +140,12 @@ public class HighLightestImagesFragment extends BaseFragment<F2FragmentHighLight
     @Override
     public void update(Observable observable, Object o) {
         hideLoading();
+        try {
+            getBinding().shimmerViewContainer.stopShimmer();
+            getBinding().shimmerViewContainer.setVisibility(View.GONE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (observable instanceof ImagePartViewModel && null != o) {
             if (o instanceof ItemImagePartResponse) {
                 ItemImagePartResponse response = (ItemImagePartResponse) o;

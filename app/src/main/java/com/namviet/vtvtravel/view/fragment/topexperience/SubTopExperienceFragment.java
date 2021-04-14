@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.view.fragment.topexperience;
 
 import android.annotation.SuppressLint;
+import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -103,6 +104,12 @@ public class SubTopExperienceFragment extends BaseFragment<F2FragmentSubTopExper
 
     @Override
     public void update(Observable observable, Object o) {
+        try {
+            getBinding().shimmerViewContainer.stopShimmer();
+            getBinding().shimmerViewContainer.setVisibility(View.GONE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (observable instanceof SubTopExperienceViewModel && null != o) {
             if (o instanceof SubTopExperienceResponse) {
                 SubTopExperienceResponse response = (SubTopExperienceResponse) o;
