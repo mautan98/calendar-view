@@ -16,8 +16,6 @@ import java.util.*
 @SuppressLint("ValidFragment")
 class ResultNewsSearchFragment(private var resultSearchFragment: ResultSearchFragment?) : BaseFragment<F2FragmentSearchNewsResultBinding>() {
 
-    constructor()
-
     private var subTravelNewsAdapter : SubTravelNewsAdapter? = null
 
     private var travels : ArrayList<Travel>?  = ArrayList();
