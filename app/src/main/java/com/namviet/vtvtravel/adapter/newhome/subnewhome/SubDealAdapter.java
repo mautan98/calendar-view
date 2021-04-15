@@ -129,7 +129,7 @@ public class SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
             tvName.setText(itemList.get(position).getName());
-            tvUserTotal.setText(itemList.get(position).getUserTotal() + " người đang săn deal");
+            tvUserTotal.setText(itemList.get(position).getUserTotal() + " người đang săn CTKM");
             try {
                 if(itemList.get(position).getDiscount() != null) {
                     tvDiscount.setText("-" + itemList.get(position).getDiscount() + "%");
