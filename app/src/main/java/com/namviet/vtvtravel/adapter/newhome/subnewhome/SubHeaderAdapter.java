@@ -46,7 +46,7 @@ public class SubHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
         if (viewType == TYPE_ITEM) {
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_item_home_header, parent, false);
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_item_home_header_2, parent, false);
             return new HeaderViewHolder(v);
         }
         return null;
