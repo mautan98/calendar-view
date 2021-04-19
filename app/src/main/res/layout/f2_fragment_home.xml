@@ -76,6 +76,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <RelativeLayout
+                    android:layout_marginTop="29dp"
                     android:id="@+id/rlToolBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
