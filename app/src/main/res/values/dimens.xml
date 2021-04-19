@@ -7,7 +7,8 @@
     <dimen name="_14sdp">14sp</dimen>
     <dimen name="height_item_video">392dp</dimen>
 
-
+    <dimen name="dp_1">2dp</dimen>
+    <dimen name="dp_9">9dp</dimen>
 
     <dimen name="dimen320dp">312dp</dimen>
 

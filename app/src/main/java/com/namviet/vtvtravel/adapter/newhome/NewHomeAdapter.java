@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -76,6 +77,7 @@ import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
+import com.zhpan.indicator.IndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -92,6 +94,7 @@ import io.reactivex.schedulers.Schedulers;
 import me.crosswall.lib.coverflow.CoverFlow;
 import me.crosswall.lib.coverflow.core.PageItemClickListener;
 import me.crosswall.lib.coverflow.core.PagerContainer;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int APP_SEARCH_BOX = 0;
@@ -298,13 +301,14 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private ViewPager vpPromotion;
         private LinearLayout layoutSearch;
         private SubSlideImageInHeaderAdapter subSlideImageInHeaderAdapter;
+        private IndicatorView indicatorView;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
             rclHeader = itemView.findViewById(R.id.rclHeader);
             layoutSearch = itemView.findViewById(R.id.layoutSearch);
             vpPromotion = itemView.findViewById(R.id.vpPromotionSlide);
-
+            indicatorView = (IndicatorView)  itemView.findViewById(R.id.indicator_view);
             layoutSearch.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -316,8 +320,33 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public void bindItem(int position) {
             try {
-                subSlideImageInHeaderAdapter = new SubSlideImageInHeaderAdapter(context, homeServiceResponse.getData().get(position).getBackground_urls());
+                subSlideImageInHeaderAdapter = new SubSlideImageInHeaderAdapter(context, homeServiceResponse.getData().get(position).getBackground_urls(), new SubSlideImageInHeaderAdapter.IOnSlideImageHeaderClick() {
+                    @Override
+                    public void onSlideImageHeaderClick(int position) {
+                        Toast.makeText(context, "Banner clicked: "+position, Toast.LENGTH_SHORT).show();
+                    }
+                });
                 vpPromotion.setAdapter(subSlideImageInHeaderAdapter);
+                OverScrollDecoratorHelper.setUpOverScroll(vpPromotion);
+                indicatorView.setPageSize(vpPromotion.getAdapter().getCount());
+                indicatorView.setSliderHeight(context.getResources().getDimension(R.dimen.dp_1));
+                indicatorView.setSliderWidth(context.getResources().getDimension(R.dimen.dp_9));
+                vpPromotion.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                        indicatorView.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                    }
+
+                    @Override
+                    public void onPageSelected(int position) {
+                        indicatorView.onPageSelected(position);
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+
+                    }
+                });
             } catch (Exception e) {
                 e.printStackTrace();
             }

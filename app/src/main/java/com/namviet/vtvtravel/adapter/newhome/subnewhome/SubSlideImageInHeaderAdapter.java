@@ -16,10 +16,13 @@ import java.util.List;
 public class SubSlideImageInHeaderAdapter extends PagerAdapter {
     private Context context;
     private List<String> strings;
-
-    public SubSlideImageInHeaderAdapter(Context context, List<String> strings) {
+    IOnSlideImageHeaderClick iOnSlideImageHeaderClick;
+    public SubSlideImageInHeaderAdapter(Context context, List<String> strings,IOnSlideImageHeaderClick iOnSlideImageHeaderClick) {
         this.context = context;
         this.strings = strings;
+        this.iOnSlideImageHeaderClick = iOnSlideImageHeaderClick;
+        this.strings.addAll(strings);
+        this.strings.addAll(strings);
     }
 
     @Override
@@ -28,7 +31,14 @@ public class SubSlideImageInHeaderAdapter extends PagerAdapter {
 
         view = LayoutInflater.from(context).inflate(R.layout.f2_item_image_home, null);
         ImageView imageView = view.findViewById(R.id.imgAvatar2);
-
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(iOnSlideImageHeaderClick != null){
+                    iOnSlideImageHeaderClick.onSlideImageHeaderClick(position);
+                }
+            }
+        });
         Glide.with(context).load(strings.get(position)).into(imageView);
         container.addView(view);
 
@@ -55,4 +65,7 @@ public class SubSlideImageInHeaderAdapter extends PagerAdapter {
         return (view == object);
     }
 
+    public interface IOnSlideImageHeaderClick{
+        void onSlideImageHeaderClick(int postion);
+    }
 }

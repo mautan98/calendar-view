@@ -47,6 +47,8 @@ import android.test.mock.MockPackageManager;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -483,6 +485,10 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
     @Override
     protected int getLayoutId() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
         return R.layout.activity_main;
     }
 
