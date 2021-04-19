@@ -27,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.Utils;
 import com.namviet.vtvtravel.adapter.HomeMenuAdapter;
 import com.namviet.vtvtravel.adapter.newhome.NewHomeAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
@@ -63,6 +64,8 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Observable;
 import java.util.Observer;
+
+import io.sentry.util.Util;
 
 
 public class HomeFragment extends MainFragment implements Observer, HomeMenuFooter.HomeBarBottomClick {
@@ -178,12 +181,18 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             @Override
             public void onClick(View view) {
                 if(isShowBottomMenu){
+//                    Utils.fadeOut(binding.layoutBottomMenu);
+//                    Utils.fadeOut(binding.viewCoverBottomMenu);
                     binding.layoutBottomMenu.setVisibility(View.GONE);
                     binding.viewCoverBottomMenu.setVisibility(View.GONE);
+                    binding.btnShowBottomMenu.setRotation(45);
                     isShowBottomMenu = false;
                 }else {
+                    binding.btnShowBottomMenu.setRotation(0);
                     binding.layoutBottomMenu.setVisibility(View.VISIBLE);
                     binding.viewCoverBottomMenu.setVisibility(View.VISIBLE);
+//                    Utils.fadeIn(binding.layoutBottomMenu);
+//                    Utils.fadeIn(binding.viewCoverBottomMenu);
                     isShowBottomMenu = true;
                 }
             }

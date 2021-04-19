@@ -205,6 +205,7 @@
 
 
         <ImageView
+            android:rotation="45"
             android:id="@+id/btnShowBottomMenu"
             android:layout_width="60dp"
             android:layout_height="60dp"

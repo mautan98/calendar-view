@@ -5,6 +5,7 @@ import android.graphics.Point;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
 
 import java.text.ParseException;
@@ -101,5 +102,15 @@ public class Utils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static void fadeOut(View view) {
+        view.setAlpha(1.0f);
+        view.animate().alpha(0f).setDuration(500);
+    }
+
+    public static void fadeIn(View view) {
+        view.setAlpha(0f);
+        view.animate().alpha(1.0f).setDuration(500);
     }
 }
