@@ -55,7 +55,11 @@ public class ChatActivity extends BaseActivityNew<F2ActivityChatBinding> {
     }
 
     public void initFragment2(){
-        getSupportFragmentManager().beginTransaction().replace(getFrame(), new ChatFragmentV2()).commit();
+        try {
+            getSupportFragmentManager().beginTransaction().replace(getFrame(), new ChatFragmentV2()).commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Subscribe

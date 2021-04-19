@@ -1,5 +1,7 @@
 package com.namviet.vtvtravel.response.travelnews;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.BaseResponse;
 
@@ -32,6 +34,8 @@ public class DetailTravelNewsResponse extends BaseResponse implements Serializab
         private String count_like;
         private String count_comment;
         private String link_share;
+        @Expose
+        @SerializedName("near_by")
         private NearBy nearBy;
         private String short_description;
         private boolean isLiked;

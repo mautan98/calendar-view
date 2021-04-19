@@ -350,19 +350,23 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
                 mapView.getMapAsync(new OnMapReadyCallback() {
                     @Override
                     public void onMapReady(GoogleMap googleMap) {
-                        mGoogleMap = googleMap;
-                        addMyLocation(Double.parseDouble(tab.getLat()), Double.parseDouble(tab.getLng()), tab.getAddress());
+                        try {
+                            mGoogleMap = googleMap;
+                            addMyLocation(Double.parseDouble(tab.getLat()), Double.parseDouble(tab.getLng()), tab.getAddress());
 
-                        mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                            @Override
-                            public void onMapClick(LatLng latLng) {
-                                try {
-                                    MapActivity.startScreen(context, tab.getLat(), tab.getLng(), tab.getAddress());
-                                } catch (Exception e) {
-                                    e.printStackTrace();
+                            mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                                @Override
+                                public void onMapClick(LatLng latLng) {
+                                    try {
+                                        MapActivity.startScreen(context, tab.getLat(), tab.getLng(), tab.getAddress());
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
 //                mapFragment = (SupportMapFragment) detailSmallLocationFragment.getChildFragmentManager()
