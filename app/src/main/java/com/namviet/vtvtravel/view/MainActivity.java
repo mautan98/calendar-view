@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.view;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -19,6 +20,7 @@ import android.content.pm.Signature;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -47,6 +49,8 @@ import android.test.mock.MockPackageManager;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -485,7 +489,6 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
     protected int getLayoutId() {
         return R.layout.activity_main;
     }
-
     public boolean isAddToBackStack() {
         return addToBackStack;
     }

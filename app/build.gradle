@@ -150,6 +150,8 @@ dependencies {
     implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.2.1"
     // overscroll
     implementation 'me.everything:overscroll-decor-android:1.1.0'
+    //viewpagerindicator
+    implementation 'com.github.zhpanvip:viewpagerindicator:1.2.0'
 
 }
 apply plugin: 'com.google.gms.google-services'

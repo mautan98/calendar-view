@@ -3,6 +3,7 @@ package com.namviet.vtvtravel.adapter.newhome;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
+
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 import androidx.cardview.widget.CardView;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -34,6 +36,7 @@ import com.namviet.vtvtravel.adapter.newhome.subnewhome.SubLiveTvAdapter;
 import com.namviet.vtvtravel.adapter.newhome.subnewhome.SubNearByAdapter;
 import com.namviet.vtvtravel.adapter.newhome.subnewhome.SubPromotionPartnerAdapter;
 import com.namviet.vtvtravel.adapter.newhome.subnewhome.SubRecentViewAdapter;
+import com.namviet.vtvtravel.adapter.newhome.subnewhome.SubSlideImageInHeaderAdapter;
 import com.namviet.vtvtravel.adapter.newhome.subnewhome.SubSuggestionLocationAdapter;
 import com.namviet.vtvtravel.adapter.newhome.subnewhome.SubVideoAdapter;
 import com.namviet.vtvtravel.adapter.newhome.subnewhome.SubVoucherNowAdapter;
@@ -74,6 +77,7 @@ import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
+import com.zhpan.indicator.IndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -90,6 +94,7 @@ import io.reactivex.schedulers.Schedulers;
 import me.crosswall.lib.coverflow.CoverFlow;
 import me.crosswall.lib.coverflow.core.PageItemClickListener;
 import me.crosswall.lib.coverflow.core.PagerContainer;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int APP_SEARCH_BOX = 0;
@@ -193,7 +198,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
         if (viewType == APP_SEARCH_BOX) {
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_home_layout_header, parent, false);
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_home_layout_header_2, parent, false);
             return new HeaderViewHolder(v);
         } else if (viewType == APP_VOUCHER) {
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_home_layout_voucher, parent, false);
@@ -293,35 +298,17 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         private SubHeaderAdapter subHeaderAdapter;
         private RecyclerView rclHeader;
-
-        private ImageView imgAvatar;
-        private TextView tvName;
-        private TextView tvLoginRightNow;
-
-        private LinearLayout layoutUser;
-        private TextView tvLevel;
-        private ImageView imgBanner;
-        private CardView layoutSearch;
+        private ViewPager vpPromotion;
+        private LinearLayout layoutSearch;
+        private SubSlideImageInHeaderAdapter subSlideImageInHeaderAdapter;
+        private IndicatorView indicatorView;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
             rclHeader = itemView.findViewById(R.id.rclHeader);
-            imgBanner = itemView.findViewById(R.id.imgBanner);
-
-            imgAvatar = itemView.findViewById(R.id.imgAvatar);
-            tvName = itemView.findViewById(R.id.tvName);
-            tvLoginRightNow = itemView.findViewById(R.id.tvLoginRightNow);
-            layoutUser = itemView.findViewById(R.id.layoutUser);
             layoutSearch = itemView.findViewById(R.id.layoutSearch);
-            tvLevel = itemView.findViewById(R.id.tvLevel);
-
-            layoutUser.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    clickUserView.onClickUserView();
-                }
-            });
-
+            vpPromotion = itemView.findViewById(R.id.vpPromotionSlide);
+            indicatorView = (IndicatorView)  itemView.findViewById(R.id.indicator_view);
             layoutSearch.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -333,30 +320,40 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public void bindItem(int position) {
             try {
-                tvName.setText(homeServiceResponse.getData().get(position).getUsername());
-                tvLoginRightNow.setText(homeServiceResponse.getData().get(position).getDescriptionUser());
-                Account account = MyApplication.getInstance().getAccount();
-                if (account != null && account.isLogin()) {
-                    tvLevel.setVisibility(View.VISIBLE);
-                } else {
-                    tvLevel.setVisibility(View.GONE);
-                }
-                if (!"".equals(homeServiceResponse.getData().get(position).getAvatar()) && homeServiceResponse.getData().get(position).getAvatar() != null && !"0".equals(homeServiceResponse.getData().get(position).getAvatar())) {
-                    Glide.with(context).load(homeServiceResponse.getData().get(position).getAvatar()).into(imgAvatar);
-                } else {
-                    imgAvatar.setImageResource(R.drawable.f2_defaut_user);
-                }
+                subSlideImageInHeaderAdapter = new SubSlideImageInHeaderAdapter(context, homeServiceResponse.getData().get(position).getBackground_urls(), new SubSlideImageInHeaderAdapter.IOnSlideImageHeaderClick() {
+                    @Override
+                    public void onSlideImageHeaderClick(int position) {
+                        Toast.makeText(context, "Banner clicked: "+position, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                vpPromotion.setAdapter(subSlideImageInHeaderAdapter);
+                OverScrollDecoratorHelper.setUpOverScroll(vpPromotion);
+                indicatorView.setPageSize(vpPromotion.getAdapter().getCount());
+                indicatorView.setSliderHeight(context.getResources().getDimension(R.dimen.dp_1));
+                indicatorView.setSliderWidth(context.getResources().getDimension(R.dimen.dp_9));
+                vpPromotion.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                        indicatorView.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                    }
 
-                try {
-                    Glide.with(context).load(homeServiceResponse.getData().get(position).getBackground_urls().get(0)).placeholder(R.drawable.test_banner).error(R.drawable.test_banner).into(imgBanner);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                    @Override
+                    public void onPageSelected(int position) {
+                        indicatorView.onPageSelected(position);
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+
+                    }
+                });
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+
             String url_deal = homeServiceResponse.getData().get(2).getLink_home_deal();
-            subHeaderAdapter = new SubHeaderAdapter(homeServiceResponse.getData().get(position).getMenus(),url_deal, context);
+            subHeaderAdapter = new SubHeaderAdapter(homeServiceResponse.getData().get(position).getMenus(), url_deal, context);
             rclHeader.setAdapter(subHeaderAdapter);
 
         }
@@ -418,6 +415,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private TextView btnSeeMore;
         private ShimmerFrameLayout mShimmerFrameLayout;
         private int mPosition;
+
         public SuggestionLocationViewHolder(View itemView) {
             super(itemView);
             rclContent = itemView.findViewById(R.id.rclContent);
@@ -492,7 +490,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         @Override
         public void onTabClick(String code) {
             try {
-                if(code.equals(TypeString.APP_EXPERIENCES_NEARBY)){
+                if (code.equals(TypeString.APP_EXPERIENCES_NEARBY)) {
                     ItemAppExperienceResponse itemAppExperienceResponse = (ItemAppExperienceResponse) homeServiceResponse.getData().get(mPosition).getDataExtraSecond();
                     if (itemAppExperienceResponse == null) {
                         List<ItemHomeService.Item> items = homeServiceResponse.getData().get(APP_EXPERIENCES_NEARBY).getItems();
@@ -539,7 +537,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 //                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getLinkVoucher()));
 //                        context.startActivity(browserIntent);
 
-                        ListVoucherResponse.Data.Voucher voucher = new Gson().fromJson(  new Gson().toJson(item), ListVoucherResponse.Data.Voucher.class);
+                        ListVoucherResponse.Data.Voucher voucher = new Gson().fromJson(new Gson().toJson(item), ListVoucherResponse.Data.Voucher.class);
                         TravelVoucherActivity.startScreenDetail(context, true, TravelVoucherActivity.OpenType.DETAIL, voucher);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -817,6 +815,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private LinearLayout btnReadMore;
         private ShimmerFrameLayout mShimmerFrameLayout;
         private int mPosition;
+
         public DiscoverViewHolder(View itemView) {
             super(itemView);
             rclTab = itemView.findViewById(R.id.rclTab);
@@ -876,7 +875,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         @Override
         public void onTabClick(String code) {
             try {
-                if(code.equals(TypeString.APP_DISCOVER)){
+                if (code.equals(TypeString.APP_DISCOVER)) {
                     ItemAppDiscoverResponse itemAppDiscoverResponse = (ItemAppDiscoverResponse) homeServiceResponse.getData().get(mPosition).getDataExtraSecond();
                     if (itemAppDiscoverResponse == null) {
                         List<ItemHomeService.Item> items = homeServiceResponse.getData().get(mPosition).getItems();
@@ -965,6 +964,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private TextView btnSeeMore;
         private int mPosition;
         private ShimmerFrameLayout mShimmerFrameLayout;
+
         public VoucherNowViewHolder(View itemView) {
             super(itemView);
             rclContent = itemView.findViewById(R.id.rclContent);
@@ -1027,7 +1027,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         @Override
         public void onTabClick(String code) {
             try {
-                if(TypeString.APP_VOUCHER_NOW.equals(code)){
+                if (TypeString.APP_VOUCHER_NOW.equals(code)) {
                     ItemAppVoucherNowResponse itemAppVoucherNowResponse = (ItemAppVoucherNowResponse) homeServiceResponse.getData().get(mPosition).getDataExtraSecond();
                     if (itemAppVoucherNowResponse == null) {
                         List<ItemHomeService.Item> items = homeServiceResponse.getData().get(mPosition).getItems();
@@ -1101,7 +1101,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         .build();
                 jwplayer.load(pi);
             } catch (Exception e) {
-                Log.e("loadLiveTV", e.getMessage()+"");
+                Log.e("loadLiveTV", e.getMessage() + "");
                 e.printStackTrace();
             }
 
