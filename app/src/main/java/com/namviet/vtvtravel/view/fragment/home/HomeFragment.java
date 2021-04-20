@@ -52,6 +52,7 @@ import com.namviet.vtvtravel.view.f2.ChatActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.landingpage.LandingPageActivity;
 import com.namviet.vtvtravel.view.f2.virtualswitchboard.VirtualSwitchBoardActivity;
+import com.namviet.vtvtravel.view.f3.floor.view.FloorActivity;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.view.fragment.f2booking.BookingFragment;
 import com.namviet.vtvtravel.view.fragment.f2menu.MenuFragment;
@@ -206,6 +207,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             @Override
             public void onClick(View view) {
                 hideBottomMenu();
+                FloorActivity.Companion.openActivity(mActivity);
 
             }
         });
@@ -254,6 +256,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
     }
 
     private void hideBottomMenu(){
+        binding.btnShowBottomMenu.setRotation(45);
         binding.layoutBottomMenu.setVisibility(View.GONE);
         binding.viewCoverBottomMenu.setVisibility(View.GONE);
         isShowBottomMenu = false;
