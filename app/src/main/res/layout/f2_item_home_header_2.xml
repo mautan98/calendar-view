@@ -22,21 +22,21 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:background="@drawable/f2_bg_image_top_home"
                 android:id="@+id/imgAvatar"
                 android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/f2_icon_hotel" />
+                android:layout_height="40dp" />
 
 
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="7dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Khách sạn"
                 android:textColor="@color/md_black_1000"
-                android:textSize="9dp" />
+                android:textSize="10dp" />
 
         </LinearLayout>
 

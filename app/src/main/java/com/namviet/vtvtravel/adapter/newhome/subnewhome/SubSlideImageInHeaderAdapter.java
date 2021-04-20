@@ -21,14 +21,11 @@ public class SubSlideImageInHeaderAdapter extends PagerAdapter {
         this.context = context;
         this.strings = strings;
         this.iOnSlideImageHeaderClick = iOnSlideImageHeaderClick;
-        this.strings.addAll(strings);
-        this.strings.addAll(strings);
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View view;
-
         view = LayoutInflater.from(context).inflate(R.layout.f2_item_image_home, null);
         ImageView imageView = view.findViewById(R.id.imgAvatar2);
         imageView.setOnClickListener(new View.OnClickListener() {
