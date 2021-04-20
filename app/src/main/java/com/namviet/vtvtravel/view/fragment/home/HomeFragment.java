@@ -29,6 +29,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.Utils;
 import com.namviet.vtvtravel.adapter.HomeMenuAdapter;
 import com.namviet.vtvtravel.adapter.newhome.NewHomeAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
@@ -66,12 +67,16 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.Observable;
 import java.util.Observer;
 
+import io.sentry.util.Util;
+
 
 public class HomeFragment extends MainFragment implements Observer, HomeMenuFooter.HomeBarBottomClick {
     private NewHomeViewModel viewModel;
     private FragmentHomeBinding binding;
     private HomeViewModel homeViewModel;
     private HomeMenuAdapter adapter;
+
+    private boolean isShowBottomMenu = false;
 
     private Fragment mFragment = null;
 
@@ -173,7 +178,85 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             }
         });
 
+
+        binding.btnShowBottomMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isShowBottomMenu){
+//                    Utils.fadeOut(binding.layoutBottomMenu);
+//                    Utils.fadeOut(binding.viewCoverBottomMenu);
+                    binding.layoutBottomMenu.setVisibility(View.GONE);
+                    binding.viewCoverBottomMenu.setVisibility(View.GONE);
+                    binding.btnShowBottomMenu.setRotation(45);
+                    isShowBottomMenu = false;
+                }else {
+                    binding.btnShowBottomMenu.setRotation(0);
+                    binding.layoutBottomMenu.setVisibility(View.VISIBLE);
+                    binding.viewCoverBottomMenu.setVisibility(View.VISIBLE);
+//                    Utils.fadeIn(binding.layoutBottomMenu);
+//                    Utils.fadeIn(binding.viewCoverBottomMenu);
+                    isShowBottomMenu = true;
+                }
+            }
+        });
+
+
+
+        binding.imgSan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideBottomMenu();
+
+            }
+        });
+
+        binding.imgCreateTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideBottomMenu();
+
+            }
+        });
+
+        binding.imgPrize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideBottomMenu();
+
+            }
+        });
+
+        binding.imgLuckyWheel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideBottomMenu();
+
+            }
+        });
+
+        binding.viewCoverBottomMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideBottomMenu();
+            }
+        });
+
+
+        binding.viewAboveBottomMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideBottomMenu();
+            }
+        });
+
+
         updateViews();
+    }
+
+    private void hideBottomMenu(){
+        binding.layoutBottomMenu.setVisibility(View.GONE);
+        binding.viewCoverBottomMenu.setVisibility(View.GONE);
+        isShowBottomMenu = false;
     }
 
     @Override
@@ -467,11 +550,19 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
                     tvHome.setTextColor(Color.parseColor("#65676B"));
                 }
 
+
+
+
                 ImageView imgHome = tabHome.findViewById(R.id.imgAvatar);
                 if(i == 0){
                     Glide.with(mActivity).load(menuResponse.getData().getMenus().getFooter().get(i).getIcon_enable_url()).into(imgHome);
                 }else {
                     Glide.with(mActivity).load(menuResponse.getData().getMenus().getFooter().get(i).getIcon_url()).into(imgHome);
+                }
+
+                if(i == 2){
+                    tvHome.setVisibility(View.GONE);
+                    imgHome.setVisibility(View.GONE);
                 }
 
                 binding.tabLayoutMain.addTab(binding.tabLayoutMain.newTab().setCustomView(tabHome));
@@ -499,7 +590,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
                     onMomentClick(0);
                     break;
                 case "APP_FOOTER_BOOKING":
-                    onSuggestClick(0);
+//                    onSuggestClick(0);
                     break;
                 case "APP_FOOTER_VIDEO":
                     onVideoClick(0);
