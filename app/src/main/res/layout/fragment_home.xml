@@ -71,10 +71,10 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginEnd="50dp"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginEnd="45dp"
                     android:src="@drawable/f2_ic_menu_background"
-                    app:layout_constraintDimensionRatio="1142:835"
+                    app:layout_constraintDimensionRatio="285:208"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -100,11 +100,12 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:fontFamily="@font/roboto_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="3.5dp"
                     android:text="Sàn"
-                    android:textSize="12dp"
+                    android:textSize="10dp"
                     app:layout_constraintEnd_toEndOf="@+id/imgSan"
                     app:layout_constraintStart_toStartOf="@+id/imgSan"
                     app:layout_constraintTop_toBottomOf="@+id/imgSan" />
@@ -122,11 +123,12 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:fontFamily="@font/roboto_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="3.5dp"
                     android:text="Sàn giẳi thưởng"
-                    android:textSize="12dp"
+                    android:textSize="10dp"
                     app:layout_constraintEnd_toEndOf="@+id/imgPrize"
                     app:layout_constraintStart_toStartOf="@+id/imgPrize"
                     app:layout_constraintTop_toBottomOf="@+id/imgPrize" />
@@ -143,12 +145,13 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:fontFamily="@font/roboto_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="3.5dp"
                     android:gravity="center"
                     android:text="Tự tạo\n lịch trình"
-                    android:textSize="12dp"
+                    android:textSize="10dp"
                     app:layout_constraintEnd_toEndOf="@+id/imgCreateTrip"
                     app:layout_constraintStart_toStartOf="@+id/imgCreateTrip"
                     app:layout_constraintTop_toBottomOf="@+id/imgCreateTrip" />
@@ -166,12 +169,13 @@
 
 
                 <TextView
+                    android:fontFamily="@font/roboto_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="3.5dp"
                     android:gravity="center"
                     android:text="Vòng quay\n may mắn"
-                    android:textSize="12dp"
+                    android:textSize="10dp"
                     app:layout_constraintEnd_toEndOf="@+id/imgLuckyWheel"
                     app:layout_constraintStart_toStartOf="@+id/imgLuckyWheel"
                     app:layout_constraintTop_toBottomOf="@+id/imgLuckyWheel" />
@@ -211,7 +215,7 @@
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="7dp"
             android:src="@drawable/f2_ic_menu_x" />
 
 
