@@ -51,13 +51,16 @@ public class SubVideoAdapter extends RecyclerView.Adapter<SubVideoAdapter.Header
     @Override
     public SubVideoAdapter.HeaderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.f2_item_video, parent, false);
-
         return new HeaderViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SubVideoAdapter.HeaderViewHolder holder, int position) {
-        holder.bindItem(position);
+        try {
+            holder.bindItem(position);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -101,26 +104,41 @@ public class SubVideoAdapter extends RecyclerView.Adapter<SubVideoAdapter.Header
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            int value = videos.get(position).getView_count();
-            if (value > 1000) {
-                int finalValue = Math.round(value / 1000 * 10) / 10;
-                tvView.setText(String.valueOf(finalValue) + "k");
-            } else {
-                tvView.setText(String.valueOf(value));
-            }
-            tvDate.setText(DateUtltils.timeToString(videos.get(position).getCreated()));
-            tvTitle.setText(videos.get(position).getName());
-            tvType.setText(videos.get(position).getCategory().getName());
-
-
-            tagVideoAdapter = new TagVideoAdapter(context, videos.get(position).getHash_tags(), new TagVideoAdapter.ClickItemTagVideo() {
-                @Override
-                public void onClickItemTagVideo(String tag) {
-
-                    TagVideoActivity.startScreen((Activity) context, tag);
+            try {
+                int value = videos.get(position).getView_count();
+                if (value > 1000) {
+                    int finalValue = Math.round(value / 1000 * 10) / 10;
+                    tvView.setText(String.valueOf(finalValue) + "k");
+                } else {
+                    tvView.setText(String.valueOf(value));
                 }
-            });
-            rclTag.setAdapter(tagVideoAdapter);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                tvDate.setText(DateUtltils.timeToString(videos.get(position).getCreated()));
+                tvTitle.setText(videos.get(position).getName());
+                if(videos.get(position).getCategory() != null){
+                    tvType.setText(videos.get(position).getCategory().getName());
+                }
+                tvType.setText(videos.get(position).getCategory_tree_name());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            try {
+                tagVideoAdapter = new TagVideoAdapter(context, videos.get(position).getHash_tags(), new TagVideoAdapter.ClickItemTagVideo() {
+                    @Override
+                    public void onClickItemTagVideo(String tag) {
+
+                        TagVideoActivity.startScreen((Activity) context, tag);
+                    }
+                });
+                rclTag.setAdapter(tagVideoAdapter);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

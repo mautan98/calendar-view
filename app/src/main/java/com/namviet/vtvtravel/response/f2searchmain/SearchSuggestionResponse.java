@@ -32,13 +32,27 @@ public class SearchSuggestionResponse extends BaseResponse {
 
             @Expose
             @SerializedName("icon")
-            public String icon;
+            private String icon;
             @Expose
             @SerializedName("type")
-            public String type;
+            private String type;
             @Expose
             @SerializedName("title")
-            public String title;
+            private String title;
+            @Expose
+            @SerializedName("parent_name")
+            private String parentName;
+            @Expose
+            @SerializedName("category_code")
+            private String categoryCode;
+
+            public String getParentName() {
+                return parentName;
+            }
+
+            public void setParentName(String parentName) {
+                this.parentName = parentName;
+            }
 
             public String getIcon() {
                 return icon;
@@ -62,6 +76,14 @@ public class SearchSuggestionResponse extends BaseResponse {
 
             public void setTitle(String title) {
                 this.title = title;
+            }
+
+            public String getCategoryCode() {
+                return categoryCode;
+            }
+
+            public void setCategoryCode(String categoryCode) {
+                this.categoryCode = categoryCode;
             }
         }
     }

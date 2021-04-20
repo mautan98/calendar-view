@@ -2,54 +2,63 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="11dp"
-    android:paddingStart="12dp"
-    android:orientation="horizontal"
-    android:paddingEnd="18dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="12dp"
+    android:foreground="@drawable/ripple_effect_click"
+    android:paddingTop="11dp"
+    android:paddingEnd="18dp"
     android:paddingBottom="11dp">
 
-    <ImageView
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="3dp"
         android:layout_marginEnd="8dp"
-        android:src="@drawable/f2_ic_time"
-        android:layout_width="33dp"
-        android:layout_height="32dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:scaleType="centerCrop" />
+
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
-        android:layout_weight="1"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_weight="1"
-            android:textColor="@color/black"
-            android:textSize="14dp"
-            android:fontFamily="@font/roboto_bold"
-            android:id="@+id/tvTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Món ngon" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tvCategoryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="#9B9B9B"
-            android:textSize="14dp"
-            android:fontFamily="@font/roboto_regular"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Món ngon"
+            android:textColor="@color/black"
+            android:textSize="14dp" />
+
+        <TextView
             android:id="@+id/tvCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ăn gì -- Đồ uống" />
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Ăn gì -- Đồ uống"
+            android:textColor="#9B9B9B"
+            android:textSize="14dp" />
 
     </LinearLayout>
 
 
-
-
-
     <ImageView
-        android:layout_marginStart="10dp"
         android:layout_width="15dp"
-        android:layout_height="15dp"/>
+        android:layout_height="15dp"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/f2_ic_search_arrow_1" />
 
 
 </LinearLayout>

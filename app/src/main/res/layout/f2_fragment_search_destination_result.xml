@@ -11,6 +11,21 @@
         android:background="@color/white"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_marginStart="12dp"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/tvCountResult"
+                android:text="Kết quả..."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:id="@+id/rclContent"

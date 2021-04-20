@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
+    android:id="@+id/layoutKeyword"
     android:orientation="vertical"
     android:paddingStart="12dp"
     android:paddingTop="13dp"
@@ -17,11 +18,11 @@
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginEnd="4dp"
-            android:src="@drawable/f2_ic_time" />
+            android:src="@drawable/f2_ic_search_key" />
 
 
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/tvSearchFollow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

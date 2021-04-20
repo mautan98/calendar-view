@@ -81,6 +81,83 @@ class SearchResultViewModel : BaseViewModel() {
     }
 
 
+    fun searchAll(path: String?, keyword: String?, regionId: String?, type:String?, categoryCode: String?) {
+        val myApplication = MyApplication.getInstance()
+        val newsService = myApplication.travelService
+        val queryMap = Param.getDefault()
+        val disposable = newsService.searchAll(path, queryMap,  keyword, regionId, categoryCode)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    videoResponse ->
+                    videoResponse?.let {
+                        it.type = type
+                        requestSuccess(it)
+                    }
+                })
+                { throwable ->
+                    requestFailed(throwable!!)
+                }
+        compositeDisposable.add(disposable)
+    }
+
+    fun searchAllWithFullLink(link:String?, type: String?) {
+        val myApplication = MyApplication.getInstance()
+        val newsService = myApplication.travelService
+        val queryMap = Param.getDefault()
+        val disposable = newsService.searchAllWithFullLink( link, queryMap)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ videoResponse ->
+                    videoResponse?.let {
+                        it.type = type
+                        requestSuccess(it)
+                    }
+                })
+                { throwable ->
+                    requestFailed(throwable!!)
+                }
+        compositeDisposable.add(disposable)
+    }
+
+
+    fun searchAllVideo(path: String?, keyword: String?, regionId: String?, type:String?, categoryCode : String?) {
+        val myApplication = MyApplication.getInstance()
+        val newsService = myApplication.travelService
+        val queryMap = Param.getDefault()
+        val disposable = newsService.searchAllVideo(path, queryMap,  keyword, regionId, categoryCode)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    videoResponse ->
+                    videoResponse?.let {
+                        requestSuccess(it)
+                    }
+                })
+                { throwable ->
+                    requestFailed(throwable!!)
+                }
+        compositeDisposable.add(disposable)
+    }
+
+    fun searchAllVideoWithFullLink(link:String?, type: String?) {
+        val myApplication = MyApplication.getInstance()
+        val newsService = myApplication.travelService
+        val queryMap = Param.getDefault()
+        val disposable = newsService.searchAllVideoWithFullLink( link, queryMap)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ videoResponse ->
+                    videoResponse?.let {
+                        requestSuccess(it)
+                    }
+                })
+                { throwable ->
+                    requestFailed(throwable!!)
+                }
+        compositeDisposable.add(disposable)
+    }
+
     private fun requestSuccess(param: Any?) {
         setChanged()
         notifyObservers(param)

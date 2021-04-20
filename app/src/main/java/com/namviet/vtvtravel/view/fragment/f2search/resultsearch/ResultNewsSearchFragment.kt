@@ -8,17 +8,20 @@ import com.namviet.vtvtravel.adapter.travelnews.SubTravelNewsAdapter
 import com.namviet.vtvtravel.databinding.F2FragmentSearchNewsResultBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.model.travelnews.Travel
+import com.namviet.vtvtravel.response.f2searchmain.result.SearchType
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity
 import com.namviet.vtvtravel.view.fragment.f2search.ResultSearchFragment
-import kotlinx.android.synthetic.main.f2_fragment_search_destination.*
+import kotlinx.android.synthetic.main.f2_fragment_search_news_result.*
 import java.util.*
 
 @SuppressLint("ValidFragment")
 class ResultNewsSearchFragment(private var resultSearchFragment: ResultSearchFragment?) : BaseFragment<F2FragmentSearchNewsResultBinding>() {
 
-    private var subTravelNewsAdapter : SubTravelNewsAdapter? = null
+    private var subTravelNewsAdapter: SubTravelNewsAdapter? = null
 
-    private var travels : ArrayList<Travel>?  = ArrayList();
+    private var travels: ArrayList<Travel>? = ArrayList();
+
+    private var moreLink: String? = null
 
 
     override fun getLayoutRes(): Int {
@@ -29,20 +32,17 @@ class ResultNewsSearchFragment(private var resultSearchFragment: ResultSearchFra
 
     }
 
-    public fun setList(travels : ArrayList<Travel>?, isLoadMore: Boolean ){
-        if (isLoadMore) {
-            travels?.let { this.travels?.addAll(it) }
-        } else {
-            this.travels?.clear()
-            travels?.let { this.travels?.addAll(it) }
-        }
-
+    public fun setList(travels: ArrayList<Travel>?, moreLink: String, count: String, keyword: String) {
+        travels?.let { this.travels?.addAll(it) }
+        this.moreLink = moreLink
         subTravelNewsAdapter?.notifyDataSetChanged()
+        tvCountResult.text = "Có $count kết quả tìm kiếm tin tức khớp với \"$keyword\""
+        resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
 
     }
 
     override fun initData() {
-        subTravelNewsAdapter = SubTravelNewsAdapter(mActivity, travels, SubTravelNewsAdapter.ClickItem {travel  ->
+        subTravelNewsAdapter = SubTravelNewsAdapter(mActivity, travels, SubTravelNewsAdapter.ClickItem { travel ->
             try {
                 TravelNewsActivity.openScreenDetail(context as Activity?, TravelNewsActivity.OpenType.DETAIL, travel?.detail_link)
             } catch (e: Exception) {
@@ -50,6 +50,8 @@ class ResultNewsSearchFragment(private var resultSearchFragment: ResultSearchFra
             }
         })
         rclContent.adapter = subTravelNewsAdapter
+
+        resultSearchFragment?.searchAll(SearchType.NEWS)
     }
 
     override fun inject() {
@@ -60,7 +62,7 @@ class ResultNewsSearchFragment(private var resultSearchFragment: ResultSearchFra
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
-                    resultSearchFragment?.getMoreData()
+                    resultSearchFragment?.searchAllWithLink(moreLink, SearchType.NEWS)
                 }
             }
         })

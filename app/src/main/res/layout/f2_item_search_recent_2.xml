@@ -7,6 +7,7 @@
     android:orientation="horizontal"
     android:paddingEnd="18dp"
     android:gravity="center_vertical"
+    android:foreground="@drawable/ripple_effect_click"
     android:paddingBottom="13dp">
 
     <ImageView
@@ -18,16 +19,17 @@
 
     <TextView
         android:layout_weight="1"
-        android:textColor="@color/black"
+        android:textColor="#202020"
         android:textSize="14dp"
         android:fontFamily="@font/roboto_regular"
-        android:id="@+id/tvTitle"
+        android:id="@+id/tvRecentTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Món ngon nhất hà nội" />
 
 
     <ImageView
+        android:src="@drawable/f2_ic_search_arrow_1"
         android:layout_marginStart="10dp"
         android:layout_width="15dp"
         android:layout_height="15dp"/>

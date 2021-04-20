@@ -2,6 +2,11 @@ package com.namviet.vtvtravel.view.fragment.f2search
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.Typeface
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import android.view.LayoutInflater
@@ -25,6 +30,7 @@ import com.namviet.vtvtravel.config.Constants
 import com.namviet.vtvtravel.databinding.F2FragmentSearchBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
+import com.namviet.vtvtravel.model.Suggestion
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.model.travelnews.Travel
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse
@@ -38,10 +44,15 @@ import com.namviet.vtvtravel.response.newhome.ItemAppExperienceResponse
 import com.namviet.vtvtravel.tracking.TrackingAnalytic
 import com.namviet.vtvtravel.ultils.F2Util
 import com.namviet.vtvtravel.ultils.PreferenceUtil
+import com.namviet.vtvtravel.ultils.highlight.HighLightController
+import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import com.namviet.vtvtravel.viewmodel.f2search.SearchViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.f2_dialog_comment1.*
 import kotlinx.android.synthetic.main.f2_fragment_search.*
+import kotlinx.android.synthetic.main.f2_layout_keyword.*
+import kotlinx.android.synthetic.main.f2_layout_keyword.view.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
@@ -71,7 +82,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
     private var recentAdapter: RecentAdapter? = null
     private var searchAllLocationAdapter: SearchAllLocationAdapter? = null
     private var blockAdapter: SearchBlockAdapter? = null
-//    private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
+    private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
 
     private var regionId: String? = null;
 
@@ -95,15 +106,17 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
 
         recentAdapter = RecentAdapter(getRecentSearch(), mActivity, object : RecentAdapter.ClickItem {
             override fun onClickItem(string: String?) {
-                addFragment(ResultSearchFragment(string, regionId))
+                addFragment(ResultSearchFragment(string, regionId, ""))
                 KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
             }
         }, object : NoItem {
             override fun onNoItem(b: Boolean) {
                 if (b) {
                     tvHaveNoRecent.visibility = View.VISIBLE
+                    btnDeleteHistory.visibility = View.GONE
                 } else {
                     tvHaveNoRecent.visibility = View.GONE
+                    btnDeleteHistory.visibility = View.VISIBLE
                 }
             }
         })
@@ -126,21 +139,23 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
         rclBlock.adapter = blockAdapter
 
 
-//        searchSuggestionKeyWordAdapter = SearchSuggestionKeyWordAdapter(searchSuggestions, mActivity, object : SearchSuggestionKeyWordAdapter.ClickItem{
-//            override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
-//                try {
-//                    edtKeyword.setText(searchKeywordSuggestion?.title)
-//                    addRecentSearch(edtKeyword.text.toString())
-//                    recentAdapter?.setData(getRecentSearch())
-//                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId))
-//                    KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
-//                    edtKeyword.clearFocus()
-//                } catch (e: Exception) {
-//                }
-//            }
-//
-//        })
-//        rclSearchSuggestion.adapter = searchSuggestionKeyWordAdapter
+
+        searchSuggestionKeyWordAdapter = SearchSuggestionKeyWordAdapter(searchSuggestions, mActivity, object : SearchSuggestionKeyWordAdapter.ClickItem{
+            override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
+                try {
+                    edtKeyword.setText(searchKeywordSuggestion?.title)
+                    addRecentSearch(edtKeyword.text.toString())
+                    recentAdapter?.setData(getRecentSearch())
+                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, searchKeywordSuggestion?.categoryCode))
+                    KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
+                    edtKeyword.clearFocus()
+                } catch (e: Exception) {
+                }
+            }
+
+        })
+        rclSearchSuggestion.adapter = searchSuggestionKeyWordAdapter
+
 
 
         rclLocation.adapter = searchAllLocationAdapter
@@ -214,8 +229,12 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                     } else {
                         binding!!.scrollMainSearch.visibility = View.GONE
                         binding!!.layoutSearchResult.visibility = View.VISIBLE
-                        searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId)
-//                        searchViewModel?.getSearchSuggestion(edtKeyword.text.toString())
+
+//                        searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId)
+                        searchViewModel?.getSearchSuggestion(edtKeyword.text.toString(), regionId)
+                        layoutKeyword.tvSearchFollow.text = "Tìm kiếm theo \""+ edtKeyword.text.toString()+"\"";
+                        setHighLightedText(layoutKeyword.tvSearchFollow, "\""+ edtKeyword.text.toString()+"\"")
+
 
                         try {
                             TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtKeyword.text.toString()).setScreen_class(this.javaClass.name))
@@ -225,6 +244,13 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                     }
                 }
 
+    }
+
+
+    public fun setHighLightedText(tv: TextView, textToHighlight: String) {
+        val iHighLightText  = SearchHighLightText()
+        val highLightController =  HighLightController(iHighLightText)
+        highLightController.highLight(mActivity, tv, textToHighlight)
     }
 
 
@@ -267,6 +293,11 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
 
 
     override fun setClickListener() {
+
+        btnDeleteHistory.setOnClickListener {
+            clearRecentSearch()
+            recentAdapter?.setData(getRecentSearch())
+        }
         btnBack.setOnClickListener { mActivity.onBackPressed() }
 
         edtKeyword.setOnEditorActionListener { _, actionId, _ ->
@@ -274,7 +305,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                 if (edtKeyword.text.isNotEmpty()) {
                     addRecentSearch(edtKeyword.text.toString())
                     recentAdapter?.setData(getRecentSearch())
-                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId))
+                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, ""))
                     KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
                     edtKeyword.clearFocus()
                 }
@@ -300,6 +331,14 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
 
         btnCurrentLocation.setOnClickListener {
             searchViewModel?.getLocation()
+        }
+
+        layoutKeyword.setOnClickListener {
+            addRecentSearch(edtKeyword.text.toString())
+            recentAdapter?.setData(getRecentSearch())
+            addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, ""))
+            KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
+            edtKeyword.clearFocus()
         }
 
 
@@ -368,9 +407,14 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                     edtRegion.setText(o.data.name)
                 }
 
-//                is SearchSuggestionResponse -> {
-//                    searchSuggestionKeyWordAdapter?.setData(o.data.items)
-//                }
+
+                is SearchSuggestionResponse -> {
+                    var list = o.data.items
+                    list.addAll(0, getSuggestionInRecentSearch())
+                    searchSuggestionKeyWordAdapter?.setKeyword(edtKeyword.text.toString())
+                    searchSuggestionKeyWordAdapter?.setData(list)
+                }
+
 
 
                 is ErrorResponse -> {
@@ -381,6 +425,20 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                 }
             }
         }
+    }
+
+    private fun getSuggestionInRecentSearch() : ArrayList<SearchSuggestionResponse.Data.Item>{
+        var result = ArrayList<SearchSuggestionResponse.Data.Item>()
+        var recent = getRecentSearch()
+        for (i in 0 until recent.size){
+            if(recent[i].toLowerCase().contains(edtKeyword.text.toString().toLowerCase())){
+                var suggestion = SearchSuggestionResponse().Data().Item()
+                suggestion.setTitle(recent[i])
+                suggestion.setType("recent")
+                result.add(suggestion)
+            }
+        }
+        return result
     }
 
 
@@ -409,6 +467,10 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    private fun clearRecentSearch(){
+        PreferenceUtil.getInstance(context).setValue(Constants.PrefKey.RECENT_SEARCH, "")
     }
 
     private fun getRecentSearch(): ArrayList<String> {
