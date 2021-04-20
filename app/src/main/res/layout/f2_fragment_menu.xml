@@ -304,6 +304,8 @@ tính năng của VTVTravel"
 
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:paddingBottom="50dp"
+                        android:clipToPadding="false"
                         android:id="@+id/rclContent"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

@@ -49,6 +49,8 @@
 
 
         <com.namviet.vtvtravel.view.fragment.f2webview.CustomRecyclerView
+            android:paddingBottom="50dp"
+            android:clipToPadding="false"
             android:id="@+id/rclHome"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

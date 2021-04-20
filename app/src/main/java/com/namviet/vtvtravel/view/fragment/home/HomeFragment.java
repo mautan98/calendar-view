@@ -38,6 +38,7 @@ import com.namviet.vtvtravel.databinding.FragmentHomeBinding;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
 
+import com.namviet.vtvtravel.model.f2event.OnClickBookingTopMenu;
 import com.namviet.vtvtravel.model.f2event.OnClickMomentInMenu;
 import com.namviet.vtvtravel.model.f2event.OnClickTab;
 import com.namviet.vtvtravel.model.f2event.OnClickVideoInMenu;
@@ -49,7 +50,10 @@ import com.namviet.vtvtravel.response.newhome.HomeServiceResponse;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
 import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f2.ChatActivity;
+import com.namviet.vtvtravel.view.f2.CreateTripActivity;
+import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
 import com.namviet.vtvtravel.view.f2.landingpage.LandingPageActivity;
 import com.namviet.vtvtravel.view.f2.virtualswitchboard.VirtualSwitchBoardActivity;
 import com.namviet.vtvtravel.view.f3.floor.view.FloorActivity;
@@ -57,6 +61,7 @@ import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.view.fragment.f2booking.BookingFragment;
 import com.namviet.vtvtravel.view.fragment.f2menu.MenuFragment;
 import com.namviet.vtvtravel.view.fragment.f2video.VideoFragment;
+import com.namviet.vtvtravel.view.fragment.f2webview.VQMMWebviewFragment;
 import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
 import com.namviet.vtvtravel.viewmodel.HomeViewModel;
 import com.namviet.vtvtravel.viewmodel.newhome.NewHomeViewModel;
@@ -216,24 +221,41 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             @Override
             public void onClick(View view) {
                 hideBottomMenu();
+                Account account = MyApplication.getInstance().getAccount();
+                if (null != account && account.isLogin()) {
+                    CreateTripActivity.startScreen(mActivity);
+                } else {
+                    LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+                }
 
             }
         });
-
         binding.imgPrize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 hideBottomMenu();
-
+                try {
+                    String mUrlDeal = "http://deal.vtvtravel.vn";
+                    DetailDealWebviewActivity.startScreen(mActivity, mUrlDeal);
+                } catch (java.lang.Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
-
         binding.imgLuckyWheel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 hideBottomMenu();
-
-            }
+                try {
+                    Account account = MyApplication.getInstance().getAccount();
+                    if (null != account && account.isLogin()) {
+                        VQMMWebviewActivity.startScreen(mActivity, "");
+                    } else {
+                        LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+                    }
+                } catch ( Exception e) {
+                }
+                }
         });
 
         binding.viewCoverBottomMenu.setOnClickListener(new View.OnClickListener() {
@@ -486,6 +508,11 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
         } else {
 //            binding.btnVirtualCall.setVisibility(View.GONE);
         }
+    }
+
+    @Subscribe
+    public void onClickBookingFromTopMenu(OnClickBookingTopMenu onLoginSuccessAndUpdateUserView) {
+        onSuggestClick(0);
     }
 
 

@@ -1,7 +1,11 @@
 package com.namviet.vtvtravel.adapter.newhome.subnewhome;
 
+import android.app.Activity;
 import android.content.Context;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -11,14 +15,32 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.baseapp.activity.BaseActivity;
+import com.baseapp.utils.KeyboardUtils;
+import com.baseapp.utils.MyFragment;
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
+import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
+import com.namviet.vtvtravel.f2base.base.BaseFragment;
+import com.namviet.vtvtravel.model.Account;
+import com.namviet.vtvtravel.model.f2event.OnClickBookingTopMenu;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
+import com.namviet.vtvtravel.response.f2livetv.LiveTvResponse;
 import com.namviet.vtvtravel.response.newhome.HomeServiceResponse;
 import com.namviet.vtvtravel.view.MainActivity;
+import com.namviet.vtvtravel.view.f2.CreateTripActivity;
+import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
+import com.namviet.vtvtravel.view.f2.LiveTVActivity;
+import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
 import com.namviet.vtvtravel.view.f3.commingsoon.view.ComingSoonActivity;
+import com.namviet.vtvtravel.view.fragment.f2booking.BookingFragment;
 import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
+import com.namviet.vtvtravel.view.fragment.f2webview.VQMMWebviewFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +51,12 @@ public class SubHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private Context context;
     private String mUrlDeal;
 
+
     public SubHeaderAdapter(List<ItemHomeService.Item> items, String urlDeal, Context context) {
         this.items = items;
         this.context = context;
         this.mUrlDeal = urlDeal;
+
     }
 
     @Override
@@ -91,7 +115,45 @@ public class SubHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 //                        e.printStackTrace();
 //                    }
                     try {
-                        ComingSoonActivity.Companion.openActivity(context, items.get(getAdapterPosition()).getName(),mUrlDeal);
+                     //   ComingSoonActivity.Companion.openActivity(context, items.get(getAdapterPosition()).getName(),mUrlDeal);
+                        String code = items.get(getAdapterPosition()).getCode();
+                        switch (code){
+                            case "BOOKING":
+                            //    MyFragment.openFragment(context,  R.id.frHome, BookingFragment.class, null, false);
+                                EventBus.getDefault().post(new OnClickBookingTopMenu());
+                                break;
+                            case "CTKM":
+                                try {
+                                    DetailDealWebviewActivity.startScreen(context,mUrlDeal);
+                                } catch ( java.lang.Exception e) {
+                                e.printStackTrace();
+                            }
+                                break;
+                            case "VQMM":
+                                try {
+                                    Account account = MyApplication.getInstance().getAccount();
+                                    if (null != account && account.isLogin()) {
+                                        VQMMWebviewActivity.startScreen(context, "");
+                                    } else {
+                                        LoginAndRegisterActivityNew.startScreen(context, 0, false);
+                                    }
+                                } catch ( Exception e) {
+                            }
+                                break;
+                            case "LIVETV":
+                                LiveTVActivity.openScreen(context, 0,items.get(getAdapterPosition()).getLink() );
+                              //  LiveTVActivity.openScreen(context, liveTvResponse, currentPosition);
+                                break;
+                            case "TOUR":
+                                Account account = MyApplication.getInstance().getAccount();
+                                if (null != account && account.isLogin()) {
+                                    CreateTripActivity.startScreen(context);
+                                } else {
+                                    LoginAndRegisterActivityNew.startScreen(context, 0, false);
+                                }
+                                break;
+
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -99,6 +161,25 @@ public class SubHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             });
         }
 
+        public void addFragment(Fragment fragment) {
+            try {
+                BaseActivity mActivity = (BaseActivity) context;
+//                try {
+//                    if(mActivity instanceof  LoginAndRegisterActivityNew){
+//                        ((LoginAndRegisterActivityNew) mActivity).hideWarning();
+//                        KeyboardUtils.hideKeyboard(mActivity, imgAvatar);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+                FragmentManager frm = mActivity.getSupportFragmentManager();
+                frm.beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .add(R.id.frame, fragment)
+                        .addToBackStack(fragment.getClass().getSimpleName()).commit();
+            } catch (Exception e) {
+            }
+        }
         public void bindItem(int position) {
             try {
                 tvTitle.setText(items.get(position).getName());

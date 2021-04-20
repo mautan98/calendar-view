@@ -204,12 +204,15 @@
                     android:textColor="@color/white" />
 
                 <LinearLayout
+                    android:paddingBottom="70dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@color/colorPrimary"
                     android:orientation="vertical"
-                    android:padding="@dimen/_10sdp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="10dp"
                     android:visibility="visible">
 
                     <com.daimajia.slider.library.RobotoTextView

@@ -63,6 +63,7 @@
                 app:tabMode="scrollable" />
 
             <androidx.viewpager.widget.ViewPager
+
                 android:layout_marginTop="5dp"
                 android:layout_below="@id/tabLayout"
                 android:id="@+id/vpContent"
