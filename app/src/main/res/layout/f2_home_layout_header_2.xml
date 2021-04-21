@@ -27,7 +27,7 @@
                     android:layout_height="186dp"/>
 
                 <View
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:background="@color/f2_color_main"
                     android:alpha="0.3"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -37,7 +37,7 @@
                 <com.zhpan.indicator.IndicatorView
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:vpi_style="dash"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginBottom="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:id="@+id/indicator_view"
@@ -78,15 +78,15 @@
 
 
                         <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_marginStart="23dp"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="8dp"
                             android:src="@drawable/f2_ic_search2" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginStart="9dp"
                             android:layout_marginEnd="10dp"
                             android:background="@color/white"
                             android:fontFamily="@font/roboto_regular"

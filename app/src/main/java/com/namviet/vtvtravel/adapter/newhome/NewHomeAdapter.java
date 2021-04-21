@@ -323,7 +323,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 subSlideImageInHeaderAdapter = new SubSlideImageInHeaderAdapter(context, homeServiceResponse.getData().get(position).getBackground_urls(), new SubSlideImageInHeaderAdapter.IOnSlideImageHeaderClick() {
                     @Override
                     public void onSlideImageHeaderClick(int position) {
-                        Toast.makeText(context, "Banner clicked: "+position, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(context, "Banner clicked: "+position, Toast.LENGTH_SHORT).show();
                     }
                 });
                 vpPromotion.setAdapter(subSlideImageInHeaderAdapter);

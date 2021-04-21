@@ -32,6 +32,7 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.Utils;
 import com.namviet.vtvtravel.adapter.HomeMenuAdapter;
 import com.namviet.vtvtravel.adapter.newhome.NewHomeAdapter;
+import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.FragmentHomeBinding;
@@ -236,7 +237,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             public void onClick(View view) {
                 hideBottomMenu();
                 try {
-                    String mUrlDeal = "http://deal.vtvtravel.vn";
+                    String mUrlDeal = WSConfig.LINK_DEAL;
                     DetailDealWebviewActivity.startScreen(mActivity, mUrlDeal);
                 } catch (java.lang.Exception e) {
                     e.printStackTrace();

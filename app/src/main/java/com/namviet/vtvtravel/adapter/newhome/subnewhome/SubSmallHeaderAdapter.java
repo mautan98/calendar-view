@@ -11,10 +11,21 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.api.WSConfig;
+import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
+import com.namviet.vtvtravel.model.Account;
+import com.namviet.vtvtravel.model.f2event.OnClickBookingTopMenu;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.view.MainActivity;
+import com.namviet.vtvtravel.view.f2.CreateTripActivity;
+import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
+import com.namviet.vtvtravel.view.f2.LiveTVActivity;
+import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
 import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,8 +91,53 @@ public class SubSmallHeaderAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 @Override
                 public void onClick(View v) {
                     try {
-                        OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-                        oneButtonTitleImageDialog.show(((MainActivity) context).getSupportFragmentManager(), Constants.TAG_DIALOG);
+//                        OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+//                        oneButtonTitleImageDialog.show(((MainActivity) context).getSupportFragmentManager(), Constants.TAG_DIALOG);
+
+                        try {
+                            //   ComingSoonActivity.Companion.openActivity(context, items.get(getAdapterPosition()).getName(),mUrlDeal);
+                            String code = items.get(getAdapterPosition()).getCode();
+                            switch (code){
+                                case "BOOKING":
+                                    //    MyFragment.openFragment(context,  R.id.frHome, BookingFragment.class, null, false);
+                                    EventBus.getDefault().post(new OnClickBookingTopMenu());
+                                    break;
+                                case "CTKM":
+                                    try {
+                                        String mUrlDeal = WSConfig.LINK_DEAL;
+                                        DetailDealWebviewActivity.startScreen(context,mUrlDeal);
+                                    } catch ( java.lang.Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    break;
+                                case "VQMM":
+                                    try {
+                                        Account account = MyApplication.getInstance().getAccount();
+                                        if (null != account && account.isLogin()) {
+                                            VQMMWebviewActivity.startScreen(context, "");
+                                        } else {
+                                            LoginAndRegisterActivityNew.startScreen(context, 0, false);
+                                        }
+                                    } catch ( Exception e) {
+                                    }
+                                    break;
+                                case "LIVETV":
+                                    LiveTVActivity.openScreen(context, 0,items.get(getAdapterPosition()).getLink() );
+                                    //  LiveTVActivity.openScreen(context, liveTvResponse, currentPosition);
+                                    break;
+                                case "TOUR":
+                                    Account account = MyApplication.getInstance().getAccount();
+                                    if (null != account && account.isLogin()) {
+                                        CreateTripActivity.startScreen(context);
+                                    } else {
+                                        LoginAndRegisterActivityNew.startScreen(context, 0, false);
+                                    }
+                                    break;
+
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

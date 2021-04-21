@@ -3,7 +3,11 @@ package com.namviet.vtvtravel.view.f3.booking.view;
 import android.graphics.Bitmap;
 import android.net.UrlQuerySanitizer;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
@@ -66,6 +70,47 @@ public class BookingFragment extends BaseFragment<F2FragmentBookingBinding> {
             }
         });
 
+        getBinding().btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mActivity.onBackPressed();
+            }
+        });
+
+        getBinding().webView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                Log.v("TAG", "+++ scrollchanged "+getBinding().webView.getScrollY());
+
+                try {
+                    if(getBinding().webView.getScrollY() > 800){
+                        setHeightToolbar(getBinding().toolBar, 30);
+                    }else if(getBinding().webView.getScrollY() <= 800 && getBinding().webView.getScrollY() > 700){
+                        setHeightToolbar(getBinding().toolBar, 32);
+                    }else if(getBinding().webView.getScrollY() <= 700 && getBinding().webView.getScrollY() > 600){
+                        setHeightToolbar(getBinding().toolBar, 35);
+                    }else if(getBinding().webView.getScrollY() <= 600 && getBinding().webView.getScrollY() > 500){
+                        setHeightToolbar(getBinding().toolBar, 37);
+                    }else if(getBinding().webView.getScrollY() <= 500 && getBinding().webView.getScrollY() > 400){
+                        setHeightToolbar(getBinding().toolBar, 40);
+                    }else if(getBinding().webView.getScrollY() <= 400 && getBinding().webView.getScrollY() > 300){
+                        setHeightToolbar(getBinding().toolBar, 42);
+                    }else if(getBinding().webView.getScrollY() <= 300 && getBinding().webView.getScrollY() > 200){
+                        setHeightToolbar(getBinding().toolBar, 45);
+                    }else if(getBinding().webView.getScrollY() <= 200 && getBinding().webView.getScrollY() > 100){
+                        setHeightToolbar(getBinding().toolBar, 47);
+                    }else if(getBinding().webView.getScrollY() <= 100 && getBinding().webView.getScrollY() > 0){
+                        setHeightToolbar(getBinding().toolBar, 50);
+                    }else {
+                        setHeightToolbar(getBinding().toolBar, 50);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
 
         getBinding().webView.setWebViewClient(new WebViewClient() {
             @Override
@@ -116,6 +161,19 @@ public class BookingFragment extends BaseFragment<F2FragmentBookingBinding> {
             getBinding().webView.loadUrl(genLink());
 //            Toast.makeText(mActivity, "Bạn cần đăng nhập để sử dụng chức năng này!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    private void setHeightToolbar(View view, int dp){
+        ViewGroup.LayoutParams params = (ViewGroup.LayoutParams) view.getLayoutParams();
+        params.height = (int) dpToPx(dp);
+        view.setLayoutParams(params);
+    }
+
+
+    public int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
     private String genLink() {
