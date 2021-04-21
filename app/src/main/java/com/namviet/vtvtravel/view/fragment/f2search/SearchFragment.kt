@@ -139,7 +139,6 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
         rclBlock.adapter = blockAdapter
 
 
-
         searchSuggestionKeyWordAdapter = SearchSuggestionKeyWordAdapter(searchSuggestions, mActivity, object : SearchSuggestionKeyWordAdapter.ClickItem{
             override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
                 try {
@@ -155,7 +154,6 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
 
         })
         rclSearchSuggestion.adapter = searchSuggestionKeyWordAdapter
-
 
 
         rclLocation.adapter = searchAllLocationAdapter
@@ -223,24 +221,25 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                 .debounce(790, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    if (binding!!.edtKeyword.text.toString().isEmpty()) {
-                        binding!!.scrollMainSearch.visibility = View.VISIBLE
-                        binding!!.layoutSearchResult.visibility = View.GONE
-                    } else {
-                        binding!!.scrollMainSearch.visibility = View.GONE
-                        binding!!.layoutSearchResult.visibility = View.VISIBLE
+                    try {
+                        if (binding!!.edtKeyword.text.toString().isEmpty()) {
+                            binding!!.scrollMainSearch.visibility = View.VISIBLE
+                            binding!!.layoutSearchResult.visibility = View.GONE
+                        } else {
+                            binding!!.scrollMainSearch.visibility = View.GONE
+                            binding!!.layoutSearchResult.visibility = View.VISIBLE
+    //                        searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId)
+                            searchViewModel?.getSearchSuggestion(edtKeyword.text.toString(), regionId)
+                            layoutKeyword.tvSearchFollow.text = "Tìm kiếm theo \""+ edtKeyword.text.toString()+"\"";
+                            setHighLightedText(layoutKeyword.tvSearchFollow, "\""+ edtKeyword.text.toString()+"\"")
 
-//                        searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId)
-                        searchViewModel?.getSearchSuggestion(edtKeyword.text.toString(), regionId)
-                        layoutKeyword.tvSearchFollow.text = "Tìm kiếm theo \""+ edtKeyword.text.toString()+"\"";
-                        setHighLightedText(layoutKeyword.tvSearchFollow, "\""+ edtKeyword.text.toString()+"\"")
-
-
-                        try {
-                            TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtKeyword.text.toString()).setScreen_class(this.javaClass.name))
-                        } catch (e: Exception) {
-                            e.printStackTrace()
+                            try {
+                                TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtKeyword.text.toString()).setScreen_class(this.javaClass.name))
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
                         }
+                    } catch (e: Exception) {
                     }
                 }
 
@@ -261,32 +260,29 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                 .debounce(450, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    try {
-                        if (edtRegion.text.toString().isEmpty()) {
-                            locations?.clear()
-                            locations?.addAll(locationsMain)
-                            searchAllLocationAdapter!!.notifyDataSetChanged()
-                            regionId = null
-                            if(edtKeyword.text.isNotEmpty()) {
-                                searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId);
+                    if (edtRegion.text.toString().isEmpty()) {
+                        locations?.clear()
+                        locations?.addAll(locationsMain)
+                        searchAllLocationAdapter!!.notifyDataSetChanged()
+                        regionId = null
+                        if(edtKeyword.text.isNotEmpty()) {
+                            searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId);
 
-                                try {
-                                    TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtKeyword.text.toString()).setScreen_class(this.javaClass.name))
-                                } catch (e: Exception) {
-                                    e.printStackTrace()
-                                }
+                            try {
+                                TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtKeyword.text.toString()).setScreen_class(this.javaClass.name))
+                            } catch (e: Exception) {
+                                e.printStackTrace()
                             }
-                        } else {
-                            rclLocation.visibility = View.VISIBLE
-                            locations!!.clear()
-                            for (i in locationsMain.indices) {
-                                if (F2Util.removeAccent(locationsMain[i].name.toLowerCase()).contains(F2Util.removeAccent(edtRegion.text.toString().toLowerCase()))) {
-                                    locations.add(locationsMain[i])
-                                }
-                            }
-                            searchAllLocationAdapter!!.notifyDataSetChanged()
                         }
-                    } catch (e: Exception) {
+                    } else {
+                        rclLocation.visibility = View.VISIBLE
+                        locations!!.clear()
+                        for (i in locationsMain.indices) {
+                            if (F2Util.removeAccent(locationsMain[i].name.toLowerCase()).contains(F2Util.removeAccent(edtRegion.text.toString().toLowerCase()))) {
+                                locations.add(locationsMain[i])
+                            }
+                        }
+                        searchAllLocationAdapter!!.notifyDataSetChanged()
                     }
                 }
     }
@@ -407,14 +403,12 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                     edtRegion.setText(o.data.name)
                 }
 
-
                 is SearchSuggestionResponse -> {
                     var list = o.data.items
                     list.addAll(0, getSuggestionInRecentSearch())
                     searchSuggestionKeyWordAdapter?.setKeyword(edtKeyword.text.toString())
                     searchSuggestionKeyWordAdapter?.setData(list)
                 }
-
 
 
                 is ErrorResponse -> {

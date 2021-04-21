@@ -56,6 +56,7 @@ import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
 import com.namviet.vtvtravel.view.f2.landingpage.LandingPageActivity;
 import com.namviet.vtvtravel.view.f2.virtualswitchboard.VirtualSwitchBoardActivity;
+import com.namviet.vtvtravel.view.f3.booking.view.BookingActivity;
 import com.namviet.vtvtravel.view.f3.floor.view.FloorActivity;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.view.fragment.f2booking.BookingFragment;
@@ -512,7 +513,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 
     @Subscribe
     public void onClickBookingFromTopMenu(OnClickBookingTopMenu onLoginSuccessAndUpdateUserView) {
-        onSuggestClick(0);
+        BookingActivity.Companion.openActivity(mActivity);
     }
 
 
