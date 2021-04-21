@@ -11,7 +11,14 @@
         android:background="@color/white"
         android:clickable="true">
 
+        <View
+            android:id="@+id/view"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+
         <RelativeLayout
+            android:layout_below="@+id/view"
             android:id="@+id/rlToolBar"
             android:layout_width="match_parent"
             android:layout_height="50dp"

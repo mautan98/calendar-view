@@ -50,9 +50,9 @@ public class SettingFragment extends MainFragment {
     @Override
     protected void initViews(View v) {
         super.initViews(v);
-        binding.toolBar.tvTitle.setText(getString(R.string.setting));
-        binding.toolBar.ivSearch.setVisibility(View.GONE);
-        binding.toolBar.ivBack.setOnClickListener(this);
+        binding.tvTitle.setText(getString(R.string.setting));
+        binding.ivSearch.setVisibility(View.GONE);
+        binding.ivBack.setOnClickListener(this);
         binding.llChangePass.setOnClickListener(this);
         binding.llLogout.setOnClickListener(this);
         Account account = MyApplication.getInstance().getAccount();
@@ -79,7 +79,7 @@ public class SettingFragment extends MainFragment {
     public void onClick(View view) {
         super.onClick(view);
         Account account = MyApplication.getInstance().getAccount();
-        if (view == binding.toolBar.ivBack) {
+        if (view == binding.ivBack) {
             mActivity.onBackPressed();
         }
 //        else if (view == binding.ll1) {

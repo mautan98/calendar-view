@@ -21,6 +21,11 @@
             android:clickable="true"
             android:orientation="vertical">
 
+            <View
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+
             <include
                 android:id="@+id/toolBar"
                 layout="@layout/toolbar_text" />
