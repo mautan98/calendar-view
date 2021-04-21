@@ -26,6 +26,15 @@ class FloorFragment : BaseFragment<F2FragmentFloorBinding>() {
             }
         }
 
+        btnMyBill.setOnClickListener {
+            var account = MyApplication.getInstance().getAccount();
+            if (null != account && account.isLogin()) {
+                WebviewActivity.startScreen(context)
+            } else {
+                LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+            }
+        }
+
         btnBack.setOnClickListener {
             mActivity.onBackPressed()
         }

@@ -55,6 +55,7 @@
 
 
         <LinearLayout
+            android:id="@+id/layoutOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -84,6 +85,41 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:src="@drawable/f2_img_donhang" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/layoutOrder">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Hoá đơn"
+                android:textColor="@color/md_black_1000"
+                android:textSize="18dp" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnMyBill"
+                android:layout_marginTop="11dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    app:layout_constraintDimensionRatio="351:42"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:src="@drawable/f2_img_my_bill" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
