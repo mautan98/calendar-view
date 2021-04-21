@@ -120,13 +120,13 @@
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/myToolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_41sdp"
+                    android:layout_height="70dp"
                     android:background="@color/colorPrimary"
                     app:layout_collapseMode="pin">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:visibility="invisible"
@@ -137,6 +137,8 @@
                             android:src="@mipmap/ic_menu" />
 
                         <ImageView
+                            android:layout_marginBottom="10dp"
+                            android:layout_alignParentBottom="true"
                             android:id="@+id/ivLogoHome"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
