@@ -77,8 +77,8 @@
                 android:layout_marginTop="11dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <ImageView
+                    android:id="@+id/img_cart"
                     app:layout_constraintDimensionRatio="351:42"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_width="match_parent"
