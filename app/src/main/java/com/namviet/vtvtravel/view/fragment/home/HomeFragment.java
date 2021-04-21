@@ -213,7 +213,6 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             public void onClick(View view) {
                 hideBottomMenu();
                 FloorActivity.Companion.openActivity(mActivity);
-
             }
         });
 
