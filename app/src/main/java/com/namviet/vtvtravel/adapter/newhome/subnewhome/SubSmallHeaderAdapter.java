@@ -97,6 +97,7 @@ public class SubSmallHeaderAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                         try {
                             //   ComingSoonActivity.Companion.openActivity(context, items.get(getAdapterPosition()).getName(),mUrlDeal);
                             String code = items.get(getAdapterPosition()).getCode();
+                            String link = items.get(getAdapterPosition()).getLink();
                             switch (code){
                                 case "BOOKING":
                                     //    MyFragment.openFragment(context,  R.id.frHome, BookingFragment.class, null, false);
@@ -104,8 +105,7 @@ public class SubSmallHeaderAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                                     break;
                                 case "CTKM":
                                     try {
-                                        String mUrlDeal = WSConfig.LINK_DEAL;
-                                        DetailDealWebviewActivity.startScreen(context,mUrlDeal);
+                                        DetailDealWebviewActivity.startScreen(context,link);
                                     } catch ( java.lang.Exception e) {
                                         e.printStackTrace();
                                     }

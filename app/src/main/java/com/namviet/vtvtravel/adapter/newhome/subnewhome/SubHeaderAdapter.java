@@ -117,6 +117,7 @@ public class SubHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     try {
                      //   ComingSoonActivity.Companion.openActivity(context, items.get(getAdapterPosition()).getName(),mUrlDeal);
                         String code = items.get(getAdapterPosition()).getCode();
+                        String link = items.get(getAdapterPosition()).getLink();
                         switch (code){
                             case "BOOKING":
                             //    MyFragment.openFragment(context,  R.id.frHome, BookingFragment.class, null, false);
@@ -124,7 +125,7 @@ public class SubHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                                 break;
                             case "CTKM":
                                 try {
-                                    DetailDealWebviewActivity.startScreen(context,mUrlDeal);
+                                    DetailDealWebviewActivity.startScreen(context,link);
                                 } catch ( java.lang.Exception e) {
                                 e.printStackTrace();
                             }
