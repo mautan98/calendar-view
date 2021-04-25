@@ -191,18 +191,18 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             @Override
             public void onClick(View view) {
                 if(isShowBottomMenu){
-//                    Utils.fadeOut(binding.layoutBottomMenu);
-//                    Utils.fadeOut(binding.viewCoverBottomMenu);
-                    binding.layoutBottomMenu.setVisibility(View.GONE);
+                    binding.viewAboveBottomMenu.setVisibility(View.GONE);
+                    binding.motionLayout.transitionToEnd();
                     binding.viewCoverBottomMenu.setVisibility(View.GONE);
-                    binding.btnShowBottomMenu.setRotation(45);
+//                    binding.btnShowBottomMenu.setRotation(45);
+                    binding.addButtonMotionLayout.transitionToStart();
                     isShowBottomMenu = false;
                 }else {
-                    binding.btnShowBottomMenu.setRotation(0);
-                    binding.layoutBottomMenu.setVisibility(View.VISIBLE);
+//                    binding.btnShowBottomMenu.setRotation(0);
+                    binding.addButtonMotionLayout.transitionToEnd();
+                    binding.viewAboveBottomMenu.setVisibility(View.VISIBLE);
+                    binding.motionLayout.transitionToStart();
                     binding.viewCoverBottomMenu.setVisibility(View.VISIBLE);
-//                    Utils.fadeIn(binding.layoutBottomMenu);
-//                    Utils.fadeIn(binding.viewCoverBottomMenu);
                     isShowBottomMenu = true;
                 }
             }
@@ -279,9 +279,11 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
     }
 
     private void hideBottomMenu(){
-        binding.btnShowBottomMenu.setRotation(45);
-        binding.layoutBottomMenu.setVisibility(View.GONE);
+//        binding.btnShowBottomMenu.setRotation(45);
+        binding.viewAboveBottomMenu.setVisibility(View.GONE);
         binding.viewCoverBottomMenu.setVisibility(View.GONE);
+        binding.motionLayout.transitionToEnd();
+        binding.addButtonMotionLayout.transitionToStart();
         isShowBottomMenu = false;
     }
 
@@ -306,6 +308,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
                 }
             }
         });
+        binding.motionLayout.transitionToEnd();
 //        checkPermission();
     }
 

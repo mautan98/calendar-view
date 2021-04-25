@@ -48,141 +48,154 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:visibility="gone"
             android:id="@+id/layoutBottomMenu"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
             <View
-                android:clickable="true"
+                android:visibility="gone"
                 android:id="@+id/viewAboveBottomMenu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:alpha="0.7"
                 android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:clickable="true" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+            <androidx.constraintlayout.motion.widget.MotionLayout
                 android:layout_width="match_parent"
+                android:id="@+id/motionLayout"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:visibility="visible">
+                app:layoutDescription="@xml/home_button_animation">
 
 
-
-                <ImageView
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/red_star"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="45dp"
-                    android:layout_marginEnd="45dp"
-                    android:src="@drawable/f2_ic_menu_background"
-                    app:layout_constraintDimensionRatio="285:208"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.5"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <ImageView
-                    android:id="@+id/imgSan"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/f2_ic_menu_san"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/guideline"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:fontFamily="@font/roboto_medium"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3.5dp"
-                    android:text="Sàn"
-                    android:textSize="10dp"
-                    app:layout_constraintEnd_toEndOf="@+id/imgSan"
-                    app:layout_constraintStart_toStartOf="@+id/imgSan"
-                    app:layout_constraintTop_toBottomOf="@+id/imgSan" />
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent">
 
 
-                <ImageView
-                    android:id="@+id/imgPrize"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/f2_ic_menu_voucher"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/guideline"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="45dp"
+                        android:layout_marginEnd="45dp"
+                        android:src="@drawable/f2_ic_menu_background"
+                        app:layout_constraintDimensionRatio="285:208"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:fontFamily="@font/roboto_medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3.5dp"
-                    android:text="Săn giải thưởng"
-                    android:textSize="10dp"
-                    app:layout_constraintEnd_toEndOf="@+id/imgPrize"
-                    app:layout_constraintStart_toStartOf="@+id/imgPrize"
-                    app:layout_constraintTop_toBottomOf="@+id/imgPrize" />
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.5"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
-                <ImageView
-                    android:id="@+id/imgCreateTrip"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/f2_ic_menu_schedule"
-                    app:layout_constraintBottom_toTopOf="@id/imgSan"
-                    app:layout_constraintEnd_toStartOf="@id/guideline"
-                    app:layout_constraintStart_toEndOf="@+id/imgSan"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:id="@+id/imgSan"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/f2_ic_menu_san"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/guideline"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:fontFamily="@font/roboto_medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3.5dp"
-                    android:gravity="center"
-                    android:text="Tự tạo\n lịch trình"
-                    android:textSize="10dp"
-                    app:layout_constraintEnd_toEndOf="@+id/imgCreateTrip"
-                    app:layout_constraintStart_toStartOf="@+id/imgCreateTrip"
-                    app:layout_constraintTop_toBottomOf="@+id/imgCreateTrip" />
-
-
-                <ImageView
-                    android:id="@+id/imgLuckyWheel"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/f2_ic_menu_wheel"
-                    app:layout_constraintBottom_toTopOf="@id/imgPrize"
-                    app:layout_constraintEnd_toStartOf="@+id/imgPrize"
-                    app:layout_constraintStart_toStartOf="@id/guideline"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3.5dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Sàn"
+                        android:textSize="10dp"
+                        app:layout_constraintEnd_toEndOf="@+id/imgSan"
+                        app:layout_constraintStart_toStartOf="@+id/imgSan"
+                        app:layout_constraintTop_toBottomOf="@+id/imgSan" />
 
 
-                <TextView
-                    android:fontFamily="@font/roboto_medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3.5dp"
-                    android:gravity="center"
-                    android:text="Vòng quay\n may mắn"
-                    android:textSize="10dp"
-                    app:layout_constraintEnd_toEndOf="@+id/imgLuckyWheel"
-                    app:layout_constraintStart_toStartOf="@+id/imgLuckyWheel"
-                    app:layout_constraintTop_toBottomOf="@+id/imgLuckyWheel" />
+                    <ImageView
+                        android:id="@+id/imgPrize"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/f2_ic_menu_voucher"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/guideline"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3.5dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Săn giải thưởng"
+                        android:textSize="10dp"
+                        app:layout_constraintEnd_toEndOf="@+id/imgPrize"
+                        app:layout_constraintStart_toStartOf="@+id/imgPrize"
+                        app:layout_constraintTop_toBottomOf="@+id/imgPrize" />
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/imgCreateTrip"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/f2_ic_menu_schedule"
+                        app:layout_constraintBottom_toTopOf="@id/imgSan"
+                        app:layout_constraintEnd_toStartOf="@id/guideline"
+                        app:layout_constraintStart_toEndOf="@+id/imgSan"
+                        app:layout_constraintTop_toTopOf="parent" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3.5dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:gravity="center"
+                        android:text="Tự tạo\n lịch trình"
+                        android:textSize="10dp"
+                        app:layout_constraintEnd_toEndOf="@+id/imgCreateTrip"
+                        app:layout_constraintStart_toStartOf="@+id/imgCreateTrip"
+                        app:layout_constraintTop_toBottomOf="@+id/imgCreateTrip" />
+
+
+                    <ImageView
+                        android:id="@+id/imgLuckyWheel"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/f2_ic_menu_wheel"
+                        app:layout_constraintBottom_toTopOf="@id/imgPrize"
+                        app:layout_constraintEnd_toStartOf="@+id/imgPrize"
+                        app:layout_constraintStart_toStartOf="@id/guideline"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3.5dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:gravity="center"
+                        android:text="Vòng quay\n may mắn"
+                        android:textSize="10dp"
+                        app:layout_constraintEnd_toEndOf="@+id/imgLuckyWheel"
+                        app:layout_constraintStart_toStartOf="@+id/imgLuckyWheel"
+                        app:layout_constraintTop_toBottomOf="@+id/imgLuckyWheel" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.motion.widget.MotionLayout>
         </RelativeLayout>
 
         <com.google.android.material.tabs.TabLayout
@@ -198,26 +211,35 @@
             app:tabPaddingStart="0dp" />
 
         <View
-            android:clickable="true"
-            android:visibility="gone"
-            android:alpha="0.5"
-            android:background="@color/white"
-            android:layout_alignParentBottom="true"
             android:id="@+id/viewCoverBottomMenu"
             android:layout_width="match_parent"
-            android:layout_height="55dp"/>
+            android:layout_height="55dp"
+            android:layout_alignParentBottom="true"
+            android:alpha="0.5"
+            android:background="@color/white"
+            android:clickable="true"
+            android:visibility="gone" />
 
-
-        <ImageView
-            android:rotation="45"
-            android:id="@+id/btnShowBottomMenu"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/addButtonMotionLayout"
+            app:layoutDescription="@xml/add_button_animation"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <ImageView
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/btnShowBottomMenu"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:rotation="45"
             android:src="@drawable/f2_ic_menu_x" />
 
+        </androidx.constraintlayout.motion.widget.MotionLayout>
 
         <RelativeLayout
             android:id="@+id/layoutMenuFloat"
