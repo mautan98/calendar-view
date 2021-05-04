@@ -152,6 +152,8 @@ dependencies {
     implementation 'me.everything:overscroll-decor-android:1.1.0'
     //viewpagerindicator
     implementation 'com.github.zhpanvip:viewpagerindicator:1.2.0'
+    //circleindicator
+    implementation 'me.relex:circleindicator:2.1.6'
 
 }
 apply plugin: 'com.google.gms.google-services'
