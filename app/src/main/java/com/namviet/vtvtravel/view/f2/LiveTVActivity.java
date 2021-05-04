@@ -2,6 +2,10 @@ package com.namviet.vtvtravel.view.f2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
+
+import androidx.annotation.Nullable;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.config.Constants;
@@ -22,6 +26,11 @@ public class LiveTVActivity extends BaseActivityNew<F2ActivityLivetvBinding> {
     private LiveTvResponse liveTvResponse;
     private int position;
     private String link;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public int getLayoutRes() {

@@ -20,6 +20,7 @@
         tools:listitem="@layout/f2_item_home_partner_link" />
 
     <com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerPartnerLink"
@@ -33,6 +34,24 @@
         app:dotRadius="4dp"
         app:selectedDotColor="@color/colorPrimary"
         app:selectedDotRadius="4dp" />
+    <me.relex.circleindicator.CircleIndicator2
+        android:layout_below="@+id/recyclerPartnerLink"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="7dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerPartnerLink"
+        android:id="@id/indicator"
+        app:ci_width="8dp"
+        app:ci_height="8dp"
+        app:ci_margin="5dp"
+        app:ci_orientation="horizontal"
+        app:ci_animator="@animator/indicator_no_animator"
+        app:ci_drawable="@drawable/blue_radius"
+        app:ci_drawable_unselected="@drawable/blue_radius_alpha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 
     <View
         app:layout_constraintTop_toBottomOf="@+id/recyclerPartnerLink"

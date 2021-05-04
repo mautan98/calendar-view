@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -205,6 +206,26 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
         super.updateViews();
         binding.rclHome.setHasFixedSize(true);
         binding.rclHome.setItemViewCacheSize(20);
+        binding.rclHome.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                if (e.getAction() == MotionEvent.ACTION_DOWN &&
+                        rv.getScrollState() == RecyclerView.SCROLL_STATE_SETTLING) {
+                    rv.stopScroll();
+                }
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
         OverScrollDecoratorHelper.setUpOverScroll(binding.rclHome, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
         PreCachingLayoutManager preCachingLayoutManager = new PreCachingLayoutManager(mActivity);
         preCachingLayoutManager.setExtraLayoutSpace(10000);
