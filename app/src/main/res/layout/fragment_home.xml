@@ -37,14 +37,25 @@
                 android:background="@null"
                 android:src="@drawable/f2_ic_call_gif" />
 
-            <pl.droidsonroids.gif.GifImageView
+<!--            <pl.droidsonroids.gif.GifImageView-->
+<!--                android:id="@+id/ivChat"-->
+<!--                android:layout_width="60dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:background="@null"-->
+<!--                android:src="@drawable/f2_ic_chat6"-->
+<!--                android:visibility="visible" />-->
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_marginTop="5dp"
                 android:id="@+id/ivChat"
+                android:padding="10dp"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginTop="5dp"
-                android:background="@null"
-                android:src="@drawable/f2_ic_chat6"
-                android:visibility="visible" />
+                app:lottie_rawRes="@raw/chatbot_ngheu"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
         </LinearLayout>
 
         <RelativeLayout
