@@ -221,15 +221,15 @@
             app:tabPaddingEnd="0dp"
             app:tabPaddingStart="0dp" />
 
-        <View
-            android:id="@+id/viewCoverBottomMenu"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_alignParentBottom="true"
-            android:alpha="0.5"
-            android:background="@color/white"
-            android:clickable="true"
-            android:visibility="gone" />
+<!--        <View-->
+<!--            android:id="@+id/viewCoverBottomMenu"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="55dp"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:alpha="0.5"-->
+<!--            android:background="@color/white"-->
+<!--            android:clickable="true"-->
+<!--            android:visibility="visible" />-->
 
         <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/addButtonMotionLayout"
