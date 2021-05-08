@@ -168,6 +168,7 @@ public class Constants {
         public static final String HOME_DATA = "HOME_DATA";
         public static final String MENU_DATA = "MENU_DATA";
         public static final String TIME_STAMP = "TIME_STAMP";
+        public static final String CITY_NAME = "CITY_NAME";
 
 
 
