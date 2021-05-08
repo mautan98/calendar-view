@@ -153,6 +153,13 @@ dependencies {
     //viewpagerindicator
     implementation 'com.github.zhpanvip:viewpagerindicator:1.2.0'
 
+    //circleindicator
+    implementation 'me.relex:circleindicator:2.1.6'
+
+    def lottieVersion = "3.4.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+
+
 }
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'

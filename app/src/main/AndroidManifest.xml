@@ -18,11 +18,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-
-
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
 
 
@@ -247,7 +244,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.f2.LiveTVActivity"
-            android:screenOrientation="portrait"></activity>
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".view.fragment.f2service.ServiceActivity"
             android:screenOrientation="portrait" />

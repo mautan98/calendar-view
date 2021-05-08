@@ -410,8 +410,8 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
             } else if (o instanceof UpdateCommentResponse) {
                 UpdateCommentResponse response = (UpdateCommentResponse) o;
                 if (response != null && response.isSuccess()) {
-                    viewModel.getComment(detailTravelNewsResponse.getData().getId(), page);
                     page = 0;
+                    viewModel.getComment(detailTravelNewsResponse.getData().getId(), page);
                 }
             } else if (o instanceof ErrorResponse) {
                 ErrorResponse responseError = (ErrorResponse) o;

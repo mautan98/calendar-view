@@ -350,6 +350,8 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
 
 
             });
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -508,10 +510,14 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
         }
     }
 
+    private int countVisible = 0;
     @Override
     public void onControlBarVisibilityChanged(ControlBarVisibilityEvent controlBarVisibilityEvent) {
         if(controlBarVisibilityEvent.isVisible()){
-            getBinding().layoutSound.setVisibility(View.VISIBLE);
+            if(countVisible >= 1) {
+                getBinding().layoutSound.setVisibility(View.VISIBLE);
+            }
+            countVisible = countVisible + 1;
         }else {
             getBinding().layoutSound.setVisibility(View.GONE);
         }

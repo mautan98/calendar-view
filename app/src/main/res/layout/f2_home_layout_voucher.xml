@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:lineSpacingExtra="10dp"
         android:id="@+id/tvTipUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,6 +20,7 @@
         android:textSize="14dp" />
 
     <TextView
+        android:layout_marginTop="-16dp"
         android:id="@+id/btnRegisterNow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,6 +50,7 @@
 
 
     <com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
+        android:visibility="gone"
         android:id="@+id/vpIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,6 +60,18 @@
         app:dotRadius="5dp"
         app:selectedDotColor="@color/colorPrimary"
         app:selectedDotRadius="5dp" />
+    <me.relex.circleindicator.CircleIndicator
+        android:layout_marginBottom="2dp"
+        android:id="@id/indicator"
+        app:ci_width="8dp"
+        app:ci_height="8dp"
+        app:ci_margin="5dp"
+        app:ci_orientation="horizontal"
+        app:ci_animator="@animator/indicator_no_animator"
+        app:ci_drawable="@drawable/blue_radius"
+        app:ci_drawable_unselected="@drawable/blue_radius_alpha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 <!--    <android.support.v4.view.ViewPager-->
 <!--        android:id="@+id/vpSlideShow"-->

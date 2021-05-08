@@ -2,10 +2,13 @@ package com.namviet.vtvtravel.view.fragment.f2livetv;
 
 import android.annotation.SuppressLint;
 import android.view.MotionEvent;
+import android.content.res.Configuration;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.longtailvideo.jwplayer.events.FullscreenEvent;
+import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
 import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2livetv.ChannelLiveTVAdapter;
@@ -27,7 +30,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> implements ChannelLiveTVAdapter.ClickButton, ListChannelDialog.ClickChannel, Observer {
+public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> implements ChannelLiveTVAdapter.ClickButton, ListChannelDialog.ClickChannel, Observer , VideoPlayerEvents.OnFullscreenListener{
     private LiveTvResponse response;
 
     private ChannelLiveTVAdapter channelLiveTVAdapter;
@@ -218,6 +221,7 @@ public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> 
                     .file(response.getItems().get(position).getStreaming_urls().get(0).getUrl())
                     .build();
             getBinding().jwplayer.load(pi);
+            getBinding().jwplayer.addOnFullscreenListener(this);
             getBinding().jwplayer.play();
 
             urlVideo = response.getItems().get(position).getStreaming_urls().get(0).getUrl();
@@ -287,5 +291,31 @@ public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> 
     public void setScreenTitle() {
         super.setScreenTitle();
         setDataScreen(TrackingAnalytic.ScreenCode.LIVE_TV_DETAIL, TrackingAnalytic.ScreenTitle.LIVE_TV_DETAIL);
+    }
+
+    @Override
+    public void onFullscreen(FullscreenEvent fullscreenEvent) {
+        if (fullscreenEvent.getFullscreen()) {
+            getBinding().jwplayer.setFullscreen(true, true);
+        } else {
+            getBinding().jwplayer.setFullscreen(false, true);
+        }
+    }
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        try {
+            if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                getBinding().jwplayer.setFullscreen(true, true);
+            } else {
+                getBinding().jwplayer.setFullscreen(false, true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Handler;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.viewpager.widget.ViewPager;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearSnapHelper;
@@ -95,6 +96,8 @@ import me.crosswall.lib.coverflow.CoverFlow;
 import me.crosswall.lib.coverflow.core.PageItemClickListener;
 import me.crosswall.lib.coverflow.core.PagerContainer;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+import me.relex.circleindicator.CircleIndicator;
+import me.relex.circleindicator.CircleIndicator2;
 
 public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int APP_SEARCH_BOX = 0;
@@ -515,13 +518,14 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private TextView tvTipUser;
         private TextView btnRegisterNow;
         private IndefinitePagerIndicator vpIndicator;
-
+        private CircleIndicator indicator;
         public VoucherViewHolder(View itemView) {
             super(itemView);
             container = itemView.findViewById(R.id.pager_container);
             tvTipUser = itemView.findViewById(R.id.tvTipUser);
             btnRegisterNow = itemView.findViewById(R.id.btnRegisterNow);
             vpIndicator = itemView.findViewById(R.id.vpIndicator);
+            indicator = (CircleIndicator) itemView.findViewById(R.id.indicator);
         }
 
         public void bindItem(int position) {
@@ -571,6 +575,9 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             try {
                 vpIndicator.attachToViewPager(pager);
+
+                indicator.setViewPager(pager);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -656,15 +663,14 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private RecyclerView recyclerPartnerLink;
         private SubPromotionPartnerAdapter subPromotionPartnerAdapter;
         private IndefinitePagerIndicator vpIndicator;
-
+        private CircleIndicator2 indicator;
         public PromotionPartner(View itemView) {
             super(itemView);
             recyclerPartnerLink = itemView.findViewById(R.id.recyclerPartnerLink);
             vpIndicator = itemView.findViewById(R.id.vpIndicator);
-
+            indicator = itemView.findViewById(R.id.indicator);
             try {
-                SnapHelper helper = new LinearSnapHelper();
-                helper.attachToRecyclerView(recyclerPartnerLink);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -683,6 +689,9 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             try {
                 vpIndicator.attachToRecyclerView(recyclerPartnerLink);
+                PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
+                pagerSnapHelper.attachToRecyclerView(recyclerPartnerLink);
+                indicator.attachToRecyclerView(recyclerPartnerLink, pagerSnapHelper);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -899,16 +908,17 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private SubVideoAdapter subVideoAdapter;
         private IndefinitePagerIndicator vpIndicator;
         private TextView tvSeeMore;
-
+        private CircleIndicator2 indicator;
         public VideoViewHolder(View itemView) {
             super(itemView);
             recyclerAppVideo = itemView.findViewById(R.id.recyclerAppVideo);
             vpIndicator = itemView.findViewById(R.id.vpIndicator);
             tvSeeMore = itemView.findViewById(R.id.tvSeeMore);
+            indicator = itemView.findViewById(R.id.indicator);
 
             try {
-                SnapHelper helper = new LinearSnapHelper();
-                helper.attachToRecyclerView(recyclerAppVideo);
+//                PagerSnapHelper  helper = new PagerSnapHelper ();
+//                helper.attachToRecyclerView(recyclerAppVideo);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -926,6 +936,9 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             recyclerAppVideo.setAdapter(subVideoAdapter);
 
             try {
+                PagerSnapHelper  helper = new PagerSnapHelper ();
+                helper.attachToRecyclerView(recyclerAppVideo);
+                indicator.attachToRecyclerView(recyclerAppVideo, helper);
                 vpIndicator.attachToRecyclerView(recyclerAppVideo);
             } catch (Exception e) {
                 e.printStackTrace();
