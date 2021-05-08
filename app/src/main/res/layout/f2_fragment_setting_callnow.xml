@@ -11,8 +11,13 @@
         android:background="@color/white"
         android:clickable="true">
 
+        <View
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"/>
 
         <RelativeLayout
+            android:layout_marginTop="24dp"
             android:background="@color/colorPrimary"
             android:id="@+id/rlToolBar"
             android:layout_width="match_parent"
