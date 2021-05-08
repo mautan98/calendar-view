@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="16dp"
-                android:text="VTVTravel đã nhận được thông tin của Quý khách. Chúng tôi sẽ liên hệ theo thời gian Quý khách yêu cầu. Xin cảm ơn!" />
+                android:text="VTVTravel đã nhận được thông tin của Quý khách. Chúng tôi sẽ liên hệ tới bạn trong thời gian sớm nhất. Xin cảm ơn!" />
 
             <Button
                 android:id="@+id/btnBack"

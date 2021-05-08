@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="1. Cảm ơn Quý khách đã tin dùng sản phẩm, dịch vụ của VTVTravel. Quý khách vui lòng đánh giá chất lượng phục vụ của nhân viên. VTV Travel theo thang điểm từ 1-10"
+                    android:text="1. Cảm ơn Quý khách đã tin dùng sản phẩm, dịch vụ của VTVTravel. Quý khách vui lòng đánh giá chất lượng phục vụ của nhân viên. VTVTravel theo thang điểm từ 1-10"
                     android:textColor="#4A4A4A"
                     android:textSize="16dp" />
 
