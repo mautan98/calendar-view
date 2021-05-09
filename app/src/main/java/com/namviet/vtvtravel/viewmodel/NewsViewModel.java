@@ -193,6 +193,32 @@ public class NewsViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
+    public void getComment(String contentId) {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(Param.getComment(contentId)).toString());
+        Disposable disposable = newsService.getComment(jsonBodyObject)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<com.namviet.vtvtravel.response.f2comment.CommentResponse>() {
+                    @Override
+                    public void accept(com.namviet.vtvtravel.response.f2comment.CommentResponse response) throws Exception {
+                        if (response != null && null != response.getData()) {
+                            loadSuccess(response);
+                        } else {
+                            loadSuccess(null);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable);
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
     public void loadComment(String contentId, Integer page) {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();

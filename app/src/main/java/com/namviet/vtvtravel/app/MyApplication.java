@@ -169,20 +169,24 @@ public class MyApplication extends Application implements Observer {
             int typeLogin = PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.LOGIN, 0);
             switch (typeLogin) {
                 case Constants.TypeLogin.MOBILE:
-                    String mobile = PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.MOBILE, "");
-                    String password = PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.PASSWORD, "");
+                    try {
+                        String mobile = PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.MOBILE, "");
+                        String password = PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.PASSWORD, "");
 //                    accountViewModel.login(StringUtils.isPhoneValidateV2(mobile, 84), password, PreferenceUtil.getInstance(MyApplication.this).getValue(Constants.PrefKey.DEVICE_TOKEN, ""));
-                    long currentTime = System.currentTimeMillis()/1000;
-                    long cacheTime = getTimeStamp();
+                        long currentTime = System.currentTimeMillis()/1000;
+                        long cacheTime = getTimeStamp();
 
 //                    if((currentTime - cacheTime) > 518400){
 //                        accountViewModel.refreshToken();
 //                    }
 
-                    if((currentTime - cacheTime) > 240){
-                        accountViewModel.refreshToken();
+                        if((currentTime - cacheTime) > 240){
+                            accountViewModel.refreshToken();
+                        }
+                        Log.e("rangetimeeeee", (currentTime - cacheTime)+"");
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    Log.e("rangetimeeeee", (currentTime - cacheTime)+"");
                     break;
                 case Constants.TypeLogin.GOOGLE:
                     String googleId = PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.GOOGLE_ID, "");

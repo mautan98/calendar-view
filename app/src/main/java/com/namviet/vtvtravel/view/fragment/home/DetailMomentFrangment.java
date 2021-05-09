@@ -35,6 +35,7 @@ import com.namviet.vtvtravel.adapter.DetailMomentFragmentAdapter;
 import com.namviet.vtvtravel.adapter.RelationNewsAdapter;
 import com.namviet.vtvtravel.adapter.SlideMomentPhotoAdapter;
 import com.namviet.vtvtravel.adapter.TagDetailMomentAdapter;
+import com.namviet.vtvtravel.adapter.travelnews.CommentInDetailTravelNewsAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.FragmentDetailMomentBinding;
@@ -48,6 +49,7 @@ import com.namviet.vtvtravel.response.DetailNewsData;
 import com.namviet.vtvtravel.response.DetailNewsResponse;
 import com.namviet.vtvtravel.response.PostCommentResponse;
 import com.namviet.vtvtravel.response.ResponseError;
+import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.videomanage.controller.VideoControllerView;
 import com.namviet.vtvtravel.videomanage.controller.ViewAnimator;
@@ -58,6 +60,7 @@ import com.namviet.vtvtravel.videomanage.meta.MetaData;
 import com.namviet.vtvtravel.videomanage.ui.MediaPlayerWrapper;
 import com.namviet.vtvtravel.videomanage.utils.Utils;
 import com.namviet.vtvtravel.view.dialog.CommentDialogFragment;
+import com.namviet.vtvtravel.view.f2.CommentActivity;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.viewmodel.NewsViewModel;
 import com.namviet.vtvtravel.widget.CustPagerTransformer;
@@ -89,6 +92,10 @@ public class DetailMomentFrangment extends MainFragment implements Observer, New
     private CommentChildAdapter commentChildAdapter;
     private TagDetailMomentAdapter tagDetailMomentAdapter;
 
+    private CommentInDetailTravelNewsAdapter commentInDetailTravelNewsAdapter;
+
+    private DetailTravelNewsResponse detailTravelNewsResponse;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +122,25 @@ public class DetailMomentFrangment extends MainFragment implements Observer, New
     @Override
     protected void initViews(View v) {
         super.initViews(v);
+        binding.btnViewMoreComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (detailTravelNewsResponse != null) {
+                    CommentActivity.startScreen(mActivity, detailTravelNewsResponse, null);
+                }
+            }
+        });
+
+        binding.layoutWriteComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (detailTravelNewsResponse != null) {
+                    CommentActivity.startScreen(mActivity, detailTravelNewsResponse, null);
+                }
+            }
+        });
+
+
         binding.toolBar.ivBack.setOnClickListener(this);
         binding.toolBar.ivSearch.setOnClickListener(this);
         binding.tvComment.setOnClickListener(this);
@@ -123,11 +149,14 @@ public class DetailMomentFrangment extends MainFragment implements Observer, New
         binding.setNewsViewModel(newsViewModel);
         newsViewModel.addObserver(this);
 
-        binding.rvComment.setNestedScrollingEnabled(false);
-        binding.rvComment.setLayoutManager(new LinearLayoutManager(getContext()));
-        commentAdapter = new CommentAdapter(mActivity, commentList, this);
-        binding.rvComment.setAdapter(commentAdapter);
-        commentChildAdapter = new CommentChildAdapter();
+//        binding.rvComment.setNestedScrollingEnabled(false);
+//        binding.rvComment.setLayoutManager(new LinearLayoutManager(getContext()));
+//        commentAdapter = new CommentAdapter(mActivity, commentList, this);
+//        binding.rvComment.setAdapter(commentAdapter);
+//        commentChildAdapter = new CommentChildAdapter();
+
+
+        binding.rclComment.setNestedScrollingEnabled(false);
 
         binding.rvNewsSameCategory.setNestedScrollingEnabled(false);
         binding.rvNewsSameCategory.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -143,6 +172,10 @@ public class DetailMomentFrangment extends MainFragment implements Observer, New
         intentFilter.addAction(Constants.KeyBroadcast.KEY_LOGIN_SCREEN);
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, intentFilter);
         updateViews();
+    }
+
+    private void getComment(String contentId) {
+        newsViewModel.getComment(contentId);
     }
 
     @Override
@@ -196,8 +229,15 @@ public class DetailMomentFrangment extends MainFragment implements Observer, New
                         public void run() {
                             DetailNewsResponse response = (DetailNewsResponse) o;
                             updateUI(response.getData());
+                            getComment(response.getData().getId());
+                            detailTravelNewsResponse = new DetailTravelNewsResponse();
+                            DetailTravelNewsResponse.Data data = new DetailTravelNewsResponse(). new Data();
+                            data.setId(response.getData().getId());
+                            data.setContent_type(response.getData().getContent_type());
+                            detailTravelNewsResponse.setData(data);
                         }
                     });
+
                 } else if (o instanceof CommentResponse) {
                     CommentResponse commentResponse = (CommentResponse) o;
                     totalPage = commentResponse.getData().getTotalPages();
@@ -216,7 +256,30 @@ public class DetailMomentFrangment extends MainFragment implements Observer, New
                     // commentList.add(0, comment);
                     commentAdapter.notifyDataSetChanged();
                     commentChildAdapter.notifyDataSetChanged();
-                }  else if (o instanceof ResponseError) {
+                } else if (o instanceof com.namviet.vtvtravel.response.f2comment.CommentResponse) {
+                    com.namviet.vtvtravel.response.f2comment.CommentResponse response = (com.namviet.vtvtravel.response.f2comment.CommentResponse) o;
+                    List<com.namviet.vtvtravel.response.f2comment.CommentResponse.Data.Comment> comments = response.getData().getContent();
+                    if (comments == null) {
+                        binding.layoutViewAllComment.setVisibility(View.GONE);
+                    } else if (comments.size() >= 3) {
+                        binding.layoutViewAllComment.setVisibility(View.VISIBLE);
+                        binding.tvCommentLeft.setText("Xem tất cả " + comments.size() + " bình luận");
+                    } else {
+                        binding.layoutViewAllComment.setVisibility(View.GONE);
+                    }
+                    commentInDetailTravelNewsAdapter = new CommentInDetailTravelNewsAdapter(mActivity, response.getData().getContent(), new CommentInDetailTravelNewsAdapter.ClickItem() {
+                        @Override
+                        public void onClickItem(com.namviet.vtvtravel.response.f2comment.CommentResponse.Data.Comment comment) {
+
+                        }
+
+                        @Override
+                        public void onClickReply(com.namviet.vtvtravel.response.f2comment.CommentResponse.Data.Comment comment) {
+                            CommentActivity.startScreen(mActivity, detailTravelNewsResponse, comment.getId());
+                        }
+                    });
+                    binding.rclComment.setAdapter(commentInDetailTravelNewsAdapter);
+                } else if (o instanceof ResponseError) {
                     ResponseError responseError = (ResponseError) o;
                     showMessage(responseError.getMessage());
                 }
@@ -343,7 +406,7 @@ public class DetailMomentFrangment extends MainFragment implements Observer, New
         } else {
             binding.tvTitleNewsRelated.setVisibility(View.GONE);
         }
-        newsViewModel.loadComment(mTravel.getId(), page);
+//        newsViewModel.loadComment(mTravel.getId(), page);
 
     }
 
