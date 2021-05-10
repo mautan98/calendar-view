@@ -23,72 +23,113 @@
             android:orientation="vertical"
             android:paddingBottom="30dp">
 
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/red" />
 
-            <LinearLayout
-                android:id="@+id/linearUsername"
+
+            <ImageView
+                android:layout_width="176dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/red" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Đăng ký"
+                android:textAllCaps="true"
+                android:textColor="#070707"
+                android:textSize="14dp" />
+
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="18dp"
-                android:background="@drawable/f2_bg_login"
-                android:gravity="center_vertical"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp">
+                android:layout_marginTop="28dp">
 
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="17dp"
-                    android:layout_marginStart="15dp"
-                    android:background="@drawable/f2_ic_vietnam" />
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/roboto_regular"
-                    android:text="+84"
-                    android:textColor="@color/md_black_1000"
-                    android:textSize="16dp" />
-
-
-                <EditText
-                    android:id="@+id/edtPhone"
+                <LinearLayout
+                    android:id="@+id/linearUsername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="15dp"
-                    android:background="@color/white"
-                    android:fontFamily="@font/roboto_regular"
-                    android:hint="Số điện thoại"
-                    android:inputType="number"
-                    android:maxLength="11"
-                    android:singleLine="true"
-                    android:textSize="16dp" />
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="18dp"
+                    android:background="@drawable/f2_bg_login"
+                    android:gravity="center_vertical"
+                    android:paddingStart="1dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="15dp">
 
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="17dp"
+                        android:background="@color/red" />
 
 
-            <EditText
-                android:id="@+id/edtName"
+                    <EditText
+                        android:id="@+id/edtPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:background="@color/white"
+                        android:fontFamily="@font/roboto_regular"
+                        android:hint="Số điện thoại"
+                        android:inputType="phone"
+                        android:maxLength="12"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="18dp"
-                android:background="@drawable/f2_bg_login"
-                android:fontFamily="@font/roboto_regular"
-                android:gravity="center_vertical"
-                android:hint="Họ và tên"
-                android:maxLength="60"
-                android:paddingStart="15dp"
-                android:inputType="textCapWords"
-                android:paddingTop="15dp"
-                android:paddingEnd="15dp"
-                android:paddingBottom="15dp"
-                android:singleLine="true"
-                android:textSize="16dp" />
+                android:layout_marginTop="32dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="18dp"
+                    android:background="@drawable/f2_bg_login"
+                    android:gravity="center_vertical"
+                    android:paddingStart="1dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="15dp">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="17dp"
+                        android:background="@color/red" />
+
+
+                    <EditText
+                        android:id="@+id/edtName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:background="@color/white"
+                        android:fontFamily="@font/roboto_regular"
+                        android:hint="Họ và tên"
+                        android:inputType="phone"
+                        android:maxLength="12"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
 
 
             <LinearLayout
@@ -100,14 +141,14 @@
                 android:background="@drawable/f2_bg_dash"
                 android:orientation="vertical"
                 android:paddingStart="15dp"
-                android:paddingTop="8dp"
+                android:paddingTop="5dp"
                 android:paddingEnd="15dp"
-                android:paddingBottom="8dp">
+                android:paddingBottom="5dp">
 
                 <LinearLayout
-                    android:gravity="center_vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
 
                     <CheckBox
                         android:id="@+id/checkboxTravelVip"
@@ -128,6 +169,7 @@
                         android:id="@+id/btnDetailDeal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="11dp"
                         android:fontFamily="@font/roboto_medium"
                         android:text="(Chi tiết ưu đãi)"
                         android:textColor="#00918D"
@@ -150,13 +192,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="18dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="23dp"
                 android:layout_marginEnd="18dp"
                 android:background="@drawable/f2_bg_round_login"
                 android:gravity="center"
                 android:paddingTop="12dp"
                 android:paddingBottom="14dp"
-                android:text="Đăng ký"
+                android:text="Đồng ý với điều khoản &amp; đăng ký"
                 android:textAllCaps="true"
                 android:textColor="@color/white" />
 
@@ -164,31 +206,65 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="21dp"
+                android:layout_marginTop="26dp"
                 android:gravity="center">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="Click vào đăng ký là bạn đã đồng ý với"
+                    android:text="Đã có tài khoản"
                     android:textColor="@color/md_black_1000"
                     android:textSize="14dp" />
 
 
                 <TextView
-                    android:layout_marginStart="5dp"
-                    android:id="@+id/tvRules"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="@string/rules"
+                    android:text="Đăng nhập"
                     android:textColor="#00918D"
                     android:textSize="14dp" />
 
 
             </LinearLayout>
 
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Chính sách bảo mật"
+                    android:textColor="#107CE8"
+                    android:textSize="14dp" />
+
+
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:textColor="#070707"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="&amp;" />
+
+                <TextView
+                    android:id="@+id/tvRules"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Các điều khoản"
+                    android:textColor="#107CE8"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
