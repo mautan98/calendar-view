@@ -40,36 +40,36 @@
                         <ImageView
                             android:layout_width="21dp"
                             android:layout_height="14dp"
-                            android:src="@drawable/f2_ic_back" />
+                            android:src="@drawable/f2_ic_long_back" />
                     </LinearLayout>
 
 
                     <TextView
-                        android:textAllCaps="true"
-                        android:layout_centerVertical="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:fontFamily="@font/roboto_medium"
                         android:gravity="center"
                         android:text="Quên mật khẩu"
+                        android:textAllCaps="true"
                         android:textColor="#070707"
                         android:textSize="16dp" />
 
                 </RelativeLayout>
 
                 <TextView
-                    android:layout_marginTop="54dp"
-                    android:textSize="14dp"
-                    android:fontFamily="@font/roboto_regular"
-                    android:paddingEnd="20dp"
-                    android:paddingStart="20dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginStart="30dp"
-                    android:gravity="center"
-                    android:textColor="#070707"
-                    android:text="Vui lòng nhập số điện thoại của bạn để lấy lại mật khẩu đăng nhập!"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="54dp"
+                    android:layout_marginEnd="30dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="Vui lòng nhập số điện thoại của bạn để lấy lại mật khẩu đăng nhập!"
+                    android:textColor="#070707"
+                    android:textSize="14dp" />
 
                 <LinearLayout
                     android:id="@+id/edtPhone"
@@ -90,7 +90,7 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_marginStart="17dp"
-                        android:background="@color/red" />
+                        android:src="@drawable/f2_ic_call_user" />
 
 
                     <EditText
@@ -108,30 +108,47 @@
                 </LinearLayout>
 
 
-
-                <TextView
-                    android:id="@+id/btnNext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="18dp"
+                <RelativeLayout
                     android:layout_marginTop="41dp"
-                    android:layout_marginEnd="18dp"
-                    android:background="@drawable/f2_bg_round_login"
-                    android:fontFamily="@font/roboto_medium"
-                    android:gravity="center"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="14dp"
-                    android:text="Tiếp tục"
-                    android:textAllCaps="true"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/btnNext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginEnd="18dp"
+                        android:background="@drawable/f2_bg_round_login"
+                        android:fontFamily="@font/roboto_medium"
+                        android:gravity="center"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp"
+                        android:text="Tiếp tục"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="16dp" />
+
+
+
+                    <ImageView
+                        android:layout_marginEnd="30dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/f2_ic_long_next"
+                        android:layout_width="21dp"
+                        android:layout_height="14dp"/>
+
+
+
+                </RelativeLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"

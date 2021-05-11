@@ -26,17 +26,18 @@
             <ImageView
                 android:layout_width="21dp"
                 android:layout_height="14dp"
-                android:src="@drawable/f2_ic_back" />
+                android:src="@drawable/f2_ic_long_back" />
         </LinearLayout>
 
         <TextView
-            android:textColor="#070707"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/roboto_medium"
             android:gravity="center"
             android:text="Xác thực mã OTP"
+            android:textAllCaps="true"
+            android:textColor="#070707"
             android:textSize="16dp" />
 
         <TextView
@@ -86,11 +87,11 @@
 
 
         <TextView
-            android:layout_marginTop="3dp"
             android:id="@+id/tvConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
+            android:layout_marginTop="3dp"
             android:layout_marginEnd="18dp"
             android:background="@drawable/f2_bg_round_login"
             android:fontFamily="@font/roboto_medium"
@@ -103,33 +104,47 @@
             android:textSize="16dp" />
 
         <LinearLayout
-            android:orientation="vertical"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="27dp">
+            android:layout_marginTop="27dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvResentOTP"
+            <LinearLayout
+                android:gravity="center_vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:fontFamily="@font/roboto_regular"
-                android:gravity="center"
-                android:text="Gửi lại OTP"
-                android:textColor="#00918D"
-                android:textSize="16dp" />
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:src="@drawable/f2_ic_reload_otp"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"/>
+
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/tvResentOTP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center"
+                    android:text="Gửi lại mã"
+                    android:textColor="#00918D"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
 
 
             <TextView
+                android:layout_marginTop="5dp"
                 android:id="@+id/tvTimeLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/tvResentOTP"
                 android:fontFamily="@font/roboto_regular"
                 android:text="(0 giây)"
-                android:textColor="#9D9D9D"
-                android:textSize="16dp" />
+                android:textColor="#979797"
+                android:textSize="18dp" />
 
         </LinearLayout>
 

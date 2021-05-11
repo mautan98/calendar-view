@@ -24,18 +24,19 @@
             android:paddingBottom="30dp">
 
             <ImageView
+                android:padding="8dp"
+                android:src="@drawable/f2_ic_close_2"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginStart="14dp"
-                android:layout_marginTop="15dp"
-                android:background="@color/red" />
+                android:layout_marginTop="15dp" />
 
 
             <ImageView
+                android:src="@drawable/ic_logo"
                 android:layout_width="176dp"
                 android:layout_height="36dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@color/red" />
+                android:layout_gravity="center_horizontal" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -68,10 +69,10 @@
                     android:paddingBottom="15dp">
 
                     <ImageView
+                        android:src="@drawable/f2_ic_call_user"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:layout_marginStart="17dp"
-                        android:background="@color/red" />
+                        android:layout_marginStart="17dp" />
 
 
                     <EditText
@@ -109,10 +110,10 @@
                     android:paddingBottom="15dp">
 
                     <ImageView
+                        android:src="@drawable/f2_ic_name_and_origin"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:layout_marginStart="17dp"
-                        android:background="@color/red" />
+                        android:layout_marginStart="17dp" />
 
 
                     <EditText
@@ -213,7 +214,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="Đã có tài khoản"
+                    android:text="Đã có tài khoản?"
                     android:textColor="@color/md_black_1000"
                     android:textSize="14dp" />
 
