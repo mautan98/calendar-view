@@ -16,41 +16,44 @@
         android:orientation="vertical">
 
         <ImageView
-            android:padding="8dp"
-            android:src="@drawable/f2_ic_close_2"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="14dp"
+            android:id="@+id/btnBack"
             android:layout_width="35dp"
-            android:layout_height="35dp"/>
+            android:layout_height="35dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="15dp"
+            android:padding="8dp"
+            android:src="@drawable/f2_ic_close_2" />
 
 
         <ImageView
-            android:src="@drawable/ic_logo"
-            android:layout_gravity="center_horizontal"
             android:layout_width="176dp"
-            android:layout_height="36dp"/>
+            android:layout_height="36dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_logo" />
 
         <TextView
-            android:layout_marginTop="28dp"
-            android:layout_gravity="center_horizontal"
-            android:textColor="#070707"
-            android:textSize="14dp"
-            android:fontFamily="@font/roboto_medium"
-            android:textAllCaps="true"
-            android:text="Đăng nhập"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="28dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Đăng nhập"
+            android:textAllCaps="true"
+            android:textColor="#070707"
+            android:textSize="14dp" />
 
         <RelativeLayout
-            android:layout_marginTop="28dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp">
+
 
             <LinearLayout
                 android:id="@+id/linearUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="18dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="18dp"
                 android:background="@drawable/f2_bg_login"
                 android:gravity="center_vertical"
@@ -60,10 +63,10 @@
                 android:paddingBottom="15dp">
 
                 <ImageView
-                    android:src="@drawable/f2_ic_call_user"
-                    android:layout_marginStart="17dp"
                     android:layout_width="15dp"
-                    android:layout_height="15dp"/>
+                    android:layout_height="15dp"
+                    android:layout_marginStart="17dp"
+                    android:src="@drawable/f2_ic_call_user" />
 
 
                 <EditText
@@ -80,66 +83,123 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/tvPhoneHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="43dp"
+                android:background="@color/white"
+                android:fontFamily="@font/roboto_regular"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="Số điện thoại"
+                android:textColor="#D72629"
+                android:textSize="12dp"
+                android:visibility="invisible" />
+
+
+            <TextView
+                android:id="@+id/tvPhoneError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearUsername"
+                android:layout_marginStart="25dp"
+                android:fontFamily="@font/roboto_italic"
+                android:textColor="#D72629"
+                android:textSize="12dp"
+                android:visibility="invisible" />
+
         </RelativeLayout>
 
 
-        <LinearLayout
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:id="@+id/linearPassword"
+        <RelativeLayout
+            android:layout_marginTop="3dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="18dp"
-            android:background="@drawable/f2_bg_login"
-            android:gravity="center_vertical"
-            android:paddingStart="1dp"
-            android:paddingEnd="1dp">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:src="@drawable/f2_ic_lock"
-                android:layout_marginStart="17dp"
-                android:layout_width="15dp"
-                android:layout_height="15dp"/>
-
-            <EditText
-                android:id="@+id/edtPassword"
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:id="@+id/linearPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:ellipsize="end"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@drawable/f2_bg_login"
+                android:gravity="center_vertical"
+                android:paddingStart="1dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="1dp"
+                android:paddingBottom="5dp">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginStart="17dp"
+                    android:src="@drawable/f2_ic_lock" />
+
+                <EditText
+                    android:id="@+id/edtPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="Mật khẩu"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:textSize="14dp" />
+
+
+                <ImageView
+                    android:id="@+id/imgEyeCovered"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/bg_round_ripple"
+                    android:padding="10dp"
+                    android:src="@drawable/f2_ic_eye_covered" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvPassHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="43dp"
+                android:background="@color/white"
                 android:fontFamily="@font/roboto_regular"
-                android:hint="Mật khẩu"
-                android:inputType="textPassword"
-                android:singleLine="true"
-                android:textSize="14dp" />
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="Mật khẩu"
+                android:textColor="#D72629"
+                android:textSize="12dp"
+                android:visibility="invisible" />
 
+            <TextView
+                android:layout_below="@+id/linearPassword"
+                android:id="@+id/tvPassError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:fontFamily="@font/roboto_italic"
+                android:textColor="#D72629"
+                android:textSize="12dp"
+                android:visibility="invisible" />
 
-            <ImageView
-                android:id="@+id/imgEyeCovered"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_round_ripple"
-                android:padding="10dp"
-                android:src="@drawable/f2_ic_eye_covered" />
-
-
-        </LinearLayout>
+        </RelativeLayout>
 
 
         <TextView
-            android:layout_marginEnd="12dp"
-            android:layout_gravity="end"
             android:id="@+id/tvForgotPass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginEnd="12dp"
             android:background="@drawable/bg_ripple_trans_rect"
             android:fontFamily="@font/roboto_regular"
             android:paddingStart="6dp"
@@ -168,26 +228,27 @@
 
 
         <LinearLayout
-            android:gravity="center"
-            android:layout_marginTop="26dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:gravity="center">
 
             <TextView
-                android:textSize="14dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_regular"
-                android:textColor="#070707"
                 android:text="Chưa có tài khoản?"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textColor="#070707"
+                android:textSize="14dp" />
 
             <TextView
-                android:textColor="@color/colorPrimary"
-                android:fontFamily="@font/roboto_medium"
-                android:layout_marginStart="10dp"
-                android:text="Đăng ký"
+                android:id="@+id/btnRegister"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Đăng ký"
+                android:textColor="@color/colorPrimary" />
 
 
         </LinearLayout>

@@ -15,12 +15,15 @@ import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2FragmentRegisterBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.model.f2event.OnChangeTab;
 import com.namviet.vtvtravel.response.AccountResponse;
 import com.namviet.vtvtravel.ultils.StringUtils;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.ValidateUtils;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.viewmodel.AccountViewModel;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -117,6 +120,20 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
                 addFragment(new RulesFragment());
             }
         });
+
+        getBinding().btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.finish();
+            }
+        });
+
+        getBinding().btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new OnChangeTab(0));
+            }
+        });
     }
 
     @Override
@@ -191,4 +208,6 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
         super.setScreenTitle();
         setDataScreen(TrackingAnalytic.ScreenCode.REGISTER, TrackingAnalytic.ScreenTitle.REGISTER);
     }
+
+
 }

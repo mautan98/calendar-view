@@ -8,6 +8,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -20,6 +21,7 @@ import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2FragmentLoginBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.model.f2event.OnChangeTab;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndGoToBooking;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndGoToCallNow;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndReloadDeal;
@@ -68,15 +70,16 @@ public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implem
         getBinding().btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                resetError();
                 String mobile = getBinding().edtUsername.getText().toString();
                 String password = getBinding().edtPassword.getText().toString();
 
                 if (mobile.isEmpty()) {
-                    handleValidateFail(getBinding().edtUsername, getBinding().linearUsername, getString(R.string.phone_empty_login));
+                    handleValidateFail(getBinding().edtUsername, getBinding().linearUsername, getString(R.string.phone_empty_login), getBinding().tvPhoneError);
                 } else if (password.isEmpty()) {
-                    handleValidateFail(getBinding().edtPassword, getBinding().linearPassword, "Mật khẩu không được để trống");
+                    handleValidateFail(getBinding().edtPassword, getBinding().linearPassword, "Mật khẩu không được để trống", getBinding().tvPassError);
                 } else if (!ValidateUtils.isValidPhoneNumberNew(mobile)) {
-                    handleValidateFail(getBinding().edtUsername, getBinding().linearUsername, "Số điện thoại nhập không đúng định dạng");
+                    handleValidateFail(getBinding().edtUsername, getBinding().linearUsername, "Số điện thoại nhập không đúng định dạng", getBinding().tvPhoneError);
                 } else {
 //                    showDialogLoading();
                     showLoading();
@@ -118,6 +121,7 @@ public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implem
     @Override
     public void initData() {
         mPreferenceUtil = PreferenceUtil.getInstance(getContext());
+        handleFocusChange();
     }
 
     @Override
@@ -131,6 +135,20 @@ public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implem
             @Override
             public void onClick(View view) {
                 addFragment(new ForgetPassF2Fragment());
+            }
+        });
+
+        getBinding().btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.finish();
+            }
+        });
+
+        getBinding().btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new OnChangeTab(1));
             }
         });
     }
@@ -198,9 +216,11 @@ public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implem
         PreferenceUtil.getInstance(mActivity).setValue(Constants.PrefKey.TIME_STAMP, tsLong);
     }
 
-    private void handleValidateFail(EditText editText, LinearLayout linearLayout, String error) {
+    private void handleValidateFail(EditText editText, LinearLayout linearLayout, String error, TextView tvError) {
         ((LoginAndRegisterActivityNew) mActivity).showWarning(error);
         linearLayout.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.f2_bg_login_fail));
+        tvError.setVisibility(View.VISIBLE);
+        tvError.setText(error);
         editText.requestFocus();
     }
 
@@ -219,5 +239,38 @@ public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implem
     public void setScreenTitle() {
         super.setScreenTitle();
         setDataScreen(TrackingAnalytic.ScreenCode.LOGIN, TrackingAnalytic.ScreenTitle.LOGIN);
+    }
+
+
+    private void handleFocusChange(){
+        getBinding().edtUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    getBinding().tvPhoneHint.setVisibility(View.VISIBLE);
+                }else {
+                    getBinding().tvPhoneHint.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+
+        getBinding().edtPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    getBinding().tvPassHint.setVisibility(View.VISIBLE);
+                }else {
+                    getBinding().tvPassHint.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+    }
+
+    private void resetError(){
+        getBinding().tvPhoneError.setVisibility(View.INVISIBLE);
+        getBinding().tvPassError.setVisibility(View.INVISIBLE);
+        getBinding().tvPhoneError.setText("");
+        getBinding().tvPassError.setText("");
     }
 }
