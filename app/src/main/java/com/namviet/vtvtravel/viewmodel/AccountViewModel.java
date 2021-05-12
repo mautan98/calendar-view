@@ -254,8 +254,8 @@ public class AccountViewModel extends BaseViewModel {
         return mRegister;
     }
 
-    public void setPassRegister(Integer id, String mobile, String pass, String packageCode) {
-        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(Param.setPassRegister(id, mobile, pass, packageCode)).toString());
+    public void setPassRegister(Integer id, String mobile, String pass, String packageCode, String fullName) {
+        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(Param.setPassRegister(id, mobile, pass, packageCode, fullName)).toString());
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
 

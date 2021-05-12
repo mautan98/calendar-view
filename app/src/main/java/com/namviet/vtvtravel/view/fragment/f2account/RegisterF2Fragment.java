@@ -75,6 +75,7 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
 
                 phone = getBinding().edtPhone.getText().toString();
                 String name = getBinding().edtName.getText().toString();
+                ((LoginAndRegisterActivityNew)mActivity).fullName = name;
 
                 if (phone.isEmpty()) {
                     handleValidateFail(getBinding().edtPhone, getBinding().linearUsername, getString(R.string.phone_empty_v2));

@@ -144,13 +144,14 @@ public class Param {
         return map;
     }
 
-    public static JSONObject setPassRegister(Integer id, String mobile, String pass, String packageCode) {
+    public static JSONObject setPassRegister(Integer id, String mobile, String pass, String packageCode, String fullName) {
         JSONObject map = new JSONObject();
         try {
             map.put(WSConfig.KeyParam.ID, id);
             map.put(WSConfig.KeyParam.MOBILE, mobile);
             map.put(WSConfig.KeyParam.PASSWORD, pass);
             map.put(WSConfig.KeyParam.PACKAGE_CODE, packageCode);
+            map.put(WSConfig.KeyParam.FULLNAME, fullName);
         } catch (JSONException e) {
             e.printStackTrace();
         }

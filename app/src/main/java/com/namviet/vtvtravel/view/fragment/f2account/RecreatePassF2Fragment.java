@@ -124,7 +124,7 @@ public class RecreatePassF2Fragment extends BaseFragment<F2FragmentRecreatePassB
                 String mobile = MyApplication.getInstance().getAccount().getMobile();
                 String token = MyApplication.getInstance().getAccount().getToken();
                 if (screenType.equals(Constants.IntentKey.TYPE_OTP_REGISTER)) {
-                    accountViewModel.setPassRegister(id, mobile, pass1, ((LoginAndRegisterActivityNew) mActivity).packageCode);
+                    accountViewModel.setPassRegister(id, mobile, pass1, ((LoginAndRegisterActivityNew) mActivity).packageCode, ((LoginAndRegisterActivityNew) mActivity).fullName);
                 } else {
                     accountViewModel.setPassReset(id, mobile, pass1, token);
                 }

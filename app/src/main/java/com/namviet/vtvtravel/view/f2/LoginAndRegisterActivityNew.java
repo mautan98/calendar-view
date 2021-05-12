@@ -21,6 +21,8 @@ public class LoginAndRegisterActivityNew extends BaseActivityNew<F2ActivityLogin
 
     private int position;
     public String packageCode = Constants.TypePackage.TRAVEL_VIP;
+
+    public String fullName = "";
     @Override
     public int getLayoutRes() {
         return R.layout.f2_activity_login_and_register;
