@@ -7,6 +7,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -26,7 +28,10 @@ import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.MyLocation;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
+
 public class GPSTracker extends Service implements LocationListener {
     protected LocationManager locationManager;
     CountDownTimer timer;
@@ -56,6 +61,19 @@ public class GPSTracker extends Service implements LocationListener {
 //                    }
 //                }
 //            });
+
+            try {
+                Geocoder gcd = new Geocoder(this, Locale.getDefault());
+                List<Address> addresses = gcd.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                if (addresses.size() > 0) {
+                    PreferenceUtil.getInstance(GPSTracker.this).setValue(Constants.PrefKey.CITY_NAME, addresses.get(0).getLocality());
+                }
+                else {
+                    // do your stuff
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -114,7 +114,7 @@ public class CommentInDetailTravelNewsAdapter extends RecyclerView.Adapter<Recyc
             }
             tvName.setText(comments.get(position).getUser().getFullname());
             tvComment.setText(comments.get(position).getContent());
-            Glide.with(context).load(comments.get(position).getUser().getImageProfile()).apply(new RequestOptions().circleCrop()).into(imgAvatar);
+            Glide.with(context).load(comments.get(position).getUser().getImageProfile()).error(R.drawable.f2_defaut_user).apply(new RequestOptions().circleCrop()).into(imgAvatar);
             tvTime.setText(DateUtltils.convertTime(comments.get(position).getCreated()));
         }
     }

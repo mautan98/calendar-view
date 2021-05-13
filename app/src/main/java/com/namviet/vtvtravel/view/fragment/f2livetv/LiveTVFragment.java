@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.view.fragment.f2livetv;
 
 import android.annotation.SuppressLint;
+import android.view.MotionEvent;
 import android.content.res.Configuration;
 import android.view.View;
 import android.widget.Toast;
@@ -75,6 +76,8 @@ public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> 
 
     }
 
+
+
     private void setData() {
         try {
             getBinding().jwplayer.setFullscreen(false, false);
@@ -117,9 +120,46 @@ public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> 
         liveTvViewModel.getLiveTvData(detailLink);
     }
 
+    float x1, x2;
+
     @Override
     public void initData() {
+        getBinding().viewMain.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction())
+                {
+                    case MotionEvent.ACTION_DOWN:
+                        x1 = event.getX();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        x2 = event.getX();
+                        float deltaX = x2 - x1;
 
+                        if (Math.abs(deltaX) > 150)
+                        {
+                            // Left to Right swipe action
+                            if (x2 > x1)
+                            {
+//                                Toast.makeText(mActivity, "Left to Right swipe [Next]", Toast.LENGTH_SHORT).show ();
+                            }
+
+                            // Right to left swipe action
+                            else
+                            {
+//                                Toast.makeText(mActivity, "Right to Left swipe [Previous]", Toast.LENGTH_SHORT).show ();
+                            }
+
+                        }
+                        else
+                        {
+                            // consider as something else - a screen tap for example
+                        }
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     @Override
