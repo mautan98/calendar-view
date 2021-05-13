@@ -101,6 +101,7 @@
             android:layout_height="match_parent">
 
             <androidx.core.widget.NestedScrollView
+                android:id="@+id/ns_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white">
@@ -113,6 +114,7 @@
 
 
                     <LinearLayout
+                        android:id="@+id/lnl_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -233,6 +235,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
+                            android:layout_marginBottom="25dp"
                             android:background="#DDFCFC"
                             android:nestedScrollingEnabled="false"
                             android:paddingTop="20dp"
@@ -243,15 +246,20 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-
-                        <WebView
-                            android:id="@+id/webViewContent"
+                        <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="25dp"
-                            android:minHeight="500dp"
-                            tools:ignore="WebViewLayout" />
-
+                            android:layout_height="wrap_content">
+                            <WebView
+                                android:visibility="invisible"
+                                android:id="@+id/webViewContentCache"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                            <WebView
+                                android:nestedScrollingEnabled="true"
+                                android:id="@+id/webViewContent"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                        </FrameLayout>
                         <RelativeLayout
                             android:id="@+id/shimmer_view_container"
                             android:layout_width="match_parent"

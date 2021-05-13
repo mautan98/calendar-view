@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.webkit.RenderProcessGoneDetail;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -62,6 +63,8 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
     private NearByInTravelDetailAdapter nearByInTravelDetailAdapter;
     private RelationNewsInTravelDetailAdapter relationNewsInTravelDetailAdapter;
     private DetailTravelNewsResponse detailTravelNewsResponse;
+    private String urlDefault;
+    private int count = 0;
 
     public DetailNewsTravelFragment() {
     }
@@ -77,6 +80,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
         getBinding().rclNearBy.setNestedScrollingEnabled(false);
 //        getBinding().webViewContent.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
         getBinding().webViewContent.getSettings().setJavaScriptEnabled(true);
+        getBinding().webViewContentCache.getSettings().setJavaScriptEnabled(true);
 //        getBinding().webViewContent.setInitialScale(1);      //webview page matches the screen size.
 //        getBinding().webViewContent.getSettings().setLoadWithOverviewMode(true);
 //        getBinding().webViewContent.getSettings().setUseWideViewPort(true);
@@ -307,7 +311,27 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                 }
 
                 getComment(detailTravelNewsResponse.getData().getId());
-                getBinding().webViewContent.loadDataWithBaseURL("", detailTravelNewsResponse.getData().getDescription(), "text/html", "UTF-8", null);
+                urlDefault =  detailTravelNewsResponse.getData().getDescription();
+                getBinding().webViewContent.loadDataWithBaseURL("", urlDefault, "text/html", "UTF-8", null);
+                getBinding().webViewContentCache.loadDataWithBaseURL("", urlDefault, "text/html", "UTF-8", null);
+                getBinding().webViewContentCache.setWebViewClient(new WebViewClient() {
+                    @Override
+                    public void onPageFinished(WebView view, String url)
+                    {
+                        count ++;
+                        if(count > 1){
+                            getBinding().webViewContentCache.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                                @Override
+                                public void onGlobalLayout() {
+                                    if(view.getHeight() >0)
+                                        getBinding().nsView.scrollTo(0, getBinding().webViewContentCache.getHeight()+ getBinding().lnlHeader.getHeight());
+                                }
+                            });
+
+                        }
+                    }
+                });
+
                 getBinding().webViewContent.setWebViewClient(new CustomWebViewClient());
                 try {
                     try {
@@ -481,8 +505,16 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
+            try {
+                if(view.getOriginalUrl().contains("#")){
+                    String index = view.getOriginalUrl().substring(view.getOriginalUrl().indexOf("#")+1);
+                    String mUrl = urlDefault.substring(0,urlDefault.lastIndexOf(index));
+                    getBinding().webViewContentCache.loadDataWithBaseURL("", mUrl, "text/html", "UTF-8", null);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             getBinding().shimmerViewContainer.setVisibility(View.GONE);
-            Log.e("webviewww", "3");
         }
 
         @Override
