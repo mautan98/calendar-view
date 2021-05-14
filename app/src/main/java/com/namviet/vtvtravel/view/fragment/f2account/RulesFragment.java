@@ -6,6 +6,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.databinding.F2FragmentRulesBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
@@ -17,8 +18,13 @@ import com.namviet.vtvtravel.viewmodel.f2account.AccountViewModel;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.inject.Inject;
+
 public class RulesFragment extends BaseFragment<F2FragmentRulesBinding> implements Observer {
-    private AccountViewModel accountViewModel;
+
+    @Inject
+    AccountViewModel accountViewModel;
+
     @Override
     public int getLayoutRes() {
         return R.layout.f2_fragment_rules;
@@ -26,7 +32,6 @@ public class RulesFragment extends BaseFragment<F2FragmentRulesBinding> implemen
 
     @Override
     public void initView() {
-        accountViewModel = new AccountViewModel();
         accountViewModel.addObserver(this);
         accountViewModel.getUsageRule();
     }
@@ -55,7 +60,7 @@ public class RulesFragment extends BaseFragment<F2FragmentRulesBinding> implemen
 
     @Override
     public void inject() {
-
+        ((MyApplication)mActivity.getApplication()).getViewModelComponent().inject(this);
     }
 
     @Override

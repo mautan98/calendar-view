@@ -16,5 +16,9 @@
         android:color="#707070" />
 
 
+    <solid
+        android:color="@color/white"/>
+
+
 
 </shape>

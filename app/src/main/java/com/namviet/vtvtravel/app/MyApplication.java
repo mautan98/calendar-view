@@ -24,6 +24,8 @@ import com.namviet.vtvtravel.api.TravelFactory;
 import com.namviet.vtvtravel.api.TravelService;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.database.AppDatabase;
+import com.namviet.vtvtravel.di.DaggerViewModelComponent;
+import com.namviet.vtvtravel.di.ViewModelComponent;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.City;
 import com.namviet.vtvtravel.model.MyLocation;
@@ -45,6 +47,7 @@ import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
 
 public class MyApplication extends Application implements Observer {
+    private ViewModelComponent viewModelComponent;
 
     private boolean isVipRegisted;
     private AppDatabase database;
@@ -202,6 +205,13 @@ public class MyApplication extends Application implements Observer {
             accountViewModel.notificationReg(DeviceUtils.getDeviceId(getBaseContext()), token, "ANDROID");
         }
 
+
+        viewModelComponent = DaggerViewModelComponent.create();
+
+    }
+
+    public ViewModelComponent getViewModelComponent() {
+        return viewModelComponent;
     }
 
     public static MyApplication getInstance() {

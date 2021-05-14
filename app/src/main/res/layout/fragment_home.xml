@@ -158,8 +158,8 @@
 
                     <ImageView
                         android:id="@+id/imgCreateTrip"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/f2_ic_menu_schedule"
                         app:layout_constraintBottom_toTopOf="@id/imgSan"
                         app:layout_constraintEnd_toStartOf="@id/guideline"
@@ -181,8 +181,8 @@
 
                     <ImageView
                         android:id="@+id/imgLuckyWheel"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/f2_ic_menu_wheel"
                         app:layout_constraintBottom_toTopOf="@id/imgPrize"
                         app:layout_constraintEnd_toStartOf="@+id/imgPrize"

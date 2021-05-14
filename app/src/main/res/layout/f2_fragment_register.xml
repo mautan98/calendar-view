@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,187 +11,215 @@
     </data>
 
 
-    <androidx.core.widget.NestedScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:clickable="true"
-            android:focusable="true"
-            android:orientation="vertical"
-            android:paddingBottom="30dp">
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="100dp">
 
-
-            <LinearLayout
-                android:id="@+id/linearUsername"
+            <ImageView
+                android:id="@+id/imgIcon"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="18dp"
-                android:background="@drawable/f2_bg_login"
-                android:gravity="center_vertical"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp">
+                android:layout_height="0dp"
+                android:src="@drawable/f2_bg_account"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="373:172"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                tools:layout_editor_absoluteX="0dp" />
 
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="17dp"
-                    android:layout_marginStart="15dp"
-                    android:background="@drawable/f2_ic_vietnam" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/roboto_regular"
-                    android:text="+84"
-                    android:textColor="@color/md_black_1000"
-                    android:textSize="16dp" />
-
-
-                <EditText
-                    android:id="@+id/edtPhone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="15dp"
-                    android:background="@color/white"
-                    android:fontFamily="@font/roboto_regular"
-                    android:hint="Số điện thoại"
-                    android:inputType="number"
-                    android:maxLength="11"
-                    android:singleLine="true"
-                    android:textSize="16dp" />
-
-            </LinearLayout>
-
-
-            <EditText
-                android:id="@+id/edtName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="18dp"
-                android:background="@drawable/f2_bg_login"
-                android:fontFamily="@font/roboto_regular"
-                android:gravity="center_vertical"
-                android:hint="Họ và tên"
-                android:maxLength="60"
-                android:paddingStart="15dp"
-                android:inputType="textCapWords"
-                android:paddingTop="15dp"
-                android:paddingEnd="15dp"
-                android:paddingBottom="15dp"
-                android:singleLine="true"
-                android:textSize="16dp" />
-
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="18dp"
-                android:background="@drawable/f2_bg_dash"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="vertical"
-                android:paddingStart="15dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="15dp"
-                android:paddingBottom="8dp">
+                android:paddingBottom="30dp">
+
 
                 <LinearLayout
-                    android:gravity="center_vertical"
+                    android:id="@+id/linearUsername"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="18dp"
+                    android:background="@drawable/f2_bg_login"
+                    android:gravity="center_vertical"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp">
 
-                    <CheckBox
-                        android:id="@+id/checkboxTravelVip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true" />
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="17dp"
+                        android:layout_marginStart="15dp"
+                        android:background="@drawable/f2_ic_vietnam" />
+
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:fontFamily="@font/roboto_medium"
-                        android:text="Gói Travel VIP (3000đ)"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="+84"
                         android:textColor="@color/md_black_1000"
                         android:textSize="16dp" />
 
-                    <TextView
-                        android:id="@+id/btnDetailDeal"
-                        android:layout_width="wrap_content"
+
+                    <EditText
+                        android:id="@+id/edtPhone"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_medium"
-                        android:text="(Chi tiết ưu đãi)"
-                        android:textColor="#00918D"
-                        android:textSize="13dp" />
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="15dp"
+                        android:background="@color/white"
+                        android:fontFamily="@font/roboto_regular"
+                        android:hint="Số điện thoại"
+                        android:inputType="number"
+                        android:maxLength="11"
+                        android:singleLine="true"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+
+                <EditText
+                    android:id="@+id/edtName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="18dp"
+                    android:background="@drawable/f2_bg_login"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center_vertical"
+                    android:hint="Họ và tên"
+                    android:maxLength="60"
+                    android:paddingStart="15dp"
+                    android:inputType="textCapWords"
+                    android:paddingTop="15dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textSize="16dp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="18dp"
+                    android:background="@drawable/f2_bg_dash"
+                    android:orientation="vertical"
+                    android:paddingStart="15dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="8dp">
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <CheckBox
+                            android:id="@+id/checkboxTravelVip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="Gói Travel VIP (3000đ)"
+                            android:textColor="@color/md_black_1000"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/btnDetailDeal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="(Chi tiết ưu đãi)"
+                            android:textColor="#00918D"
+                            android:textSize="13dp" />
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="- Có cơ hội nhận quà &amp; Tham gia các CTKM \n- Miễn phí 15 phút/ngày để liên hệ với các thành viên khác \n- Miễn phí 15 phút/ngày gọi đến tổng đài 1039" />
+
 
                 </LinearLayout>
 
 
                 <TextView
+                    android:id="@+id/btnRegisterNow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="- Có cơ hội nhận quà &amp; Tham gia các CTKM \n- Miễn phí 15 phút/ngày để liên hệ với các thành viên khác \n- Miễn phí 15 phút/ngày gọi đến tổng đài 1039" />
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="18dp"
+                    android:background="@drawable/f2_bg_round_login"
+                    android:gravity="center"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="14dp"
+                    android:text="Đăng ký"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white" />
 
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="21dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Click vào đăng ký là bạn đã đồng ý với"
+                        android:textColor="@color/md_black_1000"
+                        android:textSize="14dp" />
+
+
+                    <TextView
+                        android:layout_marginStart="5dp"
+                        android:id="@+id/tvRules"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="@string/rules"
+                        android:textColor="#00918D"
+                        android:textSize="14dp" />
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
+        </androidx.core.widget.NestedScrollView>
 
-            <TextView
-                android:id="@+id/btnRegisterNow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="18dp"
-                android:background="@drawable/f2_bg_round_login"
-                android:gravity="center"
-                android:paddingTop="12dp"
-                android:paddingBottom="14dp"
-                android:text="Đăng ký"
-                android:textAllCaps="true"
-                android:textColor="@color/white" />
+    </RelativeLayout>
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="21dp"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_regular"
-                    android:text="Click vào đăng ký là bạn đã đồng ý với"
-                    android:textColor="@color/md_black_1000"
-                    android:textSize="14dp" />
-
-
-                <TextView
-                    android:layout_marginStart="5dp"
-                    android:id="@+id/tvRules"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_regular"
-                    android:text="@string/rules"
-                    android:textColor="#00918D"
-                    android:textSize="14dp" />
-
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
 
 </layout>

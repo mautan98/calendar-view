@@ -30,6 +30,8 @@ import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -38,6 +40,7 @@ import okhttp3.RequestBody;
 import retrofit2.HttpException;
 
 public class NewHomeViewModel extends BaseViewModel {
+
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
 
