@@ -72,6 +72,7 @@ import com.namviet.vtvtravel.view.f2.FullVideoActivity;
 import com.namviet.vtvtravel.view.f2.LiveTVActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.NearbyExperienceActivity;
+import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.f2.TopExperienceActivity;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
@@ -804,7 +805,8 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             subNearByAdapter = new SubNearByAdapter(homeServiceResponse.getData().get(position).getItems(), context, new SubNearByAdapter.ClickItem() {
                 @Override
                 public void onClickItem(ItemHomeService.Item item) {
-                    clickItemSmallLocation.onClickItemSmallLocation(item);
+//                    clickItemSmallLocation.onClickItemSmallLocation(item);
+                    SmallLocationActivity.startScreen(context, SmallLocationActivity.OpenType.LIST, (ArrayList<ItemHomeService.Item>) homeServiceResponse.getData().get(position).getItems(), item.getCode());
                 }
             });
             recyclerNearPlace.setAdapter(subNearByAdapter);
