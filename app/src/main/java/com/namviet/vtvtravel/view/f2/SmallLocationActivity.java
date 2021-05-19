@@ -11,9 +11,9 @@ import com.namviet.vtvtravel.databinding.F2ActivityBigLocationBinding;
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
+import com.namviet.vtvtravel.view.f3.smalllocation.view.fragment.SmallLocationMainPageFragment;
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.DetailSmallLocationFragment;
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.SmallLocationFragment;
-import com.namviet.vtvtravel.view.fragment.f2smalllocation.SmallLocationMainPageFragment;
 
 import java.util.ArrayList;
 
