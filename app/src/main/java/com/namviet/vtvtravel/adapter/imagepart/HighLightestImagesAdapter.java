@@ -6,6 +6,8 @@ import android.graphics.Color;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -150,7 +152,9 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
 
             try {
                 tvDescription.setText(item.getShort_description());
-                TextJustification.justify(tvDescription);
+                if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.O){
+                    TextJustification.justify(tvDescription);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -163,7 +167,9 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
 
                     try {
                         tvDescription.setText(item.getShort_description());
-                        TextJustification.justify(tvDescription);
+                        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.O){
+                            TextJustification.justify(tvDescription);
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.ultils.DateUtltils;
-import com.namviet.vtvtravel.ultils.TextJustification;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;

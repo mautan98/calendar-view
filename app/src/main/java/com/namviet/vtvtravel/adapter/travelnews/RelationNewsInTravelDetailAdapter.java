@@ -3,6 +3,10 @@ package com.namviet.vtvtravel.adapter.travelnews;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.graphics.Bitmap;
+import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +17,7 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.ultils.TextJustification;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RelationNewsInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -21,10 +26,18 @@ public class RelationNewsInTravelDetailAdapter extends RecyclerView.Adapter<Recy
     private ClickItem clickItem;
     private List<Travel> travels;
 
+    private Test test;
+    private String string;
+
     public RelationNewsInTravelDetailAdapter(Context context, List<Travel> travels, ClickItem clickItem) {
         this.context = context;
         this.clickItem = clickItem;
         this.travels = travels;
+
+
+        test.setString(string);
+        test.setString(null);
+        Log.e("hihi", string);
     }
 
     @Override
@@ -88,7 +101,9 @@ public class RelationNewsInTravelDetailAdapter extends RecyclerView.Adapter<Recy
             this.position = position;
             Travel travel = travels.get(position);
             tvName.setText(travel.getName());
-            TextJustification.justify(tvName);
+            if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.O){
+                TextJustification.justify(tvName);
+            }
         }
     }
 
@@ -96,5 +111,17 @@ public class RelationNewsInTravelDetailAdapter extends RecyclerView.Adapter<Recy
     public interface ClickItem {
         void onClickItem(Travel travel);
         void likeEvent(int position);
+    }
+
+    public class Test {
+        private String string;
+
+        public String getString() {
+            return string;
+        }
+
+        public void setString(String string) {
+            this.string = string;
+        }
     }
 }

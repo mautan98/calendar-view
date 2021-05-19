@@ -412,7 +412,10 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                         getBinding().tvSapo.setVisibility(View.VISIBLE);
                         getBinding().tvSapo.setText(detailTravelNewsResponse.getData().getShort_description());
                         try {
-                            TextJustification.justify(getBinding().tvSapo);
+                            if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.O){
+                                TextJustification.justify(getBinding().tvSapo);
+                            }
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
