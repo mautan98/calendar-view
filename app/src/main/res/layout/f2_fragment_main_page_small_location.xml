@@ -2,15 +2,88 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:orientation="vertical"
         android:layout_height="match_parent">
 
+
+        <LinearLayout
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:padding="15dp"
+                android:src="@drawable/f2_ic_back"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:tint="#ffffff" />
+
+
+            <com.ornach.richtext.RichView
+                app:rt_radius="19dp"
+                app:rt_backgroundColor="@color/white"
+                android:layout_marginBottom="7dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="18dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <RelativeLayout
+                    android:background="@drawable/bg_left_search_small_location"
+                    android:layout_width="91dp"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="14dp"
+                        android:textSize="14dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/md_black_1000"
+                        android:text="Hà Nội"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"/>
+
+
+                    <ImageView
+                        android:layout_marginEnd="11dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/f2_ic_down_small"
+                        android:layout_width="11dp"
+                        android:layout_height="7dp"/>
+
+                </RelativeLayout>
+
+                <EditText
+                    android:background="@color/white"
+                    android:textSize="14dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:layout_marginStart="10dp"
+                    android:hint="Bạn muốn tìm gì?"
+                    android:layout_marginEnd="19dp"
+                    android:singleLine="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.ornach.richtext.RichView>
+
+        </LinearLayout>
+
         <com.google.android.material.tabs.TabLayout
-            app:tabBackground="@color/colorPrimary"
+            app:tabIndicatorHeight="2dp"
+            app:tabIndicatorColor="@color/colorPrimary"
             app:tabIndicatorFullWidth="false"
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"/>
+
+        <View
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
 
 
         <androidx.viewpager.widget.ViewPager
