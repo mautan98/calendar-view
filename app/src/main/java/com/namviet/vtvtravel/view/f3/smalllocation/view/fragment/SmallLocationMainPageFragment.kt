@@ -35,6 +35,9 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
         binding?.smallLocationMainViewModel = smallLocationMainViewModel
     }
     override fun initData() {
+        smallLocationMainViewModel.setStateFirst()
+
+
         mainAdapter = MainAdapter(childFragmentManager)
         vpContent.offscreenPageLimit = 10
 
