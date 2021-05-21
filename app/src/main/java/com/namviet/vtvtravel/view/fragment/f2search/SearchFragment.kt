@@ -449,6 +449,9 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                         object : TypeToken<java.util.ArrayList<String?>?>() {}.type)
                 for (i in arrayListRecentSearchs.indices) {
                     if (string == arrayListRecentSearchs[i]) {
+                        arrayListRecentSearchs.removeAt(i)
+                        arrayListRecentSearchs.add(string)
+                        PreferenceUtil.getInstance(mActivity).setValue(Constants.PrefKey.RECENT_SEARCH, Gson().toJson(arrayListRecentSearchs))
                         return
                     }
                 }

@@ -291,7 +291,7 @@
 
         </activity>
 
-        <activity android:name=".view.f2.SplashActivity">
+        <activity android:name=".view.f2.SplashActivity" android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
