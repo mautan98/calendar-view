@@ -8,6 +8,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.adapter.f2offline.MainAdapter
 import com.namviet.vtvtravel.app.MyApplication
+import com.namviet.vtvtravel.database.StorageManager
 import com.namviet.vtvtravel.databinding.F2FragmentMainPageSmallLocationBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.model.newhome.ItemHomeService
@@ -25,6 +26,8 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
     @Inject
     lateinit var smallLocationMainViewModel: SmallLocationMainViewModel
 
+    @Inject
+    lateinit var storeManager: StorageManager
 
     override fun getLayoutRes(): Int {
         return R.layout.f2_fragment_main_page_small_location
