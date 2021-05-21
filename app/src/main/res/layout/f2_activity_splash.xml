@@ -9,20 +9,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-<!--        <pl.droidsonroids.gif.GifImageView-->
-<!--            android:src="@drawable/splash_loading"-->
-<!--            android:scaleType="centerCrop"-->
-<!--            android:id="@+id/imgAvatar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"/>-->
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animationView"
+        <pl.droidsonroids.gif.GifImageView
+            android:src="@drawable/splash_loading"
+            android:scaleType="centerCrop"
+            android:id="@+id/imgAvatar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:lottie_rawRes="@raw/splash"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"/>
+            android:layout_height="match_parent"/>
+
+<!--        <com.airbnb.lottie.LottieAnimationView-->
+<!--            android:id="@+id/animationView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:lottie_rawRes="@raw/splash"-->
+<!--            app:lottie_autoPlay="true"-->
+<!--            app:lottie_loop="true"/>-->
 
 
     </FrameLayout>

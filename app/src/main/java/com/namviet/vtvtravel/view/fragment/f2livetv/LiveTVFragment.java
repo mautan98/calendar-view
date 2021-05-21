@@ -165,8 +165,8 @@ public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> 
     @Override
     public void inject() {
 
-    }
 
+    }
     @Override
     public void setClickListener() {
         getBinding().btnChannel.setOnClickListener(new View.OnClickListener() {
