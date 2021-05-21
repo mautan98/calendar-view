@@ -19,6 +19,7 @@ public class StorageModule {
         this.app = app;
     }
 
+    @Singleton
     @Provides
     public Context provideContext() {
         return app;

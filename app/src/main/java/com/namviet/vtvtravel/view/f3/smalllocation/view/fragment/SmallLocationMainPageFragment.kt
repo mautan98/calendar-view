@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.view.f3.smalllocation.view.fragment
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.baseapp.utils.KeyboardUtils
@@ -8,6 +9,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.adapter.f2offline.MainAdapter
 import com.namviet.vtvtravel.app.MyApplication
+import com.namviet.vtvtravel.config.Constants
 import com.namviet.vtvtravel.database.StorageManager
 import com.namviet.vtvtravel.databinding.F2FragmentMainPageSmallLocationBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
@@ -72,7 +74,8 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     try {
-
+                        storeManager.setStringValue(Constants.IntentKey.RECENT_SEARCH_SMALLOCATION, edtSearch.text.toString())
+                        Log.e("hihihihi", storeManager.getStringValue(Constants.IntentKey.RECENT_SEARCH_SMALLOCATION))
                     } catch (e: Exception) {
                     }
                 }
@@ -93,6 +96,9 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
 
     }
     override fun setObserver() {}
+
+
+
 
 
 }
