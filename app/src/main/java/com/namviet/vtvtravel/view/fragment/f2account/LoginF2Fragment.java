@@ -202,7 +202,12 @@ public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implem
             } else if (o instanceof ErrorResponse) {
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
-                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
+//                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
+                    getBinding().tvLoginFail.setVisibility(View.VISIBLE);
+                    getBinding().tvLoginFail.setText(responseError.getMessage());
+                    if(responseError.getMessage().isEmpty()){
+                        getBinding().tvLoginFail.setText("Có lỗi đã xảy ra trong quá trình đăng nhâp!");
+                    }
                 } catch (Exception e) {
 
                 }
@@ -217,7 +222,7 @@ public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implem
     }
 
     private void handleValidateFail(EditText editText, LinearLayout linearLayout, String error, TextView tvError) {
-        ((LoginAndRegisterActivityNew) mActivity).showWarning(error);
+//        ((LoginAndRegisterActivityNew) mActivity).showWarning(error);
         linearLayout.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.f2_bg_login_fail));
         tvError.setVisibility(View.VISIBLE);
         tvError.setText(error);
@@ -270,7 +275,9 @@ public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implem
     private void resetError(){
         getBinding().tvPhoneError.setVisibility(View.INVISIBLE);
         getBinding().tvPassError.setVisibility(View.INVISIBLE);
+        getBinding().tvLoginFail.setVisibility(View.INVISIBLE);
         getBinding().tvPhoneError.setText("");
         getBinding().tvPassError.setText("");
+        getBinding().tvLoginFail.setText("");
     }
 }
