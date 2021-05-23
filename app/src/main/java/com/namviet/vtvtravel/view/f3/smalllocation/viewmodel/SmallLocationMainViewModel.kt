@@ -3,11 +3,15 @@ package com.namviet.vtvtravel.view.f3.smalllocation.viewmodel
 import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.databinding.ObservableField
+import com.google.gson.Gson
 import com.namviet.vtvtravel.R
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.view.f3.commingsoon.view.ComingSoonFragment
+import com.namviet.vtvtravel.viewmodel.BaseViewModel
+import retrofit2.HttpException
 import javax.inject.Inject
 
-class SmallLocationMainViewModel @Inject constructor() : ViewModel() {
+class SmallLocationMainViewModel @Inject constructor() : BaseViewModel() {
     var stateCancelButton = ObservableField(View.GONE)
     var backgroundToolbar = ObservableField(R.color.colorPrimary)
     var stateSearchSuggestion = ObservableField(View.GONE)
@@ -41,5 +45,27 @@ class SmallLocationMainViewModel @Inject constructor() : ViewModel() {
     }
 
 
+
+    private fun requestSuccess(param: Any?) {
+        setChanged()
+        notifyObservers(param)
+    }
+
+    private fun requestFailed(throwable: Throwable) {
+        try {
+            onLoadFail()
+        } catch (e: Exception) {
+        }
+        try {
+            val error = throwable as HttpException
+            val errorBody = error.response().errorBody()!!.string()
+            val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
+            setChanged()
+            notifyObservers(errorResponse)
+        } catch (e: Exception) {
+            setChanged()
+            notifyObservers()
+        }
+    }
 
 }
