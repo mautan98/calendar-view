@@ -92,7 +92,7 @@
             </LinearLayout>
 
 
-            <androidx.viewpager.widget.ViewPager
+            <com.namviet.vtvtravel.widget.CustomViewPager
                 android:overScrollMode="never"
                 android:id="@+id/vpMainLogin"
                 android:layout_width="match_parent"

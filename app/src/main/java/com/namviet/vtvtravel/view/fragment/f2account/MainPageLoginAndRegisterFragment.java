@@ -46,7 +46,7 @@ public class MainPageLoginAndRegisterFragment extends BaseFragment<F2FragmentPag
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                getBinding().vpMainLogin.setCurrentItem(position);
+                getBinding().vpMainLogin.setCurrentItem(position, false);
             }
         }, 200);
 
@@ -121,7 +121,7 @@ public class MainPageLoginAndRegisterFragment extends BaseFragment<F2FragmentPag
 
 
     private void tabLoginSelected(){
-        getBinding().vpMainLogin.setCurrentItem(0,true);
+        getBinding().vpMainLogin.setCurrentItem(0,false);
         Typeface typeface = ResourcesCompat.getFont(mActivity, R.font.roboto_black);
         getBinding().btnTabLogin.setTypeface(typeface);
         getBinding().btnTabLogin.setAlpha(1);
@@ -132,7 +132,7 @@ public class MainPageLoginAndRegisterFragment extends BaseFragment<F2FragmentPag
     }
 
     private void tabRegisterSelected(){
-        getBinding().vpMainLogin.setCurrentItem(1,true);
+        getBinding().vpMainLogin.setCurrentItem(1,false);
         Typeface typeface = ResourcesCompat.getFont(mActivity, R.font.roboto_regular);
         getBinding().btnTabLogin.setTypeface(typeface);
         getBinding().btnTabLogin.setAlpha(0.5f);
