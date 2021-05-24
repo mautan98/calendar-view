@@ -98,6 +98,7 @@
                 android:layout_marginTop="32dp">
 
                 <LinearLayout
+                    android:id="@+id/layoutName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
@@ -117,6 +118,7 @@
 
 
                     <EditText
+                        android:singleLine="true"
                         android:id="@+id/edtName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -124,8 +126,7 @@
                         android:background="@color/white"
                         android:fontFamily="@font/roboto_regular"
                         android:hint="Họ và tên"
-                        android:inputType="phone"
-                        android:maxLength="12"
+                        android:maxLength="60"
                         android:textSize="14dp" />
 
                 </LinearLayout>

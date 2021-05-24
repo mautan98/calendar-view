@@ -51,7 +51,7 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
         accountViewModel.addObserver(this);
 
         handleValidateSuccess(getBinding().edtPhone, getBinding().linearUsername);
-        handleValidateSuccess(getBinding().edtName, getBinding().edtName);
+        handleValidateSuccess(getBinding().edtName, getBinding().layoutName);
 
     }
 
