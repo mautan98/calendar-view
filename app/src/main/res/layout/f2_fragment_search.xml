@@ -88,7 +88,7 @@
 
             <LinearLayout
                 android:layout_marginTop="15dp"
-                android:id="@+id/linearUsername"
+                android:id="@+id/layoutSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"

@@ -46,6 +46,7 @@ import com.namviet.vtvtravel.ultils.F2Util
 import com.namviet.vtvtravel.ultils.PreferenceUtil
 import com.namviet.vtvtravel.ultils.highlight.HighLightController
 import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
+import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionFragment
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import com.namviet.vtvtravel.viewmodel.f2search.SearchViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -166,6 +167,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
             if (b) {
                 layoutForMainSearch.visibility = View.VISIBLE
                 layoutSearchRegion.visibility = View.GONE
+                addFragment(SearchSuggestionFragment())
             }
         }
         edtRegion.onFocusChangeListener = OnFocusChangeListener { _, b ->
@@ -335,6 +337,10 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
             addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, ""))
             KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
             edtKeyword.clearFocus()
+        }
+
+        edtKeyword.setOnClickListener {
+            addFragment(SearchSuggestionFragment())
         }
 
 
