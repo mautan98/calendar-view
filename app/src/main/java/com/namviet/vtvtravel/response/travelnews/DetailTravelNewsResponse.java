@@ -35,9 +35,6 @@ public class DetailTravelNewsResponse extends BaseResponse implements Serializab
         private String count_like;
         private String count_comment;
         private String link_share;
-        @Expose
-        @SerializedName("near_by")
-        private NearBy nearBy;
         private String short_description;
         private boolean isLiked;
         private String likeCount;
@@ -158,9 +155,6 @@ public class DetailTravelNewsResponse extends BaseResponse implements Serializab
             this.count_comment = count_comment;
         }
 
-        public void setNearBy(NearBy nearBy) {
-            this.nearBy = nearBy;
-        }
 
         public class NearBy implements Serializable {
             private String title;
@@ -175,9 +169,6 @@ public class DetailTravelNewsResponse extends BaseResponse implements Serializab
             }
         }
 
-        public NearBy getNearBy() {
-            return nearBy;
-        }
 
         public String getId() {
             return id;
