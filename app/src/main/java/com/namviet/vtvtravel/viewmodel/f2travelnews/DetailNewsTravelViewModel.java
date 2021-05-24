@@ -8,6 +8,7 @@ import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.response.travelnews.DetailNewsCategoryResponse;
 import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
+import com.namviet.vtvtravel.response.travelnews.PlaceNearByResponse;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
 import java.util.Map;
@@ -31,6 +32,30 @@ public class DetailNewsTravelViewModel extends BaseViewModel {
                 .subscribe(new Consumer<DetailTravelNewsResponse>() {
                     @Override
                     public void accept(DetailTravelNewsResponse response) throws Exception {
+                        if (response != null && null != response.getData()) {
+                            requestSuccess(response);
+                        } else {
+                            requestSuccess(null);
+                        }
+                    }
+                }, throwable -> {
+                    requestFailed(throwable);
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+    public void getPlaceNearBy(String link){
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelService();
+        Map<String, Object> queryMap = Param.getDefault();
+
+        Disposable disposable = newsService.getPlaceNearBy(link, queryMap)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<PlaceNearByResponse>() {
+                    @Override
+                    public void accept(PlaceNearByResponse response) throws Exception {
                         if (response != null && null != response.getData()) {
                             requestSuccess(response);
                         } else {

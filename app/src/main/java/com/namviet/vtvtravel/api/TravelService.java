@@ -109,6 +109,7 @@ import com.namviet.vtvtravel.response.travelnews.DetailNewsCategoryResponse;
 import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
 import com.namviet.vtvtravel.response.travelnews.NewsCategoryResponse;
 import com.namviet.vtvtravel.response.travelnews.NotebookResponse;
+import com.namviet.vtvtravel.response.travelnews.PlaceNearByResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.GetInfoResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ResentOtpServiceResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceOtpResponse;
@@ -438,6 +439,9 @@ public interface TravelService {
 
     @GET
     Observable<DetailTravelNewsResponse> getDetailNewsTravel(@Url String url, @QueryMap Map<String, Object> queryMap);
+
+    @GET
+    Observable<PlaceNearByResponse> getPlaceNearBy(@Url String url, @QueryMap Map<String, Object> queryMap);
 
     @POST(WSConfig.Api.COMMENTS_SEARCH)
     Observable<com.namviet.vtvtravel.response.f2comment.CommentResponse> getComment(@Body RequestBody jsonBodyObject, @QueryMap Map<String, Object> queryMap);

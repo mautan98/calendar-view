@@ -1,8 +1,8 @@
 package com.namviet.vtvtravel.view.fragment.f2travelnote;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,33 +10,36 @@ import android.os.Handler;
 import androidx.annotation.Nullable;
 
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.webkit.RenderProcessGoneDetail;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
-import com.baseapp.activity.BaseActivity;
+import com.google.android.material.tabs.TabLayout;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.travelnews.CommentInDetailTravelNewsAdapter;
 import com.namviet.vtvtravel.adapter.travelnews.NearByInTravelDetailAdapter;
+import com.namviet.vtvtravel.adapter.travelnews.RelationNewInTravelNewsAdapter;
 import com.namviet.vtvtravel.adapter.travelnews.RelationNewsInTravelDetailAdapter;
-import com.namviet.vtvtravel.api.WSConfig;
+import com.namviet.vtvtravel.adapter.vtvtabstyle.VTVTabStyleAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
-import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2FragmentDetailNewsTravelBinding;
-import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2event.OnCommentSuccessInTravelNews;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
+import com.namviet.vtvtravel.response.f2topexperience.SubTopExperienceResponse;
 import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
+import com.namviet.vtvtravel.response.travelnews.PlaceNearByResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.ultils.F2Util;
@@ -45,18 +48,29 @@ import com.namviet.vtvtravel.view.f2.CommentActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.ShareActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
+import com.namviet.vtvtravel.view.f2.TopExperienceActivity;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.view.fragment.share.ShareBottomDialog;
+import com.namviet.vtvtravel.view.fragment.topexperience.SubTopExperienceFragment;
+import com.namviet.vtvtravel.viewmodel.f2topexperience.SubTopExperienceViewModel;
 import com.namviet.vtvtravel.viewmodel.f2travelnews.DetailNewsTravelViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.subjects.PublishSubject;
+
 public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsTravelBinding> implements Observer {
+    private PublishSubject<Boolean> btnReadMoreStatus;
+
+
     private DetailNewsTravelViewModel viewModel;
     private String detailLink;
     private CommentInDetailTravelNewsAdapter commentInDetailTravelNewsAdapter;
@@ -65,6 +79,14 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
     private DetailTravelNewsResponse detailTravelNewsResponse;
     private String urlDefault;
     private int count = 0;
+
+    private RelationNewInTravelNewsAdapter relationNewInTravelNewsAdapter;
+
+    private SubTopExperienceViewModel subTopExperienceViewModel;
+    private NearByInTravelDetailAdapter nearByPlaceAdapter;
+    private NearByInTravelDetailAdapter relationPlaceAdapter;
+    private List<Travel> travelsNearBy = new ArrayList<>();
+    private List<Travel> travelsRelation = new ArrayList<>();
 
     public DetailNewsTravelFragment() {
     }
@@ -88,16 +110,100 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
     }
 
 
+    private io.reactivex.Observer<Boolean> getObserverOfBtnShowMore(){
+        return new io.reactivex.Observer<Boolean>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(@NonNull Boolean aBoolean) {
+                if(aBoolean){
+                    getBinding().btnReadMore.setVisibility(View.VISIBLE);
+                }else {
+                    getBinding().btnReadMore.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+    }
+
+
     @Override
     public void initData() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                btnReadMoreStatus = PublishSubject.create();
+                btnReadMoreStatus.subscribe(getObserverOfBtnShowMore());
+
                 viewModel = new DetailNewsTravelViewModel();
 
                 getBinding().setDetailNewsTravelViewModel(viewModel);
                 viewModel.addObserver(DetailNewsTravelFragment.this);
                 viewModel.getDetailNewsTravel(detailLink);
+
+
+
+                subTopExperienceViewModel = new SubTopExperienceViewModel();
+                subTopExperienceViewModel.addObserver(DetailNewsTravelFragment.this);
+
+
+                nearByPlaceAdapter = new NearByInTravelDetailAdapter(mActivity, travelsNearBy, new NearByInTravelDetailAdapter.ClickItem() {
+                    @Override
+                    public void onClickItem(Travel travel) {
+                        try {
+                            SmallLocationActivity.startScreenDetail(mActivity, SmallLocationActivity.OpenType.DETAIL, travel.getDetail_link());
+                        } catch ( Exception  e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void likeEvent(int position) {
+                        try {
+                            likeOrUnLike(travelsNearBy.get(position));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                getBinding().rclNearByPlace.setAdapter(nearByPlaceAdapter);
+
+                relationPlaceAdapter = new NearByInTravelDetailAdapter(mActivity, travelsRelation, new NearByInTravelDetailAdapter.ClickItem() {
+                    @Override
+                    public void onClickItem(Travel travel) {
+                        try {
+                            SmallLocationActivity.startScreenDetail(mActivity, SmallLocationActivity.OpenType.DETAIL, travel.getDetail_link());
+                        } catch ( Exception  e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void likeEvent(int position) {
+                        try {
+                            likeOrUnLike(travelsRelation.get(position));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                getBinding().rclRelationPlace.setAdapter(relationPlaceAdapter);
+
+                getBinding().rclNearByPlace.setNestedScrollingEnabled(false);
+                getBinding().rclRelationPlace.setNestedScrollingEnabled(false);
+                getBinding().rclRelation.setNestedScrollingEnabled(false);
 
             }
         }, 500);
@@ -235,6 +341,24 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
 //                }
 //            }
 //        });
+
+        getBinding().btnReadMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(getBinding().rclRelationPlace.getVisibility() == View.VISIBLE) {
+                    TopExperienceActivity.startScreenFromTravelNews(mActivity, detailTravelNewsResponse.getData().getRelatedPlaces(), TopExperienceActivity.Type.RELATION_EXPERIENCE);
+                }else {
+                    TopExperienceActivity.startScreenFromTravelNews(mActivity, detailTravelNewsResponse.getData().getPlaceNearBy(), TopExperienceActivity.Type.NEAR_BY_EXPERIENCE);
+                }
+            }
+        });
+
+        getBinding().btnSeeMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addFragment(new RelationNewsFragment(detailTravelNewsResponse.getData().getRelatedNews()));
+            }
+        });
     }
 
     private void clickHeart() {
@@ -291,6 +415,16 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
 
                 getBinding().shimmerMain.setVisibility(View.GONE);
                 detailTravelNewsResponse = (DetailTravelNewsResponse) o;
+                try {
+                    viewModel.getPlaceNearBy(detailTravelNewsResponse.getData().getRelatedNews().getApi_link());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+                genPlaceView(detailTravelNewsResponse.getData().getRelatedPlaces().getApi_link(), detailTravelNewsResponse.getData().getPlaceNearBy().getApi_link());
+                btnReadMoreStatus.onNext(true);
+
 
                 try {
                     getBinding().tvLikeCount.setText(detailTravelNewsResponse.getData().getLikeCount());
@@ -473,7 +607,18 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                     }
                 });
                 getBinding().rclComment.setAdapter(commentInDetailTravelNewsAdapter);
-            } else if (o instanceof ErrorResponse) {
+            } else if(o instanceof PlaceNearByResponse){
+                PlaceNearByResponse placeNearByResponse = (PlaceNearByResponse) o;
+//                getBinding().rclRelation.
+                relationNewInTravelNewsAdapter = new RelationNewInTravelNewsAdapter(mActivity, placeNearByResponse.getData().getPlaces(), new RelationNewInTravelNewsAdapter.ClickItem() {
+                    @Override
+                    public void onClickItem(Travel travel) {
+                        TravelNewsActivity.openScreenDetail(mActivity, TravelNewsActivity.OpenType.DETAIL, travel.getDetail_link());
+                    }
+                });
+
+                getBinding().rclRelation.setAdapter(relationNewInTravelNewsAdapter);
+            }else if (o instanceof ErrorResponse) {
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
@@ -482,6 +627,47 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                 }
             }
 
+        } else if(observable instanceof SubTopExperienceViewModel && null != o){
+            if (o instanceof SubTopExperienceResponse) {
+                SubTopExperienceResponse response = (SubTopExperienceResponse) o;
+                if(response.getType() == 0){
+                    travelsRelation.clear();
+                    travelsRelation.addAll(response.getData().getItems());
+                    relationPlaceAdapter.notifyDataSetChanged();
+                }else {
+                    travelsNearBy.clear();
+                    travelsNearBy.addAll(response.getData().getItems());
+                    nearByPlaceAdapter.notifyDataSetChanged();
+                }
+            }
+        }
+    }
+
+
+    private void likeOrUnLike(Travel travel){
+        try {
+            Account account = MyApplication.getInstance().getAccount();
+            if (null != account && account.isLogin()) {
+                viewModel.likeEvent(travel.getId(), travel.getContent_type());
+                try {
+                    TrackingAnalytic.postEvent(TrackingAnalytic.LIKE, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.NEWS_DETAIL, TrackingAnalytic.ScreenTitle.NEWS_DETAIL)
+                            .setContent_type(travel.getContent_type())
+                            .setContent_id(travel.getId())
+                            .setScreen_class(this.getClass().getName()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+//                if (travel.isLiked()) {
+//                    travel.setLiked(false);
+//                } else {
+//                    travel.setLiked(true);
+//                }
+//                nearByInTravelDetailAdapter.notifyItemChanged(position);
+            } else {
+                LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -565,6 +751,82 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
     public void setScreenTitle() {
         super.setScreenTitle();
         setDataScreen(TrackingAnalytic.ScreenCode.NEWS_DETAIL, TrackingAnalytic.ScreenTitle.NEWS_DETAIL);
+    }
+
+
+    private void genPlaceView(String detailLink1, String detailLink2) {
+        try {
+
+            subTopExperienceViewModel.getSubTopExperience(detailLink1, 0);
+            subTopExperienceViewModel.getSubTopExperience(detailLink2, 1);
+
+            View tabHome = LayoutInflater.from(mActivity).inflate(R.layout.f2_custom_tab_vtv_style_in_travel_news, null);
+            TextView tvHome = tabHome.findViewById(R.id.tvTitle);
+            tvHome.setText("Địa điểm liên quan");
+            tvHome.setTextColor(Color.parseColor("#101010"));
+            View view = tabHome.findViewById(R.id.indicator);
+            view.setVisibility(View.VISIBLE);
+            getBinding().tabLayout.addTab(getBinding().tabLayout.newTab().setCustomView(tabHome));
+
+            View tabPlace = LayoutInflater.from(mActivity).inflate(R.layout.f2_custom_tab_vtv_style_in_travel_news, null);
+            TextView tvPlace = tabPlace.findViewById(R.id.tvTitle);
+            tvPlace.setText("Địa điểm gần bạn");
+            tvPlace.setTextColor(Color.parseColor("#00918D"));
+            View view1 = tabPlace.findViewById(R.id.indicator);
+            view1.setVisibility(View.INVISIBLE);
+            getBinding().tabLayout.addTab(getBinding().tabLayout.newTab().setCustomView(tabPlace));
+            getBinding().tabLayout.addOnTabSelectedListener(OnTabSelectedListener);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private TabLayout.OnTabSelectedListener OnTabSelectedListener = new TabLayout.OnTabSelectedListener() {
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+            int c = tab.getPosition();
+            setOnSelectView(getBinding().tabLayout, c);
+            if(tab.getPosition() == 0){
+                getBinding().rclRelationPlace.setVisibility(View.VISIBLE);
+                getBinding().rclNearByPlace.setVisibility(View.GONE);
+            }else {
+                getBinding().rclRelationPlace.setVisibility(View.GONE);
+                getBinding().rclNearByPlace.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+            int c = tab.getPosition();
+            setUnSelectView(getBinding().tabLayout, c);
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+
+        }
+    };
+
+
+    public void setOnSelectView(TabLayout tabLayout, int position) {
+        TabLayout.Tab tab = tabLayout.getTabAt(position);
+        View selected = tab.getCustomView();
+        TextView iv_text = selected.findViewById(R.id.tvTitle);
+        View view = selected.findViewById(R.id.indicator);
+        view.setVisibility(View.VISIBLE);
+        iv_text.setTextColor(Color.parseColor("#00918D"));
+
+    }
+
+    public void setUnSelectView(TabLayout tabLayout, int position) {
+        TabLayout.Tab tab = tabLayout.getTabAt(position);
+        View selected = tab.getCustomView();
+        TextView iv_text = selected.findViewById(R.id.tvTitle);
+        View view = selected.findViewById(R.id.indicator);
+        view.setVisibility(View.INVISIBLE);
+        iv_text.setTextColor(Color.parseColor("#101010"));
+
     }
 
 

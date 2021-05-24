@@ -124,7 +124,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
             edtRegion.setText(location?.name)
             edtKeyword.requestFocus();
             regionId = location?.id;
-            if(edtKeyword.text.isNotEmpty()) {
+            if (edtKeyword.text.isNotEmpty()) {
                 searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId);
 
                 try {
@@ -265,7 +265,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                         locations?.addAll(locationsMain)
                         searchAllLocationAdapter!!.notifyDataSetChanged()
                         regionId = null
-                        if(edtKeyword.text.isNotEmpty()) {
+                        if (edtKeyword.text.isNotEmpty()) {
                             searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId);
 
                             try {
@@ -347,6 +347,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
     override fun setObserver() {
 
     }
+
 
     override fun update(observable: Observable?, o: Any?) {
         if (observable is SearchBigLocationViewModel && null != o) {

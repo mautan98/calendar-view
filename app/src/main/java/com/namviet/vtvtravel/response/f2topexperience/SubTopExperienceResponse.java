@@ -6,6 +6,16 @@ import com.namviet.vtvtravel.response.BaseResponse;
 import java.util.List;
 
 public class SubTopExperienceResponse extends BaseResponse {
+    private int type; //for 2 tab in travel news detail
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     private boolean isLoadMore;
 
     public boolean isLoadMore() {
