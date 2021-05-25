@@ -7,6 +7,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.namviet.vtvtravel.R;
@@ -107,18 +108,18 @@ public class RecreatePassF2Fragment extends BaseFragment<F2FragmentRecreatePassB
         });
 
         getBinding().btnConfirm.setOnClickListener(v -> {
-
+            resetError();
             String pass1 = getBinding().edtPassword.getText().toString();
             String pass2 = getBinding().edtPassword2.getText().toString();
 
             if (pass1.isEmpty()) {
-                handleValidateFail(getBinding().edtPassword, getBinding().linearPassword, "Mật khẩu không được để trống");
+                handleValidateFail(getBinding().edtPassword, getBinding().linearPassword, "Mật khẩu không được để trống", getBinding().tvPassError);
             } else if (pass2.isEmpty()) {
-                handleValidateFail(getBinding().edtPassword2, getBinding().linearPassword2, "Xác nhận mật khẩu không được để trống");
+                handleValidateFail(getBinding().edtPassword2, getBinding().linearPassword2, "Xác nhận mật khẩu không được để trống", getBinding().tvRetypePassError);
             } else if (!pass1.equals(pass2)) {
-                handleValidateFail(getBinding().edtPassword2, getBinding().linearPassword2, "Xác nhận mật khẩu phải trùng với thông tin mật khẩu");
+                handleValidateFail(getBinding().edtPassword2, getBinding().linearPassword2, "Xác nhận mật khẩu phải trùng với thông tin mật khẩu", getBinding().tvRetypePassError);
             } else if (pass1.length() < 6) {
-                handleValidateFail(getBinding().edtPassword, getBinding().linearPassword, "Mật khẩu không được nhỏ hơn 6 ký tự");
+                handleValidateFail(getBinding().edtPassword, getBinding().linearPassword, "Mật khẩu không được nhỏ hơn 6 ký tự", getBinding().tvPassError);
             } else {
                 Integer id = MyApplication.getInstance().getAccount().getId();
                 String mobile = MyApplication.getInstance().getAccount().getMobile();
@@ -178,7 +179,8 @@ public class RecreatePassF2Fragment extends BaseFragment<F2FragmentRecreatePassB
                 } else if (o instanceof ErrorResponse) {
                     ErrorResponse responseError = (ErrorResponse) o;
                     try {
-                        ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
+                        getBinding().tvCreatePassFail.setVisibility(View.VISIBLE);
+                        getBinding().tvCreatePassFail.setText(responseError.getMessage());
                     } catch (Exception e) {
 
                     }
@@ -191,9 +193,10 @@ public class RecreatePassF2Fragment extends BaseFragment<F2FragmentRecreatePassB
         this.screenType = screenType;
     }
 
-    private void handleValidateFail(EditText editText, LinearLayout linearLayout, String error) {
-        ((LoginAndRegisterActivityNew) mActivity).showWarning(error);
+    private void handleValidateFail(EditText editText, LinearLayout linearLayout, String error , TextView tvError) {
         linearLayout.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.f2_bg_login_fail));
+        tvError.setText(error);
+        tvError.setVisibility(View.VISIBLE);
         editText.requestFocus();
     }
 
@@ -212,5 +215,14 @@ public class RecreatePassF2Fragment extends BaseFragment<F2FragmentRecreatePassB
     public void setScreenTitle() {
         super.setScreenTitle();
         setDataScreen(TrackingAnalytic.ScreenCode.RECREATE_PASS, TrackingAnalytic.ScreenTitle.RECREATE_PASS);
+    }
+
+
+    private void resetError(){
+        getBinding().tvPassError.setText("Mật khẩu từ 6 - 20 ký tự");
+        getBinding().tvRetypePassError.setVisibility(View.INVISIBLE);
+        getBinding().tvRetypePassError.setText("");
+        getBinding().tvCreatePassFail.setVisibility(View.INVISIBLE);
+        getBinding().tvCreatePassFail.setText("");
     }
 }
