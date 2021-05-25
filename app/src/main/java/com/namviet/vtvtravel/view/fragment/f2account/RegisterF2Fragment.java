@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.namviet.vtvtravel.R;
@@ -75,20 +76,20 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
         getBinding().btnRegisterNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                resetError();
                 phone = getBinding().edtPhone.getText().toString();
                 String name = getBinding().edtName.getText().toString();
 
                 if (phone.isEmpty()) {
-                    handleValidateFail(getBinding().edtPhone, getBinding().linearUsername, getString(R.string.phone_empty_v2));
+                    handleValidateFail(getBinding().edtPhone, getBinding().linearUsername, getString(R.string.phone_empty_v2), getBinding().tvPhoneError);
                 } else if (name.isEmpty()) {
-                    handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.name_empty));
+                    handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.name_empty), getBinding().tvNameError);
                 } else if (name.length() > 60) {
-                    handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.name_invalid));
+                    handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.name_invalid), getBinding().tvNameError);
                 } else if (ValidateUtils.isString(name)) {
-                    handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.special_charactor));
+                    handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.special_charactor), getBinding().tvNameError);
                 } else if (!ValidateUtils.isValidPhoneNumberNew(phone)) {
-                    handleValidateFail(getBinding().edtPhone, getBinding().linearUsername, getString(R.string.phone_invalid));
+                    handleValidateFail(getBinding().edtPhone, getBinding().linearUsername, getString(R.string.phone_invalid), getBinding().tvPhoneError);
                 } else {
                     if (phone.substring(0, 3).equals("840")) {
                         phone = phone.replaceFirst("0", "");
@@ -168,7 +169,8 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
             } else if (o instanceof ErrorResponse) {
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
-                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
+                    getBinding().tvRegisterFail.setVisibility(View.VISIBLE);
+                    getBinding().tvRegisterFail.setText(responseError.getMessage());
                 } catch (Exception e) {
 
                 }
@@ -186,9 +188,10 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
         }
     }
 
-    private void handleValidateFail(EditText editText, View linearLayout, String error) {
-        ((LoginAndRegisterActivityNew) mActivity).showWarning(error);
+    private void handleValidateFail(EditText editText, View linearLayout, String error , TextView tvError) {
         linearLayout.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.f2_bg_login_fail));
+        tvError.setText(error);
+        tvError.setVisibility(View.VISIBLE);
         editText.requestFocus();
     }
 
@@ -207,6 +210,15 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
     public void setScreenTitle() {
         super.setScreenTitle();
         setDataScreen(TrackingAnalytic.ScreenCode.REGISTER, TrackingAnalytic.ScreenTitle.REGISTER);
+    }
+
+    private void resetError(){
+        getBinding().tvPhoneError.setVisibility(View.INVISIBLE);
+        getBinding().tvNameError.setVisibility(View.INVISIBLE);
+        getBinding().tvRegisterFail.setVisibility(View.INVISIBLE);
+        getBinding().tvPhoneError.setText("");
+        getBinding().tvNameError.setText("");
+        getBinding().tvRegisterFail.setText("");
     }
 
 
