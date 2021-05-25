@@ -56,7 +56,7 @@ public class SubTopExperienceFragment extends BaseFragment<F2FragmentSubTopExper
 
     @Override
     public void initData() {
-        nearByInTravelDetailAdapter = new NearByInTravelDetailAdapter(mActivity, travels, this);
+        nearByInTravelDetailAdapter = new NearByInTravelDetailAdapter(mActivity, travels, false,this);
         getBinding().rclContent.setAdapter(nearByInTravelDetailAdapter);
 
 

@@ -159,7 +159,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                 subTopExperienceViewModel.addObserver(DetailNewsTravelFragment.this);
 
 
-                nearByPlaceAdapter = new NearByInTravelDetailAdapter(mActivity, travelsNearBy, new NearByInTravelDetailAdapter.ClickItem() {
+                nearByPlaceAdapter = new NearByInTravelDetailAdapter(mActivity, travelsNearBy, true, new NearByInTravelDetailAdapter.ClickItem() {
                     @Override
                     public void onClickItem(Travel travel) {
                         try {
@@ -180,7 +180,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                 });
                 getBinding().rclNearByPlace.setAdapter(nearByPlaceAdapter);
 
-                relationPlaceAdapter = new NearByInTravelDetailAdapter(mActivity, travelsRelation, new NearByInTravelDetailAdapter.ClickItem() {
+                relationPlaceAdapter = new NearByInTravelDetailAdapter(mActivity, travelsRelation, true, new NearByInTravelDetailAdapter.ClickItem() {
                     @Override
                     public void onClickItem(Travel travel) {
                         try {

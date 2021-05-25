@@ -25,15 +25,17 @@ import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import java.util.List;
 
 public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private boolean isInTravelNews = false;
     private static final int TYPE_ITEM = 0;
     private Context context;
     private ClickItem clickItem;
     private List<Travel> travels;
 
-    public NearByInTravelDetailAdapter(Context context, List<Travel> travels, ClickItem clickItem) {
+    public NearByInTravelDetailAdapter(Context context, List<Travel> travels, boolean isInTravelNews,  ClickItem clickItem) {
         this.context = context;
         this.clickItem = clickItem;
         this.travels = travels;
+        this.isInTravelNews = isInTravelNews;
     }
 
     @Override
@@ -67,8 +69,12 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
     @Override
     public int getItemCount() {
         try {
-            if(travels.size() >=4){
-                return 4;
+            if(isInTravelNews) {
+                if (travels.size() >= 4) {
+                    return 4;
+                } else {
+                    return travels.size();
+                }
             }else {
                 return travels.size();
             }

@@ -38,7 +38,7 @@ class ResultDestinationSearchFragment(private var resultSearchFragment: ResultSe
     }
 
     override fun initData() {
-        subTravelNewsAdapter = NearByInTravelDetailAdapter(mActivity, travels, object : ClickItem {
+        subTravelNewsAdapter = NearByInTravelDetailAdapter(mActivity, travels, false, object : ClickItem {
             override fun likeEvent(position: Int) {
             }
 
