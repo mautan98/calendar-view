@@ -7,10 +7,12 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import android.widget.VideoView
+import androidx.core.view.GravityCompat
 import com.google.android.material.tabs.TabLayout
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.adapter.f2search.SearchMainPageAdapter
@@ -20,12 +22,14 @@ import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.Video
 import com.namviet.vtvtravel.model.travelnews.Travel
 import com.namviet.vtvtravel.response.f2searchmain.MainResultSearchResponse
+import com.namviet.vtvtravel.response.f2searchmain.SearchSuggestionResponse
 import com.namviet.vtvtravel.response.f2searchmain.result.ResultSearch
 import com.namviet.vtvtravel.response.f2searchmain.result.ResultVideoSearch
 import com.namviet.vtvtravel.response.f2searchmain.result.SearchType
 import com.namviet.vtvtravel.tracking.TrackingAnalytic
 import com.namviet.vtvtravel.ultils.highlight.HighLightController
 import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
+import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultDestinationSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultNewsSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultVideosSearchFragment
@@ -76,7 +80,10 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     override fun initData() {
         genViewPagerSearchResult()
 //        searchViewModel?.getPreResultSearch(keyword!!, regionId, false)
-
+        btnFilter.setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.END)
+        }
+        edtSearch.text = keyword
     }
 
     override fun inject() {
@@ -84,8 +91,16 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     }
 
     override fun setClickListener() {
-        imgBack.setOnClickListener {
+        btnBack.setOnClickListener {
             mActivity.onBackPressed()
+        }
+
+        edtSearch.setOnClickListener {
+            addFragment(SearchSuggestionFragment(object :SearchSuggestionFragment.ClickSuggestion{
+                override fun onClickSuggestion(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
+
+                }
+            }, keyword))
         }
     }
 
