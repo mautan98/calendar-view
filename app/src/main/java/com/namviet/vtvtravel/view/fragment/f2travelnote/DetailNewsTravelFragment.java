@@ -699,6 +699,10 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                     String index = view.getOriginalUrl().substring(view.getOriginalUrl().indexOf("#")+1);
                     String mUrl = urlDefault.substring(0,urlDefault.lastIndexOf(index));
                     getBinding().webViewContentCache.loadDataWithBaseURL("", mUrl, "text/html", "UTF-8", null);
+                }else if(url.contains("#")){
+                    String index = url.substring(url.indexOf("#")+1);
+                    String mUrl = urlDefault.substring(0,urlDefault.lastIndexOf(index));
+                    getBinding().webViewContentCache.loadDataWithBaseURL("", mUrl, "text/html", "UTF-8", null);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
