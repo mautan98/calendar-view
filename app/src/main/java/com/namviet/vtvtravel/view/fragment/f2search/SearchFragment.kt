@@ -3,10 +3,13 @@ package com.namviet.vtvtravel.view.fragment.f2search
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Typeface
+import android.os.Bundle
+import android.os.Handler
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.util.Log
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import android.view.LayoutInflater
@@ -31,6 +34,7 @@ import com.namviet.vtvtravel.databinding.F2FragmentSearchBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.Suggestion
+import com.namviet.vtvtravel.model.f2event.OnBackSearchSuggestion
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.model.travelnews.Travel
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse
@@ -54,6 +58,8 @@ import kotlinx.android.synthetic.main.f2_dialog_comment1.*
 import kotlinx.android.synthetic.main.f2_fragment_search.*
 import kotlinx.android.synthetic.main.f2_layout_keyword.*
 import kotlinx.android.synthetic.main.f2_layout_keyword.view.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
@@ -179,6 +185,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
         handleSearch()
         handleSearchRegion()
         genViewPagerSearchResult()
+
     }
 
 
@@ -339,11 +346,32 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
             edtKeyword.clearFocus()
         }
 
-        edtKeyword.setOnClickListener {
-            addFragment(SearchSuggestionFragment())
+        layoutSearch.setOnClickListener {
+            focusSearch()
+            addFragment(SearchSuggestionFragment(object : SearchSuggestionFragment.ClickSuggestion{
+                override fun onClickSuggestion(searchKeywordSuggestion : SearchSuggestionResponse.Data.Item?) {
+//                    Log.e("hihiihihi", "hihihihihihi");
+                    edtKeyword.setText(searchKeywordSuggestion?.title)
+                    addRecentSearch(edtKeyword.text.toString())
+                    recentAdapter?.setData(getRecentSearch())
+                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, searchKeywordSuggestion?.categoryCode))
+                    KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
+                    edtKeyword.clearFocus()
+
+                }
+            }, edtKeyword.text.toString()))
         }
 
+        Handler().postDelayed(Runnable {
+            focusSearch()
+        }, 100)
 
+    }
+
+    private fun focusSearch(){
+        edtRegion.clearFocus()
+        layoutForMainSearch.visibility = View.VISIBLE
+        layoutSearchRegion.visibility = View.GONE
     }
 
     override fun inject() {
@@ -491,7 +519,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
         return arrayListRecentSearchs;
     }
 
-    private val onTabSelectedListener: OnTabSelectedListener = object : OnTabSelectedListener {
+    private val onTabSelectedListener: OnTabSelectedListener = object : OnTabSelectedListener    {
         override fun onTabSelected(tab: TabLayout.Tab) {
             val c = tab.position
             mainAdapter!!.setOnSelectView(tabLayout, c)
@@ -509,6 +537,26 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
         super.setScreenTitle()
         setDataScreen(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH)
     }
+
+
+    @Subscribe
+    public fun onBackSearchSuggestion(onBackSearchSuggestion: OnBackSearchSuggestion){
+        Handler().postDelayed(Runnable {
+            focusSearch()
+        }, 100)
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
 
 
 }

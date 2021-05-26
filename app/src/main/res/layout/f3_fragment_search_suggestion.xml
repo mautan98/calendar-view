@@ -75,6 +75,8 @@
                     </RelativeLayout>
 
                     <EditText
+                        android:imeActionLabel="Tìm kiếm"
+                        android:imeOptions="actionSearch"
                         android:id="@+id/edtSearch"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -111,6 +113,7 @@
 
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/layoutSearchSuggestion"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
