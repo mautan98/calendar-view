@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import android.widget.Toast
 import com.baseapp.utils.KeyboardUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -71,7 +72,6 @@ class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = n
 
         checkKeyword()
         handleSearch()
-
 
         edtSearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {

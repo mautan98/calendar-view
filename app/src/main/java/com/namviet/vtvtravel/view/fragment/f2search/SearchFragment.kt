@@ -128,7 +128,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
             }
         })
         searchAllLocationAdapter = SearchAllLocationAdapter(mActivity, locations, SearchAllLocationAdapter.ClickItem { location ->
-            edtRegion.setText(location?.name)
+            tvRegion.text = location?.name
             edtKeyword.requestFocus();
             regionId = location?.id;
             if(edtKeyword.text.isNotEmpty()) {
@@ -176,12 +176,12 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                 addFragment(SearchSuggestionFragment())
             }
         }
-        edtRegion.onFocusChangeListener = OnFocusChangeListener { _, b ->
-            if (b) {
-                layoutForMainSearch.visibility = View.GONE
-                layoutSearchRegion.visibility = View.VISIBLE
-            }
+
+        layoutRegion.setOnClickListener {
+            layoutForMainSearch.visibility = View.GONE
+            layoutSearchRegion.visibility = View.VISIBLE
         }
+
         handleSearch()
         handleSearchRegion()
         genViewPagerSearchResult()
@@ -264,36 +264,36 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
 
     @SuppressLint("CheckResult")
     private fun handleSearchRegion() {
-        RxTextView.afterTextChangeEvents(edtRegion)
-                .skipInitialValue()
-                .debounce(450, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    if (edtRegion.text.toString().isEmpty()) {
-                        locations?.clear()
-                        locations?.addAll(locationsMain)
-                        searchAllLocationAdapter!!.notifyDataSetChanged()
-                        regionId = null
-                        if(edtKeyword.text.isNotEmpty()) {
-                            searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId);
-
-                            try {
-                                TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtKeyword.text.toString()).setScreen_class(this.javaClass.name))
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                            }
-                        }
-                    } else {
-                        rclLocation.visibility = View.VISIBLE
-                        locations!!.clear()
-                        for (i in locationsMain.indices) {
-                            if (F2Util.removeAccent(locationsMain[i].name.toLowerCase()).contains(F2Util.removeAccent(edtRegion.text.toString().toLowerCase()))) {
-                                locations.add(locationsMain[i])
-                            }
-                        }
-                        searchAllLocationAdapter!!.notifyDataSetChanged()
-                    }
-                }
+//        RxTextView.afterTextChangeEvents(edtRegion)
+//                .skipInitialValue()
+//                .debounce(450, TimeUnit.MILLISECONDS)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe {
+//                    if (edtRegion.text.toString().isEmpty()) {
+//                        locations?.clear()
+//                        locations?.addAll(locationsMain)
+//                        searchAllLocationAdapter!!.notifyDataSetChanged()
+//                        regionId = null
+//                        if(edtKeyword.text.isNotEmpty()) {
+//                            searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId);
+//
+//                            try {
+//                                TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtKeyword.text.toString()).setScreen_class(this.javaClass.name))
+//                            } catch (e: Exception) {
+//                                e.printStackTrace()
+//                            }
+//                        }
+//                    } else {
+//                        rclLocation.visibility = View.VISIBLE
+//                        locations!!.clear()
+//                        for (i in locationsMain.indices) {
+//                            if (F2Util.removeAccent(locationsMain[i].name.toLowerCase()).contains(F2Util.removeAccent(edtRegion.text.toString().toLowerCase()))) {
+//                                locations.add(locationsMain[i])
+//                            }
+//                        }
+//                        searchAllLocationAdapter!!.notifyDataSetChanged()
+//                    }
+//                }
     }
 
 
@@ -324,10 +324,10 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
             edtKeyword?.setText("")
         }
 
-        imgCloseSearchRegion.setOnClickListener {
-            edtRegion.setText("")
-            regionId = null
-        }
+//        imgCloseSearchRegion.setOnClickListener {
+//            edtRegion.setText("")
+//            regionId = null
+//        }
 
         viewTouch.setOnTouchListener { _, motionEvent ->
             KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
@@ -369,9 +369,9 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
     }
 
     private fun focusSearch(){
-        edtRegion.clearFocus()
-        layoutForMainSearch.visibility = View.VISIBLE
-        layoutSearchRegion.visibility = View.GONE
+//        edtRegion.clearFocus()
+//        layoutForMainSearch.visibility = View.VISIBLE
+//        layoutSearchRegion.visibility = View.GONE
     }
 
     override fun inject() {
@@ -391,7 +391,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                     searchAllLocationAdapter?.notifyDataSetChanged()
                 }
                 is LocationResponse -> {
-                    edtRegion.setText(o.data.name)
+                    tvRegion.text = o.data.name
                 }
                 is ErrorResponse -> {
                     val responseError = o
@@ -434,7 +434,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                 }
 
                 is LocationResponse -> {
-                    edtRegion.setText(o.data.name)
+                    tvRegion.text = o.data.name
                 }
 
                 is SearchSuggestionResponse -> {
