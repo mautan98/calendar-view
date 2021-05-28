@@ -47,6 +47,8 @@ class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = n
 
     override fun initView() {}
     override fun initData() {
+        edtSearch.requestFocus()
+        KeyboardUtils.showKeyboard(mActivity, edtSearch)
         searchSuggestionViewModel.addObserver(this)
 
 
