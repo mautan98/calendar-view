@@ -49,17 +49,21 @@
                     android:gravity="center_vertical">
 
                     <RelativeLayout
+                        android:id="@+id/layoutRegion"
                         android:layout_width="91dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/bg_left_search_small_location">
 
                         <TextView
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:id="@+id/tvRegion"
                             android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="14dp"
                             android:fontFamily="@font/roboto_regular"
-                            android:text="Hà Nội"
+                            android:text="Tất cả"
                             android:textColor="@color/md_black_1000"
                             android:textSize="14dp" />
 
@@ -134,6 +138,57 @@
                 android:id="@+id/rclSearchSuggestion"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/layoutSearchRegion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/btnCurrentLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="22dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <ImageView
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/f2_ic_current_location" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Vị trí hiện tại"
+                    android:textColor="#00918D"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rclLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="7dp"
+                android:overScrollMode="never"
+                android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
         </LinearLayout>
