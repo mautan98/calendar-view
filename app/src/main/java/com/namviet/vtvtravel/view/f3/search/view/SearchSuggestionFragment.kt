@@ -38,7 +38,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = null, private var keyword: String? = null, private var location: Location? = null, private var locationsMain: ArrayList<Location>? = null, private var clickRegion: Boolean = false, private var cancelSearch: CancelSearch? = null, private var clickRegionItem: ClickRegionItem? = null) : BaseFragment<F3FragmentSearchSuggestionBinding?>(), Observer {
+class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = null, private var keyword: String? = null, private var location: Location? = null, private var locationsMain: ArrayList<Location>? = null, private var clickRegion: Boolean = false, private var cancelSearch: CancelSearch? = null, private var clickRegionItem: ClickRegionItem? = null, private var clickLayoutKeyword: ClickLayoutKeyword? = null) : BaseFragment<F3FragmentSearchSuggestionBinding?>(), Observer {
 
     private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
     private var searchAllLocationAdapter: SearchAllLocationAdapter? = null
@@ -183,6 +183,19 @@ class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = n
                 layoutSearchSuggestion.visibility = View.VISIBLE
             }
         }
+
+        layoutKeyword.setOnClickListener {
+            mActivity.onBackPressed()
+            clickRegionItem?.onClickRegion(location, keyword)
+        }
+
+        imgCloseSearch.setOnClickListener {
+            KeyboardUtils.hideKeyboard(mActivity, edtSearch)
+            edtSearch.setText("")
+            keyword = ""
+            cancelSearch?.onCancelSearch(location, keyword)
+            mActivity.onBackPressed()
+        }
     }
 
     override fun setObserver() {}
@@ -305,5 +318,9 @@ class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = n
 
     interface ClickRegionItem{
         fun onClickRegion(location: Location?, keyword: String?)
+    }
+
+    interface ClickLayoutKeyword{
+        fun onClickLayoutKeyword(location: Location?, keyword: String?)
     }
 }
