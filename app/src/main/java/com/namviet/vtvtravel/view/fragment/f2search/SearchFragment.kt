@@ -92,6 +92,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
     private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
 
     private var regionId: String? = null;
+    private var location: Location? = null;
 
 
     override fun getLayoutRes(): Int {
@@ -131,6 +132,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
             tvRegion.text = location?.name
             edtKeyword.requestFocus();
             regionId = location?.id;
+            this.location = location
             if(edtKeyword.text.isNotEmpty()) {
                 searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId);
 
@@ -178,8 +180,23 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
         }
 
         layoutRegion.setOnClickListener {
-            layoutForMainSearch.visibility = View.GONE
-            layoutSearchRegion.visibility = View.VISIBLE
+//            layoutForMainSearch.visibility = View.GONE
+//            layoutSearchRegion.visibility = View.VISIBLE
+
+            addFragment(SearchSuggestionFragment(object : SearchSuggestionFragment.ClickSuggestion{
+                override fun onClickSuggestion(searchKeywordSuggestion : SearchSuggestionResponse.Data.Item?, mLocation: Location?) {
+                    location = mLocation
+                    tvRegion.text = location?.name
+                    edtKeyword.setText(searchKeywordSuggestion?.title)
+                    addRecentSearch(edtKeyword.text.toString())
+                    recentAdapter?.setData(getRecentSearch())
+                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, searchKeywordSuggestion?.categoryCode))
+                    KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
+                    edtKeyword.clearFocus()
+
+                }
+            }, edtKeyword.text.toString(), location, locationsMain))
+
         }
 
         handleSearch()
@@ -349,8 +366,9 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
         layoutSearch.setOnClickListener {
             focusSearch()
             addFragment(SearchSuggestionFragment(object : SearchSuggestionFragment.ClickSuggestion{
-                override fun onClickSuggestion(searchKeywordSuggestion : SearchSuggestionResponse.Data.Item?) {
-//                    Log.e("hihiihihi", "hihihihihihi");
+                override fun onClickSuggestion(searchKeywordSuggestion : SearchSuggestionResponse.Data.Item?, mLocation: Location?) {
+                    location = mLocation
+                    tvRegion.text = location?.name
                     edtKeyword.setText(searchKeywordSuggestion?.title)
                     addRecentSearch(edtKeyword.text.toString())
                     recentAdapter?.setData(getRecentSearch())
@@ -359,7 +377,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
                     edtKeyword.clearFocus()
 
                 }
-            }, edtKeyword.text.toString()))
+            }, edtKeyword.text.toString(), location, locationsMain))
         }
 
         Handler().postDelayed(Runnable {

@@ -20,6 +20,7 @@ import com.namviet.vtvtravel.databinding.F2FragmentResultSearchBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.Video
+import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.model.travelnews.Travel
 import com.namviet.vtvtravel.response.f2searchmain.MainResultSearchResponse
 import com.namviet.vtvtravel.response.f2searchmain.SearchSuggestionResponse
@@ -97,8 +98,9 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
         edtSearch.setOnClickListener {
             addFragment(SearchSuggestionFragment(object :SearchSuggestionFragment.ClickSuggestion{
-                override fun onClickSuggestion(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
 
+                override fun onClickSuggestion(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?, location: Location?) {
+                   
                 }
             }, keyword))
         }
