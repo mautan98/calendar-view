@@ -38,7 +38,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = null, private var keyword: String? = null, private var location: Location? = null, private var locationsMain: ArrayList<Location>? = null, private var clickRegion: Boolean = false, private var cancelSearch: CancelSearch? = null) : BaseFragment<F3FragmentSearchSuggestionBinding?>(), Observer {
+class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = null, private var keyword: String? = null, private var location: Location? = null, private var locationsMain: ArrayList<Location>? = null, private var clickRegion: Boolean = false, private var cancelSearch: CancelSearch? = null, private var clickRegionItem: ClickRegionItem? = null) : BaseFragment<F3FragmentSearchSuggestionBinding?>(), Observer {
 
     private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
     private var searchAllLocationAdapter: SearchAllLocationAdapter? = null
@@ -84,8 +84,10 @@ class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = n
             tvRegion.text = location?.name
             this.location = location
             if(edtSearch.text.isNotEmpty()) {
-
+                mActivity.onBackPressed()
+                clickRegionItem?.onClickRegion(location, keyword)
             }
+
         })
         rclLocation.adapter = searchAllLocationAdapter
 
@@ -299,5 +301,9 @@ class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = n
 
     interface CancelSearch{
         fun onCancelSearch(location: Location?, keyword: String?)
+    }
+
+    interface ClickRegionItem{
+        fun onClickRegion(location: Location?, keyword: String?)
     }
 }

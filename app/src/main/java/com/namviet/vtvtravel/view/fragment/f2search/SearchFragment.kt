@@ -64,7 +64,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
-class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, SearchSuggestionFragment.ClickSuggestion, SearchSuggestionFragment.CancelSearch {
+class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, SearchSuggestionFragment.ClickSuggestion, SearchSuggestionFragment.CancelSearch, SearchSuggestionFragment.ClickRegionItem {
     private var appVoucherResponse: AppVoucherResponse? = null
     private var itemAppExperienceResponse: ItemAppExperienceResponse? = null
 
@@ -183,7 +183,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
 //            layoutForMainSearch.visibility = View.GONE
 //            layoutSearchRegion.visibility = View.VISIBLE
 
-            addFragment(SearchSuggestionFragment(this, edtKeyword.text.toString(), location, locationsMain, true, this))
+            addFragment(SearchSuggestionFragment(this, edtKeyword.text.toString(), location, locationsMain, true, this, this))
 
         }
 
@@ -353,7 +353,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
 
         layoutSearch.setOnClickListener {
             focusSearch()
-            addFragment(SearchSuggestionFragment(this, edtKeyword.text.toString(), location, locationsMain, false, this))
+            addFragment(SearchSuggestionFragment(this, edtKeyword.text.toString(), location, locationsMain, false, this, this))
         }
 
         Handler().postDelayed(Runnable {
@@ -566,6 +566,21 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
             tvRegion.text = "Tất cả"
         }
         edtKeyword.text = keyword
+    }
+
+    override fun onClickRegion(location: Location?, keyword: String?) {
+        this.location = location
+        if(location != null) {
+            tvRegion.text = location.name
+        }else {
+            tvRegion.text = "Tất cả"
+        }
+        edtKeyword.text = keyword
+        addRecentSearch(edtKeyword.text.toString())
+        recentAdapter?.setData(getRecentSearch())
+        addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, ""))
+        KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
+        edtKeyword.clearFocus()
     }
 
 }
