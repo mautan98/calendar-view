@@ -79,19 +79,32 @@
                     </RelativeLayout>
 
                     <EditText
+                        android:layout_weight="1"
                         android:imeActionLabel="Tìm kiếm"
                         android:imeOptions="actionSearch"
                         android:id="@+id/edtSearch"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="10dp"
-                        android:layout_marginEnd="19dp"
                         android:background="#f6f6f6"
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center_vertical"
                         android:hint="Bạn muốn tìm gì?"
                         android:singleLine="true"
                         android:textSize="14dp" />
+
+                    <LinearLayout
+                        android:id="@+id/imgCloseSearch"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:src="@drawable/f2_ic_gray_close" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 

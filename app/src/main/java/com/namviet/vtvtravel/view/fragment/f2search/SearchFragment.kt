@@ -230,32 +230,32 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
 
     @SuppressLint("CheckResult")
     private fun handleSearch() {
-        RxTextView.afterTextChangeEvents(binding!!.edtKeyword)
-                .skipInitialValue()
-                .debounce(790, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    try {
-                        if (binding!!.edtKeyword.text.toString().isEmpty()) {
-                            binding!!.scrollMainSearch.visibility = View.VISIBLE
-                            binding!!.layoutSearchResult.visibility = View.GONE
-                        } else {
-                            binding!!.scrollMainSearch.visibility = View.GONE
-                            binding!!.layoutSearchResult.visibility = View.VISIBLE
-    //                        searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId)
-                            searchViewModel?.getSearchSuggestion(edtKeyword.text.toString(), regionId)
-                            layoutKeyword.tvSearchFollow.text = "Tìm kiếm theo \""+ edtKeyword.text.toString()+"\"";
-                            setHighLightedText(layoutKeyword.tvSearchFollow, "\""+ edtKeyword.text.toString()+"\"")
-
-                            try {
-                                TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtKeyword.text.toString()).setScreen_class(this.javaClass.name))
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                            }
-                        }
-                    } catch (e: Exception) {
-                    }
-                }
+//        RxTextView.afterTextChangeEvents(binding!!.edtKeyword)
+//                .skipInitialValue()
+//                .debounce(790, TimeUnit.MILLISECONDS)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe {
+//                    try {
+//                        if (binding!!.edtKeyword.text.toString().isEmpty()) {
+//                            binding!!.scrollMainSearch.visibility = View.VISIBLE
+//                            binding!!.layoutSearchResult.visibility = View.GONE
+//                        } else {
+//                            binding!!.scrollMainSearch.visibility = View.GONE
+//                            binding!!.layoutSearchResult.visibility = View.VISIBLE
+//    //                        searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId)
+//                            searchViewModel?.getSearchSuggestion(edtKeyword.text.toString(), regionId)
+//                            layoutKeyword.tvSearchFollow.text = "Tìm kiếm theo \""+ edtKeyword.text.toString()+"\"";
+//                            setHighLightedText(layoutKeyword.tvSearchFollow, "\""+ edtKeyword.text.toString()+"\"")
+//
+//                            try {
+//                                TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtKeyword.text.toString()).setScreen_class(this.javaClass.name))
+//                            } catch (e: Exception) {
+//                                e.printStackTrace()
+//                            }
+//                        }
+//                    } catch (e: Exception) {
+//                    }
+//                }
 
     }
 
@@ -359,6 +359,10 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
         Handler().postDelayed(Runnable {
             focusSearch()
         }, 100)
+
+        imgCloseSearch.setOnClickListener {
+            mActivity.onBackPressed()
+        }
 
     }
 

@@ -134,16 +134,19 @@ class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = n
         if (clickRegion) {
             layoutSearchRegion.visibility = View.VISIBLE
             layoutSearchSuggestion.visibility = View.GONE
-            if (location != null){
-                tvRegion.text = location?.name
-            }else{
-                tvRegion.text = "Tất cả"
-            }
-
         } else {
             layoutSearchRegion.visibility = View.GONE
             layoutSearchSuggestion.visibility = View.VISIBLE
             focusSearch()
+        }
+        checkLocation()
+    }
+
+    private fun checkLocation(){
+        if (location != null){
+            tvRegion.text = location?.name
+        }else{
+            tvRegion.text = "Tất cả"
         }
     }
 
@@ -190,6 +193,7 @@ class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = n
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     try {
+                        keyword = edtSearch.text.toString()
                         if (edtSearch.text.toString().isEmpty()) {
                             layoutSearchSuggestion.visibility = View.GONE
                         } else {
