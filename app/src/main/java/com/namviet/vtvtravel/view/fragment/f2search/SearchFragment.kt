@@ -64,7 +64,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
-class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
+class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, SearchSuggestionFragment.ClickSuggestion, SearchSuggestionFragment.CancelSearch {
     private var appVoucherResponse: AppVoucherResponse? = null
     private var itemAppExperienceResponse: ItemAppExperienceResponse? = null
 
@@ -183,19 +183,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
 //            layoutForMainSearch.visibility = View.GONE
 //            layoutSearchRegion.visibility = View.VISIBLE
 
-            addFragment(SearchSuggestionFragment(object : SearchSuggestionFragment.ClickSuggestion{
-                override fun onClickSuggestion(searchKeywordSuggestion : SearchSuggestionResponse.Data.Item?, mLocation: Location?) {
-                    location = mLocation
-                    tvRegion.text = location?.name
-                    edtKeyword.setText(searchKeywordSuggestion?.title)
-                    addRecentSearch(edtKeyword.text.toString())
-                    recentAdapter?.setData(getRecentSearch())
-                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, searchKeywordSuggestion?.categoryCode))
-                    KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
-                    edtKeyword.clearFocus()
-
-                }
-            }, edtKeyword.text.toString(), location, locationsMain))
+            addFragment(SearchSuggestionFragment(this, edtKeyword.text.toString(), location, locationsMain, true, this))
 
         }
 
@@ -365,19 +353,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
 
         layoutSearch.setOnClickListener {
             focusSearch()
-            addFragment(SearchSuggestionFragment(object : SearchSuggestionFragment.ClickSuggestion{
-                override fun onClickSuggestion(searchKeywordSuggestion : SearchSuggestionResponse.Data.Item?, mLocation: Location?) {
-                    location = mLocation
-                    tvRegion.text = location?.name
-                    edtKeyword.setText(searchKeywordSuggestion?.title)
-                    addRecentSearch(edtKeyword.text.toString())
-                    recentAdapter?.setData(getRecentSearch())
-                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, searchKeywordSuggestion?.categoryCode))
-                    KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
-                    edtKeyword.clearFocus()
-
-                }
-            }, edtKeyword.text.toString(), location, locationsMain))
+            addFragment(SearchSuggestionFragment(this, edtKeyword.text.toString(), location, locationsMain, false, this))
         }
 
         Handler().postDelayed(Runnable {
@@ -557,24 +533,35 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
     }
 
 
-    @Subscribe
-    public fun onBackSearchSuggestion(onBackSearchSuggestion: OnBackSearchSuggestion){
-        Handler().postDelayed(Runnable {
-            focusSearch()
-        }, 100)
-    }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        EventBus.getDefault().register(this)
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        EventBus.getDefault().unregister(this)
+
     }
 
+    override fun onClickSuggestion(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?, mLocation: Location?) {
+        location = mLocation
+        tvRegion.text = location?.name
+        edtKeyword.setText(searchKeywordSuggestion?.title)
+        addRecentSearch(edtKeyword.text.toString())
+        recentAdapter?.setData(getRecentSearch())
+        addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, searchKeywordSuggestion?.categoryCode))
+        KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
+        edtKeyword.clearFocus()
+    }
 
+    override fun onCancelSearch(location: Location?, keyword: String?) {
+        this.location = location
+        if(location != null) {
+            tvRegion.text = location.name
+        }else {
+            tvRegion.text = "Tất cả"
+        }
+        edtKeyword.text = keyword
+    }
 
 }

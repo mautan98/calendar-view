@@ -38,7 +38,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = null, private var keyword: String? = null, private var location: Location? = null, private var locationsMain: ArrayList<Location>? = null, private var clickRegion: Boolean = false) : BaseFragment<F3FragmentSearchSuggestionBinding?>(), Observer {
+class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = null, private var keyword: String? = null, private var location: Location? = null, private var locationsMain: ArrayList<Location>? = null, private var clickRegion: Boolean = false, private var cancelSearch: CancelSearch? = null) : BaseFragment<F3FragmentSearchSuggestionBinding?>(), Observer {
 
     private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
     private var searchAllLocationAdapter: SearchAllLocationAdapter? = null
@@ -56,8 +56,6 @@ class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = n
 
     override fun initView() {}
     override fun initData() {
-        edtSearch.requestFocus()
-        KeyboardUtils.showKeyboard(mActivity, edtSearch)
         searchSuggestionViewModel.addObserver(this)
         viewModel.addObserver(this)
 
@@ -94,7 +92,6 @@ class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = n
         checkKeyword()
         checkClickRegion()
         checkListLocation()
-        checkLocation()
         handleSearch()
 
         edtSearch.setOnEditorActionListener { _, actionId, _ ->
@@ -118,6 +115,11 @@ class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = n
 
     }
 
+    private fun focusSearch(){
+        edtSearch.requestFocus()
+        KeyboardUtils.showKeyboard(mActivity, edtSearch)
+    }
+
     private fun checkKeyword() {
         if (keyword.isNullOrEmpty()) {
             layoutSearchSuggestion.visibility = View.GONE
@@ -132,16 +134,16 @@ class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = n
         if (clickRegion) {
             layoutSearchRegion.visibility = View.VISIBLE
             layoutSearchSuggestion.visibility = View.GONE
-            tvRegion.text = location?.name
+            if (location != null){
+                tvRegion.text = location?.name
+            }else{
+                tvRegion.text = "Tất cả"
+            }
+
         } else {
             layoutSearchRegion.visibility = View.GONE
             layoutSearchSuggestion.visibility = View.VISIBLE
-        }
-    }
-
-    private fun checkLocation(){
-        if (location != null) {
-            tvRegion.text = location?.name
+            focusSearch()
         }
     }
 
@@ -158,14 +160,23 @@ class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = n
 
     override fun setClickListener() {
         tvCancelSearch.setOnClickListener {
+            cancelSearch?.onCancelSearch(location, keyword)
             KeyboardUtils.hideKeyboard(mActivity, edtSearch)
             mActivity.onBackPressed()
         }
 
         layoutRegion.setOnClickListener {
             KeyboardUtils.hideKeyboard(mActivity, edtSearch)
+            edtSearch.clearFocus()
             layoutSearchRegion.visibility = View.VISIBLE
             layoutSearchSuggestion.visibility = View.GONE
+        }
+
+        edtSearch.setOnFocusChangeListener { view, b ->
+            if(b){
+                layoutSearchRegion.visibility = View.GONE
+                layoutSearchSuggestion.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -276,10 +287,13 @@ class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = n
 
     override fun onDestroy() {
         super.onDestroy()
-        EventBus.getDefault().post(OnBackSearchSuggestion())
     }
 
     interface ClickSuggestion {
         fun onClickSuggestion(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?, location: Location?)
+    }
+
+    interface CancelSearch{
+        fun onCancelSearch(location: Location?, keyword: String?)
     }
 }
