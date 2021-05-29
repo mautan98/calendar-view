@@ -97,12 +97,20 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         }
 
         edtSearch.setOnClickListener {
-            addFragment(SearchSuggestionFragment(object :SearchSuggestionFragment.ClickSuggestion{
+//            addFragment(SearchSuggestionFragment(object :SearchSuggestionFragment.ClickSuggestion{
+//
+//                override fun onClickSuggestion(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?, location: Location?) {
+//
+//                }
+//            }, keyword))
+        }
 
-                override fun onClickSuggestion(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?, location: Location?) {
-                   
-                }
-            }, keyword))
+        btnFilter.setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.END)
+        }
+
+        btnCloseFilter.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.END)
         }
     }
 

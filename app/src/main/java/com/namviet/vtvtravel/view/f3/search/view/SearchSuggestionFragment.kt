@@ -38,7 +38,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = null, private var keyword: String? = null, private var location: Location? = null, private var locationsMain: ArrayList<Location>? = null, private var clickRegion: Boolean = false, private var cancelSearch: CancelSearch? = null, private var clickRegionItem: ClickRegionItem? = null, private var clickLayoutKeyword: ClickLayoutKeyword? = null) : BaseFragment<F3FragmentSearchSuggestionBinding?>(), Observer {
+class SearchSuggestionFragment(private var keyword: String? = null, private var location: Location? = null, private var locationsMain: ArrayList<Location>? = null, private var clickRegion: Boolean = false, private var searchSuggestionCallback: SearchSuggestionCallback? = null) : BaseFragment<F3FragmentSearchSuggestionBinding?>(), Observer {
 
     private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
     private var searchAllLocationAdapter: SearchAllLocationAdapter? = null
@@ -69,7 +69,7 @@ class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = n
 //                    KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
 //                    edtKeyword.clearFocus()
                     mActivity.onBackPressed()
-                    clickSuggestion?.onClickSuggestion(searchKeywordSuggestion, location)
+                    searchSuggestionCallback?.onClickSuggestion(searchKeywordSuggestion, location)
 
 
                 } catch (e: Exception) {
@@ -85,7 +85,7 @@ class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = n
             this.location = location
             if(edtSearch.text.isNotEmpty()) {
                 mActivity.onBackPressed()
-                clickRegionItem?.onClickRegion(location, keyword)
+                searchSuggestionCallback?.onClickRegion(location, keyword)
             }
 
         })
@@ -165,7 +165,7 @@ class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = n
 
     override fun setClickListener() {
         tvCancelSearch.setOnClickListener {
-            cancelSearch?.onCancelSearch(location, keyword)
+            searchSuggestionCallback?.onCancelSearch(location, keyword)
             KeyboardUtils.hideKeyboard(mActivity, edtSearch)
             mActivity.onBackPressed()
         }
@@ -186,14 +186,14 @@ class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = n
 
         layoutKeyword.setOnClickListener {
             mActivity.onBackPressed()
-            clickRegionItem?.onClickRegion(location, keyword)
+            searchSuggestionCallback?.onClickRegion(location, keyword)
         }
 
         imgCloseSearch.setOnClickListener {
             KeyboardUtils.hideKeyboard(mActivity, edtSearch)
             edtSearch.setText("")
             keyword = ""
-            cancelSearch?.onCancelSearch(location, keyword)
+            searchSuggestionCallback?.onCancelSearch(location, keyword)
             mActivity.onBackPressed()
         }
     }
@@ -321,6 +321,13 @@ class SearchSuggestionFragment(private var clickSuggestion: ClickSuggestion? = n
     }
 
     interface ClickLayoutKeyword{
+        fun onClickLayoutKeyword(location: Location?, keyword: String?)
+    }
+
+    interface SearchSuggestionCallback{
+        fun onClickSuggestion(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?, location: Location?)
+        fun onCancelSearch(location: Location?, keyword: String?)
+        fun onClickRegion(location: Location?, keyword: String?)
         fun onClickLayoutKeyword(location: Location?, keyword: String?)
     }
 }

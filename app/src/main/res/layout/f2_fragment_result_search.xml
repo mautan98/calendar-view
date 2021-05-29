@@ -70,23 +70,24 @@
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:layout_gravity="center_vertical"
                     android:id="@+id/btnFilter"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/tvFilter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="19dp"
+                        android:layout_gravity="bottom"
                         android:fontFamily="@font/roboto_regular"
                         android:text="Lọc"
-                        android:textSize="14dp" />
+                        android:textSize="12dp" />
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="40dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_gravity="center_vertical"
                         android:background="@color/black" />
 
@@ -134,11 +135,149 @@
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/layoutFilter"
-            android:background="@color/white"
-            android:layout_gravity="end"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:background="@color/white">
 
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/btnCloseFilter"
+                            android:layout_width="54dp"
+                            android:layout_height="54dp"
+                            android:padding="20dp"
+                            android:src="@drawable/f2_ic_close"
+                            app:tint="@color/black" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="Lọc"
+                            android:textColor="@color/black"
+                            android:textSize="14dp" />
+
+                    </RelativeLayout>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="11dp"
+                        android:background="#F3F3F3"
+                        android:fontFamily="@font/roboto_medium"
+                        android:paddingStart="16dp"
+                        android:text="Địa điểm"
+                        android:textColor="@color/black" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="11dp"
+                        android:background="#F3F3F3"
+                        android:fontFamily="@font/roboto_medium"
+                        android:paddingStart="16dp"
+                        android:text="Danh mục"
+                        android:textColor="@color/black" />
+
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_weight="1"
+                            android:paddingStart="14dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:textColor="#4B4B4B"
+                            android:text="Trạng thái mở cửa"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:textSize="12dp"
+                                android:fontFamily="@font/roboto_medium"
+                                android:textColor="#00918D"
+                                android:text="Mở cửa"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <androidx.appcompat.widget.SwitchCompat
+                                android:layout_marginStart="11dp"
+                                android:layout_marginEnd="18dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="24dp">
+
+                    <com.ornach.richtext.RichText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center"
+                        android:paddingStart="18dp"
+                        android:paddingTop="8dp"
+                        android:paddingEnd="18dp"
+                        android:paddingBottom="8dp"
+                        android:text="Xóa bộ lọc"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="14dp"
+                        app:rt_backgroundColor="#EEEEEE"
+                        app:rt_radius="21dp" />
+
+
+                    <com.ornach.richtext.RichText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="14dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center"
+                        android:paddingStart="18dp"
+                        android:paddingTop="8dp"
+                        android:paddingEnd="18dp"
+                        android:paddingBottom="8dp"
+                        android:text="Áp dụng"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        app:rt_backgroundColor="@color/colorPrimary"
+                        app:rt_radius="21dp" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
 
 
         </com.google.android.material.navigation.NavigationView>

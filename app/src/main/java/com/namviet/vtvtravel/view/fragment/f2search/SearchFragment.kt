@@ -64,7 +64,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
-class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, SearchSuggestionFragment.ClickSuggestion, SearchSuggestionFragment.CancelSearch, SearchSuggestionFragment.ClickRegionItem, SearchSuggestionFragment.ClickLayoutKeyword {
+class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, SearchSuggestionFragment.SearchSuggestionCallback {
     private var appVoucherResponse: AppVoucherResponse? = null
     private var itemAppExperienceResponse: ItemAppExperienceResponse? = null
 
@@ -183,7 +183,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
 //            layoutForMainSearch.visibility = View.GONE
 //            layoutSearchRegion.visibility = View.VISIBLE
 
-            addFragment(SearchSuggestionFragment(this, edtKeyword.text.toString(), location, locationsMain, true, this, this, this))
+            addFragment(SearchSuggestionFragment(edtKeyword.text.toString(), location, locationsMain, true, this))
 
         }
 
@@ -353,7 +353,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
 
         layoutSearch.setOnClickListener {
             focusSearch()
-            addFragment(SearchSuggestionFragment(this, edtKeyword.text.toString(), location, locationsMain, false, this, this, this))
+            addFragment(SearchSuggestionFragment( edtKeyword.text.toString(), location, locationsMain, false, this))
         }
 
         Handler().postDelayed(Runnable {
@@ -547,53 +547,47 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
 
     }
 
+
+    private fun handleLocation(location: Location?){
+        this.location = location
+        if(location != null) {
+            tvRegion.text = location.name
+        }else {
+            tvRegion.text = "Tất cả"
+        }
+    }
+
+    private fun goToSearchResult(location: Location?, keyword: String?){
+        handleLocation(location)
+        edtKeyword.text = keyword
+        addRecentSearch(edtKeyword.text.toString())
+        recentAdapter?.setData(getRecentSearch())
+        addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, ""))
+        KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
+    }
+
     override fun onClickSuggestion(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?, mLocation: Location?) {
-        location = mLocation
-        tvRegion.text = location?.name
-        edtKeyword.setText(searchKeywordSuggestion?.title)
+        handleLocation(mLocation)
+        edtKeyword.text = searchKeywordSuggestion?.title
         addRecentSearch(edtKeyword.text.toString())
         recentAdapter?.setData(getRecentSearch())
         addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, searchKeywordSuggestion?.categoryCode))
         KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
-        edtKeyword.clearFocus()
     }
 
     override fun onCancelSearch(location: Location?, keyword: String?) {
-        this.location = location
-        if(location != null) {
-            tvRegion.text = location.name
-        }else {
-            tvRegion.text = "Tất cả"
-        }
+        handleLocation(location)
         edtKeyword.text = keyword
     }
 
     override fun onClickRegion(location: Location?, keyword: String?) {
-        this.location = location
-        if(location != null) {
-            tvRegion.text = location.name
-        }else {
-            tvRegion.text = "Tất cả"
-        }
-        edtKeyword.text = keyword
-        addRecentSearch(edtKeyword.text.toString())
-        recentAdapter?.setData(getRecentSearch())
-        addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, ""))
-        KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
+        goToSearchResult(location, keyword)
     }
 
     override fun onClickLayoutKeyword(location: Location?, keyword: String?) {
-        this.location = location
-        if(location != null) {
-            tvRegion.text = location.name
-        }else {
-            tvRegion.text = "Tất cả"
-        }
-        edtKeyword.text = keyword
-        addRecentSearch(edtKeyword.text.toString())
-        recentAdapter?.setData(getRecentSearch())
-        addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, ""))
-        KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
+        goToSearchResult(location, keyword)
     }
+
+
 
 }
