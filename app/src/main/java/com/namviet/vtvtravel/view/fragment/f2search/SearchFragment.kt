@@ -568,7 +568,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
 
     override fun onClickSuggestion(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?, mLocation: Location?) {
         handleLocation(mLocation)
-        edtKeyword.text = searchKeywordSuggestion?.title
+//        edtKeyword.text = searchKeywordSuggestion?.title
         addRecentSearch(edtKeyword.text.toString())
         recentAdapter?.setData(getRecentSearch())
         addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, searchKeywordSuggestion?.categoryCode))
