@@ -142,7 +142,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
         searchSuggestionKeyWordAdapter = SearchSuggestionKeyWordAdapter(searchSuggestions, mActivity, object : SearchSuggestionKeyWordAdapter.ClickItem{
             override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
                 try {
-                    edtKeyword.setText(searchKeywordSuggestion?.title)
+//                    edtKeyword.setText(searchKeywordSuggestion?.title)
                     addRecentSearch(edtKeyword.text.toString())
                     recentAdapter?.setData(getRecentSearch())
                     addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, searchKeywordSuggestion?.categoryCode))
