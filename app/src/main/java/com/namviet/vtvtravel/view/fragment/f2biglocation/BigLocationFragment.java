@@ -190,7 +190,7 @@ public class BigLocationFragment extends BaseFragment<F2FragmentBigLocationBindi
                         for (int i = 0; i < dataListWhere.size(); i++) {
                             if(dataListWhere.get(i).getCode().equals(response.getCodeToSplit())){
                                 dataListWhere.get(i).setItems(response.getItems());
-                                parentDetailBigLocationAdapter.notifyItemRangeChanged(1,2);
+                                parentDetailBigLocationAdapter.notifyItemChanged(1);
                             }
                         }
                         break;
@@ -200,7 +200,7 @@ public class BigLocationFragment extends BaseFragment<F2FragmentBigLocationBindi
                         for (int i = 0; i < dataListStay.size(); i++) {
                             if(dataListStay.get(i).getCode().equals(response.getCodeToSplit())){
                                 dataListStay.get(i).setItems(response.getItems());
-                                parentDetailBigLocationAdapter.notifyItemRangeChanged(3,4);
+                                parentDetailBigLocationAdapter.notifyItemChanged(2);
                             }
                           }
                         break;
@@ -210,7 +210,7 @@ public class BigLocationFragment extends BaseFragment<F2FragmentBigLocationBindi
                         for (int i = 0; i < dataListEat.size(); i++) {
                             if(dataListEat.get(i).getCode().equals(response.getCodeToSplit())){
                                 dataListEat.get(i).setItems(response.getItems());
-                                parentDetailBigLocationAdapter.notifyItemRangeChanged(5,6);
+                                parentDetailBigLocationAdapter.notifyItemChanged(3);
                             }
                         }
                         break;
@@ -220,19 +220,19 @@ public class BigLocationFragment extends BaseFragment<F2FragmentBigLocationBindi
                         for (int i = 0; i < dataListPlay.size(); i++) {
                             if(dataListPlay.get(i).getCode().equals(response.getCodeToSplit())){
                                 dataListPlay.get(i).setItems(response.getItems());
-                                parentDetailBigLocationAdapter.notifyItemRangeChanged(7,8);
+                                parentDetailBigLocationAdapter.notifyItemChanged(4);
                             }
                         }
                         break;
 
                     case "APP_TRAVEL_TIP":
                         travelTip.setItems(response.getItems());
-                        parentDetailBigLocationAdapter.notifyItemChanged(9);
+                        parentDetailBigLocationAdapter.notifyItemChanged(5);
                         break;
 
                     case "APP_VIDEO_HIGH_LIGHT":
                         video.setItems(response.getItems());
-                        parentDetailBigLocationAdapter.notifyItemChanged(10);
+                        parentDetailBigLocationAdapter.notifyItemChanged(6);
                         break;
                         
                 }
