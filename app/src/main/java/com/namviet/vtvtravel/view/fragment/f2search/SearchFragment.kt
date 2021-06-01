@@ -3,6 +3,7 @@ package com.namviet.vtvtravel.view.fragment.f2search
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Typeface
+import android.os.Handler
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -102,7 +103,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
     }
 
     override fun initData() {
-
+        focusSearch()
 
         recentAdapter = RecentAdapter(getRecentSearch(), mActivity, object : RecentAdapter.ClickItem {
             override fun onClickItem(string: String?) {
@@ -181,6 +182,12 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
         handleSearch()
         handleSearchRegion()
         genViewPagerSearchResult()
+    }
+
+    private fun focusSearch(){
+        Handler().postDelayed(Runnable {
+            edtKeyword.requestFocus()
+        }, 200)
     }
 
 
