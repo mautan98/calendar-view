@@ -126,7 +126,8 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
             edtKeyword.requestFocus();
             regionId = location?.id;
             if (edtKeyword.text.isNotEmpty()) {
-                searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId);
+//                searchViewModel?.getPreResultSearch(edtKeyword.text.toString(), regionId);
+                searchViewModel?.getSearchSuggestion(edtKeyword.text.toString(), regionId)
 
                 try {
                     TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtKeyword.text.toString()).setScreen_class(this.javaClass.name))

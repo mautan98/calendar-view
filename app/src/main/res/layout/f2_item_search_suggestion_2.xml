@@ -6,11 +6,11 @@
     android:paddingStart="12dp"
     android:orientation="horizontal"
     android:paddingEnd="18dp"
-    android:gravity="center_vertical"
     android:foreground="@drawable/ripple_effect_click"
     android:paddingBottom="13dp">
 
     <ImageView
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="4dp"
         android:src="@drawable/f2_ic_search"
         android:layout_width="18dp"
@@ -29,6 +29,7 @@
 
 
     <ImageView
+        android:layout_marginTop="3dp"
         android:src="@drawable/f2_ic_search_arrow_1"
         android:layout_marginStart="10dp"
         android:layout_width="15dp"
