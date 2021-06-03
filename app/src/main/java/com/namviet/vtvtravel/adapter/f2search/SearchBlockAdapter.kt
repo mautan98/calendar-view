@@ -102,6 +102,13 @@ class SearchBlockAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     itemView.tvSeeMore.visibility = View.GONE
                 }
             }
+
+            itemView.tvTitle.setOnClickListener {
+                if(itemView.rclContent.visibility == View.GONE){
+                    itemView.rclContent.visibility == View.VISIBLE
+                    itemView.rclContent.visibility == View.GONE
+                }
+            }
         }
 
     }
