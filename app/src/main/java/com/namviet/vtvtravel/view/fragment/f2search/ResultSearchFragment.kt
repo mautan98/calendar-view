@@ -18,6 +18,7 @@ import com.namviet.vtvtravel.databinding.F2FragmentResultSearchBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.Video
+import com.namviet.vtvtravel.model.f2event.OnDestroySearchResult
 import com.namviet.vtvtravel.model.travelnews.Travel
 import com.namviet.vtvtravel.response.f2searchmain.MainResultSearchResponse
 import com.namviet.vtvtravel.response.f2searchmain.result.ResultSearch
@@ -31,6 +32,7 @@ import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultNewsSearc
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultVideosSearchFragment
 import com.namviet.vtvtravel.viewmodel.f2search.SearchResultViewModel
 import kotlinx.android.synthetic.main.f2_fragment_result_search.*
+import org.greenrobot.eventbus.EventBus
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -218,5 +220,10 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         var iHighLightText  = SearchHighLightText()
         var highLightController =  HighLightController(iHighLightText)
         highLightController.highLight(context!!, tv, textToHighlight)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().post(OnDestroySearchResult())
     }
 }

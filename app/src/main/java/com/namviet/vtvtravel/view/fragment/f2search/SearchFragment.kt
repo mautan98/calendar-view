@@ -3,6 +3,7 @@ package com.namviet.vtvtravel.view.fragment.f2search
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Typeface
+import android.os.Bundle
 import android.os.Handler
 import android.text.Spannable
 import android.text.SpannableString
@@ -32,6 +33,7 @@ import com.namviet.vtvtravel.databinding.F2FragmentSearchBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.Suggestion
+import com.namviet.vtvtravel.model.f2event.OnDestroySearchResult
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.model.travelnews.Travel
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse
@@ -54,6 +56,8 @@ import kotlinx.android.synthetic.main.f2_dialog_comment1.*
 import kotlinx.android.synthetic.main.f2_fragment_search.*
 import kotlinx.android.synthetic.main.f2_layout_keyword.*
 import kotlinx.android.synthetic.main.f2_layout_keyword.view.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
@@ -515,6 +519,21 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer {
     override fun setScreenTitle() {
         super.setScreenTitle()
         setDataScreen(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe
+    public fun onDestroyResultSearch(onDestroySearchResult: OnDestroySearchResult){
+        focusSearch()
     }
 
 
