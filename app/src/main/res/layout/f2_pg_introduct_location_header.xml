@@ -38,6 +38,7 @@
 
         <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
             app:spi_dotSize="6dp"
+            android:visibility="gone"
             app:spi_dotSelectedSize="6dp"
             app:spi_dotColor="@color/colorPrimary"
             app:spi_dotSelectedColor="@color/white"
