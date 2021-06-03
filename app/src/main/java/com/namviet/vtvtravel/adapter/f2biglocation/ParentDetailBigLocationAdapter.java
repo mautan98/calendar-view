@@ -298,13 +298,22 @@ public class ParentDetailBigLocationAdapter extends RecyclerView.Adapter<Recycle
             try {
                 slideImageInHighLightestImageAdapter = new SlideImageInHeaderBigLocationAdapter(context, region.getThumb_url());
                 viewPagerAvatar.setAdapter(slideImageInHighLightestImageAdapter);
-                indicator.attachToPager(viewPagerAvatar);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        viewPagerAvatar.setCurrentItem(1);
-                    }
-                }, 100);
+                if(region.getThumb_url().size() > 0) {
+                    indicator.setVisibility(View.VISIBLE);
+                    indicator.attachToPager(viewPagerAvatar);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                viewPagerAvatar.setCurrentItem(1);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, 100);
+                }else {
+                    indicator.setVisibility(View.GONE);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
