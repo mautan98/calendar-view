@@ -29,12 +29,17 @@ class ResultDestinationSearchFragment(private var resultSearchFragment: ResultSe
     override fun initView() {
     }
 
-    public fun setList(travels: ArrayList<Travel>?, moreLink: String?, count: String, keyword: String) {
+    public fun setList(travels: ArrayList<Travel>?, moreLink: String?, count: String, keyword: String,isApproximately: Boolean) {
         travels?.let { this.travels?.addAll(it) }
         this.moreLink = moreLink
         subTravelNewsAdapter?.notifyDataSetChanged()
-        tvCountResult.text = "Có $count kết quả tìm kiếm điểm đến khớp với \"$keyword\""
-        resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
+        if(!isApproximately) {
+            tvCountResult.text = "Có $count kết quả tìm kiếm điểm đến khớp với \"$keyword\""
+            resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
+        }else{
+            tvCountResult.text = "Có $count kết quả tìm kiếm điểm đến gần đúng khớp với \"$keyword\""
+            resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
+        }
     }
 
     override fun initData() {

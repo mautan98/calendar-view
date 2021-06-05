@@ -32,12 +32,17 @@ class ResultNewsSearchFragment(private var resultSearchFragment: ResultSearchFra
 
     }
 
-    public fun setList(travels: ArrayList<Travel>?, moreLink: String, count: String, keyword: String) {
+    public fun setList(travels: ArrayList<Travel>?, moreLink: String, count: String, keyword: String, isApproximately: Boolean) {
         travels?.let { this.travels?.addAll(it) }
         this.moreLink = moreLink
         subTravelNewsAdapter?.notifyDataSetChanged()
-        tvCountResult.text = "Có $count kết quả tìm kiếm tin tức khớp với \"$keyword\""
-        resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
+        if(!isApproximately) {
+            tvCountResult.text = "Có $count kết quả tìm kiếm tin tức khớp với \"$keyword\""
+            resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
+        }else{
+            tvCountResult.text = "Có $count kết quả tìm kiếm tin tức gần đúng khớp với \"$keyword\""
+            resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
+        }
 
     }
 

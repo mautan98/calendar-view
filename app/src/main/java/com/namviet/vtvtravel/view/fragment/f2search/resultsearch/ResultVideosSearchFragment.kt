@@ -16,23 +16,35 @@ import kotlinx.android.synthetic.main.f2_fragment_search_destination_result.*
 
 
 @SuppressLint("ValidFragment")
-class ResultVideosSearchFragment(private var resultSearchFragment: ResultSearchFragment?) : BaseFragment<F2FragmentSearchDestinationResultBinding>() {
+class ResultVideosSearchFragment : BaseFragment<F2FragmentSearchDestinationResultBinding> {
     private var subTravelNewsAdapter: SubVideoAdapter? = null
     private var travels: ArrayList<Video> = ArrayList()
     private var moreLink: String? = null
+    private var resultSearchFragment: ResultSearchFragment? = null
     override fun getLayoutRes(): Int {
         return R.layout.f2_fragment_search_destination_result
+    }
+
+    constructor()
+
+    constructor(resultSearchFragment: ResultSearchFragment?){
+        this.resultSearchFragment = resultSearchFragment
     }
 
     override fun initView() {
     }
 
-    public fun setList(travels: ArrayList<Video>?, moreLink: String?,  count: String, keyword: String) {
+    public fun setList(travels: ArrayList<Video>?, moreLink: String?,  count: String, keyword: String, isApproximately: Boolean) {
         travels?.let { this.travels?.addAll(travels) }
         this.moreLink = moreLink
         subTravelNewsAdapter?.notifyDataSetChanged()
-        tvCountResult.text = "Có $count kết quả tìm kiếm video khớp với \"$keyword\""
-        resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
+        if(!isApproximately) {
+            tvCountResult.text = "Có $count kết quả tìm kiếm video khớp với \"$keyword\""
+            resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
+        }else{
+            tvCountResult.text = "Có $count kết quả tìm kiếm video gần đúng khớp với \"$keyword\""
+            resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
+        }
     }
 
     override fun initData() {

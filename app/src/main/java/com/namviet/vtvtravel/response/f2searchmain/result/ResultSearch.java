@@ -31,6 +31,11 @@ public class ResultSearch extends BaseResponse {
         private String total;
         private List<Travel> items;
         private String more_link;
+        private boolean approximately;
+
+        public boolean getApproximately() {
+            return approximately;
+        }
 
         public String getMore_link() {
             return more_link;
