@@ -169,11 +169,11 @@ public class OptServiceDialog extends BaseDialogFragment implements Observer {
 //                    Toast.makeText(mActivity, serviceOtpResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             } else if (arg instanceof ErrorResponse) {
-                dismiss();
 
                 try {
                     ErrorResponse errorResponse = (ErrorResponse) arg;
                     if ("USER_PKG_NOT_ENOGHT_MONEY".equals(errorResponse.getErrorCode())) {
+                        dismiss();
                         registerFailDialog = RegisterFailDialog.newInstance();
                         registerFailDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
                         registerFailDialog.setCancelable(true);
