@@ -32,8 +32,8 @@
             app:layout_constraintStart_toStartOf="@id/tvTitle"
             android:visibility="visible"
             android:background="@drawable/f2_bg_indicator"
-            android:layout_width="35dp"
-            android:layout_height="6dp"/>
+            android:layout_width="60dp"
+            android:layout_height="3dp"/>
 
 <!--        <LinearLayout-->
 <!--            android:visibility="gone"-->

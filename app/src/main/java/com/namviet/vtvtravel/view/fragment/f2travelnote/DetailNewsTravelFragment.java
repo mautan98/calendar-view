@@ -445,7 +445,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                 }
 
                 getComment(detailTravelNewsResponse.getData().getId());
-                urlDefault =  detailTravelNewsResponse.getData().getDescription();
+                urlDefault =  detailTravelNewsResponse.getData().getDescription().replaceAll("#", "app://");
                 getBinding().webViewContent.loadDataWithBaseURL("", urlDefault, "text/html", "UTF-8", null);
                 getBinding().webViewContentCache.loadDataWithBaseURL("", urlDefault, "text/html", "UTF-8", null);
                 getBinding().webViewContentCache.setWebViewClient(new WebViewClient() {
@@ -688,25 +688,30 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
         @TargetApi(Build.VERSION_CODES.N)
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            return super.shouldOverrideUrlLoading(view, request);
+            if(request.getUrl().toString().contains("app://")){
+                String index = request.getUrl().toString().substring(request.getUrl().toString().indexOf("app://")+6);
+                String mUrl = urlDefault.substring(0,urlDefault.lastIndexOf(index));
+                getBinding().webViewContentCache.loadDataWithBaseURL("", mUrl, "text/html", "UTF-8", null);
+            }
+            return true;
         }
 
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            try {
-                if(view.getOriginalUrl().contains("#")){
-                    String index = view.getOriginalUrl().substring(view.getOriginalUrl().indexOf("#")+1);
-                    String mUrl = urlDefault.substring(0,urlDefault.lastIndexOf(index));
-                    getBinding().webViewContentCache.loadDataWithBaseURL("", mUrl, "text/html", "UTF-8", null);
-                }else if(url.contains("#")){
-                    String index = url.substring(url.indexOf("#")+1);
-                    String mUrl = urlDefault.substring(0,urlDefault.lastIndexOf(index));
-                    getBinding().webViewContentCache.loadDataWithBaseURL("", mUrl, "text/html", "UTF-8", null);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            try {
+//                if(view.getOriginalUrl().contains("#")){
+//                    String index = view.getOriginalUrl().substring(view.getOriginalUrl().indexOf("#")+1);
+//                    String mUrl = urlDefault.substring(0,urlDefault.lastIndexOf(index));
+//                    getBinding().webViewContentCache.loadDataWithBaseURL("", mUrl, "text/html", "UTF-8", null);
+//                }else if(url.contains("#")){
+//                    String index = url.substring(url.indexOf("#")+1);
+//                    String mUrl = urlDefault.substring(0,urlDefault.lastIndexOf(index));
+//                    getBinding().webViewContentCache.loadDataWithBaseURL("", mUrl, "text/html", "UTF-8", null);
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
             getBinding().shimmerViewContainer.setVisibility(View.GONE);
         }
 
@@ -819,7 +824,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
         TextView iv_text = selected.findViewById(R.id.tvTitle);
         View view = selected.findViewById(R.id.indicator);
         view.setVisibility(View.VISIBLE);
-        iv_text.setTextColor(Color.parseColor("#00918D"));
+        iv_text.setTextColor(Color.parseColor("#101010"));
 
     }
 
@@ -829,7 +834,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
         TextView iv_text = selected.findViewById(R.id.tvTitle);
         View view = selected.findViewById(R.id.indicator);
         view.setVisibility(View.INVISIBLE);
-        iv_text.setTextColor(Color.parseColor("#101010"));
+        iv_text.setTextColor(Color.parseColor("#00918D"));
 
     }
 
