@@ -71,6 +71,7 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
+                        android:foreground="@drawable/ripple_effect_click"
                         android:id="@+id/layoutSearch"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
