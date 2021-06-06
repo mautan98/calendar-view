@@ -22,6 +22,11 @@ public class ResultVideoSearch extends BaseResponse {
         private String total;
         private List<Video> items;
         private String more_link;
+        private boolean approximately;
+
+        public boolean getApproximately() {
+            return approximately;
+        }
 
         public String getMore_link() {
             return more_link;

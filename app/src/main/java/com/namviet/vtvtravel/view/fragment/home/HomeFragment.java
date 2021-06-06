@@ -18,6 +18,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -192,18 +194,20 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             public void onClick(View view) {
                 if(isShowBottomMenu){
                     binding.viewAboveBottomMenu.setVisibility(View.GONE);
-                    binding.motionLayout.transitionToEnd();
+              //      binding.motionLayout.transitionToEnd();
 //                    binding.viewCoverBottomMenu.setVisibility(View.GONE);
 //                    binding.btnShowBottomMenu.setRotation(45);
                     binding.addButtonMotionLayout.transitionToStart();
                     isShowBottomMenu = false;
+                   hideMenuAnim();
                 }else {
 //                    binding.btnShowBottomMenu.setRotation(0);
                     binding.addButtonMotionLayout.transitionToEnd();
                     binding.viewAboveBottomMenu.setVisibility(View.VISIBLE);
-                    binding.motionLayout.transitionToStart();
+             //       binding.motionLayout.transitionToStart();
 //                    binding.viewCoverBottomMenu.setVisibility(View.VISIBLE);
                     isShowBottomMenu = true;
+                   showMenuAnim();
                 }
             }
         });
@@ -277,13 +281,55 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 
         updateViews();
     }
+    private void showMenuAnim(){
+        Animation scaleDown = AnimationUtils.loadAnimation(mActivity, R.anim.scale_up1);
+        scaleDown.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                binding.redStar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        binding.redStar.startAnimation(scaleDown);
+    }
+    private void hideMenuAnim(){
+        Animation scaleDown = AnimationUtils.loadAnimation(mActivity, R.anim.scale_down1);
+        scaleDown.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                binding.redStar.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        binding.redStar.startAnimation(scaleDown);
+    }
 
     private void hideBottomMenu(){
 //        binding.btnShowBottomMenu.setRotation(45);
         binding.viewAboveBottomMenu.setVisibility(View.GONE);
 //        binding.viewCoverBottomMenu.setVisibility(View.GONE);
-        binding.motionLayout.transitionToEnd();
+ //       binding.motionLayout.transitionToEnd();
         binding.addButtonMotionLayout.transitionToStart();
+        if(isShowBottomMenu)
+            hideMenuAnim();
         isShowBottomMenu = false;
     }
 
@@ -310,7 +356,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
                 hideBottomMenu();
             }
         });
-        binding.motionLayout.transitionToEnd();
+ //       binding.motionLayout.transitionToEnd();
 //        checkPermission();
     }
 
