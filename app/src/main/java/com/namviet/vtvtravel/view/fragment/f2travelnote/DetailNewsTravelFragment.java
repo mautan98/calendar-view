@@ -454,6 +454,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                     {
                         count ++;
                         if(count > 1){
+                            getBinding().webViewContentCache.requestLayout();
                             getBinding().webViewContentCache.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                                 @Override
                                 public void onGlobalLayout() {
