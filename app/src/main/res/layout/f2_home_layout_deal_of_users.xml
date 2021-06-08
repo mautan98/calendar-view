@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:foreground="@drawable/ripple_effect_click"
             android:id="@+id/btnSeeMore"
             android:gravity="center"
             android:textColor="#00918D"
