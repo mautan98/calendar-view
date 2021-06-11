@@ -304,6 +304,10 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
                             showDialog(LuckyWheelDialog.Type.SAD_TYPE, "Bạn đã quay vào ô mất lượt")
                         }
 
+                        "STIMULATE" -> {
+                            showDialog(LuckyWheelDialog.Type.VIP_TYPE, wheelResultResponse?.data?.wheelAward?.content)
+                        }
+
                     }
 
 
