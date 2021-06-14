@@ -8,6 +8,7 @@ import android.media.MediaPlayer
 import android.media.SoundPool
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.util.SparseArray
 import android.view.MotionEvent
 import android.view.View
@@ -407,6 +408,7 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
                                     canRoll = true
                                     targetPosition = wheelAreasResponse?.data?.size!! * 5 + i
                                     rclScroll.smoothScrollToPosition(targetPosition)
+                                    Log.e("targetPosition", targetPosition.toString())
                                     isScroll = true
                                     positionScroll = 1000
 
