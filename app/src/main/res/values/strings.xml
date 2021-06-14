@@ -202,6 +202,8 @@
     <string name="press_one_more_to_exit">Nhấn lần nữa để thoát</string>
     <string name="underline_see_more"><u>Xem thêm</u></string>
     <string name="rules"><u>Các điều khoản</u></string>
+    <string name="remove_noti">Xóa thông báo</string>
+    <string name="save_noti">Lưu thông báo</string>
 
     Type a message
 
