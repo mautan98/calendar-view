@@ -1,4 +1,4 @@
-package com.namviet.vtvtravel.view.f3;
+package com.namviet.vtvtravel.view.f3.notification.view;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;

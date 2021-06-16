@@ -7,6 +7,7 @@
 
 
     <com.ornach.richtext.RichText
+        android:id="@+id/tvTitle"
        android:layout_centerVertical="true"
         android:fontFamily="@font/roboto_regular"
         android:textSize="14dp"
