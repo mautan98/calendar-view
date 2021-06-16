@@ -128,6 +128,7 @@ import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.f2.SystemInboxActivity;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
+import com.namviet.vtvtravel.view.f3.notification.view.NotificationActivity;
 import com.namviet.vtvtravel.view.fragment.ChatFragment;
 import com.namviet.vtvtravel.view.fragment.DetailsFragment;
 import com.namviet.vtvtravel.view.fragment.EncodeDemoFragment;
@@ -562,6 +563,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
 //        Intent serviceIntent = new Intent(this, ForegroundService.class);
 //        ContextCompat.startForegroundService(this, serviceIntent);
+        startActivity(new Intent(this, NotificationActivity.class));
     }
 
     public void pushEvent(String key) {
