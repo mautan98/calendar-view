@@ -18,6 +18,6 @@ class NotificationActivity : BaseActivityNew<ActivityNotificationBinding?>() {
     override fun doAfterOnCreate() {}
     override fun setClick() {}
     override fun initFragment(): BaseFragment<*>? {
-        return NotificationFragment()
+        return NotificationFragment( )
     }
 }
