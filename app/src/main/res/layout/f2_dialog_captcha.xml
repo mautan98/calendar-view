@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data></data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="54dp"
+            android:layout_marginEnd="52dp"
+            android:background="@drawable/f2_bg_dialog_15"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nhập văn bản mà bạn nhìn thấy"
+                android:textSize="16dp"
+                android:layout_marginTop="22dp"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="#000000"/>
+
+            <com.ornach.richtext.RichText
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                app:rt_borderWidth="1dp"
+                app:rt_borderColor="#ECECEC"
+                app:rt_radius="5dp"
+                android:id="@+id/tvDescription"
+                android:textSize="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="21dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:text="797979"
+                android:textColor="#000000" />
+
+
+            <com.ornach.richtext.RichEditText
+                android:singleLine="true"
+                android:hint="Nhập thông tin"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                app:rt_borderWidth="1dp"
+                app:rt_borderColor="#ECECEC"
+                app:rt_radius="5dp"
+                android:id="@+id/edtCaptcha"
+                android:textSize="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="21dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:textColor="#000000" />
+
+
+            <TextView
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:background="@drawable/f2_bg_button_agree_invite"
+                android:textAllCaps="true"
+                android:id="@+id/tvLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:text="Xác minh"
+                android:textColor="@color/white"
+                android:textSize="15dp" />
+
+
+            <TextView
+                android:id="@+id/btnDismiss"
+                android:layout_marginBottom="20dp"
+                android:textAllCaps="true"
+                android:textSize="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="21dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:text="Đóng"
+                android:textColor="#6DC0BD" />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

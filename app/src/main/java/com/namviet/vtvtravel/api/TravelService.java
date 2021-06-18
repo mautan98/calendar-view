@@ -53,6 +53,7 @@ import com.namviet.vtvtravel.response.f2chat.GetUserGuildResponse;
 import com.namviet.vtvtravel.response.f2chat.GetUserThemeResponse;
 import com.namviet.vtvtravel.response.f2chat.HelloMessageResponse;
 import com.namviet.vtvtravel.response.f2chat.PostUserGuildResponse;
+import com.namviet.vtvtravel.response.f2comment.CheckShowCaptcha;
 import com.namviet.vtvtravel.response.f2filter.FilterByCodeResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByPageResponse;
 import com.namviet.vtvtravel.response.f2operator.OperatorInformationResponse;
@@ -457,6 +458,9 @@ public interface TravelService {
 
     @POST(WSConfig.Api.COMMENTS_UPDATE)
     Observable<UpdateCommentResponse> updateComment(@Body RequestBody jsonBodyObject);
+
+    @POST(WSConfig.Api.CHECK_SHOW_CAPTCHA)
+    Observable<CheckShowCaptcha> checkShowCaptcha(@Body RequestBody jsonBodyObject);
 
     @GET(WSConfig.Api.GET_GALLERY)
     Observable<ImagePartResponse> getGallery(@QueryMap Map<String, Object> queryMap);

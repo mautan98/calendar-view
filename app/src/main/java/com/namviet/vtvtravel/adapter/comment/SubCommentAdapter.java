@@ -83,6 +83,7 @@ public class SubCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         private RecyclerView rclChildComment;
         private LikeButton imgHeart;
         private int position;
+        private TextView tvCommentWaiting;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -95,6 +96,7 @@ public class SubCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             tvReply = itemView.findViewById(R.id.tvReply);
             rclChildComment = itemView.findViewById(R.id.rclChildComment);
             imgHeart = itemView.findViewById(R.id.imgHeart);
+            tvCommentWaiting = itemView.findViewById(R.id.tvCommentWaiting);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -139,6 +141,17 @@ public class SubCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }, 100);
                 }
             });
+
+            try {
+                if(comments.get(position).getStatus() != null && Integer.parseInt(comments.get(position).getStatus()) == 2){
+                    tvCommentWaiting.setVisibility(View.VISIBLE);
+                }else {
+                    tvCommentWaiting.setVisibility(View.GONE);
+                }
+            } catch (Exception e) {
+                tvCommentWaiting.setVisibility(View.GONE);
+                e.printStackTrace();
+            }
 
 //            imgHeart.setOnClickListener(new View.OnClickListener() {
 //                @Override

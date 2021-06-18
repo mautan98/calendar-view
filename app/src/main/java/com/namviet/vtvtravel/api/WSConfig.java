@@ -107,6 +107,7 @@ public class WSConfig {
         public static final String COMMENTS_CREATE = "comments/create";
         public static final String COMMENTS_DELETE = "comments/delete";
         public static final String COMMENTS_UPDATE = "comments/update";
+        public static final String CHECK_SHOW_CAPTCHA = "comments/request";
         public static final String NOTIFICATION_REG = "notifications/reg";
         public static final String NOTIFICATION_LIST = "notifications";
         public static final String NOTIFICATION_COUNTUNREAD = "notifications/countUnread";

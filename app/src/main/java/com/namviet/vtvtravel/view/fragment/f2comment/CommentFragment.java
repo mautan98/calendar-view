@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2event.OnCommentSuccessInTravelNews;
 import com.namviet.vtvtravel.model.f2event.OnUpdateCommentCount;
+import com.namviet.vtvtravel.response.f2comment.CheckShowCaptcha;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.response.f2comment.CreateCommentResponse;
 import com.namviet.vtvtravel.response.f2comment.DeleteCommentResponse;
@@ -78,6 +80,16 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
         getBinding().setCommentViewModel(viewModel);
         viewModel.addObserver(this);
 
+    }
+
+    private void checkComment(String parentId, String content, String contentId, String contentType){
+        Account account = MyApplication.getInstance().getAccount();
+        if (null != account && account.isLogin()) {
+            userId = String.valueOf(account.getId());
+            viewModel.checkShowCaptcha(parentId, userId, content, contentId, contentType);
+        } else {
+            LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+        }
     }
 
     private void postComment(String parentId, String content, String contentId, String contentType) {
@@ -260,21 +272,21 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                         if (!getBinding().edtComment.getText().toString().isEmpty()) {
                             viewModel.updateComment(idCommentForEdit, getBinding().edtComment.getText().toString());
                             getBinding().edtComment.setText("");
-//                            getBinding().imgSend.setAlpha(1f);
+
                             typeComment = TYPE_COMMENT_NORMAL;
                         }
                     } else if (typeComment == TYPE_COMMENT_REPLY) {
                         if (!getBinding().edtComment.getText().toString().isEmpty()) {
-                            postComment(parentId, getBinding().edtComment.getText().toString(), contentId, contentType);
+                            checkComment(parentId, getBinding().edtComment.getText().toString(), contentId, contentType);
                             getBinding().edtComment.setText("");
-//                            getBinding().imgSend.setAlpha(1f);
+
                             typeComment = TYPE_COMMENT_NORMAL;
                         }
                     } else {
                         if (!getBinding().edtComment.getText().toString().isEmpty()) {
-                            postComment(null, getBinding().edtComment.getText().toString(), contentId, contentType);
+                            checkComment(null, getBinding().edtComment.getText().toString(), contentId, contentType);
                             getBinding().edtComment.setText("");
-//                            getBinding().imgSend.setAlpha(1f);
+
                         }
                     }
                 } else {
@@ -391,6 +403,23 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                     e.printStackTrace();
                 }
 
+            } else if(o instanceof CheckShowCaptcha){
+                CheckShowCaptcha checkShowCaptcha = (CheckShowCaptcha) o;
+                if(checkShowCaptcha.getData().isCaptcha() == false
+                        &&
+                        checkShowCaptcha.getData().isSensitiveWord() == false) {
+                    postComment(checkShowCaptcha.getParentId(), checkShowCaptcha.getContent(), checkShowCaptcha.getContentId(), checkShowCaptcha.getContentType());
+                }else if(checkShowCaptcha.getData().isCaptcha()){
+                    CaptchaDialog captchaDialog = CaptchaDialog.newInstance(new CaptchaDialog.ClickButton() {
+                        @Override
+                        public void onClickButton() {
+                            postComment(checkShowCaptcha.getParentId(), checkShowCaptcha.getContent(), checkShowCaptcha.getContentId(), checkShowCaptcha.getContentType());
+                        }
+                    });
+                    captchaDialog.show(getChildFragmentManager(), "");
+                }else if(checkShowCaptcha.getData().isSensitiveWord()){
+                    Toast.makeText(mActivity, "Bình luận chứa từ ngữ khiễm nhã", Toast.LENGTH_SHORT).show();
+                }
             } else if (o instanceof CreateCommentResponse) {
                 CreateCommentResponse response = (CreateCommentResponse) o;
                 if (response != null && response.isSuccess()) {

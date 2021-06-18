@@ -70,6 +70,14 @@
                 android:textSize="14dp" />
 
 
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tvCommentWaiting"
+                android:text="Bình luận đang chờ duyệt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
         </LinearLayout>
 
 

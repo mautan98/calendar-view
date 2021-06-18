@@ -5,17 +5,21 @@ import com.namviet.vtvtravel.api.Param;
 import com.namviet.vtvtravel.api.TravelService;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.response.f2comment.CheckShowCaptcha;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.response.f2comment.CreateCommentResponse;
 import com.namviet.vtvtravel.response.f2comment.DeleteCommentResponse;
 import com.namviet.vtvtravel.response.f2comment.UpdateCommentResponse;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
+import org.json.JSONObject;
+
 import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.HttpException;
 
@@ -124,6 +128,28 @@ public class CommentViewModel extends BaseViewModel {
                         requestFailed(throwable);
                     }
                 });
+
+        compositeDisposable.add(disposable);
+    }
+
+    public void checkShowCaptcha(String parentId, String userId, String content, String contentId, String contentType) {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(Param.checkComment(content, contentId)).toString());
+        Disposable disposable = newsService.checkShowCaptcha(jsonBodyObject)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+                    if (response != null && response.isSuccess()) {
+                        response.setParentId(parentId);
+                        response.setContent(content);
+                        response.setContentId(contentId);
+                        response.setContentType(contentType);
+                        requestSuccess(response);
+                    } else {
+                        requestSuccess(null);
+                    }
+                }, throwable -> requestFailed(throwable));
 
         compositeDisposable.add(disposable);
     }

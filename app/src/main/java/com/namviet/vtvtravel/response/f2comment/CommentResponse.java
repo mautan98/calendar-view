@@ -20,6 +20,7 @@ public class CommentResponse extends BaseResponse {
         }
 
         public class Comment{
+            private String status;
             private String id;
             private String userId;
             private String contentId;
@@ -82,6 +83,14 @@ public class CommentResponse extends BaseResponse {
 
             public List<Comment> getChildren() {
                 return children;
+            }
+
+            public String getStatus() {
+                return status;
+            }
+
+            public void setStatus(String status) {
+                this.status = status;
             }
         }
     }

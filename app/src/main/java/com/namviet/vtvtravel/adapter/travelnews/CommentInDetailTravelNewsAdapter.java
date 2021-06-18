@@ -80,6 +80,7 @@ public class CommentInDetailTravelNewsAdapter extends RecyclerView.Adapter<Recyc
         private TextView tvReply;
         private int position;
         private LikeButton imgHeart;
+        private TextView tvCommentWaiting;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -90,6 +91,7 @@ public class CommentInDetailTravelNewsAdapter extends RecyclerView.Adapter<Recyc
             tvComment = itemView.findViewById(R.id.tvComment);
             tvCountLike = itemView.findViewById(R.id.tvCountLike);
             tvReply = itemView.findViewById(R.id.tvReply);
+            tvCommentWaiting = itemView.findViewById(R.id.tvCommentWaiting);
             try {
                 imgHeart = itemView.findViewById(R.id.imgHeart);
             } catch (Exception e) {
@@ -116,6 +118,18 @@ public class CommentInDetailTravelNewsAdapter extends RecyclerView.Adapter<Recyc
             tvComment.setText(comments.get(position).getContent());
             Glide.with(context).load(comments.get(position).getUser().getImageProfile()).error(R.drawable.f2_defaut_user).apply(new RequestOptions().circleCrop()).into(imgAvatar);
             tvTime.setText(DateUtltils.convertTime(comments.get(position).getCreated()));
+
+
+            try {
+                if(comments.get(position).getStatus() != null && Integer.parseInt(comments.get(position).getStatus()) == 2){
+                    tvCommentWaiting.setVisibility(View.VISIBLE);
+                }else {
+                    tvCommentWaiting.setVisibility(View.GONE);
+                }
+            } catch (Exception e) {
+                tvCommentWaiting.setVisibility(View.GONE);
+                e.printStackTrace();
+            }
         }
     }
 

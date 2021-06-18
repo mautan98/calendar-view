@@ -684,6 +684,17 @@ public class Param {
         return map;
     }
 
+    public static JSONObject checkComment(String content, String contentId) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.CONTENT, content);
+            map.put(WSConfig.KeyParam.CONTENT_ID, contentId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
     public static JSONObject deleteComment(String id) {
         JSONObject map = new JSONObject();
         try {
