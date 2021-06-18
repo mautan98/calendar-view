@@ -1,5 +1,6 @@
 package com.namviet.vtvtravel.view.fragment.f2comment;
 
+import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -66,6 +67,8 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
 
     private EndlessRecyclerViewScrollListener scrollListener;
 
+    private ProgressDialog progressDialog;
+
     public CommentFragment() {
     }
 
@@ -80,6 +83,9 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
         getBinding().setCommentViewModel(viewModel);
         viewModel.addObserver(this);
 
+        progressDialog = new ProgressDialog(mActivity);
+        progressDialog.setMessage("Đang kiểm tra bình luận");
+
     }
 
     private void checkComment(String parentId, String content, String contentId, String contentType){
@@ -87,6 +93,7 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
         if (null != account && account.isLogin()) {
             userId = String.valueOf(account.getId());
             viewModel.checkShowCaptcha(parentId, userId, content, contentId, contentType);
+            progressDialog.show();
         } else {
             LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
         }
@@ -278,14 +285,14 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                     } else if (typeComment == TYPE_COMMENT_REPLY) {
                         if (!getBinding().edtComment.getText().toString().isEmpty()) {
                             checkComment(parentId, getBinding().edtComment.getText().toString(), contentId, contentType);
-                            getBinding().edtComment.setText("");
+//                            getBinding().edtComment.setText("");
 
                             typeComment = TYPE_COMMENT_NORMAL;
                         }
                     } else {
                         if (!getBinding().edtComment.getText().toString().isEmpty()) {
                             checkComment(null, getBinding().edtComment.getText().toString(), contentId, contentType);
-                            getBinding().edtComment.setText("");
+//                            getBinding().edtComment.setText("");
 
                         }
                     }
@@ -304,6 +311,11 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
 
     @Override
     public void update(Observable observable, Object o) {
+        try {
+            progressDialog.dismiss();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         getBinding().layoutLoading.setVisibility(View.GONE);
         if (observable instanceof CommentViewModel && null != o) {
             if (o instanceof CommentResponse) {
@@ -408,11 +420,13 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                 if(checkShowCaptcha.getData().isCaptcha() == false
                         &&
                         checkShowCaptcha.getData().isSensitiveWord() == false) {
+                    getBinding().edtComment.setText("");
                     postComment(checkShowCaptcha.getParentId(), checkShowCaptcha.getContent(), checkShowCaptcha.getContentId(), checkShowCaptcha.getContentType());
                 }else if(checkShowCaptcha.getData().isCaptcha()){
                     CaptchaDialog captchaDialog = CaptchaDialog.newInstance(new CaptchaDialog.ClickButton() {
                         @Override
                         public void onClickButton() {
+                            getBinding().edtComment.setText("");
                             postComment(checkShowCaptcha.getParentId(), checkShowCaptcha.getContent(), checkShowCaptcha.getContentId(), checkShowCaptcha.getContentType());
                         }
                     });
