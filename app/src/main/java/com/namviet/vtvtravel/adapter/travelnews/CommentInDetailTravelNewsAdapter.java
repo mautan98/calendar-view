@@ -130,6 +130,17 @@ public class CommentInDetailTravelNewsAdapter extends RecyclerView.Adapter<Recyc
                 tvCommentWaiting.setVisibility(View.GONE);
                 e.printStackTrace();
             }
+
+            try {
+                tvCountLike.setText(comments.get(position).getLikeCount());
+                if (comments.get(position).isLiked()) {
+                    imgHeart.setLiked(true);
+                } else {
+                    imgHeart.setLiked(false);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

@@ -71,6 +71,7 @@
 
 
             <TextView
+                android:textSize="12dp"
                 android:visibility="gone"
                 android:id="@+id/tvCommentWaiting"
                 android:text="Bình luận đang chờ duyệt"
@@ -118,11 +119,13 @@
             android:textSize="14dp" />
 
         <ImageView
+            android:visibility="gone"
             android:src="@drawable/f2_ic_reply"
             android:layout_width="20dp"
             android:layout_height="20dp" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tvReply"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

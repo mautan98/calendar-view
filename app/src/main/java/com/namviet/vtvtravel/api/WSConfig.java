@@ -6,7 +6,7 @@ public class WSConfig {
 
     //Server test
     public static final String URL_SOCKET = "http://103.21.148.54:8079";
-    public static final String HOST = "https://api1.travel.onex.vn/";
+    public static final String HOST = "https://api-testing.vtvtravel.vn/";
     public static final String HOST_ACC = "https://core-testing.vtvtravel.vn/api/v1/";
     public static final String HOST_ACC_2 = "https://core1.travel.onex.vn/";
     public static final String HOST_CHAT = "https://103.21.148.54:8090/";
@@ -16,8 +16,8 @@ public class WSConfig {
     public static final String HOST_VQMM_HISTORY = "http://103.21.148.54:8856/histories-list?";
     public static final String HOST_VQMM_RULE = "http://103.21.148.54:8856/page/LUCKY_WHEEL_RULE?";
     public static final String HOST_VQMM_GUIDE = "http://103.21.148.54:8856/page/LUCKY_WHEEL_GUIDE?";
-    public static final String API_VQMM_RULE = "https://api1.travel.onex.vn/page/60542239c28629466576d339";
-    public static final String API_VQMM_GUIDE = "https://api1.travel.onex.vn/page/60542047c28629466576d338";
+    public static final String API_VQMM_RULE = "https://api-testing.vtvtravel.vn/page/60542239c28629466576d339";
+    public static final String API_VQMM_GUIDE = "https://api-testing.vtvtravel.vn/page/60542047c28629466576d338";
     public static final String HOST_CREATE_TRIP = "http://103.21.148.54:8858/my-trip/create";
     public static final String HOST_MY_TRIP = "http://103.21.148.54:8858/my-trip";
     public static final String HOST_RECEIVE_TRIP = "http://103.21.148.54:8858/my-trip/detail";
