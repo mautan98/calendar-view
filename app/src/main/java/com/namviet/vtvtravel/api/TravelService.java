@@ -700,4 +700,18 @@ public interface TravelService {
     @POST(WSConfig.Api.TICKET_INFO)
     Observable<TicketInfo> ticketInfo(@Body RequestBody body);
 
+
+
+    @POST(WSConfig.Api.INBOX_TYPE)
+    Observable<NotifyResponse> getNotificationByType(@Query("type") String type, @Body RequestBody body);
+
+    @POST(WSConfig.Api.INBOX_MARK)
+    Observable<NotifyResponse> getNotificationByMark(@Body RequestBody body);
+
+    @POST(WSConfig.Api.INBOX_STATUS)
+    Observable<NotifyResponse> getNotificationByStatus(@Body RequestBody body);
+
+    @POST(WSConfig.Api.UPDATE_MARK)
+    Completable updateMark(@Body RequestBody body);
+
 }

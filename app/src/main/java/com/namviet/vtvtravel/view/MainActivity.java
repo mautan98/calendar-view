@@ -2071,65 +2071,69 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
     }
 
     private void handleIntentFromNotification(String code,Notification notification){
-        Account account = MyApplication.getInstance().getAccount();
-        switch (code){
-            case NotificationCode.WHEEL_TIME_OUT :
-            case NotificationCode.SUBSCRIBE :
-                if (null != account && account.isLogin()) {
-                    VQMMWebviewActivity.startScreen(this, "");
-                } else {
-                    LoginAndRegisterActivityNew.startScreen(this, 0, false);
-                }
-                break;
-            case NotificationCode.UN_SUBSCRIBE :
+        try {
+            Account account = MyApplication.getInstance().getAccount();
+            switch (code){
+                case NotificationCode.WHEEL_TIME_OUT :
+                case NotificationCode.SUBSCRIBE :
+                    if (null != account && account.isLogin()) {
+                        VQMMWebviewActivity.startScreen(this, "");
+                    } else {
+                        LoginAndRegisterActivityNew.startScreen(this, 0, false);
+                    }
+                    break;
+                case NotificationCode.UN_SUBSCRIBE :
 
-                break;
-            case NotificationCode.MAINTENANCE :
+                    break;
+                case NotificationCode.MAINTENANCE :
 
-                break;
+                    break;
 
-            case NotificationCode.UPDATE :
-                final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
-                try {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-                } catch (android.content.ActivityNotFoundException anfe) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-                }
-                break;
-            case NotificationCode.LIVE_TV :
-                LiveTVActivity.openScreen(this, 0, "");
-                break;
-            case NotificationCode.ADD_TO_CART :
-            case NotificationCode.TIME_OUT :
-            case NotificationCode.CODE_CANCEL :
-            case NotificationCode.BOOKING_SUCCESS :
-            case NotificationCode.FLY_TIME :
-                if (null != account && account.isLogin()) {
-                    WebviewActivity.startScreen(this);
-                } else {
-                    LoginAndRegisterActivityNew.startScreen(this, 0, false);
-                }
-                break;
-            case NotificationCode.HUNT_DEAL_SUCCESS :
+                case NotificationCode.UPDATE :
+                    final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                    try {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                    } catch (android.content.ActivityNotFoundException anfe) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                    }
+                    break;
+                case NotificationCode.LIVE_TV :
+                    LiveTVActivity.openScreen(this, 0, "");
+                    break;
+                case NotificationCode.ADD_TO_CART :
+                case NotificationCode.TIME_OUT :
+                case NotificationCode.CODE_CANCEL :
+                case NotificationCode.BOOKING_SUCCESS :
+                case NotificationCode.FLY_TIME :
+                    if (null != account && account.isLogin()) {
+                        WebviewActivity.startScreen(this);
+                    } else {
+                        LoginAndRegisterActivityNew.startScreen(this, 0, false);
+                    }
+                    break;
+                case NotificationCode.HUNT_DEAL_SUCCESS :
 
-                break;
-            case NotificationCode.DEAL_LOSS :
+                    break;
+                case NotificationCode.DEAL_LOSS :
 
-                break;
-            case NotificationCode.DEAL_WIN :
+                    break;
+                case NotificationCode.DEAL_WIN :
 
-                break;
-            case NotificationCode.HOT_DEAL :
-                try {
-                    DetailDealWebviewActivity.startScreen(this, "");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
-            case NotificationCode.WIN_WHEEL :
+                    break;
+                case NotificationCode.HOT_DEAL :
+                    try {
+                        DetailDealWebviewActivity.startScreen(this, "");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case NotificationCode.WIN_WHEEL :
 
-                break;
+                    break;
 
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -201,6 +201,11 @@ public class WSConfig {
         public static final String HASH_TAG_SEARCH = "deals/getDealFilter";
         public static final String DEAL_HOT_HOME = "deals/getDealHot";
         public static final String TERMS = "page/dieu-khoan-su-dung";
+
+        public static final String INBOX_TYPE = "user/inbox/type";
+        public static final String INBOX_MARK = "user/inbox/mark";
+        public static final String INBOX_STATUS = "user/inbox/status";
+        public static final String UPDATE_MARK = "/user/inbox/marked";
     }
 
     public class KeyParam {
