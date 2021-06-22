@@ -69,6 +69,7 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
 
     private ProgressDialog progressDialog;
 
+
     public CommentFragment() {
     }
 
@@ -117,8 +118,7 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
         contentType = detailTravelNewsResponse.getData().getContent_type();
 
         viewModel.getComment(detailTravelNewsResponse.getData().getId(), page);
-//        viewModel.updateComment("616", "ahihi");
-//        viewModel.deleteComment("616");
+
 
         commentAdapter = new CommentAdapter(comments, mActivity, new CommentAdapter.ClickItem() {
             @Override
@@ -275,25 +275,32 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                 if (null != account && account.isLogin()) {
                     userId = String.valueOf(account.getId());
 
+
                     if (typeComment == TYPE_COMMENT_EDIT) {
-                        if (!getBinding().edtComment.getText().toString().isEmpty()) {
+                        if (getBinding().edtComment.getText().toString().length()>5) {
                             viewModel.updateComment(idCommentForEdit, getBinding().edtComment.getText().toString());
                             getBinding().edtComment.setText("");
 
                             typeComment = TYPE_COMMENT_NORMAL;
+                        }else {
+                            Toast.makeText(mActivity, "Độ dài comment phải lớn hơn 5 ký tự", Toast.LENGTH_SHORT).show();
                         }
                     } else if (typeComment == TYPE_COMMENT_REPLY) {
-                        if (!getBinding().edtComment.getText().toString().isEmpty()) {
+                        if (getBinding().edtComment.getText().toString().length() > 5) {
                             checkComment(parentId, getBinding().edtComment.getText().toString(), contentId, contentType);
 //                            getBinding().edtComment.setText("");
 
                             typeComment = TYPE_COMMENT_NORMAL;
+                        }else {
+                            Toast.makeText(mActivity, "Độ dài comment phải lớn hơn 5 ký tự", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        if (!getBinding().edtComment.getText().toString().isEmpty()) {
+                        if (getBinding().edtComment.getText().toString().length() > 5) {
                             checkComment(null, getBinding().edtComment.getText().toString(), contentId, contentType);
 //                            getBinding().edtComment.setText("");
 
+                        }else {
+                            Toast.makeText(mActivity, "Độ dài comment phải lớn hơn 5 ký tự", Toast.LENGTH_SHORT).show();
                         }
                     }
                 } else {
@@ -332,78 +339,6 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                     commentAdapter.notifyDataSetChanged();
                 }
                 page = page + 1;
-//                commentAdapter = new CommentAdapter(response.getData().getContent(), mActivity, new CommentAdapter.ClickItem() {
-//                    @Override
-//                    public void onClickItem(CommentResponse.Data.Comment comment) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onLongClickItem(CommentResponse.Data.Comment comment, CommentResponse.Data.Comment commentParent) {
-//                        Account account = MyApplication.getInstance().getAccount();
-//                        if (null != account && account.isLogin()) {
-//                            userId = String.valueOf(account.getId());
-//                            if(userId.equals(comment.getUserId())){
-//                                OptionCommentOfMineDialog optionCommentOfMineDialog = new OptionCommentOfMineDialog();
-//                                optionCommentOfMineDialog.setClickButton(new OptionCommentOfMineDialog.ClickButton() {
-//                                    @Override
-//                                    public void onClickEdit() {
-//                                        typeComment = TYPE_COMMENT_EDIT;
-//                                        idCommentForEdit = comment.getId();
-//                                        getBinding().edtComment.setText(comment.getContent());
-//                                    }
-//
-//                                    @Override
-//                                    public void onClickCopy() {
-//                                        ClipboardManager clipboard = (ClipboardManager) mActivity.getSystemService(Context.CLIPBOARD_SERVICE);
-//                                        ClipData clip = ClipData.newPlainText("label", comment.getContent());
-//                                        clipboard.setPrimaryClip(clip);
-//                                        showToast("Đã sao chép tin nhắn vào bộ nhớ tạm");
-//                                    }
-//
-//                                    @Override
-//                                    public void onDelete() {
-//                                        deleteComment(comment.getId());
-//                                    }
-//                                });
-//                                optionCommentOfMineDialog.show(mActivity.getSupportFragmentManager(), null);
-//                            }else {
-//                                OptionCommentDialog optionCommentDialog = new OptionCommentDialog();
-//                                optionCommentDialog.setClickButton(new OptionCommentDialog.ClickButton() {
-//
-//                                    @Override
-//                                    public void onClickReply() {
-//                                        typeComment = TYPE_COMMENT_REPLY;
-//                                        getBinding().edtComment.setText("#"+comment.getUser().getFullname());
-//                                        CommentFragment.this.parentId = commentParent.getId();
-//                                    }
-//
-//                                    @Override
-//                                    public void onClickCopy() {
-//                                        ClipboardManager clipboard = (ClipboardManager) mActivity.getSystemService(Context.CLIPBOARD_SERVICE);
-//                                        ClipData clip = ClipData.newPlainText("label", comment.getContent());
-//                                        clipboard.setPrimaryClip(clip);
-//                                        showToast("Đã sao chép tin nhắn vào bộ nhớ tạm");
-//                                    }
-//
-//                                });
-//                                optionCommentDialog.show(mActivity.getSupportFragmentManager(), null);
-//                            }
-//                        } else {
-//                            LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
-//                        }
-//
-//
-//                    }
-//
-//                    @Override
-//                    public void onClickReply(CommentResponse.Data.Comment comment, CommentResponse.Data.Comment commentParent) {
-//                        typeComment = TYPE_COMMENT_REPLY;
-//                        getBinding().edtComment.setText("#"+comment.getUser().getFullname());
-//                        CommentFragment.this.parentId = commentParent.getId();
-//                    }
-//                });
-//                getBinding().rclComment.setAdapter(commentAdapter);
 
                 try {
                     TrackingAnalytic.postEvent(TrackingAnalytic.COMMENT, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.COMMENT, TrackingAnalytic.ScreenTitle.COMMENT)
