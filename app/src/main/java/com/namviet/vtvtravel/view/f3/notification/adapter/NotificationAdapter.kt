@@ -7,19 +7,22 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.response.newhome.AppVoucherResponse
+import com.namviet.vtvtravel.view.f3.notification.model.Notification
+import com.namviet.vtvtravel.view.f3.notification.model.ui.NotificationResponse
 import kotlinx.android.synthetic.main.f3_item_notification.view.*
 
 class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private val TYPE_ITEM = 0
     private var context: Context? = null
-    private var items: List<AppVoucherResponse.Item>? = null
+    private var dataList: ArrayList<Notification>? = null
     private var notificationCallback : NotificationCallback? = null
 
     constructor()
 
-    constructor(context: Context?, notificationCallback : NotificationCallback?) {
+    constructor(context: Context?, dataList: ArrayList<Notification>?,  notificationCallback : NotificationCallback?) {
         this.context = context
         this.notificationCallback = notificationCallback;
+        this.dataList = dataList
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -37,9 +40,9 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     override fun getItemCount(): Int {
         return try {
-            items!!.size;
+            dataList!!.size;
         } catch (e: Exception) {
-            10;
+            0;
         }
     }
 
@@ -70,6 +73,21 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
             itemView.btnMenu.setOnClickListener {
                 notificationCallback?.onClickItemMenu()
             }
+
+            itemView.tvTitle.text = dataList!![position].title
+            itemView.tvMessage.text = dataList!![position].message
+            when {
+                dataList!![position].typeId.equals("11") -> {
+                    itemView.tvTypeName.text = "Hệ thống"
+                }
+                dataList!![position].typeId.equals("10") -> {
+                    itemView.tvTypeName.text = "Khuyến mãi"
+                }
+                dataList!![position].typeId.equals("9") -> {
+                    itemView.tvTypeName.text = "Giao dịch"
+                }
+            }
+
         }
 
     }

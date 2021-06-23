@@ -5,18 +5,22 @@ import com.namviet.vtvtravel.api.Param;
 import com.namviet.vtvtravel.api.TravelService;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
-import com.namviet.vtvtravel.response.NotifyResponse;
+import com.namviet.vtvtravel.view.f3.notification.model.ui.NotificationResponse;
 import com.namviet.vtvtravel.response.f2systeminbox.SystemInbox;
 import com.namviet.vtvtravel.view.f3.notification.model.Notification;
 import com.namviet.vtvtravel.view.f3.notification.model.ui.NotificationResponse;
+import com.namviet.vtvtravel.view.f3.notification.model.ui.NotificationTab;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import javax.inject.Inject;
 
+import io.reactivex.CompletableObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -32,10 +36,14 @@ public class NotificationViewModel extends BaseViewModel {
         Disposable disposable = newsService.getNotificationByType(type, jsonBodyObject)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<NotifyResponse>() {
+                .subscribe(new Consumer<NotificationResponse>() {
                     @Override
-                    public void accept(NotifyResponse notifyResponse) throws Exception {
-
+                    public void accept(NotificationResponse response) throws Exception {
+                        if (response != null && response.isSuccess()) {
+                            requestSuccess(response);
+                        } else {
+                            requestSuccess(null);
+                        }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -51,13 +59,17 @@ public class NotificationViewModel extends BaseViewModel {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
         RequestBody jsonBodyObject = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), Param.getParams2(new JSONObject()).toString());
-        Disposable disposable = newsService.getNotificationByStatus(jsonBodyObject)
+        Disposable disposable = newsService.getNotificationByStatus("0", jsonBodyObject)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<NotifyResponse>() {
+                .subscribe(new Consumer<NotificationResponse>() {
                     @Override
-                    public void accept(NotifyResponse notifyResponse) throws Exception {
-
+                    public void accept(NotificationResponse response) throws Exception {
+                        if (response != null && response.isSuccess()) {
+                            requestSuccess(response);
+                        } else {
+                            requestSuccess(null);
+                        }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -76,10 +88,14 @@ public class NotificationViewModel extends BaseViewModel {
         Disposable disposable = newsService.getNotificationByMark(jsonBodyObject)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<NotifyResponse>() {
+                .subscribe(new Consumer<NotificationResponse>() {
                     @Override
-                    public void accept(NotifyResponse notifyResponse) throws Exception {
-
+                    public void accept(NotificationResponse response) throws Exception {
+                        if (response != null && response.isSuccess()) {
+                            requestSuccess(response);
+                        } else {
+                            requestSuccess(null);
+                        }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -90,6 +106,97 @@ public class NotificationViewModel extends BaseViewModel {
 
         compositeDisposable.add(disposable);
     }
+
+    public void getNotification() {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+        RequestBody jsonBodyObject = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), Param.getParams2(new JSONObject()).toString());
+        Disposable disposable = newsService.getAllNotification(jsonBodyObject)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<NotificationResponse>() {
+                    @Override
+                    public void accept(NotificationResponse response) throws Exception {
+                        if (response != null && response.isSuccess()) {
+                            requestSuccess(response);
+                        } else {
+                            requestSuccess(null);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+    public void updateMark() {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+        RequestBody jsonBodyObject = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), Param.getParams2(new JSONObject()).toString());
+        Disposable disposable = newsService.updateMark(jsonBodyObject)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+    public void updateInbox() {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+        RequestBody jsonBodyObject = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), Param.getParams2(new JSONObject()).toString());
+        Disposable disposable = newsService.updateInbox(jsonBodyObject)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                    
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+    public void getNotificationTab() {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+        Disposable disposable = newsService.getNotificationTab("https://core-testing.vtvtravel.vn/sys/v1/notifications/types/active")
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<NotificationTab>() {
+                    @Override
+                    public void accept(NotificationTab response) throws Exception {
+                        if (response != null && response.isSuccess()) {
+                            requestSuccess(response);
+                        } else {
+                            requestSuccess(null);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+
 
 
 

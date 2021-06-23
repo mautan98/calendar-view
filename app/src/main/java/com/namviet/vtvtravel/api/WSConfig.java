@@ -205,7 +205,8 @@ public class WSConfig {
         public static final String INBOX_TYPE = "user/inbox/type";
         public static final String INBOX_MARK = "user/inbox/mark";
         public static final String INBOX_STATUS = "user/inbox/status";
-        public static final String UPDATE_MARK = "/user/inbox/marked";
+        public static final String UPDATE_MARK = "user/inbox/marked";
+        public static final String UPDATE_INBOX = "user/updateInbox";
     }
 
     public class KeyParam {

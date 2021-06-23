@@ -110,6 +110,8 @@ import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
 import com.namviet.vtvtravel.response.travelnews.NewsCategoryResponse;
 import com.namviet.vtvtravel.response.travelnews.NotebookResponse;
 import com.namviet.vtvtravel.response.travelnews.PlaceNearByResponse;
+import com.namviet.vtvtravel.view.f3.notification.model.ui.NotificationResponse;
+import com.namviet.vtvtravel.view.f3.notification.model.ui.NotificationTab;
 import com.namviet.vtvtravel.view.fragment.f2service.GetInfoResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ResentOtpServiceResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceOtpResponse;
@@ -703,15 +705,25 @@ public interface TravelService {
 
 
     @POST(WSConfig.Api.INBOX_TYPE)
-    Observable<NotifyResponse> getNotificationByType(@Query("type") String type, @Body RequestBody body);
+    Observable<NotificationResponse> getNotificationByType(@Query("typeId") String type, @Body RequestBody body);
 
     @POST(WSConfig.Api.INBOX_MARK)
-    Observable<NotifyResponse> getNotificationByMark(@Body RequestBody body);
+    Observable<NotificationResponse> getNotificationByMark(@Body RequestBody body);
+
+    @POST(WSConfig.Api.SYSTEM_INBOX)
+    Observable<NotificationResponse> getAllNotification(@Body RequestBody body);
 
     @POST(WSConfig.Api.INBOX_STATUS)
-    Observable<NotifyResponse> getNotificationByStatus(@Body RequestBody body);
+    Observable<NotificationResponse> getNotificationByStatus(@Query("status") String type, @Body RequestBody body);
 
     @POST(WSConfig.Api.UPDATE_MARK)
     Completable updateMark(@Body RequestBody body);
+
+    @POST(WSConfig.Api.UPDATE_INBOX)
+    Completable updateInbox(@Body RequestBody body);
+
+    @GET
+    Observable<NotificationTab> getNotificationTab(@Url String url);
+
 
 }

@@ -8,6 +8,10 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class Notification implements Serializable {
+
+    @SerializedName("typeId")
+    @Expose
+    private String typeId;
     @SerializedName("message")
     @Expose
     private String message;
@@ -39,6 +43,10 @@ public class Notification implements Serializable {
 
     public void setData(Data data) {
         this.data = data;
+    }
+
+    public String getTypeId() {
+        return typeId;
     }
 
     @Override

@@ -568,7 +568,6 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
 //        Intent serviceIntent = new Intent(this, ForegroundService.class);
 //        ContextCompat.startForegroundService(this, serviceIntent);
-        startActivity(new Intent(this, NotificationActivity.class));
     }
 
     public void pushEvent(String key) {

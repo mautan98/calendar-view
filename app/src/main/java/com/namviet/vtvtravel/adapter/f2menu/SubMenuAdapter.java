@@ -27,6 +27,7 @@ import com.namviet.vtvtravel.view.f2.WebviewActivity;
 import com.namviet.vtvtravel.view.f2.f2oldbase.SettingActivity;
 import com.namviet.vtvtravel.view.f2.landingpage.LandingPageActivity;
 import com.namviet.vtvtravel.view.f2.virtualswitchboard.VirtualSwitchBoardActivity;
+import com.namviet.vtvtravel.view.f3.notification.view.NotificationActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,7 +135,7 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         case "APP_MAIN_FOOTER_NOTIFICATION":
                             Account account1 = MyApplication.getInstance().getAccount();
                             if (null != account1 && account1.isLogin()) {
-                                SystemInboxActivity.startScreen(context);
+                                NotificationActivity.Companion.openActivity(context);
                             } else {
                                 LoginAndRegisterActivityNew.startScreen(context, 0, false);
                             }
