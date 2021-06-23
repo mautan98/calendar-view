@@ -9,6 +9,15 @@ import java.io.Serializable;
 
 public class Notification implements Serializable {
 
+    @SerializedName("status")
+    @Expose
+    private String status;
+    @SerializedName("isMarked")
+    @Expose
+    private String isMarked;
+    @SerializedName("id")
+    @Expose
+    private String id;
     @SerializedName("typeId")
     @Expose
     private String typeId;
@@ -47,6 +56,26 @@ public class Notification implements Serializable {
 
     public String getTypeId() {
         return typeId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getIsMarked() {
+        return isMarked;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setIsMarked(String isMarked) {
+        this.isMarked = isMarked;
     }
 
     @Override

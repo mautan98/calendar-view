@@ -112,6 +112,7 @@ import com.namviet.vtvtravel.response.travelnews.NotebookResponse;
 import com.namviet.vtvtravel.response.travelnews.PlaceNearByResponse;
 import com.namviet.vtvtravel.view.f3.notification.model.ui.NotificationResponse;
 import com.namviet.vtvtravel.view.f3.notification.model.ui.NotificationTab;
+import com.namviet.vtvtravel.view.f3.notification.model.ui.UpdateNotificationResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.GetInfoResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ResentOtpServiceResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceOtpResponse;
@@ -717,10 +718,10 @@ public interface TravelService {
     Observable<NotificationResponse> getNotificationByStatus(@Query("status") String type, @Body RequestBody body);
 
     @POST(WSConfig.Api.UPDATE_MARK)
-    Completable updateMark(@Body RequestBody body);
+    Observable<UpdateNotificationResponse> updateMark(@Body RequestBody body);
 
     @POST(WSConfig.Api.UPDATE_INBOX)
-    Completable updateInbox(@Body RequestBody body);
+    Observable<UpdateNotificationResponse> updateInbox(@Body RequestBody body);
 
     @GET
     Observable<NotificationTab> getNotificationTab(@Url String url);

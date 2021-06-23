@@ -71,7 +71,7 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         fun bindItem(position: Int) {
             this.position = position
             itemView.btnMenu.setOnClickListener {
-                notificationCallback?.onClickItemMenu()
+                notificationCallback?.onClickItemMenu(position, dataList!![position])
             }
 
             itemView.tvTitle.text = dataList!![position].title
@@ -93,7 +93,7 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     interface NotificationCallback {
-        fun onClickItemMenu();
+        fun onClickItemMenu(position: Int?, notification: Notification?);
     }
 
 
