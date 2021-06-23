@@ -76,24 +76,28 @@ public class MenuItemNotifyDialog extends BaseDialogBottom {
             @Override
             public void onClick(View v) {
                 iMenuItemNotifyClick.onMenuItemClickListener(MenuItem.VIEWED);
+                dismiss();
             }
         });
         binding.lnlBookmarkNoti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iMenuItemNotifyClick.onMenuItemClickListener(MenuItem.BOOKMARK);
+                dismiss();
             }
         });
         binding.lnlRemoveNoti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iMenuItemNotifyClick.onMenuItemClickListener(MenuItem.REMOVE);
+                dismiss();
             }
         });
         binding.lnlCancelNoti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iMenuItemNotifyClick.onMenuItemClickListener(MenuItem.CANCEL);
+                dismiss();
             }
         });
     }
