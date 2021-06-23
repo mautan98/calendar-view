@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.view.f3.notification.view
 
 import android.app.ProgressDialog
+import android.util.Log
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.config.Constants
 import com.namviet.vtvtravel.databinding.F3FragmentNotificationTabBinding
@@ -74,21 +75,35 @@ class NotificationTabFragment : BaseFragment<F3FragmentNotificationTabBinding?>,
 
     override fun initData() {
         notificationAdapter = NotificationAdapter(mActivity, dataList,
-                object : NotificationAdapter.NotificationCallback {
-                    override fun onClickItemMenu(position: Int?, notification: Notification?) {
-                        var menuItemNotifyDialog = MenuItemNotifyDialog(notification);
-                        menuItemNotifyDialog.setImenuItemNotifyClick {
-                            progressDialog?.show()
-                            when (it) {
-                                MenuItemNotifyDialog.MenuItem.BOOKMARK -> notificationViewModel?.updateMark(notification?.id, if (notification?.isMarked == "0") "1" else "0", position!!)
-                                MenuItemNotifyDialog.MenuItem.VIEWED -> notificationViewModel?.updateInbox(notification?.id, if (notification?.status == "0") "1" else "0", position!!)
-                                MenuItemNotifyDialog.MenuItem.REMOVE -> notificationViewModel?.updateInbox(notification?.id, "2", position!!)
-                            }
-                        }
-                        menuItemNotifyDialog.show(childFragmentManager, "")
-                    }
+            object : NotificationAdapter.NotificationCallback {
+                override fun onClickItemMenu(position: Int?, notification: Notification?) {
+                    var menuItemNotifyDialog = MenuItemNotifyDialog(notification);
+                    menuItemNotifyDialog.setImenuItemNotifyClick {
+                        progressDialog?.show()
+                        when (it) {
+                            MenuItemNotifyDialog.MenuItem.BOOKMARK -> notificationViewModel?.updateMark(
+                                notification?.id,
+                                if (notification?.isMarked == "0") "1" else "0",
+                                position!!
+                            )
+                            MenuItemNotifyDialog.MenuItem.VIEWED -> notificationViewModel?.updateInbox(
+                                notification?.id,
+                                if (notification?.status == "0") "1" else "0",
+                                position!!
+                            )
+                            MenuItemNotifyDialog.MenuItem.REMOVE -> notificationViewModel?.updateInbox(
+                                notification?.id,
+                                "2",
+                                position!!
+                            )
+                            MenuItemNotifyDialog.MenuItem.CANCEL -> progressDialog?.dismiss()
 
-                });
+                        }
+                    }
+                    menuItemNotifyDialog.show(childFragmentManager, "")
+                }
+
+            });
         rclContent.adapter = notificationAdapter
     }
 
@@ -102,17 +117,26 @@ class NotificationTabFragment : BaseFragment<F3FragmentNotificationTabBinding?>,
             when (o) {
                 is NotificationResponse -> {
                     dataList.clear()
-                    dataList.addAll(o.data.notifications)
+                    dataList.addAll(progressData(o.data.notifications))
                     notificationAdapter?.notifyDataSetChanged()
                 }
 
                 is UpdateNotificationResponse -> {
-                    dataList[o.position].isMarked = o.data.notifications[0].isMarked
-                    dataList[o.position].status = o.data.notifications[0].status
-                    if (o.data.notifications[0].status == "2") {
-                        dataList.removeAt(o.position)
+                    if(o.position == -1){
+                        for (i in 0 until dataList.size){
+                            if(!dataList[i].isHeader){
+                                dataList[i].status = "1"
+                            }
+                        }
+                        notificationAdapter?.notifyDataSetChanged()
+                    }else {
+                        dataList[o.position].isMarked = o.data.notifications[0].isMarked
+                        dataList[o.position].status = o.data.notifications[0].status
+                        if (o.data.notifications[0].status == "2") {
+                            dataList.removeAt(o.position)
+                        }
+                        notificationAdapter?.notifyDataSetChanged()
                     }
-                    notificationAdapter?.notifyDataSetChanged()
                 }
 
                 is ErrorResponse -> {
@@ -125,10 +149,42 @@ class NotificationTabFragment : BaseFragment<F3FragmentNotificationTabBinding?>,
         }
     }
 
-    private fun progressData(dataList: ArrayList<Notification>) {
-//        val sdf = SimpleDateFormat(Constants.DateFormat.DATE_FORMAT_18, Locale.getDefault())
-//        for (i in 0 until dataList.size) {
-//            var list = dataMap?.get();
-//        }
+    private fun progressData(dataList: ArrayList<Notification>) : ArrayList<Notification> {
+        var resultDataList = ArrayList<Notification>()
+        try {
+            var dateStringSave = "";
+            val sdf = SimpleDateFormat(Constants.DateFormat.DATE_FORMAT_18, Locale.getDefault())
+            for (i in 0 until dataList.size) {
+                var date = Date(dataList[i].createdAt.toLong())
+                var dateString = sdf.format(date)
+                if (i == 0) {
+                    var notification = Notification();
+                    notification.title = dateString
+                    notification.isHeader = true
+                    resultDataList.add(notification)
+                    resultDataList.add(dataList[i])
+                    dateStringSave = dateString
+                } else {
+                    if (dateStringSave == dateString) {
+                        resultDataList.add(dataList[i])
+                    } else {
+                        var notification = Notification();
+                        notification.title = dateString
+                        notification.isHeader = true
+                        resultDataList.add(notification)
+                        resultDataList.add(dataList[i])
+                        dateStringSave = dateString
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("", "")
+        }
+        return resultDataList;
+    }
+
+    public fun viewAllNotification(){
+        progressDialog?.show()
+        notificationViewModel?.updateViewedAllInbox()
     }
 }

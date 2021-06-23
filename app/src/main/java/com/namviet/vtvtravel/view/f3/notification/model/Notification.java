@@ -8,7 +8,21 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class Notification implements Serializable {
+    //
+    private boolean isHeader;
 
+    public boolean isHeader() {
+        return isHeader;
+    }
+
+    public void setHeader(boolean header) {
+        isHeader = header;
+    }
+    //
+
+    @SerializedName("createdAt")
+    @Expose
+    private String createdAt;
     @SerializedName("status")
     @Expose
     private String status;
@@ -76,6 +90,14 @@ public class Notification implements Serializable {
 
     public void setIsMarked(String isMarked) {
         this.isMarked = isMarked;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
     @Override

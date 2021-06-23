@@ -242,6 +242,7 @@ public class Constants {
         public static final String DATE_FORMAT_16 = "dd MMMM yyyy";
         public static final String DATE_FORMAT_17 = "EEEE, dd/MM/yyyy";
         public static final String DATE_FORMAT_18 = "MMMM, yyyy";
+        public static final String DATE_FORMAT_19 = "HH:mm dd/MM";
     }
 
     public static class KeyJSON {

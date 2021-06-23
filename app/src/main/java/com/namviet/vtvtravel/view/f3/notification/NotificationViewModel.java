@@ -5,6 +5,7 @@ import com.namviet.vtvtravel.api.Param;
 import com.namviet.vtvtravel.api.TravelService;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.response.f2systeminbox.CountSystemInbox;
 import com.namviet.vtvtravel.view.f3.notification.model.ui.NotificationResponse;
 import com.namviet.vtvtravel.response.f2systeminbox.SystemInbox;
 import com.namviet.vtvtravel.view.f3.notification.model.Notification;
@@ -188,6 +189,33 @@ public class NotificationViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
+    public void updateViewedAllInbox() {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+        RequestBody jsonBodyObject = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), Param.getParams2(Param.updateViewedAllInbox()).toString());
+        Disposable disposable = newsService.updateInbox(jsonBodyObject)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<UpdateNotificationResponse>() {
+                    @Override
+                    public void accept(UpdateNotificationResponse response) throws Exception {
+                        if (response != null && response.isSuccess()) {
+                            response.setPosition(-1);
+                            requestSuccess(response);
+                        } else {
+                            requestSuccess(null);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
     public void getNotificationTab() {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
@@ -215,7 +243,32 @@ public class NotificationViewModel extends BaseViewModel {
 
 
 
+    public void getSystemInboxCount() {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
 
+        Disposable disposable = newsService.getCountSystemInbox()
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<CountSystemInbox>() {
+                    @Override
+                    public void accept(CountSystemInbox countSystemInbox) throws Exception {
+                        if (countSystemInbox != null) {
+                            if (countSystemInbox.isSuccess()) {
+                                requestSuccess(countSystemInbox);
+                            }
+                        }
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable, "");
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
 
 
 

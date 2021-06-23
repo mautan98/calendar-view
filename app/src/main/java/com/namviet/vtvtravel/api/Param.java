@@ -1049,4 +1049,16 @@ public class Param {
         }
         return map;
     }
+
+    public static JSONObject updateViewedAllInbox() {
+        JSONObject map = new JSONObject();
+        try {
+            JSONArray jsonArray = new JSONArray();
+            map.putOpt(WSConfig.KeyParam.IDS, jsonArray);
+            map.put(WSConfig.KeyParam.STATUS, "1");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
 }
