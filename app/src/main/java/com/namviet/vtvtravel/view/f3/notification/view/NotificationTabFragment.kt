@@ -12,6 +12,7 @@ import com.namviet.vtvtravel.view.f3.notification.adapter.NotificationAdapter
 import com.namviet.vtvtravel.view.f3.notification.model.Notification
 import com.namviet.vtvtravel.view.f3.notification.model.ui.NotificationResponse
 import com.namviet.vtvtravel.view.f3.notification.model.ui.UpdateNotificationResponse
+import com.namviet.vtvtravel.view.f3.notification.processing.NotificationCaseProcessing
 import kotlinx.android.synthetic.main.f3_fragment_notification_tab.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -103,6 +104,12 @@ class NotificationTabFragment : BaseFragment<F3FragmentNotificationTabBinding?>,
                     menuItemNotifyDialog.show(childFragmentManager, "")
                 }
 
+                override fun onClickItem(position: Int?, notification: Notification?) {
+                    notificationViewModel?.updateInbox(notification?.id, "1", position!! )
+                    var notificationCaseProcessing = NotificationCaseProcessing(mActivity)
+                    notificationCaseProcessing.handleIntentFromNotification(notification?.data?.code, notification)
+                }
+
             });
         rclContent.adapter = notificationAdapter
     }
@@ -135,6 +142,24 @@ class NotificationTabFragment : BaseFragment<F3FragmentNotificationTabBinding?>,
                         if (o.data.notifications[0].status == "2") {
                             dataList.removeAt(o.position)
                         }
+
+                        //Nếu là màn hình đã lưu
+                        if(type.equals("1002")){
+                            if (o.data.notifications[0].isMarked == "0") {
+                                dataList.removeAt(o.position)
+                            }
+                        }
+                        //
+
+                        //Nếu là màn hình chưa đọc
+                        if(type.equals("1001")){
+                            if (o.data.notifications[0].status == "1") {
+                                dataList.removeAt(o.position)
+                            }
+                        }
+                        //
+
+
                         notificationAdapter?.notifyDataSetChanged()
                     }
                 }

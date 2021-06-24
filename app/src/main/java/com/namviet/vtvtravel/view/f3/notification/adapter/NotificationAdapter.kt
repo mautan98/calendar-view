@@ -97,6 +97,10 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 notificationCallback?.onClickItemMenu(position, dataList!![position])
             }
 
+            itemView.layoutRoot.setOnClickListener {
+                notificationCallback?.onClickItem(position, dataList!![position])
+            }
+
             try {
                 itemView.tvTitle.text = dataList!![position].title
                 itemView.tvMessage.text = dataList!![position].message
@@ -137,19 +141,6 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
 
-            try {
-                if (dataList!![position].isMarked == "1") {
-                    itemView.icMark.visibility = View.GONE
-                    itemView.icMarked.visibility = View.VISIBLE
-                } else {
-                    itemView.icMark.visibility = View.VISIBLE
-                    itemView.icMarked.visibility = View.GONE
-                }
-            } catch (e: Exception) {
-                Log.e("", "")
-            }
-
-
 
 
             try {
@@ -188,6 +179,7 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     interface NotificationCallback {
         fun onClickItemMenu(position: Int?, notification: Notification?);
+        fun onClickItem(position: Int?, notification: Notification?);
     }
 
 
