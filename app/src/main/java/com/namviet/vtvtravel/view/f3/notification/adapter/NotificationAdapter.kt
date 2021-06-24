@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.view.f3.notification.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import com.namviet.vtvtravel.config.Constants
 import com.namviet.vtvtravel.response.newhome.AppVoucherResponse
 import com.namviet.vtvtravel.view.f3.notification.model.Notification
 import com.namviet.vtvtravel.view.f3.notification.model.ui.NotificationResponse
+import kotlinx.android.synthetic.main.f3_dialog_menu_item_notify.view.*
 import kotlinx.android.synthetic.main.f3_item_notification.view.*
 import kotlinx.android.synthetic.main.f3_item_notification_header.view.*
 import java.text.SimpleDateFormat
@@ -26,9 +28,9 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     constructor()
 
     constructor(
-        context: Context?,
-        dataList: ArrayList<Notification>?,
-        notificationCallback: NotificationCallback?
+            context: Context?,
+            dataList: ArrayList<Notification>?,
+            notificationCallback: NotificationCallback?
     ) {
         this.context = context
         this.notificationCallback = notificationCallback;
@@ -47,11 +49,11 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         var v: View
         if (viewType == TYPE_ITEM) {
             v = LayoutInflater.from(parent.context)
-                .inflate(R.layout.f3_item_notification, parent, false)
+                    .inflate(R.layout.f3_item_notification, parent, false)
             return HeaderViewHolder(v)
         } else {
             v = LayoutInflater.from(parent.context)
-                .inflate(R.layout.f3_item_notification_header, parent, false)
+                    .inflate(R.layout.f3_item_notification_header, parent, false)
             return HeaderViewHolder2(v)
         }
 //        return null
@@ -95,48 +97,68 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 notificationCallback?.onClickItemMenu(position, dataList!![position])
             }
 
-            itemView.tvTitle.text = dataList!![position].title
-            itemView.tvMessage.text = dataList!![position].message
-            when {
-                dataList!![position].typeId.equals("11") -> {
-                    itemView.tvTypeName.text = "Hệ thống"
+            try {
+                itemView.tvTitle.text = dataList!![position].title
+                itemView.tvMessage.text = dataList!![position].message
+                when {
+                    dataList!![position].typeId.equals("11") -> {
+                        itemView.tvTypeName.text = "Hệ thống"
+                    }
+                    dataList!![position].typeId.equals("10") -> {
+                        itemView.tvTypeName.text = "Khuyến mãi"
+                    }
+                    dataList!![position].typeId.equals("9") -> {
+                        itemView.tvTypeName.text = "Giao dịch"
+                    }
                 }
-                dataList!![position].typeId.equals("10") -> {
-                    itemView.tvTypeName.text = "Khuyến mãi"
-                }
-                dataList!![position].typeId.equals("9") -> {
-                    itemView.tvTypeName.text = "Giao dịch"
-                }
+            } catch (e: Exception) {
             }
 
 
-            val sdf = SimpleDateFormat(Constants.DateFormat.DATE_FORMAT_18, Locale.getDefault())
-            var currentDate = Date()
-            var currentDateString = sdf.format(currentDate)
+            try {
+                val sdf = SimpleDateFormat(Constants.DateFormat.DATE_FORMAT_18, Locale.getDefault())
+                var currentDate = Date()
+                var currentDateString = sdf.format(currentDate)
 
 
-            var dataDate = sdf.format(Date(dataList!![position].createdAt.toLong()))
+                var dataDate = sdf.format(Date(dataList!![position].createdAt.toLong()))
 
-            if(currentDateString != dataDate){
-                val sdfHM = SimpleDateFormat(Constants.DateFormat.DATE_FORMAT_19, Locale.getDefault())
-                var dataDateHM = sdfHM.format(Date(dataList!![position].createdAt.toLong()))
-                itemView.tvTime.text = dataDateHM
-            }else{
-                val sdfHM = SimpleDateFormat(Constants.DateFormat.DATE_FORMAT_12, Locale.getDefault())
-                var dataDateHM = sdfHM.format(Date(dataList!![position].createdAt.toLong()))
-                itemView.tvTime.text = "$dataDateHM Hôm nay"
+                if (currentDateString != dataDate) {
+                    val sdfHM = SimpleDateFormat(Constants.DateFormat.DATE_FORMAT_19, Locale.getDefault())
+                    var dataDateHM = sdfHM.format(Date(dataList!![position].createdAt.toLong()))
+                    itemView.tvTime.text = dataDateHM
+                } else {
+                    val sdfHM = SimpleDateFormat(Constants.DateFormat.DATE_FORMAT_12, Locale.getDefault())
+                    var dataDateHM = sdfHM.format(Date(dataList!![position].createdAt.toLong()))
+                    itemView.tvTime.text = "$dataDateHM Hôm nay"
+                }
+            } catch (e: Exception) {
+            }
+
+
+
+            try {
+                if (dataList!![position].isMarked == "1") {
+                    itemView.icMark.visibility = View.GONE
+                    itemView.icMarked.visibility = View.VISIBLE
+                } else {
+                    itemView.icMark.visibility = View.VISIBLE
+                    itemView.icMarked.visibility = View.GONE
+                }
+            } catch (e: Exception) {
+                Log.e("", "")
             }
 
 
 
 
-
-
-
-            if (dataList!![position].status == "1") {
-                itemView.layoutRoot.alpha = 0.5f
-            } else {
-                itemView.layoutRoot.alpha = 1.0f
+            try {
+                if (dataList!![position].status == "1") {
+                    itemView.layoutRoot.alpha = 0.5f
+                } else {
+                    itemView.layoutRoot.alpha = 1.0f
+                }
+            } catch (e: Exception) {
             }
 
         }

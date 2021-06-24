@@ -112,8 +112,12 @@ public class MenuItemNotifyDialog extends BaseDialogBottom {
     private void setupView() {
         if (notification.getIsMarked().equals("0")) {
             binding.tvSaveAction.setText("Lưu thông báo");
+            binding.icMark.setVisibility(View.VISIBLE);
+            binding.icMarked.setVisibility(View.GONE);
         } else {
             binding.tvSaveAction.setText("Bỏ lưu thông báo");
+            binding.icMark.setVisibility(View.GONE);
+            binding.icMarked.setVisibility(View.VISIBLE   );
         }
 
         if (notification.getStatus().equals("0")) {
