@@ -84,6 +84,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
                 Notification notification = new Gson().fromJson(remoteMessage.getData().get("data"), Notification.class);
+                try {
+                    Log.e("FirebaseJson", new Gson().toJson(notification));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 if(notification != null){
                     sendNotificationNotInApp(notification.getData().getCode(),notification);
                 }
