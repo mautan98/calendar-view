@@ -63,17 +63,26 @@ public class NotificationCaseProcessing {
                     }
                     break;
                 case NotificationCode.HUNT_DEAL_SUCCESS :
-
-                    break;
+                    try {
+                        DetailDealWebviewActivity.startScreen(context, "http://deal-testing.vtvtravel.vn/");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }                    break;
                 case NotificationCode.DEAL_LOSS :
-
-                    break;
+                    try {
+                        DetailDealWebviewActivity.startScreen(context, "http://deal-testing.vtvtravel.vn/");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }                    break;
                 case NotificationCode.DEAL_WIN :
-
-                    break;
+                    try {
+                        DetailDealWebviewActivity.startScreen(context, "http://deal-testing.vtvtravel.vn/");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }                    break;
                 case NotificationCode.HOT_DEAL :
                     try {
-                        DetailDealWebviewActivity.startScreen(context, "");
+                        DetailDealWebviewActivity.startScreen(context, "http://deal-testing.vtvtravel.vn/");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

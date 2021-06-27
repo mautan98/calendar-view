@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.config.Constants
 import com.namviet.vtvtravel.response.newhome.AppVoucherResponse
@@ -60,10 +61,17 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     override fun getItemCount(): Int {
-        return try {
-            dataList!!.size;
+         try {
+            if (dataList!!.size > 0) {
+                notificationCallback?.onDataChange(false)
+                return dataList!!.size;
+            }else{
+                notificationCallback?.onDataChange(true)
+                return 0;
+            }
         } catch (e: Exception) {
-            0;
+             notificationCallback?.onDataChange(true)
+            return 0;
         }
     }
 
@@ -180,6 +188,7 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     interface NotificationCallback {
         fun onClickItemMenu(position: Int?, notification: Notification?);
         fun onClickItem(position: Int?, notification: Notification?);
+        fun onDataChange(isShow: Boolean);
     }
 
 

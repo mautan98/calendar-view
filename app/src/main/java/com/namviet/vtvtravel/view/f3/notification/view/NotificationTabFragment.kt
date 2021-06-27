@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.view.f3.notification.view
 
 import android.app.ProgressDialog
 import android.util.Log
+import android.view.View
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.config.Constants
 import com.namviet.vtvtravel.databinding.F3FragmentNotificationTabBinding
@@ -108,6 +109,14 @@ class NotificationTabFragment : BaseFragment<F3FragmentNotificationTabBinding?>,
                     notificationViewModel?.updateInbox(notification?.id, "1", position!! )
                     var notificationCaseProcessing = NotificationCaseProcessing(mActivity)
                     notificationCaseProcessing.handleIntentFromNotification(notification?.data?.code, notification)
+                }
+
+                override fun onDataChange(isShow: Boolean) {
+                    if(isShow){
+                        tvNoMess.visibility = View.VISIBLE
+                    }else{
+                        tvNoMess.visibility = View.GONE
+                    }
                 }
 
             });
