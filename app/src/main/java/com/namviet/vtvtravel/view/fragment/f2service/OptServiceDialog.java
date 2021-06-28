@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.baseapp.menu.SlideMenu;
 import com.baseapp.utils.KeyboardUtils;
@@ -100,6 +101,16 @@ public class OptServiceDialog extends BaseDialogFragment implements Observer {
         }.start();
     }
 
+    private void resetResendOTPButton(){
+        try {
+            binding.txt3.setText("");
+            binding.btnResentOtp.setTextColor(Color.parseColor("#FFFFFF"));
+            binding.btnResentOtp.setClickable(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void cancelTimer() {
         if (cTimer != null)
             cTimer.cancel();
@@ -143,7 +154,7 @@ public class OptServiceDialog extends BaseDialogFragment implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         dimissDialogLoading();
-        cancelTimer();
+//        cancelTimer();
         if (o instanceof ServiceViewModel) {
             if (arg instanceof ServiceOtpResponse) {
 //                typeRegisterDialog = OptServiceDialog.newInstance();
@@ -151,6 +162,7 @@ public class OptServiceDialog extends BaseDialogFragment implements Observer {
 //                typeRegisterDialog.setCancelable(true);
                 ServiceOtpResponse serviceOtpResponse = (ServiceOtpResponse) arg;
                 if (serviceOtpResponse.isSuccess()) {
+                    cancelTimer();
                     dismiss();
                     if(service.getCode().equals("TRAVEL_VIP")) {
                         mActivity.switchFragment(SlideMenu.MenuType.REGISTER_SUCCESS_SCREEN);
@@ -167,6 +179,31 @@ public class OptServiceDialog extends BaseDialogFragment implements Observer {
                 } else {
                     showMessage(serviceOtpResponse.getMessage());
 //                    Toast.makeText(mActivity, serviceOtpResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }else if(arg instanceof ResentOtpServiceResponse){
+                try {
+                    ResentOtpServiceResponse resentOtpServiceResponse = (ResentOtpServiceResponse) arg;
+                    if(resentOtpServiceResponse.isSuccess()){
+
+                    }else {
+                        cancelTimer();
+                        resetResendOTPButton();
+                        if(resentOtpServiceResponse.getErrorCode().equals("RETRY_OTP_AFTER_30_MINUTES")){
+                            try {
+                                Toast.makeText(mActivity, resentOtpServiceResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }else {
+                            try {
+                                Toast.makeText(mActivity, resentOtpServiceResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             } else if (arg instanceof ErrorResponse) {
 

@@ -80,33 +80,33 @@ public class BookingFragment extends BaseFragment<F2FragmentBookingBinding> {
         getBinding().webView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
-                Log.v("TAG", "+++ scrollchanged "+getBinding().webView.getScrollY());
-
-                try {
-                    if(getBinding().webView.getScrollY() > 800){
-                        setHeightToolbar(getBinding().toolBar, 30);
-                    }else if(getBinding().webView.getScrollY() <= 800 && getBinding().webView.getScrollY() > 700){
-                        setHeightToolbar(getBinding().toolBar, 32);
-                    }else if(getBinding().webView.getScrollY() <= 700 && getBinding().webView.getScrollY() > 600){
-                        setHeightToolbar(getBinding().toolBar, 35);
-                    }else if(getBinding().webView.getScrollY() <= 600 && getBinding().webView.getScrollY() > 500){
-                        setHeightToolbar(getBinding().toolBar, 37);
-                    }else if(getBinding().webView.getScrollY() <= 500 && getBinding().webView.getScrollY() > 400){
-                        setHeightToolbar(getBinding().toolBar, 40);
-                    }else if(getBinding().webView.getScrollY() <= 400 && getBinding().webView.getScrollY() > 300){
-                        setHeightToolbar(getBinding().toolBar, 42);
-                    }else if(getBinding().webView.getScrollY() <= 300 && getBinding().webView.getScrollY() > 200){
-                        setHeightToolbar(getBinding().toolBar, 45);
-                    }else if(getBinding().webView.getScrollY() <= 200 && getBinding().webView.getScrollY() > 100){
-                        setHeightToolbar(getBinding().toolBar, 47);
-                    }else if(getBinding().webView.getScrollY() <= 100 && getBinding().webView.getScrollY() > 0){
-                        setHeightToolbar(getBinding().toolBar, 50);
-                    }else {
-                        setHeightToolbar(getBinding().toolBar, 50);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//                Log.v("TAG", "+++ scrollchanged "+getBinding().webView.getScrollY());
+//
+//                try {
+//                    if(getBinding().webView.getScrollY() > 800){
+//                        setHeightToolbar(getBinding().toolBar, 30);
+//                    }else if(getBinding().webView.getScrollY() <= 800 && getBinding().webView.getScrollY() > 700){
+//                        setHeightToolbar(getBinding().toolBar, 32);
+//                    }else if(getBinding().webView.getScrollY() <= 700 && getBinding().webView.getScrollY() > 600){
+//                        setHeightToolbar(getBinding().toolBar, 35);
+//                    }else if(getBinding().webView.getScrollY() <= 600 && getBinding().webView.getScrollY() > 500){
+//                        setHeightToolbar(getBinding().toolBar, 37);
+//                    }else if(getBinding().webView.getScrollY() <= 500 && getBinding().webView.getScrollY() > 400){
+//                        setHeightToolbar(getBinding().toolBar, 40);
+//                    }else if(getBinding().webView.getScrollY() <= 400 && getBinding().webView.getScrollY() > 300){
+//                        setHeightToolbar(getBinding().toolBar, 42);
+//                    }else if(getBinding().webView.getScrollY() <= 300 && getBinding().webView.getScrollY() > 200){
+//                        setHeightToolbar(getBinding().toolBar, 45);
+//                    }else if(getBinding().webView.getScrollY() <= 200 && getBinding().webView.getScrollY() > 100){
+//                        setHeightToolbar(getBinding().toolBar, 47);
+//                    }else if(getBinding().webView.getScrollY() <= 100 && getBinding().webView.getScrollY() > 0){
+//                        setHeightToolbar(getBinding().toolBar, 50);
+//                    }else {
+//                        setHeightToolbar(getBinding().toolBar, 50);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
 
             }
         });

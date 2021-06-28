@@ -1,13 +1,15 @@
 package com.namviet.vtvtravel.view.fragment.f2service;
 
-public class ResentOtpServiceResponse {
-    Object data;
+import com.namviet.vtvtravel.response.BaseResponse;
 
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
+public class ResentOtpServiceResponse extends BaseResponse {
+//    Object data;
+//
+//    public Object getData() {
+//        return data;
+//    }
+//
+//    public void setData(Object data) {
+//        this.data = data;
+//    }
 }
