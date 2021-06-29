@@ -35,8 +35,8 @@ public class WSConfig {
     public static final String HOST_VQMM_HISTORY = "http://lucky.vtvtravel.vn/histories-list?";
     public static final String HOST_VQMM_RULE = "http://lucky.vtvtravel.vn/page/LUCKY_WHEEL_RULE?";
     public static final String HOST_VQMM_GUIDE = "http://lucky.vtvtravel.vn/page/LUCKY_WHEEL_GUIDE?";
-    public static final String API_VQMM_RULE = "https://api.vtvtravel.vn/page/60542239c28629466576d339";
-    public static final String API_VQMM_GUIDE = "https://api.vtvtravel.vn/page/60542047c28629466576d338";
+    public static final String API_VQMM_RULE = "https://api.vtvtravel.vn/page/the-le-vong-quay-may-man";
+    public static final String API_VQMM_GUIDE = "https://api.vtvtravel.vn/page/cach-thuc-choi-vong-quay-may-man";
     public static final String HOST_CREATE_TRIP = "http://tour.vtvtravel.vn/my-trip/create";
     public static final String HOST_MY_TRIP = "http://tour.vtvtravel.vn/my-trip";
     public static final String HOST_RECEIVE_TRIP = "http://tour.vtvtravel.vn/my-trip/detail";
