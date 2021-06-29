@@ -16,9 +16,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
+import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.response.f2menu.MenuItem;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
+import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.MyGiftActivity;
 import com.namviet.vtvtravel.view.f2.MyTripActivity;
@@ -27,6 +29,7 @@ import com.namviet.vtvtravel.view.f2.WebviewActivity;
 import com.namviet.vtvtravel.view.f2.f2oldbase.SettingActivity;
 import com.namviet.vtvtravel.view.f2.landingpage.LandingPageActivity;
 import com.namviet.vtvtravel.view.f2.virtualswitchboard.VirtualSwitchBoardActivity;
+import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,11 +126,18 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             SettingActivity.startScreen(context);
                             break;
                         case "APP_MAIN_HEADER_PACKAGE":
-                            Account account = MyApplication.getInstance().getAccount();
-                            if (null != account && account.isLogin()) {
-                                WebviewActivity.startScreen(context);
-                            } else {
-                                LoginAndRegisterActivityNew.startScreen(context, 0, false);
+//                            Account account = MyApplication.getInstance().getAccount();
+//                            if (null != account && account.isLogin()) {
+//                                WebviewActivity.startScreen(context);
+//                            } else {
+//                                LoginAndRegisterActivityNew.startScreen(context, 0, false);
+//                            }
+
+                            try {
+                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+                                oneButtonTitleImageDialog.show(((MainActivity)context).getSupportFragmentManager(), Constants.TAG_DIALOG);
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
                             break;
 
