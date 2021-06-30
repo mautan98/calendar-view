@@ -26,18 +26,10 @@ public class RelationNewsInTravelDetailAdapter extends RecyclerView.Adapter<Recy
     private ClickItem clickItem;
     private List<Travel> travels;
 
-    private Test test;
-    private String string;
-
     public RelationNewsInTravelDetailAdapter(Context context, List<Travel> travels, ClickItem clickItem) {
         this.context = context;
         this.clickItem = clickItem;
         this.travels = travels;
-
-
-        test.setString(string);
-        test.setString(null);
-        Log.e("hihi", string);
     }
 
     @Override
@@ -111,17 +103,5 @@ public class RelationNewsInTravelDetailAdapter extends RecyclerView.Adapter<Recy
     public interface ClickItem {
         void onClickItem(Travel travel);
         void likeEvent(int position);
-    }
-
-    public class Test {
-        private String string;
-
-        public String getString() {
-            return string;
-        }
-
-        public void setString(String string) {
-            this.string = string;
-        }
     }
 }

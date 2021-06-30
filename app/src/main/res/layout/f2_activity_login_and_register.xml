@@ -16,6 +16,8 @@
 
 
         <LinearLayout
+            android:focusable="true"
+            android:clickable="true"
             android:visibility="gone"
             android:paddingBottom="15dp"
             android:id="@+id/layoutWarning"

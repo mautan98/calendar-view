@@ -16,10 +16,12 @@ import com.namviet.vtvtravel.view.dialog.BaseDialogFragment;
 public class RegisterFailDialog extends BaseDialogFragment {
     private DialogRegisterFailBinding binding;
     private String message;
+    private boolean isNotEnoughMoney;
 
-    public static RegisterFailDialog newInstance(String message) {
+    public static RegisterFailDialog newInstance(String message, boolean isNotEnoughMoney) {
         RegisterFailDialog loadingDialog = new RegisterFailDialog();
         loadingDialog.message = message;
+        loadingDialog.isNotEnoughMoney = isNotEnoughMoney;
         return loadingDialog;
     }
 
@@ -60,12 +62,25 @@ public class RegisterFailDialog extends BaseDialogFragment {
                 dismiss();
             }
         });
-        if (message != null && message.length() > 0){
-            binding.txt2.setText(message);
+
+
+        if (isNotEnoughMoney){
+            if (message != null && message.length() > 0){
+                binding.txt2.setText(message);
+                binding.txt3.setVisibility(View.VISIBLE);
+            } else {
+
+            }
+        }else {
+            if (message != null && message.length() > 0){
+                binding.txt2.setText(message);
+            } else {
+                binding.txt2.setText("Có lỗi đã xảy ra");
+            }
             binding.txt3.setVisibility(View.GONE);
-        } else {
-            binding.txt3.setVisibility(View.VISIBLE);
         }
+
+
     }
 
 //    @Override

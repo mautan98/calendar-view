@@ -211,12 +211,12 @@ public class OptServiceDialog extends BaseDialogFragment implements Observer {
                     ErrorResponse errorResponse = (ErrorResponse) arg;
                     if ("USER_PKG_NOT_ENOGHT_MONEY".equals(errorResponse.getErrorCode())) {
                         dismiss();
-                        registerFailDialog = RegisterFailDialog.newInstance();
+                        registerFailDialog = RegisterFailDialog.newInstance(errorResponse.getMessage(), true);
                         registerFailDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
                         registerFailDialog.setCancelable(true);
                         TrackingAnalytic.postEvent(TrackingAnalytic.PACKAGE_SUBSCRIBE_NOT_ENOUGH_CREDIT, TrackingAnalytic.getDefault("", "").setScreen_class(this.getClass().getName()));
                     } else {
-                        registerFailDialog = RegisterFailDialog.newInstance(errorResponse.getMessage());
+                        registerFailDialog = RegisterFailDialog.newInstance(errorResponse.getMessage(), false);
                         registerFailDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
                         registerFailDialog.setCancelable(true);
                         TrackingAnalytic.postEvent(TrackingAnalytic.PACKAGE_SUBSCRIBE_FAIL, TrackingAnalytic.getDefault("", "").setScreen_class(this.getClass().getName()));
