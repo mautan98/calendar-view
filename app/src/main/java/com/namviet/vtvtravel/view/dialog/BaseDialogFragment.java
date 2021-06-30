@@ -132,15 +132,19 @@ public class BaseDialogFragment extends DialogFragment implements View.OnClickLi
     }
 
     public void showMessage(String message) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mActivity);
-        alertDialogBuilder
-                .setMessage("" + message)
-                .setPositiveButton(R.string.call, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
+        try {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mActivity);
+            alertDialogBuilder
+                    .setMessage("" + message)
+                    .setPositiveButton(R.string.call, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

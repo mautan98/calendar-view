@@ -64,20 +64,24 @@ public class RegisterFailDialog extends BaseDialogFragment {
         });
 
 
-        if (isNotEnoughMoney){
-            if (message != null && message.length() > 0){
-                binding.txt2.setText(message);
-                binding.txt3.setVisibility(View.VISIBLE);
-            } else {
+        try {
+            if (isNotEnoughMoney){
+                if (message != null && message.length() > 0){
+                    binding.txt2.setText(message);
+                    binding.txt3.setVisibility(View.VISIBLE);
+                } else {
 
+                }
+            }else {
+                if (message != null && message.length() > 0){
+                    binding.txt2.setText(message);
+                } else {
+                    binding.txt2.setText("Có lỗi đã xảy ra");
+                }
+                binding.txt3.setVisibility(View.GONE);
             }
-        }else {
-            if (message != null && message.length() > 0){
-                binding.txt2.setText(message);
-            } else {
-                binding.txt2.setText("Có lỗi đã xảy ra");
-            }
-            binding.txt3.setVisibility(View.GONE);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
 

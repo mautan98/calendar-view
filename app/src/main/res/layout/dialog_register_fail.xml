@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                android:text="ĐĂNG KÝ KHÔNG THÀNH CÔNG"
+                android:text="THAO TÁC KHÔNG THÀNH CÔNG"
                 android:textColor="@color/white" />
 
             <TextView
