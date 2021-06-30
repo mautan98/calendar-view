@@ -1192,6 +1192,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private SubRecentViewAdapter subRecentViewAdapter;
         private RecyclerView rclContent;
         private LinearLayout layoutRoot;
+        private TextView tvTitle;
         private int position;
 
 
@@ -1199,6 +1200,11 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(itemView);
             rclContent = itemView.findViewById(R.id.rclContent);
             layoutRoot = itemView.findViewById(R.id.layoutRoot);
+            try {
+                tvTitle = itemView.findViewById(R.id.tvTitle);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             try {
                 SnapHelper helper = new LinearSnapHelper();
                 helper.attachToRecyclerView(rclContent);
@@ -1227,6 +1233,12 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 rclContent.setAdapter(subRecentViewAdapter);
             } else {
                 layoutRoot.setVisibility(View.GONE);
+            }
+
+            try {
+                tvTitle.setText(homeServiceResponse.getData().get(position).getDescription());
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

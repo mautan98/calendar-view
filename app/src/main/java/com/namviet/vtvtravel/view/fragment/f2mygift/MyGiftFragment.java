@@ -46,7 +46,7 @@ public class MyGiftFragment extends BaseFragment<F2FragmentMyGiftBinding> implem
 
     @Override
     public void initView() {
-        serviceViewModel = new ServiceViewModel(getContext());
+        serviceViewModel = new ServiceViewModel(getContext()); 
         serviceViewModel.addObserver(this);
     }
 
@@ -58,9 +58,10 @@ public class MyGiftFragment extends BaseFragment<F2FragmentMyGiftBinding> implem
             public void onClickItem() {
                 Account account = MyApplication.getInstance().getAccount();
                 if (null != account && account.isLogin()) {
-                    String code = String.valueOf(MyApplication.getInstance().getAccount().getId());
-                    String token = String.valueOf(MyApplication.getInstance().getAccount().getToken());
-                    serviceViewModel.getInfo(code, token);
+//                    String code = String.valueOf(MyApplication.getInstance().getAccount().getId());
+//                    String token = String.valueOf(MyApplication.getInstance().getAccount().getToken());
+//                    serviceViewModel.getInfo(code, token);
+                    TravelVoucherActivity.openScreen(mActivity, false, TravelVoucherActivity.OpenType.LIST, false);
                 }
 
             }

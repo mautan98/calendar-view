@@ -388,7 +388,18 @@ public class DetailMomentFrangment extends MainFragment implements Observer, New
             binding.rlVideoPlayer.setVisibility(View.GONE);
             binding.vpSlideShow.setVisibility(View.GONE);
         }
-        binding.webContent.loadData(data.getDescription(), "text/html; charset=utf-8", "UTF-8");
+        try {
+            binding.webContent.getSettings().setJavaScriptEnabled(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        binding.webContent.loadData(data.getDescription(), "text/html; charset=utf-8", "UTF-8");
+        try {
+            binding.webContent.loadDataWithBaseURL("", data.getDescription(), "text/html", "UTF-8", null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if (data.getInteresting() != null) {
             mDetailMomentFragmentAdapter = new DetailMomentFragmentAdapter(getContext(), data.getInteresting());
             binding.rvNewsSameCategory.setAdapter(mDetailMomentFragmentAdapter);
