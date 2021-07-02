@@ -39,6 +39,7 @@ import kotlin.collections.ArrayList
 class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(), Observer {
     var listIds: ArrayList<String> = ArrayList()
 
+    var canSwipe : Boolean = true
     var canRoll: Boolean = true // true sau khi gọi service rotate thành công
     var isScroll: Boolean? = false
     var datas: ArrayList<WheelAreasResponse.Item>? = ArrayList();
@@ -171,6 +172,8 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
                         }
                     }
                     MotionEvent.ACTION_UP -> {
+                        canSwipe = false
+                        imgFrame.isClickable = true
                         if (canRoll) {
                             if (!isScroll!! && wheelLogId != null) {
                                 canRoll = false
@@ -269,7 +272,7 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
         rclScroll.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && !canSwipe) {
 
                     scrollAdapter?.highLight(targetPosition)
                     if (isSoundOn!!) {

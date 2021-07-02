@@ -113,7 +113,6 @@
                 android:id="@+id/imgFrame"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/f2_img_frame_vqmm"
                 app:layout_constraintDimensionRatio="653:791"
