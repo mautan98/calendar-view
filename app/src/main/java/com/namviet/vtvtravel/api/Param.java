@@ -1061,4 +1061,14 @@ public class Param {
         }
         return map;
     }
+
+    public static JSONObject logout(String token) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.TOKEN, token);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
 }

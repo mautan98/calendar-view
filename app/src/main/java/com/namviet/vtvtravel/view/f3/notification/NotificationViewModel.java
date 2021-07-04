@@ -5,6 +5,7 @@ import com.namviet.vtvtravel.api.Param;
 import com.namviet.vtvtravel.api.TravelService;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.model.Schedule;
 import com.namviet.vtvtravel.response.f2systeminbox.CountSystemInbox;
 import com.namviet.vtvtravel.view.f3.notification.model.ui.NotificationResponse;
 import com.namviet.vtvtravel.response.f2systeminbox.SystemInbox;
@@ -20,6 +21,7 @@ import org.json.JSONObject;
 import javax.inject.Inject;
 
 import io.reactivex.CompletableObserver;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
@@ -267,6 +269,22 @@ public class NotificationViewModel extends BaseViewModel {
                     }
                 });
 
+        compositeDisposable.add(disposable);
+    }
+
+    public void logout(String token){
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+        RequestBody jsonBodyObject = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), Param.getParams2(Param.logout(token)).toString());
+        Disposable disposable = newsService.logout(jsonBodyObject)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action() {
+                    @Override
+                    public void run() throws Exception {
+
+                    }
+                });
         compositeDisposable.add(disposable);
     }
 

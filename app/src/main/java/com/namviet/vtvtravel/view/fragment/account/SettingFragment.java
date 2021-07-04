@@ -2,6 +2,8 @@ package com.namviet.vtvtravel.view.fragment.account;
 
 import android.content.DialogInterface;
 import androidx.databinding.DataBindingUtil;
+
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,25 +11,40 @@ import androidx.appcompat.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.baseapp.menu.SlideMenu;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.adapter.travelnews.HighLightTravelNoteAdapter;
+import com.namviet.vtvtravel.adapter.vtvtabstyle.VTVTabStyleAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.FragmentSettingAccBinding;
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndUpdateUserView;
+import com.namviet.vtvtravel.model.travelnews.Travel;
+import com.namviet.vtvtravel.response.travelnews.NewsCategoryResponse;
+import com.namviet.vtvtravel.response.travelnews.NotebookResponse;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.RuleActivity;
+import com.namviet.vtvtravel.view.f3.notification.NotificationViewModel;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.view.fragment.f2callnow.SettingNotiFragment;
 import com.namviet.vtvtravel.view.fragment.f2offline.RuleDialog;
+import com.namviet.vtvtravel.view.fragment.f2travelnote.DetailNewsTravelFragment;
+import com.namviet.vtvtravel.view.fragment.f2travelnote.SubTravelNewsFragment;
+import com.namviet.vtvtravel.viewmodel.f2travelnews.TravelNewsViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 
-public class SettingFragment extends MainFragment {
+import java.util.Observable;
+import java.util.Observer;
+
+public class SettingFragment extends MainFragment implements Observer {
     private FragmentSettingAccBinding binding;
+    private NotificationViewModel notificationViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +67,8 @@ public class SettingFragment extends MainFragment {
     @Override
     protected void initViews(View v) {
         super.initViews(v);
+        notificationViewModel = new NotificationViewModel();
+        notificationViewModel.addObserver(this);
         binding.tvTitle.setText(getString(R.string.setting));
         binding.ivSearch.setVisibility(View.GONE);
         binding.ivBack.setOnClickListener(this);
@@ -102,6 +121,12 @@ public class SettingFragment extends MainFragment {
                     .setPositiveButton(R.string.logout, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             if (null != account && account.isLogin()) {
+                                try {
+                                    String deviceToken = PreferenceUtil.getInstance(mActivity).getValue(Constants.PrefKey.DEVICE_TOKEN, "");
+                                    notificationViewModel.logout(deviceToken);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                                 PreferenceUtil.getInstance(getContext()).setValue(Constants.PrefKey.IS_LOGIN, false);
                                 PreferenceUtil.getInstance(getContext()).setValue(Constants.PrefKey.FACEBOOK_ID, "");
                                 PreferenceUtil.getInstance(getContext()).setValue(Constants.PrefKey.GOOGLE_ID, "");
@@ -137,6 +162,20 @@ public class SettingFragment extends MainFragment {
 
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
+        }
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+        if (observable instanceof NotificationViewModel && null != o) {
+             if (o instanceof ErrorResponse) {
+                ErrorResponse responseError = (ErrorResponse) o;
+                try {
+                } catch (Exception e) {
+
+                }
+            }
+
         }
     }
 }

@@ -207,6 +207,7 @@ public class WSConfig {
         public static final String INBOX_STATUS = "user/inbox/status";
         public static final String UPDATE_MARK = "user/inbox/marked";
         public static final String UPDATE_INBOX = "user/updateInbox";
+        public static final String USER_LOGOUT = "user/logout";
     }
 
     public class KeyParam {

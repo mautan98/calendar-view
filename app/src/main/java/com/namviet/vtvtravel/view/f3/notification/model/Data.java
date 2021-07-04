@@ -11,6 +11,10 @@ public class Data implements Serializable {
     @Expose
     private String code;
 
+    @SerializedName("detailLink")
+    @Expose
+    private String dealDetailLink;
+
     public String getCode() {
         return code;
     }
@@ -19,6 +23,11 @@ public class Data implements Serializable {
         this.code = code;
     }
 
+    public String getDealDetailLink() {
+        return dealDetailLink;
+    }
 
-
+    public void setDealDetailLink(String dealDetailLink) {
+        this.dealDetailLink = dealDetailLink;
+    }
 }
