@@ -1065,7 +1065,7 @@ public class Param {
     public static JSONObject logout(String token) {
         JSONObject map = new JSONObject();
         try {
-            map.put(WSConfig.KeyParam.TOKEN, token);
+            map.put(WSConfig.KeyParam.DEVICE_TOKEN, token);
         } catch (JSONException e) {
             e.printStackTrace();
         }

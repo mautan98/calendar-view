@@ -2111,29 +2111,11 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
                     }
                     break;
                 case NotificationCode.HUNT_DEAL_SUCCESS :
-                    try {
-                        DetailDealWebviewActivity.startScreen(this, "http://deal-testing.vtvtravel.vn/");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    break;
                 case NotificationCode.DEAL_LOSS :
-                    try {
-                        DetailDealWebviewActivity.startScreen(this, "http://deal-testing.vtvtravel.vn/");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    break;
                 case NotificationCode.DEAL_WIN :
-                    try {
-                        DetailDealWebviewActivity.startScreen(this, "http://deal-testing.vtvtravel.vn/");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    break;
                 case NotificationCode.HOT_DEAL :
                     try {
-                        DetailDealWebviewActivity.startScreen(this, "http://deal-testing.vtvtravel.vn/");
+                        DetailDealWebviewActivity.startScreen(this, notification.getData().getDealDetailLink());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

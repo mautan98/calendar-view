@@ -279,9 +279,14 @@ public class NotificationViewModel extends BaseViewModel {
         Disposable disposable = newsService.logout(jsonBodyObject)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action() {
+                .subscribe(new Consumer<Object>() {
                     @Override
-                    public void run() throws Exception {
+                    public void accept(Object o) throws Exception {
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
 
                     }
                 });

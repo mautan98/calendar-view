@@ -724,7 +724,7 @@ public interface TravelService {
     Observable<UpdateNotificationResponse> updateInbox(@Body RequestBody body);
 
     @POST(WSConfig.Api.USER_LOGOUT)
-    Completable logout(@Body RequestBody body);
+    Observable<Object> logout(@Body RequestBody body);
 
     @GET
     Observable<NotificationTab> getNotificationTab(@Url String url);
