@@ -149,7 +149,15 @@ class NotificationTabFragment : BaseFragment<F3FragmentNotificationTabBinding?>,
                         dataList[o.position].isMarked = o.data.notifications[0].isMarked
                         dataList[o.position].status = o.data.notifications[0].status
                         if (o.data.notifications[0].status == "2") {
-                            dataList.removeAt(o.position)
+                            if(o.position > 0){
+                                if(dataList[o.position - 1].isHeader){
+                                    dataList.removeAt(o.position)
+                                    dataList.removeAt(o.position - 1)
+                                }else{
+                                    dataList.removeAt(o.position)
+                                }
+                            }
+
                         }
 
                         //Nếu là màn hình đã lưu
