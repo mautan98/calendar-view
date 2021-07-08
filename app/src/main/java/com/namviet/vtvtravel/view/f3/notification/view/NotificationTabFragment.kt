@@ -226,7 +226,7 @@ class NotificationTabFragment : BaseFragment<F3FragmentNotificationTabBinding?>,
     }
 
     public fun viewAllNotification(){
-        progressDialog?.show()
+//        progressDialog?.show()
         notificationViewModel?.updateViewedAllInbox()
     }
 }

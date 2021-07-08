@@ -15,6 +15,10 @@ public class Data implements Serializable {
     @Expose
     private String dealDetailLink;
 
+    @SerializedName("icon")
+    @Expose
+    private String icon;
+
     public String getCode() {
         return code;
     }
@@ -29,5 +33,13 @@ public class Data implements Serializable {
 
     public void setDealDetailLink(String dealDetailLink) {
         this.dealDetailLink = dealDetailLink;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

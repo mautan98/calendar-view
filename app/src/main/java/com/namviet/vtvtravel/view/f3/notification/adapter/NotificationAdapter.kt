@@ -128,7 +128,7 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
             try {
-                val sdf = SimpleDateFormat(Constants.DateFormat.DATE_FORMAT_18, Locale.getDefault())
+                val sdf = SimpleDateFormat(Constants.DateFormat.DATE_FORMAT_2, Locale.getDefault())
                 var currentDate = Date()
                 var currentDateString = sdf.format(currentDate)
 
@@ -144,6 +144,12 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     var dataDateHM = sdfHM.format(Date(dataList!![position].createdAt.toLong()))
                     itemView.tvTime.text = "$dataDateHM Hôm nay"
                 }
+            } catch (e: Exception) {
+            }
+
+
+            try {
+                Glide.with(context!!).load(dataList!![position].data.icon).into(itemView.imgIcon)
             } catch (e: Exception) {
             }
 
