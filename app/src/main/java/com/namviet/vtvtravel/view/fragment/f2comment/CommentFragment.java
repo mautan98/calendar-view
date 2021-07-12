@@ -101,12 +101,16 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
     }
 
     private void postComment(String parentId, String content, String contentId, String contentType) {
-        Account account = MyApplication.getInstance().getAccount();
-        if (null != account && account.isLogin()) {
-            userId = String.valueOf(account.getId());
-            viewModel.postComment(parentId, userId, content, contentId, contentType);
-        } else {
-            LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+        try {
+            Account account = MyApplication.getInstance().getAccount();
+            if (null != account && account.isLogin()) {
+                userId = String.valueOf(account.getId());
+                viewModel.postComment(parentId, userId, content, contentId, contentType, detailTravelNewsResponse.getData().getName());
+            } else {
+                LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

@@ -54,10 +54,10 @@ public class CommentViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
-    public void postComment(String parentId, String userId, String content, String contentId, String contentType) {
+    public void postComment(String parentId, String userId, String content, String contentId, String contentType, String title) {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
-        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(Param.createComment(parentId, userId, content, contentId, contentType)).toString());
+        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(Param.createComment(parentId, userId, content, contentId, contentType, title)).toString());
         Disposable disposable = newsService.createComment(jsonBodyObject)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
