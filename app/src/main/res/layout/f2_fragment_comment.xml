@@ -175,6 +175,7 @@
 
 
                     <EditText
+                        android:maxLength="300"
                         android:fontFamily="@font/roboto_regular"
                         android:textSize="12dp"
                         android:paddingBottom="12dp"
