@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -242,15 +243,25 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
         scrollListener = new EndlessRecyclerViewScrollListener((LinearLayoutManager) getBinding().rclComment.getLayoutManager()) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                try {
-                    viewModel.getComment(detailTravelNewsResponse.getData().getId(), CommentFragment.this.page);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+
             }
         };
 
-        getBinding().rclComment.addOnScrollListener(scrollListener);
+
+
+        getBinding().rclComment.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && !recyclerView.canScrollVertically(1)) {
+                    try {
+                        viewModel.getComment(detailTravelNewsResponse.getData().getId(), CommentFragment.this.page);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
 
     }
 
