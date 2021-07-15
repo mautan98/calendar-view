@@ -6,12 +6,12 @@ public class WSConfig {
 
     //Server test
     public static final String URL_SOCKET = "http://103.21.148.54:8079";
-    public static final String HOST = "https://api1.travel.onex.vn/";
+    public static final String HOST = "https://api-testing.vtvtravel.vn/";
     public static final String HOST_ACC = "https://core-testing.vtvtravel.vn/api/v1/";
     public static final String HOST_ACC_2 = "https://core1.travel.onex.vn/";
     public static final String HOST_CHAT = "https://103.21.148.54:8090/";
     public static final String HOST_VQMM = "http://103.21.148.54:8856/lucky-wheel?";
-    public static final String HOST_BOOKING = "http://103.21.148.54:8857/get-list";
+    public static final String HOST_BOOKING = "http://booking-testing.vtvtravel.vn/get-list";
     public static final String HOST_LANDING = "https://travel1.onex.vn/";
     public static final String HOST_VQMM_HISTORY = "http://103.21.148.54:8856/histories-list?";
     public static final String HOST_VQMM_RULE = "http://103.21.148.54:8856/page/LUCKY_WHEEL_RULE?";
