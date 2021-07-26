@@ -19,6 +19,7 @@ public class AccountPageAdapter extends FragmentStatePagerAdapter {
     private ArrayList<Fragment> arrTab;
 
 
+
     public AccountPageAdapter(FragmentManager fm, Context context, ArrayList<Fragment> arrTab) {
         super(fm);
         this.arrTab = arrTab;
