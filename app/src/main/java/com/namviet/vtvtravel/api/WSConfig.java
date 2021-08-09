@@ -314,6 +314,7 @@ public class WSConfig {
 
         public static final String PROCESS_TICKET_CONTENT = "content";
         public static final String TICKET_STATUS = "type";
+        public static final String TITLE = "title";
     }
 
     public class KeySocket {

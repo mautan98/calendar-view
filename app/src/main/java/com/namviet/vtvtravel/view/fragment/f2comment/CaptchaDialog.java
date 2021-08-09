@@ -85,6 +85,13 @@ public class CaptchaDialog extends BaseDialogFragment2 {
                 dismiss();
             }
         });
+
+        binding.btnReloadOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.tvDescription.setText(genCaptchaCode());
+            }
+        });
     }
 
     public interface ClickButton {

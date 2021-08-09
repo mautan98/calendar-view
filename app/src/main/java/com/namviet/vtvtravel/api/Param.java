@@ -670,7 +670,7 @@ public class Param {
         return map;
     }
 
-    public static JSONObject createComment(String parentId, String userId, String content, String contentId, String contentType) {
+    public static JSONObject createComment(String parentId, String userId, String content, String contentId, String contentType, String title) {
         JSONObject map = new JSONObject();
         try {
             map.put(WSConfig.KeyParam.PARENT_ID, parentId);
@@ -678,6 +678,7 @@ public class Param {
             map.put(WSConfig.KeyParam.CONTENT, content);
             map.put(WSConfig.KeyParam.CONTENT_ID, contentId);
             map.put(WSConfig.KeyParam.CONTENT_TYPE, contentType);
+            map.put(WSConfig.KeyParam.TITLE, title);
         } catch (JSONException e) {
             e.printStackTrace();
         }

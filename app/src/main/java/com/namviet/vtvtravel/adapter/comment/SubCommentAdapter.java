@@ -153,6 +153,9 @@ public class SubCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 e.printStackTrace();
             }
 
+            imgHeart.setVisibility(View.GONE);
+            tvCountLike.setVisibility(View.GONE);
+
 //            imgHeart.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
@@ -187,9 +190,17 @@ public class SubCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public void bindItem(int position) {
             try {
                 this.position = position;
-                tvName.setText(comments.get(position).getUser().getFullname());
+                try {
+                    tvName.setText(comments.get(position).getAdminName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 tvComment.setText(comments.get(position).getContent());
-                Glide.with(context).load(comments.get(position).getUser().getImageProfile()).apply(new RequestOptions().circleCrop()).into(imgAvatar);
+                try {
+                    Glide.with(context).load(comments.get(position).getAdminAvatar()).apply(new RequestOptions().circleCrop()).into(imgAvatar);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 tvTime.setText(DateUtltils.convertTime(comments.get(position).getCreated()));
                 tvCountLike.setText(comments.get(position).getLikeCount());
                 if (comments.get(position).isLiked()) {
