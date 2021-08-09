@@ -81,13 +81,15 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
     private ProgressDialog progressDialog;
 
     @SuppressLint("ValidFragment")
-    public WriteReviewFragment(String contentId, String contentType) {
+    public WriteReviewFragment(String contentId, String contentType, String title) {
         this.contentId = contentId;
         this.contentType = contentType;
+        this.title = title;
     }
 
     private String contentId;
     private String contentType;
+    private String title;
 
     public WriteReviewFragment() {
     }
@@ -275,7 +277,7 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
                 uploadImage();
             } else {
                 showProgress();
-                viewModel.createReview(null, String.valueOf(account.getId()), getBinding().edtReview.getText().toString(), contentId, contentType, String.valueOf((int) getBinding().ratingReview.getRating()), listUrl);
+                viewModel.createReview(null, String.valueOf(account.getId()), getBinding().edtReview.getText().toString(), contentId, contentType, String.valueOf((int) getBinding().ratingReview.getRating()), listUrl,title );
             }
 
         } else {
@@ -326,7 +328,7 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
                     showToast("Tải ảnh lên hoàn tất, đang gửi đánh giá...");
                     Account account = MyApplication.getInstance().getAccount();
                     if (null != account && account.isLogin()) {
-                        viewModel.createReview(null, String.valueOf(account.getId()), getBinding().edtReview.getText().toString(), contentId, contentType, String.valueOf((int) getBinding().ratingReview.getRating()), listUrl);
+                        viewModel.createReview(null, String.valueOf(account.getId()), getBinding().edtReview.getText().toString(), contentId, contentType, String.valueOf((int) getBinding().ratingReview.getRating()), listUrl, title);
                     } else {
                         LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
                     }

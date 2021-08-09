@@ -291,6 +291,7 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
                     DetailTravelNewsResponse detailTravelNewsResponse = new DetailTravelNewsResponse();
                     DetailTravelNewsResponse.Data data = new DetailTravelNewsResponse().new Data();
                     data.setId(video.getId());
+                    data.setName(video.getName());
                     data.setContent_type(video.getContent_type());
                     detailTravelNewsResponse.setData(data);
                     CommentActivity.startScreen(mActivity, detailTravelNewsResponse, null);

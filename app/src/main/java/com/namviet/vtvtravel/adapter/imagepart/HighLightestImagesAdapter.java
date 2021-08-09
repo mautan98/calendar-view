@@ -211,6 +211,7 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
                     DetailTravelNewsResponse detailTravelNewsResponse = new DetailTravelNewsResponse();
                     DetailTravelNewsResponse.Data data = new DetailTravelNewsResponse().new Data();
                     data.setId(item.getId());
+                    data.setName(item.getName());
                     data.setContent_type(item.getContent_type());
                     detailTravelNewsResponse.setData(data);
                     CommentActivity.startScreen((Activity) context, detailTravelNewsResponse, null);

@@ -28,11 +28,11 @@ import retrofit2.HttpException;
 
 public class ReviewViewModel extends BaseViewModel {
 
-    public void createReview(String parentId, String userId, String content, String contentId, String contentType, String postRate, List<String> galleryUris) {
+    public void createReview(String parentId, String userId, String content, String contentId, String contentType, String postRate, List<String> galleryUris, String title) {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
         RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(
-                Param.createReview(parentId, userId, content, contentId, contentType, postRate, galleryUris)).toString());
+                Param.createReview(parentId, userId, content, contentId, contentType, postRate, galleryUris, title)).toString());
         Disposable disposable = newsService.createReview(jsonBodyObject)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
