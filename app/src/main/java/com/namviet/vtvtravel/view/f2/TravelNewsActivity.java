@@ -96,7 +96,7 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
         adContainerView.post(new Runnable() {
             @Override
             public void run() {
-                loadBanner();
+//                loadBanner();
             }
         });
 

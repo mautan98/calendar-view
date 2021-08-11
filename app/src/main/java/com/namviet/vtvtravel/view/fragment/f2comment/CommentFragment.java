@@ -372,6 +372,8 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                         checkShowCaptcha.getData().isSensitiveWord() == false) {
                     getBinding().edtComment.setText("");
                     postComment(checkShowCaptcha.getParentId(), checkShowCaptcha.getContent(), checkShowCaptcha.getContentId(), checkShowCaptcha.getContentType());
+                }else if(checkShowCaptcha.getData().isSensitiveWord()){
+                    Toast.makeText(mActivity, "Bình luận chứa từ ngữ khiếm nhã", Toast.LENGTH_SHORT).show();
                 }else if(checkShowCaptcha.getData().isCaptcha()){
                     CaptchaDialog captchaDialog = CaptchaDialog.newInstance(new CaptchaDialog.ClickButton() {
                         @Override
@@ -381,8 +383,6 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                         }
                     });
                     captchaDialog.show(getChildFragmentManager(), "");
-                }else if(checkShowCaptcha.getData().isSensitiveWord()){
-                    Toast.makeText(mActivity, "Bình luận chứa từ ngữ khiễm nhã", Toast.LENGTH_SHORT).show();
                 }
             } else if (o instanceof CreateCommentResponse) {
                 CreateCommentResponse response = (CreateCommentResponse) o;
