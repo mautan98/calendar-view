@@ -140,7 +140,13 @@ public class RatingSmallLocationFragment extends BaseFragment<F2FragmentSmallLoc
             @Override
             public void onClick(View view) {
                 try {
-                    addFragment(new WriteReviewFragment(detailSmallLocationResponse.getData().getId(), detailSmallLocationResponse.getData().getContent_type()));
+                    String name = "";
+                    try {
+                        name = detailSmallLocationResponse.getData().getTabs().get(0).getName();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    addFragment(new WriteReviewFragment(detailSmallLocationResponse.getData().getId(), detailSmallLocationResponse.getData().getContent_type(), name));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

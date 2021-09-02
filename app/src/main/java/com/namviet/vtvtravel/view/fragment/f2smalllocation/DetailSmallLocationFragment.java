@@ -380,7 +380,13 @@ public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSm
 
     @Override
     public void onClickWriteReview() {
-        addFragment(new WriteReviewFragment(response.getData().getId(), response.getData().getContent_type()));
+        String name = "";
+        try {
+            name = response.getData().getTabs().get(0).getName();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        addFragment(new WriteReviewFragment(response.getData().getId(), response.getData().getContent_type(), name));
     }
 
     @Override

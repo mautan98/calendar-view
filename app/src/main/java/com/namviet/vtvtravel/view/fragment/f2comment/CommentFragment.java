@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -101,12 +102,16 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
     }
 
     private void postComment(String parentId, String content, String contentId, String contentType) {
-        Account account = MyApplication.getInstance().getAccount();
-        if (null != account && account.isLogin()) {
-            userId = String.valueOf(account.getId());
-            viewModel.postComment(parentId, userId, content, contentId, contentType);
-        } else {
-            LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+        try {
+            Account account = MyApplication.getInstance().getAccount();
+            if (null != account && account.isLogin()) {
+                userId = String.valueOf(account.getId());
+                viewModel.postComment(parentId, userId, content, contentId, contentType, detailTravelNewsResponse.getData().getName());
+            } else {
+                LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -238,15 +243,25 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
         scrollListener = new EndlessRecyclerViewScrollListener((LinearLayoutManager) getBinding().rclComment.getLayoutManager()) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                try {
-                    viewModel.getComment(detailTravelNewsResponse.getData().getId(), CommentFragment.this.page);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+
             }
         };
 
-        getBinding().rclComment.addOnScrollListener(scrollListener);
+
+
+        getBinding().rclComment.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && !recyclerView.canScrollVertically(1)) {
+                    try {
+                        viewModel.getComment(detailTravelNewsResponse.getData().getId(), CommentFragment.this.page);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
 
     }
 
@@ -357,6 +372,8 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                         checkShowCaptcha.getData().isSensitiveWord() == false) {
                     getBinding().edtComment.setText("");
                     postComment(checkShowCaptcha.getParentId(), checkShowCaptcha.getContent(), checkShowCaptcha.getContentId(), checkShowCaptcha.getContentType());
+                }else if(checkShowCaptcha.getData().isSensitiveWord()){
+                    Toast.makeText(mActivity, "Bình luận chứa từ ngữ khiếm nhã", Toast.LENGTH_SHORT).show();
                 }else if(checkShowCaptcha.getData().isCaptcha()){
                     CaptchaDialog captchaDialog = CaptchaDialog.newInstance(new CaptchaDialog.ClickButton() {
                         @Override
@@ -366,8 +383,6 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                         }
                     });
                     captchaDialog.show(getChildFragmentManager(), "");
-                }else if(checkShowCaptcha.getData().isSensitiveWord()){
-                    Toast.makeText(mActivity, "Bình luận chứa từ ngữ khiễm nhã", Toast.LENGTH_SHORT).show();
                 }
             } else if (o instanceof CreateCommentResponse) {
                 CreateCommentResponse response = (CreateCommentResponse) o;

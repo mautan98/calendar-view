@@ -51,6 +51,17 @@
                 android:textColor="#000000" />
 
 
+
+            <ImageView
+                android:padding="8dp"
+                android:id="@+id/btnReloadOTP"
+                android:src="@drawable/f2_ic_refresh"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+
+
             <com.ornach.richtext.RichEditText
                 android:singleLine="true"
                 android:hint="Nhập thông tin"
@@ -64,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="21dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center"

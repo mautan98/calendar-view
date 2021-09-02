@@ -33,6 +33,25 @@ public class CommentResponse extends BaseResponse {
             private boolean isLiked;
             private String likeCount;
 
+            private String adminName;
+            private String adminAvatar;
+
+            public String getAdminAvatar() {
+                return adminAvatar;
+            }
+
+            public void setAdminAvatar(String adminAvatar) {
+                this.adminAvatar = adminAvatar;
+            }
+
+            public String getAdminName() {
+                return adminName;
+            }
+
+            public void setAdminName(String adminName) {
+                this.adminName = adminName;
+            }
+
             public boolean isLiked() {
                 return isLiked;
             }
