@@ -122,7 +122,7 @@ public class RegisterFragment extends MainFragment implements Observer {
                 if (mobile.substring(0, 3).equals("840")) {
                     mobile = mobile.replaceFirst("0", "");
                 }
-                accountViewModel.register(StringUtils.isPhoneValidateV2(mobile, 84), name);
+                accountViewModel.register(StringUtils.isPhoneValidateV2(mobile, 84), name, "");
             }
 
 

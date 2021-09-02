@@ -115,10 +115,10 @@ public class OtpF2Fragment extends BaseFragment<F2FragmentOtpBinding> implements
             String otp = getBinding().otpView.getOTP();
             if (typeOtp.equals(Constants.IntentKey.TYPE_OTP_REGISTER)) {
                 showLoading();
-                accountViewModel.verifyOtpRegister(StringUtils.isPhoneValidateV2(mobile, 84), otp);
+                accountViewModel.verifyOtpRegister(StringUtils.isPhoneValidateV2(mobile, 84), otp,  ((LoginAndRegisterActivityNew)mActivity).packageCode );
             } else if (typeOtp.equals(Constants.IntentKey.TYPE_OTP_RESET_PASS)) {
                 showLoading();
-                accountViewModel.verifyOtpResetPass(StringUtils.isPhoneValidateV2(mobile, 84), otp);
+                accountViewModel.verifyOtpResetPass(StringUtils.isPhoneValidateV2(mobile, 84), otp, ((LoginAndRegisterActivityNew)mActivity).packageCode);
             }
         }
     }

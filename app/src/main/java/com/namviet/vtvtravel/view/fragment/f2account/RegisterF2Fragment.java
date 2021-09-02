@@ -92,7 +92,7 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
                         phone = phone.replaceFirst("0", "");
                     }
                     showLoading();
-                    accountViewModel.register(StringUtils.isPhoneValidateV2(phone, 84), name);
+                    accountViewModel.register(StringUtils.isPhoneValidateV2(phone, 84), name, ((LoginAndRegisterActivityNew)mActivity).packageCode);
 
                     try {
                         TrackingAnalytic.postEvent(TrackingAnalytic.SIGN_UP, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.REGISTER, TrackingAnalytic.ScreenTitle.REGISTER).setScreen_class(this.getClass().getName()));
