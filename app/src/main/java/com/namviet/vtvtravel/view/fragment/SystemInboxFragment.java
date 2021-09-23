@@ -140,7 +140,7 @@ public class SystemInboxFragment extends BaseFragment<F2FragmentSystemInboxBindi
                     try {
                         TicketInfo ticketInfo = (TicketInfo) o;
                         if(ticketInfo.getData().getStatus().equals("0")){
-                            VirtualSwitchBoardActivity.Companion.openActivity(mActivity);
+                            VirtualSwitchBoardActivity.Companion.openActivity(mActivity, VirtualSwitchBoardActivity.Companion.getTRAVEL_TYPE());
                         }else {
                             showToast("Bạn đã xử lý ticket này.");
                         }

@@ -18,6 +18,7 @@ import com.namviet.vtvtravel.response.f2room.CallRoomResponse
 //import com.namviet.vtvtravel.view.f2.call.CallingOutAtOperatorLinPhone
 import com.namviet.vtvtravel.view.f2.virtualswitchboard.SelectVirtualCallTypeDialog
 import com.namviet.vtvtravel.view.f2.virtualswitchboard.SelectVirtualCallTypeDialog.ClickButton
+import com.namviet.vtvtravel.view.f2.virtualswitchboard.VirtualSwitchBoardActivity
 import com.namviet.vtvtravel.view.f2.virtualswitchboard.VirtualTicketAdapter
 import com.namviet.vtvtravel.view.f2.virtualswitchboard.VirtualTicketInDayAdapter
 import com.namviet.vtvtravel.view.f2.virtualswitchboard.ticketdetail.VirtualTicketDetailDialog
@@ -146,7 +147,7 @@ class VirtualTicketPageFragment : BaseFragment<F2FragmentVirtualTicketPageBindin
 
     override fun initData() {
         if (loadMoreAble) {
-            virtualTicketPageVM?.getListTicket(arguments?.get(K_TYPE) as Int, mPage++, filterOverDate)
+            virtualTicketPageVM?.getListTicket(arguments?.get(K_TYPE) as Int, mPage++, filterOverDate, VirtualSwitchBoardActivity.ticketType!!)
         }
     }
 

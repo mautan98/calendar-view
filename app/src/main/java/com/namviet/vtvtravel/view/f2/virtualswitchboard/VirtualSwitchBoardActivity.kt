@@ -15,6 +15,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.app.MyApplication
+import com.namviet.vtvtravel.config.Constants
 import com.namviet.vtvtravel.databinding.F2ActivityVirtualSwitchBoardBinding
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew
 import com.namviet.vtvtravel.f2base.base.BaseFragment
@@ -29,9 +30,16 @@ import kotlinx.android.synthetic.main.f2_activity_virtual_switch_board.*
 class VirtualSwitchBoardActivity : BaseActivityNew<F2ActivityVirtualSwitchBoardBinding>(), OnWaitingCountUpdateListener {
 
     companion object {
-        fun openActivity(context: Context) {
-            context.startActivity(Intent(context, VirtualSwitchBoardActivity::class.java))
+        var ticketType : String = ""
+
+        fun openActivity(context: Context, ticketType : String) {
+            var intent = Intent(context, VirtualSwitchBoardActivity::class.java)
+            intent.putExtra(Constants.IntentKey.DATA, ticketType)
+            context.startActivity(intent)
         }
+
+        val TRAVEL_TYPE = "";
+        val BOOKING_TYPE = "booking";
     }
 
     override fun getLayoutRes(): Int {
@@ -43,6 +51,7 @@ class VirtualSwitchBoardActivity : BaseActivityNew<F2ActivityVirtualSwitchBoardB
     }
 
     override fun getDataFromIntent() {
+        ticketType = if (intent.getStringExtra(Constants.IntentKey.DATA) == null) "" else intent.getStringExtra(Constants.IntentKey.DATA)
     }
 
     override fun doAfterOnCreate() {

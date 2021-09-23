@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -100,6 +101,7 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
+        private LinearLayout rootLayout;
         private ImageView imgAvatar;
         private TextView tvName;
         private int position;
@@ -108,6 +110,7 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(itemView);
             imgAvatar = itemView.findViewById(R.id.imgAvatar);
             tvName = itemView.findViewById(R.id.tvName);
+            rootLayout = itemView.findViewById(R.id.rootLayout);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -166,7 +169,7 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             if (null != account3 && account3.isLogin()
                                     && "APP_MAIN_HEADER_VIRTUAL_CALL".equals(items.get(position).getCode_type())) {
                                     if(account3.isTravelingSupporter()){
-                                        VirtualSwitchBoardActivity.Companion.openActivity(context);
+                                        VirtualSwitchBoardActivity.Companion.openActivity(context, VirtualSwitchBoardActivity.Companion.getTRAVEL_TYPE());
                                     }else {
                                         Toast.makeText(context, "Tính năng chỉ dành cho sở du lịch", Toast.LENGTH_SHORT).show();
                                     }
@@ -181,12 +184,25 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             Account accountTDDL = MyApplication.getInstance().getAccount();
                             if (null != accountTDDL && accountTDDL.isLogin()) {
                                 if(accountTDDL.isTravelingSupporter()){
-                                    VirtualSwitchBoardActivity.Companion.openActivity(context);
+                                    VirtualSwitchBoardActivity.Companion.openActivity(context, VirtualSwitchBoardActivity.Companion.getTRAVEL_TYPE());
                                 }else {
                                     LandingPageActivity.startScreen(context);
                                 }
                             } else {
                                 LandingPageActivity.startScreen(context);
+                            }
+                            break;
+
+                        case "":
+                            Account accountBooking = MyApplication.getInstance().getAccount();
+                            if (null != accountBooking && accountBooking.isLogin()) {
+                                if(accountBooking.isTravelingSupporter()){
+                                    VirtualSwitchBoardActivity.Companion.openActivity(context, VirtualSwitchBoardActivity.Companion.getBOOKING_TYPE());
+                                }else {
+                                    Toast.makeText(context, "Tính năng chỉ dành cho CSKH Booking", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(context, "Tính năng chỉ dành cho CSKH Booking", Toast.LENGTH_SHORT).show();
                             }
                             break;
 
@@ -204,7 +220,37 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 Glide.with(context).load(R.drawable.f2_ic_virtual_call).into(imgAvatar);
             }
 
+
+            Account accountBooking = MyApplication.getInstance().getAccount();
+            if (null != accountBooking && accountBooking.isLogin()) {
+                if(accountBooking.isTravelingSupporter()){
+                    if ("APP_MAIN_HEADER_VIRTUAL_CALL".equals(items.get(position).getCode_type())) {
+                        setWrapContentView(rootLayout);
+                    } else {
+                        set1pxView(rootLayout);
+                    }
+                }else {
+                    set1pxView(rootLayout);
+                }
+            } else {
+                set1pxView(rootLayout);
+            }
+
+
+
         }
+    }
+
+    private void setWrapContentView(View view){
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        view.setLayoutParams(layoutParams);
+    }
+
+    private void set1pxView(View view){
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        layoutParams.height = 1;
+        view.setLayoutParams(layoutParams);
     }
 
     public class NormalViewHolder extends RecyclerView.ViewHolder {

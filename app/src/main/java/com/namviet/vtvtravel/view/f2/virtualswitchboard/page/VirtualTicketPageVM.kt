@@ -5,6 +5,7 @@ import com.namviet.vtvtravel.app.MyApplication
 import com.namviet.vtvtravel.model.virtualcall.ListTicketResponse
 import com.namviet.vtvtravel.response.f2room.CallRoomResponse
 import com.namviet.vtvtravel.ultils.ResponseUltils
+import com.namviet.vtvtravel.view.f2.virtualswitchboard.VirtualSwitchBoardActivity
 import com.namviet.vtvtravel.viewmodel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import okhttp3.MediaType
@@ -13,10 +14,11 @@ import org.json.JSONObject
 
 class VirtualTicketPageVM() : BaseViewModel() {
 
-    fun getListTicket(status: Int, page: Int, isOverDate: Boolean = false) {
+    fun getListTicket(status: Int, page: Int, isOverDate: Boolean = false, ticketType: String) {
         val queryMap = Param.page(page)
         queryMap["status"] = status
         if (isOverDate) queryMap["isOverDate"] = 1
+        if (!ticketType.isNullOrEmpty()) queryMap["ticketTypeCode"] = ticketType
         val myApplication = MyApplication.getInstance()
         val jsonBodyObject = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),
                 Param.getParams(JSONObject()).toString())
