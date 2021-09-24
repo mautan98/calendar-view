@@ -2,6 +2,8 @@ package com.namviet.vtvtravel.model;
 
 public class Account {
 
+
+
     public class Role {
         public static final String USER = "USER";
     }
@@ -24,6 +26,7 @@ public class Account {
     private Integer gender;
     private String packageCode;
     private boolean isTravelingSupporter;
+    private boolean isBookingSupporter;
     private String sipDomain;
     private String sipPassword;
     private String sipAccount;
@@ -188,6 +191,10 @@ public class Account {
 
     public void setTravelingSupporter(boolean travelingSupporter) {
         isTravelingSupporter = travelingSupporter;
+    }
+
+    public boolean isBookingSupporter() {
+        return isBookingSupporter;
     }
 
     public String getSipDomain() {

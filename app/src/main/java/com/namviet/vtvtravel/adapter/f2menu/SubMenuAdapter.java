@@ -193,10 +193,10 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             }
                             break;
 
-                        case "":
+                        case "APP_MAIN_HEADER_CSKH_BOOKING":
                             Account accountBooking = MyApplication.getInstance().getAccount();
                             if (null != accountBooking && accountBooking.isLogin()) {
-                                if(accountBooking.isTravelingSupporter()){
+                                if(accountBooking.isBookingSupporter()){
                                     VirtualSwitchBoardActivity.Companion.openActivity(context, VirtualSwitchBoardActivity.Companion.getBOOKING_TYPE());
                                 }else {
                                     Toast.makeText(context, "Tính năng chỉ dành cho CSKH Booking", Toast.LENGTH_SHORT).show();
@@ -221,20 +221,20 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
 
 
-            Account accountBooking = MyApplication.getInstance().getAccount();
-            if (null != accountBooking && accountBooking.isLogin()) {
-                if(accountBooking.isTravelingSupporter()){
-                    if ("APP_MAIN_HEADER_VIRTUAL_CALL".equals(items.get(position).getCode_type())) {
-                        setWrapContentView(rootLayout);
-                    } else {
-                        set1pxView(rootLayout);
-                    }
-                }else {
-                    set1pxView(rootLayout);
-                }
-            } else {
-                set1pxView(rootLayout);
-            }
+//            Account accountBooking = MyApplication.getInstance().getAccount();
+//            if (null != accountBooking && accountBooking.isLogin()) {
+//                if(accountBooking.isBookingSupporter()){
+//                    if ("APP_MAIN_HEADER_CSKH_BOOKING".equals(items.get(position).getCode_type())) {
+//                        setWrapContentView(rootLayout);
+//                    } else {
+//                        set1pxView(rootLayout);
+//                    }
+//                }else {
+//                    set1pxView(rootLayout);
+//                }
+//            } else {
+//                set1pxView(rootLayout);
+//            }
 
 
 
