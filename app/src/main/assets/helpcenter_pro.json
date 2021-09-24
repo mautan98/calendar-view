@@ -1,0 +1,25 @@
+{
+  "name": "Trung tâm hỗ trợ",
+  "data": [
+    {
+      "code": "APP_MAIN_SUPPORT_BOOKING",
+      "code_type": "APP_MAIN_SUPPORT_BOOKING",
+      "html_icon": "",
+      "icon_url": "https://cdn.vtvtravel.vn/data_files/menus_files/image/202008/28/technical-support-3-3x_puqwm.png",
+      "id": "5f2e1ca84198d082048b456d",
+      "link": "http://api.vtvtravel.vn",
+      "children": [],
+      "name": "Tổng đài 1039"
+    },
+    {
+      "code": "APP_MAIN_CHATBOT_BOOKING",
+      "code_type": "APP_MAIN_CHATBOT_BOOKING",
+      "html_icon": "",
+      "icon_url": "https://cdn.vtvtravel.vn/data_files/menus_files/image/202008/28/union-1-3x_nelra.png",
+      "id": "5f2e1bb04198d0a87c8b456a",
+      "link": "http://api.vtvtravel.vn",
+      "children": [],
+      "name": "Chatbot"
+    }
+  ]
+}

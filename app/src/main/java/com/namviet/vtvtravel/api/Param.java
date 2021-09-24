@@ -133,11 +133,12 @@ public class Param {
         return map;
     }
 
-    public static JSONObject verifyOtp(String mobile, String otp) {
+    public static JSONObject verifyOtp(String mobile, String otp, String packageCode) {
         JSONObject map = new JSONObject();
         try {
             map.put(WSConfig.KeyParam.MOBILE, mobile);
             map.put(WSConfig.KeyParam.OTP, otp);
+            map.put(WSConfig.KeyParam.PACKAGE_CODE, packageCode);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -170,11 +171,12 @@ public class Param {
         return map;
     }
 
-    public static JSONObject register(String mobile, String name) {
+    public static JSONObject register(String mobile, String name, String packageCode) {
         JSONObject map = new JSONObject();
         try {
             map.put(WSConfig.KeyParam.MOBILE, mobile);
             map.put(WSConfig.KeyParam.FULLNAME, name);
+            map.put(WSConfig.KeyParam.PACKAGE_CODE, packageCode);
         } catch (JSONException e) {
             e.printStackTrace();
         }

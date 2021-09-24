@@ -152,7 +152,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
                 Account account = MyApplication.getInstance().getAccount();
                 if (null != account && account.isLogin()) {
                    if(account.isTravelingSupporter()){
-                       VirtualSwitchBoardActivity.Companion.openActivity(mActivity);
+                       VirtualSwitchBoardActivity.Companion.openActivity(mActivity, VirtualSwitchBoardActivity.Companion.getTRAVEL_TYPE());
                    }else {
                        LandingPageActivity.startScreen(mActivity);
                    }

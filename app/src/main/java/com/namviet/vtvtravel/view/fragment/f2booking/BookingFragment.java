@@ -22,15 +22,21 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.databinding.F2FragmentBookingBinding;
 import com.namviet.vtvtravel.model.Account;
+import com.namviet.vtvtravel.model.f2booking.DataHelpCenter;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndGoToBooking;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndUpdateUserView;
+import com.namviet.vtvtravel.response.f2menu.MenuItem;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
+import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.view.f2.MyGiftActivity;
+import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.f2.UserInformationActivity;
 import com.namviet.vtvtravel.view.f2.f2oldbase.SettingActivity;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
@@ -38,6 +44,7 @@ import com.namviet.vtvtravel.view.fragment.MainFragment;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -137,6 +144,11 @@ public class BookingFragment extends MainFragment {
                         backLink = new UrlQuerySanitizer(url).getValue("backlink");
                         LoginAndRegisterActivityNew.startScreen(mActivity, 0, false, true, true);
 
+                    }else if(url.startsWith("app://vtvtravel-help")) {
+                        DataHelpCenter dataHelpCenter = new Gson().fromJson(F2Util.loadJSONFromAsset(mActivity, "helpcenter_pro"), DataHelpCenter.class);
+                        MyGiftActivity.startScreen(mActivity, dataHelpCenter.getItemMenus(), dataHelpCenter.getName());
+                    }else if(url.startsWith("app://vtvtravel-voucherforbooking")) {
+                        TravelVoucherActivity.openScreen(mActivity, false, TravelVoucherActivity.OpenType.LIST, false);
                     }else {
                         view.loadUrl(url);
                     }

@@ -108,9 +108,9 @@ public class AccountViewModel extends BaseViewModel {
 
 
 
-    public void register(String mobile, String name) {
+    public void register(String mobile, String name, String packageCode) {
 
-        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(Param.register(mobile, name)).toString());
+        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(Param.register(mobile, name, packageCode)).toString());
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
 
@@ -160,9 +160,9 @@ public class AccountViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
-    public void verifyOtpRegister(String mobile, String otp) {
+    public void verifyOtpRegister(String mobile, String otp, String packageCode) {
 
-        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(Param.verifyOtp(mobile, otp)).toString());
+        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(Param.verifyOtp(mobile, otp, packageCode)).toString());
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
 
@@ -188,8 +188,8 @@ public class AccountViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
-    public void verifyOtpResetPass(String mobile, String otp) {
-        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(Param.verifyOtp(mobile, otp)).toString());
+    public void verifyOtpResetPass(String mobile, String otp, String packageCode) {
+        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(Param.verifyOtp(mobile, otp, packageCode)).toString());
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
 

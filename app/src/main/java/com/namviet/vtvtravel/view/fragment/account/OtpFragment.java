@@ -127,9 +127,9 @@ public class OtpFragment extends MainFragment implements Observer {
                 }
 
                 if (typeOtp == Constants.TypeScreen.OTP_REGISTER) {
-                    accountViewModel.verifyOtpRegister(mobile, otp);
+                    accountViewModel.verifyOtpRegister(mobile, otp, "");
                 } else if (typeOtp == Constants.TypeScreen.OTP_RESET_PASS) {
-                    accountViewModel.verifyOtpResetPass(mobile, otp);
+                    accountViewModel.verifyOtpResetPass(mobile, otp, "");
                 }
             }
 //        KeyboardUtils.hideKeyboard1(mActivity);
