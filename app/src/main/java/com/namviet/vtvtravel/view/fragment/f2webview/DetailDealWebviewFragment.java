@@ -21,6 +21,7 @@ import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndReloadDeal;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndUpdateUserView;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
+import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.UserInformationActivity;
 import com.namviet.vtvtravel.view.f2.f2oldbase.SettingActivity;
@@ -95,7 +96,7 @@ public class DetailDealWebviewFragment extends BaseFragment<F2FragmentWebviewFor
                         UserInformationActivity.openScreen(mActivity);
                     } else if (url.startsWith("app://huntDeal")){
                         String dealCode = new UrlQuerySanitizer(url).getValue("dealCode");
-                        Toast.makeText(mActivity, dealCode, Toast.LENGTH_SHORT).show();
+                        F2Util.startSendMessIntent(mActivity, "1039", "D "+dealCode);
                     }else {
                         view.loadUrl(url);
                     }
