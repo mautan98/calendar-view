@@ -26,7 +26,7 @@ public class Account {
     private Integer gender;
     private String packageCode;
     private boolean isTravelingSupporter;
-    private boolean isBookingSupporter;
+    private String travelSupporterType;
     private String sipDomain;
     private String sipPassword;
     private String sipAccount;
@@ -193,8 +193,8 @@ public class Account {
         isTravelingSupporter = travelingSupporter;
     }
 
-    public boolean isBookingSupporter() {
-        return isBookingSupporter;
+    public String getTravelSupporterType() {
+        return travelSupporterType;
     }
 
     public String getSipDomain() {

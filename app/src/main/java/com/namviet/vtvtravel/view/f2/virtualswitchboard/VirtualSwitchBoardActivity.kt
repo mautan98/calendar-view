@@ -118,6 +118,12 @@ class VirtualSwitchBoardActivity : BaseActivityNew<F2ActivityVirtualSwitchBoardB
 
         })
 
+        if(ticketType == TRAVEL_TYPE) {
+            binding.tvHeader.text = "Tổng đài Du Lịch Việt Nam"
+        }else{
+            binding.tvHeader.text = "Tổng đài Booking"
+        }
+
     }
 
     override fun setClick() {

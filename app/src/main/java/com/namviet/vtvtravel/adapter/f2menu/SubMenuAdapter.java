@@ -184,7 +184,11 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             Account accountTDDL = MyApplication.getInstance().getAccount();
                             if (null != accountTDDL && accountTDDL.isLogin()) {
                                 if(accountTDDL.isTravelingSupporter()){
-                                    VirtualSwitchBoardActivity.Companion.openActivity(context, VirtualSwitchBoardActivity.Companion.getTRAVEL_TYPE());
+                                    if(accountTDDL.getTravelSupporterType() ==null || accountTDDL.getTravelSupporterType() != null &&(accountTDDL.getTravelSupporterType().equals("") || accountTDDL.getTravelSupporterType().equals("travel"))) {
+                                        VirtualSwitchBoardActivity.Companion.openActivity(context, VirtualSwitchBoardActivity.Companion.getTRAVEL_TYPE());
+                                    }else {
+                                        LandingPageActivity.startScreen(context);
+                                    }
                                 }else {
                                     LandingPageActivity.startScreen(context);
                                 }
@@ -196,8 +200,12 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         case "APP_MAIN_HEADER_CSKH_BOOKING":
                             Account accountBooking = MyApplication.getInstance().getAccount();
                             if (null != accountBooking && accountBooking.isLogin()) {
-                                if(accountBooking.isBookingSupporter()){
-                                    VirtualSwitchBoardActivity.Companion.openActivity(context, VirtualSwitchBoardActivity.Companion.getBOOKING_TYPE());
+                                if(accountBooking.isTravelingSupporter()){
+                                    if(accountBooking.getTravelSupporterType() != null && accountBooking.getTravelSupporterType().equals("booking")) {
+                                        VirtualSwitchBoardActivity.Companion.openActivity(context, VirtualSwitchBoardActivity.Companion.getBOOKING_TYPE());
+                                    }else {
+                                        Toast.makeText(context, "Tính năng chỉ dành cho CSKH Booking", Toast.LENGTH_SHORT).show();
+                                    }
                                 }else {
                                     Toast.makeText(context, "Tính năng chỉ dành cho CSKH Booking", Toast.LENGTH_SHORT).show();
                                 }

@@ -18,16 +18,21 @@ import android.webkit.WebViewClient;
 
 import androidx.annotation.Nullable;
 
+import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.databinding.F2FragmentBookingBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.model.Account;
+import com.namviet.vtvtravel.model.f2booking.DataHelpCenter;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndGoToBooking;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndUpdateUserView;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
+import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.view.f2.MyGiftActivity;
+import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -119,7 +124,13 @@ public class BookingFragment extends BaseFragment<F2FragmentBookingBinding> {
                     if (url.startsWith("app://login")) {
                         backLink = new UrlQuerySanitizer(url).getValue("backlink");
                         LoginAndRegisterActivityNew.startScreen(mActivity, 0, false, true, true);
-
+                    }else if(url.startsWith("app://vtvtravel-help")) {
+                        DataHelpCenter dataHelpCenter = new Gson().fromJson(F2Util.loadJSONFromAsset(mActivity, "helpcenter_test"), DataHelpCenter.class);
+                        MyGiftActivity.startScreen(mActivity, dataHelpCenter.getItemMenus(), dataHelpCenter.getName());
+                    }else if(url.startsWith("app://vtvtravel-voucherforbooking")) {
+                        TravelVoucherActivity.openScreen(mActivity, false, TravelVoucherActivity.OpenType.LIST, false);
+                    }else if(url.startsWith("app://vtvtravel-home")) {
+                        mActivity.finish();
                     }else {
                         view.loadUrl(url);
                     }

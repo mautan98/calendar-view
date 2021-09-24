@@ -16,13 +16,13 @@ public class DataHelpCenter {
         this.name = name;
     }
 
-    private ArrayList<MenuItem> itemMenus;
+    private ArrayList<MenuItem> data;
 
     public ArrayList<MenuItem> getItemMenus() {
-        return itemMenus;
+        return data;
     }
 
     public void setItemMenus(ArrayList<MenuItem> itemMenus) {
-        this.itemMenus = itemMenus;
+        this.data = itemMenus;
     }
 }
