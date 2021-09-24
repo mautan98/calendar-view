@@ -11,6 +11,7 @@ import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
@@ -92,7 +93,10 @@ public class DetailDealWebviewFragment extends BaseFragment<F2FragmentWebviewFor
                         LoginAndRegisterActivityNew.startScreen(mActivity, 1, false);
                     } else if (url.equals("app://info")) {
                         UserInformationActivity.openScreen(mActivity);
-                    } else {
+                    } else if (url.startsWith("app://huntDeal")){
+                        String dealCode = new UrlQuerySanitizer(url).getValue("dealCode");
+                        Toast.makeText(mActivity, dealCode, Toast.LENGTH_SHORT).show();
+                    }else {
                         view.loadUrl(url);
                     }
                 } catch (Exception e) {
