@@ -22,6 +22,7 @@ import com.namviet.vtvtravel.view.f2.LiveTVActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
+import com.namviet.vtvtravel.view.f3.deal.view.DealHomeActivity;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -175,16 +176,19 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             LiveTVActivity.openScreen(context, 0, itemMenu.getLink());
                             break;
                         case "APP_MAIN_DEAL":
-                            try {
-                                DetailDealWebviewActivity.startScreen(context, itemMenu.getLink());
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_DEAL_HUNT, TrackingAnalytic.getDefault("Menu", "Menu"));
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+//                            try {
+//                                DetailDealWebviewActivity.startScreen(context, itemMenu.getLink());
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//                            try {
+//                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_DEAL_HUNT, TrackingAnalytic.getDefault("Menu", "Menu"));
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+
+                            DealHomeActivity.Companion.startScreen(context);
+
                             break;
 
                     }

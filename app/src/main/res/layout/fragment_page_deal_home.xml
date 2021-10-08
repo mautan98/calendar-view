@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:orientation="vertical"
+        android:background="#ECECEC"
         android:layout_height="match_parent">
 
         <androidx.viewpager.widget.ViewPager
-            android:layout_weight="1"
             android:id="@+id/vpContent"
             android:layout_width="match_parent"
-            android:layout_height="0dp"/>
+            android:layout_height="match_parent"/>
 
-        <LinearLayout
-            android:background="@color/calendar_header"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            android:layout_height="wrap_content">
 
-    </LinearLayout>
+            <ImageView
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintDimensionRatio="375:85.2"
+                android:background="@drawable/ic_deal_menu_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </RelativeLayout>
 </layout>
