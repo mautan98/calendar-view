@@ -1,7 +1,6 @@
-      package com.namviet.vtvtravel.api;
+package com.namviet.vtvtravel.api;
 
 public class WSConfig {
-
 
 
     //Server test
@@ -23,6 +22,8 @@ public class WSConfig {
     public static final String HOST_RECEIVE_TRIP = "http://103.21.148.54:8858/my-trip/detail";
     public static final String HOST_LANDING_PAGE = "https://m1.travel.onex.vn/LandingPage1039";
     public static final String LINK_DEAL = "http://deal.vtvtravel.vn";
+    public static final String HOST_ORDER = "https://booking-testing.vtvtravel.vn/order/dashboard";
+
 
     //Server product
 //    public static final String URL_SOCKET = "https://chat.vtvtravel.vn";
@@ -42,6 +43,7 @@ public class WSConfig {
 //    public static final String HOST_RECEIVE_TRIP = "http://tour.vtvtravel.vn/my-trip/detail";
 //    public static final String HOST_LANDING_PAGE = "https://m.vtvtravel.vn/LandingPage1039";
 //    public static final String LINK_DEAL = "http://deal.vtvtravel.vn";
+//    public static final String HOST_ORDER = "http://booking.vtvtravel.vn/order/dashboard/";
 
     public static final String URL_ENCODE = "http://api.travel.onex.vn/test/rsa/decrypt";
     public static final String URL_DEFAULT_CHANNEL = "http://113.185.19.133:8443/namvietvtv/smil:vtv1.smil/playlist.m3u8";
@@ -259,7 +261,7 @@ public class WSConfig {
         public static final String END_TOUR = "end";
         public static final String END_START_TOUR = "endStart";
         public static final String PLATFORM = "platform";
-//        public static final String DEVICE_TOKEN = "device_token";
+        //        public static final String DEVICE_TOKEN = "device_token";
         public static final String DEVICE_ID = "device_id";
         // public static final String SEND_NOTIFY = "sendNotify";
         public static final String SEND_NOTIFY = "sendNotification";

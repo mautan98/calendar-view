@@ -129,19 +129,19 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             SettingActivity.startScreen(context);
                             break;
                         case "APP_MAIN_HEADER_PACKAGE":
-//                            Account account = MyApplication.getInstance().getAccount();
-//                            if (null != account && account.isLogin()) {
-//                                WebviewActivity.startScreen(context);
-//                            } else {
-//                                LoginAndRegisterActivityNew.startScreen(context, 0, false);
-//                            }
-
-                            try {
-                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-                                oneButtonTitleImageDialog.show(((MainActivity)context).getSupportFragmentManager(), Constants.TAG_DIALOG);
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                            Account account = MyApplication.getInstance().getAccount();
+                            if (null != account && account.isLogin()) {
+                                WebviewActivity.startScreen(context);
+                            } else {
+                                LoginAndRegisterActivityNew.startScreen(context, 0, false);
                             }
+
+//                            try {
+//                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+//                                oneButtonTitleImageDialog.show(((MainActivity)context).getSupportFragmentManager(), Constants.TAG_DIALOG);
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
                             break;
 
                         case "APP_MAIN_FOOTER_NOTIFICATION":

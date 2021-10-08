@@ -79,9 +79,11 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
 
                 if (phone.isEmpty()) {
                     handleValidateFail(getBinding().edtPhone, getBinding().linearUsername, getString(R.string.phone_empty_v2));
-                } else if (name.isEmpty()) {
+                } else if (name.trim().isEmpty()) {
                     handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.name_empty));
-                } else if (name.length() > 60) {
+                }else if (name.trim().length() < 3) {
+                    handleValidateFail(getBinding().edtName, getBinding().edtName, "Độ dài tên nhỏ hơn 3 ký tự");
+                } else if (name.trim().length() > 60) {
                     handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.name_invalid));
                 } else if (ValidateUtils.isString(name)) {
                     handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.special_charactor));

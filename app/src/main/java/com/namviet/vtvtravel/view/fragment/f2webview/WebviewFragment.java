@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.databinding.F2FragmentMyOrderBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
@@ -23,7 +24,7 @@ public class WebviewFragment extends BaseFragment<F2FragmentMyOrderBinding> {
     private String chanel = "android";
     private String langCode = "vi";
     private String link;
-    private String server = "http://booking.vtvtravel.vn/order/dashboard/";
+    private String server = WSConfig.HOST_ORDER;
 
 
     public void setLink(String link) {
