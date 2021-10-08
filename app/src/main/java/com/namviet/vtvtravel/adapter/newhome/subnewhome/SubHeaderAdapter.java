@@ -36,6 +36,7 @@ import com.namviet.vtvtravel.view.f2.LiveTVActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
 import com.namviet.vtvtravel.view.f3.commingsoon.view.ComingSoonActivity;
+import com.namviet.vtvtravel.view.f3.deal.view.DealHomeActivity;
 import com.namviet.vtvtravel.view.fragment.f2booking.BookingFragment;
 import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
 import com.namviet.vtvtravel.view.fragment.f2webview.VQMMWebviewFragment;

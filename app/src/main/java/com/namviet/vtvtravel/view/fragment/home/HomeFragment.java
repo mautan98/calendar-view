@@ -60,6 +60,7 @@ import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
 import com.namviet.vtvtravel.view.f2.landingpage.LandingPageActivity;
 import com.namviet.vtvtravel.view.f2.virtualswitchboard.VirtualSwitchBoardActivity;
 import com.namviet.vtvtravel.view.f3.booking.view.BookingActivity;
+import com.namviet.vtvtravel.view.f3.deal.view.DealHomeActivity;
 import com.namviet.vtvtravel.view.f3.floor.view.FloorActivity;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.view.fragment.f2booking.BookingFragment;
@@ -284,6 +285,8 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 
 
         updateViews();
+
+        startActivity(new Intent(mActivity, DealHomeActivity.class));
     }
     private void showMenuAnim(){
         Animation scaleDown = AnimationUtils.loadAnimation(mActivity, R.anim.scale_up1);
