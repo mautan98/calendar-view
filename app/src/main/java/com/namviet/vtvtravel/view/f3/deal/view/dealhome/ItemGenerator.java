@@ -1,4 +1,4 @@
-package com.namviet.vtvtravel.view.f3.deal.view;
+package com.namviet.vtvtravel.view.f3.deal.view.dealhome;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +30,8 @@ public final class ItemGenerator {
 
     public static List<Item> demoList() {
         List<Item> items = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            if (i == 0 || i == 10) {
+        for (int i = 0; i < 4; i++) {
+            if (i == 0 || i == 2) {
                 items.add(new HeaderItem("Header at " + i, ""));
             } else {
                 items.add(new Item("Item at " + i, "Item description at " + i));

@@ -1,6 +1,5 @@
 package com.namviet.vtvtravel.adapter.newhome.subnewhome;
 
-import android.app.Activity;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -8,7 +7,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,30 +14,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baseapp.activity.BaseActivity;
-import com.baseapp.utils.KeyboardUtils;
-import com.baseapp.utils.MyFragment;
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
-import com.namviet.vtvtravel.config.Constants;
-import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
-import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2event.OnClickBookingTopMenu;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
-import com.namviet.vtvtravel.response.f2livetv.LiveTvResponse;
-import com.namviet.vtvtravel.response.newhome.HomeServiceResponse;
-import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f2.CreateTripActivity;
 import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
 import com.namviet.vtvtravel.view.f2.LiveTVActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
-import com.namviet.vtvtravel.view.f3.commingsoon.view.ComingSoonActivity;
-import com.namviet.vtvtravel.view.f3.deal.view.DealHomeActivity;
-import com.namviet.vtvtravel.view.fragment.f2booking.BookingFragment;
-import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
-import com.namviet.vtvtravel.view.fragment.f2webview.VQMMWebviewFragment;
 
 import org.greenrobot.eventbus.EventBus;
 

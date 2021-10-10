@@ -343,7 +343,8 @@
 
         <activity android:name=".view.f3.booking.view.BookingActivity" />
         <activity android:name=".view.f3.notification.view.NotificationActivity" />
-        <activity android:name=".view.f3.deal.view.DealHomeActivity" />
+        <activity android:name=".view.f3.deal.view.dealhome.DealHomeActivity" />
+        <activity android:name=".view.f3.deal.view.dealdetail.DetailDealActivity" />
     </application>
 
 </manifest>

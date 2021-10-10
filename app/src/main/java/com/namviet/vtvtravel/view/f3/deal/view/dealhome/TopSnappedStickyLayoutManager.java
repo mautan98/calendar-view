@@ -1,4 +1,4 @@
-package com.namviet.vtvtravel.view.f3.deal.view;
+package com.namviet.vtvtravel.view.f3.deal.view.dealhome;
 
 import android.content.Context;
 

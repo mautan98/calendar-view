@@ -1,29 +1,31 @@
 package com.namviet.vtvtravel.view.f3.deal.adapter;
 
-import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.brandongogetap.stickyheaders.exposed.StickyHeader;
 import com.brandongogetap.stickyheaders.exposed.StickyHeaderHandler;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.view.f3.deal.view.Item;
-import com.namviet.vtvtravel.view.f3.deal.view.SimpleDiffCallback;
+import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
+import com.namviet.vtvtravel.view.f3.deal.view.dealhome.SimpleDiffCallback;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.LayoutInflater.from;
-import static androidx.recyclerview.widget.RecyclerView.NO_POSITION;
 
-public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>
-        implements StickyHeaderHandler {
+public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder> implements StickyHeaderHandler {
 
     private final List<Item> data = new ArrayList<>();
+    private static final int TYPE_HEADER_1 = 0;
+    private static final int TYPE_CONTENT_1 = 1;
+    private static final int TYPE_HEADER_2 = 2;
+    private static final int TYPE_CONTENT_2 = 3;
+
 
     public void setData(List<Item> items) {
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new SimpleDiffCallback(data, items));
@@ -35,37 +37,36 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-        final BaseViewHolder viewHolder;
-        if (viewType == 1) {
-            view = from(parent.getContext()).inflate(R.layout.item_view_2, parent, false);
-            viewHolder = new MyViewHolder(view);
-        } else {
-            view = from(parent.getContext()).inflate(R.layout.item_view, parent, false);
-            viewHolder = new MyOtherViewHolder(view);
+
+        if (viewType == TYPE_HEADER_1) {
+            view = from(parent.getContext()).inflate(R.layout.layout_header_1, parent, false);
+            return new HeaderViewHolder1(view);
+        } else if (viewType == TYPE_CONTENT_1) {
+            view = from(parent.getContext()).inflate(R.layout.layout_content_1, parent, false);
+            return new ContentViewHolder1(view);
+        }if (viewType == TYPE_HEADER_2) {
+            view = from(parent.getContext()).inflate(R.layout.layout_header_2, parent, false);
+            return new HeaderViewHolder2(view);
+        }else  {
+            view = from(parent.getContext()).inflate(R.layout.layout_content_2, parent, false);
+            return new ContentViewHolder2(view);
         }
-        view.setOnClickListener(v -> {
-            // This is unsafe to do in OnClickListeners attached to sticky headers. The adapter
-            // position of the holder will be out of sync if any items have been added/removed.
-            // If a click listener needs to be set on a sticky header, it is recommended to identify the header
-            // based on its backing model, rather than position in the data set.
-            int position = viewHolder.getAdapterPosition();
-            if (position != NO_POSITION) {
-                List<Item> newData = new ArrayList<>(data);
-                newData.remove(position);
-                setData(newData);
-            }
-        });
-        return viewHolder;
+
     }
 
     @Override public void onBindViewHolder(BaseViewHolder holder, int position) {
-        Item item = data.get(position);
-        holder.titleTextView.setText("titlw");
-        holder.messageTextView.setText("item.message");
-        if (item instanceof StickyHeader) {
-            holder.itemView.setBackgroundColor(Color.YELLOW);
-        } else if (holder instanceof MyOtherViewHolder){
-            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
+        try {
+            if (getItemViewType(position) == TYPE_HEADER_1) {
+                ((HeaderViewHolder1) holder).bindItem(position);
+            }else if (getItemViewType(position) == TYPE_CONTENT_1) {
+                ((ContentViewHolder1) holder).bindItem(position);
+            }else if (getItemViewType(position) == TYPE_HEADER_2) {
+                ((HeaderViewHolder2) holder).bindItem(position);
+            }else if (getItemViewType(position) == TYPE_CONTENT_2)  {
+                ((ContentViewHolder2) holder).bindItem(position);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -74,39 +75,88 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
     }
 
     @Override public int getItemViewType(int position) {
-       if(position == 3){
-           return 1;
-       }
-       else return 0;
+        switch (position){
+            case 0: return TYPE_HEADER_1;
+            case 1: return TYPE_CONTENT_1;
+            case 2: return TYPE_HEADER_2;
+            case 3: return TYPE_CONTENT_2;
+        }
+        return TYPE_HEADER_1;
     }
 
     @Override public List<?> getAdapterData() {
         return data;
     }
 
-    private static final class MyViewHolder extends BaseViewHolder {
-
-        MyViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
-
-    private static final class MyOtherViewHolder extends BaseViewHolder {
-
-        MyOtherViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
 
     static class BaseViewHolder extends RecyclerView.ViewHolder {
-
-        TextView titleTextView;
-        TextView messageTextView;
-
         BaseViewHolder(View itemView) {
             super(itemView);
-            titleTextView = (TextView) itemView.findViewById(R.id.tv_title);
-            messageTextView = (TextView) itemView.findViewById(R.id.tv_message);
+
+        }
+    }
+
+    public class HeaderViewHolder1 extends BaseViewHolder {
+        private int position;
+
+        public HeaderViewHolder1(View itemView) {
+            super(itemView);
+
+
+        }
+
+        public void bindItem(int position) {
+            this.position = position;
+
+        }
+    }
+
+    public class HeaderViewHolder2 extends BaseViewHolder {
+        private int position;
+
+        public HeaderViewHolder2(View itemView) {
+            super(itemView);
+
+
+        }
+
+        public void bindItem(int position) {
+            this.position = position;
+
+        }
+    }
+
+    public class ContentViewHolder2 extends BaseViewHolder {
+        private int position;
+        private RecyclerView rclContent;
+
+        public ContentViewHolder2(View itemView) {
+            super(itemView);
+
+
+        }
+
+        public void bindItem(int position) {
+            this.position = position;
+            rclContent = itemView.findViewById(R.id.rclContent);
+            rclContent.setAdapter(new GridDealAdapter());
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(itemView.getContext(), 2);
+            rclContent.setLayoutManager(gridLayoutManager);
+        }
+    }
+
+    public class ContentViewHolder1 extends BaseViewHolder {
+        private int position;
+
+        public ContentViewHolder1(View itemView) {
+            super(itemView);
+
+
+        }
+
+        public void bindItem(int position) {
+            this.position = position;
+
         }
     }
 }

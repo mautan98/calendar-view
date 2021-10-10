@@ -1,4 +1,4 @@
-package com.namviet.vtvtravel.view.f3.deal.view
+package com.namviet.vtvtravel.view.f3.deal.view.dealhome
 
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.FragmentPageDealHomeBinding
@@ -14,13 +14,15 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
 
     override fun initView() {
         tabAdapter = TabAdapter(childFragmentManager, mActivity)
-        var myGiftFragment = MyGiftFragment()
+        var myGiftFragment =
+            MyGiftFragment()
         tabAdapter?.addFragment(myGiftFragment, "")
 
         var dealHomeFragment = DealHomeFragment()
         tabAdapter?.addFragment(dealHomeFragment, "")
 
-        var dealSubcribeFragment = DealSubcribeFragment()
+        var dealSubcribeFragment =
+            DealSubcribeFragment()
         tabAdapter?.addFragment(dealSubcribeFragment, "")
 
         vpContent.adapter = tabAdapter

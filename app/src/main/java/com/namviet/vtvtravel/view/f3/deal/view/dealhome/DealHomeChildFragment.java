@@ -1,4 +1,4 @@
-package com.namviet.vtvtravel.view.f3.deal.view;
+package com.namviet.vtvtravel.view.f3.deal.view.dealhome;
 
 import android.util.Log;
 import android.view.View;
@@ -6,7 +6,6 @@ import android.view.View;
 import com.brandongogetap.stickyheaders.StickyLayoutManager;
 import com.brandongogetap.stickyheaders.exposed.StickyHeaderListener;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.databinding.FragmentDealHomeBinding;
 import com.namviet.vtvtravel.databinding.FragmentDealHomeChildBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.view.f3.deal.adapter.RecyclerAdapter;
