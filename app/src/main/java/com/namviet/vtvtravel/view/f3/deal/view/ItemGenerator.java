@@ -31,7 +31,7 @@ public final class ItemGenerator {
     public static List<Item> demoList() {
         List<Item> items = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            if (i == 6 || i == 10) {
+            if (i == 0 || i == 10) {
                 items.add(new HeaderItem("Header at " + i, ""));
             } else {
                 items.add(new Item("Item at " + i, "Item description at " + i));

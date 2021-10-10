@@ -1,111 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
         <RelativeLayout
-            android:background="#F89C1C"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:background="#F89C1C">
 
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:textColor="@color/white"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Săn CTKM"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textColor="@color/white" />
 
             <ImageView
-                android:layout_marginEnd="16dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_option_menu_deal"
-                android:layout_width="32dp"
-                android:layout_height="32dp"/>
-
-
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_option_menu_deal" />
 
 
         </RelativeLayout>
 
-
-        <LinearLayout
-            android:paddingBottom="13dp"
-            android:background="#F89C1C"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <com.ornach.richtext.RichView
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_marginEnd="10dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:toolbarId="@+id/toolbar">
 
-                <TextView
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/roboto_bold"
-                    android:textAllCaps="true"
-                    android:text="Tích lũy nhận quà"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fitsSystemWindows="true"
+                    app:contentScrim="?attr/colorPrimary"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:titleEnabled="false">
 
-                <TextView
-                    android:textSize="11dp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/roboto_regular"
-                    android:text="Tích lũy ngay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#F89C1C"
+                        android:paddingBottom="13dp">
 
+                        <com.ornach.richtext.RichView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:paddingTop="6dp"
+                            android:paddingBottom="6dp">
 
-            </com.ornach.richtext.RichView>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="Tích lũy nhận quà"
+                                android:textAllCaps="true"
+                                android:textColor="@color/white" />
 
-
-            <com.ornach.richtext.RichView
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/roboto_bold"
-                    android:textAllCaps="true"
-                    android:text="Săn quà"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:textSize="11dp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/roboto_regular"
-                    android:text="Săn quà ngay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="Tích lũy ngay"
+                                android:textColor="@color/white"
+                                android:textSize="11dp" />
 
 
-            </com.ornach.richtext.RichView>
+                        </com.ornach.richtext.RichView>
 
 
-        </LinearLayout>
+                        <com.ornach.richtext.RichView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:paddingTop="6dp"
+                            android:paddingBottom="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="Săn quà"
+                                android:textAllCaps="true"
+                                android:textColor="@color/white" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="Săn quà ngay"
+                                android:textColor="@color/white"
+                                android:textSize="11dp" />
 
 
+                        </com.ornach.richtext.RichView>
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/vpContent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
 
+                    </LinearLayout>
+
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/vpContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </LinearLayout>
 </layout>
