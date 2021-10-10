@@ -55,7 +55,7 @@ class GridDealAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         fun bindItem(position: Int) {
             itemView.setOnClickListener {
-                DetailDealActivity.startScreen(context)
+                DetailDealActivity.startScreen(itemView.context)
             }
         }
 
