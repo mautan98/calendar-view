@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
@@ -71,6 +72,10 @@ import com.namviet.vtvtravel.view.f2.NearbyExperienceActivity;
 import com.namviet.vtvtravel.view.f2.TopExperienceActivity;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
+import com.namviet.vtvtravel.view.f3.deal.adapter.F3SubDealAdapter;
+import com.namviet.vtvtravel.view.f3.deal.adapter.F3TabDealAdapter;
+import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealHomeActivity;
+import com.namviet.vtvtravel.view.f3.deal.view.dealhome.ItemGenerator;
 import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
@@ -596,10 +601,15 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private TextView btnSeeMore;
         private TextView tvTitle;
         private TextView tvDescription;
+        private F3SubDealAdapter f3SubDealAdapter;
+        private F3TabDealAdapter f3TabDealAdapter;
+        private RecyclerView rclContent;
+        private RecyclerView rclTab;
 
         public DealViewHolder(View itemView) {
             super(itemView);
-
+            rclContent = itemView.findViewById(R.id.rclContent);
+            rclTab = itemView.findViewById(R.id.rclTab);
             recyclerNearPlace = itemView.findViewById(R.id.recyclerNearPlace);
             btnSeeMore = itemView.findViewById(R.id.btnSeeMore);
             tvTitle = itemView.findViewById(R.id.tvTitle);
@@ -619,29 +629,54 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 loadData.onLoadData(homeServiceResponse.getData().get(position).getContent_link(), TypeString.APP_DEAL);
             }
 
-            subDealAdapter = new SubDealAdapter(context, appDealResponse.getData(), new SubDealAdapter.ClickItem() {
-                @Override
-                public void onClickItem(AppDealResponse.Data data) {
-                    try {
-                        DetailDealWebviewActivity.startScreen(context, data.getDetailLink());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            recyclerNearPlace.setAdapter(subDealAdapter);
+//            subDealAdapter = new SubDealAdapter(context, appDealResponse.getData(), new SubDealAdapter.ClickItem() {
+//                @Override
+//                public void onClickItem(AppDealResponse.Data data) {
+//                    try {
+//                        DetailDealWebviewActivity.startScreen(context, data.getDetailLink());
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
+//            recyclerNearPlace.setAdapter(subDealAdapter);
 
             btnSeeMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     try {
-                        DetailDealWebviewActivity.startScreen(context, homeServiceResponse.getData().get(position).getLink_home_deal());
+                      //  DetailDealWebviewActivity.startScreen(context, homeServiceResponse.getData().get(position).getLink_home_deal());
+                        DealHomeActivity.Companion.startScreen(context);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
                 }
             });
+
+            f3SubDealAdapter = new F3SubDealAdapter(context, ItemGenerator.demoListDeal(), viewModel);
+            rclContent.setAdapter(f3SubDealAdapter);
+
+            f3TabDealAdapter = new F3TabDealAdapter(0, ItemGenerator.demoTabDealList(), context, new F3TabDealAdapter.ClickTab() {
+                @Override
+                public void onClickTab(int positionClick) {
+                    Toast.makeText(context, "Tab click: "+positionClick, Toast.LENGTH_SHORT).show();
+//                    try {
+//                        newHomeFragment.setmIOnClickTabReloadData(SuggestionLocationViewHolder.this);
+//                        homeServiceResponse.getData().get(position).setPositionClick(positionClick);
+//                        List<ItemHomeService.Item> items = homeServiceResponse.getData().get(position).getItems();
+//                        loadData.onLoadDataFloorSecond(items.get(positionClick).getContent_link(), TypeString.APP_EXPERIENCES_NEARBY, true);
+//                        mShimmerFrameLayout.setVisibility(View.VISIBLE);
+//                        rclContent.setVisibility(View.INVISIBLE);
+//                        mShimmerFrameLayout.startShimmer();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+
+                }
+            });
+            rclTab.setAdapter(f3TabDealAdapter);
+
 
             try {
                 tvTitle.setText(homeServiceResponse.getData().get(position).getName());

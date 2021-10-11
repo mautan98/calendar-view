@@ -40,6 +40,19 @@ public final class ItemGenerator {
         }
         return items;
     }
+    public static List<Item> demoTabDealList() {
+        List<Item> items = new ArrayList<>();
+        items.add(new Item("Tích lũy nhận quà", ""));
+        items.add(new Item("Săn quà", ""));
+        return items;
+    }
+    public static List<Item> demoListDeal() {
+        List<Item> items = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+                items.add(new Item("Item at " + i, "Item description at " + i));
+        }
+        return items;
+    }
 
     private static boolean inArray(int[] array, int value) {
         for (int i : array) {
