@@ -74,7 +74,7 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         try {
             return itemList.size();
         } catch (Exception e) {
-            return 0;
+            return 10;
         }
     }
 

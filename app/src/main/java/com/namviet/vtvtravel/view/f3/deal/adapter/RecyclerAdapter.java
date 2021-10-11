@@ -147,15 +147,18 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
     public class ContentViewHolder1 extends BaseViewHolder {
         private int position;
+        private RecyclerView rclContent;
 
         public ContentViewHolder1(View itemView) {
             super(itemView);
+            rclContent = itemView.findViewById(R.id.rclContent);
 
 
         }
 
         public void bindItem(int position) {
             this.position = position;
+            rclContent.setAdapter(new F3SubDealAdapter(null, null, null));
 
         }
     }
