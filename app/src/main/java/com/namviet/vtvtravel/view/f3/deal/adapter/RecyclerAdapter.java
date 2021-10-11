@@ -1,5 +1,6 @@
 package com.namviet.vtvtravel.view.f3.deal.adapter;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -27,12 +28,14 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
     private static final int TYPE_CONTENT_1 = 1;
     private static final int TYPE_HEADER_2 = 2;
     private static final int TYPE_CONTENT_2 = 3;
+    private Context context;
 
 
-    public void setData(List<Item> items) {
+    public void setData(List<Item> items, Context context) {
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new SimpleDiffCallback(data, items));
         data.clear();
         data.addAll(items);
+        this.context = context;
         diffResult.dispatchUpdatesTo(this);
     }
 
@@ -158,15 +161,29 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
     public class ContentViewHolder1 extends BaseViewHolder {
         private int position;
+        private RecyclerView rclContent;
+        private RecyclerView rclTab;
 
         public ContentViewHolder1(View itemView) {
             super(itemView);
+            rclContent = itemView.findViewById(R.id.rclContent);
+            rclTab = itemView.findViewById(R.id.rclTab);
 
 
         }
 
         public void bindItem(int position) {
             this.position = position;
+            rclContent.setAdapter(new F3SubDealAdapter(null, null, null));
+
+            F3TabDealAdapter f3TabDealAdapter = new F3TabDealAdapter(0, ItemGenerator.demoTabDealList(), context, new F3TabDealAdapter.ClickTab() {
+                @Override
+                public void onClickTab(int positionClick) {
+
+
+                }
+            });
+            rclTab.setAdapter(f3TabDealAdapter);
 
         }
     }

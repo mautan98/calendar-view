@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:clickable="true"
+            android:id="@+id/viewClose"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.8"
+            android:background="@color/black"
+            android:focusable="true" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/btnClose"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#F89C1C"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical|end"
+                android:paddingEnd="18dp"
+                android:text="ĐÓNG"
+                android:textColor="@color/white" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#040404" />
+
+
+            <TextView
+                android:id="@+id/btnRule"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#F89C1C"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:paddingStart="26dp"
+                android:text="Thể lệ"
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#F1C089" />
+
+            <TextView
+                android:id="@+id/btnSubscribe"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#F89C1C"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:paddingStart="26dp"
+                android:text="THEO DÕI CTKM"
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#F1C089" />
+
+
+            <TextView
+                android:id="@+id/btnHelpCenter"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#F89C1C"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:paddingStart="26dp"
+                android:text="TRUNG TÂM HỖ TRỢ"
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#F1C089" />
+
+
+            <TextView
+                android:id="@+id/btnGoDealHome"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#F89C1C"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:paddingStart="26dp"
+                android:text="VỀ TRANG SĂN CTKM"
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#F1C089" />
+
+
+            <TextView
+                android:id="@+id/btnGoHome"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#F89C1C"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:paddingStart="26dp"
+                android:text="VỀ TRANG CHỦ VTVTRAVEL"
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#F1C089" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

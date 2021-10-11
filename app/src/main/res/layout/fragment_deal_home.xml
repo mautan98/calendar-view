@@ -24,6 +24,7 @@
                 android:textColor="@color/white" />
 
             <ImageView
+                android:id="@+id/btnMenu"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_alignParentEnd="true"

@@ -42,6 +42,10 @@ class DealHomeFragment : BaseFragment<FragmentDealHomeBinding?>() {
             viewBorder2.visibility = View.VISIBLE
         }
 
+        btnMenu.setOnClickListener {
+            addFragment(DealMenuDialog())
+        }
+
         vpContent.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
                 position: Int,
