@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-                android:background="#FFEB3B"
-              android:layout_height="80dp"
-              android:orientation="vertical">
-
-    <TextView
-        android:text="Header 1"
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold"/>
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/my_statusbar_color"
+    android:layout_height="55dp"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:background="@drawable/f3_bg_roud_top"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_gravity="center"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            tools:listitem="@layout/f3_item_header1"
+            android:id="@+id/rcv_tab_header1"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="15dp"
+            android:id="@+id/img_list_grid"
+            android:padding="4dp"
+            android:src="@drawable/f3_ic_list_grid"
+            android:layout_width="26dp"
+            android:layout_height="26dp"/>
+    </LinearLayout>
 
 </LinearLayout>

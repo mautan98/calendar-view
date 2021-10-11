@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:minWidth="50dp"
+    android:layout_marginLeft="12dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginRight="12dp"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp"
+    android:layout_height="40dp">
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:id="@+id/tv_title"
+        android:text="Đi đâu"
+        android:textColor="#000"
+        android:textSize="14dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <ImageView
+        android:layout_marginRight="-5dp"
+        android:layout_above="@+id/tv_title"
+        android:layout_alignRight="@+id/tv_title"
+        android:src="@drawable/f3_ic_notifi_header1"
+        android:id="@+id/v_selected"
+        android:layout_width="9dp"
+        android:layout_height="9dp"/>
+</RelativeLayout>

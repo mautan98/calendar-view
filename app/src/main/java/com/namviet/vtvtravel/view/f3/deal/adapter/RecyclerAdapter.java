@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.view.f3.deal.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -11,6 +12,7 @@ import com.brandongogetap.stickyheaders.exposed.StickyHeader;
 import com.brandongogetap.stickyheaders.exposed.StickyHeaderHandler;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
+import com.namviet.vtvtravel.view.f3.deal.view.dealhome.ItemGenerator;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.SimpleDiffCallback;
 
 import java.util.ArrayList;
@@ -98,16 +100,25 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
     public class HeaderViewHolder1 extends BaseViewHolder {
         private int position;
-
+        private RecyclerView rcvTabHeader1;
+        private  F3Header1Adapter mF3Header1Adapter;
         public HeaderViewHolder1(View itemView) {
             super(itemView);
+            rcvTabHeader1 = itemView.findViewById(R.id.rcv_tab_header1);
 
 
         }
 
         public void bindItem(int position) {
             this.position = position;
-
+            mF3Header1Adapter = new F3Header1Adapter(0, ItemGenerator.demoTabHeader1(), itemView.getContext(), new F3Header1Adapter.ClickTab() {
+                @Override
+                public void onClickTab(int position) {
+                    Toast.makeText(itemView.getContext(), "Tab click: "+position, Toast.LENGTH_SHORT).show();
+                }
+            });
+            rcvTabHeader1.setAdapter(mF3Header1Adapter);
+            mF3Header1Adapter.notifyDataSetChanged();
         }
     }
 

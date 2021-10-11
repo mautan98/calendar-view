@@ -27,7 +27,7 @@ public class DealHomeChildFragment extends BaseFragment<FragmentDealHomeChildBin
         adapter = new RecyclerAdapter();
         adapter.setData(ItemGenerator.demoList());
         StickyLayoutManager layoutManager = new TopSnappedStickyLayoutManager(mActivity, adapter);
-        layoutManager.elevateHeaders(true); // Default elevation of 5dp
+        layoutManager.elevateHeaders(false); // Default elevation of 5dp
         // You can also specify a specific dp for elevation
 //        layoutManager.elevateHeaders(10);
         getBinding().recyclerView.setLayoutManager(layoutManager);
