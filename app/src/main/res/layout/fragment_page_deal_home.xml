@@ -24,6 +24,82 @@
                 android:background="@drawable/ic_deal_menu_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"/>
+            
+            
+            <View
+                android:id="@+id/btnHome"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+
+
+            <LinearLayout
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="375:50"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <LinearLayout
+                    android:id="@+id/btnMyGift"
+                    android:layout_marginEnd="30dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imgMyGift"
+                        android:src="@drawable/ic_my_gift_unselected"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"/>
+
+                    <TextView
+                        android:id="@+id/tvMyGift"
+                        android:textSize="12dp"
+                        android:textColor="#707070"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center"
+                        android:text="Quà của tôi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/btnDealSubcribe"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imgDealSubscribe"
+                        android:src="@drawable/ic_my_subcribe_unselected"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"/>
+
+                    <TextView
+                        android:id="@+id/tvDealSubscribe"
+                        android:textSize="12dp"
+                        android:textColor="#707070"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center"
+                        android:text="Theo dõi CTKM"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
