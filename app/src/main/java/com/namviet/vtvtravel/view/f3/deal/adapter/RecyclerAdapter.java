@@ -18,6 +18,7 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.ItemGenerator;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.SimpleDiffCallback;
+import com.namviet.vtvtravel.view.f3.deal.view.listdeal.ListDealActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -171,13 +172,20 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         private HorizontalInfiniteCycleViewPager infiniteCycleViewPager;
         private CircleIndicator indicator;
         private ViewPager mPagerSlide;
+        private View btnSeeMore;
+
+
         public ContentViewHolder1(View itemView) {
             super(itemView);
             rclContent = itemView.findViewById(R.id.rclContent);
             rclTab = itemView.findViewById(R.id.rclTab);
+
             infiniteCycleViewPager = itemView.findViewById(R.id.hicvp);
             indicator = (CircleIndicator) itemView.findViewById(R.id.indicator);
             mPagerSlide = itemView.findViewById(R.id.vp_cache);
+            btnSeeMore = itemView.findViewById(R.id.btnSeeMore);
+
+
         }
 
         public void bindItem(int position) {
@@ -217,6 +225,15 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            btnSeeMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ListDealActivity.Companion.startScreen(context);
+                }
+            });
+
+
         }
     }
 }
