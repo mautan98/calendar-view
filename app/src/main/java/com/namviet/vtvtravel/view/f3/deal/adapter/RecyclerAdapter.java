@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.view.f3.deal.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -8,9 +9,11 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.brandongogetap.stickyheaders.exposed.StickyHeader;
 import com.brandongogetap.stickyheaders.exposed.StickyHeaderHandler;
+import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.ItemGenerator;
@@ -18,6 +21,8 @@ import com.namviet.vtvtravel.view.f3.deal.view.dealhome.SimpleDiffCallback;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import me.relex.circleindicator.CircleIndicator;
 
 import static android.view.LayoutInflater.from;
 
@@ -163,20 +168,23 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         private int position;
         private RecyclerView rclContent;
         private RecyclerView rclTab;
-
+        private HorizontalInfiniteCycleViewPager infiniteCycleViewPager;
+        private CircleIndicator indicator;
+        private ViewPager mPagerSlide;
         public ContentViewHolder1(View itemView) {
             super(itemView);
             rclContent = itemView.findViewById(R.id.rclContent);
             rclTab = itemView.findViewById(R.id.rclTab);
-
-
+            infiniteCycleViewPager = itemView.findViewById(R.id.hicvp);
+            indicator = (CircleIndicator) itemView.findViewById(R.id.indicator);
+            mPagerSlide = itemView.findViewById(R.id.vp_cache);
         }
 
         public void bindItem(int position) {
             this.position = position;
             rclContent.setAdapter(new F3SubDealAdapter(null, null, null));
 
-            F3TabDealAdapter f3TabDealAdapter = new F3TabDealAdapter(0, ItemGenerator.demoTabDealList(), context, new F3TabDealAdapter.ClickTab() {
+            F3TabDealAdapter f3TabDealAdapter = new F3TabDealAdapter(0, ItemGenerator.demoTabDealList2(), context, new F3TabDealAdapter.ClickTab() {
                 @Override
                 public void onClickTab(int positionClick) {
 
@@ -184,7 +192,31 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                 }
             });
             rclTab.setAdapter(f3TabDealAdapter);
+            mPagerSlide.setAdapter(new BannerCacheDealAdapter(itemView.getContext(), false));
+            infiniteCycleViewPager.setAdapter(new BannerDealAdapter(itemView.getContext(), false));
+            infiniteCycleViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    mPagerSlide.setCurrentItem(infiniteCycleViewPager.getRealItem());
+                    Log.e("xxx", "onPageSelected: "+infiniteCycleViewPager.getRealItem());
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
+            try {
+                indicator.setViewPager(mPagerSlide);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

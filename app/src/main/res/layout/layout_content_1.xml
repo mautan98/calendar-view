@@ -7,6 +7,66 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp">
+            <RelativeLayout
+                app:layout_constraintDimensionRatio="355:155"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+                <androidx.viewpager.widget.ViewPager
+                    android:visibility="gone"
+                    android:id="@+id/vp_cache"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center" />
+            <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
+                android:id="@+id/hicvp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:icvp_center_page_scale_offset="30dp"
+                app:icvp_interpolator="@android:anim/accelerate_decelerate_interpolator"
+                app:icvp_max_page_scale="0.9"
+                app:icvp_medium_scaled="false"
+                app:icvp_min_page_scale="0.5"
+                app:icvp_min_page_scale_offset="5dp"
+                app:icvp_scroll_duration="250"
+                />
+                <com.ornach.richtext.RichView
+                    android:paddingBottom="3dp"
+                    android:paddingTop="3dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    app:rt_radius="10dp"
+                    app:rt_backgroundColor="#74FFFFFF"
+                    android:layout_marginBottom="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <me.relex.circleindicator.CircleIndicator
+                        android:id="@id/indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:ci_animator="@animator/indicator_no_animator"
+                        app:ci_drawable="@drawable/red_radius"
+                        app:ci_drawable_unselected="@drawable/white_radius"
+                        app:ci_height="8dp"
+                        app:ci_margin="5dp"
+                        app:ci_orientation="horizontal"
+                        app:ci_width="8dp" />
+                </com.ornach.richtext.RichView>
+
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

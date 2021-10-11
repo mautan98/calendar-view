@@ -71,13 +71,16 @@ public class F3Header1Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         private View imgSelected;
+        private View viewIndicator;
         private TextView tvTitle;
         private int position;
+
         public HeaderViewHolder(View itemView) {
             super(itemView);
 
             tvTitle = itemView.findViewById(R.id.tv_title);
             imgSelected = itemView.findViewById(R.id.v_selected);
+            viewIndicator = itemView.findViewById(R.id.v_indicator);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -94,13 +97,14 @@ public class F3Header1Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             if(position == 1|| position == 4){
                 imgSelected.setVisibility(View.VISIBLE);
             }
-            else imgSelected.setVisibility(View.GONE);
+            else imgSelected.setVisibility(View.INVISIBLE);
             this.position = position;
             if (position == selectedItem) {
-                tvTitle.setTextColor(ContextCompat.getColor(context, R.color.my_statusbar_color));
-
+                tvTitle.setTextColor(Color.parseColor("#FF2929"));
+                viewIndicator.setVisibility(View.VISIBLE);
             } else {
                 tvTitle.setTextColor(ContextCompat.getColor(context, R.color.black));
+                viewIndicator.setVisibility(View.INVISIBLE);
 
             }
             tvTitle.setText(items.get(position).getTitle());

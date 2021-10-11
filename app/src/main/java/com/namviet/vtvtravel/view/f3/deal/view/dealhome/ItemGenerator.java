@@ -46,6 +46,12 @@ public final class ItemGenerator {
         items.add(new Item("Săn quà", ""));
         return items;
     }
+    public static List<Item> demoTabDealList2() {
+        List<Item> items = new ArrayList<>();
+        items.add(new Item("Đang diễn ra", ""));
+        items.add(new Item("Sắp diễn ra", ""));
+        return items;
+    }
     public static List<Item> demoTabHeader1() {
         List<Item> items = new ArrayList<>();
         items.add(new Item("Đi đâu", ""));
