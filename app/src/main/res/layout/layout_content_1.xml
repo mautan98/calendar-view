@@ -164,5 +164,18 @@
 
         </com.facebook.shimmer.ShimmerFrameLayout>
     </FrameLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            app:layout_constraintDimensionRatio="375:48"
+            android:src="@drawable/bg_banner_deal_hot_for_you_"
+            android:text="Header 2"
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </LinearLayout>

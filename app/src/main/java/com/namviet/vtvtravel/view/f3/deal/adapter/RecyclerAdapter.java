@@ -125,7 +125,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                 public void onClickTab(int position) {
                     Toast.makeText(itemView.getContext(), "Tab click: "+position, Toast.LENGTH_SHORT).show();
                 }
-            });
+            },true);
             rcvTabHeader1.setAdapter(mF3Header1Adapter);
             mF3Header1Adapter.notifyDataSetChanged();
         }
@@ -133,16 +133,25 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
     public class HeaderViewHolder2 extends BaseViewHolder {
         private int position;
+        private RecyclerView rcvTabHeader1;
+        private  F3Header2Adapter mF3Header2Adapter;
 
         public HeaderViewHolder2(View itemView) {
             super(itemView);
-
+            rcvTabHeader1 = itemView.findViewById(R.id.rcv_tab_header1);
 
         }
 
         public void bindItem(int position) {
             this.position = position;
-
+            mF3Header2Adapter = new F3Header2Adapter(0, ItemGenerator.demoTabHeader1(), itemView.getContext(), new F3Header2Adapter.ClickTab() {
+                @Override
+                public void onClickTab(int position) {
+                    Toast.makeText(itemView.getContext(), "Tab click: "+position, Toast.LENGTH_SHORT).show();
+                }
+            },false);
+            rcvTabHeader1.setAdapter(mF3Header2Adapter);
+            mF3Header2Adapter.notifyDataSetChanged();
         }
     }
 

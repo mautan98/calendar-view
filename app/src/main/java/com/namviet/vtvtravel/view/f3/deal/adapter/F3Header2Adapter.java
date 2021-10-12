@@ -17,7 +17,7 @@ import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
 import java.util.ArrayList;
 import java.util.List;
 
-public class F3Header1Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class F3Header2Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
     private List<Item> items = new ArrayList<>();
     private Context context;
@@ -31,7 +31,7 @@ public class F3Header1Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
 
-    public F3Header1Adapter(int position, List<Item> items, Context context, ClickTab clickTab, boolean isHeader1) {
+    public F3Header2Adapter(int position, List<Item> items, Context context, ClickTab clickTab, boolean isHeader1) {
         this.items = items;
         this.context = context;
         this.clickTab = clickTab;
@@ -44,7 +44,7 @@ public class F3Header1Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
         if (viewType == TYPE_ITEM) {
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f3_item_header1, parent, false);
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f3_item_header2, parent, false);
             return new HeaderViewHolder(v);
         }
         return null;
