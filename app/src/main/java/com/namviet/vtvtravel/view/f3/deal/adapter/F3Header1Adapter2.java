@@ -2,7 +2,6 @@ package com.namviet.vtvtravel.view.f3.deal.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +17,14 @@ import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
 import java.util.ArrayList;
 import java.util.List;
 
-public class F3Header1Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class F3Header1Adapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
     private List<Item> items = new ArrayList<>();
     private Context context;
     public int selectedItem = 0;
-    private ClickTab clickTab;
+    private F3Header1Adapter.ClickTab clickTab;
     private boolean isHeader1;
-
+    private boolean isFake;
 
     @Override
     public int getItemViewType(int position) {
@@ -33,17 +32,7 @@ public class F3Header1Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
 
-    public void setSelectedItem(int selectedItem) {
-        try {
-            this.selectedItem = selectedItem;
-            notifyDataSetChanged();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("eeeeeeeeeeeeeee", e.getMessage());
-        }
-    }
-
-    public F3Header1Adapter(int position, List<Item> items, Context context, ClickTab clickTab, boolean isHeader1) {
+    public F3Header1Adapter2(int position, List<Item> items, Context context, F3Header1Adapter.ClickTab clickTab, boolean isHeader1) {
         this.items = items;
         this.context = context;
         this.clickTab = clickTab;
@@ -51,13 +40,9 @@ public class F3Header1Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.isHeader1 = isHeader1;
     }
 
-    public ClickTab getClickTab() {
-        return clickTab;
-    }
 
-
-    public void setClickTab(ClickTab clickTab) {
-        this.clickTab = clickTab;
+    public void setSelectedItem(int selectedItem) {
+        this.selectedItem = selectedItem;
     }
 
     @NonNull
@@ -91,6 +76,9 @@ public class F3Header1Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
+    public void setFake(boolean fake) {
+        isFake = fake;
+    }
 
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
@@ -140,10 +128,6 @@ public class F3Header1Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-
-    public interface ClickTab {
-        void onClickTab(int position);
-    }
 
 
 }

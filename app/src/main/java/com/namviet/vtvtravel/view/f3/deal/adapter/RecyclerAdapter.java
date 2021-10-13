@@ -15,10 +15,13 @@ import com.brandongogetap.stickyheaders.exposed.StickyHeader;
 import com.brandongogetap.stickyheaders.exposed.StickyHeaderHandler;
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.view.f3.deal.model.OnClickTabHeader1;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.ItemGenerator;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.SimpleDiffCallback;
 import com.namviet.vtvtravel.view.f3.deal.view.listdeal.ListDealActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +39,24 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
     private static final int TYPE_CONTENT_2 = 3;
     private Context context;
 
+
+    private int positionSelected1 = 0;
+
+    public void setPositionSelected1(int positionSelected1) {
+        this.positionSelected1 = positionSelected1;
+    }
+
+    private F3Header1Adapter mF3Header1Adapter;
+    private F3Header2Adapter mF3Header2Adapter;
+
+
+    public F3Header1Adapter getMF3Header1Adapter() {
+        return mF3Header1Adapter;
+    }
+
+    public F3Header2Adapter getMF3Header2Adapter() {
+        return mF3Header2Adapter;
+    }
 
     public void setData(List<Item> items, Context context) {
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new SimpleDiffCallback(data, items));
@@ -110,7 +131,6 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
     public class HeaderViewHolder1 extends BaseViewHolder {
         private int position;
         private RecyclerView rcvTabHeader1;
-        private  F3Header1Adapter mF3Header1Adapter;
         public HeaderViewHolder1(View itemView) {
             super(itemView);
             rcvTabHeader1 = itemView.findViewById(R.id.rcv_tab_header1);
@@ -120,10 +140,11 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
         public void bindItem(int position) {
             this.position = position;
-            mF3Header1Adapter = new F3Header1Adapter(0, ItemGenerator.demoTabHeader1(), itemView.getContext(), new F3Header1Adapter.ClickTab() {
+            mF3Header1Adapter = new F3Header1Adapter(positionSelected1, ItemGenerator.demoTabHeader1(), itemView.getContext(), new F3Header1Adapter.ClickTab() {
                 @Override
                 public void onClickTab(int position) {
                     Toast.makeText(itemView.getContext(), "Tab click: "+position, Toast.LENGTH_SHORT).show();
+                    EventBus.getDefault().post(new OnClickTabHeader1(position));
                 }
             },true);
             rcvTabHeader1.setAdapter(mF3Header1Adapter);
@@ -134,7 +155,6 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
     public class HeaderViewHolder2 extends BaseViewHolder {
         private int position;
         private RecyclerView rcvTabHeader1;
-        private  F3Header2Adapter mF3Header2Adapter;
 
         public HeaderViewHolder2(View itemView) {
             super(itemView);
