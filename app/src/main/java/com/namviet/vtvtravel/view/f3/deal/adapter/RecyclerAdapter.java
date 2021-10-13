@@ -16,6 +16,7 @@ import com.brandongogetap.stickyheaders.exposed.StickyHeaderHandler;
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.view.f3.deal.model.OnClickTabHeader1;
+import com.namviet.vtvtravel.view.f3.deal.model.OnClickTabHeader2;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.ItemGenerator;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.SimpleDiffCallback;
@@ -41,9 +42,14 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
 
     private int positionSelected1 = 0;
+    private int positionSelected2 = 0;
 
     public void setPositionSelected1(int positionSelected1) {
         this.positionSelected1 = positionSelected1;
+    }
+
+    public void setPositionSelected2(int positionSelected2) {
+        this.positionSelected2 = positionSelected2;
     }
 
     private F3Header1Adapter mF3Header1Adapter;
@@ -148,7 +154,6 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                 }
             },true);
             rcvTabHeader1.setAdapter(mF3Header1Adapter);
-            mF3Header1Adapter.notifyDataSetChanged();
         }
     }
 
@@ -164,14 +169,14 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
         public void bindItem(int position) {
             this.position = position;
-            mF3Header2Adapter = new F3Header2Adapter(0, ItemGenerator.demoTabHeader1(), itemView.getContext(), new F3Header2Adapter.ClickTab() {
+            mF3Header2Adapter = new F3Header2Adapter(positionSelected2, ItemGenerator.demoTabHeader1(), itemView.getContext(), new F3Header2Adapter.ClickTab() {
                 @Override
                 public void onClickTab(int position) {
                     Toast.makeText(itemView.getContext(), "Tab click: "+position, Toast.LENGTH_SHORT).show();
+                    EventBus.getDefault().post(new OnClickTabHeader2(position));
                 }
             },false);
             rcvTabHeader1.setAdapter(mF3Header2Adapter);
-            mF3Header2Adapter.notifyDataSetChanged();
         }
     }
 
@@ -224,7 +229,6 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             F3TabDealAdapter f3TabDealAdapter = new F3TabDealAdapter(0, ItemGenerator.demoTabDealList2(), context, new F3TabDealAdapter.ClickTab() {
                 @Override
                 public void onClickTab(int positionClick) {
-
 
                 }
             });
