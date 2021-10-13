@@ -57,7 +57,7 @@ public class DealHomeChildFragment extends BaseFragment<FragmentDealHomeChildBin
                 adapter.setPositionSelected2(position);
                 adapter.notifyItemChanged(2);
             }
-        }, true);
+        }, false);
         adapter = new RecyclerAdapter();
         adapter.setData(ItemGenerator.demoList(), mActivity);
         StickyLayoutManager layoutManager = new TopSnappedStickyLayoutManager(mActivity, adapter);

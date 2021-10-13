@@ -34,6 +34,53 @@
         </RelativeLayout>
 
 
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:background="@color/white"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:paddingStart="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:src="@drawable/ic_filter"
+                    android:layout_width="18dp"
+                    android:layout_height="12dp"/>
+
+                <TextView
+                    android:layout_marginStart="4dp"
+                    android:textSize="14dp"
+                    android:textColor="#757575"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Lọc theo: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rclFilterDeal"
+                android:clipToPadding="false"
+                android:paddingStart="11dp"
+                tools:listitem="@layout/item_filter_deal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+
         <androidx.recyclerview.widget.RecyclerView
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_subscribe_deal_parent"

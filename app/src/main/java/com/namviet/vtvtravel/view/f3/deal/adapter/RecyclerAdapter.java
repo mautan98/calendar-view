@@ -52,17 +52,6 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         this.positionSelected2 = positionSelected2;
     }
 
-    private F3Header1Adapter mF3Header1Adapter;
-    private F3Header2Adapter mF3Header2Adapter;
-
-
-    public F3Header1Adapter getMF3Header1Adapter() {
-        return mF3Header1Adapter;
-    }
-
-    public F3Header2Adapter getMF3Header2Adapter() {
-        return mF3Header2Adapter;
-    }
 
     public void setData(List<Item> items, Context context) {
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new SimpleDiffCallback(data, items));
@@ -137,6 +126,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
     public class HeaderViewHolder1 extends BaseViewHolder {
         private int position;
         private RecyclerView rcvTabHeader1;
+        private F3Header1Adapter mF3Header1Adapter;
         public HeaderViewHolder1(View itemView) {
             super(itemView);
             rcvTabHeader1 = itemView.findViewById(R.id.rcv_tab_header1);
@@ -160,6 +150,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
     public class HeaderViewHolder2 extends BaseViewHolder {
         private int position;
         private RecyclerView rcvTabHeader1;
+        private F3Header2Adapter mF3Header2Adapter;
 
         public HeaderViewHolder2(View itemView) {
             super(itemView);
