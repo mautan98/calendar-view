@@ -84,7 +84,7 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
         dataBanner.add(R.drawable.img_deal_exp);
         dataBanner.add(R.drawable.f2_banner_intro_offline);
         dataBanner.add(R.drawable.img_deal_exp);
-        dataBanner.add(R.drawable.f2_banner_intro_offline);l
+        dataBanner.add(R.drawable.f2_banner_intro_offline);
         adapterBanner = new SubDealHeaderItemAdapter(mActivity, dataBanner);
         getBinding().recyclerBanner.setAdapter(adapterBanner);
         PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
