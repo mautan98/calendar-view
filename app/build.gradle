@@ -168,6 +168,7 @@ dependencies {
     implementation 'com.github.devlight:infinitecycleviewpager:1.0.2'
 
 
+
 }
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
