@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/roboto_medium"
+        android:textSize="12dp"
+        android:textColor="#000000"
+        android:text="LIÊN HỆ VỚI HOTLINE:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    
+    
+    
+    <TextView
+        android:layout_marginStart="15dp"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/tv"
+        android:textSize="20dp"
+        android:fontFamily="@font/roboto_bold"
+        android:textColor="#0051C5"
+        android:text="1039"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    
+    
+    <ImageView
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_share_deal"
+        android:layout_width="40dp"
+        android:layout_height="40dp"/>
+
+</RelativeLayout>
