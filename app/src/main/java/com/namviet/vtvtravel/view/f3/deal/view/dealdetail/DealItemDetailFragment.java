@@ -60,7 +60,6 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
         data.add("");
         data.add("");
         data.add("");
-        data.add("");
         mDealAdapter = new DealAdapter(data,mActivity,this);
         getBinding().rcvDetailDeal.setAdapter(mDealAdapter);
         getBinding().appbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {

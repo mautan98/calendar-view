@@ -23,6 +23,7 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.travelnews.CommentInDetailTravelNewsAdapter;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.view.f3.deal.adapter.F3Header2Adapter;
+import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealFilterAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealSubscribeParentAdapter;
 import com.namviet.vtvtravel.view.f3.deal.model.OnClickTabHeader2;
@@ -123,10 +124,8 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 return CONTENT;
 
             case 5:
-                return COMMENT;
-
-            case 6:
                 return SUGGEST;
+
 
         }
         return getItemViewType(position);
@@ -161,7 +160,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public void bindItem(int position) {
-            rclContent.setAdapter(new DealSubscribeParentAdapter(mContext));
+            rclContent.setAdapter(new GridDealAdapter());
             rclFilterDeal.setAdapter(new DealFilterAdapter(mContext));
 
             mF3Header2Adapter = new F3Header2Adapter(0, ItemGenerator.demoTabHeader1(), itemView.getContext(), new F3Header2Adapter.ClickTab() {
