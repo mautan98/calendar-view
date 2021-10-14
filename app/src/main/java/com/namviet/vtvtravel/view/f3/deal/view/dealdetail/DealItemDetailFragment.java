@@ -4,11 +4,16 @@ import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.View;
 
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.appbar.AppBarLayout;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.databinding.FragmentDealItemDetailBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealdetail.DealAdapter;
+import com.namviet.vtvtravel.view.f3.deal.adapter.dealdetail.SubDealHeaderItemAdapter;
 import com.namviet.vtvtravel.viewmodel.f2travelnews.DetailNewsTravelViewModel;
 
 import java.util.ArrayList;
@@ -16,10 +21,14 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import me.relex.circleindicator.CircleIndicator2;
+
 
 public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailBinding> implements View.OnClickListener, Observer, DealAdapter.LoadData {
     private DealAdapter mDealAdapter;
     private List<Object> data ;
+    private SubDealHeaderItemAdapter adapterBanner;
+    private List<Integer> dataBanner;
     public DealItemDetailFragment() {
         // Required empty public constructor
     }
@@ -54,8 +63,33 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
         data.add("");
         mDealAdapter = new DealAdapter(data,mActivity,this);
         getBinding().rcvDetailDeal.setAdapter(mDealAdapter);
+        getBinding().appbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (verticalOffset == 0) {
+                    getBinding().tvTitle.setVisibility(View.GONE);
+                } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
+                    getBinding().tvTitle.setVisibility(View.VISIBLE);
+                } else {
+                    getBinding().tvTitle.setVisibility(View.GONE);
+                }
+            }
+        });
+        initBanner();
 
+    }
 
+    private void initBanner() {
+        dataBanner = new ArrayList<>();
+        dataBanner.add(R.drawable.img_deal_exp);
+        dataBanner.add(R.drawable.f2_banner_intro_offline);
+        dataBanner.add(R.drawable.img_deal_exp);
+        dataBanner.add(R.drawable.f2_banner_intro_offline);
+        adapterBanner = new SubDealHeaderItemAdapter(mActivity, dataBanner);
+        getBinding().recyclerBanner.setAdapter(adapterBanner);
+        PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
+        pagerSnapHelper.attachToRecyclerView(getBinding().recyclerBanner);
+        getBinding().indicator.attachToRecyclerView(getBinding().recyclerBanner, pagerSnapHelper);
     }
 
     @Override

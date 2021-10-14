@@ -418,8 +418,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
-        private RecyclerView mRecyclerBanner;
-        private CircleIndicator2 mIndicator;
+
         private TextView mTvTilte;
         private TextView mTvShowOnMap;
         private TextView mCodeDeal;
@@ -428,7 +427,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private TextView mTvUserTotal;
         private ProgressBar mProgressCountDown;
         private TextView mTvTimeCountDown;
-        private List<Integer> data;
+
         private SubDealHeaderItemAdapter adapter;
 
         public HeaderViewHolder(View itemView) {
@@ -437,13 +436,6 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private void initView(View itemView) {
-            data = new ArrayList<>();
-            data.add(R.drawable.bg_register_service_success);
-            data.add(R.drawable.f2_banner_intro_offline);
-            data.add(R.drawable.bg_register_service_success);
-            data.add(R.drawable.f2_banner_intro_offline);
-            mRecyclerBanner = (RecyclerView) itemView.findViewById(R.id.recycler_banner);
-            mIndicator = (CircleIndicator2) itemView.findViewById(R.id.indicator);
             mTvTilte = (TextView) itemView.findViewById(R.id.tv_tilte);
             mTvShowOnMap = (TextView) itemView.findViewById(R.id.tv_show_on_map);
             mCodeDeal = (TextView) itemView.findViewById(R.id.code_deal);
@@ -452,11 +444,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mTvUserTotal = (TextView) itemView.findViewById(R.id.tvUserTotal);
             mProgressCountDown = (ProgressBar) itemView.findViewById(R.id.progress_count_down);
             mTvTimeCountDown = (TextView) itemView.findViewById(R.id.tv_time_count_down);
-            adapter = new SubDealHeaderItemAdapter(mContext, data);
-            mRecyclerBanner.setAdapter(adapter);
-            PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
-            pagerSnapHelper.attachToRecyclerView(mRecyclerBanner);
-            mIndicator.attachToRecyclerView(mRecyclerBanner, pagerSnapHelper);
+
         }
 
 

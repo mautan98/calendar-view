@@ -7,34 +7,9 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/recycler_banner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="150dp"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_sub_deal_img" />
-    <me.relex.circleindicator.CircleIndicator2
-        android:layout_alignBottom="@+id/recycler_banner"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:id="@id/indicator"
-        app:ci_width="8dp"
-        app:ci_height="8dp"
-        app:ci_margin="5dp"
-        app:ci_orientation="horizontal"
-        app:ci_animator="@animator/indicator_no_animator"
-        app:ci_drawable="@drawable/blue_radius"
-        app:ci_drawable_unselected="@drawable/white_radius"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_margin="10dp"
-        android:layout_below="@+id/recycler_banner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
