@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_marginTop="11dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:src="@drawable/ic_card"
+            android:layout_width="13dp"
+            android:layout_height="13dp"/>
+
+        <TextView
+            android:textAllCaps="true"
+            android:layout_marginStart="13.7dp"
+            android:textSize="14dp"
+            android:fontFamily="@font/roboto_regular"
+            android:textColor="#000000"
+            android:text="Mã CTKM:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:textColor="#0051C5"
+            android:textSize="16dp"
+            android:fontFamily="@font/roboto_bold"
+            android:layout_marginStart="5dp"
+            android:text="DK50K01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="11dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:src="@drawable/ic_group"
+            android:layout_width="18dp"
+            android:layout_height="10dp"/>
+
+        <TextView
+            android:layout_marginStart="8.4dp"
+            android:textSize="14dp"
+            android:fontFamily="@font/roboto_regular"
+            android:textColor="#000000"
+            android:text="Người đang săn: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:textSize="16dp"
+            android:fontFamily="@font/roboto_bold"
+            android:layout_marginStart="5dp"
+            android:text="100+"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="11dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:src="@drawable/hourglass"
+            android:layout_width="11dp"
+            android:layout_height="14dp"/>
+
+        <TextView
+            android:layout_marginStart="14.7dp"
+            android:textSize="14dp"
+            android:fontFamily="@font/roboto_regular"
+            android:textColor="#000000"
+            android:text="Thời gian giữ CTKM :"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:layout_marginStart="8dp"
+            android:textSize="14dp"
+            android:fontFamily="@font/roboto_regular"
+            android:textColor="#FE6F6F"
+            android:text="Bạn chưa tích lũy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="11dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:src="@drawable/podium"
+            android:layout_width="15dp"
+            android:layout_height="15dp"/>
+
+        <TextView
+            android:layout_marginStart="12.5dp"
+            android:textSize="14dp"
+            android:fontFamily="@font/roboto_regular"
+            android:textColor="#000000"
+            android:text="Xếp hạng :"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:layout_marginStart="8dp"
+            android:textSize="14dp"
+            android:fontFamily="@font/roboto_regular"
+            android:textColor="#FE6F6F"
+            android:text="Bạn chưa tích lũy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <ImageView
+            android:visibility="gone"
+            android:layout_width="31dp"
+            android:layout_height="34dp"/>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="9dp"
+        android:background="#ECECEC"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"/>
+
+</LinearLayout>

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -21,9 +22,16 @@ import com.google.android.material.tabs.TabLayout;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.travelnews.CommentInDetailTravelNewsAdapter;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
+import com.namviet.vtvtravel.view.f3.deal.adapter.F3Header2Adapter;
+import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealFilterAdapter;
+import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealSubscribeParentAdapter;
+import com.namviet.vtvtravel.view.f3.deal.model.OnClickTabHeader2;
 import com.namviet.vtvtravel.view.f3.deal.model.Rank;
 import com.namviet.vtvtravel.view.f3.deal.model.UserObj;
+import com.namviet.vtvtravel.view.f3.deal.view.dealhome.ItemGenerator;
 import com.ornach.richtext.RichText;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +65,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_header_deal_detail_item, parent, false);
             return new HeaderViewHolder(v);
         } else if (viewType == USER_OBJECT) {
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_user_object_item, parent, false);
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_deal_information_2, parent, false);
             return new UserObjectViewHolder(v);
         } else if (viewType == HOT_LINE) {
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_hotline, parent, false);
@@ -72,7 +80,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_comment_item, parent, false);
             return new CommentViewHolder(v);
         } else if (viewType == SUGGEST) {
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_suggest_item, parent, false);
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_deal_chilld_list_in_deal_parent, parent, false);
             return new MoreViewHolder(v);
         }
         return null;
@@ -133,12 +141,11 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     public class MoreViewHolder extends RecyclerView.ViewHolder {
-        private View mViewTop;
-        private TextView mTvTitle;
-        private TextView mTvDes;
-        private RecyclerView mRcvSuggest;
-        private List<String> data;
-        private SubSuggestItemAdapter adapter;
+        private RecyclerView rclFilterDeal;
+        private RecyclerView rclContent;
+
+        private RecyclerView rcvTabHeader1;
+        private F3Header2Adapter mF3Header2Adapter;
 
         public MoreViewHolder(View itemView) {
             super(itemView);
@@ -147,23 +154,24 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private void initView(View itemView) {
-            mViewTop = (View) itemView.findViewById(R.id.view_top);
-            mTvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            mTvDes = (TextView) itemView.findViewById(R.id.tv_des);
-            mRcvSuggest = (RecyclerView) itemView.findViewById(R.id.rcv_suggest);
-            data = new ArrayList<>();
-            data.add("");
-            data.add("");
-            data.add("");
-            data.add("");
-            data.add("");
-            data.add("");
-            adapter = new SubSuggestItemAdapter(mContext, data);
-            mRcvSuggest.setAdapter(adapter);
+            rclFilterDeal = itemView.findViewById(R.id.rclFilterDeal);
+            rclContent = itemView.findViewById(R.id.rclContent);
+
+            rcvTabHeader1 = itemView.findViewById(R.id.rcv_tab_header1);
         }
 
         public void bindItem(int position) {
+            rclContent.setAdapter(new DealSubscribeParentAdapter(mContext));
+            rclFilterDeal.setAdapter(new DealFilterAdapter(mContext));
 
+            mF3Header2Adapter = new F3Header2Adapter(0, ItemGenerator.demoTabHeader1(), itemView.getContext(), new F3Header2Adapter.ClickTab() {
+                @Override
+                public void onClickTab(int position) {
+                    Toast.makeText(itemView.getContext(), "Tab click: "+position, Toast.LENGTH_SHORT).show();
+                    EventBus.getDefault().post(new OnClickTabHeader2(position));
+                }
+            },false);
+            rcvTabHeader1.setAdapter(mF3Header2Adapter);
         }
     }
 
@@ -376,11 +384,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public class UserObjectViewHolder extends RecyclerView.ViewHolder {
-        private TextView mTvUserObj;
-        private RecyclerView mRcvRanking;
-        private List<UserObj> userObjs;
-        private SubUserObjItemAdapter adapter;
-        private GridLayoutManager manager;
+
 
         public UserObjectViewHolder(View itemView) {
             super(itemView);
@@ -388,32 +392,11 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private void initView(View itemView) {
-            mTvUserObj = (TextView) itemView.findViewById(R.id.tv_user_obj);
-            mRcvRanking = (RecyclerView) itemView.findViewById(R.id.rcv_ranking);
-            userObjs = new ArrayList<>();
-            userObjs.add(new UserObj(R.drawable.f2_ic_filter_rank_silver, "Friend", true));
-            userObjs.add(new UserObj(R.drawable.f2_ic_filter_rank_bronze_a, "Bronze A", true));
-            userObjs.add(new UserObj(R.drawable.f2_ic_filter_rank_bronze_b, "Bronze B", true));
-            userObjs.add(new UserObj(R.drawable.f2_ic_filter_rank_silver, "Silver", true));
-            userObjs.add(new UserObj(R.drawable.f2_ic_filter_rank_gold, "Gold", true));
-            userObjs.add(new UserObj(R.drawable.f2_ic_filter_rank_diamond, "Diamond", true));
-            userObjs.add(new UserObj(R.drawable.f2_ic_filter_rank_platinium, "PLatinium", true));
-            adapter = new SubUserObjItemAdapter(mContext, userObjs);
-            manager = new GridLayoutManager(mContext, 3, GridLayoutManager.VERTICAL, false);
-            manager.setSpanSizeLookup(
-                    new GridLayoutManager.SpanSizeLookup() {
-                        @Override
-                        public int getSpanSize(int position) {
-                            // 3 column size for first row
-                            return (position == 0 ? 3 : 1);
-                        }
-                    });
-            mRcvRanking.setLayoutManager(manager);
+
 
         }
 
         public void bindItem(int position) {
-            mRcvRanking.setAdapter(adapter);
         }
     }
 

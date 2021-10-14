@@ -209,6 +209,8 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
+        app:spanCount="2"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         android:orientation="vertical"
         android:id="@+id/rclContent"
         android:layout_width="match_parent"
