@@ -4,173 +4,244 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
     android:background="@color/white"
     android:orientation="vertical">
 
 
     <LinearLayout
-        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
-            android:text="@string/short_title_moment"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:id="@+id/tv_tilte"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="2"/>
-        <LinearLayout
-            android:gravity="center|left"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:text="@string/show_on_map"
-                android:textSize="13dp"
-                android:textStyle="bold"
-                android:textColor="#3481EF"
-                android:id="@+id/tv_show_on_map"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="2"/>
+            android:layout_height="45dp"
+            android:background="#00C574">
+
             <ImageView
-                android:padding="2dp"
-                android:src="@drawable/ic_baseline_map_24"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:gravity="center|left"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                android:id="@+id/img_speaker"
+                android:layout_width="24dp"
+                android:layout_height="19dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/f3_ic_speaker" />
+
             <TextView
-                android:text="@string/code_deal"
-                android:textSize="15dp"
-                android:textColor="@color/black"
+                android:id="@+id/tv_status_deal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="2"/>
-            <TextView
-                android:text="DK50D01"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                android:textColor="#0051C5"
-                android:id="@+id/code_deal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="2"/>
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:padding="2dp"
-                android:src="@drawable/f2_ic_price"
-                android:layout_width="20dp"
-                android:layout_height="25dp"
-                app:tint="#585858" />
-            <TextView
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:text="@string/old_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/tv_new_price"
-                android:textColor="@color/red_primary"
-                android:layout_marginLeft="10dp"
-                android:text="@string/new_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <com.ornach.richtext.RichText
-                android:layout_marginLeft="10dp"
-                android:id="@+id/tv_dis_count"
-                android:gravity="center"
+                android:layout_toLeftOf="@+id/lnl_timer"
+                android:layout_toRightOf="@+id/img_speaker"
+                android:maxLines="1"
+                android:text="Chương trình đang diễn ra!"
                 android:textColor="@color/white"
-                android:textAllCaps="true"
-                android:text="-35%"
-                app:rt_backgroundColor="@color/red_primary"
-                app:rt_radius="5dp"
-                android:layout_width="50dp"
-                android:layout_height="30dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                app:tint="#585858"
-                android:layout_width="21dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:src="@drawable/f2_ic_people" />
-
-            <TextView
-                android:text="100 người đang săn"
-                android:id="@+id/tvUserTotal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:fontFamily="@font/roboto_regular"
-                android:textColor="#000000"
                 android:textSize="12dp" />
 
-            <ImageView
-                android:visibility="invisible"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:src="@drawable/f2_ic_star_armorial" />
-        </LinearLayout>
-        <RelativeLayout
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="25dp">
-
-            <ProgressBar
-                android:layout_alignParentBottom="true"
+            <LinearLayout
+                android:id="@+id/lnl_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:id="@+id/progress_count_down"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:progress="50"
-                android:progressDrawable="@drawable/f2_rounded_corners_progress_bar_time_left" />
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="thời gian tích lũy"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+
+                <com.ornach.richtext.RichText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="0 ngày, 00 : 00 : 00"
+                    android:textAllCaps="true"
+                    android:textColor="#FF2929"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    app:rt_backgroundColor="@color/white"
+                    app:rt_radius="5dp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:orientation="vertical">
 
             <TextView
-               android:layout_alignParentBottom="true"
-                android:textAllCaps="true"
-                android:visibility="visible"
-                android:text="còn lại 4 ngay 22:14:22"
-                android:fontFamily="@font/roboto_regular"
-                android:textSize="10dp"
-                android:id="@+id/tv_time_count_down"
-                android:textColor="@color/white"
-                android:gravity="center"
+                android:id="@+id/tv_tilte"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:maxLines="2"
+                android:text="@string/short_title_moment"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:textStyle="bold" />
 
-            <ImageView
-                android:layout_alignParentBottom="true"
-                android:layout_width="17dp"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/lnl_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="left"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/old_price" />
+
+                    <TextView
+                        android:id="@+id/tv_new_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/new_price"
+                        android:textColor="@color/black"
+                        android:textSize="17dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_dis_count"
+                    android:layout_width="44dp"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/lnl_price"
+                    android:background="@drawable/ic_tooltip"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:text="-35%"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
+
+                <com.ornach.richtext.RichView
+                    android:id="@+id/rll_my_gift"
+                    android:layout_width="155dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="-10dp"
+                   >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.ornach.richtext.RichText
+                            app:rt_backgroundColor="#42FFC73B"
+                            app:rt_radius="20dp"
+                            android:id="@+id/tv_my_gift"
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentBottom="true"
+                            android:gravity="center"
+                            android:paddingLeft="40dp"
+                            android:paddingRight="20dp"
+                            android:text="Đến Quà của tôi"
+                            android:textColor="#C19730"
+                            android:textSize="11dp" />
+
+                        <ImageView
+
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_marginLeft="20dp"
+                            android:src="@drawable/giftbox" />
+                    </RelativeLayout>
+
+                </com.ornach.richtext.RichView>
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvUserTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="HSD: 20.10.2021"
+                    android:textColor="#727272"
+                    android:textSize="10dp" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_hot_deal" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp">
 
-        </RelativeLayout>
+                <ProgressBar
+                    android:id="@+id/progress_count_down"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerVertical="true"
+                    android:progress="50"
+                    android:progressDrawable="@drawable/f2_rounded_corners_progress_bar_time_left" />
+
+
+                <TextView
+                    android:id="@+id/tv_time_count_down"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center"
+                    android:text="còn lại 4 ngay 22:14:22"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="10dp"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/ic_hot_deal" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

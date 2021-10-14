@@ -403,10 +403,10 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTvTilte;
-        private TextView mTvShowOnMap;
-        private TextView mCodeDeal;
+
+
         private TextView mTvNewPrice;
-        private RichText mTvDisCount;
+        private TextView mTvDisCount;
         private TextView mTvUserTotal;
         private ProgressBar mProgressCountDown;
         private TextView mTvTimeCountDown;
@@ -420,10 +420,8 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private void initView(View itemView) {
             mTvTilte = (TextView) itemView.findViewById(R.id.tv_tilte);
-            mTvShowOnMap = (TextView) itemView.findViewById(R.id.tv_show_on_map);
-            mCodeDeal = (TextView) itemView.findViewById(R.id.code_deal);
             mTvNewPrice = (TextView) itemView.findViewById(R.id.tv_new_price);
-            mTvDisCount = (RichText) itemView.findViewById(R.id.tv_dis_count);
+            mTvDisCount = (TextView) itemView.findViewById(R.id.tv_dis_count);
             mTvUserTotal = (TextView) itemView.findViewById(R.id.tvUserTotal);
             mProgressCountDown = (ProgressBar) itemView.findViewById(R.id.progress_count_down);
             mTvTimeCountDown = (TextView) itemView.findViewById(R.id.tv_time_count_down);
