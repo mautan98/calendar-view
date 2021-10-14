@@ -3,10 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:paddingTop="10dp">
+    android:background="#FFFFFF"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <View
+        android:id="@+id/view"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#F6F6F6"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
 
     <ImageView
+        android:layout_marginTop="10dp"
         android:layout_marginStart="8dp"
         android:scaleType="centerCrop"
         android:src="@drawable/f3_banner_deal_exp"
@@ -15,10 +23,11 @@
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="63:39"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
 
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:id="@+id/layoutContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -26,7 +35,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toStartOf="@+id/btnHideShow"
         app:layout_constraintStart_toEndOf="@+id/imgAvatar"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/view">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,10 +97,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
+                android:src="@drawable/ic_clock"
                 android:layout_width="8dp"
                 android:layout_height="8dp" />
 
@@ -110,17 +121,19 @@
     </LinearLayout>
 
     <ImageView
+        android:src="@drawable/ic_show_child"
         android:id="@+id/btnHideShow"
         android:layout_width="21dp"
         android:layout_height="21dp"
         android:layout_marginEnd="16dp"
-        android:background="@color/red"
         app:layout_constraintBottom_toBottomOf="@+id/imgAvatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imgAvatar" />
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:id="@+id/rclContent"
         tools:listitem="@layout/item_subscribe_deal_child"
         android:layout_marginTop="14dp"

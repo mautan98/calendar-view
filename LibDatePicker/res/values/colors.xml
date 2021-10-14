@@ -44,4 +44,6 @@
     <color name="done_text_color_dark_normal">#ffffff</color>
     <color name="done_text_color_dark_disabled">#888888</color>
     <color name="done_disabled_dark">#bfbfbf</color>
+
+    <color name="red_primary">#C51100</color>
 </resources>

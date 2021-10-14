@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <androidx.recyclerview.widget.RecyclerView
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/recycler_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="150dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_sub_deal_img" />
+    <me.relex.circleindicator.CircleIndicator2
+        android:layout_alignBottom="@+id/recycler_banner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@id/indicator"
+        app:ci_width="8dp"
+        app:ci_height="8dp"
+        app:ci_margin="5dp"
+        app:ci_orientation="horizontal"
+        app:ci_animator="@animator/indicator_no_animator"
+        app:ci_drawable="@drawable/blue_radius"
+        app:ci_drawable_unselected="@drawable/white_radius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:layout_below="@+id/recycler_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:text="@string/short_title_moment"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:id="@+id/tv_tilte"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"/>
+        <LinearLayout
+            android:gravity="center|left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:text="@string/show_on_map"
+                android:textSize="13dp"
+                android:textStyle="bold"
+                android:textColor="#3481EF"
+                android:id="@+id/tv_show_on_map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"/>
+            <ImageView
+                android:padding="2dp"
+                android:src="@drawable/ic_baseline_map_24"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:gravity="center|left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:text="@string/code_deal"
+                android:textSize="15dp"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"/>
+            <TextView
+                android:text="DK50D01"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:textColor="#0051C5"
+                android:id="@+id/code_deal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"/>
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:padding="2dp"
+                android:src="@drawable/f2_ic_price"
+                android:layout_width="20dp"
+                android:layout_height="25dp"
+                app:tint="#585858" />
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:text="@string/old_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_new_price"
+                android:textColor="@color/red_primary"
+                android:layout_marginLeft="10dp"
+                android:text="@string/new_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <com.ornach.richtext.RichText
+                android:layout_marginLeft="10dp"
+                android:id="@+id/tv_dis_count"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textAllCaps="true"
+                android:text="-35%"
+                app:rt_backgroundColor="@color/red_primary"
+                app:rt_radius="5dp"
+                android:layout_width="50dp"
+                android:layout_height="30dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                app:tint="#585858"
+                android:layout_width="21dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/f2_ic_people" />
+
+            <TextView
+                android:text="100 người đang săn"
+                android:id="@+id/tvUserTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/roboto_regular"
+                android:textColor="#000000"
+                android:textSize="12dp" />
+
+            <ImageView
+                android:visibility="invisible"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/f2_ic_star_armorial" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+
+            <ProgressBar
+                android:layout_alignParentBottom="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/progress_count_down"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:progress="50"
+                android:progressDrawable="@drawable/f2_rounded_corners_progress_bar_time_left" />
+
+
+            <TextView
+               android:layout_alignParentBottom="true"
+                android:textAllCaps="true"
+                android:visibility="visible"
+                android:text="còn lại 4 ngay 22:14:22"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="10dp"
+                android:id="@+id/tv_time_count_down"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_alignParentBottom="true"
+                android:layout_width="17dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_hot_deal" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

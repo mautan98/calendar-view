@@ -207,5 +207,12 @@
 
     Type a message
 
+    <string name="show_on_map">Xem trên bản đồ</string>
+    <string name="code_deal">Mã CTKM: </string>
+    <string name="old_price"> <strike>2.299.000đ</strike> </string>
+    <string name="new_price">1.989.000đ</string>
+    <string name="infor_content">Thông tin</string>
+    <string name="collapse">Thu gọn</string>
+
 
 </resources>
