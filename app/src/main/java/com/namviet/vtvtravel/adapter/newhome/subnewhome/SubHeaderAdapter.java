@@ -1,46 +1,30 @@
 package com.namviet.vtvtravel.adapter.newhome.subnewhome;
 
-import android.app.Activity;
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.baseapp.activity.BaseActivity;
-import com.baseapp.utils.KeyboardUtils;
-import com.baseapp.utils.MyFragment;
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
-import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
-import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.model.Account;
-import com.namviet.vtvtravel.model.f2event.OnClickBookingTopMenu;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
-import com.namviet.vtvtravel.response.f2livetv.LiveTvResponse;
-import com.namviet.vtvtravel.response.newhome.HomeServiceResponse;
 import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f2.CreateTripActivity;
-import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
 import com.namviet.vtvtravel.view.f2.LiveTVActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
-import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
-import com.namviet.vtvtravel.view.f3.commingsoon.view.ComingSoonActivity;
-import com.namviet.vtvtravel.view.fragment.f2booking.BookingFragment;
 import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
-import com.namviet.vtvtravel.view.fragment.f2webview.VQMMWebviewFragment;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +33,7 @@ public class SubHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private static final int TYPE_ITEM = 0;
     private List<ItemHomeService.Item> items = new ArrayList<>();
     private Context context;
+    private MainActivity mActivity;
     private String mUrlDeal;
 
 
@@ -56,7 +41,7 @@ public class SubHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.items = items;
         this.context = context;
         this.mUrlDeal = urlDeal;
-
+        mActivity = (MainActivity) context;
     }
 
     @Override
@@ -121,25 +106,30 @@ public class SubHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         switch (code){
                             case "BOOKING":
                             //    MyFragment.openFragment(context,  R.id.frHome, BookingFragment.class, null, false);
-                                EventBus.getDefault().post(new OnClickBookingTopMenu());
-                                break;
+                             //   EventBus.getDefault().post(new OnClickBookingTopMenu());
+//                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+//                                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+//                                break;
                             case "CTKM":
-                                try {
-                                    DetailDealWebviewActivity.startScreen(context,link);
-                                } catch ( java.lang.Exception e) {
-                                e.printStackTrace();
-                            }
-                                break;
+//                                try {
+//                                    DetailDealWebviewActivity.startScreen(context,link);
+//                                } catch ( java.lang.Exception e) {
+//                                e.printStackTrace();
+//                            }
+//                                break;
                             case "VQMM":
-                                try {
-                                    Account account = MyApplication.getInstance().getAccount();
-                                    if (null != account && account.isLogin()) {
-                                        VQMMWebviewActivity.startScreen(context, "");
-                                    } else {
-                                        LoginAndRegisterActivityNew.startScreen(context, 0, false);
-                                    }
-                                } catch ( Exception e) {
-                            }
+//                                try {
+//                                    Account account = MyApplication.getInstance().getAccount();
+//                                    if (null != account && account.isLogin()) {
+//                                        VQMMWebviewActivity.startScreen(context, "");
+//                                    } else {
+//                                        LoginAndRegisterActivityNew.startScreen(context, 0, false);
+//                                    }
+//                                } catch ( Exception e) {
+//                            }
+
+                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+                                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
                                 break;
                             case "LIVETV":
                                 LiveTVActivity.openScreen(context, 0,items.get(getAdapterPosition()).getLink() );

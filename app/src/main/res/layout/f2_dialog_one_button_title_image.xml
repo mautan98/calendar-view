@@ -36,7 +36,7 @@
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center"
-                android:text="Tính năng đang được cập nhật, mời bạn quay lại sau!"
+                android:text="Tính năng đang được cập nhật"
                 android:textColor="#000000"
                 android:textSize="16dp" />
 

@@ -43,7 +43,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:fontFamily="@font/roboto_regular"
-                android:text="Xác nhận mật khẩu phải trùng với thông tin mật khẩu"
+                android:text="Mật khẩu xác nhận không đúng. Vui lòng kiểm tra và nhập lại"
                 android:textColor="@color/white"
                 android:textSize="16dp" />
 

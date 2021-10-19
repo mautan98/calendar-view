@@ -2,26 +2,28 @@ package com.namviet.vtvtravel.adapter.f2menu;
 
 import android.app.Activity;
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
+import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2event.OnClickMomentInMenu;
 import com.namviet.vtvtravel.model.f2event.OnClickVideoInMenu;
 import com.namviet.vtvtravel.response.f2menu.MenuItem;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.MainActivity;
-import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
 import com.namviet.vtvtravel.view.f2.ImagePartActivity;
 import com.namviet.vtvtravel.view.f2.LiveTVActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
+import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -36,12 +38,14 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<MenuItem> itemsNormal;
     private List<MenuItem> itemsFooter;
+    private MainActivity mActivity;
 
     public MenuAdapter(List<MenuItem> itemsNormal, List<MenuItem> itemsFooter, Context context, ClickItem clickItem) {
         this.context = context;
         this.clickItem = clickItem;
         this.itemsNormal = itemsNormal;
         this.itemsFooter = itemsFooter;
+        mActivity = (MainActivity) context;
     }
 
     @Override
@@ -175,16 +179,26 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             LiveTVActivity.openScreen(context, 0, itemMenu.getLink());
                             break;
                         case "APP_MAIN_DEAL":
-                            try {
-                                DetailDealWebviewActivity.startScreen(context, itemMenu.getLink());
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_DEAL_HUNT, TrackingAnalytic.getDefault("Menu", "Menu"));
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+
+//                            try {
+//                                DetailDealWebviewActivity.startScreen(context, itemMenu.getLink());
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//                            try {
+//                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_DEAL_HUNT, TrackingAnalytic.getDefault("Menu", "Menu"));
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//                            try {
+//                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+//                                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+                            OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+                            oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+                            //  DealHomeActivity.Companion.startScreen(context);
                             break;
 
                     }

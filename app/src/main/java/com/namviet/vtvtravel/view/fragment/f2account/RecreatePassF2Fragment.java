@@ -116,7 +116,7 @@ public class RecreatePassF2Fragment extends BaseFragment<F2FragmentRecreatePassB
             } else if (pass2.isEmpty()) {
                 handleValidateFail(getBinding().edtPassword2, getBinding().linearPassword2, "Xác nhận mật khẩu không được để trống");
             } else if (!pass1.equals(pass2)) {
-                handleValidateFail(getBinding().edtPassword2, getBinding().linearPassword2, "Xác nhận mật khẩu phải trùng với thông tin mật khẩu");
+                handleValidateFail(getBinding().edtPassword2, getBinding().linearPassword2, "Mật khẩu xác nhận không đúng. Vui lòng kiểm tra và nhập lại");
             } else if (pass1.length() < 6) {
                 handleValidateFail(getBinding().edtPassword, getBinding().linearPassword, "Mật khẩu không được nhỏ hơn 6 ký tự");
             } else {
