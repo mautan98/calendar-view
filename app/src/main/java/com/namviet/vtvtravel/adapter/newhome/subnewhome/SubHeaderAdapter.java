@@ -19,12 +19,15 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.Account;
+import com.namviet.vtvtravel.model.f2event.OnClickBookingTopMenu;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f2.CreateTripActivity;
 import com.namviet.vtvtravel.view.f2.LiveTVActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,10 +109,8 @@ public class SubHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         switch (code){
                             case "BOOKING":
                             //    MyFragment.openFragment(context,  R.id.frHome, BookingFragment.class, null, false);
-                             //   EventBus.getDefault().post(new OnClickBookingTopMenu());
-//                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-//                                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
-//                                break;
+                                EventBus.getDefault().post(new OnClickBookingTopMenu());
+                                break;
                             case "CTKM":
 //                                try {
 //                                    DetailDealWebviewActivity.startScreen(context,link);
@@ -128,8 +129,12 @@ public class SubHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 //                                } catch ( Exception e) {
 //                            }
 
-                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-                                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+                                try {
+                                    OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+                                    oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                                 break;
                             case "LIVETV":
                                 LiveTVActivity.openScreen(context, 0,items.get(getAdapterPosition()).getLink() );

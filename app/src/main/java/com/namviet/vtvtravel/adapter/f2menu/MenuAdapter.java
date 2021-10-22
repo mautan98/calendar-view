@@ -165,13 +165,20 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                             break;
                         case "APP_MAIN_PROMOTION":
-                            TravelVoucherActivity.openScreen(context, true, TravelVoucherActivity.OpenType.LIST, false);
+//                            TravelVoucherActivity.openScreen(context, true, TravelVoucherActivity.OpenType.LIST, false);
 //                            Account account2 = MyApplication.getInstance().getAccount();
 //                            if (null != account2 && account2.isLogin()) {
 //                                TravelVoucherActivity.openScreen(context, true, TravelVoucherActivity.OpenType.LIST);
 //                            } else {
 //                                LoginAndRegisterActivityNew.startScreen(context, 0, false);
 //                            }
+
+                            try {
+                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+                                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
 
                             break;
                         case "APP_MAIN_LIVETV":
@@ -196,8 +203,12 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //                            } catch (Exception e) {
 //                                e.printStackTrace();
 //                            }
-                            OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-                            oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+                            try {
+                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+                                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                             //  DealHomeActivity.Companion.startScreen(context);
                             break;
 

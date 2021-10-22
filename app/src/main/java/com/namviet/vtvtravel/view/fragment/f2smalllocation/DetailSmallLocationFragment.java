@@ -29,6 +29,7 @@ import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2FragmentDetailSmallLocationBinding;
+import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
@@ -38,9 +39,11 @@ import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
+import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.ShareActivity;
 import com.namviet.vtvtravel.view.f2.SlideImageActivity;
+import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
 import com.namviet.vtvtravel.view.fragment.share.ContactShareFragment;
 import com.namviet.vtvtravel.view.fragment.share.ShareBottomDialog;
 import com.namviet.vtvtravel.viewmodel.f2smalllocation.DetailSmallLocationViewModel;
@@ -380,13 +383,19 @@ public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSm
 
     @Override
     public void onClickWriteReview() {
-        String name = "";
+//        String name = "";
+//        try {
+//            name = response.getData().getTabs().get(0).getName();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        addFragment(new WriteReviewFragment(response.getData().getId(), response.getData().getContent_type(), name));
         try {
-            name = response.getData().getTabs().get(0).getName();
+            OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+            oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
-        addFragment(new WriteReviewFragment(response.getData().getId(), response.getData().getContent_type(), name));
     }
 
     @Override

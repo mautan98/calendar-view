@@ -9,7 +9,9 @@ import com.namviet.vtvtravel.databinding.F2ActivityCommentBinding;
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
+import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.fragment.f2comment.CommentFragment;
+import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
 
 import static com.namviet.vtvtravel.config.Constants.IntentKey.PARENT_COMMENT_ID;
 
@@ -52,9 +54,20 @@ public class CommentActivity extends BaseActivityNew<F2ActivityCommentBinding> {
 
 
     public static void startScreen(Activity activity, DetailTravelNewsResponse detailTravelNewsResponse, String parentCommentId){
-        Intent intent = new Intent(activity, CommentActivity.class);
-        intent.putExtra(Constants.IntentKey.DATA, detailTravelNewsResponse);
-        intent.putExtra(PARENT_COMMENT_ID, parentCommentId);
-        activity.startActivity(intent);
+//        Intent intent = new Intent(activity, CommentActivity.class);
+//        intent.putExtra(Constants.IntentKey.DATA, detailTravelNewsResponse);
+//        intent.putExtra(PARENT_COMMENT_ID, parentCommentId);
+//        activity.startActivity(intent);
+        try {
+            OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+            oneButtonTitleImageDialog.show(((MainActivity)activity).getSupportFragmentManager(), Constants.TAG_DIALOG);
+        } catch (Exception e) {
+            try {
+                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+                oneButtonTitleImageDialog.show(((BaseActivityNew)activity).getSupportFragmentManager(), Constants.TAG_DIALOG);
+            } catch (Exception exception) {
+
+            }
+        }
     }
 }

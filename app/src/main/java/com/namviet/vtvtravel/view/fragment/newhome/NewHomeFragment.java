@@ -413,10 +413,12 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                     }
 
 
-                    if (firstVisiblePosition == 1) {
-                        binding.viewColor.setAlpha(1.0f);
-                        inAlpha();
-                        binding.ivSearch.setVisibility(View.VISIBLE);
+                    if (firstVisiblePosition > 0) {
+                        if(binding.ivSearch.getVisibility() == View.GONE) {
+                            binding.viewColor.setAlpha(1.0f);
+                            inAlpha();
+                            binding.ivSearch.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
 

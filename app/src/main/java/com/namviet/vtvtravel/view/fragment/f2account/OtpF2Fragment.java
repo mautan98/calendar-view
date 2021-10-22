@@ -102,7 +102,7 @@ public class OtpF2Fragment extends BaseFragment<F2FragmentOtpBinding> implements
             public void onClick(View v) {
                 cancelTimer();
                 startCountDown();
-                accountViewModel.resendOtp(StringUtils.isPhoneValidateV2(mobile, 84));
+                accountViewModel.resendOtp(StringUtils.isPhoneValidateV2(mobile, 84), ((LoginAndRegisterActivityNew)mActivity).packageCode);
             }
         });
     }
@@ -172,6 +172,11 @@ public class OtpF2Fragment extends BaseFragment<F2FragmentOtpBinding> implements
                 try {
                     ((LoginAndRegisterActivityNew)mActivity).showWarning(responseError.getMessage());
                     getBinding().otpView.showError();
+
+                    if(responseError.getErrorCode().equals("USER_OTP_TIMEOUT")){
+                        ((LoginAndRegisterActivityNew)mActivity).showWarning("Mã OTP hết hiệu lực, vui lòng kiểm tra và thao tác lại");
+                        getBinding().otpView.showError();
+                    }
                 } catch (Exception e) {
 
                 }

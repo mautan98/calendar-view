@@ -4,46 +4,46 @@ public class WSConfig {
 
 
     //Server test
-    public static final String URL_SOCKET = "http://103.21.148.54:8079";
-    public static final String HOST = "https://api-testing.vtvtravel.vn/";
-    public static final String HOST_ACC = "https://core-testing.vtvtravel.vn/api/v1/";
-    public static final String HOST_ACC_2 = "https://core1.travel.onex.vn/";
-    public static final String HOST_CHAT = "https://103.21.148.54:8090/";
-    public static final String HOST_VQMM = "http://103.21.148.54:8856/lucky-wheel?";
-    public static final String HOST_BOOKING = "https://booking-testing.vtvtravel.vn/get-list";
-    public static final String HOST_LANDING = "https://travel1.onex.vn/";
-    public static final String HOST_VQMM_HISTORY = "http://103.21.148.54:8856/histories-list?";
-    public static final String HOST_VQMM_RULE = "http://103.21.148.54:8856/page/LUCKY_WHEEL_RULE?";
-    public static final String HOST_VQMM_GUIDE = "http://103.21.148.54:8856/page/LUCKY_WHEEL_GUIDE?";
-    public static final String API_VQMM_RULE = "https://api-testing.vtvtravel.vn/page/60542239c28629466576d339";
-    public static final String API_VQMM_GUIDE = "https://api-testing.vtvtravel.vn/page/60542047c28629466576d338";
-    public static final String HOST_CREATE_TRIP = "http://103.21.148.54:8858/my-trip/create";
-    public static final String HOST_MY_TRIP = "http://103.21.148.54:8858/my-trip";
-    public static final String HOST_RECEIVE_TRIP = "http://103.21.148.54:8858/my-trip/detail";
-    public static final String HOST_LANDING_PAGE = "https://m1.travel.onex.vn/LandingPage1039";
-    public static final String LINK_DEAL = "http://deal.vtvtravel.vn";
-    public static final String HOST_ORDER = "https://booking-testing.vtvtravel.vn/order/dashboard";
+//    public static final String URL_SOCKET = "http://103.21.148.54:8079";
+//    public static final String HOST = "https://api-testing.vtvtravel.vn/";
+//    public static final String HOST_ACC = "https://core-testing.vtvtravel.vn/api/v1/";
+//    public static final String HOST_ACC_2 = "https://core1.travel.onex.vn/";
+//    public static final String HOST_CHAT = "https://103.21.148.54:8090/";
+//    public static final String HOST_VQMM = "http://103.21.148.54:8856/lucky-wheel?";
+//    public static final String HOST_BOOKING = "https://booking-testing.vtvtravel.vn/get-list";
+//    public static final String HOST_LANDING = "https://travel1.onex.vn/";
+//    public static final String HOST_VQMM_HISTORY = "http://103.21.148.54:8856/histories-list?";
+//    public static final String HOST_VQMM_RULE = "http://103.21.148.54:8856/page/LUCKY_WHEEL_RULE?";
+//    public static final String HOST_VQMM_GUIDE = "http://103.21.148.54:8856/page/LUCKY_WHEEL_GUIDE?";
+//    public static final String API_VQMM_RULE = "https://api-testing.vtvtravel.vn/page/60542239c28629466576d339";
+//    public static final String API_VQMM_GUIDE = "https://api-testing.vtvtravel.vn/page/60542047c28629466576d338";
+//    public static final String HOST_CREATE_TRIP = "http://103.21.148.54:8858/my-trip/create";
+//    public static final String HOST_MY_TRIP = "http://103.21.148.54:8858/my-trip";
+//    public static final String HOST_RECEIVE_TRIP = "http://103.21.148.54:8858/my-trip/detail";
+//    public static final String HOST_LANDING_PAGE = "https://m1.travel.onex.vn/LandingPage1039";
+//    public static final String LINK_DEAL = "http://deal.vtvtravel.vn";
+//    public static final String HOST_ORDER = "https://booking-testing.vtvtravel.vn/order/dashboard";
 
 
     //Server product
-//    public static final String URL_SOCKET = "https://chat.vtvtravel.vn";
-//    public static final String HOST = "https://api.vtvtravel.vn/";
-//    public static final String HOST_ACC = "https://core.vtvtravel.vn/api/v1/";
-//    public static final String HOST_CHAT = "https://api-cskh.vtvtravel.vn/";
-//    public static final String HOST_VQMM = "http://lucky.vtvtravel.vn/lucky-wheel?";
-//    public static final String HOST_BOOKING = "http://booking.vtvtravel.vn/get-list";
-//    public static final String HOST_LANDING = "https://travel1.onex.vn/";
-//    public static final String HOST_VQMM_HISTORY = "http://lucky.vtvtravel.vn/histories-list?";
-//    public static final String HOST_VQMM_RULE = "http://lucky.vtvtravel.vn/page/LUCKY_WHEEL_RULE?";
-//    public static final String HOST_VQMM_GUIDE = "http://lucky.vtvtravel.vn/page/LUCKY_WHEEL_GUIDE?";
-//    public static final String API_VQMM_RULE = "https://api.vtvtravel.vn/page/the-le-vong-quay-may-man";
-//    public static final String API_VQMM_GUIDE = "https://api.vtvtravel.vn/page/cach-thuc-choi-vong-quay-may-man";
-//    public static final String HOST_CREATE_TRIP = "http://tour.vtvtravel.vn/my-trip/create";
-//    public static final String HOST_MY_TRIP = "http://tour.vtvtravel.vn/my-trip";
-//    public static final String HOST_RECEIVE_TRIP = "http://tour.vtvtravel.vn/my-trip/detail";
-//    public static final String HOST_LANDING_PAGE = "https://m.vtvtravel.vn/LandingPage1039";
-//    public static final String LINK_DEAL = "http://deal.vtvtravel.vn";
-//    public static final String HOST_ORDER = "http://booking.vtvtravel.vn/order/dashboard/";
+    public static final String URL_SOCKET = "https://chat.vtvtravel.vn";
+    public static final String HOST = "https://api.vtvtravel.vn/";
+    public static final String HOST_ACC = "https://core.vtvtravel.vn/api/v1/";
+    public static final String HOST_CHAT = "https://api-cskh.vtvtravel.vn/";
+    public static final String HOST_VQMM = "http://lucky.vtvtravel.vn/lucky-wheel?";
+    public static final String HOST_BOOKING = "http://booking.vtvtravel.vn/get-list";
+    public static final String HOST_LANDING = "https://travel1.onex.vn/";
+    public static final String HOST_VQMM_HISTORY = "http://lucky.vtvtravel.vn/histories-list?";
+    public static final String HOST_VQMM_RULE = "http://lucky.vtvtravel.vn/page/LUCKY_WHEEL_RULE?";
+    public static final String HOST_VQMM_GUIDE = "http://lucky.vtvtravel.vn/page/LUCKY_WHEEL_GUIDE?";
+    public static final String API_VQMM_RULE = "https://api.vtvtravel.vn/page/the-le-vong-quay-may-man";
+    public static final String API_VQMM_GUIDE = "https://api.vtvtravel.vn/page/cach-thuc-choi-vong-quay-may-man";
+    public static final String HOST_CREATE_TRIP = "http://tour.vtvtravel.vn/my-trip/create";
+    public static final String HOST_MY_TRIP = "http://tour.vtvtravel.vn/my-trip";
+    public static final String HOST_RECEIVE_TRIP = "http://tour.vtvtravel.vn/my-trip/detail";
+    public static final String HOST_LANDING_PAGE = "https://m.vtvtravel.vn/LandingPage1039";
+    public static final String LINK_DEAL = "http://deal.vtvtravel.vn";
+    public static final String HOST_ORDER = "http://booking.vtvtravel.vn/order/dashboard/";
 
     public static final String URL_ENCODE = "http://api.travel.onex.vn/test/rsa/decrypt";
     public static final String URL_DEFAULT_CHANNEL = "http://113.185.19.133:8443/namvietvtv/smil:vtv1.smil/playlist.m3u8";

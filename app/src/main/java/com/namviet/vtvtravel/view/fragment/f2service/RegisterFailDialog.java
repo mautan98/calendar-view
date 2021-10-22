@@ -67,12 +67,13 @@ public class RegisterFailDialog extends BaseDialogFragment {
         try {
             if (isNotEnoughMoney){
                 if (message != null && message.length() > 0){
-                    binding.txt2.setText(message);
-                    binding.txt3.setVisibility(View.VISIBLE);
+                    binding.txt2.setText("Thuê bao Quý khách không đủ 3000đ/ngày. Vui lòng kiểm tra và thao tác lại");
+//                    binding.txt3.setVisibility(View.VISIBLE);
                 } else {
 
                 }
             }else {
+
                 if (message != null && message.length() > 0){
                     binding.txt2.setText(message);
                 } else {

@@ -1,11 +1,14 @@
 package com.namviet.vtvtravel.view.fragment.f2service;
 
 import androidx.databinding.DataBindingUtil;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,7 +104,7 @@ public class OptServiceDialog extends BaseDialogFragment implements Observer {
         }.start();
     }
 
-    private void resetResendOTPButton(){
+    private void resetResendOTPButton() {
         try {
             binding.txt3.setText("");
             binding.btnResentOtp.setTextColor(Color.parseColor("#FFFFFF"));
@@ -135,6 +138,8 @@ public class OptServiceDialog extends BaseDialogFragment implements Observer {
                 String otp = binding.edtOtpService.getText().toString();
                 if (otp.isEmpty()) {
                     showMessage("Mã OTP không được phép bỏ trống");
+                } else if (otp.trim().length() < 6) {
+                    showMessage("Mã OTP không được nhỏ hơn 6 ký tự");
                 } else {
                     KeyboardUtils.hideKeyboard(mActivity, binding.edtOtpService);
                     showDialogLoading();
@@ -164,9 +169,10 @@ public class OptServiceDialog extends BaseDialogFragment implements Observer {
                 if (serviceOtpResponse.isSuccess()) {
                     cancelTimer();
                     dismiss();
-                    if(service.getCode().equals("TRAVEL_VIP")) {
-                        mActivity.switchFragment(SlideMenu.MenuType.REGISTER_SUCCESS_SCREEN);
-                    }else {
+                    if (service.getCode().equals("TRAVEL_VIP")) {
+//                        mActivity.switchFragment(SlideMenu.MenuType.REGISTER_SUCCESS_SCREEN);
+                        mActivity.switchFragment(SlideMenu.MenuType.REGISTER_SUCCESS_FRIEND_SCREEN);
+                    } else {
                         mActivity.switchFragment(SlideMenu.MenuType.REGISTER_SUCCESS_FRIEND_SCREEN);
                     }
                     try {
@@ -180,21 +186,21 @@ public class OptServiceDialog extends BaseDialogFragment implements Observer {
                     showMessage(serviceOtpResponse.getMessage());
 //                    Toast.makeText(mActivity, serviceOtpResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-            }else if(arg instanceof ResentOtpServiceResponse){
+            } else if (arg instanceof ResentOtpServiceResponse) {
                 try {
                     ResentOtpServiceResponse resentOtpServiceResponse = (ResentOtpServiceResponse) arg;
-                    if(resentOtpServiceResponse.isSuccess()){
+                    if (resentOtpServiceResponse.isSuccess()) {
 
-                    }else {
+                    } else {
                         cancelTimer();
                         resetResendOTPButton();
-                        if(resentOtpServiceResponse.getErrorCode().equals("RETRY_OTP_AFTER_30_MINUTES")){
+                        if (resentOtpServiceResponse.getErrorCode().equals("RETRY_OTP_AFTER_30_MINUTES")) {
                             try {
                                 Toast.makeText(mActivity, resentOtpServiceResponse.getMessage(), Toast.LENGTH_SHORT).show();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                             try {
                                 Toast.makeText(mActivity, resentOtpServiceResponse.getMessage(), Toast.LENGTH_SHORT).show();
                             } catch (Exception e) {

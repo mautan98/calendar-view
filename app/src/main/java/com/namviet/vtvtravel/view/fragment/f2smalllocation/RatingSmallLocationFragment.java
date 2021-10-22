@@ -8,6 +8,7 @@ import android.view.View;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.smalllocation.RatingAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
+import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2FragmentSmallLocationRatingBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
@@ -18,6 +19,7 @@ import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
 import com.namviet.vtvtravel.viewmodel.f2review.ReviewViewModel;
 
 import org.greenrobot.eventbus.EventBus;
@@ -140,13 +142,19 @@ public class RatingSmallLocationFragment extends BaseFragment<F2FragmentSmallLoc
             @Override
             public void onClick(View view) {
                 try {
-                    String name = "";
+//                    String name = "";
+//                    try {
+//                        name = detailSmallLocationResponse.getData().getTabs().get(0).getName();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                    addFragment(new WriteReviewFragment(detailSmallLocationResponse.getData().getId(), detailSmallLocationResponse.getData().getContent_type(), name));
                     try {
-                        name = detailSmallLocationResponse.getData().getTabs().get(0).getName();
+                        OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+                        oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
                     } catch (Exception e) {
-                        e.printStackTrace();
+
                     }
-                    addFragment(new WriteReviewFragment(detailSmallLocationResponse.getData().getId(), detailSmallLocationResponse.getData().getContent_type(), name));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

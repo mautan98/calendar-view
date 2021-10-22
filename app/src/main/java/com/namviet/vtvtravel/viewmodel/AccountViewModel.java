@@ -136,9 +136,9 @@ public class AccountViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
-    public void resendOtp(String mobile) {
+    public void resendOtp(String mobile, String packageCode) {
 
-        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(Param.resendOtp(mobile)).toString());
+        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(Param.resendOtp(mobile, packageCode)).toString());
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
 

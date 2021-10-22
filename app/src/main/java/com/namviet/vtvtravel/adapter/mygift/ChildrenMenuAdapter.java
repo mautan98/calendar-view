@@ -16,12 +16,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
+import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.response.f2menu.MenuItem;
+import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f2.ChatActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.MyGiftActivity;
 import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
+import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
 
 import java.util.List;
 
@@ -92,10 +95,17 @@ public class ChildrenMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     switch (items.get(position).getCode_type()) {
 
                         case "APP_MAIN_VQMM_BOOKING":
-                            if (null != account && account.isLogin()) {
-                                VQMMWebviewActivity.startScreen(context, "");
-                            } else {
-                                LoginAndRegisterActivityNew.startScreen(context, 0, false);
+//                            if (null != account && account.isLogin()) {
+//                                VQMMWebviewActivity.startScreen(context, "");
+//                            } else {
+//                                LoginAndRegisterActivityNew.startScreen(context, 0, false);
+//                            }
+
+                            try {
+                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+                                oneButtonTitleImageDialog.show(((MainActivity)context).getSupportFragmentManager(), Constants.TAG_DIALOG);
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
                             break;
 

@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2ActivitySystemInboxBinding;
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
+import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.fragment.SystemInboxFragment;
+import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
 
 public class SystemInboxActivity extends BaseActivityNew<F2ActivitySystemInboxBinding> {
     @Override
@@ -42,7 +45,19 @@ public class SystemInboxActivity extends BaseActivityNew<F2ActivitySystemInboxBi
     }
 
     public static void startScreen(Context activity) {
-        Intent intent = new Intent(activity, SystemInboxActivity.class);
-        activity.startActivity(intent);
+//        Intent intent = new Intent(activity, SystemInboxActivity.class);
+//        activity.startActivity(intent);
+        try {
+            OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+            oneButtonTitleImageDialog.show(((MainActivity)activity).getSupportFragmentManager(), Constants.TAG_DIALOG);
+        } catch (Exception e) {
+            try {
+                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+                oneButtonTitleImageDialog.show(((BaseActivityNew)activity).getSupportFragmentManager(), Constants.TAG_DIALOG);
+            } catch (Exception exception) {
+
+            }
+
+        }
     }
 }

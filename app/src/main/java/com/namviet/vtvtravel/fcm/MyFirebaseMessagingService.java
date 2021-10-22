@@ -87,70 +87,70 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.d(TAG, "From: " + remoteMessage.getFrom());
 
         // Check if message contains a data payload.
-        try {
-            if (remoteMessage.getData().size() > 0) {
-
-                try {
-                    EventBus.getDefault().post(new OnReloadCountSystemInbox());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
-                Notification notification = new Gson().fromJson(remoteMessage.getData().get("data"), Notification.class);
-
-                if (notification.getTitle().equals("INVITE_SCHEDULE")) {
-                    //                if (isAppRunning()) {
-                    //                    runOnUiThread(new Runnable() {
-                    //                        @Override
-                    //                        public void run() {
-                    ////                            EventBus.getDefault().post(new OnReceiveNotiVip());
-                    //                        }
-                    //                    });
-                    //                } else {
-                    DataSystemInbox dataSystemInbox = null;
-                    try {
-                        dataSystemInbox = new Gson().fromJson(notification.getContent().replaceAll("\\\\", ""), DataSystemInbox.class);
-                        notification.setDataSystemInbox(dataSystemInbox);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    sendNotificationNotInApp(NotificationType.INVITE_TRIP, notification);
-                    //                }
-                } else if(notification.getTitle().equals("SHARE")) {
-                    DataSystemInbox dataSystemInbox = null;
-                    try {
-                        dataSystemInbox = new Gson().fromJson(notification.getContent().replaceAll("\\\\", ""), DataSystemInbox.class);
-                        notification.setDataSystemInbox(dataSystemInbox);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    sendNotificationNotInApp(NotificationType.SHARE, notification);
-                }else if(notification.getTitle().equals("TICKET")) {
-                    DataSystemInbox dataSystemInbox = null;
-                    try {
-                        dataSystemInbox = new Gson().fromJson(notification.getContent().replaceAll("\\\\", ""), DataSystemInbox.class);
-                        notification.setDataSystemInbox(dataSystemInbox);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    sendNotificationNotInApp(NotificationType.TICKET, notification);
-                }else if(notification.getTitle().equals("VQMM")||notification.getTitle().equals("VOUCHER")){
-                    DataSystemInbox dataSystemInbox = null;
-                    try {
-                        dataSystemInbox = new Gson().fromJson(notification.getContent().replaceAll("\\\\", ""), DataSystemInbox.class);
-                        notification.setDataSystemInbox(dataSystemInbox);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    sendNotificationNotInApp(NotificationType.VIP, notification);
-                }
-
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            if (remoteMessage.getData().size() > 0) {
+//
+//                try {
+//                    EventBus.getDefault().post(new OnReloadCountSystemInbox());
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//
+//                Notification notification = new Gson().fromJson(remoteMessage.getData().get("data"), Notification.class);
+//
+//                if (notification.getTitle().equals("INVITE_SCHEDULE")) {
+//                    //                if (isAppRunning()) {
+//                    //                    runOnUiThread(new Runnable() {
+//                    //                        @Override
+//                    //                        public void run() {
+//                    ////                            EventBus.getDefault().post(new OnReceiveNotiVip());
+//                    //                        }
+//                    //                    });
+//                    //                } else {
+//                    DataSystemInbox dataSystemInbox = null;
+//                    try {
+//                        dataSystemInbox = new Gson().fromJson(notification.getContent().replaceAll("\\\\", ""), DataSystemInbox.class);
+//                        notification.setDataSystemInbox(dataSystemInbox);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                    sendNotificationNotInApp(NotificationType.INVITE_TRIP, notification);
+//                    //                }
+//                } else if(notification.getTitle().equals("SHARE")) {
+//                    DataSystemInbox dataSystemInbox = null;
+//                    try {
+//                        dataSystemInbox = new Gson().fromJson(notification.getContent().replaceAll("\\\\", ""), DataSystemInbox.class);
+//                        notification.setDataSystemInbox(dataSystemInbox);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                    sendNotificationNotInApp(NotificationType.SHARE, notification);
+//                }else if(notification.getTitle().equals("TICKET")) {
+//                    DataSystemInbox dataSystemInbox = null;
+//                    try {
+//                        dataSystemInbox = new Gson().fromJson(notification.getContent().replaceAll("\\\\", ""), DataSystemInbox.class);
+//                        notification.setDataSystemInbox(dataSystemInbox);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                    sendNotificationNotInApp(NotificationType.TICKET, notification);
+//                }else if(notification.getTitle().equals("VQMM")||notification.getTitle().equals("VOUCHER")){
+//                    DataSystemInbox dataSystemInbox = null;
+//                    try {
+//                        dataSystemInbox = new Gson().fromJson(notification.getContent().replaceAll("\\\\", ""), DataSystemInbox.class);
+//                        notification.setDataSystemInbox(dataSystemInbox);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                    sendNotificationNotInApp(NotificationType.VIP, notification);
+//                }
+//
+//
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         // test call
 //        wakeup();

@@ -183,10 +183,11 @@ public class Param {
         return map;
     }
 
-    public static JSONObject resendOtp(String mobile) {
+    public static JSONObject resendOtp(String mobile, String packageCode) {
         JSONObject map = new JSONObject();
         try {
             map.put(WSConfig.KeyParam.MOBILE, mobile);
+            map.put(WSConfig.KeyParam.PACKAGE_CODE, packageCode);
         } catch (JSONException e) {
             e.printStackTrace();
         }

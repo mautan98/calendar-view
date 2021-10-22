@@ -139,7 +139,7 @@ public class OtpFragment extends MainFragment implements Observer {
         } else if (view == binding.tvForgotPass) {
             binding.tvForgotPass.setClickable(false);
             binding.tvForgotPass.setTextColor(getResources().getColor(R.color.md_grey_700));
-            accountViewModel.resendOtp(StringUtils.isPhoneValidateV2(mobile, 84));
+            accountViewModel.resendOtp(StringUtils.isPhoneValidateV2(mobile, 84), "");
         }
     }
 
