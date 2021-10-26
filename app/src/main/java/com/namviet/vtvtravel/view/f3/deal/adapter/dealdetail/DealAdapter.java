@@ -163,7 +163,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             rclContent.setAdapter(new GridDealAdapter());
             rclFilterDeal.setAdapter(new DealFilterAdapter(mContext));
 
-            mF3Header2Adapter = new F3Header2Adapter(0, ItemGenerator.demoTabHeader1(), itemView.getContext(), new F3Header2Adapter.ClickTab() {
+            mF3Header2Adapter = new F3Header2Adapter(0, null, itemView.getContext(), new F3Header2Adapter.ClickTab() {
                 @Override
                 public void onClickTab(int position) {
                     Toast.makeText(itemView.getContext(), "Tab click: "+position, Toast.LENGTH_SHORT).show();

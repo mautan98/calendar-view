@@ -17,6 +17,7 @@ import com.namviet.vtvtravel.view.f3.deal.adapter.F3Header1Adapter2;
 import com.namviet.vtvtravel.view.f3.deal.adapter.F3Header2Adapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.F3Header2Adapter2;
 import com.namviet.vtvtravel.view.f3.deal.adapter.RecyclerAdapter;
+import com.namviet.vtvtravel.view.f3.deal.model.Block;
 import com.namviet.vtvtravel.view.f3.deal.model.OnClickTabHeader1;
 import com.namviet.vtvtravel.view.f3.deal.model.OnClickTabHeader2;
 import com.namviet.vtvtravel.widget.PreCachingLayoutManager;
@@ -24,7 +25,9 @@ import com.namviet.vtvtravel.widget.PreCachingLayoutManager;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-public class DealHomeChildFragment extends BaseFragment<FragmentDealHomeChildBinding> {
+import java.util.ArrayList;
+
+ public class DealHomeChildFragment extends BaseFragment<FragmentDealHomeChildBinding> {
 
 
     private RecyclerAdapter adapter;
@@ -32,7 +35,23 @@ public class DealHomeChildFragment extends BaseFragment<FragmentDealHomeChildBin
     private F3Header2Adapter2 f3Header2Adapter2;
     private RecyclerView rclHeader1;
     private RecyclerView rclHeader2;
-    @Override
+
+
+    private ArrayList<Block> blocksMenuHeader1 = new ArrayList<>();
+    private ArrayList<Block> blocksMenuHeader2 = new ArrayList<>();
+
+
+     public DealHomeChildFragment() {
+     }
+
+
+
+     public void setData(ArrayList<Block> blocksMenuHeader1, ArrayList<Block> blocksMenuHeader2){
+         this.blocksMenuHeader1 = blocksMenuHeader1;
+         this.blocksMenuHeader2 = blocksMenuHeader2;
+     }
+
+     @Override
     public int getLayoutRes() {
         return R.layout.fragment_deal_home_child;
     }
@@ -44,14 +63,14 @@ public class DealHomeChildFragment extends BaseFragment<FragmentDealHomeChildBin
 
     @Override
     public void initData() {
-        f3Header1Adapter2 = new F3Header1Adapter2(0, ItemGenerator.demoTabHeader1(), mActivity, new F3Header1Adapter.ClickTab() {
+        f3Header1Adapter2 = new F3Header1Adapter2(0, blocksMenuHeader1, mActivity, new F3Header1Adapter.ClickTab() {
             @Override
             public void onClickTab(int position) {
                 adapter.setPositionSelected1(position);
                 adapter.notifyItemChanged(0);
             }
         }, true);
-        f3Header2Adapter2 = new F3Header2Adapter2(0, ItemGenerator.demoTabHeader1(), mActivity, new F3Header2Adapter.ClickTab() {
+        f3Header2Adapter2 = new F3Header2Adapter2(0, blocksMenuHeader2, mActivity, new F3Header2Adapter.ClickTab() {
             @Override
             public void onClickTab(int position) {
                 adapter.setPositionSelected2(position);
@@ -59,7 +78,7 @@ public class DealHomeChildFragment extends BaseFragment<FragmentDealHomeChildBin
             }
         }, false);
         adapter = new RecyclerAdapter();
-        adapter.setData(ItemGenerator.demoList(), mActivity);
+        adapter.setData(ItemGenerator.demoList(), mActivity, blocksMenuHeader1, blocksMenuHeader2);
         StickyLayoutManager layoutManager = new TopSnappedStickyLayoutManager(mActivity, adapter);
         layoutManager.elevateHeaders(false); // Default elevation of 5dp
         // You can also specify a specific dp for elevation
