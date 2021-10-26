@@ -6,6 +6,7 @@ import com.namviet.vtvtravel.api.TravelService;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.view.f3.deal.model.BlockResponse;
+import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
 import java.util.Map;
@@ -46,6 +47,31 @@ public class DealViewModel extends BaseViewModel {
 
         compositeDisposable.add(disposable);
     }
+    public void getDeal(String url) {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+        Disposable disposable = newsService.getDeal(url)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<DealResponse>() {
+                    @Override
+                    public void accept(DealResponse blockResponse) throws Exception {
+                        if (blockResponse != null) {
+                            requestSuccess(blockResponse);
+                        } else {
+                            requestSuccess(null);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable);
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
 
 
     private void requestSuccess(Object object) {
