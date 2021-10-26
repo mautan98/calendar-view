@@ -15,6 +15,7 @@ import com.brandongogetap.stickyheaders.exposed.StickyHeader;
 import com.brandongogetap.stickyheaders.exposed.StickyHeaderHandler;
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.view.f3.deal.model.Block;
 import com.namviet.vtvtravel.view.f3.deal.model.OnClickTabHeader1;
 import com.namviet.vtvtravel.view.f3.deal.model.OnClickTabHeader2;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
@@ -41,6 +42,11 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
     private Context context;
 
 
+    private ArrayList<Block> blocksMenuHeader1 = new ArrayList<>();
+    private ArrayList<Block> blocksMenuHeader2 = new ArrayList<>();
+
+
+
     private int positionSelected1 = 0;
     private int positionSelected2 = 0;
 
@@ -53,11 +59,13 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
     }
 
 
-    public void setData(List<Item> items, Context context) {
+    public void setData(List<Item> items, Context context, ArrayList<Block> blocksMenuHeader1, ArrayList<Block> blocksMenuHeader2) {
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new SimpleDiffCallback(data, items));
         data.clear();
         data.addAll(items);
         this.context = context;
+        this.blocksMenuHeader1 = blocksMenuHeader1;
+        this.blocksMenuHeader2 = blocksMenuHeader2;
         diffResult.dispatchUpdatesTo(this);
     }
 
@@ -136,7 +144,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
         public void bindItem(int position) {
             this.position = position;
-            mF3Header1Adapter = new F3Header1Adapter(positionSelected1, ItemGenerator.demoTabHeader1(), itemView.getContext(), new F3Header1Adapter.ClickTab() {
+            mF3Header1Adapter = new F3Header1Adapter(positionSelected1, blocksMenuHeader1, itemView.getContext(), new F3Header1Adapter.ClickTab() {
                 @Override
                 public void onClickTab(int position) {
                     Toast.makeText(itemView.getContext(), "Tab click: "+position, Toast.LENGTH_SHORT).show();
@@ -160,7 +168,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
         public void bindItem(int position) {
             this.position = position;
-            mF3Header2Adapter = new F3Header2Adapter(positionSelected2, ItemGenerator.demoTabHeader1(), itemView.getContext(), new F3Header2Adapter.ClickTab() {
+            mF3Header2Adapter = new F3Header2Adapter(positionSelected2, blocksMenuHeader2, itemView.getContext(), new F3Header2Adapter.ClickTab() {
                 @Override
                 public void onClickTab(int position) {
                     Toast.makeText(itemView.getContext(), "Tab click: "+position, Toast.LENGTH_SHORT).show();

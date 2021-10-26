@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.view.f3.deal.model.Block;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class F3Header2Adapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
-    private List<Item> items = new ArrayList<>();
+    private ArrayList<Block> items = new ArrayList<>();
     private Context context;
     public int selectedItem = 0;
     private F3Header2Adapter.ClickTab clickTab;
@@ -31,7 +32,7 @@ public class F3Header2Adapter2 extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
 
-    public F3Header2Adapter2(int position, List<Item> items, Context context, F3Header2Adapter.ClickTab clickTab, boolean isHeader1) {
+    public F3Header2Adapter2(int position, ArrayList<Block> items, Context context, F3Header2Adapter.ClickTab clickTab, boolean isHeader1) {
         this.items = items;
         this.context = context;
         this.clickTab = clickTab;
@@ -118,7 +119,7 @@ public class F3Header2Adapter2 extends RecyclerView.Adapter<RecyclerView.ViewHol
                 viewIndicator.setVisibility(View.INVISIBLE);
 
             }
-            tvTitle.setText(items.get(position).getTitle());
+            tvTitle.setText(items.get(position).getName());
         }
     }
 
