@@ -111,6 +111,7 @@ import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
 import com.namviet.vtvtravel.response.travelnews.NewsCategoryResponse;
 import com.namviet.vtvtravel.response.travelnews.NotebookResponse;
 import com.namviet.vtvtravel.response.travelnews.PlaceNearByResponse;
+import com.namviet.vtvtravel.view.f3.deal.model.BlockResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.GetInfoResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ResentOtpServiceResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceOtpResponse;
@@ -703,5 +704,8 @@ public interface TravelService {
 
     @POST(WSConfig.Api.TICKET_INFO)
     Observable<TicketInfo> ticketInfo(@Body RequestBody body);
+
+    @GET(WSConfig.Api.CTKM_BLOCK)
+    Observable<BlockResponse> getBlockDeal(@QueryMap Map<String, Object> queryMap);
 
 }

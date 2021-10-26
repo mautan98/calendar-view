@@ -6,11 +6,14 @@ import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.FragmentDealHomeBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.view.f3.deal.adapter.TabAdapter
+import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel
 import kotlinx.android.synthetic.main.fragment_deal_home.*
 import kotlinx.android.synthetic.main.fragment_page_deal_home.*
 import kotlinx.android.synthetic.main.fragment_page_deal_home.vpContent
+import java.util.*
 
-class DealHomeFragment : BaseFragment<FragmentDealHomeBinding?>() {
+class DealHomeFragment : BaseFragment<FragmentDealHomeBinding?>(), Observer {
+    private var dealViewModel : DealViewModel? = null
     private var tabAdapter: TabAdapter? = null
     override fun getLayoutRes(): Int {
         return R.layout.fragment_deal_home
@@ -71,4 +74,7 @@ class DealHomeFragment : BaseFragment<FragmentDealHomeBinding?>() {
 
     }
     override fun setObserver() {}
+    override fun update(p0: Observable?, p1: Any?) {
+        TODO("Not yet implemented")
+    }
 }

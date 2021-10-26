@@ -204,6 +204,7 @@ public class WSConfig {
         public static final String HASH_TAG_SEARCH = "deals/getDealFilter";
         public static final String DEAL_HOT_HOME = "deals/getDealHot";
         public static final String TERMS = "page/dieu-khoan-su-dung";
+        public static final String CTKM_BLOCK = "ctkm";
     }
 
     public class KeyParam {
