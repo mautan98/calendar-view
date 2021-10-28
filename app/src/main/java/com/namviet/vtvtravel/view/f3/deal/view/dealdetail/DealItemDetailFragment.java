@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.recyclerview.widget.PagerSnapHelper;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.namviet.vtvtravel.R;
@@ -20,8 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
-import me.relex.circleindicator.CircleIndicator2;
 
 
 public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailBinding> implements View.OnClickListener, Observer, DealAdapter.LoadData {
@@ -84,7 +81,12 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
         dataBanner.add(R.drawable.f2_banner_intro_offline);
         dataBanner.add(R.drawable.img_deal_exp);
         dataBanner.add(R.drawable.f2_banner_intro_offline);
-        adapterBanner = new SubDealHeaderItemAdapter(mActivity, dataBanner);
+        adapterBanner = new SubDealHeaderItemAdapter(mActivity, dataBanner, new SubDealHeaderItemAdapter.ClickItem() {
+            @Override
+            public void onClickItem() {
+                addFragment(new ViewImageFragment());
+            }
+        });
         getBinding().recyclerBanner.setAdapter(adapterBanner);
         PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
         pagerSnapHelper.attachToRecyclerView(getBinding().recyclerBanner);

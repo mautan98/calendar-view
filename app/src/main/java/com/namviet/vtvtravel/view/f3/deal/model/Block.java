@@ -6,6 +6,10 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 public class Block {
+
+    @Expose
+    @SerializedName("short_description")
+    private String short_description;
     @Expose
     @SerializedName("link")
     private String link;
@@ -27,6 +31,14 @@ public class Block {
     @Expose
     @SerializedName("children")
     private ArrayList<Block> listChildBlock;
+
+    public String getShort_description() {
+        return short_description;
+    }
+
+    public void setShort_description(String short_description) {
+        this.short_description = short_description;
+    }
 
     public String getLink() {
         return link;

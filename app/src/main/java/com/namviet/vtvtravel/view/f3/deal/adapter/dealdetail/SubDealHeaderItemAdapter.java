@@ -20,10 +20,12 @@ public class SubDealHeaderItemAdapter extends RecyclerView.Adapter<RecyclerView.
 
     private Context context;
     private List<?> itemList;
+    private ClickItem clickItem;
 
-    public SubDealHeaderItemAdapter(Context context, List<?> itemList) {
+    public SubDealHeaderItemAdapter(Context context, List<?> itemList, ClickItem clickItem) {
         this.context = context;
         this.itemList = itemList;
+        this.clickItem = clickItem;
     }
 
     @Override
@@ -78,6 +80,10 @@ public class SubDealHeaderItemAdapter extends RecyclerView.Adapter<RecyclerView.
             requestOptions.error(com.daimajia.slider.library.R.drawable.img_placeholder);
             Glide.with(context).setDefaultRequestOptions(requestOptions).load(resId).thumbnail(0.2f).into(image);
         }
+    }
+
+    public interface ClickItem{
+        void onClickItem();
     }
 
 
