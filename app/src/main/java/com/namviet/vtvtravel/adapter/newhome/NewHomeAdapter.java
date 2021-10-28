@@ -74,8 +74,11 @@ import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.f3.deal.adapter.F3SubDealAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.F3TabDealAdapter;
+import com.namviet.vtvtravel.view.f3.deal.adapter.RecyclerAdapter;
+import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealHomeActivity;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.ItemGenerator;
+import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel;
 import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
@@ -88,6 +91,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import me.crosswall.lib.coverflow.CoverFlow;
 import me.crosswall.lib.coverflow.core.PageItemClickListener;
@@ -595,7 +600,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
 
-    public class DealViewHolder extends RecyclerView.ViewHolder {
+    public class DealViewHolder extends RecyclerView.ViewHolder implements Observer {
         private RecyclerView recyclerNearPlace;
         private SubDealAdapter subDealAdapter;
         private TextView btnSeeMore;
@@ -605,9 +610,13 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private F3TabDealAdapter f3TabDealAdapter;
         private RecyclerView rclContent;
         private RecyclerView rclTab;
+        private DealViewModel dealViewModel;
+        private DealResponse dealResponse;
 
         public DealViewHolder(View itemView) {
             super(itemView);
+            dealViewModel = new DealViewModel();
+            dealViewModel.addObserver(this);
             rclContent = itemView.findViewById(R.id.rclContent);
             rclTab = itemView.findViewById(R.id.rclTab);
             recyclerNearPlace = itemView.findViewById(R.id.recyclerNearPlace);
@@ -654,13 +663,12 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 }
             });
 
-            f3SubDealAdapter = new F3SubDealAdapter(context, null, viewModel);
-            rclContent.setAdapter(f3SubDealAdapter);
 
             f3TabDealAdapter = new F3TabDealAdapter(0, null, context, new F3TabDealAdapter.ClickTab() {
                 @Override
                 public void onClickTab(int positionClick) {
                     Toast.makeText(context, "Tab click: "+positionClick, Toast.LENGTH_SHORT).show();
+                    dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/home?size=1&page=0");
 //                    try {
 //                        newHomeFragment.setmIOnClickTabReloadData(SuggestionLocationViewHolder.this);
 //                        homeServiceResponse.getData().get(position).setPositionClick(positionClick);
@@ -677,12 +685,26 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             });
             rclTab.setAdapter(f3TabDealAdapter);
 
+            if(dealResponse == null){
+                dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/home?size=1&page=0");
+            }
 
             try {
                 tvTitle.setText(homeServiceResponse.getData().get(position).getName());
                 tvDescription.setText(homeServiceResponse.getData().get(position).getDescription());
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void update(Observable observable, Object o) {
+            if (observable instanceof DealViewModel) {
+                if(o instanceof DealResponse) {
+                    dealResponse = (DealResponse) o;
+                    f3SubDealAdapter = new F3SubDealAdapter(context, dealResponse, viewModel);
+                    rclContent.setAdapter(f3SubDealAdapter);
+                }
             }
         }
     }
