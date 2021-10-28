@@ -7,6 +7,10 @@ import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 import java.util.ArrayList;
 
 public class Block {
+
+    @Expose
+    @SerializedName("short_description")
+    private String short_description;
     @Expose
     @SerializedName("link")
     private String link;
@@ -29,6 +33,14 @@ public class Block {
     @SerializedName("children")
     private ArrayList<Block> listChildBlock;
     private boolean dataLoaded;
+
+    public String getShort_description() {
+        return short_description;
+    }
+
+    public void setShort_description(String short_description) {
+        this.short_description = short_description;
+    }
 
     public String getLink() {
         return link;

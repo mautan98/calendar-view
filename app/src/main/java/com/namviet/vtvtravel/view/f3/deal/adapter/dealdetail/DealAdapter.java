@@ -13,8 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -25,19 +23,13 @@ import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.view.f3.deal.adapter.F3Header2Adapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealFilterAdapter;
-import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealSubscribeParentAdapter;
 import com.namviet.vtvtravel.view.f3.deal.model.OnClickTabHeader2;
 import com.namviet.vtvtravel.view.f3.deal.model.Rank;
-import com.namviet.vtvtravel.view.f3.deal.model.UserObj;
-import com.namviet.vtvtravel.view.f3.deal.view.dealhome.ItemGenerator;
-import com.ornach.richtext.RichText;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import me.relex.circleindicator.CircleIndicator2;
 
 public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<?> mListData;
