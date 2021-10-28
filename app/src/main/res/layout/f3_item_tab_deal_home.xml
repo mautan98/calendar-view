@@ -14,7 +14,7 @@
         android:textSize="14dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-    <com.ornach.richtext.RichView
+    <com.ornach.richtext.RichText
         android:id="@+id/v_selected"
         app:rt_backgroundColor="#00918D"
         android:layout_marginTop="3dp"

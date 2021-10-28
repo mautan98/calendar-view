@@ -24,6 +24,7 @@ import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
+import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
@@ -32,13 +33,18 @@ import java.util.List;
 public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
     private Context context;
-    private List<Item> itemList;
+    private DealResponse dealResponse;
     private BaseViewModel viewModel;
 
-    public F3SubDealAdapter(Context context, List<Item> itemList, BaseViewModel viewModel) {
+
+    public interface ILoadDataBlock{
+        void onLoaDataAtPosition(int positionChild);
+    }
+    public F3SubDealAdapter(Context context, DealResponse dealResponse, BaseViewModel viewModel) {
         this.context = context;
-        this.itemList = itemList;
+        this.dealResponse = dealResponse;
         this.viewModel = viewModel;
+
     }
 
     @Override
@@ -72,9 +78,9 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public int getItemCount() {
         try {
-            return itemList.size();
+            return dealResponse.getData().getContent().size();
         } catch (Exception e) {
-            return 10;
+            return 0;
         }
     }
 

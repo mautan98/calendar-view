@@ -654,10 +654,10 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 }
             });
 
-            f3SubDealAdapter = new F3SubDealAdapter(context, ItemGenerator.demoListDeal(), viewModel);
+            f3SubDealAdapter = new F3SubDealAdapter(context, null, viewModel);
             rclContent.setAdapter(f3SubDealAdapter);
 
-            f3TabDealAdapter = new F3TabDealAdapter(0, ItemGenerator.demoTabDealList(), context, new F3TabDealAdapter.ClickTab() {
+            f3TabDealAdapter = new F3TabDealAdapter(0, null, context, new F3TabDealAdapter.ClickTab() {
                 @Override
                 public void onClickTab(int positionClick) {
                     Toast.makeText(context, "Tab click: "+positionClick, Toast.LENGTH_SHORT).show();

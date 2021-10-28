@@ -16,17 +16,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
+import com.namviet.vtvtravel.view.f3.deal.model.Block;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
+import com.ornach.richtext.RichText;
+import com.ornach.richtext.RichView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class F3TabDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
-    private List<Item> items = new ArrayList<>();
+    private ArrayList<Block> items = new ArrayList<>();
     private Context context;
     public int selectedItem = 0;
     private ClickTab clickTab;
+    private boolean isFromHome = true;
 
     @Override
     public int getItemViewType(int position) {
@@ -34,7 +38,14 @@ public class F3TabDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
 
-    public F3TabDealAdapter(int position, List<Item> items, Context context, ClickTab clickTab) {
+    public F3TabDealAdapter(int position, ArrayList<Block> items, Context context, ClickTab clickTab, boolean isFromHome) {
+        this.items = items;
+        this.context = context;
+        this.clickTab = clickTab;
+        this.selectedItem = position;
+        this.isFromHome = isFromHome;
+    }
+    public F3TabDealAdapter(int position, ArrayList<Block> items, Context context, ClickTab clickTab) {
         this.items = items;
         this.context = context;
         this.clickTab = clickTab;
@@ -66,7 +77,7 @@ public class F3TabDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public int getItemCount() {
         try {
-            return items.size();
+            return items.get(0).getListChildBlock().size() - 1;
         } catch (Exception e) {
             return 0;
         }
@@ -74,7 +85,7 @@ public class F3TabDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
-        private View imgSelected;
+        private RichText imgSelected;
         private TextView tvTitle;
         private int position;
         public HeaderViewHolder(View itemView) {
@@ -96,6 +107,9 @@ public class F3TabDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         public void bindItem(int position) {
             this.position = position;
+              if(!isFromHome){
+                    imgSelected.setBackgroundColor(Color.parseColor("#F93134"));
+                }
             if (position == selectedItem) {
                 tvTitle.setTextColor(ContextCompat.getColor(context, R.color.black));
                 imgSelected.setVisibility(View.VISIBLE);
@@ -103,7 +117,7 @@ public class F3TabDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 tvTitle.setTextColor(Color.parseColor("#707070"));
                 imgSelected.setVisibility(View.GONE);
             }
-            tvTitle.setText(items.get(position).getTitle());
+            tvTitle.setText(items.get(0).getListChildBlock().get(position).getName());
         }
     }
 
