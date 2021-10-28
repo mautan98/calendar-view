@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.view.f3.deal.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,7 @@ public class Block {
     @Expose
     @SerializedName("children")
     private ArrayList<Block> listChildBlock;
+    private boolean dataLoaded;
 
     public String getLink() {
         return link;
@@ -82,5 +84,22 @@ public class Block {
 
     public void setListChildBlock(ArrayList<Block> listChildBlock) {
         this.listChildBlock = listChildBlock;
+    }
+    private DealResponse mDealResponse;
+
+    public DealResponse getDealResponse() {
+        return mDealResponse;
+    }
+
+    public void setDealResponse(DealResponse mDealResponse) {
+        this.mDealResponse = mDealResponse;
+    }
+
+    public boolean isDataLoaded() {
+        return dataLoaded;
+    }
+
+    public void setDataLoaded(boolean dataLoaded) {
+        this.dataLoaded = dataLoaded;
     }
 }
