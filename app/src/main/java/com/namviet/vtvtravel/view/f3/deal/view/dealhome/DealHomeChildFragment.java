@@ -81,9 +81,9 @@ import java.util.Observer;
                 Log.e("xxx", "onTab1Click: "+blocksMenuHeader1.get(position).getCode() );
                 adapter.setPositionSelected1(position);
                 adapter.notifyItemChanged(0);
-                f3Header1Adapter2.setSelectedItem(position);
+                // refresh flag
+                blocksMenuHeader1.get(0).setDataLoaded(false);
                 adapter.notifyItemChanged(1);
-             //   mDealViewModel.getDeal(urlDeal);
             }
         }, true);
         f3Header2Adapter2 = new F3Header2Adapter2(0, blocksMenuHeader2, mActivity, new F3Header2Adapter.ClickTab() {
@@ -92,9 +92,9 @@ import java.util.Observer;
                 Log.e("xxx", "onTab2Click: "+blocksMenuHeader2.get(position).getCode() );
                 adapter.setPositionSelected2(position);
                 adapter.notifyItemChanged(0);
-                f3Header2Adapter2.setSelectedItem(position);
-                adapter.notifyItemChanged(1);
-               // mDealViewModel.getDeal(urlDeal);
+//                blocksMenuHeader1.get(0).setDataLoaded(false);
+//                adapter.notifyItemChanged(1);
+
             }
         }, false);
         adapter = new RecyclerAdapter();

@@ -226,18 +226,18 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
     public class ContentViewHolder1 extends BaseViewHolder implements NewHomeFragment.IOnClickTabReloadData {
         private int position;
         private RecyclerView rclContent;
+        private ShimmerFrameLayout mShimmerFrameLayout;
         private RecyclerView rclTab;
         private HorizontalInfiniteCycleViewPager infiniteCycleViewPager;
         private CircleIndicator indicator;
         private ViewPager mPagerSlide;
         private View btnSeeMore;
-        private ShimmerFrameLayout mShimmerFrameLayout;
+
 
         public ContentViewHolder1(View itemView) {
             super(itemView);
             rclContent = itemView.findViewById(R.id.rclContent);
             rclTab = itemView.findViewById(R.id.rclTab);
-
             infiniteCycleViewPager = itemView.findViewById(R.id.hicvp);
             indicator = (CircleIndicator) itemView.findViewById(R.id.indicator);
             mPagerSlide = itemView.findViewById(R.id.vp_cache);
@@ -248,11 +248,12 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         }
 
         public void bindItem(int position) {
-            mShimmerFrameLayout.setVisibility(View.VISIBLE);
-            mShimmerFrameLayout.startShimmer();
             this.position = position;
             rclContent.setAdapter(new F3SubDealAdapter(null, blocksMenuHeader1.get(0).getDealResponse(), null));
             if(!blocksMenuHeader1.get(0).isDataLoaded()){
+                rclContent.setVisibility(View.INVISIBLE);
+                mShimmerFrameLayout.setVisibility(View.VISIBLE);
+                mShimmerFrameLayout.startShimmer();
                 dealHomeChildFragment.setmIOnClickTabReloadData(ContentViewHolder1.this);
                 mILoadDataDeal.onLoadDataDeal(blocksMenuHeader1.get(positionHeader1).getListChildBlock().get(0).getLink());
                 blocksMenuHeader1.get(0).setDataLoaded(true);
@@ -301,18 +302,21 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                     ListDealActivity.Companion.startScreen(context);
                 }
             });
-            mShimmerFrameLayout.stopShimmer();
-            mShimmerFrameLayout.setVisibility(View.GONE);
-            rclContent.setVisibility(View.VISIBLE);
+
 
         }
 
         @Override
         public void onTabClick(String code) {
-            rclContent.setAdapter(new F3SubDealAdapter(null, blocksMenuHeader1.get(0).getDealResponse(), null));
-            mShimmerFrameLayout.stopShimmer();
-            mShimmerFrameLayout.setVisibility(View.GONE);
-            rclContent.setVisibility(View.VISIBLE);
+           new Handler().postDelayed(new Runnable() {
+               @Override
+               public void run() {
+                   rclContent.setAdapter(new F3SubDealAdapter(null, blocksMenuHeader1.get(0).getDealResponse(), null));
+                   mShimmerFrameLayout.stopShimmer();
+                   mShimmerFrameLayout.setVisibility(View.GONE);
+                   rclContent.setVisibility(View.VISIBLE);
+               }
+           },300);
         }
     }
     public interface ILoadDataDeal{
