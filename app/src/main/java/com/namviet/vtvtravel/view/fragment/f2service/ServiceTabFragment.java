@@ -68,7 +68,7 @@ public class ServiceTabFragment extends MainFragment {
 //        }
 
         try {
-            if (service.isRegistered() || isVipRegisted) {
+            if (service.isRegistered()) {
                 binding.btnRegister.setClickable(false);
                 binding.btnRegister.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.bg_register_service2));
                 binding.btnRegister.setVisibility(View.GONE);
