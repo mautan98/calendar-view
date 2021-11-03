@@ -86,7 +86,7 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
         public void bindItem(int position) {
             tvName.setText(dealFollows.get(position).getName());
             tvRank.setText(dealFollows.get(position).getRanking());
-            tvStatus.setText(dealFollows.get(position).getIsProcessing().equals("1")?"Đang diễn ra": (dealFollows.get(position).getIsProcessing().equals("2")?"Sắp diễn ra": "Đã kết thúc"));
+            tvStatus.setText(dealFollows.get(position).getIsProcessing().equals("1")?"Đang diễn ra": (dealFollows.get(position).getIsProcessing().equals("2")?"Sắp diễn ra": "Hết thời gian"));
             tvTotalHoldTime.setText(dealFollows.get(position).getTotalHoldTime());
         }
     }
