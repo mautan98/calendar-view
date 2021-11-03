@@ -7,22 +7,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollow;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
     private Context context;
+    private ArrayList<DealFollow> dealFollows;
 
-    public DealSubscribeParentAdapter(Context context) {
+    public DealSubscribeParentAdapter(Context context, ArrayList<DealFollow> dealFollows) {
         this.context = context;
+        this.dealFollows = dealFollows;
     }
 
     @Override
@@ -55,7 +60,11 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
 
     @Override
     public int getItemCount() {
-        return 10;
+        try {
+            return dealFollows.size();
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
 
@@ -64,22 +73,38 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
         private RecyclerView rclContent;
         private ImageView btnShowHide;
 
+
+
+        private ImageView imgAvatar;
+        private TextView tvName;
+        private TextView tvTotalHoldTime;
+        private TextView tvRank;
+        private TextView tvStatus;
+
         public HeaderViewHolder(View itemView) {
             super(itemView);
             rclContent = itemView.findViewById(R.id.rclContent);
             btnShowHide = itemView.findViewById(R.id.btnHideShow);
-
-
+            imgAvatar = itemView.findViewById(R.id.imgAvatar);
+            tvName = itemView.findViewById(R.id.tvName);
+            tvTotalHoldTime = itemView.findViewById(R.id.tvTotalHoldTime);
+            tvRank = itemView.findViewById(R.id.tvRank);
+            tvStatus = itemView.findViewById(R.id.tvStatus);
         }
 
         public void bindItem(int position) {
-            rclContent.setAdapter(new DealSubscribeChildAdapter(context));
+            rclContent.setAdapter(new DealSubscribeChildAdapter(context, dealFollows.get(position).getListDealChild()));
             btnShowHide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                 }
             });
+            tvName.setText(dealFollows.get(position).getName());
+            tvRank.setText(dealFollows.get(position).getRanking());
+            tvStatus.setText(dealFollows.get(position).getIsProcessing().equals("1")?"Đang diễn ra": (dealFollows.get(position).getIsProcessing().equals("2")?"Sắp diễn ra": "Đã kết thúc"));
+            tvTotalHoldTime.setText(dealFollows.get(position).getTotalHoldTime());
+
         }
     }
 }
