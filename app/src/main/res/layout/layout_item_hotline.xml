@@ -43,6 +43,7 @@
                 android:textColor="#F89C1C" />
 
             <TextView
+                android:id="@+id/tv_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="D DK50K51"
@@ -69,6 +70,7 @@
             android:layout_marginEnd="9dp">
 
             <ImageView
+                android:id="@+id/img_copy"
                 android:layout_width="63dp"
                 android:layout_height="0dp"
                 android:src="@drawable/ic_copy_deal_code"
@@ -115,6 +117,7 @@
 
 
         <ImageView
+            android:id="@+id/img_share"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentEnd="true"

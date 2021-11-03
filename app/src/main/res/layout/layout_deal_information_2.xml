@@ -31,6 +31,7 @@
 
 
         <TextView
+            android:id="@+id/tv_code"
             android:textColor="#0051C5"
             android:textSize="16dp"
             android:fontFamily="@font/roboto_bold"
@@ -66,6 +67,7 @@
 
 
         <TextView
+            android:id="@+id/hunting_count"
             android:textSize="16dp"
             android:fontFamily="@font/roboto_bold"
             android:layout_marginStart="5dp"
@@ -100,6 +102,7 @@
 
 
         <TextView
+            android:id="@+id/tv_time_keep_deal"
             android:layout_marginStart="8dp"
             android:textSize="14dp"
             android:fontFamily="@font/roboto_regular"
@@ -135,6 +138,7 @@
 
 
         <TextView
+            android:id="@+id/tv_rank"
             android:layout_marginStart="8dp"
             android:textSize="14dp"
             android:fontFamily="@font/roboto_regular"

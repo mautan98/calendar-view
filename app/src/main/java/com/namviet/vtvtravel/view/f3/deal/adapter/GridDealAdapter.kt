@@ -13,7 +13,7 @@ class GridDealAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private val TYPE_ITEM = 0
 
     private var context: Context? = null
-
+    private var url:String? = "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/details?id=104&isProcessing=1"
     constructor()
 
     override fun getItemViewType(position: Int): Int {
@@ -55,7 +55,7 @@ class GridDealAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         fun bindItem(position: Int) {
             itemView.setOnClickListener {
-                DetailDealActivity.startScreen(itemView.context, "")
+                DetailDealActivity.startScreen(itemView.context, url)
             }
         }
 

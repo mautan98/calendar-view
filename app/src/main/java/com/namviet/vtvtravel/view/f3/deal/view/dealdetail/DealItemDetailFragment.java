@@ -13,6 +13,8 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealdetail.DealAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealdetail.SubDealHeaderItemAdapter;
+import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
+import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel;
 import com.namviet.vtvtravel.viewmodel.f2travelnews.DetailNewsTravelViewModel;
 
 import java.util.ArrayList;
@@ -23,16 +25,18 @@ import java.util.Observer;
 
 public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailBinding> implements View.OnClickListener, Observer, DealAdapter.LoadData {
     private DealAdapter mDealAdapter;
-    private List<Object> data ;
     private SubDealHeaderItemAdapter adapterBanner;
     private List<Integer> dataBanner;
+    private String url;
+    private DealViewModel mDealViewModel;
+
     public DealItemDetailFragment() {
         // Required empty public constructor
     }
     private DetailNewsTravelViewModel viewModel;
     @SuppressLint("ValidFragment")
     public DealItemDetailFragment(String detailLink) {
-
+        url = detailLink;
     }
     @Override
     public int getLayoutRes() {
@@ -47,18 +51,12 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
     public void initData() {
         viewModel = new DetailNewsTravelViewModel();
         viewModel.addObserver(this);
+        this.mDealViewModel = new DealViewModel();
+        mDealViewModel.addObserver(this);
+        mDealViewModel.getDealCampaignDetail(url);
         getBinding().imgBack.setOnClickListener(this);
         getBinding().imgSearch.setOnClickListener(this);
         getBinding().imgMenu.setOnClickListener(this);
-        data = new ArrayList<>();
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        mDealAdapter = new DealAdapter(data,mActivity,this);
-        getBinding().rcvDetailDeal.setAdapter(mDealAdapter);
         getBinding().appbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
@@ -130,8 +128,14 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
 //                getBinding().layoutViewAllComment.setVisibility(View.GONE);
 //            }
             Log.e("xxx", "update: "+response.getData().getContent().size() );
-            data.set(5,response);
-            mDealAdapter.notifyItemChanged(5);
+//            data.set(5,response);
+//            mDealAdapter.notifyItemChanged(5);
+        }
+        else if(o instanceof DealCampaignDetail){
+            DealCampaignDetail dealCampaignDetail = (DealCampaignDetail) o;
+            mDealAdapter = new DealAdapter(dealCampaignDetail,mActivity,this);
+            getBinding().rcvDetailDeal.setAdapter(mDealAdapter);
+            getBinding().tvTitle.setText(dealCampaignDetail.getData().getName());
         }
     }
 

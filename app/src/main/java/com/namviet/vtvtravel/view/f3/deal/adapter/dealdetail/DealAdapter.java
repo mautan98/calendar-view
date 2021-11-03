@@ -1,6 +1,8 @@
 package com.namviet.vtvtravel.view.f3.deal.adapter.dealdetail;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +21,14 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.travelnews.CommentInDetailTravelNewsAdapter;
-import com.namviet.vtvtravel.response.f2comment.CommentResponse;
+import com.namviet.vtvtravel.view.f3.deal.Utils;
 import com.namviet.vtvtravel.view.f3.deal.adapter.F3Header2Adapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealFilterAdapter;
 import com.namviet.vtvtravel.view.f3.deal.model.OnClickTabHeader2;
 import com.namviet.vtvtravel.view.f3.deal.model.Rank;
+import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
+import com.ornach.richtext.RichText;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -32,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<?> mListData;
+    private DealCampaignDetail dealCampaignDetail;
     private Context mContext;
     private int HEADER = 0;
     private int USER_OBJECT = 1;
@@ -43,9 +47,8 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private int SUGGEST = 6;
     private LoadData loadData;
 
-
-    public DealAdapter(List<?> mListData, Context mContext, LoadData loadData) {
-        this.mListData = mListData;
+    public DealAdapter(DealCampaignDetail data, Context mContext, LoadData loadData) {
+        this.dealCampaignDetail = data;
         this.mContext = mContext;
         this.loadData = loadData;
     }
@@ -125,10 +128,8 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mListData != null ? mListData.size() : 0;
+        return dealCampaignDetail != null ? 6 : 0;
     }
-
-
 
 
     public class MoreViewHolder extends RecyclerView.ViewHolder {
@@ -158,10 +159,10 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mF3Header2Adapter = new F3Header2Adapter(0, null, itemView.getContext(), new F3Header2Adapter.ClickTab() {
                 @Override
                 public void onClickTab(int position) {
-                    Toast.makeText(itemView.getContext(), "Tab click: "+position, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(itemView.getContext(), "Tab click: " + position, Toast.LENGTH_SHORT).show();
                     EventBus.getDefault().post(new OnClickTabHeader2(position));
                 }
-            },false);
+            }, false);
             rcvTabHeader1.setAdapter(mF3Header2Adapter);
         }
     }
@@ -175,10 +176,12 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private TextView mTvCommentLeft;
         private RelativeLayout mLayoutWriteComment;
         private TextView mTvWriteComment;
+
         public CommentViewHolder(View itemView) {
             super(itemView);
             initView(itemView);
         }
+
         private void initView(View itemView) {
             mViewTop = (View) itemView.findViewById(R.id.view_top);
             mRclComment = (RecyclerView) itemView.findViewById(R.id.rclComment);
@@ -188,35 +191,36 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mLayoutWriteComment = (RelativeLayout) itemView.findViewById(R.id.layoutWriteComment);
             mTvWriteComment = (TextView) itemView.findViewById(R.id.tvWriteComment);
         }
+
         public void bindItem(int position) {
-            if(mListData.get(position) instanceof  CommentResponse){
-                CommentResponse response = (CommentResponse) mListData.get(position);
-                    List<CommentResponse.Data.Comment> comments = response.getData().getContent();
-                    if (comments == null) {
-                        mLayoutViewAllComment.setVisibility(View.GONE);
-                    } else if (comments.size() >= 3) {
-                        mLayoutViewAllComment.setVisibility(View.VISIBLE);
-                        mTvCommentLeft.setText("Xem tất cả " + comments.size() + " bình luận");
-                    } else {
-                        mLayoutViewAllComment.setVisibility(View.GONE);
-                    }
-                    commentInDetailTravelNewsAdapter = new CommentInDetailTravelNewsAdapter(mContext, response.getData().getContent(), new CommentInDetailTravelNewsAdapter.ClickItem() {
-                        @Override
-                        public void onClickItem(CommentResponse.Data.Comment comment) {
-
-                        }
-
-                        @Override
-                        public void onClickReply(CommentResponse.Data.Comment comment) {
-                            //   CommentActivity.startScreen(mContext, detailTravelNewsResponse, comment.getId());
-                        }
-                    });
-                    mRclComment.setAdapter(commentInDetailTravelNewsAdapter);
-
-            }
-            else {
-                loadData.onLoadDataComment("");
-            }
+//            if(mListData.get(position) instanceof  CommentResponse){
+//                CommentResponse response = (CommentResponse) mListData.get(position);
+//                    List<CommentResponse.Data.Comment> comments = response.getData().getContent();
+//                    if (comments == null) {
+//                        mLayoutViewAllComment.setVisibility(View.GONE);
+//                    } else if (comments.size() >= 3) {
+//                        mLayoutViewAllComment.setVisibility(View.VISIBLE);
+//                        mTvCommentLeft.setText("Xem tất cả " + comments.size() + " bình luận");
+//                    } else {
+//                        mLayoutViewAllComment.setVisibility(View.GONE);
+//                    }
+//                    commentInDetailTravelNewsAdapter = new CommentInDetailTravelNewsAdapter(mContext, response.getData().getContent(), new CommentInDetailTravelNewsAdapter.ClickItem() {
+//                        @Override
+//                        public void onClickItem(CommentResponse.Data.Comment comment) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onClickReply(CommentResponse.Data.Comment comment) {
+//                            //   CommentActivity.startScreen(mContext, detailTravelNewsResponse, comment.getId());
+//                        }
+//                    });
+//                    mRclComment.setAdapter(commentInDetailTravelNewsAdapter);
+//
+//            }
+//            else {
+//                loadData.onLoadDataComment("");
+//            }
 
         }
     }
@@ -230,7 +234,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private TextView tvTab1, tvTab2, tvTab3;
         private String url = "<head><style>body{font-family:'roboto','Roboto',sans-serif;}</style></head><body><p style=\"text-align: justify;\"><strong>Top 6 địa điểm du lịch đẹp \"đụng thiên đường\" ở Bình Phước</strong></p>\n" +
                 "    <p style=\"text-align: justify;\"><em><span style=\"font-weight: 400;\">Một Bình Phước tuyệt đẹp, hoang sơ luôn là chốn dừng chân lý tưởng cho những tâm hồn yêu khám phá thiên nhiên. Hè rồi xách balo lên và trải nghiệm miền đất đặc biệt này thôi!</span></em></p>\n" +
-                "    <figure class=\"image\" style=\"text-align: center;margin:0;padding:0;\"> "+
+                "    <figure class=\"image\" style=\"text-align: center;margin:0;padding:0;\"> " +
                 "    <figcaption style=\"text-align: center;padding:5px;\"><em>ảnh lấy trên mạng. </em></figcaption>\n" +
                 "    </figure>";
 
@@ -362,20 +366,25 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public class HotLineViewHolder extends RecyclerView.ViewHolder {
+        private TextView tvCode;
+
 
         public HotLineViewHolder(View itemView) {
             super(itemView);
-
+            tvCode = itemView.findViewById(R.id.tv_code);
 
         }
 
         public void bindItem(int position) {
-
+            tvCode.setText(dealCampaignDetail.getData().getCode());
         }
     }
 
     public class UserObjectViewHolder extends RecyclerView.ViewHolder {
-
+        private TextView mTvCode;
+        private TextView mHuntingCount;
+        private TextView mTvTimeKeepDeal;
+        private TextView mTvRank;
 
         public UserObjectViewHolder(View itemView) {
             super(itemView);
@@ -383,11 +392,17 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private void initView(View itemView) {
-
-
+            mTvCode = (TextView) itemView.findViewById(R.id.tv_code);
+            mHuntingCount = (TextView) itemView.findViewById(R.id.hunting_count);
+            mTvTimeKeepDeal = (TextView) itemView.findViewById(R.id.tv_time_keep_deal);
+            mTvRank = (TextView) itemView.findViewById(R.id.tv_rank);
         }
 
         public void bindItem(int position) {
+            mTvCode.setText(dealCampaignDetail.getData().getCode());
+            mHuntingCount.setText(String.format("%d+", dealCampaignDetail.getData().getUserHuntingCount()));
+            mTvTimeKeepDeal.setText(Utils.CalendarUtils.getTimeHold(dealCampaignDetail.getData().getTotalHoldTime()));
+            mTvRank.setText(String.valueOf(dealCampaignDetail.getData().getPromptRank()));
         }
     }
 
@@ -398,10 +413,11 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private TextView mTvNewPrice;
         private TextView mTvDisCount;
-        private TextView mTvUserTotal;
+        private TextView mTvExpirationDate;
         private ProgressBar mProgressCountDown;
         private TextView mTvTimeCountDown;
-
+        private TextView mTvOldPrice;
+        private RichText tvTimeHold;
         private SubDealHeaderItemAdapter adapter;
 
         public HeaderViewHolder(View itemView) {
@@ -413,17 +429,35 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mTvTilte = (TextView) itemView.findViewById(R.id.tv_tilte);
             mTvNewPrice = (TextView) itemView.findViewById(R.id.tv_new_price);
             mTvDisCount = (TextView) itemView.findViewById(R.id.tv_dis_count);
-            mTvUserTotal = (TextView) itemView.findViewById(R.id.tvUserTotal);
+            mTvExpirationDate = (TextView) itemView.findViewById(R.id.tv_expiration_date);
             mProgressCountDown = (ProgressBar) itemView.findViewById(R.id.progress_count_down);
             mTvTimeCountDown = (TextView) itemView.findViewById(R.id.tv_time_count_down);
+            mTvOldPrice = (TextView) itemView.findViewById(R.id.tv_old_price);
+            tvTimeHold = (RichText) itemView.findViewById(R.id.tv_time_hold);
 
         }
 
 
+        @SuppressLint("DefaultLocale")
         public void bindItem(int position) {
+            try {
+                mTvTilte.setText(dealCampaignDetail.getData().getName());
+                mTvOldPrice.setText(String.format("%dđ", dealCampaignDetail.getData().getPriceBeforePromo()));
+                mTvNewPrice.setText(String.format("%dđ", dealCampaignDetail.getData().getPriceAfterPromo()));
+                mTvOldPrice.setPaintFlags(mTvOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                mTvDisCount.setText(String.format("%d%%", dealCampaignDetail.getData().getValuePromotion()));
+                String expirationDate = Utils.CalendarUtils.ConvertMilliSecondsToFormattedDate(dealCampaignDetail.getData().getEndAt());
+                mTvExpirationDate.setText(expirationDate);
+                tvTimeHold.setText(Utils.CalendarUtils.getTimeHold(dealCampaignDetail.getData().getTotalHoldTime()));
+                mTvTimeCountDown.setText(Utils.CalendarUtils.getDayLeft(dealCampaignDetail.getData().getEndAt()));
+                mProgressCountDown.setProgress(Utils.CalendarUtils.getPercentProgress(dealCampaignDetail.getData().getBeginAt(), dealCampaignDetail.getData().getEndAt()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }
     }
+
     public interface LoadData {
         void onLoadDataComment(String id);
     }

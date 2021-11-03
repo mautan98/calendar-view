@@ -60,6 +60,7 @@
                     android:textStyle="bold" />
 
                 <com.ornach.richtext.RichText
+                    android:id="@+id/tv_time_hold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
@@ -108,6 +109,7 @@
 
 
                     <TextView
+                        android:id="@+id/tv_old_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/old_price" />
@@ -187,7 +189,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tvUserTotal"
+                    android:id="@+id/tv_expiration_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
