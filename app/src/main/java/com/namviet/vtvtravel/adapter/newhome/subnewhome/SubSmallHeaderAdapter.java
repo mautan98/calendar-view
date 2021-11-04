@@ -104,28 +104,21 @@ public class SubSmallHeaderAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                                     EventBus.getDefault().post(new OnClickBookingTopMenu());
                                     break;
                                 case "CTKM":
-//                                    try {
-//                                        DetailDealWebviewActivity.startScreen(context,link);
-//                                    } catch ( java.lang.Exception e) {
-//                                        e.printStackTrace();
-//                                    }
-//                                    break;
-                                case "VQMM":
-//                                    try {
-//                                        Account account = MyApplication.getInstance().getAccount();
-//                                        if (null != account && account.isLogin()) {
-//                                            VQMMWebviewActivity.startScreen(context, "");
-//                                        } else {
-//                                            LoginAndRegisterActivityNew.startScreen(context, 0, false);
-//                                        }
-//                                    } catch ( Exception e) {
-//                                    }
-
                                     try {
-                                        OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-                                        oneButtonTitleImageDialog.show(((MainActivity)context).getSupportFragmentManager(), Constants.TAG_DIALOG);
-                                    } catch (Exception e) {
+                                        DetailDealWebviewActivity.startScreen(context,link);
+                                    } catch ( java.lang.Exception e) {
                                         e.printStackTrace();
+                                    }
+                                    break;
+                                case "VQMM":
+                                    try {
+                                        Account account = MyApplication.getInstance().getAccount();
+                                        if (null != account && account.isLogin()) {
+                                            VQMMWebviewActivity.startScreen(context, "");
+                                        } else {
+                                            LoginAndRegisterActivityNew.startScreen(context, 0, false);
+                                        }
+                                    } catch ( Exception e) {
                                     }
                                     break;
                                 case "LIVETV":

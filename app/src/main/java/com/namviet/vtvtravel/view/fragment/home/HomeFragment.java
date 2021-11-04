@@ -223,9 +223,9 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             @Override
             public void onClick(View view) {
                 hideBottomMenu();
-//                FloorActivity.Companion.openActivity(mActivity);
-                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+                FloorActivity.Companion.openActivity(mActivity);
+//                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+//                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
             }
         });
 
@@ -246,31 +246,31 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             @Override
             public void onClick(View view) {
                 hideBottomMenu();
-//                try {
-//                    String mUrlDeal = WSConfig.LINK_DEAL;
-//                    DetailDealWebviewActivity.startScreen(mActivity, mUrlDeal);
-//                } catch (java.lang.Exception e) {
-//                    e.printStackTrace();
-//                }
-                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+                try {
+                    String mUrlDeal = WSConfig.LINK_DEAL;
+                    DetailDealWebviewActivity.startScreen(mActivity, mUrlDeal);
+                } catch (java.lang.Exception e) {
+                    e.printStackTrace();
+                }
+//                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+//                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
             }
         });
         binding.imgLuckyWheel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 hideBottomMenu();
-//                try {
-//                    Account account = MyApplication.getInstance().getAccount();
-//                    if (null != account && account.isLogin()) {
-//                        VQMMWebviewActivity.startScreen(mActivity, "");
-//                    } else {
-//                        LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
-//                    }
-//                } catch ( Exception e) {
-//                }
-                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+                try {
+                    Account account = MyApplication.getInstance().getAccount();
+                    if (null != account && account.isLogin()) {
+                        VQMMWebviewActivity.startScreen(mActivity, "");
+                    } else {
+                        LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+                    }
+                } catch ( Exception e) {
+                }
+//                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+//                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
                 }
         });
 

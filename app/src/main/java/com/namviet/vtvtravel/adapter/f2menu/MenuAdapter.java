@@ -18,6 +18,7 @@ import com.namviet.vtvtravel.model.f2event.OnClickVideoInMenu;
 import com.namviet.vtvtravel.response.f2menu.MenuItem;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.MainActivity;
+import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
 import com.namviet.vtvtravel.view.f2.ImagePartActivity;
 import com.namviet.vtvtravel.view.f2.LiveTVActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
@@ -165,20 +166,13 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                             break;
                         case "APP_MAIN_PROMOTION":
-//                            TravelVoucherActivity.openScreen(context, true, TravelVoucherActivity.OpenType.LIST, false);
+                            TravelVoucherActivity.openScreen(context, true, TravelVoucherActivity.OpenType.LIST, false);
 //                            Account account2 = MyApplication.getInstance().getAccount();
 //                            if (null != account2 && account2.isLogin()) {
 //                                TravelVoucherActivity.openScreen(context, true, TravelVoucherActivity.OpenType.LIST);
 //                            } else {
 //                                LoginAndRegisterActivityNew.startScreen(context, 0, false);
 //                            }
-
-                            try {
-                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-                                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
 
                             break;
                         case "APP_MAIN_LIVETV":
@@ -187,11 +181,11 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             break;
                         case "APP_MAIN_DEAL":
 
-//                            try {
-//                                DetailDealWebviewActivity.startScreen(context, itemMenu.getLink());
-//                            } catch (Exception e) {
-//                                e.printStackTrace();
-//                            }
+                            try {
+                                DetailDealWebviewActivity.startScreen(context, itemMenu.getLink());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
 //                            try {
 //                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_DEAL_HUNT, TrackingAnalytic.getDefault("Menu", "Menu"));
 //                            } catch (Exception e) {
@@ -203,12 +197,8 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //                            } catch (Exception e) {
 //                                e.printStackTrace();
 //                            }
-                            try {
-                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-                                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+//                            OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+//                            oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
                             //  DealHomeActivity.Companion.startScreen(context);
                             break;
 

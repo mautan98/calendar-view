@@ -54,20 +54,9 @@ public class CommentActivity extends BaseActivityNew<F2ActivityCommentBinding> {
 
 
     public static void startScreen(Activity activity, DetailTravelNewsResponse detailTravelNewsResponse, String parentCommentId){
-//        Intent intent = new Intent(activity, CommentActivity.class);
-//        intent.putExtra(Constants.IntentKey.DATA, detailTravelNewsResponse);
-//        intent.putExtra(PARENT_COMMENT_ID, parentCommentId);
-//        activity.startActivity(intent);
-        try {
-            OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-            oneButtonTitleImageDialog.show(((MainActivity)activity).getSupportFragmentManager(), Constants.TAG_DIALOG);
-        } catch (Exception e) {
-            try {
-                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-                oneButtonTitleImageDialog.show(((BaseActivityNew)activity).getSupportFragmentManager(), Constants.TAG_DIALOG);
-            } catch (Exception exception) {
-
-            }
-        }
+        Intent intent = new Intent(activity, CommentActivity.class);
+        intent.putExtra(Constants.IntentKey.DATA, detailTravelNewsResponse);
+        intent.putExtra(PARENT_COMMENT_ID, parentCommentId);
+        activity.startActivity(intent);
     }
 }
