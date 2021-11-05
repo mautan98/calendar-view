@@ -110,7 +110,7 @@ public class ServiceTabFragment extends MainFragment {
         String title = "";
         switch (service.getCycle()) {
             case 0:
-                title = "MIỄN PHÍ";
+                title = "GIÁ CƯỚC: MIỄN PHÍ";
                 break;
             case 1:
                 title = "GIÁ CƯỚC: " + service.getPrice() + " VNĐ/NGÀY";

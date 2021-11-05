@@ -316,7 +316,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
             binding.tvLoginRightNow.setText("Đăng kí hội viên ngay");
             binding.tvLoginRightNow.setVisibility(View.GONE);
             try {
-                String cut = account.getMobile().substring(3, 8);
+                String cut = account.getMobile().substring(7, 11);
                 String mobile = account.getMobile().replace(cut, "xxxxx");
                 binding.tvLoginRightNow.setText(mobile);
                 binding.tvLoginRightNow.setVisibility(View.VISIBLE);
@@ -503,7 +503,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                     MobileFromViettelResponse mobileFromViettelResponse = (MobileFromViettelResponse) o;
 
                     if (mobileFromViettelResponse.getData().getMobile() != null) {
-                        String cut = mobileFromViettelResponse.getData().getMobile().substring(3, 8);
+                        String cut = mobileFromViettelResponse.getData().getMobile().substring(7, 11);
                         phoneNumberDetectedFrom3G = mobileFromViettelResponse.getData().getMobile().replace(cut, "xxxxx");
                     } else {
                         phoneNumberDetectedFrom3G = "";
@@ -757,7 +757,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                 binding.tvLoginRightNow.setText("Đăng kí hội viên ngay");
                 binding.tvLoginRightNow.setVisibility(View.GONE);
                 try {
-                    String cut = account.getMobile().substring(3, 8);
+                    String cut = account.getMobile().substring(7, 11);
                     String mobile = account.getMobile().replace(cut, "xxxxx");
                     binding.tvLoginRightNow.setText(mobile);
                     binding.tvLoginRightNow.setVisibility(View.VISIBLE);
