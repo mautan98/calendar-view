@@ -95,17 +95,10 @@ public class ChildrenMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     switch (items.get(position).getCode_type()) {
 
                         case "APP_MAIN_VQMM_BOOKING":
-//                            if (null != account && account.isLogin()) {
-//                                VQMMWebviewActivity.startScreen(context, "");
-//                            } else {
-//                                LoginAndRegisterActivityNew.startScreen(context, 0, false);
-//                            }
-
-                            try {
-                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-                                oneButtonTitleImageDialog.show(((MainActivity)context).getSupportFragmentManager(), Constants.TAG_DIALOG);
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                            if (null != account && account.isLogin()) {
+                                VQMMWebviewActivity.startScreen(context, "");
+                            } else {
+                                LoginAndRegisterActivityNew.startScreen(context, 0, false);
                             }
                             break;
 

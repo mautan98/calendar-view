@@ -383,19 +383,13 @@ public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSm
 
     @Override
     public void onClickWriteReview() {
-//        String name = "";
-//        try {
-//            name = response.getData().getTabs().get(0).getName();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        addFragment(new WriteReviewFragment(response.getData().getId(), response.getData().getContent_type(), name));
+        String name = "";
         try {
-            OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-            oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+            name = response.getData().getTabs().get(0).getName();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
+        addFragment(new WriteReviewFragment(response.getData().getId(), response.getData().getContent_type(), name));
     }
 
     @Override

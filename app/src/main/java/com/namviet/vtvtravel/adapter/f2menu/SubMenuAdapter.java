@@ -117,18 +117,11 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     Log.e("xxx", "onClick: " +items.get(position).getCode_type());
                     switch (items.get(position).getCode_type()) {
                         case "APP_MAIN_HEADER_MY_GIFT":
-//                            try {
-//                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_MY_PROMOTION, TrackingAnalytic.getDefault("Menu", "Menu"));
-//                            } catch (Exception e) {
-//                                e.printStackTrace();
-//                            }
                             try {
-                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-                                oneButtonTitleImageDialog.show(((MainActivity)context).getSupportFragmentManager(), Constants.TAG_DIALOG);
+                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_MY_PROMOTION, TrackingAnalytic.getDefault("Menu", "Menu"));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            break;
                         case "APP_MAIN_FOOTER_SUPPORT":
                             MyGiftActivity.startScreen(context, (ArrayList<MenuItem>) items.get(position).getMenuChildren(), items.get(position).getName());
                             break;

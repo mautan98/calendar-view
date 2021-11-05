@@ -51,7 +51,6 @@ import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.ReviewChatActivity;
 import com.namviet.vtvtravel.view.f2.f2oldbase.FormChatActivity;
-import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
 import com.namviet.vtvtravel.viewmodel.ChatViewModel;
 
@@ -579,15 +578,8 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
 
     @Override
     public void clickWebViewDeal(String url) {
-//        cancelTimer();
-//        DetailDealWebviewActivity.startScreen(mActivity, url);
-        try {
-            OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-            oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        cancelTimer();
+        DetailDealWebviewActivity.startScreen(mActivity, url);
     }
 
     @Override

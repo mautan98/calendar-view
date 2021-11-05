@@ -142,19 +142,13 @@ public class RatingSmallLocationFragment extends BaseFragment<F2FragmentSmallLoc
             @Override
             public void onClick(View view) {
                 try {
-//                    String name = "";
-//                    try {
-//                        name = detailSmallLocationResponse.getData().getTabs().get(0).getName();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                    addFragment(new WriteReviewFragment(detailSmallLocationResponse.getData().getId(), detailSmallLocationResponse.getData().getContent_type(), name));
+                    String name = "";
                     try {
-                        OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-                        oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+                        name = detailSmallLocationResponse.getData().getTabs().get(0).getName();
                     } catch (Exception e) {
-
+                        e.printStackTrace();
                     }
+                    addFragment(new WriteReviewFragment(detailSmallLocationResponse.getData().getId(), detailSmallLocationResponse.getData().getContent_type(), name));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

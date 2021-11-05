@@ -23,8 +23,10 @@ import com.namviet.vtvtravel.model.f2event.OnClickBookingTopMenu;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f2.CreateTripActivity;
+import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
 import com.namviet.vtvtravel.view.f2.LiveTVActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
 import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -110,31 +112,29 @@ public class SubHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                             case "BOOKING":
                             //    MyFragment.openFragment(context,  R.id.frHome, BookingFragment.class, null, false);
                                 EventBus.getDefault().post(new OnClickBookingTopMenu());
+//                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+//                                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
                                 break;
                             case "CTKM":
-//                                try {
-//                                    DetailDealWebviewActivity.startScreen(context,link);
-//                                } catch ( java.lang.Exception e) {
-//                                e.printStackTrace();
-//                            }
-//                                break;
-                            case "VQMM":
-//                                try {
-//                                    Account account = MyApplication.getInstance().getAccount();
-//                                    if (null != account && account.isLogin()) {
-//                                        VQMMWebviewActivity.startScreen(context, "");
-//                                    } else {
-//                                        LoginAndRegisterActivityNew.startScreen(context, 0, false);
-//                                    }
-//                                } catch ( Exception e) {
-//                            }
-
                                 try {
-                                    OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-                                    oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
+                                    DetailDealWebviewActivity.startScreen(context,link);
+                                } catch ( java.lang.Exception e) {
+                                e.printStackTrace();
+                            }
+                                break;
+                            case "VQMM":
+                                try {
+                                    Account account = MyApplication.getInstance().getAccount();
+                                    if (null != account && account.isLogin()) {
+                                        VQMMWebviewActivity.startScreen(context, "");
+                                    } else {
+                                        LoginAndRegisterActivityNew.startScreen(context, 0, false);
+                                    }
+                                } catch ( Exception e) {
+                            }
+
+//                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+//                                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
                                 break;
                             case "LIVETV":
                                 LiveTVActivity.openScreen(context, 0,items.get(getAdapterPosition()).getLink() );

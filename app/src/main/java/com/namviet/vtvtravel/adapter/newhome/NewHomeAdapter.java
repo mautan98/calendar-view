@@ -164,9 +164,9 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 case "APP_SEARCH_BOX":
                     return APP_SEARCH_BOX;
                 case "APP_VOUCHER":
-                    return APP_OTHER;
+                    return APP_VOUCHER;
                 case "APP_DEAL":
-                    return APP_OTHER;
+                    return APP_DEAL;
                 case "APP_TOP_EXPERIENCE":
                     return APP_TOP_EXPERIENCE;
                 case "APP_EXPERIENCES_NEARBY":
@@ -184,7 +184,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 case "APP_VIDEO":
                     return APP_VIDEO;
                 case "APP_VOUCHER_NOW":
-                    return APP_OTHER;
+                    return APP_VOUCHER_NOW;
                 case "APP_TV":
                     return APP_TV;
                 case "APP_RECENTLY_VIEWED":
