@@ -159,7 +159,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public void bindItem(int position) {
             rclContent.setAdapter(new GridDealAdapter());
-            rclFilterDeal.setAdapter(new DealFilterAdapter(mContext));
+            rclFilterDeal.setAdapter(new DealFilterAdapter(mContext, null));
 
             mF3Header2Adapter = new F3Header2Adapter(0, null, itemView.getContext(), new F3Header2Adapter.ClickTab() {
                 @Override

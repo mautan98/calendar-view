@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"/>
 
     <ImageView
+        android:id="@+id/imgMark"
         android:layout_alignEnd="@+id/tvTitle"
         android:src="@drawable/ic_mark"
         android:layout_width="19dp"
