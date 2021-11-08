@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -232,12 +233,36 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public class ContentViewHolder extends RecyclerView.ViewHolder {
         private ViewPager mPagerContent;
+        boolean isCollapse;
+        private WebView webView;
         private Button mBtnCollapse;
         private InfomationDealAdapter adapter;
         private List<String> urls;
         private TabLayout mTabLayout;
         private TextView tvTab1, tvTab2, tvTab3;
         private String url = "<head><style>body{font-family:'roboto','Roboto',sans-serif;}</style></head><body><p style=\"text-align: justify;\"><strong>Top 6 địa điểm du lịch đẹp \"đụng thiên đường\" ở Bình Phước</strong></p>\n" +
+                "    <p style=\"text-align: justify;\"><em><span style=\"font-weight: 400;\">Một Bình Phước tuyệt đẹp, hoang sơ luôn là chốn dừng chân lý tưởng cho những tâm hồn yêu khám phá thiên nhiên. Hè rồi xách balo lên và trải nghiệm miền đất đặc biệt này thôi!</span></em></p>\n" +
+                "    <figure class=\"image\" style=\"text-align: center;margin:0;padding:0;\"> " +
+                "    <figcaption style=\"text-align: center;padding:5px;\"><em>ảnh lấy trên mạng. </em></figcaption>\n" +
+                "    </figure>";
+        private String url2 = "<head><style>body{font-family:'roboto','Roboto',sans-serif;}</style></head><body><p style=\"text-align: justify;\"><strong>Top 6 địa điểm du lịch đẹp \"đụng thiên đường\" ở Bình Phước</strong></p>\n" +
+                "    <p style=\"text-align: justify;\"><em><span style=\"font-weight: 400;\">Một Bình Phước tuyệt đẹp, hoang sơ luôn là chốn dừng chân lý tưởng cho những tâm hồn yêu khám phá thiên nhiên. Hè rồi xách balo lên và trải nghiệm miền đất đặc biệt này thôi!</span></em></p>\n" +
+                "    <figure class=\"image\" style=\"text-align: center;margin:0;padding:0;\"> " +
+                "    <figcaption style=\"text-align: center;padding:5px;\"><em>ảnh lấy trên mạng. </em></figcaption>\n" +
+                "    </figure>"+"<head><style>body{font-family:'roboto','Roboto',sans-serif;}</style></head><body><p style=\"text-align: justify;\"><strong>Top 6 địa điểm du lịch đẹp \"đụng thiên đường\" ở Bình Phước</strong></p>\n" +
+                "    <p style=\"text-align: justify;\"><em><span style=\"font-weight: 400;\">Một Bình Phước tuyệt đẹp, hoang sơ luôn là chốn dừng chân lý tưởng cho những tâm hồn yêu khám phá thiên nhiên. Hè rồi xách balo lên và trải nghiệm miền đất đặc biệt này thôi!</span></em></p>\n" +
+                "    <figure class=\"image\" style=\"text-align: center;margin:0;padding:0;\"> " +
+                "    <figcaption style=\"text-align: center;padding:5px;\"><em>ảnh lấy trên mạng. </em></figcaption>\n" +
+                "    </figure>";
+        private String url3 = "<head><style>body{font-family:'roboto','Roboto',sans-serif;}</style></head><body><p style=\"text-align: justify;\"><strong>Top 6 địa điểm du lịch đẹp \"đụng thiên đường\" ở Bình Phước</strong></p>\n" +
+                "    <p style=\"text-align: justify;\"><em><span style=\"font-weight: 400;\">Một Bình Phước tuyệt đẹp, hoang sơ luôn là chốn dừng chân lý tưởng cho những tâm hồn yêu khám phá thiên nhiên. Hè rồi xách balo lên và trải nghiệm miền đất đặc biệt này thôi!</span></em></p>\n" +
+                "    <figure class=\"image\" style=\"text-align: center;margin:0;padding:0;\"> " +
+                "    <figcaption style=\"text-align: center;padding:5px;\"><em>ảnh lấy trên mạng. </em></figcaption>\n" +
+                "    </figure>"+"<head><style>body{font-family:'roboto','Roboto',sans-serif;}</style></head><body><p style=\"text-align: justify;\"><strong>Top 6 địa điểm du lịch đẹp \"đụng thiên đường\" ở Bình Phước</strong></p>\n" +
+                "    <p style=\"text-align: justify;\"><em><span style=\"font-weight: 400;\">Một Bình Phước tuyệt đẹp, hoang sơ luôn là chốn dừng chân lý tưởng cho những tâm hồn yêu khám phá thiên nhiên. Hè rồi xách balo lên và trải nghiệm miền đất đặc biệt này thôi!</span></em></p>\n" +
+                "    <figure class=\"image\" style=\"text-align: center;margin:0;padding:0;\"> " +
+                "    <figcaption style=\"text-align: center;padding:5px;\"><em>ảnh lấy trên mạng. </em></figcaption>\n" +
+                "    </figure>"+"<head><style>body{font-family:'roboto','Roboto',sans-serif;}</style></head><body><p style=\"text-align: justify;\"><strong>Top 6 địa điểm du lịch đẹp \"đụng thiên đường\" ở Bình Phước</strong></p>\n" +
                 "    <p style=\"text-align: justify;\"><em><span style=\"font-weight: 400;\">Một Bình Phước tuyệt đẹp, hoang sơ luôn là chốn dừng chân lý tưởng cho những tâm hồn yêu khám phá thiên nhiên. Hè rồi xách balo lên và trải nghiệm miền đất đặc biệt này thôi!</span></em></p>\n" +
                 "    <figure class=\"image\" style=\"text-align: center;margin:0;padding:0;\"> " +
                 "    <figcaption style=\"text-align: center;padding:5px;\"><em>ảnh lấy trên mạng. </em></figcaption>\n" +
@@ -255,10 +280,11 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tvTab1 = itemView.findViewById(R.id.tv_tab1);
             tvTab2 = itemView.findViewById(R.id.tv_tab2);
             tvTab3 = itemView.findViewById(R.id.tv_tab3);
+            webView = itemView.findViewById(R.id.web_view);
             urls = new ArrayList<>();
             urls.add(url);
-            urls.add(url);
-            urls.add(url);
+            urls.add(url2);
+            urls.add(url3);
             // mTabLayout.setupWithViewPager(mPagerContent);
 
         }
@@ -270,52 +296,77 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public void bindItem(int position) {
-            adapter = new InfomationDealAdapter(mContext, urls);
-            mPagerContent.setAdapter(adapter);
-            mPagerContent.setOffscreenPageLimit(3);
+//            adapter = new InfomationDealAdapter(mContext, urls);
+//            mPagerContent.setAdapter(adapter);
+//            mPagerContent.setOffscreenPageLimit(3);
             resetTabColor();
             tvTab1.setTextColor(mContext.getResources().getColor(R.color.black));
-            mPagerContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                }
-
-                @Override
-                public void onPageSelected(int position) {
-                    resetTabColor();
-                    if (position == 0) {
-                        tvTab1.setTextColor(mContext.getResources().getColor(R.color.black));
-                    } else if (position == 1) {
-                        tvTab2.setTextColor(mContext.getResources().getColor(R.color.black));
-                    } else if (position == 2) {
-                        tvTab3.setTextColor(mContext.getResources().getColor(R.color.black));
-                    }
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int state) {
-
-                }
-            });
+//            mPagerContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//                @Override
+//                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//                }
+//
+//                @Override
+//                public void onPageSelected(int position) {
+//
+//                }
+//
+//                @Override
+//                public void onPageScrollStateChanged(int state) {
+//
+//                }
+//            });
+            webView.loadDataWithBaseURL("", urls.get(0), "text/html", "UTF-8", null);
             tvTab1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mPagerContent.setCurrentItem(0);
+                    onTabSelected(0);
+                    webView.loadDataWithBaseURL("", urls.get(0), "text/html", "UTF-8", null);
                 }
             });
             tvTab2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mPagerContent.setCurrentItem(1);
+                    onTabSelected(1);
+                    webView.loadDataWithBaseURL("", urls.get(1), "text/html", "UTF-8", null);
                 }
             });
             tvTab3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mPagerContent.setCurrentItem(2);
+                    onTabSelected(2);
+                    webView.loadDataWithBaseURL("", urls.get(2), "text/html", "UTF-8", null);
                 }
             });
+            mBtnCollapse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ViewGroup.LayoutParams params = webView.getLayoutParams();
+                    if(!isCollapse){
+                        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                        webView.setLayoutParams(params);
+                        mBtnCollapse.setText("Ẩn bớt");
+                        isCollapse = true;
+                    }
+                    else {
+                        params.height = com.brucetoo.videoplayer.utils.Utils.dp2px(mContext, 150);
+                        webView.setLayoutParams(params);
+                        mBtnCollapse.setText("Xem thêm");
+                        isCollapse = false;
+                    }
+                }
+            });
+        }
+        private void onTabSelected(int position){
+            resetTabColor();
+            if (position == 0) {
+                tvTab1.setTextColor(mContext.getResources().getColor(R.color.black));
+            } else if (position == 1) {
+                tvTab2.setTextColor(mContext.getResources().getColor(R.color.black));
+            } else if (position == 2) {
+                tvTab3.setTextColor(mContext.getResources().getColor(R.color.black));
+            }
         }
     }
 
@@ -375,8 +426,9 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 public void onClick(View v) {
                     try {
                         ClipboardManager clipboard = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
-                        ClipData clip = ClipData.newPlainText("Copied To Clipboard", tvCode.getText().toString().trim());
+                        ClipData clip = ClipData.newPlainText("Copy", tvCode.getText().toString().trim());
                         clipboard.setPrimaryClip(clip);
+                        Toast.makeText(mContext, "Đã coppy vào Clipboard", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

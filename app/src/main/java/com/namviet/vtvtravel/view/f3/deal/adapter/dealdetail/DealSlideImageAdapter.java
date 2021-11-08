@@ -17,13 +17,11 @@ import java.util.List;
 public class DealSlideImageAdapter extends PagerAdapter {
     private Context context;
     private List<String> strings;
-    private ClickItem clickItem;
 
-
-    public DealSlideImageAdapter(Context context, List<String> strings, ClickItem clickItem) {
+    public DealSlideImageAdapter(Context context, List<String> strings) {
         this.context = context;
         this.strings = strings;
-        this.clickItem = clickItem;
+
     }
 
     @Override
@@ -66,7 +64,4 @@ public class DealSlideImageAdapter extends PagerAdapter {
         return (view == object);
     }
 
-    public interface ClickItem {
-        public void onClickItem();
-    }
 }

@@ -77,7 +77,7 @@ public class SubDealHeaderItemAdapter extends RecyclerView.Adapter<RecyclerView.
                 @Override
                 public void onClick(View v) {
                     if(clickItem != null){
-                        clickItem.onClickItem();
+                        clickItem.onClickItem(position);
                     }
                 }
             });
@@ -92,7 +92,7 @@ public class SubDealHeaderItemAdapter extends RecyclerView.Adapter<RecyclerView.
     }
 
     public interface ClickItem{
-        void onClickItem();
+        void onClickItem(int position);
     }
 
 

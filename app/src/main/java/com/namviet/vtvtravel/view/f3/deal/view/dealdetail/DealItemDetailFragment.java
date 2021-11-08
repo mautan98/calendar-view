@@ -26,7 +26,7 @@ import java.util.Observer;
 public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailBinding> implements View.OnClickListener, Observer, DealAdapter.LoadData {
     private DealAdapter mDealAdapter;
     private SubDealHeaderItemAdapter adapterBanner;
-    private List<String> dataBanner;
+    private ArrayList<String> dataBanner;
     private String url;
     private DealViewModel mDealViewModel;
 
@@ -122,6 +122,8 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
             getBinding().tvTitle.setText(dealCampaignDetail.getData().getName());
             for (int i = 0; i < dealCampaignDetail.getData().getGalleryUri().size(); i++){
                 dataBanner.add(dealCampaignDetail.getData().getGalleryUri().get(i));
+                dataBanner.add(dealCampaignDetail.getData().getGalleryUri().get(i));
+                dataBanner.add(dealCampaignDetail.getData().getGalleryUri().get(i));
             }
             initBanner();
         }
@@ -130,8 +132,8 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
 
         adapterBanner = new SubDealHeaderItemAdapter(mActivity, dataBanner, new SubDealHeaderItemAdapter.ClickItem() {
             @Override
-            public void onClickItem() {
-                addFragment(new ViewImageFragment(dataBanner));
+            public void onClickItem(int position) {
+                PopupBannerDealActivity.startScreen(mActivity,dataBanner,position);
             }
         });
         getBinding().recyclerBanner.setAdapter(adapterBanner);

@@ -1,12 +1,14 @@
 package com.namviet.vtvtravel.view.f3.deal.adapter.dealdetail;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -19,6 +21,13 @@ public class DealSmallImageAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private static final int TYPE_ITEM = 0;
     private Context context;
     private List<String> urls;
+    public int position_selected = 0;
+    private ClickSubItem clickSubItem;
+
+    public void setClickSubItem(ClickSubItem clickSubItem) {
+        this.clickSubItem = clickSubItem;
+    }
+
     @Override
     public int getItemViewType(int position) {
         return TYPE_ITEM;
@@ -65,25 +74,34 @@ public class DealSmallImageAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
-
-        private int position;
         private ImageView img;
-
+        private ConstraintLayout constraintLayoutAvatar;
         public HeaderViewHolder(View itemView) {
             super(itemView);
 
             img = itemView.findViewById(R.id.imgAvatar);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            constraintLayoutAvatar = itemView.findViewById(R.id.constraint_avatar);
 
-                }
-            });
+
 
         }
 
         public void bindItem(int position) {
             setImage(urls.get(position),img);
+            if(position_selected == position){
+                constraintLayoutAvatar.setBackgroundColor(Color.parseColor("#FF9E2F"));
+            }
+            else {
+                constraintLayoutAvatar.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            }
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    clickSubItem.onClickSubItem(position);
+                    position_selected = position;
+                    notifyDataSetChanged();
+                }
+            });
         }
         public void setImage(String url, ImageView image) {
             RequestOptions requestOptions = new RequestOptions();

@@ -346,6 +346,7 @@
         <activity android:name=".view.f3.deal.view.dealdetail.DetailDealActivity" />
         <activity android:name=".view.f3.deal.view.listdeal.ListDealActivity" />
         <activity android:name=".view.f3.deal.view.listhotdeal.ListHotDealActivity" />
+        <activity android:name=".view.f3.deal.view.dealdetail.PopupBannerDealActivity" />
     </application>
 
 </manifest>
