@@ -6,6 +6,16 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 public class DealFollow {
+    private boolean isShowChild;
+
+    public boolean isShowChild() {
+        return isShowChild;
+    }
+
+    public void setShowChild(boolean showChild) {
+        isShowChild = showChild;
+    }
+
     @Expose
     @SerializedName("rewardStatus")
     private String rewardStatus;
@@ -30,7 +40,9 @@ public class DealFollow {
     @Expose
     @SerializedName("id")
     private String id;
-
+    @Expose
+    @SerializedName("avatarUri")
+    private String avatarUri;
     @Expose
     @SerializedName("deals")
     private ArrayList<DealFollow> listDealChild;
@@ -105,5 +117,13 @@ public class DealFollow {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getAvatarUri() {
+        return avatarUri;
+    }
+
+    public void setAvatarUri(String avatarUri) {
+        this.avatarUri = avatarUri;
     }
 }

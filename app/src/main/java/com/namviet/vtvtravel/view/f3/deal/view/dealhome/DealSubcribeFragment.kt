@@ -15,15 +15,18 @@ import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealAdapter
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealFilterAdapter
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealSubscribeParentAdapter
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollowResponse
+import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.RewardStatus
 import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel
 import com.namviet.vtvtravel.view.fragment.f2webview.LuckyWheelDialog
 import com.namviet.vtvtravel.viewmodel.f2luckywheel.LuckyWheelViewModel
 import kotlinx.android.synthetic.main.f2_fragment_detail_deal_webview.*
 import kotlinx.android.synthetic.main.fragment_deal_subcribe.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Observer {
     private var dealViewModel : DealViewModel? = null
+    private var listFilter  = ArrayList<RewardStatus>();
     override fun getLayoutRes(): Int {
         return R.layout.fragment_deal_subcribe
     }
@@ -33,6 +36,11 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
         dealViewModel?.addObserver(this)
     }
     override fun initData() {
+        listFilter.add(RewardStatus("2", "Đang săn", false))
+        listFilter.add(RewardStatus("3", "Săn thành công", false))
+        listFilter.add(RewardStatus("5", "Săn không thành công", false))
+
+
         dealViewModel?.getDealFollow("https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/follows")
     }
     override fun inject() {}
@@ -45,7 +53,7 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
             when (o) {
                 is DealFollowResponse -> {
                     rclContent.adapter = DealSubscribeParentAdapter(mActivity, o.data.dealFollows)
-                    rclFilterDeal.adapter = DealFilterAdapter(mActivity)
+                    rclFilterDeal.adapter = DealFilterAdapter(mActivity, listFilter)
                 }
                 is ErrorResponse -> {
                     try {

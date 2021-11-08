@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollow;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
@@ -76,6 +77,7 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
 
 
         private ImageView imgAvatar;
+        private ImageView imgClock;
         private TextView tvName;
         private TextView tvTotalHoldTime;
         private TextView tvRank;
@@ -86,6 +88,7 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
             rclContent = itemView.findViewById(R.id.rclContent);
             btnShowHide = itemView.findViewById(R.id.btnHideShow);
             imgAvatar = itemView.findViewById(R.id.imgAvatar);
+            imgClock = itemView.findViewById(R.id.imgClock);
             tvName = itemView.findViewById(R.id.tvName);
             tvTotalHoldTime = itemView.findViewById(R.id.tvTotalHoldTime);
             tvRank = itemView.findViewById(R.id.tvRank);
@@ -97,13 +100,61 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
             btnShowHide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    if(dealFollows.get(position).isShowChild()){
+                        rclContent.setVisibility(View.GONE);
+                        dealFollows.get(position).setShowChild(false);
+                        Glide.with(context).load(R.drawable.ic_show_child).into(btnShowHide);
+                    }else {
+                        rclContent.setVisibility(View.VISIBLE);
+                        dealFollows.get(position).setShowChild(true);
+                        Glide.with(context).load(R.drawable.ic_hide_child).into(btnShowHide);
+                    }
                 }
             });
             tvName.setText(dealFollows.get(position).getName());
             tvRank.setText(dealFollows.get(position).getRanking());
-            tvStatus.setText(dealFollows.get(position).getIsProcessing().equals("1")?"Đang diễn ra": (dealFollows.get(position).getIsProcessing().equals("2")?"Sắp diễn ra": "Hết thời gian"));
+            try {
+                tvStatus.setText(dealFollows.get(position).getIsProcessing().equals("1")?"Đang diễn ra": (dealFollows.get(position).getIsProcessing().equals("2")?"Sắp diễn ra": "Hết thời gian"));
+            } catch (Exception e) {
+                tvStatus.setText("Hết thời gian");
+            }
+
             tvTotalHoldTime.setText(dealFollows.get(position).getTotalHoldTime());
+            Glide.with(context).load(dealFollows.get(position).getAvatarUri()).into(imgAvatar);
+
+            if(dealFollows.get(position).isShowChild()){
+                rclContent.setVisibility(View.VISIBLE);
+                Glide.with(context).load(R.drawable.ic_hide_child).into(btnShowHide);
+            }else {
+                rclContent.setVisibility(View.GONE);
+                Glide.with(context).load(R.drawable.ic_show_child).into(btnShowHide);
+            }
+
+
+            try {
+                if(dealFollows.get(position).getIsProcessing().equals("1")){
+                    Glide.with(context).load(R.drawable.ic_clock).into(imgClock);
+                }else {
+                    Glide.with(context).load(R.drawable.ic_clock_2).into(imgClock);
+                }
+            } catch (Exception e) {
+                Glide.with(context).load(R.drawable.ic_clock_2).into(imgAvatar);
+                e.printStackTrace();
+            }
+
+
+            try {
+                long time = Integer.parseInt(dealFollows.get(position).getTotalHoldTime())/1000;
+
+                String days = (int)(time / 86400) + " NGÀY ";
+                String hours = String.valueOf((int)((time % 86400) / 3600));
+                String minutes = String.valueOf((int)((time % 3600) / 60));
+                String seconds = String.valueOf((int)((time % 3600) % 60));
+
+                tvTotalHoldTime.setText(days + hours+" : "+minutes+" : "+seconds);
+            } catch (NumberFormatException e) {
+                tvTotalHoldTime.setText("0 NGÀY");
+            }
 
         }
     }
