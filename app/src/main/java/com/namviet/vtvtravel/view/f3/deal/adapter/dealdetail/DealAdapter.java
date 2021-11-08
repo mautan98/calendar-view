@@ -1,8 +1,13 @@
 package com.namviet.vtvtravel.view.f3.deal.adapter.dealdetail;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -319,7 +324,6 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private ImageView mImgShowHide;
         private LinearLayout mLnlRankContent;
         private RecyclerView mRcvRankItem;
-        private List<Rank> listData;
         private SubRankingItemAdapter adapter;
 
         public RankingViewHolder(View itemView) {
@@ -332,20 +336,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mImgShowHide = (ImageView) itemView.findViewById(R.id.img_show_hide);
             mLnlRankContent = (LinearLayout) itemView.findViewById(R.id.lnl_rank_content);
             mRcvRankItem = (RecyclerView) itemView.findViewById(R.id.rcv_rank_item);
-            listData = new ArrayList<>();
-            listData.add(new Rank("09842324112", "77:22:00"));
-            listData.add(new Rank("09842324112", "77:22:00"));
-            listData.add(new Rank("09842324112", "77:22:00"));
-            listData.add(new Rank("09842324112", "77:22:00"));
-            listData.add(new Rank("09842324112", "77:22:00"));
-            listData.add(new Rank("09842324112", "77:22:00"));
-            listData.add(new Rank("09842324112", "77:22:00"));
-            listData.add(new Rank("09842324112", "77:22:00"));
-            listData.add(new Rank("09842324112", "77:22:00"));
-            listData.add(new Rank("09842324112", "77:22:00"));
-            listData.add(new Rank("09842324112", "77:22:00"));
-            listData.add(new Rank("09842324112", "77:22:00"));
-            adapter = new SubRankingItemAdapter(mContext, listData);
+            adapter = new SubRankingItemAdapter(mContext, dealCampaignDetail);
             mRcvRankItem.setAdapter(adapter);
         }
 
@@ -367,16 +358,46 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public class HotLineViewHolder extends RecyclerView.ViewHolder {
         private TextView tvCode;
-
+        private ImageView imgCopy;
+        private ImageView imgShare;
 
         public HotLineViewHolder(View itemView) {
             super(itemView);
             tvCode = itemView.findViewById(R.id.tv_code);
-
+            imgCopy = itemView.findViewById(R.id.img_copy);
+            imgShare = itemView.findViewById(R.id.img_share);
         }
 
         public void bindItem(int position) {
-            tvCode.setText(dealCampaignDetail.getData().getCode());
+            tvCode.setText("D "+ dealCampaignDetail.getData().getCode());
+            imgCopy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        ClipboardManager clipboard = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("Copied To Clipboard", tvCode.getText().toString().trim());
+                        clipboard.setPrimaryClip(clip);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            imgShare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String phoneNumber = String.format("tel: 1039");
+                    // Create the intent.
+                    Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                    // Set the data for the intent as the phone number.
+                    callIntent.setData(Uri.parse(phoneNumber));
+                    // If package resolves to an app, send intent.
+                    if (callIntent.resolveActivity(mContext.getPackageManager()) != null) {
+                        mContext.startActivity(callIntent);
+                    } else {
+                        Log.e("xxx", "Can't resolve app for ACTION_DIAL Intent.");
+                    }
+                }
+            });
         }
     }
 

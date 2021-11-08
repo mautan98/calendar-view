@@ -1,8 +1,11 @@
 
 package com.namviet.vtvtravel.view.f3.deal.model.dealcampaign;
 
+import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
 
 public class Deal {
 
@@ -26,10 +29,10 @@ public class Deal {
     private String description;
     @SerializedName("rule")
     @Expose
-    private Object rule;
+    private String rule;
     @SerializedName("promptRank")
     @Expose
-    private Object promptRank;
+    private Integer promptRank;
     @SerializedName("beginAt")
     @Expose
     private Long beginAt;
@@ -41,43 +44,46 @@ public class Deal {
     private Object created;
     @SerializedName("modified")
     @Expose
-    private Long modified;
+    private Object modified;
     @SerializedName("avatarUri")
     @Expose
-    private Object avatarUri;
+    private String avatarUri;
     @SerializedName("galleryUri")
     @Expose
-    private Object galleryUri;
+    private String galleryUri;
     @SerializedName("homeStick")
     @Expose
-    private Object homeStick;
+    private Integer homeStick;
     @SerializedName("appHomeStick")
     @Expose
-    private Object appHomeStick;
+    private Integer appHomeStick;
     @SerializedName("guide")
     @Expose
-    private Object guide;
+    private String guide;
     @SerializedName("promptUri")
     @Expose
-    private Object promptUri;
+    private String promptUri;
     @SerializedName("provinceId")
     @Expose
-    private Object provinceId;
+    private Integer provinceId;
     @SerializedName("countryId")
     @Expose
-    private Object countryId;
+    private Integer countryId;
     @SerializedName("districtId")
     @Expose
-    private Object districtId;
+    private Integer districtId;
+    @SerializedName("wardId")
+    @Expose
+    private Integer wardId;
     @SerializedName("lat")
     @Expose
-    private Object lat;
+    private Double lat;
     @SerializedName("lng")
     @Expose
-    private Object lng;
+    private Double lng;
     @SerializedName("awarded")
     @Expose
-    private Object awarded;
+    private Integer awarded;
     @SerializedName("needVerify")
     @Expose
     private Integer needVerify;
@@ -86,7 +92,10 @@ public class Deal {
     private Integer isHighlight;
     @SerializedName("price")
     @Expose
-    private Object price;
+    private Integer price;
+    @SerializedName("dealScores")
+    @Expose
+    private List<DealScore> dealScores = null;
 
     public Integer getId() {
         return id;
@@ -136,19 +145,19 @@ public class Deal {
         this.description = description;
     }
 
-    public Object getRule() {
+    public String getRule() {
         return rule;
     }
 
-    public void setRule(Object rule) {
+    public void setRule(String rule) {
         this.rule = rule;
     }
 
-    public Object getPromptRank() {
+    public Integer getPromptRank() {
         return promptRank;
     }
 
-    public void setPromptRank(Object promptRank) {
+    public void setPromptRank(Integer promptRank) {
         this.promptRank = promptRank;
     }
 
@@ -176,107 +185,115 @@ public class Deal {
         this.created = created;
     }
 
-    public Long getModified() {
+    public Object getModified() {
         return modified;
     }
 
-    public void setModified(Long modified) {
+    public void setModified(Object modified) {
         this.modified = modified;
     }
 
-    public Object getAvatarUri() {
+    public String getAvatarUri() {
         return avatarUri;
     }
 
-    public void setAvatarUri(Object avatarUri) {
+    public void setAvatarUri(String avatarUri) {
         this.avatarUri = avatarUri;
     }
 
-    public Object getGalleryUri() {
+    public String getGalleryUri() {
         return galleryUri;
     }
 
-    public void setGalleryUri(Object galleryUri) {
+    public void setGalleryUri(String galleryUri) {
         this.galleryUri = galleryUri;
     }
 
-    public Object getHomeStick() {
+    public Integer getHomeStick() {
         return homeStick;
     }
 
-    public void setHomeStick(Object homeStick) {
+    public void setHomeStick(Integer homeStick) {
         this.homeStick = homeStick;
     }
 
-    public Object getAppHomeStick() {
+    public Integer getAppHomeStick() {
         return appHomeStick;
     }
 
-    public void setAppHomeStick(Object appHomeStick) {
+    public void setAppHomeStick(Integer appHomeStick) {
         this.appHomeStick = appHomeStick;
     }
 
-    public Object getGuide() {
+    public String getGuide() {
         return guide;
     }
 
-    public void setGuide(Object guide) {
+    public void setGuide(String guide) {
         this.guide = guide;
     }
 
-    public Object getPromptUri() {
+    public String getPromptUri() {
         return promptUri;
     }
 
-    public void setPromptUri(Object promptUri) {
+    public void setPromptUri(String promptUri) {
         this.promptUri = promptUri;
     }
 
-    public Object getProvinceId() {
+    public Integer getProvinceId() {
         return provinceId;
     }
 
-    public void setProvinceId(Object provinceId) {
+    public void setProvinceId(Integer provinceId) {
         this.provinceId = provinceId;
     }
 
-    public Object getCountryId() {
+    public Integer getCountryId() {
         return countryId;
     }
 
-    public void setCountryId(Object countryId) {
+    public void setCountryId(Integer countryId) {
         this.countryId = countryId;
     }
 
-    public Object getDistrictId() {
+    public Integer getDistrictId() {
         return districtId;
     }
 
-    public void setDistrictId(Object districtId) {
+    public void setDistrictId(Integer districtId) {
         this.districtId = districtId;
     }
 
-    public Object getLat() {
+    public Integer getWardId() {
+        return wardId;
+    }
+
+    public void setWardId(Integer wardId) {
+        this.wardId = wardId;
+    }
+
+    public Double getLat() {
         return lat;
     }
 
-    public void setLat(Object lat) {
+    public void setLat(Double lat) {
         this.lat = lat;
     }
 
-    public Object getLng() {
+    public Double getLng() {
         return lng;
     }
 
-    public void setLng(Object lng) {
+    public void setLng(Double lng) {
         this.lng = lng;
     }
 
-    public Object getAwarded() {
+    public Integer getAwarded() {
         return awarded;
     }
 
-    public void setAwarded(Object awarded) {
+    public void setAwarded(Integer awarded) {
         this.awarded = awarded;
     }
 
@@ -296,12 +313,20 @@ public class Deal {
         this.isHighlight = isHighlight;
     }
 
-    public Object getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(Object price) {
+    public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    public List<DealScore> getDealScores() {
+        return dealScores;
+    }
+
+    public void setDealScores(List<DealScore> dealScores) {
+        this.dealScores = dealScores;
     }
 
 }

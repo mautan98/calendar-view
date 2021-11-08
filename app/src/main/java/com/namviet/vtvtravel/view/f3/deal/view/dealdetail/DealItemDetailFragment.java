@@ -26,7 +26,7 @@ import java.util.Observer;
 public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailBinding> implements View.OnClickListener, Observer, DealAdapter.LoadData {
     private DealAdapter mDealAdapter;
     private SubDealHeaderItemAdapter adapterBanner;
-    private List<Integer> dataBanner;
+    private List<String> dataBanner;
     private String url;
     private DealViewModel mDealViewModel;
 
@@ -49,6 +49,7 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
 
     @Override
     public void initData() {
+        dataBanner = new ArrayList<>();
         viewModel = new DetailNewsTravelViewModel();
         viewModel.addObserver(this);
         this.mDealViewModel = new DealViewModel();
@@ -69,27 +70,10 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
                 }
             }
         });
-        initBanner();
 
     }
 
-    private void initBanner() {
-        dataBanner = new ArrayList<>();
-        dataBanner.add(R.drawable.img_deal_exp);
-        dataBanner.add(R.drawable.f2_banner_intro_offline);
-        dataBanner.add(R.drawable.img_deal_exp);
-        dataBanner.add(R.drawable.f2_banner_intro_offline);
-        adapterBanner = new SubDealHeaderItemAdapter(mActivity, dataBanner, new SubDealHeaderItemAdapter.ClickItem() {
-            @Override
-            public void onClickItem() {
-                addFragment(new ViewImageFragment());
-            }
-        });
-        getBinding().recyclerBanner.setAdapter(adapterBanner);
-        PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
-        pagerSnapHelper.attachToRecyclerView(getBinding().recyclerBanner);
-        getBinding().indicator.attachToRecyclerView(getBinding().recyclerBanner, pagerSnapHelper);
-    }
+
 
     @Override
     public void inject() {
@@ -136,7 +120,24 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
             mDealAdapter = new DealAdapter(dealCampaignDetail,mActivity,this);
             getBinding().rcvDetailDeal.setAdapter(mDealAdapter);
             getBinding().tvTitle.setText(dealCampaignDetail.getData().getName());
+            for (int i = 0; i < dealCampaignDetail.getData().getGalleryUri().size(); i++){
+                dataBanner.add(dealCampaignDetail.getData().getGalleryUri().get(i));
+            }
+            initBanner();
         }
+    }
+    private void initBanner() {
+
+        adapterBanner = new SubDealHeaderItemAdapter(mActivity, dataBanner, new SubDealHeaderItemAdapter.ClickItem() {
+            @Override
+            public void onClickItem() {
+                addFragment(new ViewImageFragment(dataBanner));
+            }
+        });
+        getBinding().recyclerBanner.setAdapter(adapterBanner);
+        PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
+        pagerSnapHelper.attachToRecyclerView(getBinding().recyclerBanner);
+        getBinding().indicator.attachToRecyclerView(getBinding().recyclerBanner, pagerSnapHelper);
     }
 
     @Override

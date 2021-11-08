@@ -19,10 +19,10 @@ public class SubDealHeaderItemAdapter extends RecyclerView.Adapter<RecyclerView.
     private static final int TYPE_ITEM = 0;
 
     private Context context;
-    private List<?> itemList;
+    private List<String> itemList;
     private ClickItem clickItem;
 
-    public SubDealHeaderItemAdapter(Context context, List<?> itemList, ClickItem clickItem) {
+    public SubDealHeaderItemAdapter(Context context, List<String> itemList, ClickItem clickItem) {
         this.context = context;
         this.itemList = itemList;
         this.clickItem = clickItem;
@@ -65,20 +65,29 @@ public class SubDealHeaderItemAdapter extends RecyclerView.Adapter<RecyclerView.
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         private ImageView imvBanner;
 
+
         public HeaderViewHolder(View itemView) {
             super(itemView);
             imvBanner = itemView.findViewById(R.id.imvBanner);
         }
 
         public void bindItem(int position) {
-            setImage((Integer) itemList.get(position), imvBanner);
+            setImage(itemList.get(position), imvBanner);
+            imvBanner.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(clickItem != null){
+                        clickItem.onClickItem();
+                    }
+                }
+            });
         }
 
-        public void setImage(int resId, ImageView image) {
+        public void setImage(String url, ImageView image) {
             RequestOptions requestOptions = new RequestOptions();
             requestOptions.placeholder(com.daimajia.slider.library.R.drawable.img_placeholder);
             requestOptions.error(com.daimajia.slider.library.R.drawable.img_placeholder);
-            Glide.with(context).setDefaultRequestOptions(requestOptions).load(resId).thumbnail(0.2f).into(image);
+            Glide.with(context).setDefaultRequestOptions(requestOptions).load(url).thumbnail(0.2f).into(image);
         }
     }
 

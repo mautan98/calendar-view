@@ -47,7 +47,7 @@ public class Data {
     private String avatarUri;
     @SerializedName("galleryUri")
     @Expose
-    private String galleryUri;
+    private List<String> galleryUri = null;
     @SerializedName("appHomeStick")
     @Expose
     private Integer appHomeStick;
@@ -63,9 +63,9 @@ public class Data {
     @SerializedName("promptRank")
     @Expose
     private Integer promptRank;
-    @SerializedName("regionId")
+    @SerializedName("provinceId")
     @Expose
-    private Object regionId;
+    private Integer provinceId;
     @SerializedName("countryId")
     @Expose
     private Integer countryId;
@@ -116,10 +116,10 @@ public class Data {
     private Integer userHuntingCount;
     @SerializedName("totalHoldTime")
     @Expose
-    private Long totalHoldTime;
+    private Integer totalHoldTime;
     @SerializedName("totalDeal")
     @Expose
-    private Object totalDeal;
+    private Integer totalDeal;
     @SerializedName("isUserHunting")
     @Expose
     private Boolean isUserHunting;
@@ -129,6 +129,9 @@ public class Data {
     @SerializedName("deals")
     @Expose
     private List<Deal> deals = null;
+    @SerializedName("dealCampaignScores")
+    @Expose
+    private List<DealCampaignScore> dealCampaignScores = null;
 
     public Integer getId() {
         return id;
@@ -226,11 +229,11 @@ public class Data {
         this.avatarUri = avatarUri;
     }
 
-    public String getGalleryUri() {
+    public List<String> getGalleryUri() {
         return galleryUri;
     }
 
-    public void setGalleryUri(String galleryUri) {
+    public void setGalleryUri(List<String> galleryUri) {
         this.galleryUri = galleryUri;
     }
 
@@ -274,12 +277,12 @@ public class Data {
         this.promptRank = promptRank;
     }
 
-    public Object getRegionId() {
-        return regionId;
+    public Integer getProvinceId() {
+        return provinceId;
     }
 
-    public void setRegionId(Object regionId) {
-        this.regionId = regionId;
+    public void setProvinceId(Integer provinceId) {
+        this.provinceId = provinceId;
     }
 
     public Integer getCountryId() {
@@ -410,19 +413,19 @@ public class Data {
         this.userHuntingCount = userHuntingCount;
     }
 
-    public Long getTotalHoldTime() {
+    public Integer getTotalHoldTime() {
         return totalHoldTime;
     }
 
-    public void setTotalHoldTime(Long totalHoldTime) {
+    public void setTotalHoldTime(Integer totalHoldTime) {
         this.totalHoldTime = totalHoldTime;
     }
 
-    public Object getTotalDeal() {
+    public Integer getTotalDeal() {
         return totalDeal;
     }
 
-    public void setTotalDeal(Object totalDeal) {
+    public void setTotalDeal(Integer totalDeal) {
         this.totalDeal = totalDeal;
     }
 
@@ -448,6 +451,14 @@ public class Data {
 
     public void setDeals(List<Deal> deals) {
         this.deals = deals;
+    }
+
+    public List<DealCampaignScore> getDealCampaignScores() {
+        return dealCampaignScores;
+    }
+
+    public void setDealCampaignScores(List<DealCampaignScore> dealCampaignScores) {
+        this.dealCampaignScores = dealCampaignScores;
     }
 
 }

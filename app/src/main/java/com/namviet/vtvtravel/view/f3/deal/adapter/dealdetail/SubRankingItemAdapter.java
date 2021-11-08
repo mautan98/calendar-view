@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.view.f3.deal.adapter.dealdetail;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.view.f3.deal.Utils;
 import com.namviet.vtvtravel.view.f3.deal.model.Rank;
+import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
+import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignScore;
 
 import java.util.List;
 
@@ -20,10 +24,10 @@ public class SubRankingItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private static final int TYPE_ITEM = 0;
 
     private Context context;
-    private List<Rank> itemList;
+    private DealCampaignDetail itemList;
 
 
-    public SubRankingItemAdapter(Context context, List<Rank> itemList) {
+    public SubRankingItemAdapter(Context context, DealCampaignDetail itemList) {
         this.context = context;
         this.itemList = itemList;
     }
@@ -58,7 +62,7 @@ public class SubRankingItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public int getItemCount() {
-        return itemList != null ? itemList.size() : 0;
+        return itemList != null ? itemList.getData().getDealCampaignScores().size() : 0;
     }
 
 
@@ -82,24 +86,31 @@ public class SubRankingItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             imgNo1 = (ImageView) itemView.findViewById(R.id.img_no1);
         }
         public void bindItem(int position) {
-            Rank rank = itemList.get(position);
-            if(position <9){
-                if(position == 0){
-                    imgNo1.setVisibility(View.VISIBLE);
-                    mTvNo.setVisibility(View.GONE);
-                }
-                else {
-                    imgNo1.setVisibility(View.GONE);
-                    mTvNo.setVisibility(View.VISIBLE);
-                    mTvNo.setText("0"+(position+1));
-                }
+            try {
+                DealCampaignScore rank = itemList.getData().getDealCampaignScores().get(position);
+                if(position <9){
+                    if(position == 0){
+                        imgNo1.setVisibility(View.VISIBLE);
+                        mTvNo.setVisibility(View.GONE);
+                        mTvPhoneNumber.setTextColor(Color.parseColor("#0CAF00"));
+                        mTvTimeKeep.setTextColor(Color.parseColor("#0CAF00"));
+                    }
+                    else {
+                        imgNo1.setVisibility(View.GONE);
+                        mTvNo.setVisibility(View.VISIBLE);
+                        mTvNo.setText("0"+(position+1));
+                    }
 
-            }else {
-                mTvNo.setText(String.valueOf(position+1));
+                }else {
+                    mTvNo.setText(String.valueOf(position+1));
+                }
+                String phoneNumSercurity = rank.getMobile().substring(rank.getMobile().lastIndexOf(rank.getMobile().length(),rank.getMobile().length()-3));
+                mTvPhoneNumber.setText(phoneNumSercurity+"xxx");
+                String timeHold = Utils.CalendarUtils.getTimeHold(rank.getHoldTime());
+                mTvTimeKeep.setText(timeHold);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            String phoneNumSercurity = rank.getPhoneNumber().substring(rank.getPhoneNumber().lastIndexOf(rank.getPhoneNumber().length(),rank.getPhoneNumber().length()-3));
-            mTvPhoneNumber.setText(phoneNumSercurity+"xxx");
-            mTvTimeKeep.setText(rank.getTimeKeep());
         }
 
 
