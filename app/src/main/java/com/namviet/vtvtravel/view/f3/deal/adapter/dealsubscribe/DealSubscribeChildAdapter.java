@@ -72,6 +72,7 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
         private TextView tvRank;
         private TextView tvStatus;
         private LinearLayout lnlPrice;
+        private LinearLayout layoutChecked;
         private ImageView imgClock;
         private ImageView imgWin;
 
@@ -85,6 +86,7 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
             tvRank = itemView.findViewById(R.id.tvRank);
             tvStatus = itemView.findViewById(R.id.tvStatus);
             imgClock = itemView.findViewById(R.id.imgClock);
+            layoutChecked = itemView.findViewById(R.id.layoutChecked);
 
         }
 
@@ -131,8 +133,15 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
                 String seconds = String.valueOf((int)((time % 3600) % 60));
 
                 tvTotalHoldTime.setText(days + hours+" : "+minutes+" : "+seconds);
+
+                if(time > 0){
+                    layoutChecked.setVisibility(View.VISIBLE);
+                }else {
+                    layoutChecked.setVisibility(View.GONE);
+                }
             } catch (NumberFormatException e) {
                 tvTotalHoldTime.setText("0 NGÀY");
+                layoutChecked.setVisibility(View.GONE);
             }
         }
     }
