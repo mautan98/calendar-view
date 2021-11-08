@@ -13,10 +13,10 @@
         android:layout_height="0.5dp"/>
 
     <ImageView
+        android:background="@color/colorPrimary"
         android:layout_marginStart="25dp"
         android:layout_marginTop="16dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/f3_banner_deal_exp"
         android:id="@+id/imgAvatar"
         android:layout_width="63dp"
         android:layout_height="0dp"
@@ -57,6 +57,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:textAllCaps="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_medium"
@@ -65,6 +66,7 @@
                 android:textSize="9dp" />
 
             <TextView
+                android:layout_marginStart="5dp"
                 android:id="@+id/tvTotalHoldTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -74,11 +76,15 @@
                 android:textSize="9dp" />
 
             <View
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="#3B3B3B" />
 
             <TextView
+                android:layout_marginEnd="5dp"
+                android:textAllCaps="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_medium"
@@ -98,11 +104,15 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
             android:layout_marginBottom="14dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
+                android:src="@drawable/ic_clock"
+                android:id="@+id/imgClock"
                 android:layout_width="8dp"
                 android:layout_height="8dp" />
 
@@ -115,6 +125,13 @@
                 android:text="Đang diễn ra"
                 android:textColor="#25C400"
                 android:textSize="10dp" />
+
+            <ImageView
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_win_deal"
+                android:id="@+id/imgWin"
+                android:layout_width="17dp"
+                android:layout_height="17dp"/>
 
         </LinearLayout>
 
