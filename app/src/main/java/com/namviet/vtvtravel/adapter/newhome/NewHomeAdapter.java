@@ -74,9 +74,12 @@ import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.f3.deal.adapter.F3SubDealAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.F3TabDealAdapter;
+import com.namviet.vtvtravel.view.f3.deal.adapter.F3TabDealInHomeAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.RecyclerAdapter;
+import com.namviet.vtvtravel.view.f3.deal.model.Block;
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealHomeActivity;
+import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.ItemGenerator;
 import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel;
 import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
@@ -313,7 +316,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             rclHeader = itemView.findViewById(R.id.rclHeader);
             layoutSearch = itemView.findViewById(R.id.layoutSearch);
             vpPromotion = itemView.findViewById(R.id.vpPromotionSlide);
-            indicatorView = (IndicatorView)  itemView.findViewById(R.id.indicator_view);
+            indicatorView = (IndicatorView) itemView.findViewById(R.id.indicator_view);
             layoutSearch.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -521,6 +524,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private TextView btnRegisterNow;
         private IndefinitePagerIndicator vpIndicator;
         private CircleIndicator indicator;
+
         public VoucherViewHolder(View itemView) {
             super(itemView);
             container = itemView.findViewById(R.id.pager_container);
@@ -607,7 +611,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private TextView tvTitle;
         private TextView tvDescription;
         private F3SubDealAdapter f3SubDealAdapter;
-        private F3TabDealAdapter f3TabDealAdapter;
+        private F3TabDealInHomeAdapter f3TabDealAdapter;
         private RecyclerView rclContent;
         private RecyclerView rclTab;
         private DealViewModel dealViewModel;
@@ -654,7 +658,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 @Override
                 public void onClick(View view) {
                     try {
-                      //  DetailDealWebviewActivity.startScreen(context, homeServiceResponse.getData().get(position).getLink_home_deal());
+                        //  DetailDealWebviewActivity.startScreen(context, homeServiceResponse.getData().get(position).getLink_home_deal());
                         DealHomeActivity.Companion.startScreen(context);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -664,11 +668,14 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             });
 
 
-            f3TabDealAdapter = new F3TabDealAdapter(0, null, context, new F3TabDealAdapter.ClickTab() {
+            f3TabDealAdapter = new F3TabDealInHomeAdapter(0,  (ArrayList<Item>) ItemGenerator.demoTabDealList(), context, new F3TabDealInHomeAdapter.ClickTab() {
                 @Override
                 public void onClickTab(int positionClick) {
-                    Toast.makeText(context, "Tab click: "+positionClick, Toast.LENGTH_SHORT).show();
-                    dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/home?size=1&page=0");
+                    if (positionClick == 0) {
+                        dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/home");
+                    } else {
+                        dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/home?size=1&page=0");
+                    }
 //                    try {
 //                        newHomeFragment.setmIOnClickTabReloadData(SuggestionLocationViewHolder.this);
 //                        homeServiceResponse.getData().get(position).setPositionClick(positionClick);
@@ -685,8 +692,8 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             });
             rclTab.setAdapter(f3TabDealAdapter);
 
-            if(dealResponse == null){
-                dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/home?size=1&page=0");
+            if (dealResponse == null) {
+                dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/home");
             }
 
             try {
@@ -700,7 +707,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         @Override
         public void update(Observable observable, Object o) {
             if (observable instanceof DealViewModel) {
-                if(o instanceof DealResponse) {
+                if (o instanceof DealResponse) {
                     dealResponse = (DealResponse) o;
                     f3SubDealAdapter = new F3SubDealAdapter(context, dealResponse, viewModel);
                     rclContent.setAdapter(f3SubDealAdapter);
@@ -714,6 +721,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private SubPromotionPartnerAdapter subPromotionPartnerAdapter;
         private IndefinitePagerIndicator vpIndicator;
         private CircleIndicator2 indicator;
+
         public PromotionPartner(View itemView) {
             super(itemView);
             recyclerPartnerLink = itemView.findViewById(R.id.recyclerPartnerLink);
@@ -959,6 +967,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private IndefinitePagerIndicator vpIndicator;
         private TextView tvSeeMore;
         private CircleIndicator2 indicator;
+
         public VideoViewHolder(View itemView) {
             super(itemView);
             recyclerAppVideo = itemView.findViewById(R.id.recyclerAppVideo);
@@ -986,7 +995,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             recyclerAppVideo.setAdapter(subVideoAdapter);
 
             try {
-                PagerSnapHelper  helper = new PagerSnapHelper ();
+                PagerSnapHelper helper = new PagerSnapHelper();
                 helper.attachToRecyclerView(recyclerAppVideo);
                 indicator.attachToRecyclerView(recyclerAppVideo, helper);
                 vpIndicator.attachToRecyclerView(recyclerAppVideo);

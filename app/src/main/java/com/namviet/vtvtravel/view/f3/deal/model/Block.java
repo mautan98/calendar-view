@@ -114,4 +114,8 @@ public class Block {
     public void setDataLoaded(boolean dataLoaded) {
         this.dataLoaded = dataLoaded;
     }
+
+    public Block(String name) {
+        this.name = name;
+    }
 }
