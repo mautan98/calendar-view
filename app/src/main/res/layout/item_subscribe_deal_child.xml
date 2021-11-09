@@ -180,7 +180,19 @@
         android:layout_width="1dp"
         android:layout_height="0dp"/>
 
+    <View
+        android:visibility="gone"
+        android:id="@+id/viewCoverVertical"
+        android:background="@color/white"
+        android:layout_marginStart="6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view"
+        android:layout_width="1dp"
+        android:layout_height="0dp"/>
+
     <com.ornach.richtext.RichView
+        android:id="@+id/view"
         app:layout_constraintEnd_toEndOf="@+id/viewVertical"
         app:layout_constraintStart_toStartOf="@+id/viewVertical"
         app:layout_constraintBottom_toBottomOf="parent"

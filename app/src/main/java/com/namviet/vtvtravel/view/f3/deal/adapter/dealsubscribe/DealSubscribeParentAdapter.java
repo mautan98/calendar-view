@@ -25,10 +25,12 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
     private static final int TYPE_ITEM = 0;
     private Context context;
     private ArrayList<DealFollow> dealFollows;
+    private DataListener dataListener;
 
-    public DealSubscribeParentAdapter(Context context, ArrayList<DealFollow> dealFollows) {
+    public DealSubscribeParentAdapter(Context context, ArrayList<DealFollow> dealFollows, DataListener dataListener) {
         this.context = context;
         this.dealFollows = dealFollows;
+        this.dataListener = dataListener;
     }
 
     @Override
@@ -62,8 +64,14 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
     @Override
     public int getItemCount() {
         try {
+            if(dealFollows.size()>0){
+                dataListener.onDataChange(false);
+            }else {
+                dataListener.onDataChange(true);
+            }
             return dealFollows.size();
         } catch (Exception e) {
+            dataListener.onDataChange(true);
             return 0;
         }
     }
@@ -82,6 +90,7 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
         private TextView tvTotalHoldTime;
         private TextView tvRank;
         private TextView tvStatus;
+        private View viewVertical;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -93,6 +102,7 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
             tvTotalHoldTime = itemView.findViewById(R.id.tvTotalHoldTime);
             tvRank = itemView.findViewById(R.id.tvRank);
             tvStatus = itemView.findViewById(R.id.tvStatus);
+            viewVertical = itemView.findViewById(R.id.viewVertical);
         }
 
         public void bindItem(int position) {
@@ -102,10 +112,12 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
                 public void onClick(View view) {
                     if(dealFollows.get(position).isShowChild()){
                         rclContent.setVisibility(View.GONE);
+                        viewVertical.setVisibility(View.GONE);
                         dealFollows.get(position).setShowChild(false);
                         Glide.with(context).load(R.drawable.ic_show_child).into(btnShowHide);
                     }else {
                         rclContent.setVisibility(View.VISIBLE);
+                        viewVertical.setVisibility(View.VISIBLE);
                         dealFollows.get(position).setShowChild(true);
                         Glide.with(context).load(R.drawable.ic_hide_child).into(btnShowHide);
                     }
@@ -124,9 +136,11 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
 
             if(dealFollows.get(position).isShowChild()){
                 rclContent.setVisibility(View.VISIBLE);
+                viewVertical.setVisibility(View.VISIBLE);
                 Glide.with(context).load(R.drawable.ic_hide_child).into(btnShowHide);
             }else {
                 rclContent.setVisibility(View.GONE);
+                viewVertical.setVisibility(View.GONE);
                 Glide.with(context).load(R.drawable.ic_show_child).into(btnShowHide);
             }
 
@@ -157,5 +171,9 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
             }
 
         }
+    }
+
+    public interface DataListener {
+        void onDataChange(boolean isShowNoDataView);
     }
 }

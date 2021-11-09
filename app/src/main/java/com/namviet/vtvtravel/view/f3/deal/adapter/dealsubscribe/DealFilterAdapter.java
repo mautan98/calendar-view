@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.RewardStatus;
+import com.namviet.vtvtravel.viewmodel.newhome.ChangeRegionDialog;
 
 import java.util.ArrayList;
 
@@ -19,10 +20,12 @@ public class DealFilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int TYPE_ITEM = 0;
     private Context context;
     private ArrayList<RewardStatus> listFilter;
+    private ClickItem clickItem;
 
-    public DealFilterAdapter(Context context, ArrayList<RewardStatus> listFilter) {
+    public DealFilterAdapter(Context context, ArrayList<RewardStatus> listFilter, ClickItem clickItem) {
         this.context = context;
         this.listFilter = listFilter;
+        this.clickItem = clickItem;
     }
 
     @Override
@@ -75,24 +78,27 @@ public class DealFilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         public void bindItem(int position) {
             tvTitle.setText(listFilter.get(position).getLabel());
-            if(listFilter.get(position).isMarked()){
+            if (listFilter.get(position).isMarked()) {
                 imgMark.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 imgMark.setVisibility(View.GONE);
             }
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(listFilter.get(position).isMarked()){
-                        imgMark.setVisibility(View.GONE);
-                        listFilter.get(position).setMarked(false);
-                    }else {
-                        imgMark.setVisibility(View.VISIBLE);
-                        listFilter.get(position).setMarked(true);
+                    for (int i = 0; i < listFilter.size(); i++) {
+                        listFilter.get(i).setMarked(false);
                     }
+                    listFilter.get(position).setMarked(true);
+                    clickItem.onClickItem(position);
+                    notifyDataSetChanged();
                 }
             });
         }
+    }
+
+    public interface ClickItem {
+        void onClickItem(int position);
     }
 }

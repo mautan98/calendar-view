@@ -175,6 +175,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public void bindItem(int position) {
+
             if(!dealCampaignDetail.isDataLoaded()){
                 rclContent.setVisibility(View.INVISIBLE);
                 mShimmerFrameLayout.setVisibility(View.VISIBLE);
@@ -184,8 +185,9 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 dealCampaignDetail.setDataLoaded(true);
             }
             rclContent.setAdapter(new GridDealAdapter(dealCampaignDetail.getDealByCampaign()));
-            rclFilterDeal.setAdapter(new DealFilterAdapter(mContext, null));
+            rclFilterDeal.setAdapter(new DealFilterAdapter(mContext, null, null));
             mF3HeaderAdapter = new F3HeaderAdapter(0, tabs, itemView.getContext(), new F3HeaderAdapter.ClickTab() {
+
                 @Override
                 public void onClickTab(int position) {
                     mShimmerFrameLayout.setVisibility(View.VISIBLE);
