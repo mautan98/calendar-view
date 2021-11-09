@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,16 +25,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.travelnews.CommentInDetailTravelNewsAdapter;
 import com.namviet.vtvtravel.view.f3.deal.Utils;
 import com.namviet.vtvtravel.view.f3.deal.adapter.F3Header2Adapter;
+import com.namviet.vtvtravel.view.f3.deal.adapter.F3SubDealAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealAdapter;
+import com.namviet.vtvtravel.view.f3.deal.adapter.RecyclerAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealFilterAdapter;
 import com.namviet.vtvtravel.view.f3.deal.model.OnClickTabHeader2;
 import com.namviet.vtvtravel.view.f3.deal.model.Rank;
 import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
+import com.namviet.vtvtravel.view.f3.deal.view.dealdetail.DealItemDetailFragment;
+import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
 import com.ornach.richtext.RichText;
 
 import org.greenrobot.eventbus.EventBus;
@@ -52,11 +58,16 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private int COMMENT = 5;
     private int SUGGEST = 6;
     private LoadData loadData;
-
-    public DealAdapter(DealCampaignDetail data, Context mContext, LoadData loadData) {
+    private DealItemDetailFragment dealItemDetailFragment;
+    private  ILoadDataDeal mILoadDataDeal;
+    public void setILoadDataDeal(ILoadDataDeal mILoadDataDeal) {
+        this.mILoadDataDeal = mILoadDataDeal;
+    }
+    public DealAdapter(DealCampaignDetail data, Context mContext, LoadData loadData,DealItemDetailFragment dealItemDetailFragment) {
         this.dealCampaignDetail = data;
         this.mContext = mContext;
         this.loadData = loadData;
+        this.dealItemDetailFragment = dealItemDetailFragment;
     }
 
     @NonNull
@@ -138,38 +149,65 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
 
-    public class MoreViewHolder extends RecyclerView.ViewHolder {
+    public class MoreViewHolder extends RecyclerView.ViewHolder implements NewHomeFragment.IOnClickTabReloadData {
         private RecyclerView rclFilterDeal;
         private RecyclerView rclContent;
 
         private RecyclerView rcvTabHeader1;
-        private F3Header2Adapter mF3Header2Adapter;
+        private F3HeaderAdapter mF3HeaderAdapter;
+        private ArrayList<String> tabs = new ArrayList<>();
+        private ShimmerFrameLayout mShimmerFrameLayout;
+
 
         public MoreViewHolder(View itemView) {
             super(itemView);
             initView(itemView);
-
+            tabs.add("Đang diễn ra");
+            tabs.add("Sắp diễn ra");
+            tabs.add("Đã kết thúc");
         }
 
         private void initView(View itemView) {
             rclFilterDeal = itemView.findViewById(R.id.rclFilterDeal);
             rclContent = itemView.findViewById(R.id.rclContent);
-
+            mShimmerFrameLayout = itemView.findViewById(R.id.shimmer_view_container);
             rcvTabHeader1 = itemView.findViewById(R.id.rcv_tab_header1);
         }
 
         public void bindItem(int position) {
-            rclContent.setAdapter(new GridDealAdapter());
+            if(!dealCampaignDetail.isDataLoaded()){
+                rclContent.setVisibility(View.INVISIBLE);
+                mShimmerFrameLayout.setVisibility(View.VISIBLE);
+                mShimmerFrameLayout.startShimmer();
+                dealItemDetailFragment.setIOnClickTabReloadData(MoreViewHolder.this);
+                mILoadDataDeal.onLoadDataDeal("");
+                dealCampaignDetail.setDataLoaded(true);
+            }
+            rclContent.setAdapter(new GridDealAdapter(dealCampaignDetail.getDealByCampaign()));
             rclFilterDeal.setAdapter(new DealFilterAdapter(mContext, null));
-
-            mF3Header2Adapter = new F3Header2Adapter(0, null, itemView.getContext(), new F3Header2Adapter.ClickTab() {
+            mF3HeaderAdapter = new F3HeaderAdapter(0, tabs, itemView.getContext(), new F3HeaderAdapter.ClickTab() {
                 @Override
                 public void onClickTab(int position) {
-                    Toast.makeText(itemView.getContext(), "Tab click: " + position, Toast.LENGTH_SHORT).show();
-                    EventBus.getDefault().post(new OnClickTabHeader2(position));
+                    mShimmerFrameLayout.setVisibility(View.VISIBLE);
+                    rclContent.setVisibility(View.INVISIBLE);
+                    mShimmerFrameLayout.startShimmer();
+                    dealItemDetailFragment.setIOnClickTabReloadData(MoreViewHolder.this);
+                    mILoadDataDeal.onLoadDataDeal("");
                 }
             }, false);
-            rcvTabHeader1.setAdapter(mF3Header2Adapter);
+            rcvTabHeader1.setAdapter(mF3HeaderAdapter);
+        }
+        @Override
+        public void onTabClick(String code) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    rclContent.setAdapter(new GridDealAdapter(dealCampaignDetail.getDealByCampaign()));
+                    mShimmerFrameLayout.stopShimmer();
+                    mShimmerFrameLayout.setVisibility(View.GONE);
+                    rclContent.setVisibility(View.VISIBLE);
+                }
+            },300);
         }
     }
 
@@ -530,9 +568,12 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         }
     }
-
+    public interface ILoadDataDeal{
+        void onLoadDataDeal(String url);
+    }
     public interface LoadData {
         void onLoadDataComment(String id);
+        void onTabSubDealClick(int position);
     }
 
 }

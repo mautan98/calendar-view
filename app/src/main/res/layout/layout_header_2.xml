@@ -18,7 +18,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="5"
+            app:spanCount="3"
             tools:listitem="@layout/f3_item_header2" />
     </LinearLayout>
 

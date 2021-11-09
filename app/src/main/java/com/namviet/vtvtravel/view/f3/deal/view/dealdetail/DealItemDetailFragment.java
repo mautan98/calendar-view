@@ -10,11 +10,15 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.databinding.FragmentDealItemDetailBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
+import com.namviet.vtvtravel.view.f3.deal.adapter.RecyclerAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealdetail.DealAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealdetail.SubDealHeaderItemAdapter;
+import com.namviet.vtvtravel.view.f3.deal.model.dealbycampaign.DealByCampaign;
 import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
 import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel;
+import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
 import com.namviet.vtvtravel.viewmodel.f2travelnews.DetailNewsTravelViewModel;
 
 import java.util.ArrayList;
@@ -29,9 +33,16 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
     private ArrayList<String> dataBanner;
     private String url;
     private DealViewModel mDealViewModel;
-
+    private String urlTab = "https://core-testing.vtvtravel.vn/api/v1/deals/byCampaigns?campaignId=105&isProcessing=0";
+    private DealCampaignDetail dealCampaignDetail;
     public DealItemDetailFragment() {
         // Required empty public constructor
+    }
+    private boolean isFirstLoad = true;
+    private NewHomeFragment.IOnClickTabReloadData mIOnClickTabReloadData;
+    public void setIOnClickTabReloadData(NewHomeFragment.IOnClickTabReloadData mIOnClickTabReloadData) {
+        isFirstLoad = false;
+        this.mIOnClickTabReloadData = mIOnClickTabReloadData;
     }
     private DetailNewsTravelViewModel viewModel;
     @SuppressLint("ValidFragment")
@@ -101,23 +112,15 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
 
     @Override
     public void update(Observable observable, Object o) {
-        if (o instanceof CommentResponse) {
-            CommentResponse response = (CommentResponse) o;
-            List<CommentResponse.Data.Comment> comments = response.getData().getContent();
-//            if (comments == null) {
-//            } else if (comments.size() >= 3) {
-//                getBinding().layoutViewAllComment.setVisibility(View.VISIBLE);
-//                getBinding().tvCommentLeft.setText("Xem tất cả " + comments.size() + " bình luận");
-//            } else {
-//                getBinding().layoutViewAllComment.setVisibility(View.GONE);
-//            }
-            Log.e("xxx", "update: "+response.getData().getContent().size() );
-//            data.set(5,response);
-//            mDealAdapter.notifyItemChanged(5);
-        }
-        else if(o instanceof DealCampaignDetail){
-            DealCampaignDetail dealCampaignDetail = (DealCampaignDetail) o;
-            mDealAdapter = new DealAdapter(dealCampaignDetail,mActivity,this);
+        if(o instanceof DealCampaignDetail){
+            dealCampaignDetail = (DealCampaignDetail) o;
+            mDealAdapter = new DealAdapter(dealCampaignDetail,mActivity,this,DealItemDetailFragment.this);
+            mDealAdapter.setILoadDataDeal(new DealAdapter.ILoadDataDeal() {
+                @Override
+                public void onLoadDataDeal(String url) {
+                    mDealViewModel.getDealByCampaign(urlTab);
+                }
+            });
             getBinding().rcvDetailDeal.setAdapter(mDealAdapter);
             getBinding().tvTitle.setText(dealCampaignDetail.getData().getName());
             for (int i = 0; i < dealCampaignDetail.getData().getGalleryUri().size(); i++){
@@ -126,6 +129,23 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
                 dataBanner.add(dealCampaignDetail.getData().getGalleryUri().get(i));
             }
             initBanner();
+        }
+        else if(o instanceof DealByCampaign){
+            if(dealCampaignDetail == null){
+                dealCampaignDetail = new DealCampaignDetail();
+            }
+            DealByCampaign dealByCampaign = (DealByCampaign) o;
+            dealCampaignDetail.setDealByCampaign(dealByCampaign);
+            if (isFirstLoad) {
+                mDealAdapter.notifyItemChanged(5);
+            } else if (mIOnClickTabReloadData != null) {
+                mIOnClickTabReloadData.onTabClick(RecyclerAdapter.TypeString.DEAL_HOME);
+                isFirstLoad = true;
+            }
+        }
+        else if(o instanceof ErrorResponse){
+            mIOnClickTabReloadData.onTabClick(RecyclerAdapter.TypeString.DEAL_HOME);
+            isFirstLoad = true;
         }
     }
     private void initBanner() {
@@ -146,5 +166,10 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
     public void onLoadDataComment(String id) {
         String idTest = "5ed9efe18e9c70833d8b45d6";
         viewModel.getComment(idTest);
+    }
+
+    @Override
+    public void onTabSubDealClick(int position) {
+
     }
 }
