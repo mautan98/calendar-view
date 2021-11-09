@@ -25,10 +25,12 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
     private static final int TYPE_ITEM = 0;
     private Context context;
     private ArrayList<DealFollow> dealFollows;
+    private DataListener dataListener;
 
-    public DealSubscribeParentAdapter(Context context, ArrayList<DealFollow> dealFollows) {
+    public DealSubscribeParentAdapter(Context context, ArrayList<DealFollow> dealFollows, DataListener dataListener) {
         this.context = context;
         this.dealFollows = dealFollows;
+        this.dataListener = dataListener;
     }
 
     @Override
@@ -62,8 +64,14 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
     @Override
     public int getItemCount() {
         try {
+            if(dealFollows.size()>0){
+                dataListener.onDataChange(false);
+            }else {
+                dataListener.onDataChange(true);
+            }
             return dealFollows.size();
         } catch (Exception e) {
+            dataListener.onDataChange(true);
             return 0;
         }
     }
@@ -157,5 +165,9 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
             }
 
         }
+    }
+
+    public interface DataListener {
+        void onDataChange(boolean isShowNoDataView);
     }
 }

@@ -44,7 +44,7 @@ public class DealFollow {
     @SerializedName("avatarUri")
     private String avatarUri;
     @Expose
-    @SerializedName("deals")
+    @SerializedName("dealFollows")
     private ArrayList<DealFollow> listDealChild;
 
     public ArrayList<DealFollow> getListDealChild() {

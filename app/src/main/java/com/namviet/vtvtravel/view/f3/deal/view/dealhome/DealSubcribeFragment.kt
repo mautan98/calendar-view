@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.view.f3.deal.view.dealhome
 
 import android.os.Handler
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.namviet.vtvtravel.R
@@ -14,19 +15,22 @@ import com.namviet.vtvtravel.response.f2wheel.WheelRotateResponse
 import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealAdapter
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealFilterAdapter
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealSubscribeParentAdapter
+import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollow
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollowResponse
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.RewardStatus
 import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel
 import com.namviet.vtvtravel.view.fragment.f2webview.LuckyWheelDialog
 import com.namviet.vtvtravel.viewmodel.f2luckywheel.LuckyWheelViewModel
-import kotlinx.android.synthetic.main.f2_fragment_detail_deal_webview.*
 import kotlinx.android.synthetic.main.fragment_deal_subcribe.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Observer {
-    private var dealViewModel : DealViewModel? = null
-    private var listFilter  = ArrayList<RewardStatus>();
+    private var dealViewModel: DealViewModel? = null
+    private var listFilter = ArrayList<RewardStatus>();
+    private var listDeal = ArrayList<DealFollow>()
+    private var dealSubscribeParentAdapter: DealSubscribeParentAdapter? = null
+    private var filter = ""
     override fun getLayoutRes(): Int {
         return R.layout.fragment_deal_subcribe
     }
@@ -35,16 +39,46 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
         dealViewModel = DealViewModel()
         dealViewModel?.addObserver(this)
     }
+
     override fun initData() {
+        listFilter.add(RewardStatus("", "Tất cả", true))
         listFilter.add(RewardStatus("2", "Đang săn", false))
         listFilter.add(RewardStatus("3", "Săn thành công", false))
         listFilter.add(RewardStatus("5", "Săn không thành công", false))
 
+        rclFilterDeal.adapter = DealFilterAdapter(mActivity, listFilter) { position ->
+            listDeal.clear()
+            dealSubscribeParentAdapter?.notifyDataSetChanged()
+            filter = listFilter[position].id
+            dealViewModel?.getDealFollow(
+                "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/follows",
+                filter
+            )
+        }
 
-        dealViewModel?.getDealFollow("https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/follows")
+        dealSubscribeParentAdapter = DealSubscribeParentAdapter(mActivity, listDeal) {
+            if (it) {
+                layoutNoData.visibility = View.VISIBLE
+            } else {
+                layoutNoData.visibility = View.GONE
+            }
+
+        }
+        rclContent.adapter = dealSubscribeParentAdapter
+
+        dealViewModel?.getDealFollow(
+            "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/follows",
+            filter
+        )
     }
+
     override fun inject() {}
-    override fun setClickListener() {}
+    override fun setClickListener() {
+        btnMenu.setOnClickListener {
+            addFragment(DealMenuDialog())
+        }
+    }
+
     override fun setObserver() {}
 
 
@@ -52,8 +86,9 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
         if (observable is DealViewModel && null != o) {
             when (o) {
                 is DealFollowResponse -> {
-                    rclContent.adapter = DealSubscribeParentAdapter(mActivity, o.data.dealFollows)
-                    rclFilterDeal.adapter = DealFilterAdapter(mActivity, listFilter)
+                    listDeal.clear()
+                    listDeal.addAll(o.data.dealFollows)
+                    dealSubscribeParentAdapter?.notifyDataSetChanged()
                 }
                 is ErrorResponse -> {
                     try {

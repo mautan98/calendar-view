@@ -720,7 +720,7 @@ public interface TravelService {
 
 
     @GET
-    Observable<DealFollowResponse> getDealFollow(@Url String url);
+    Observable<DealFollowResponse> getDealFollow(@Url String url, @Query("rewardStatus") String rewardStatus);
 
 
 }
