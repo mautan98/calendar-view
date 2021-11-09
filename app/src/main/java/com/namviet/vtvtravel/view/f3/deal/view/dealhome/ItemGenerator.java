@@ -1,5 +1,7 @@
 package com.namviet.vtvtravel.view.f3.deal.view.dealhome;
 
+import com.namviet.vtvtravel.view.f3.deal.model.Block;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,5 +78,12 @@ public final class ItemGenerator {
             }
         }
         return false;
+    }
+
+    public static List<Block> demoTabDealList3() {
+        List<Block> items = new ArrayList<>();
+        items.add(new Block("Tích lũy nhận quà"));
+        items.add(new Block("Săn quà"));
+        return items;
     }
 }
