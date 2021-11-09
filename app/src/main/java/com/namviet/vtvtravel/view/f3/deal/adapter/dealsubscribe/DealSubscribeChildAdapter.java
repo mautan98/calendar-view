@@ -75,6 +75,7 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
         private LinearLayout layoutChecked;
         private ImageView imgClock;
         private ImageView imgWin;
+        private View viewCoverVertical;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -87,6 +88,7 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
             tvStatus = itemView.findViewById(R.id.tvStatus);
             imgClock = itemView.findViewById(R.id.imgClock);
             layoutChecked = itemView.findViewById(R.id.layoutChecked);
+            viewCoverVertical = itemView.findViewById(R.id.viewCoverVertical);
 
         }
 
@@ -142,6 +144,12 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
             } catch (NumberFormatException e) {
                 tvTotalHoldTime.setText("0 NGÀY");
                 layoutChecked.setVisibility(View.GONE);
+            }
+
+            if(position == dealFollows.size() - 1){
+                viewCoverVertical.setVisibility(View.VISIBLE);
+            }else {
+                viewCoverVertical.setVisibility(View.GONE);
             }
         }
     }

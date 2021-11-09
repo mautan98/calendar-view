@@ -89,7 +89,7 @@
 
             <ImageView
                 android:id="@+id/layoutNoData"
-                android:alpha="50"
+                android:alpha="0.5"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/img_no_deal_data"
                 android:layout_width="200dp"
