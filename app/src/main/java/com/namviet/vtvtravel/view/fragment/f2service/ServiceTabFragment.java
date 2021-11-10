@@ -57,7 +57,7 @@ public class ServiceTabFragment extends MainFragment {
     private void initView() {
         binding.btnRegister.setOnClickListener(this);
 
-        boolean isVipRegisted = MyApplication.getInstance().isVipRegisted();
+//        boolean isVipRegisted = MyApplication.getInstance().isVipRegisted();
 //        boolean isVipRegisted  = false;
 //
 //        Account account = MyApplication.getInstance().getAccount();

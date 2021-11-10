@@ -170,8 +170,8 @@ public class OptServiceDialog extends BaseDialogFragment implements Observer {
                     cancelTimer();
                     dismiss();
                     if (service.getCode().equals("TRAVEL_VIP")) {
-//                        mActivity.switchFragment(SlideMenu.MenuType.REGISTER_SUCCESS_SCREEN);
-                        mActivity.switchFragment(SlideMenu.MenuType.REGISTER_SUCCESS_FRIEND_SCREEN);
+                        mActivity.switchFragment(SlideMenu.MenuType.REGISTER_SUCCESS_SCREEN);
+//                        mActivity.switchFragment(SlideMenu.MenuType.REGISTER_SUCCESS_FRIEND_SCREEN);
                     } else {
                         mActivity.switchFragment(SlideMenu.MenuType.REGISTER_SUCCESS_FRIEND_SCREEN);
                     }

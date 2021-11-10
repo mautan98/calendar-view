@@ -61,6 +61,8 @@ public class RuleDialog extends BaseDialogBottom {
     @Override
     protected void setUp(View view) {
         File file = new File(getBaseActivity().getExternalFilesDir(null) + File.separator + "/VTVTravelDataCall_Now/"+offlineDynamic);
+        binding.webView.getSettings().setAllowFileAccess(true);
+        binding.webView.getSettings().setAllowFileAccessFromFileURLs(true);
         binding.webView.loadUrl("file:///" + file);
 //        binding.webView.loadDataWithBaseURL(null, "file:///" + file, "text/html", "UTF-8", null);
     }

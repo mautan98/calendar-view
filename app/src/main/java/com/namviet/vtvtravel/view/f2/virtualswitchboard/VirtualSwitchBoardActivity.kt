@@ -51,7 +51,7 @@ class VirtualSwitchBoardActivity : BaseActivityNew<F2ActivityVirtualSwitchBoardB
     }
 
     override fun getDataFromIntent() {
-        ticketType = if (intent.getStringExtra(Constants.IntentKey.DATA) == null) "" else intent.getStringExtra(Constants.IntentKey.DATA)
+        ticketType = if (intent.getStringExtra(Constants.IntentKey.DATA) == null) "" else intent.getStringExtra(Constants.IntentKey.DATA)!!
     }
 
     override fun doAfterOnCreate() {

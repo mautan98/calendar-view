@@ -76,22 +76,22 @@ public class ServiceFragment extends MainFragment implements Observer {
         serviceViewModel.addObserver(this);
 
         showDialogLoading();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Account account = MyApplication.getInstance().getAccount();
-                if (null != account && account.isLogin()) {
-                    String code = String.valueOf(MyApplication.getInstance().getAccount().getId());
-                    String token = String.valueOf(MyApplication.getInstance().getAccount().getToken());
-                    serviceViewModel.getInfo(code, token);
-                    Toast.makeText(mActivity, "Đang lấy thông tin gói dịch vụ...", Toast.LENGTH_SHORT).show();
-                }
-
-
-            }
-        }, Constants.TimeDelay);
-
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                Account account = MyApplication.getInstance().getAccount();
+//                if (null != account && account.isLogin()) {
+//                    String code = String.valueOf(MyApplication.getInstance().getAccount().getId());
+//                    String token = String.valueOf(MyApplication.getInstance().getAccount().getToken());
+//                    serviceViewModel.getInfo(code, token);
+//                    Toast.makeText(mActivity, "Đang lấy thông tin gói dịch vụ...", Toast.LENGTH_SHORT).show();
+//                }
+//
+//
+//            }
+//        }, Constants.TimeDelay);
+        serviceViewModel.getService("ANDROID");
         binding.btnBack.setOnClickListener(this);
 
     }
