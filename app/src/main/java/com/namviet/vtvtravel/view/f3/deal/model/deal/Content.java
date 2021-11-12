@@ -118,7 +118,17 @@ public class Content {
     @SerializedName("expireDate")
     @Expose
     private Long expireDate;
+    @SerializedName("totalDeal")
+    @Expose
+    private String totalDeal;
 
+    public String getTotalDeal() {
+        return totalDeal;
+    }
+
+    public void setTotalDeal(String totalDeal) {
+        this.totalDeal = totalDeal;
+    }
 
     public Long getExpireDate() {
         return expireDate;

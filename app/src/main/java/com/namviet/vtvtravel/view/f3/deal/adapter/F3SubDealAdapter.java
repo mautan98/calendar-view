@@ -137,6 +137,8 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             tvExpiryDate.setText("HSD: "+ DateUtltils.timeToString18(content.getExpireDate()));
 
+            tvTotalMustHaveChild.setText("Tích luỹ từ "+ content.getTotalDeal() + "\nCTKM");
+
             if (content.isCampaign()) {
                 layoutTotalMustHaveChild.setVisibility(View.VISIBLE);
                 layoutTotalHuntingUser.setVisibility(View.GONE);

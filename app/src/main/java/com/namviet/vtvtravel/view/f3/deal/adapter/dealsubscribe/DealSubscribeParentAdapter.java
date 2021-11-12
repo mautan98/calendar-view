@@ -157,19 +157,6 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
             }
 
 
-            try {
-                long time = Integer.parseInt(dealFollows.get(position).getTotalHoldTime())/1000;
-
-                String days = (int)(time / 86400) + " NGÀY ";
-                String hours = String.valueOf((int)((time % 86400) / 3600));
-                String minutes = String.valueOf((int)((time % 3600) / 60));
-                String seconds = String.valueOf((int)((time % 3600) % 60));
-
-                tvTotalHoldTime.setText(days + hours+" : "+minutes+" : "+seconds);
-            } catch (NumberFormatException e) {
-                tvTotalHoldTime.setText("0 NGÀY");
-            }
-
         }
     }
 
