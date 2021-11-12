@@ -673,7 +673,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             f3TabDealAdapter = new F3TabDealInHomeAdapter(0,  (ArrayList<Item>) ItemGenerator.demoTabDealList(), context, new F3TabDealInHomeAdapter.ClickTab() {
                 @Override
                 public void onClickTab(int positionClick) {
-                    shimmer.showShimmer(true);
+                    shimmer.setVisibility(View.VISIBLE);
                     if (positionClick == 0) {
                         dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/home");
                     } else {
@@ -696,7 +696,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             rclTab.setAdapter(f3TabDealAdapter);
 
             if (dealResponse == null) {
-                shimmer.showShimmer(true);
+                shimmer.setVisibility(View.VISIBLE);
                 dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/home");
             }
 
@@ -710,7 +710,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         @Override
         public void update(Observable observable, Object o) {
-            shimmer.showShimmer(false);
+            shimmer.setVisibility(View.GONE);
             if (observable instanceof DealViewModel) {
                 if (o instanceof DealResponse) {
                     dealResponse = (DealResponse) o;
