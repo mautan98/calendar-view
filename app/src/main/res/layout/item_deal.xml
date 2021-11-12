@@ -65,6 +65,8 @@
                     app:rt_radius="50dp">
 
                     <ImageView
+                        android:tint="@color/white"
+                        android:src="@drawable/ic_deal_group"
                         android:layout_width="19dp"
                         android:layout_height="10dp" />
 
@@ -149,7 +151,6 @@
 
 
                         <TextView
-
                             android:id="@+id/tvOriginPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -207,9 +208,9 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="28dp"
                     android:layout_marginTop="9dp"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginBottom="6dp">
 
 
                     <RelativeLayout
@@ -227,6 +228,7 @@
 
 
                         <TextView
+                            android:textAllCaps="true"
                             android:gravity="center"
                             android:layout_centerInParent="true"
                             android:id="@+id/tvDayLeft"
@@ -241,10 +243,21 @@
                     </RelativeLayout>
 
                     <ImageView
-                        android:layout_width="19dp"
-                        android:layout_height="29dp" />
+                        android:layout_marginStart="-2dp"
+                        android:src="@drawable/ic_hot_deal"
+                        android:layout_width="20dp"
+                        android:layout_height="30dp" />
 
                 </RelativeLayout>
+
+                <TextView
+                    android:layout_marginBottom="8dp"
+                    android:textColor="#727272"
+                    android:textSize="9dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="HSD: 20.10.2021"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
         </com.ornach.richtext.RichView>
 

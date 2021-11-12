@@ -133,11 +133,23 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             }
 
-            Glide.with(context).load(content.getAvatarUri()).placeholder(R.drawable.img_placeholder).into(imgAvatar);
+            try {
+                Glide.with(context).load(content.getAvatarUri()).placeholder(R.drawable.img_placeholder).into(imgAvatar);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-            tvExpiryDate.setText("HSD: "+ DateUtltils.timeToString18(content.getExpireDate()));
+            try {
+                tvExpiryDate.setText("HSD: "+ DateUtltils.timeToString18(content.getExpireDate()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-            tvTotalMustHaveChild.setText("Tích luỹ từ "+ content.getTotalDeal() + "\nCTKM");
+            try {
+                tvTotalMustHaveChild.setText("Tích luỹ từ "+ content.getTotalDeal() + "\nCTKM");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             if (content.isCampaign()) {
                 layoutTotalMustHaveChild.setVisibility(View.VISIBLE);
