@@ -1,4 +1,4 @@
- package com.namviet.vtvtravel.view.f3.deal.view.dealhome;
+package com.namviet.vtvtravel.view.f3.deal.view.dealhome;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
- public class DealHomeChildFragment extends BaseFragment<FragmentDealHomeChildBinding> implements Observer, RecyclerAdapter.IOnTabHotClick {
+public class DealHomeChildFragment extends BaseFragment<FragmentDealHomeChildBinding> implements Observer, RecyclerAdapter.IOnTabHotClick {
 
 
     private RecyclerAdapter adapter;
@@ -41,29 +41,31 @@ import java.util.Observer;
     private F3Header2Adapter2 f3Header2Adapter2;
     private RecyclerView rclHeader1;
     private RecyclerView rclHeader2;
-     private DealViewModel mDealViewModel;
-     private boolean isFirtLoad = true;
+    private DealViewModel mDealViewModel;
+    private boolean isFirtLoad = true;
     private ArrayList<Block> blocksMenuHeader1 = new ArrayList<>();
     private ArrayList<Block> blocksMenuHeader2 = new ArrayList<>();
-     private NewHomeFragment.IOnClickTabReloadData mIOnClickTabReloadData;
-     public void setmIOnClickTabReloadData(NewHomeFragment.IOnClickTabReloadData mIOnClickTabReloadData) {
-         isFirtLoad = false;
-         this.mIOnClickTabReloadData = mIOnClickTabReloadData;
-     }
+    private NewHomeFragment.IOnClickTabReloadData mIOnClickTabReloadData;
+
+    public void setmIOnClickTabReloadData(NewHomeFragment.IOnClickTabReloadData mIOnClickTabReloadData) {
+        isFirtLoad = false;
+        this.mIOnClickTabReloadData = mIOnClickTabReloadData;
+    }
+
     private String urlDeal = "https://core-testing.vtvtravel.vn/api/v1/deals/home?size=1&page=0";
-     public DealHomeChildFragment() {
-     }
+
+    public DealHomeChildFragment() {
+    }
 
 
+    public void setData(ArrayList<Block> blocksMenuHeader1, ArrayList<Block> blocksMenuHeader2) {
+        this.blocksMenuHeader1 = blocksMenuHeader1;
+        this.blocksMenuHeader2 = blocksMenuHeader2;
+        this.mDealViewModel = new DealViewModel();
+        mDealViewModel.addObserver(this);
+    }
 
-     public void setData(ArrayList<Block> blocksMenuHeader1, ArrayList<Block> blocksMenuHeader2){
-         this.blocksMenuHeader1 = blocksMenuHeader1;
-         this.blocksMenuHeader2 = blocksMenuHeader2;
-         this.mDealViewModel = new DealViewModel();
-         mDealViewModel.addObserver(this);
-     }
-
-     @Override
+    @Override
     public int getLayoutRes() {
         return R.layout.fragment_deal_home_child;
     }
@@ -78,7 +80,7 @@ import java.util.Observer;
         f3Header1Adapter2 = new F3Header1Adapter2(0, blocksMenuHeader1, mActivity, new F3Header1Adapter.ClickTab() {
             @Override
             public void onClickTab(int position) {
-                Log.e("xxx", "onTab1Click: "+blocksMenuHeader1.get(position).getCode() );
+                Log.e("xxx", "onTab1Click: " + blocksMenuHeader1.get(position).getCode());
                 adapter.setPositionSelected1(position);
                 adapter.notifyItemChanged(0);
                 // refresh flag
@@ -89,7 +91,7 @@ import java.util.Observer;
         f3Header2Adapter2 = new F3Header2Adapter2(0, blocksMenuHeader2, mActivity, new F3Header2Adapter.ClickTab() {
             @Override
             public void onClickTab(int position) {
-                Log.e("xxx", "onTab2Click: "+blocksMenuHeader2.get(position).getCode() );
+                Log.e("xxx", "onTab2Click: " + blocksMenuHeader2.get(position).getCode());
                 adapter.setPositionSelected2(position);
                 adapter.notifyItemChanged(0);
 //                blocksMenuHeader1.get(0).setDataLoaded(false);
@@ -98,11 +100,11 @@ import java.util.Observer;
             }
         }, false);
         adapter = new RecyclerAdapter();
-        adapter.setData(ItemGenerator.demoList(), mActivity, blocksMenuHeader1, blocksMenuHeader2,this);
+        adapter.setData(ItemGenerator.demoList(), mActivity, blocksMenuHeader1, blocksMenuHeader2, this);
         adapter.setILoadDataDeal(new RecyclerAdapter.ILoadDataDeal() {
             @Override
             public void onLoadDataDeal(String url) {
-                Log.e("xxx", "onLoadDataDeal: "+url );
+                Log.e("xxx", "onLoadDataDeal: " + url);
                 mDealViewModel.getDeal(urlDeal);
             }
         });
@@ -118,10 +120,10 @@ import java.util.Observer;
             @Override
             public void headerAttached(View headerView, int adapterPosition) {
                 Log.d("Listener", "Attached with position: " + adapterPosition);
-                if(adapterPosition == 0){
+                if (adapterPosition == 0) {
                     rclHeader1 = headerView.findViewById(R.id.rcv_tab_header1);
                     rclHeader1.setAdapter(f3Header1Adapter2);
-                }else if(adapterPosition == 2){
+                } else if (adapterPosition == 2) {
                     rclHeader2 = headerView.findViewById(R.id.rcv_tab_header1);
                     rclHeader2.setAdapter(f3Header2Adapter2);
                 }
@@ -150,7 +152,7 @@ import java.util.Observer;
     }
 
     @Override
-    public void onCreate(@Nullable  Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
     }
@@ -162,7 +164,7 @@ import java.util.Observer;
     }
 
     @Subscribe
-    public void onClickTabHeader1(OnClickTabHeader1 onClickTabHeader1){
+    public void onClickTabHeader1(OnClickTabHeader1 onClickTabHeader1) {
         f3Header1Adapter2.setSelectedItem(onClickTabHeader1.getPosition());
 //        mDealViewModel.getDeal(urlDeal);
 //        mDealViewModel.getDeal(blocksMenuHeader1.get(onClickTabHeader1.getPosition()).getLink());
@@ -170,36 +172,37 @@ import java.util.Observer;
     }
 
     @Subscribe
-    public void onClickTabHeader2(OnClickTabHeader2 onClickTabHeader1){
+    public void onClickTabHeader2(OnClickTabHeader2 onClickTabHeader1) {
         f3Header2Adapter2.setSelectedItem(onClickTabHeader1.getPosition());
     }
 
-     @Override
-     public void update(Observable observable, Object o) {
-         if (o instanceof DealResponse) {
-             blocksMenuHeader1.get(0).setDealResponse((DealResponse) o);
-             if (isFirtLoad) {
-                 adapter.notifyItemChanged(1);
-             } else if (mIOnClickTabReloadData != null) {
-                 mIOnClickTabReloadData.onTabClick(RecyclerAdapter.TypeString.DEAL_HOME);
-                 isFirtLoad = true;
-             }
-         }
-     }
+    @Override
+    public void update(Observable observable, Object o) {
+        if (o instanceof DealResponse) {
+            blocksMenuHeader1.get(0).setDealResponse((DealResponse) o);
+            if (isFirtLoad) {
+                adapter.notifyItemChanged(1);
+            } else if (mIOnClickTabReloadData != null) {
+                mIOnClickTabReloadData.onTabClick(RecyclerAdapter.TypeString.DEAL_HOME);
+                isFirtLoad = true;
+            }
+        }
+    }
 
-     @Override
-     public void onTab1Click(int position) {
-         f3Header1Adapter2.setSelectedItem(position);
-         blocksMenuHeader1.get(0).setDataLoaded(false);
-         Log.e("xxx", "onTab1Click: "+blocksMenuHeader1.get(position).getCode() );
-      //   mDealViewModel.getDeal(urlDeal);
-         adapter.notifyItemChanged(1);
-     }
-     @Override
-     public void onTab2Click(int position) {
-         f3Header2Adapter2.setSelectedItem(position);
-      //   Log.e("xxx", "onTab2Click: "+blocksMenuHeader2.get(position).getCode() );
+    @Override
+    public void onTab1Click(int position) {
+        f3Header1Adapter2.setSelectedItem(position);
+        blocksMenuHeader1.get(0).setDataLoaded(false);
+        Log.e("xxx", "onTab1Click: " + blocksMenuHeader1.get(position).getCode());
+        //   mDealViewModel.getDeal(urlDeal);
+        adapter.notifyItemChanged(1);
+    }
+
+    @Override
+    public void onTab2Click(int position) {
+        f3Header2Adapter2.setSelectedItem(position);
+        //   Log.e("xxx", "onTab2Click: "+blocksMenuHeader2.get(position).getCode() );
         // adapter.notifyItemChanged(1);
         // mDealViewModel.getDeal(urlDeal);
-     }
- }
+    }
+}
