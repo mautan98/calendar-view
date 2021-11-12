@@ -21,12 +21,13 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:background="@color/colorPrimary"
                 android:id="@+id/imgAvatar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/img_deal_exp" />
+                android:scaleType="centerCrop" />
             <LinearLayout
+                android:id="@+id/layoutTotalHuntingUser"
                 android:paddingBottom="2dp"
                 android:paddingTop="2dp"
                 android:paddingRight="10dp"
@@ -175,6 +176,7 @@
                     android:layout_marginTop="5dp"
                     android:orientation="vertical">
                     <LinearLayout
+                        android:id="@+id/layoutIsHuntingUser"
                         android:layout_gravity="right"
                         android:gravity="center"
                         android:layout_width="wrap_content"
@@ -194,12 +196,14 @@
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
                     <RelativeLayout
+                        android:id="@+id/layoutTotalMustHaveChild"
                         android:background="@drawable/f3_bg_strock_red"
                         android:layout_marginTop="5dp"
                         android:layout_gravity="right"
                         android:layout_width="61dp"
                         android:layout_height="29dp">
                         <TextView
+                            android:id="@+id/tvTotalMustHaveChild"
                             android:layout_centerInParent="true"
                             android:textSize="9dp"
                             android:gravity="center"

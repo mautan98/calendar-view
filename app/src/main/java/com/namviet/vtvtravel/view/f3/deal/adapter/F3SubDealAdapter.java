@@ -1,34 +1,25 @@
 package com.namviet.vtvtravel.view.f3.deal.adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.os.Handler;
+import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.like.LikeButton;
-import com.like.OnLikeListener;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.app.MyApplication;
-import com.namviet.vtvtravel.model.Account;
-import com.namviet.vtvtravel.model.travelnews.Travel;
-import com.namviet.vtvtravel.tracking.TrackingAnalytic;
-import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
-import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
+import com.namviet.vtvtravel.ultils.DateUtltils;
+import com.namviet.vtvtravel.view.f3.deal.model.deal.Content;
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
-import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
-
-import java.util.List;
 
 public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
@@ -37,9 +28,10 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private BaseViewModel viewModel;
 
 
-    public interface ILoadDataBlock{
+    public interface ILoadDataBlock {
         void onLoaDataAtPosition(int positionChild);
     }
+
     public F3SubDealAdapter(Context context, DealResponse dealResponse, BaseViewModel viewModel) {
         this.context = context;
         this.dealResponse = dealResponse;
@@ -86,15 +78,78 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
-        private LinearLayout lnlPrice;
+
+        private ImageView imgAvatar;
+        private TextView tvUserTotal;
+        private TextView tvName;
+        private TextView tvDisplayPrice;
+        private TextView tvOriginPrice;
+        private TextView tvDiscount;
+        private TextView tvDayLeft;
+        private TextView tvExpiryDate;
+        private TextView tvYouHunting;
+        private LinearLayout layoutIsHuntingUser;
+        private RelativeLayout layoutTotalMustHaveChild;
+        private LinearLayout layoutTotalHuntingUser;
+        private TextView tvTotalMustHaveChild;
+
+
         public HeaderViewHolder(View itemView) {
             super(itemView);
-            lnlPrice = itemView.findViewById(R.id.lnl_price);
+            imgAvatar = itemView.findViewById(R.id.imgAvatar);
+            tvUserTotal = itemView.findViewById(R.id.tvUserTotal);
+            tvName = itemView.findViewById(R.id.tvName);
+            tvDisplayPrice = itemView.findViewById(R.id.tvDisplayPrice);
+            tvOriginPrice = itemView.findViewById(R.id.tvOriginPrice);
+            tvDiscount = itemView.findViewById(R.id.tvDiscount);
+            tvDayLeft = itemView.findViewById(R.id.tvDayLeft);
+            tvExpiryDate = itemView.findViewById(R.id.expiry_date);
+            tvYouHunting = itemView.findViewById(R.id.tv_you_hunting);
+            layoutIsHuntingUser = itemView.findViewById(R.id.layoutIsHuntingUser);
+            layoutTotalMustHaveChild = itemView.findViewById(R.id.layoutTotalMustHaveChild);
+            tvTotalMustHaveChild = itemView.findViewById(R.id.tvTotalMustHaveChild);
+            layoutTotalHuntingUser = itemView.findViewById(R.id.layoutTotalHuntingUser);
         }
 
         public void bindItem(int position) {
-            if(position == 0){
-                lnlPrice.setVisibility(View.VISIBLE);
+            Content content = dealResponse.getData().getContent().get(position);
+            tvName.setText(content.getName());
+            tvUserTotal.setText(content.getUserHuntingCount() + "+");
+
+
+            long timeStamp = content.getEndAt();
+            long myCurrentTimeMillis = System.currentTimeMillis();
+            if (myCurrentTimeMillis > timeStamp) {
+                tvDayLeft.setText("0 ngày");
+            } else {
+                long distance = (timeStamp - myCurrentTimeMillis) / 1000;
+
+                String days = (int) (distance / 86400) + " ngày ";
+                String hours = String.valueOf((int) ((distance % 86400) / 3600));
+                String minutes = String.valueOf((int) ((distance % 3600) / 60));
+                String seconds = String.valueOf((int) ((distance % 3600) % 60));
+
+                tvDayLeft.setText("Còn lại " + days + hours + ":" + minutes + ":" + seconds);
+
+            }
+
+            Glide.with(context).load(content.getAvatarUri()).placeholder(R.drawable.img_placeholder).into(imgAvatar);
+
+            tvExpiryDate.setText("HSD: "+ DateUtltils.timeToString18(content.getExpireDate()));
+
+            if (content.isCampaign()) {
+                layoutTotalMustHaveChild.setVisibility(View.VISIBLE);
+                layoutTotalHuntingUser.setVisibility(View.GONE);
+                layoutIsHuntingUser.setVisibility(View.INVISIBLE);
+            } else {
+                layoutTotalMustHaveChild.setVisibility(View.GONE);
+                layoutTotalHuntingUser.setVisibility(View.VISIBLE);
+
+                if (content.getIsUserHunting()) {
+                    layoutIsHuntingUser.setVisibility(View.VISIBLE);
+                } else {
+                    layoutIsHuntingUser.setVisibility(View.INVISIBLE);
+                }
             }
         }
     }

@@ -112,6 +112,37 @@ public class Content {
     @SerializedName("userHuntingCount")
     @Expose
     private Integer userHuntingCount;
+    @SerializedName("isParent")
+    @Expose
+    private boolean isCampaign;
+    @SerializedName("expireDate")
+    @Expose
+    private Long expireDate;
+
+
+    public Long getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(Long expireDate) {
+        this.expireDate = expireDate;
+    }
+
+    public Boolean getUserHunting() {
+        return isUserHunting;
+    }
+
+    public void setUserHunting(Boolean userHunting) {
+        isUserHunting = userHunting;
+    }
+
+    public boolean isCampaign() {
+        return isCampaign;
+    }
+
+    public void setCampaign(boolean campaign) {
+        isCampaign = campaign;
+    }
 
     public Integer getId() {
         return id;

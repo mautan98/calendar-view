@@ -606,6 +606,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public class DealViewHolder extends RecyclerView.ViewHolder implements Observer {
         private RecyclerView recyclerNearPlace;
+        private ShimmerFrameLayout shimmer;
         private SubDealAdapter subDealAdapter;
         private TextView btnSeeMore;
         private TextView tvTitle;
@@ -627,6 +628,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             btnSeeMore = itemView.findViewById(R.id.btnSeeMore);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+            shimmer = itemView.findViewById(R.id.shimmer_view_container);
 
             try {
                 SnapHelper helper = new LinearSnapHelper();
@@ -671,10 +673,11 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             f3TabDealAdapter = new F3TabDealInHomeAdapter(0,  (ArrayList<Item>) ItemGenerator.demoTabDealList(), context, new F3TabDealInHomeAdapter.ClickTab() {
                 @Override
                 public void onClickTab(int positionClick) {
+                    shimmer.showShimmer(true);
                     if (positionClick == 0) {
                         dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/home");
                     } else {
-                        dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/home?size=1&page=0");
+                        dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/home?size=5&page=0");
                     }
 //                    try {
 //                        newHomeFragment.setmIOnClickTabReloadData(SuggestionLocationViewHolder.this);
@@ -693,6 +696,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             rclTab.setAdapter(f3TabDealAdapter);
 
             if (dealResponse == null) {
+                shimmer.showShimmer(true);
                 dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/home");
             }
 
@@ -706,6 +710,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         @Override
         public void update(Observable observable, Object o) {
+            shimmer.showShimmer(false);
             if (observable instanceof DealViewModel) {
                 if (o instanceof DealResponse) {
                     dealResponse = (DealResponse) o;
