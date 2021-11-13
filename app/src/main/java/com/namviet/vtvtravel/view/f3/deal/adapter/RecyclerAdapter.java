@@ -17,21 +17,19 @@ import com.brandongogetap.stickyheaders.exposed.StickyHeaderHandler;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.adapter.newhome.NewHomeAdapter;
 import com.namviet.vtvtravel.view.f3.deal.model.Block;
-import com.namviet.vtvtravel.view.f3.deal.model.OnClickTabHeader1;
-import com.namviet.vtvtravel.view.f3.deal.model.OnClickTabHeader2;
+import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealHomeChildFragment;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
-import com.namviet.vtvtravel.view.f3.deal.view.dealhome.ItemGenerator;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.SimpleDiffCallback;
 import com.namviet.vtvtravel.view.f3.deal.view.listdeal.ListDealActivity;
+import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel;
 import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import me.relex.circleindicator.CircleIndicator;
 
@@ -46,6 +44,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
     private static final int TYPE_CONTENT_2 = 3;
     private Context context;
     private DealHomeChildFragment dealHomeChildFragment;
+
     public class TypeString {
         public static final String SLIDE = "SLIDE";
         public static final String DEAL_HOME = "DEAL_HOME";
@@ -59,6 +58,10 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
     private IOnTabHotClick iOnTabHotClick;
     private int positionHeader1 = 0;
     private int positionHeader2 = 0;
+
+
+    private DealResponse dealResponseForBlockContent2;
+
     public void setiOnTabHotClick(IOnTabHotClick iOnTabHotClick) {
         this.iOnTabHotClick = iOnTabHotClick;
     }
@@ -100,25 +103,27 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         } else if (viewType == TYPE_CONTENT_1) {
             view = from(parent.getContext()).inflate(R.layout.layout_content_1, parent, false);
             return new ContentViewHolder1(view);
-        }if (viewType == TYPE_HEADER_2) {
+        }
+        if (viewType == TYPE_HEADER_2) {
             view = from(parent.getContext()).inflate(R.layout.layout_header_2, parent, false);
             return new HeaderViewHolder2(view);
-        }else  {
+        } else {
             view = from(parent.getContext()).inflate(R.layout.layout_content_2, parent, false);
             return new ContentViewHolder2(view);
         }
 
     }
 
-    @Override public void onBindViewHolder(BaseViewHolder holder, int position) {
+    @Override
+    public void onBindViewHolder(BaseViewHolder holder, int position) {
         try {
             if (getItemViewType(position) == TYPE_HEADER_1) {
                 ((HeaderViewHolder1) holder).bindItem(position);
-            }else if (getItemViewType(position) == TYPE_CONTENT_1) {
+            } else if (getItemViewType(position) == TYPE_CONTENT_1) {
                 ((ContentViewHolder1) holder).bindItem(position);
-            }else if (getItemViewType(position) == TYPE_HEADER_2) {
+            } else if (getItemViewType(position) == TYPE_HEADER_2) {
                 ((HeaderViewHolder2) holder).bindItem(position);
-            }else if (getItemViewType(position) == TYPE_CONTENT_2)  {
+            } else if (getItemViewType(position) == TYPE_CONTENT_2) {
                 ((ContentViewHolder2) holder).bindItem(position);
             }
         } catch (Exception e) {
@@ -126,21 +131,28 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         }
     }
 
-    @Override public int getItemCount() {
+    @Override
+    public int getItemCount() {
         return data.size();
     }
 
-    @Override public int getItemViewType(int position) {
-        switch (position){
-            case 0: return TYPE_HEADER_1;
-            case 1: return TYPE_CONTENT_1;
-            case 2: return TYPE_HEADER_2;
-            case 3: return TYPE_CONTENT_2;
+    @Override
+    public int getItemViewType(int position) {
+        switch (position) {
+            case 0:
+                return TYPE_HEADER_1;
+            case 1:
+                return TYPE_CONTENT_1;
+            case 2:
+                return TYPE_HEADER_2;
+            case 3:
+                return TYPE_CONTENT_2;
         }
         return TYPE_HEADER_1;
     }
 
-    @Override public List<?> getAdapterData() {
+    @Override
+    public List<?> getAdapterData() {
         return data;
     }
 
@@ -156,6 +168,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         private int position;
         private RecyclerView rcvTabHeader1;
         private F3Header1Adapter mF3Header1Adapter;
+
         public HeaderViewHolder1(View itemView) {
             super(itemView);
             rcvTabHeader1 = itemView.findViewById(R.id.rcv_tab_header1);
@@ -168,26 +181,28 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             mF3Header1Adapter = new F3Header1Adapter(positionSelected1, blocksMenuHeader1, itemView.getContext(), new F3Header1Adapter.ClickTab() {
                 @Override
                 public void onClickTab(int position) {
-                    Log.e("xxx", "onClickTabHeader1: "+blocksMenuHeader1.get(position).getName());
-                  //  EventBus.getDefault().post(new OnClickTabHeader1(position));
+                    Log.e("xxx", "onClickTabHeader1: " + blocksMenuHeader1.get(position).getName());
+                    //  EventBus.getDefault().post(new OnClickTabHeader1(position));
                     positionHeader1 = position;
                     iOnTabHotClick.onTab1Click(position);
 
                 }
-            },true);
+            }, true);
             rcvTabHeader1.setAdapter(mF3Header1Adapter);
         }
     }
 
-    public class HeaderViewHolder2 extends BaseViewHolder {
+    public class HeaderViewHolder2 extends BaseViewHolder implements Observer {
         private int position;
         private RecyclerView rcvTabHeader1;
         private F3Header2Adapter mF3Header2Adapter;
+        private DealViewModel dealViewModel;
 
         public HeaderViewHolder2(View itemView) {
             super(itemView);
             rcvTabHeader1 = itemView.findViewById(R.id.rcv_tab_header1);
-
+            dealViewModel = new DealViewModel();
+            dealViewModel.addObserver(this);
         }
 
         public void bindItem(int position) {
@@ -195,12 +210,30 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             mF3Header2Adapter = new F3Header2Adapter(positionSelected2, blocksMenuHeader2, itemView.getContext(), new F3Header2Adapter.ClickTab() {
                 @Override
                 public void onClickTab(int position) {
-                    Toast.makeText(itemView.getContext(), "Tab click: "+position, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(itemView.getContext(), "Tab click: " + position, Toast.LENGTH_SHORT).show();
+                    dealViewModel.getDeal(blocksMenuHeader2.get(position).getLink());
 //                    EventBus.getDefault().post(new OnClickTabHeader2(position));
                     iOnTabHotClick.onTab2Click(position);
+
                 }
-            },false);
+            }, false);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 4);
+            rcvTabHeader1.setLayoutManager(gridLayoutManager);
             rcvTabHeader1.setAdapter(mF3Header2Adapter);
+            if(dealResponseForBlockContent2 == null){
+                dealViewModel.getDeal(blocksMenuHeader2.get(0).getLink());
+            }
+        }
+
+        @Override
+        public void update(Observable observable, Object o) {
+//            shimmer.setVisibility(View.GONE);
+            if (observable instanceof DealViewModel) {
+                if (o instanceof DealResponse) {
+                    dealResponseForBlockContent2 = (DealResponse) o;
+                    notifyItemChanged(3);
+                }
+            }
         }
     }
 
@@ -217,7 +250,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         public void bindItem(int position) {
             this.position = position;
             rclContent = itemView.findViewById(R.id.rclContent);
-            rclContent.setAdapter(new GridDealAdapter());
+            rclContent.setAdapter(new GridDealInDealHomeAdapter(dealResponseForBlockContent2));
             GridLayoutManager gridLayoutManager = new GridLayoutManager(itemView.getContext(), 2);
             rclContent.setLayoutManager(gridLayoutManager);
         }
@@ -250,7 +283,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         public void bindItem(int position) {
             this.position = position;
             rclContent.setAdapter(new F3SubDealAdapter(null, blocksMenuHeader1.get(0).getDealResponse(), null));
-            if(!blocksMenuHeader1.get(0).isDataLoaded()){
+            if (!blocksMenuHeader1.get(0).isDataLoaded()) {
                 rclContent.setVisibility(View.INVISIBLE);
                 mShimmerFrameLayout.setVisibility(View.VISIBLE);
                 mShimmerFrameLayout.startShimmer();
@@ -268,7 +301,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                     dealHomeChildFragment.setmIOnClickTabReloadData(ContentViewHolder1.this);
                     mILoadDataDeal.onLoadDataDeal(blocksMenuHeader1.get(positionHeader1).getListChildBlock().get(positionClick).getLink());
                 }
-            },false);
+            }, false);
             rclTab.setAdapter(f3TabDealAdapter);
             mPagerSlide.setAdapter(new BannerCacheDealAdapter(itemView.getContext(), false));
             infiniteCycleViewPager.setAdapter(new BannerDealAdapter(itemView.getContext(), false));
@@ -281,7 +314,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                 @Override
                 public void onPageSelected(int position) {
                     mPagerSlide.setCurrentItem(infiniteCycleViewPager.getRealItem());
-                    Log.e("xxx", "onPageSelected: "+infiniteCycleViewPager.getRealItem());
+                    Log.e("xxx", "onPageSelected: " + infiniteCycleViewPager.getRealItem());
                 }
 
                 @Override
@@ -308,22 +341,25 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
         @Override
         public void onTabClick(String code) {
-           new Handler().postDelayed(new Runnable() {
-               @Override
-               public void run() {
-                   rclContent.setAdapter(new F3SubDealAdapter(null, blocksMenuHeader1.get(0).getDealResponse(), null));
-                   mShimmerFrameLayout.stopShimmer();
-                   mShimmerFrameLayout.setVisibility(View.GONE);
-                   rclContent.setVisibility(View.VISIBLE);
-               }
-           },300);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    rclContent.setAdapter(new F3SubDealAdapter(null, blocksMenuHeader1.get(0).getDealResponse(), null));
+                    mShimmerFrameLayout.stopShimmer();
+                    mShimmerFrameLayout.setVisibility(View.GONE);
+                    rclContent.setVisibility(View.VISIBLE);
+                }
+            }, 300);
         }
     }
-    public interface ILoadDataDeal{
+
+    public interface ILoadDataDeal {
         void onLoadDataDeal(String url);
     }
-    public interface IOnTabHotClick{
+
+    public interface IOnTabHotClick {
         void onTab1Click(int position);
+
         void onTab2Click(int position);
     }
 }

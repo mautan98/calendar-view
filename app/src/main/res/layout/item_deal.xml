@@ -44,6 +44,7 @@
 
 
                 <com.ornach.richtext.RichView
+                    android:id="@+id/layoutTotalHuntingUser"
                     android:gravity="center"
                     android:layout_marginBottom="4dp"
                     android:layout_marginEnd="22dp"
@@ -116,6 +117,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/layoutIsHuntingUser"
                     android:layout_marginTop="2dp"
                     android:gravity="center_vertical"
                     android:layout_width="match_parent"
@@ -251,6 +253,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/tvExpiryDate"
                     android:layout_marginBottom="8dp"
                     android:textColor="#727272"
                     android:textSize="9dp"

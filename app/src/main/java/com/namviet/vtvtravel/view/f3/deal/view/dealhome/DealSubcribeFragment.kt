@@ -1,26 +1,16 @@
 package com.namviet.vtvtravel.view.f3.deal.view.dealhome
 
-import android.os.Handler
-import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.recyclerview.widget.GridLayoutManager
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.FragmentDealSubcribeBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
-import com.namviet.vtvtravel.response.f2wheel.WheelAreasResponse
-import com.namviet.vtvtravel.response.f2wheel.WheelResultResponse
-import com.namviet.vtvtravel.response.f2wheel.WheelRotateResponse
-import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealAdapter
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealFilterAdapter
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealSubscribeParentAdapter
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollow
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollowResponse
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.RewardStatus
 import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel
-import com.namviet.vtvtravel.view.fragment.f2webview.LuckyWheelDialog
-import com.namviet.vtvtravel.viewmodel.f2luckywheel.LuckyWheelViewModel
 import kotlinx.android.synthetic.main.fragment_deal_subcribe.*
 import java.util.*
 import kotlin.collections.ArrayList

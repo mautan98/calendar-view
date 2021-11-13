@@ -30,19 +30,12 @@ import com.google.android.material.tabs.TabLayout;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.travelnews.CommentInDetailTravelNewsAdapter;
 import com.namviet.vtvtravel.view.f3.deal.Utils;
-import com.namviet.vtvtravel.view.f3.deal.adapter.F3Header2Adapter;
-import com.namviet.vtvtravel.view.f3.deal.adapter.F3SubDealAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealAdapter;
-import com.namviet.vtvtravel.view.f3.deal.adapter.RecyclerAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealFilterAdapter;
-import com.namviet.vtvtravel.view.f3.deal.model.OnClickTabHeader2;
-import com.namviet.vtvtravel.view.f3.deal.model.Rank;
 import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
 import com.namviet.vtvtravel.view.f3.deal.view.dealdetail.DealItemDetailFragment;
 import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
 import com.ornach.richtext.RichText;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
