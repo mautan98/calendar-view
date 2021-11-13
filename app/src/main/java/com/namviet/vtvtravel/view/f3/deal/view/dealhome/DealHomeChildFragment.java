@@ -93,9 +93,8 @@ public class DealHomeChildFragment extends BaseFragment<FragmentDealHomeChildBin
             public void onClickTab(int position) {
                 Log.e("xxx", "onTab2Click: " + blocksMenuHeader2.get(position).getCode());
                 adapter.setPositionSelected2(position);
-                adapter.notifyItemChanged(0);
-//                blocksMenuHeader1.get(0).setDataLoaded(false);
-//                adapter.notifyItemChanged(1);
+                adapter.notifyItemChanged(2);
+
 
             }
         }, false);
