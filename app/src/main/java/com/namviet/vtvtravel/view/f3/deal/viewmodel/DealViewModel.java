@@ -7,7 +7,6 @@ import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.view.f3.deal.model.BlockResponse;
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
-import com.namviet.vtvtravel.view.f3.deal.model.dealbycampaign.DealByCampaign;
 import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollowResponse;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
@@ -919,9 +918,9 @@ public class DealViewModel extends BaseViewModel {
         Disposable disposable = newsService.getDealByCampain(url)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<DealByCampaign>() {
+                .subscribe(new Consumer<DealResponse>() {
                     @Override
-                    public void accept(DealByCampaign dealByCampaign) throws Exception {
+                    public void accept(DealResponse dealByCampaign) throws Exception {
                         if (dealByCampaign != null) {
                             requestSuccess(dealByCampaign);
                         } else {

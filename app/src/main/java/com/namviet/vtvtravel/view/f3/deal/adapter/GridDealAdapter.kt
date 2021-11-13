@@ -6,18 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.namviet.vtvtravel.R
-import com.namviet.vtvtravel.view.f3.deal.model.dealbycampaign.DealByCampaign
+import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse
 import com.namviet.vtvtravel.view.f3.deal.view.dealdetail.DetailDealActivity
 
 
 class GridDealAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private val TYPE_ITEM = 0
-    private var dealByCampaign : DealByCampaign? = null
+    private var dealByCampaign : DealResponse? = null
 
     private var context: Context? = null
     private var url:String? = "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/details?id=104&isProcessing=1"
     constructor()
-    constructor(dealByCampaign: DealByCampaign?) : super() {
+    constructor(dealByCampaign: DealResponse?) : super() {
         this.dealByCampaign = dealByCampaign
     }
 
@@ -35,7 +35,7 @@ class GridDealAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     override fun getItemCount(): Int {
         return try {
-            dealByCampaign?.data!!.size
+            dealByCampaign?.data!!.content.size
 
         } catch (e: Exception) {
             10

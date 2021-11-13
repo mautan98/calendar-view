@@ -15,7 +15,8 @@ import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.view.f3.deal.adapter.RecyclerAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealdetail.DealAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealdetail.SubDealHeaderItemAdapter;
-import com.namviet.vtvtravel.view.f3.deal.model.dealbycampaign.DealByCampaign;
+
+import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
 import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel;
 import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
@@ -130,11 +131,11 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
             }
             initBanner();
         }
-        else if(o instanceof DealByCampaign){
+        else if(o instanceof DealResponse){
             if(dealCampaignDetail == null){
                 dealCampaignDetail = new DealCampaignDetail();
             }
-            DealByCampaign dealByCampaign = (DealByCampaign) o;
+            DealResponse dealByCampaign = (DealResponse) o;
             dealCampaignDetail.setDealByCampaign(dealByCampaign);
             if (isFirstLoad) {
                 mDealAdapter.notifyItemChanged(5);

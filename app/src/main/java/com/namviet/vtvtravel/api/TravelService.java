@@ -113,7 +113,6 @@ import com.namviet.vtvtravel.response.travelnews.NotebookResponse;
 import com.namviet.vtvtravel.response.travelnews.PlaceNearByResponse;
 import com.namviet.vtvtravel.view.f3.deal.model.BlockResponse;
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
-import com.namviet.vtvtravel.view.f3.deal.model.dealbycampaign.DealByCampaign;
 import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollowResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.GetInfoResponse;
@@ -724,7 +723,7 @@ public interface TravelService {
 
 
     @GET
-    Observable<DealByCampaign> getDealByCampain(@Url String url);
+    Observable<DealResponse> getDealByCampain(@Url String url);
 
 
 }

@@ -4,7 +4,8 @@ package com.namviet.vtvtravel.view.f3.deal.model.dealcampaign;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.namviet.vtvtravel.view.f3.deal.model.dealbycampaign.DealByCampaign;
+import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
+
 
 public class DealCampaignDetail {
 
@@ -28,13 +29,13 @@ public class DealCampaignDetail {
     public void setData(Data data) {
         this.data = data;
     }
-    private DealByCampaign dealByCampaign;
+    private DealResponse dealByCampaign;
 
-    public DealByCampaign getDealByCampaign() {
+    public DealResponse getDealByCampaign() {
         return dealByCampaign;
     }
 
-    public void setDealByCampaign(DealByCampaign dealByCampaign) {
+    public void setDealByCampaign(DealResponse dealByCampaign) {
         this.dealByCampaign = dealByCampaign;
     }
 
