@@ -146,6 +146,12 @@
             android:text="Bạn chưa tích lũy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/img_no1"
+            android:visibility="gone"
+            android:src="@drawable/ic_no1"
+            android:layout_width="32dp"
+            android:layout_height="34dp"/>
 
 
         <ImageView

@@ -13,6 +13,7 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.newhome.NewHomeAdapter;
 import com.namviet.vtvtravel.databinding.FragmentDealHomeChildBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.view.f3.deal.adapter.F3Header1Adapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.F3Header1Adapter2;
 import com.namviet.vtvtravel.view.f3.deal.adapter.F3Header2Adapter;
@@ -185,6 +186,10 @@ public class DealHomeChildFragment extends BaseFragment<FragmentDealHomeChildBin
                 mIOnClickTabReloadData.onTabClick(RecyclerAdapter.TypeString.DEAL_HOME);
                 isFirtLoad = true;
             }
+        }
+        else if(o instanceof ErrorResponse){
+            mIOnClickTabReloadData.onTabClick(RecyclerAdapter.TypeString.DEAL_HOME);
+            isFirtLoad = true;
         }
     }
 

@@ -156,6 +156,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <com.ornach.richtext.RichText
+                android:visibility="gone"
                 android:id="@+id/tv_hunt_now"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"

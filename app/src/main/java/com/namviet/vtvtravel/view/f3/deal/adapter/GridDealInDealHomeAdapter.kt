@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.ultils.DateUtltils
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse
+import com.namviet.vtvtravel.view.f3.deal.view.dealdetail.DetailDealActivity
 import kotlinx.android.synthetic.main.item_deal.view.*
 
 
@@ -15,7 +16,7 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private val TYPE_ITEM = 0
     private var dealResponse : DealResponse? = null
     private var context: Context? = null
-
+    private var url:String? = "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/details?id=105&isProcessing=1"
     constructor()
     constructor(dealResponse: DealResponse?) : super() {
         this.dealResponse = dealResponse
@@ -60,6 +61,7 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         fun bindItem(position: Int) {
             itemView.setOnClickListener {
+                DetailDealActivity.startScreen(itemView.context, url)
             }
             val content = dealResponse!!.data.content[position]
             itemView.tvName.text = content.name

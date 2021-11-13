@@ -15,6 +15,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/rll_status_deal"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="#00C574">

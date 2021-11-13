@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Handler;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -52,11 +54,13 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private int SUGGEST = 6;
     private LoadData loadData;
     private DealItemDetailFragment dealItemDetailFragment;
-    private  ILoadDataDeal mILoadDataDeal;
+    private ILoadDataDeal mILoadDataDeal;
+
     public void setILoadDataDeal(ILoadDataDeal mILoadDataDeal) {
         this.mILoadDataDeal = mILoadDataDeal;
     }
-    public DealAdapter(DealCampaignDetail data, Context mContext, LoadData loadData,DealItemDetailFragment dealItemDetailFragment) {
+
+    public DealAdapter(DealCampaignDetail data, Context mContext, LoadData loadData, DealItemDetailFragment dealItemDetailFragment) {
         this.dealCampaignDetail = data;
         this.mContext = mContext;
         this.loadData = loadData;
@@ -150,6 +154,8 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private F3HeaderAdapter mF3HeaderAdapter;
         private ArrayList<String> tabs = new ArrayList<>();
         private ShimmerFrameLayout mShimmerFrameLayout;
+        private LinearLayout lnlParent;
+        private Button btnHunt;
 
 
         public MoreViewHolder(View itemView) {
@@ -165,33 +171,68 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             rclContent = itemView.findViewById(R.id.rclContent);
             mShimmerFrameLayout = itemView.findViewById(R.id.shimmer_view_container);
             rcvTabHeader1 = itemView.findViewById(R.id.rcv_tab_header1);
+            lnlParent = itemView.findViewById(R.id.lnl_parent);
+            btnHunt = itemView.findViewById(R.id.btn_hunt);
         }
 
         public void bindItem(int position) {
 
-            if(!dealCampaignDetail.isDataLoaded()){
-                rclContent.setVisibility(View.INVISIBLE);
-                mShimmerFrameLayout.setVisibility(View.VISIBLE);
-                mShimmerFrameLayout.startShimmer();
-                dealItemDetailFragment.setIOnClickTabReloadData(MoreViewHolder.this);
-                mILoadDataDeal.onLoadDataDeal("");
-                dealCampaignDetail.setDataLoaded(true);
-            }
-            rclContent.setAdapter(new GridDealAdapter(dealCampaignDetail.getDealByCampaign()));
-            rclFilterDeal.setAdapter(new DealFilterAdapter(mContext, null, null));
-            mF3HeaderAdapter = new F3HeaderAdapter(0, tabs, itemView.getContext(), new F3HeaderAdapter.ClickTab() {
+            try {
+                if(dealCampaignDetail.getData().isCampaign()){
+                    btnHunt.setVisibility(View.GONE);
+                    lnlParent.setVisibility(View.VISIBLE);
+                    if (!dealCampaignDetail.isDataLoaded()) {
+                        rclContent.setVisibility(View.INVISIBLE);
+                        mShimmerFrameLayout.setVisibility(View.VISIBLE);
+                        mShimmerFrameLayout.startShimmer();
+                        dealItemDetailFragment.setIOnClickTabReloadData(MoreViewHolder.this);
+                        mILoadDataDeal.onLoadDataDeal("");
+                        dealCampaignDetail.setDataLoaded(true);
+                    }
+                    rclContent.setAdapter(new GridDealAdapter(dealCampaignDetail.getDealByCampaign()));
+                    rclFilterDeal.setAdapter(new DealFilterAdapter(mContext, null, null));
+                    mF3HeaderAdapter = new F3HeaderAdapter(0, tabs, itemView.getContext(), new F3HeaderAdapter.ClickTab() {
 
-                @Override
-                public void onClickTab(int position) {
-                    mShimmerFrameLayout.setVisibility(View.VISIBLE);
-                    rclContent.setVisibility(View.INVISIBLE);
-                    mShimmerFrameLayout.startShimmer();
-                    dealItemDetailFragment.setIOnClickTabReloadData(MoreViewHolder.this);
-                    mILoadDataDeal.onLoadDataDeal("");
+                        @Override
+                        public void onClickTab(int position) {
+                            mShimmerFrameLayout.setVisibility(View.VISIBLE);
+                            rclContent.setVisibility(View.INVISIBLE);
+                            mShimmerFrameLayout.startShimmer();
+                            dealItemDetailFragment.setIOnClickTabReloadData(MoreViewHolder.this);
+                            mILoadDataDeal.onLoadDataDeal("");
+                        }
+                    }, false);
+                    rcvTabHeader1.setAdapter(mF3HeaderAdapter);
                 }
-            }, false);
-            rcvTabHeader1.setAdapter(mF3HeaderAdapter);
+                else {
+                    btnHunt.setVisibility(View.VISIBLE);
+                    lnlParent.setVisibility(View.GONE);
+                    btnHunt.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText(mContext, "Clicked!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    int status = dealCampaignDetail.getData().getStatus();
+                    if (status == 0) {
+                        btnHunt.setText("Đã hết hạn");
+                        btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.bg_btn_hunt_disable));
+                    } else if (status == 1) {
+                        btnHunt.setText("Săn ngay");
+                        btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.f3_btn_agree));
+                    } else if (status == 2) {
+                        btnHunt.setText(Utils.CalendarUtils.getDayStart(dealCampaignDetail.getData().getEndAt()));
+                        btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.f3_btn_agree));
+                    }
+
+
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
         @Override
         public void onTabClick(String code) {
             new Handler().postDelayed(new Runnable() {
@@ -202,7 +243,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     mShimmerFrameLayout.setVisibility(View.GONE);
                     rclContent.setVisibility(View.VISIBLE);
                 }
-            },300);
+            }, 300);
         }
     }
 
@@ -282,7 +323,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 "    <p style=\"text-align: justify;\"><em><span style=\"font-weight: 400;\">Một Bình Phước tuyệt đẹp, hoang sơ luôn là chốn dừng chân lý tưởng cho những tâm hồn yêu khám phá thiên nhiên. Hè rồi xách balo lên và trải nghiệm miền đất đặc biệt này thôi!</span></em></p>\n" +
                 "    <figure class=\"image\" style=\"text-align: center;margin:0;padding:0;\"> " +
                 "    <figcaption style=\"text-align: center;padding:5px;\"><em>ảnh lấy trên mạng. </em></figcaption>\n" +
-                "    </figure>"+"<head><style>body{font-family:'roboto','Roboto',sans-serif;}</style></head><body><p style=\"text-align: justify;\"><strong>Top 6 địa điểm du lịch đẹp \"đụng thiên đường\" ở Bình Phước</strong></p>\n" +
+                "    </figure>" + "<head><style>body{font-family:'roboto','Roboto',sans-serif;}</style></head><body><p style=\"text-align: justify;\"><strong>Top 6 địa điểm du lịch đẹp \"đụng thiên đường\" ở Bình Phước</strong></p>\n" +
                 "    <p style=\"text-align: justify;\"><em><span style=\"font-weight: 400;\">Một Bình Phước tuyệt đẹp, hoang sơ luôn là chốn dừng chân lý tưởng cho những tâm hồn yêu khám phá thiên nhiên. Hè rồi xách balo lên và trải nghiệm miền đất đặc biệt này thôi!</span></em></p>\n" +
                 "    <figure class=\"image\" style=\"text-align: center;margin:0;padding:0;\"> " +
                 "    <figcaption style=\"text-align: center;padding:5px;\"><em>ảnh lấy trên mạng. </em></figcaption>\n" +
@@ -291,11 +332,11 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 "    <p style=\"text-align: justify;\"><em><span style=\"font-weight: 400;\">Một Bình Phước tuyệt đẹp, hoang sơ luôn là chốn dừng chân lý tưởng cho những tâm hồn yêu khám phá thiên nhiên. Hè rồi xách balo lên và trải nghiệm miền đất đặc biệt này thôi!</span></em></p>\n" +
                 "    <figure class=\"image\" style=\"text-align: center;margin:0;padding:0;\"> " +
                 "    <figcaption style=\"text-align: center;padding:5px;\"><em>ảnh lấy trên mạng. </em></figcaption>\n" +
-                "    </figure>"+"<head><style>body{font-family:'roboto','Roboto',sans-serif;}</style></head><body><p style=\"text-align: justify;\"><strong>Top 6 địa điểm du lịch đẹp \"đụng thiên đường\" ở Bình Phước</strong></p>\n" +
+                "    </figure>" + "<head><style>body{font-family:'roboto','Roboto',sans-serif;}</style></head><body><p style=\"text-align: justify;\"><strong>Top 6 địa điểm du lịch đẹp \"đụng thiên đường\" ở Bình Phước</strong></p>\n" +
                 "    <p style=\"text-align: justify;\"><em><span style=\"font-weight: 400;\">Một Bình Phước tuyệt đẹp, hoang sơ luôn là chốn dừng chân lý tưởng cho những tâm hồn yêu khám phá thiên nhiên. Hè rồi xách balo lên và trải nghiệm miền đất đặc biệt này thôi!</span></em></p>\n" +
                 "    <figure class=\"image\" style=\"text-align: center;margin:0;padding:0;\"> " +
                 "    <figcaption style=\"text-align: center;padding:5px;\"><em>ảnh lấy trên mạng. </em></figcaption>\n" +
-                "    </figure>"+"<head><style>body{font-family:'roboto','Roboto',sans-serif;}</style></head><body><p style=\"text-align: justify;\"><strong>Top 6 địa điểm du lịch đẹp \"đụng thiên đường\" ở Bình Phước</strong></p>\n" +
+                "    </figure>" + "<head><style>body{font-family:'roboto','Roboto',sans-serif;}</style></head><body><p style=\"text-align: justify;\"><strong>Top 6 địa điểm du lịch đẹp \"đụng thiên đường\" ở Bình Phước</strong></p>\n" +
                 "    <p style=\"text-align: justify;\"><em><span style=\"font-weight: 400;\">Một Bình Phước tuyệt đẹp, hoang sơ luôn là chốn dừng chân lý tưởng cho những tâm hồn yêu khám phá thiên nhiên. Hè rồi xách balo lên và trải nghiệm miền đất đặc biệt này thôi!</span></em></p>\n" +
                 "    <figure class=\"image\" style=\"text-align: center;margin:0;padding:0;\"> " +
                 "    <figcaption style=\"text-align: center;padding:5px;\"><em>ảnh lấy trên mạng. </em></figcaption>\n" +
@@ -376,13 +417,12 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     ViewGroup.LayoutParams params = webView.getLayoutParams();
-                    if(!isCollapse){
+                    if (!isCollapse) {
                         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                         webView.setLayoutParams(params);
                         mBtnCollapse.setText("Ẩn bớt");
                         isCollapse = true;
-                    }
-                    else {
+                    } else {
                         params.height = com.brucetoo.videoplayer.utils.Utils.dp2px(mContext, 150);
                         webView.setLayoutParams(params);
                         mBtnCollapse.setText("Xem thêm");
@@ -391,7 +431,8 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
         }
-        private void onTabSelected(int position){
+
+        private void onTabSelected(int position) {
             resetTabColor();
             if (position == 0) {
                 tvTab1.setTextColor(mContext.getResources().getColor(R.color.black));
@@ -444,16 +485,21 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private TextView tvCode;
         private ImageView imgCopy;
         private ImageView imgShare;
+        private RelativeLayout rllHunt;
 
         public HotLineViewHolder(View itemView) {
             super(itemView);
             tvCode = itemView.findViewById(R.id.tv_code);
             imgCopy = itemView.findViewById(R.id.img_copy);
             imgShare = itemView.findViewById(R.id.img_share);
+            rllHunt = itemView.findViewById(R.id.rll_hunt);
         }
 
         public void bindItem(int position) {
-            tvCode.setText("D "+ dealCampaignDetail.getData().getCode());
+            if (dealCampaignDetail.getData().isCampaign()) {
+                rllHunt.setVisibility(View.GONE);
+            }
+            tvCode.setText("D " + dealCampaignDetail.getData().getCode());
             imgCopy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -491,6 +537,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private TextView mHuntingCount;
         private TextView mTvTimeKeepDeal;
         private TextView mTvRank;
+        private ImageView imgNo1;
 
         public UserObjectViewHolder(View itemView) {
             super(itemView);
@@ -502,13 +549,35 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mHuntingCount = (TextView) itemView.findViewById(R.id.hunting_count);
             mTvTimeKeepDeal = (TextView) itemView.findViewById(R.id.tv_time_keep_deal);
             mTvRank = (TextView) itemView.findViewById(R.id.tv_rank);
+            imgNo1 = itemView.findViewById(R.id.img_no1);
+
         }
 
         public void bindItem(int position) {
-            mTvCode.setText(dealCampaignDetail.getData().getCode());
-            mHuntingCount.setText(String.format("%d+", dealCampaignDetail.getData().getUserHuntingCount()));
-            mTvTimeKeepDeal.setText(Utils.CalendarUtils.getTimeHold(dealCampaignDetail.getData().getTotalHoldTime()));
-            mTvRank.setText(String.valueOf(dealCampaignDetail.getData().getPromptRank()));
+            try {
+                mTvCode.setText(dealCampaignDetail.getData().getCode());
+                mHuntingCount.setText(String.format("%d+", dealCampaignDetail.getData().getUserHuntingCount()));
+                int status = dealCampaignDetail.getData().getStatus();
+                if (dealCampaignDetail.getData().getPromptRank() == 0) {
+                    mTvRank.setText("Bạn chưa tích lũy");
+                } else if (dealCampaignDetail.getData().getPromptRank() == 1) {
+                    mTvRank.setVisibility(View.GONE);
+                    imgNo1.setVisibility(View.VISIBLE);
+                } else {
+                    mTvRank.setText(String.valueOf(dealCampaignDetail.getData().getPromptRank()));
+                }
+                if (status == 2) {
+                    mTvTimeKeepDeal.setText("Chưa bắt đầu");
+                    mTvRank.setText("Chưa bắt đầu");
+                }
+                if (dealCampaignDetail.getData().getIsUserHunting()) {
+                    mTvTimeKeepDeal.setText("Bạn chưa tích lũy");
+                } else {
+                    mTvTimeKeepDeal.setText(Utils.CalendarUtils.getTimeHold(dealCampaignDetail.getData().getTotalHoldTime()));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -525,6 +594,8 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private TextView mTvOldPrice;
         private RichText tvTimeHold;
         private SubDealHeaderItemAdapter adapter;
+        private RelativeLayout rllStatusDeal;
+        private TextView tvStatusDeal;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -540,7 +611,8 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mTvTimeCountDown = (TextView) itemView.findViewById(R.id.tv_time_count_down);
             mTvOldPrice = (TextView) itemView.findViewById(R.id.tv_old_price);
             tvTimeHold = (RichText) itemView.findViewById(R.id.tv_time_hold);
-
+            rllStatusDeal = itemView.findViewById(R.id.rll_status_deal);
+            tvStatusDeal = itemView.findViewById(R.id.tv_status_deal);
         }
 
 
@@ -557,17 +629,36 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 tvTimeHold.setText(Utils.CalendarUtils.getTimeHold(dealCampaignDetail.getData().getTotalHoldTime()));
                 mTvTimeCountDown.setText(Utils.CalendarUtils.getDayLeft(dealCampaignDetail.getData().getEndAt()));
                 mProgressCountDown.setProgress(Utils.CalendarUtils.getPercentProgress(dealCampaignDetail.getData().getBeginAt(), dealCampaignDetail.getData().getEndAt()));
+
+                int status = dealCampaignDetail.getData().getStatus();
+                if (status == 0) {
+                    rllStatusDeal.setBackgroundColor(Color.parseColor("#FF0909"));
+                    tvStatusDeal.setText("Chương trình đã kết thúc!");
+                    mProgressCountDown.setProgress(0);
+                    mTvTimeCountDown.setText("Đã hết hạn");
+                } else if (status == 1) {
+                    rllStatusDeal.setBackgroundColor(Color.parseColor("#01B819"));
+                    tvStatusDeal.setText("Chương trình đang diễn ra!");
+                } else if (status == 2) {
+                    rllStatusDeal.setBackgroundColor(Color.parseColor("#E9BB00"));
+                    tvStatusDeal.setText("Chương trình sắp diễn ra!");
+                }
+
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
         }
     }
-    public interface ILoadDataDeal{
+
+    public interface ILoadDataDeal {
         void onLoadDataDeal(String url);
     }
+
     public interface LoadData {
         void onLoadDataComment(String id);
+
         void onTabSubDealClick(int position);
     }
 

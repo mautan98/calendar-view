@@ -74,6 +74,22 @@ public class Utils {
 
             }
         }
+        public static String getDayStart(long timeStamp) {
+            long myCurrentTimeMillis = System.currentTimeMillis();
+            if (myCurrentTimeMillis > timeStamp) {
+                return "0 ngày";
+            } else {
+                long distance = (timeStamp - myCurrentTimeMillis) / 1000;
+
+                String days = (int) (distance / 86400) + " ngày ";
+                String hours = String.valueOf((int) ((distance % 86400) / 3600));
+                String minutes = String.valueOf((int) ((distance % 3600) / 60));
+                String seconds = String.valueOf((int) ((distance % 3600) % 60));
+
+                return "Bắt đầu sau " + days + hours + ":" + minutes + ":" + seconds;
+
+            }
+        }
 
         public static String getTimeHold(long timeStamp) {
             long distance = timeStamp / 1000;

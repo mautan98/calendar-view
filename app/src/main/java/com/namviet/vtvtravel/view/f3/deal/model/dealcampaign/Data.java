@@ -116,7 +116,7 @@ public class Data {
     private Integer userHuntingCount;
     @SerializedName("totalHoldTime")
     @Expose
-    private Integer totalHoldTime;
+    private Long totalHoldTime;
     @SerializedName("totalDeal")
     @Expose
     private Integer totalDeal;
@@ -132,6 +132,17 @@ public class Data {
     @SerializedName("dealCampaignScores")
     @Expose
     private List<DealCampaignScore> dealCampaignScores = null;
+    @SerializedName("isParent")
+    @Expose
+    private boolean isCampaign;
+
+    public boolean isCampaign() {
+        return isCampaign;
+    }
+
+    public void setCampaign(boolean campaign) {
+        isCampaign = campaign;
+    }
 
     public Integer getId() {
         return id;
@@ -413,11 +424,11 @@ public class Data {
         this.userHuntingCount = userHuntingCount;
     }
 
-    public Integer getTotalHoldTime() {
+    public Long getTotalHoldTime() {
         return totalHoldTime;
     }
 
-    public void setTotalHoldTime(Integer totalHoldTime) {
+    public void setTotalHoldTime(Long totalHoldTime) {
         this.totalHoldTime = totalHoldTime;
     }
 
