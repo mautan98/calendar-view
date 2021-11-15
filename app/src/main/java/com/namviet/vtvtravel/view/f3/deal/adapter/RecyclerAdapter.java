@@ -381,7 +381,8 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             btnSeeMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ListHotDealActivity.Companion.startScreen(context);
+
+                    ListHotDealActivity.Companion.startScreen(context, );
                 }
             });
 

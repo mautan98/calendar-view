@@ -13,10 +13,14 @@ import com.namviet.vtvtravel.databinding.FragmentListDealBinding;
 import com.namviet.vtvtravel.databinding.FragmentListHotDealBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.view.f3.deal.adapter.DealTabStyleAdapter;
+import com.namviet.vtvtravel.view.f3.deal.model.Block;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealMenuDialog;
 import com.namviet.vtvtravel.view.f3.deal.view.listdeal.ListDealTabFragment;
 
+import java.util.ArrayList;
+
 public class ListHotDealFragment extends BaseFragment<FragmentListHotDealBinding> {
+    private ArrayList<Block> listBlock = new ArrayList<>();
     private DealTabStyleAdapter mainAdapter;
     @Override
     public int getLayoutRes() {
@@ -32,8 +36,8 @@ public class ListHotDealFragment extends BaseFragment<FragmentListHotDealBinding
     public void initData() {
         mainAdapter = new DealTabStyleAdapter(getChildFragmentManager());
 
-        for (int i = 0; i < 2; i++) {
-            ListDealTabFragment listDealTabFragment = new ListDealTabFragment();
+        for (int i = 0; i < listBlock.size(); i++) {
+            ListDealTabFragment listDealTabFragment = new ListDealTabFragment(listBlock.get(i));
             mainAdapter.addFragment(listDealTabFragment, "");
         }
 
@@ -41,10 +45,10 @@ public class ListHotDealFragment extends BaseFragment<FragmentListHotDealBinding
         getBinding().tabLayout.setupWithViewPager(getBinding().vpContent);
 
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < listBlock.size(); i++) {
             View tabHome = LayoutInflater.from(mActivity).inflate(R.layout.f3_item_header1, null);
             TextView tvHome = tabHome.findViewById(R.id.tv_title);
-            tvHome.setText("Ăn gì");
+            tvHome.setText(listBlock.get(i).getName());
             if (i == 0) {
                 tvHome.setTextColor(Color.parseColor("#00918D"));
             } else {
@@ -59,6 +63,7 @@ public class ListHotDealFragment extends BaseFragment<FragmentListHotDealBinding
             getBinding().tabLayout.getTabAt(i).setCustomView(tabHome);
         }
         getBinding().tabLayout.addOnTabSelectedListener(OnTabSelectedListener);
+        getBinding().vpContent.setOffscreenPageLimit(4);
     }
 
     @Override
@@ -106,4 +111,8 @@ public class ListHotDealFragment extends BaseFragment<FragmentListHotDealBinding
 
         }
     };
+
+    public void setListBlock(ArrayList<Block> listBlock) {
+        this.listBlock = listBlock;
+    }
 }
