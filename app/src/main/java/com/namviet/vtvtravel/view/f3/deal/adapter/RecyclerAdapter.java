@@ -93,6 +93,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         diffResult.dispatchUpdatesTo(this);
     }
 
+    private ContentViewHolder2 contentViewHolder2;
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
@@ -109,7 +110,8 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             return new HeaderViewHolder2(view);
         } else {
             view = from(parent.getContext()).inflate(R.layout.layout_content_2, parent, false);
-            return new ContentViewHolder2(view);
+            contentViewHolder2 = new ContentViewHolder2(view);
+            return contentViewHolder2;
         }
 
     }
@@ -240,10 +242,11 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
     public class ContentViewHolder2 extends BaseViewHolder {
         private int position;
         private RecyclerView rclContent;
+        private ShimmerFrameLayout shimmerFrameLayout;
 
         public ContentViewHolder2(View itemView) {
             super(itemView);
-
+            shimmerFrameLayout = itemView.findViewById(R.id.shimmer_view_container);
 
         }
 
@@ -253,6 +256,10 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             rclContent.setAdapter(new GridDealInDealHomeAdapter(dealResponseForBlockContent2));
             GridLayoutManager gridLayoutManager = new GridLayoutManager(itemView.getContext(), 2);
             rclContent.setLayoutManager(gridLayoutManager);
+        }
+        
+        public void showLoading(){
+            shimmerFrameLayout
         }
     }
 
