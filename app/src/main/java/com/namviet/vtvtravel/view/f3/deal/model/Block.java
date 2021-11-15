@@ -4,9 +4,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Block {
+public class Block implements Serializable {
 
     @Expose
     @SerializedName("short_description")

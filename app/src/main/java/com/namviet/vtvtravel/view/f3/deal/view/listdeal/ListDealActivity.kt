@@ -6,11 +6,14 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import com.namviet.vtvtravel.R
+import com.namviet.vtvtravel.config.Constants
 import com.namviet.vtvtravel.databinding.ActivityListDealBinding
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.view.f3.deal.model.Block
 
 class ListDealActivity : BaseActivityNew<ActivityListDealBinding?>() {
+    private var listBlock = ArrayList<Block>()
     override fun getLayoutRes(): Int {
         return R.layout.activity_list_deal
     }
@@ -19,10 +22,14 @@ class ListDealActivity : BaseActivityNew<ActivityListDealBinding?>() {
         return R.id.mainFrame
     }
 
-    override fun getDataFromIntent() {}
+    override fun getDataFromIntent() {
+        listBlock = intent.getSerializableExtra(Constants.IntentKey.DATA) as ArrayList<Block>
+    }
     override fun setClick() {}
     override fun initFragment(): BaseFragment<*> {
-        return ListDealFragment()
+        var listDealFragment = ListDealFragment();
+        listDealFragment.setListBlock(listBlock)
+        return listDealFragment
     }
 
     override fun doAfterOnCreate() {
@@ -33,8 +40,9 @@ class ListDealActivity : BaseActivityNew<ActivityListDealBinding?>() {
     }
 
     companion object {
-        fun startScreen(activity: Context) {
+        fun startScreen(activity: Context, listBlock: ArrayList<Block>?) {
             val intent = Intent(activity, ListDealActivity::class.java)
+            intent.putExtra(Constants.IntentKey.DATA, listBlock);
             activity.startActivity(intent)
         }
     }

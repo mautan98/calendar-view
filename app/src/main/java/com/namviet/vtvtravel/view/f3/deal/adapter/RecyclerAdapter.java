@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.DiffUtil;
@@ -26,6 +27,7 @@ import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealHomeChildFragment;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.SimpleDiffCallback;
 import com.namviet.vtvtravel.view.f3.deal.view.listdeal.ListDealActivity;
+import com.namviet.vtvtravel.view.f3.deal.view.listhotdeal.ListHotDealActivity;
 import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel;
 import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
 
@@ -261,12 +263,14 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         private RecyclerView rclContent;
         private ShimmerFrameLayout shimmerFrameLayout;
         public CheckBox checkBox;
+        private LinearLayout btnViewMore;
 
         public ContentViewHolder2(View itemView) {
             super(itemView);
             shimmerFrameLayout = itemView.findViewById(R.id.shimmer_view_container);
             rclContent = itemView.findViewById(R.id.rclContent);
             checkBox = itemView.findViewById(R.id.check);
+            btnViewMore = itemView.findViewById(R.id.lnl_view_more);
         }
 
         public void bindItem(int position) {
@@ -280,6 +284,13 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     showLoading();
                     headerViewHolder2.getData(isChecked);
+                }
+            });
+
+            btnViewMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ListDealActivity.Companion.startScreen(context, blocksMenuHeader2);
                 }
             });
         }
@@ -370,7 +381,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             btnSeeMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ListDealActivity.Companion.startScreen(context);
+                    ListHotDealActivity.Companion.startScreen(context);
                 }
             });
 
