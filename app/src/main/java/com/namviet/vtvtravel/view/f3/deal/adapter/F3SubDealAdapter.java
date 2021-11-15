@@ -120,7 +120,7 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             long timeStamp = content.getEndAt();
             long myCurrentTimeMillis = System.currentTimeMillis();
             if (myCurrentTimeMillis > timeStamp) {
-                tvDayLeft.setText("0 ngày");
+                tvDayLeft.setText("Còn lại 0 ngày");
             } else {
                 long distance = (timeStamp - myCurrentTimeMillis) / 1000;
 
@@ -153,17 +153,18 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             if (content.isCampaign()) {
                 layoutTotalMustHaveChild.setVisibility(View.VISIBLE);
-                layoutTotalHuntingUser.setVisibility(View.GONE);
-                layoutIsHuntingUser.setVisibility(View.INVISIBLE);
+//                layoutTotalHuntingUser.setVisibility(View.GONE);
+//                layoutIsHuntingUser.setVisibility(View.INVISIBLE);
             } else {
                 layoutTotalMustHaveChild.setVisibility(View.GONE);
-                layoutTotalHuntingUser.setVisibility(View.VISIBLE);
+//                layoutTotalHuntingUser.setVisibility(View.VISIBLE);
 
-                if (content.getIsUserHunting()) {
-                    layoutIsHuntingUser.setVisibility(View.VISIBLE);
-                } else {
-                    layoutIsHuntingUser.setVisibility(View.INVISIBLE);
-                }
+            }
+
+            if (content.getIsUserHunting()) {
+                layoutIsHuntingUser.setVisibility(View.VISIBLE);
+            } else {
+                layoutIsHuntingUser.setVisibility(View.INVISIBLE);
             }
         }
     }

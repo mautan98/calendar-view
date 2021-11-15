@@ -1,10 +1,13 @@
 package com.namviet.vtvtravel.view.f3.deal.adapter;
 
 import android.content.Context;
+import android.net.UrlQuerySanitizer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.DiffUtil;
@@ -26,6 +29,7 @@ import com.namviet.vtvtravel.view.f3.deal.view.listdeal.ListDealActivity;
 import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel;
 import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -94,6 +98,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
     }
 
     private ContentViewHolder2 contentViewHolder2;
+    private HeaderViewHolder2 headerViewHolder2;
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
@@ -107,7 +112,8 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         }
         if (viewType == TYPE_HEADER_2) {
             view = from(parent.getContext()).inflate(R.layout.layout_header_2, parent, false);
-            return new HeaderViewHolder2(view);
+            headerViewHolder2 = new HeaderViewHolder2(view);
+            return headerViewHolder2;
         } else {
             view = from(parent.getContext()).inflate(R.layout.layout_content_2, parent, false);
             contentViewHolder2 = new ContentViewHolder2(view);
@@ -196,6 +202,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
     public class HeaderViewHolder2 extends BaseViewHolder implements Observer {
         private int position;
+        private int positionTab;
         private RecyclerView rcvTabHeader1;
         private F3Header2Adapter mF3Header2Adapter;
         private DealViewModel dealViewModel;
@@ -212,9 +219,9 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             mF3Header2Adapter = new F3Header2Adapter(positionSelected2, blocksMenuHeader2, itemView.getContext(), new F3Header2Adapter.ClickTab() {
                 @Override
                 public void onClickTab(int position) {
-                    Toast.makeText(itemView.getContext(), "Tab click: " + position, Toast.LENGTH_SHORT).show();
-                    dealViewModel.getDeal(blocksMenuHeader2.get(position).getLink());
-//                    EventBus.getDefault().post(new OnClickTabHeader2(position));
+                    positionTab = position;
+                    contentViewHolder2.showLoading();
+                    getData(contentViewHolder2.checkBox.isChecked());
                     iOnTabHotClick.onTab2Click(position);
 
                 }
@@ -227,13 +234,23 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             }
         }
 
+
+        public void getData(boolean isChecked){
+            if(isChecked){
+                dealViewModel.getDealWithReplaceParam(blocksMenuHeader2.get(positionTab).getLink(), "2");
+            }else {
+                dealViewModel.getDeal(blocksMenuHeader2.get(positionTab).getLink());
+            }
+        }
+
         @Override
         public void update(Observable observable, Object o) {
 //            shimmer.setVisibility(View.GONE);
             if (observable instanceof DealViewModel) {
                 if (o instanceof DealResponse) {
                     dealResponseForBlockContent2 = (DealResponse) o;
-                    notifyItemChanged(3);
+                    contentViewHolder2.bindItem(3);
+                    contentViewHolder2.hideLoading();
                 }
             }
         }
@@ -243,23 +260,37 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         private int position;
         private RecyclerView rclContent;
         private ShimmerFrameLayout shimmerFrameLayout;
+        public CheckBox checkBox;
 
         public ContentViewHolder2(View itemView) {
             super(itemView);
             shimmerFrameLayout = itemView.findViewById(R.id.shimmer_view_container);
-
+            rclContent = itemView.findViewById(R.id.rclContent);
+            checkBox = itemView.findViewById(R.id.check);
         }
 
         public void bindItem(int position) {
             this.position = position;
-            rclContent = itemView.findViewById(R.id.rclContent);
             rclContent.setAdapter(new GridDealInDealHomeAdapter(dealResponseForBlockContent2));
             GridLayoutManager gridLayoutManager = new GridLayoutManager(itemView.getContext(), 2);
             rclContent.setLayoutManager(gridLayoutManager);
+
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    showLoading();
+                    headerViewHolder2.getData(isChecked);
+                }
+            });
         }
-        
+
         public void showLoading(){
-            shimmerFrameLayout
+            shimmerFrameLayout.setVisibility(View.VISIBLE);
+            rclContent.setVisibility(View.INVISIBLE);
+        }
+        public void hideLoading(){
+            shimmerFrameLayout.setVisibility(View.GONE);
+            rclContent.setVisibility(View.VISIBLE);
         }
     }
 
