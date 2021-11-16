@@ -394,6 +394,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                         }
                     }
                     ListHotDealActivity.Companion.startScreen(context, listBlockResult);
+
                 }
             });
 
