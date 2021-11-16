@@ -381,8 +381,19 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             btnSeeMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    ListHotDealActivity.Companion.startScreen(context, );
+                    ArrayList<Block> listBlockResult = new ArrayList<>();
+                    ArrayList<Block> blocks = blocksMenuHeader1.get(positionHeader1).getListChildBlock();
+                    for (int i = 0; i < blocks.size(); i++) {
+                        if(blocks.get(i).getCode_type().equals("CTKM_RUNNING")){
+                            listBlockResult.add(blocks.get(i));
+                        }
+                    }
+                    for (int i = 0; i < blocks.size(); i++) {
+                        if(blocks.get(i).getCode_type().equals("CTKM_UPCOMING")){
+                            listBlockResult.add(blocks.get(i));
+                        }
+                    }
+                    ListHotDealActivity.Companion.startScreen(context, listBlockResult);
                 }
             });
 

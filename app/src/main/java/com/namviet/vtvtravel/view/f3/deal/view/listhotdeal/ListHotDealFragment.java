@@ -37,7 +37,7 @@ public class ListHotDealFragment extends BaseFragment<FragmentListHotDealBinding
         mainAdapter = new DealTabStyleAdapter(getChildFragmentManager());
 
         for (int i = 0; i < listBlock.size(); i++) {
-            ListDealTabFragment listDealTabFragment = new ListDealTabFragment(listBlock.get(i));
+            ListHotDealTabFragment listDealTabFragment = new ListHotDealTabFragment(listBlock.get(i));
             mainAdapter.addFragment(listDealTabFragment, "");
         }
 
