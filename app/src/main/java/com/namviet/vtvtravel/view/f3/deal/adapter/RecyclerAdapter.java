@@ -232,7 +232,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             rcvTabHeader1.setLayoutManager(gridLayoutManager);
             rcvTabHeader1.setAdapter(mF3Header2Adapter);
             if(dealResponseForBlockContent2 == null){
-                dealViewModel.getDeal(blocksMenuHeader2.get(0).getLink());
+                dealViewModel.getDealWithReplaceParam(blocksMenuHeader2.get(0).getLink(), "1");
             }
         }
 
@@ -241,7 +241,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             if(isChecked){
                 dealViewModel.getDealWithReplaceParam(blocksMenuHeader2.get(positionTab).getLink(), "2");
             }else {
-                dealViewModel.getDeal(blocksMenuHeader2.get(positionTab).getLink());
+                dealViewModel.getDealWithReplaceParam(blocksMenuHeader2.get(positionTab).getLink(), "1");
             }
         }
 
@@ -381,6 +381,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             btnSeeMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //Lấy danh sách tab đang diễn ra và sắp diễn ra
                     ArrayList<Block> listBlockResult = new ArrayList<>();
                     ArrayList<Block> blocks = blocksMenuHeader1.get(positionHeader1).getListChildBlock();
                     for (int i = 0; i < blocks.size(); i++) {

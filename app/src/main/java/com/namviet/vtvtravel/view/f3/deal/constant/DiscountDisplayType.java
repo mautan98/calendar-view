@@ -1,4 +1,4 @@
-package com.namviet.vtvtravel.view.f3.constant;
+package com.namviet.vtvtravel.view.f3.deal.constant;
 
 public class DiscountDisplayType {
     public static final int SPECIFIC_TYPE = 1;

@@ -5,6 +5,7 @@ import com.namviet.vtvtravel.api.Param;
 import com.namviet.vtvtravel.api.TravelService;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.view.f3.deal.model.Block;
 import com.namviet.vtvtravel.view.f3.deal.model.BlockResponse;
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
@@ -20,10 +21,7 @@ import io.reactivex.functions.Consumer;
 import retrofit2.HttpException;
 
 public class DealViewModel extends BaseViewModel {
-    String data = "// 20211027091205\n" +
-            "// https://api-testing.vtvtravel.vn/ctkm\n" +
-            "\n" +
-            "{\n" +
+    String data = "{\n" +
             "  \"status\": \"success\",\n" +
             "  \"code\": \"SUCCESS\",\n" +
             "  \"message\": \"\",\n" +
@@ -79,15 +77,13 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"SapDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=5&page=0&categoryCode=0.1.4&isHighlight=1&isProcessing=2\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    },\n" +
             "                    {\n" +
             "                      \"id\": \"6172d06b44c4ee31bb386314\",\n" +
@@ -96,15 +92,13 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"DangDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=5&page=0&categoryCode=0.1.4&isHighlight=1&isProcessing=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    },\n" +
             "                    {\n" +
             "                      \"id\": \"6172cf1c8bf61578335330f5\",\n" +
@@ -119,9 +113,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    }\n" +
             "                  ]\n" +
             "                },\n" +
@@ -146,15 +138,13 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"SapDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=5&page=0&categoryCode=0.1.3&isHighlight=1&isProcessing=2\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    },\n" +
             "                    {\n" +
             "                      \"id\": \"6172d01706699d29eb0ba904\",\n" +
@@ -163,15 +153,13 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"DangDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=5&page=0&categoryCode=0.1.3&isHighlight=1&isProcessing=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    },\n" +
             "                    {\n" +
             "                      \"id\": \"6172cfa43955196cfc6cbdd5\",\n" +
@@ -186,9 +174,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    }\n" +
             "                  ]\n" +
             "                },\n" +
@@ -213,15 +199,13 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"SapDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=5&page=0&categoryCode=0.1.2&isHighlight=1&isProcessing=2\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    },\n" +
             "                    {\n" +
             "                      \"id\": \"6172d0519181240cad2b1ac4\",\n" +
@@ -230,15 +214,13 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"DangDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=5&page=0&categoryCode=0.1.2&isHighlight=1&isProcessing=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    },\n" +
             "                    {\n" +
             "                      \"id\": \"6172cf8ac355b10042128595\",\n" +
@@ -253,9 +235,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    }\n" +
             "                  ]\n" +
             "                },\n" +
@@ -280,15 +260,13 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"SapDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=5&page=0&categoryCode=0.1.1&isHighlight=1&isProcessing=2\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    },\n" +
             "                    {\n" +
             "                      \"id\": \"6172d08338ea2546bc5186e4\",\n" +
@@ -297,15 +275,13 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"DangDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=5&page=0&categoryCode=0.1.1&isHighlight=1&isProcessing=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    },\n" +
             "                    {\n" +
             "                      \"id\": \"6172cf3d411b26725f0d82b4\",\n" +
@@ -320,9 +296,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    }\n" +
             "                  ]\n" +
             "                }\n" +
@@ -349,15 +323,13 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Ở đâu\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=8&page=0&categoryCode=0.1.2&isHighlight=0&\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
             "                  \"banner_url\": null,\n" +
             "                  \"short_description\": \"\",\n" +
-            "                  \"children\": [\n" +
-            "                    \n" +
-            "                  ]\n" +
+            "                  \"children\": []\n" +
             "                },\n" +
             "                {\n" +
             "                  \"id\": \"6172d2a6255617269f2b1524\",\n" +
@@ -366,15 +338,13 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"ĐI đâu\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=8&page=0&categoryCode=0.1.1&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
             "                  \"banner_url\": null,\n" +
             "                  \"short_description\": \"\",\n" +
-            "                  \"children\": [\n" +
-            "                    \n" +
-            "                  ]\n" +
+            "                  \"children\": []\n" +
             "                },\n" +
             "                {\n" +
             "                  \"id\": \"6172d28e15b6fb4d593beb45\",\n" +
@@ -383,15 +353,13 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Chơi gì\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=8&page=0&categoryCode=0.1.4&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
             "                  \"banner_url\": null,\n" +
             "                  \"short_description\": \"\",\n" +
-            "                  \"children\": [\n" +
-            "                    \n" +
-            "                  ]\n" +
+            "                  \"children\": []\n" +
             "                },\n" +
             "                {\n" +
             "                  \"id\": \"6172d273bb16a4069d48a404\",\n" +
@@ -400,15 +368,13 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Ăn gì\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=8&page=0&categoryCode=0.1.3&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
             "                  \"banner_url\": null,\n" +
             "                  \"short_description\": \"\",\n" +
-            "                  \"children\": [\n" +
-            "                    \n" +
-            "                  ]\n" +
+            "                  \"children\": []\n" +
             "                }\n" +
             "              ]\n" +
             "            }\n" +
@@ -469,9 +435,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    },\n" +
             "                    {\n" +
             "                      \"id\": \"6172d678118c1c22bb0728e4\",\n" +
@@ -480,15 +444,13 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"DangDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=8&page=0&isProcessing=1&category=0.1.4&isHighlight=0\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    },\n" +
             "                    {\n" +
             "                      \"id\": \"6172d6533371202dc34a1834\",\n" +
@@ -497,15 +459,13 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"SapDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=8&page=0&isProcessing=2&category=0.1.4&isHighlight=0\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    }\n" +
             "                  ]\n" +
             "                },\n" +
@@ -530,15 +490,13 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"SapDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=8&page=0&isProcessing=2&category=0.1.1&isHighlight=0\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    },\n" +
             "                    {\n" +
             "                      \"id\": \"6172d6d44775bf3b2e762ad4\",\n" +
@@ -547,15 +505,13 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"DangDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=8&page=0&isProcessing=1&category=0.1.1&isHighlight=0\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    },\n" +
             "                    {\n" +
             "                      \"id\": \"6172d6bc94e2cf741e1a9134\",\n" +
@@ -570,9 +526,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    }\n" +
             "                  ]\n" +
             "                },\n" +
@@ -603,9 +557,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    },\n" +
             "                    {\n" +
             "                      \"id\": \"6172d71eb4254c463c152194\",\n" +
@@ -614,15 +566,13 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"DangDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=8&page=0&isProcessing=1&category=0.1.2&isHighlight=0\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    },\n" +
             "                    {\n" +
             "                      \"id\": \"6172d702f1450d06426fdd24\",\n" +
@@ -631,15 +581,13 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"SapDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=8&page=0&isProcessing=2&category=0.1.2&isHighlight=0\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    }\n" +
             "                  ]\n" +
             "                },\n" +
@@ -664,15 +612,13 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"SapDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=8&page=0&isProcessing=2&category=0.1.3&isHighlight=0\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    },\n" +
             "                    {\n" +
             "                      \"id\": \"6172d76872a17541776a5c94\",\n" +
@@ -681,15 +627,13 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"DangDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=8&page=0&isProcessing=1&category=0.1.3&isHighlight=0\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    },\n" +
             "                    {\n" +
             "                      \"id\": \"6172d7504a3f21227354e834\",\n" +
@@ -704,9 +648,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"weight\": 0,\n" +
             "                      \"banner_url\": null,\n" +
             "                      \"short_description\": \"\",\n" +
-            "                      \"children\": [\n" +
-            "                        \n" +
-            "                      ]\n" +
+            "                      \"children\": []\n" +
             "                    }\n" +
             "                  ]\n" +
             "                }\n" +
@@ -733,15 +675,13 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Ăn gì\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=8&page=0&category=0.1.3&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
             "                  \"banner_url\": null,\n" +
             "                  \"short_description\": \"\",\n" +
-            "                  \"children\": [\n" +
-            "                    \n" +
-            "                  ]\n" +
+            "                  \"children\": []\n" +
             "                },\n" +
             "                {\n" +
             "                  \"id\": \"6172d50af75d8b5ee55d6dd4\",\n" +
@@ -750,15 +690,13 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Chơi gì\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=8&page=0&category=0.1.4&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
             "                  \"banner_url\": null,\n" +
             "                  \"short_description\": \"\",\n" +
-            "                  \"children\": [\n" +
-            "                    \n" +
-            "                  ]\n" +
+            "                  \"children\": []\n" +
             "                },\n" +
             "                {\n" +
             "                  \"id\": \"6172d4f003d115051609c225\",\n" +
@@ -767,15 +705,13 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"ĐI đâu\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=8&page=0&category=0.1.1&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
             "                  \"banner_url\": null,\n" +
             "                  \"short_description\": \"\",\n" +
-            "                  \"children\": [\n" +
-            "                    \n" +
-            "                  ]\n" +
+            "                  \"children\": []\n" +
             "                },\n" +
             "                {\n" +
             "                  \"id\": \"6172d4d56088d821153cec15\",\n" +
@@ -784,15 +720,13 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Ở đâu\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=8&page=0&category=0.1.2&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
             "                  \"banner_url\": null,\n" +
             "                  \"short_description\": \"\",\n" +
-            "                  \"children\": [\n" +
-            "                    \n" +
-            "                  ]\n" +
+            "                  \"children\": []\n" +
             "                }\n" +
             "              ]\n" +
             "            }\n" +
@@ -812,29 +746,31 @@ public class DealViewModel extends BaseViewModel {
 
 
     public void getDealBlock() {
-        MyApplication myApplication = MyApplication.getInstance();
-        TravelService newsService = myApplication.getTravelService();
-        Map<String, Object> queryMap = Param.getDefault();
-        Disposable disposable = newsService.getBlockDeal(queryMap)
-                .subscribeOn(myApplication.subscribeScheduler())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<BlockResponse>() {
-                    @Override
-                    public void accept(BlockResponse blockResponse) throws Exception {
-                        if (blockResponse != null) {
-                            requestSuccess(blockResponse);
-                        } else {
-                            requestSuccess(null);
-                        }
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        requestFailed(throwable);
-                    }
-                });
-
-        compositeDisposable.add(disposable);
+        BlockResponse blockResponse = new Gson().fromJson(data, BlockResponse.class);
+        requestSuccess(blockResponse);
+//        MyApplication myApplication = MyApplication.getInstance();
+//        TravelService newsService = myApplication.getTravelService();
+//        Map<String, Object> queryMap = Param.getDefault();
+//        Disposable disposable = newsService.getBlockDeal(queryMap)
+//                .subscribeOn(myApplication.subscribeScheduler())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<BlockResponse>() {
+//                    @Override
+//                    public void accept(BlockResponse blockResponse) throws Exception {
+//                        if (blockResponse != null) {
+//                            requestSuccess(blockResponse);
+//                        } else {
+//                            requestSuccess(null);
+//                        }
+//                    }
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(Throwable throwable) throws Exception {
+//                        requestFailed(throwable);
+//                    }
+//                });
+//
+//        compositeDisposable.add(disposable);
     }
     public void getDeal(String url) {
         MyApplication myApplication = MyApplication.getInstance();

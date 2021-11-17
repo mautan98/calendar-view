@@ -39,18 +39,22 @@ public class F3TabDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     public F3TabDealAdapter(int position, ArrayList<Block> items, Context context, ClickTab clickTab, boolean isFromHome) {
-        this.items = items;
+        for (int i = 0; i < items.size(); i++) {
+            if(items.get(i).getCode_type().equals("CTKM_RUNNING")){
+                this.items.add(items.get(i));
+            }
+        }
+        for (int i = 0; i < items.size(); i++) {
+            if(items.get(i).getCode_type().equals("CTKM_UPCOMING")){
+                this.items.add(items.get(i));
+            }
+        }
         this.context = context;
         this.clickTab = clickTab;
         this.selectedItem = position;
         this.isFromHome = isFromHome;
     }
-    public F3TabDealAdapter(int position, ArrayList<Block> items, Context context, ClickTab clickTab) {
-        this.items = items;
-        this.context = context;
-        this.clickTab = clickTab;
-        this.selectedItem = position;
-    }
+
 
     @NonNull
     @Override

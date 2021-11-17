@@ -121,6 +121,17 @@ public class Content {
     @SerializedName("totalDeal")
     @Expose
     private String totalDeal;
+    @Expose
+    @SerializedName("isProcessing")
+    private String isProcessing;
+
+    public String getIsProcessing() {
+        return isProcessing;
+    }
+
+    public void setIsProcessing(String isProcessing) {
+        this.isProcessing = isProcessing;
+    }
 
     public String getTotalDeal() {
         return totalDeal;

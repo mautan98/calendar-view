@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.messaging.Constants
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.ultils.DateUtltils
-import com.namviet.vtvtravel.view.f3.constant.DiscountDisplayType
+import com.namviet.vtvtravel.view.f3.deal.constant.DiscountDisplayType
+import com.namviet.vtvtravel.view.f3.deal.constant.IsProcessingType
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse
 import com.namviet.vtvtravel.view.f3.deal.view.dealdetail.DetailDealActivity
 import kotlinx.android.synthetic.main.item_deal.view.*
@@ -18,9 +18,11 @@ import java.text.DecimalFormat
 
 class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private val TYPE_ITEM = 0
-    private var dealResponse : DealResponse? = null
+    private var dealResponse: DealResponse? = null
     private var context: Context? = null
-    private var url:String? = "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/details?id=105&isProcessing=1"
+    private var url: String? =
+        "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/details?id=105&isProcessing=1"
+
     constructor()
     constructor(dealResponse: DealResponse?) : super() {
         this.dealResponse = dealResponse
@@ -91,29 +93,52 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
 
             try {
-                itemView.tvExpiryDate.text = "HSD: " + DateUtltils.timeToString18(content.expireDate)
+                itemView.tvExpiryDate.text =
+                    "HSD: " + DateUtltils.timeToString18(content.expireDate)
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
             }
 
 
-            val timeStamp = content.endAt
-            val myCurrentTimeMillis = System.currentTimeMillis()
-            if (myCurrentTimeMillis > timeStamp) {
-                itemView.tvDayLeft.text = "Còn lại 0 ngày"
+            if (content.isProcessing != null) {
+                if (content.isProcessing.equals(IsProcessingType.DANG_DIEN_RA_TYPE)) {
+                    val timeStamp = content.endAt
+                    val myCurrentTimeMillis = System.currentTimeMillis()
+                    if (myCurrentTimeMillis > timeStamp) {
+                        itemView.tvDayLeft.text = "Còn lại 0 ngày"
+                    } else {
+                        val distance = (timeStamp - myCurrentTimeMillis) / 1000
+                        val days: String = ((distance / 86400).toInt()).toString() + " ngày "
+                        val hours: String = ((distance % 86400 / 3600).toInt()).toString()
+                        val minutes: String = ((distance % 3600 / 60).toInt()).toString()
+                        val seconds: String = ((distance % 3600 % 60).toInt()).toString()
+                        itemView.tvDayLeft.text = "Còn lại $days$hours:$minutes:$seconds"
+                    }
+                } else if (content.isProcessing.equals(IsProcessingType.SAP_DIEN_RA_TYPE)) {
+                    val timeStamp = content.beginAt
+                    val myCurrentTimeMillis = System.currentTimeMillis()
+                    if (myCurrentTimeMillis > timeStamp) {
+                        itemView.tvDayLeft.text = "Bắt đầu sau 0 ngày"
+                    } else {
+                        val distance = (timeStamp - myCurrentTimeMillis) / 1000
+                        val days: String = ((distance / 86400).toInt()).toString() + " ngày "
+                        val hours: String = ((distance % 86400 / 3600).toInt()).toString()
+                        val minutes: String = ((distance % 3600 / 60).toInt()).toString()
+                        val seconds: String = ((distance % 3600 % 60).toInt()).toString()
+                        itemView.tvDayLeft.text = "Bắt đầu sau $days$hours:$minutes:$seconds"
+                    }
+                } else {
+                    itemView.tvDayLeft.text = "Đã hết hạn"
+                }
             } else {
-                val distance = (timeStamp - myCurrentTimeMillis) / 1000
-                val days: String = ((distance / 86400).toInt()).toString()+" ngày "
-                val hours: String = ((distance % 86400 / 3600).toInt()).toString()
-                val minutes: String = ((distance % 3600 / 60).toInt()).toString()
-                val seconds: String = ((distance % 3600 % 60).toInt()).toString()
-                itemView.tvDayLeft.text = "Còn lại $days$hours:$minutes:$seconds"
+                itemView.tvDayLeft.text = "Đã hết hạn"
             }
 
 
 
             try {
-                itemView.tvDisplayPrice.text = convertPrice(content.priceAfterPromo.toString()) + " đ"
+                itemView.tvDisplayPrice.text =
+                    convertPrice(content.priceAfterPromo.toString()) + " đ"
             } catch (e: Exception) {
                 try {
                     itemView.tvDisplayPrice.text = content.priceAfterPromo.toString() + " đ"
@@ -125,7 +150,8 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
 
             try {
-                itemView.tvOriginPrice.text = convertPrice(content.priceBeforePromo.toString()) + " đ"
+                itemView.tvOriginPrice.text =
+                    convertPrice(content.priceBeforePromo.toString()) + " đ"
             } catch (e: java.lang.Exception) {
                 try {
                     itemView.tvOriginPrice.text = content.priceBeforePromo.toString() + " đ"
@@ -136,15 +162,16 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
 
 
-            itemView.tvOriginPrice.paintFlags = itemView.tvOriginPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            itemView.tvOriginPrice.paintFlags =
+                itemView.tvOriginPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
 
             try {
                 if (content.displayType != null) {
-                    if(content.displayType == DiscountDisplayType.PERCENT_TYPE){
+                    if (content.displayType == DiscountDisplayType.PERCENT_TYPE) {
                         itemView.tvPercent.text = content.valuePromotion.toString() + "%"
                         itemView.layoutDiscount.visibility = View.VISIBLE
-                    }else{
+                    } else {
                         itemView.layoutDiscount.visibility = View.GONE
                     }
 
