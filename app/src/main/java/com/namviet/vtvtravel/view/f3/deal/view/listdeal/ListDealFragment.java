@@ -3,6 +3,7 @@ package com.namviet.vtvtravel.view.f3.deal.view.listdeal;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
@@ -12,6 +13,7 @@ import com.namviet.vtvtravel.databinding.DialogCityBindingImpl;
 import com.namviet.vtvtravel.databinding.FragmentListDealBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.view.f3.deal.adapter.DealTabStyleAdapter;
+import com.namviet.vtvtravel.view.f3.deal.constant.IsProcessingType;
 import com.namviet.vtvtravel.view.f3.deal.model.Block;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealMenuDialog;
 
@@ -28,7 +30,16 @@ public class ListDealFragment extends BaseFragment<FragmentListDealBinding> {
 
     @Override
     public void initView() {
-
+        getBinding().check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    isProcessing = IsProcessingType.SAP_DIEN_RA_TYPE;
+                }else {
+                    isProcessing = IsProcessingType.DANG_DIEN_RA_TYPE;
+                }
+            }
+        });
     }
 
     @Override
