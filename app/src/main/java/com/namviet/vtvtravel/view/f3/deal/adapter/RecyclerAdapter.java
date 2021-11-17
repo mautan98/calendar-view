@@ -337,18 +337,27 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                 mShimmerFrameLayout.setVisibility(View.VISIBLE);
                 mShimmerFrameLayout.startShimmer();
                 dealHomeChildFragment.setmIOnClickTabReloadData(ContentViewHolder1.this);
-                mILoadDataDeal.onLoadDataDeal(blocksMenuHeader1.get(positionHeader1).getListChildBlock().get(0).getLink());
+
+                //Lấy position của tab dang dien ra
+                int runningPosition = 0;
+                for (int i = 0; i < blocksMenuHeader1.get(positionHeader1).getListChildBlock().size(); i++) {
+                    if(blocksMenuHeader1.get(positionHeader1).getListChildBlock().get(i).getCode_type().equals("CTKM_RUNNING")){
+                        runningPosition = i;
+                        break;
+                    }
+                }
+                mILoadDataDeal.onLoadDataDeal(blocksMenuHeader1.get(positionHeader1).getListChildBlock().get(runningPosition).getLink());
                 blocksMenuHeader1.get(0).setDataLoaded(true);
             }
 
             F3TabDealAdapter f3TabDealAdapter = new F3TabDealAdapter(positionHeader1, blocksMenuHeader1, context, new F3TabDealAdapter.ClickTab() {
                 @Override
-                public void onClickTab(int positionClick) {
+                public void onClickTab(int positionClick, ArrayList<Block> blocks) {
                     mShimmerFrameLayout.setVisibility(View.VISIBLE);
                     rclContent.setVisibility(View.INVISIBLE);
                     mShimmerFrameLayout.startShimmer();
                     dealHomeChildFragment.setmIOnClickTabReloadData(ContentViewHolder1.this);
-                    mILoadDataDeal.onLoadDataDeal(blocksMenuHeader1.get(positionHeader1).getListChildBlock().get(positionClick).getLink());
+                    mILoadDataDeal.onLoadDataDeal(blocks.get(positionClick).getLink());
                 }
             }, false);
             rclTab.setAdapter(f3TabDealAdapter);

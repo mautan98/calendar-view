@@ -105,7 +105,7 @@ public class F3TabDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 public void onClick(View view) {
 //                    selectedItem = position;
                     positionSelected =  position;
-                    clickTab.onClickTab(position);
+                    clickTab.onClickTab(position, items);
                     notifyDataSetChanged();
                 }
             });
@@ -130,7 +130,7 @@ public class F3TabDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     public interface ClickTab{
-        void onClickTab(int position);
+        void onClickTab(int position, ArrayList<Block> blocks);
     }
 
 

@@ -1,26 +1,20 @@
 package com.namviet.vtvtravel.view.f3.deal.view.dealhome
 
-import android.os.Handler
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
+import com.google.gson.Gson
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.FragmentDealHomeBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
-import com.namviet.vtvtravel.response.f2wheel.WheelAreasResponse
-import com.namviet.vtvtravel.response.f2wheel.WheelResultResponse
-import com.namviet.vtvtravel.response.f2wheel.WheelRotateResponse
+import com.namviet.vtvtravel.model.f2booking.DataHelpCenter
+import com.namviet.vtvtravel.ultils.F2Util
+import com.namviet.vtvtravel.view.f2.MyGiftActivity
 import com.namviet.vtvtravel.view.f3.deal.adapter.TabAdapter
 import com.namviet.vtvtravel.view.f3.deal.model.BlockResponse
 import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel
-import com.namviet.vtvtravel.view.fragment.f2webview.LuckyWheelDialog
-import com.namviet.vtvtravel.viewmodel.f2luckywheel.LuckyWheelViewModel
-import kotlinx.android.synthetic.main.f2_fragment_detail_deal_webview.*
 import kotlinx.android.synthetic.main.fragment_deal_home.*
-import kotlinx.android.synthetic.main.fragment_deal_home.btnMenu
-import kotlinx.android.synthetic.main.fragment_page_deal_home.*
 import kotlinx.android.synthetic.main.fragment_page_deal_home.vpContent
 import java.util.*
 
@@ -52,7 +46,38 @@ class DealHomeFragment : BaseFragment<FragmentDealHomeBinding?>(), Observer {
         }
 
         btnMenu.setOnClickListener {
-            addFragment(DealMenuDialog())
+            var dealMenuDialog = DealMenuDialog()
+            dealMenuDialog.setClickListener(object : DealMenuDialog.Click{
+                override fun onClickRule() {
+                    Toast.makeText(mActivity, "Thể lệ", Toast.LENGTH_SHORT).show();
+                }
+
+                override fun onClickSubscribeDeal() {
+                    addFragment(DealSubcribeFragment())
+                }
+
+                override fun onClickHelpCenter() {
+                    val dataHelpCenter = Gson().fromJson(
+                        F2Util.loadJSONFromAsset(mActivity, "helpcenter_pro"),
+                        DataHelpCenter::class.java
+                    )
+                    MyGiftActivity.startScreen(
+                        mActivity,
+                        dataHelpCenter.itemMenus,
+                        dataHelpCenter.name
+                    )
+                }
+
+                override fun onClickGoDealHome() {
+
+                }
+
+                override fun onClickGoHome() {
+                    mActivity.onBackPressed()
+                }
+
+            })
+            addFragment(dealMenuDialog)
         }
 
         vpContent.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {

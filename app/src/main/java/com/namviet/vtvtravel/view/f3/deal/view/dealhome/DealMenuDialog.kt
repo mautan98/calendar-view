@@ -4,9 +4,13 @@ import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.FragmentDealMenuBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_deal_menu.*
-import kotlinx.android.synthetic.main.fragment_page_deal_home.*
 
 class DealMenuDialog : BaseFragment<FragmentDealMenuBinding?>() {
+    private var click : Click? = null
+
+    public fun setClickListener(click : Click?){
+        this.click = click
+    }
     override fun getLayoutRes(): Int {
         return R.layout.fragment_deal_menu
     }
@@ -20,22 +24,27 @@ class DealMenuDialog : BaseFragment<FragmentDealMenuBinding?>() {
         }
 
         btnRule.setOnClickListener {
-
+            mActivity.onBackPressed()
+            click?.onClickRule()
         }
 
-        btnDealSubcribe.setOnClickListener {
-
+        btnSubscribe.setOnClickListener {
+            mActivity.onBackPressed()
+            click?.onClickSubscribeDeal()
         }
 
         btnHelpCenter.setOnClickListener {
-
+            mActivity.onBackPressed()
+            click?.onClickHelpCenter()
         }
         btnGoHome.setOnClickListener {
-
+            mActivity.onBackPressed()
+            click?.onClickGoHome()
         }
 
         btnGoDealHome.setOnClickListener {
-
+            mActivity.onBackPressed()
+            click?.onClickGoDealHome()
         }
 
         viewClose.setOnClickListener {
@@ -43,4 +52,12 @@ class DealMenuDialog : BaseFragment<FragmentDealMenuBinding?>() {
         }
     }
     override fun setObserver() {}
+
+    public interface Click{
+        fun onClickRule();
+        fun onClickSubscribeDeal()
+        fun onClickHelpCenter()
+        fun onClickGoDealHome()
+        fun onClickGoHome()
+    }
 }
