@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.ultils.DateUtltils;
+import com.namviet.vtvtravel.view.f3.deal.constant.IsProcessingType;
 import com.namviet.vtvtravel.view.f3.deal.model.deal.Content;
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
@@ -117,20 +118,45 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             tvUserTotal.setText(content.getUserHuntingCount() + "+");
 
 
-            long timeStamp = content.getEndAt();
-            long myCurrentTimeMillis = System.currentTimeMillis();
-            if (myCurrentTimeMillis > timeStamp) {
-                tvDayLeft.setText("Còn lại 0 ngày");
-            } else {
-                long distance = (timeStamp - myCurrentTimeMillis) / 1000;
+            if (content.getIsProcessing() != null) {
 
-                String days = (int) (distance / 86400) + " ngày ";
-                String hours = String.valueOf((int) ((distance % 86400) / 3600));
-                String minutes = String.valueOf((int) ((distance % 3600) / 60));
-                String seconds = String.valueOf((int) ((distance % 3600) % 60));
+                if (content.getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)) {
+                    long timeStamp = content.getEndAt();
+                    long myCurrentTimeMillis = System.currentTimeMillis();
+                    if (myCurrentTimeMillis > timeStamp) {
+                        tvDayLeft.setText("Còn lại 0 ngày");
+                    } else {
+                        long distance = (timeStamp - myCurrentTimeMillis) / 1000;
 
-                tvDayLeft.setText("Còn lại " + days + hours + ":" + minutes + ":" + seconds);
+                        String days = (int) (distance / 86400) + " ngày ";
+                        String hours = String.valueOf((int) ((distance % 86400) / 3600));
+                        String minutes = String.valueOf((int) ((distance % 3600) / 60));
+                        String seconds = String.valueOf((int) ((distance % 3600) % 60));
 
+                        tvDayLeft.setText("Còn lại " + days + hours + ":" + minutes + ":" + seconds);
+
+                    }
+                }else if(content.getIsProcessing().equals(IsProcessingType.SAP_DIEN_RA_TYPE)){
+                    long timeStamp = content.getBeginAt();
+                    long myCurrentTimeMillis = System.currentTimeMillis();
+                    if (myCurrentTimeMillis > timeStamp) {
+                        tvDayLeft.setText("Bắt đầu sau 0 ngày");
+                    } else {
+                        long distance = (timeStamp - myCurrentTimeMillis) / 1000;
+
+                        String days = (int) (distance / 86400) + " ngày ";
+                        String hours = String.valueOf((int) ((distance % 86400) / 3600));
+                        String minutes = String.valueOf((int) ((distance % 3600) / 60));
+                        String seconds = String.valueOf((int) ((distance % 3600) % 60));
+
+                        tvDayLeft.setText("Bắt đầu sau " + days + hours + ":" + minutes + ":" + seconds);
+
+                    }
+                }else {
+                    tvDayLeft.setText("Đã hết hạn");
+                }
+            }else {
+                tvDayLeft.setText("Đã hết hạn");
             }
 
             try {
@@ -140,25 +166,21 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
 
             try {
-                tvExpiryDate.setText("HSD: "+ DateUtltils.timeToString18(content.getExpireDate()));
+                tvExpiryDate.setText("HSD: " + DateUtltils.timeToString18(content.getExpireDate()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
             try {
-                tvTotalMustHaveChild.setText("Tích luỹ từ "+ content.getTotalDeal() + "\nCTKM");
+                tvTotalMustHaveChild.setText("Tích luỹ từ " + content.getTotalDeal() + "\nCTKM");
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
             if (content.isCampaign()) {
                 layoutTotalMustHaveChild.setVisibility(View.VISIBLE);
-//                layoutTotalHuntingUser.setVisibility(View.GONE);
-//                layoutIsHuntingUser.setVisibility(View.INVISIBLE);
             } else {
                 layoutTotalMustHaveChild.setVisibility(View.GONE);
-//                layoutTotalHuntingUser.setVisibility(View.VISIBLE);
-
             }
 
             if (content.getIsUserHunting()) {
