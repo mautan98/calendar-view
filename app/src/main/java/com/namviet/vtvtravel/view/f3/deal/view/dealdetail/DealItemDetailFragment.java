@@ -32,7 +32,8 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
     private DealAdapter mDealAdapter;
     private SubDealHeaderItemAdapter adapterBanner;
     private ArrayList<String> dataBanner;
-    private String url;
+    private String idDetail;
+    private boolean isCampaign;
     private DealViewModel mDealViewModel;
     private String urlTab = "https://core-testing.vtvtravel.vn/api/v1/deals/byCampaigns?campaignId=105&isProcessing=0";
     private DealCampaignDetail dealCampaignDetail;
@@ -47,8 +48,9 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
     }
     private DetailNewsTravelViewModel viewModel;
     @SuppressLint("ValidFragment")
-    public DealItemDetailFragment(String detailLink) {
-        url = detailLink;
+    public DealItemDetailFragment(String id,boolean isCampaign) {
+        this.idDetail = id;
+        this.isCampaign = isCampaign;
     }
     @Override
     public int getLayoutRes() {
@@ -66,7 +68,13 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
         viewModel.addObserver(this);
         this.mDealViewModel = new DealViewModel();
         mDealViewModel.addObserver(this);
-        mDealViewModel.getDealCampaignDetail(url);
+        if(isCampaign){
+            mDealViewModel.getDealCampaignDetail(idDetail);
+        }
+        else {
+            mDealViewModel.getDealDetail(idDetail);
+        }
+
         getBinding().imgBack.setOnClickListener(this);
         getBinding().imgSearch.setOnClickListener(this);
         getBinding().imgMenu.setOnClickListener(this);

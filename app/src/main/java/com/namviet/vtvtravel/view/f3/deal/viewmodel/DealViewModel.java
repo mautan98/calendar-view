@@ -826,10 +826,35 @@ public class DealViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
-    public void getDealCampaignDetail(String url) {
+    public void getDealCampaignDetail(String id) {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
-        Disposable disposable = newsService.getDealCampaignDetail(url)
+        Disposable disposable = newsService.getDealCampaignDetail(id)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<DealCampaignDetail>() {
+                    @Override
+                    public void accept(DealCampaignDetail blockResponse) throws Exception {
+                        if (blockResponse != null) {
+                            requestSuccess(blockResponse);
+                        } else {
+                            requestSuccess(null);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable);
+                    }
+                });
+
+
+        compositeDisposable.add(disposable);
+    }
+    public void getDealDetail(String id) {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+        Disposable disposable = newsService.getDealDetail(id)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<DealCampaignDetail>() {

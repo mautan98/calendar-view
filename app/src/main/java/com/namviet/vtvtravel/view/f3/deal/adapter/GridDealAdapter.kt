@@ -61,7 +61,7 @@ class GridDealAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         fun bindItem(position: Int) {
             itemView.setOnClickListener {
-                DetailDealActivity.startScreen(itemView.context, url)
+               // DetailDealActivity.startScreen(itemView.context, url)
             }
         }
 

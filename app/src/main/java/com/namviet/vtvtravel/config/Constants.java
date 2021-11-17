@@ -108,6 +108,7 @@ public class Constants {
         public static final String TYPE_OTP_RESET_PASS = "TYPE_OTP_RESET_PASS";
         public static final String KEY_MOBILE = "mobile";
         public static final String DATA = "data";
+        public static final String IS_CAMPAIGN = "is_campaign";
         public static final String POSITION = "position";
         public static final String URL_DEAL = "url_deal";
         public static final String VOUCHER = "VOUCHER";

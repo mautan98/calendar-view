@@ -205,6 +205,8 @@ public class WSConfig {
         public static final String DEAL_HOT_HOME = "deals/getDealHot";
         public static final String TERMS = "page/dieu-khoan-su-dung";
         public static final String CTKM_BLOCK = "ctkm";
+        public static final String DEAL_CAMPAIGN_DETAIL = "deals/campaigns/details";
+        public static final String DEAL_CHILD_DETAIL = "deals/details";
     }
 
     public class KeyParam {

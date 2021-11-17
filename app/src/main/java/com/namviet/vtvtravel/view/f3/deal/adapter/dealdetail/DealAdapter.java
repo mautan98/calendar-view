@@ -33,6 +33,7 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.travelnews.CommentInDetailTravelNewsAdapter;
 import com.namviet.vtvtravel.view.f3.deal.Utils;
 import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealAdapter;
+import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealInDealHomeAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealFilterAdapter;
 import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
 import com.namviet.vtvtravel.view.f3.deal.view.dealdetail.DealItemDetailFragment;
@@ -189,7 +190,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         mILoadDataDeal.onLoadDataDeal("");
                         dealCampaignDetail.setDataLoaded(true);
                     }
-                    rclContent.setAdapter(new GridDealAdapter(dealCampaignDetail.getDealByCampaign()));
+                    rclContent.setAdapter(new GridDealInDealHomeAdapter(dealCampaignDetail.getDealByCampaign()));
                     rclFilterDeal.setAdapter(new DealFilterAdapter(mContext, null, null));
                     mF3HeaderAdapter = new F3HeaderAdapter(0, tabs, itemView.getContext(), new F3HeaderAdapter.ClickTab() {
 
@@ -238,7 +239,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    rclContent.setAdapter(new GridDealAdapter(dealCampaignDetail.getDealByCampaign()));
+                    rclContent.setAdapter(new GridDealInDealHomeAdapter(dealCampaignDetail.getDealByCampaign()));
                     mShimmerFrameLayout.stopShimmer();
                     mShimmerFrameLayout.setVisibility(View.GONE);
                     rclContent.setVisibility(View.VISIBLE);

@@ -16,7 +16,8 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment;
 
 
 public class DetailDealActivity extends BaseActivityNew<ActivityDetailDealBinding> {
-    private String link;
+    private String idCampaignDetail;
+    private boolean isCampaign;
     @Override
     public int getLayoutRes() {
         return R.layout.activity_item_detail_deal;
@@ -37,7 +38,8 @@ public class DetailDealActivity extends BaseActivityNew<ActivityDetailDealBindin
 
     @Override
     public void getDataFromIntent() {
-        link = getIntent().getStringExtra(Constants.IntentKey.DATA);
+        idCampaignDetail = getIntent().getStringExtra(Constants.IntentKey.DATA);
+        isCampaign = getIntent().getBooleanExtra(Constants.IntentKey.IS_CAMPAIGN,true);
     }
 
     @Override
@@ -52,12 +54,13 @@ public class DetailDealActivity extends BaseActivityNew<ActivityDetailDealBindin
 
     @Override
     public BaseFragment initFragment() {
-        DealItemDetailFragment dealItemDetailFragment  = new DealItemDetailFragment(link);
+        DealItemDetailFragment dealItemDetailFragment  = new DealItemDetailFragment(idCampaignDetail,isCampaign);
         return dealItemDetailFragment;
     }
-    public static void startScreen(Context activity, String link) {
+    public static void startScreen(Context activity, String id,boolean isCampaign) {
         Intent intent = new Intent(activity, DetailDealActivity.class);
-        intent.putExtra(Constants.IntentKey.DATA, link);
+        intent.putExtra(Constants.IntentKey.DATA, id);
+        intent.putExtra(Constants.IntentKey.IS_CAMPAIGN, isCampaign);
         activity.startActivity(intent);
     }
 }

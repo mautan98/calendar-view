@@ -66,13 +66,11 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         fun bindItem(position: Int) {
-            itemView.setOnClickListener {
-                DetailDealActivity.startScreen(itemView.context, url)
-            }
             val content = dealResponse!!.data.content[position]
             itemView.tvName.text = content.name
-
-
+            itemView.setOnClickListener {
+                DetailDealActivity.startScreen(itemView.context, content.id.toString(),content.isCampaign)
+            }
             if (content.isCampaign) {
                 itemView.tvTotalMustHaveChild.visibility = View.VISIBLE
             } else {
