@@ -1,17 +1,26 @@
 package com.namviet.vtvtravel.view.f3.deal.view.dealhome
 
 import android.view.View
+import android.widget.Toast
+import com.google.gson.Gson
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.FragmentDealSubcribeBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
+import com.namviet.vtvtravel.model.f2booking.DataHelpCenter
+import com.namviet.vtvtravel.ultils.F2Util
+import com.namviet.vtvtravel.view.f2.MyGiftActivity
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealFilterAdapter
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealSubscribeParentAdapter
+import com.namviet.vtvtravel.view.f3.deal.event.ChangeToCenterTab
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollow
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollowResponse
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.RewardStatus
 import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel
+import kotlinx.android.synthetic.main.fragment_deal_home.*
 import kotlinx.android.synthetic.main.fragment_deal_subcribe.*
+import kotlinx.android.synthetic.main.fragment_deal_subcribe.btnMenu
+import org.greenrobot.eventbus.EventBus
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -21,6 +30,14 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
     private var listDeal = ArrayList<DealFollow>()
     private var dealSubscribeParentAdapter: DealSubscribeParentAdapter? = null
     private var filter = ""
+    private var location : Int? = null // 0: trong tab, 1 từ add fragment
+
+
+    public fun setLocation(location : Int?){
+        this.location = location
+    }
+
+
     override fun getLayoutRes(): Int {
         return R.layout.fragment_deal_subcribe
     }
@@ -65,7 +82,47 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
     override fun inject() {}
     override fun setClickListener() {
         btnMenu.setOnClickListener {
-            addFragment(DealMenuDialog())
+            var dealMenuDialog = DealMenuDialog()
+            dealMenuDialog.setClickListener(object : DealMenuDialog.Click{
+                override fun onClickRule() {
+                    Toast.makeText(mActivity, "Thể lệ", Toast.LENGTH_SHORT).show();
+                }
+
+                override fun onClickSubscribeDeal() {
+
+                }
+
+                override fun onClickHelpCenter() {
+                    val dataHelpCenter = Gson().fromJson(
+                        F2Util.loadJSONFromAsset(mActivity, "helpcenter_pro"),
+                        DataHelpCenter::class.java
+                    )
+                    MyGiftActivity.startScreen(
+                        mActivity,
+                        dataHelpCenter.itemMenus,
+                        dataHelpCenter.name
+                    )
+                }
+
+                override fun onClickGoDealHome() {
+                    if(location == 0){
+                        EventBus.getDefault().post(ChangeToCenterTab(1))
+                    }else{
+                        mActivity.onBackPressed()
+                    }
+                }
+
+                override fun onClickGoHome() {
+                    if(location == 0) {
+                        mActivity.onBackPressed()
+                    }else{
+                        mActivity.onBackPressed()
+//                        mActivity.onBackPressed()
+                    }
+                }
+
+            })
+            addFragment(dealMenuDialog)
         }
     }
 

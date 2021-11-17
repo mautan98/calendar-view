@@ -1,13 +1,17 @@
 package com.namviet.vtvtravel.view.f3.deal.view.dealhome
 
 import android.graphics.Color
+import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
 import com.daimajia.slider.library.Tricks.ViewPagerEx
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.FragmentPageDealHomeBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.view.f3.deal.adapter.TabAdapter
+import com.namviet.vtvtravel.view.f3.deal.event.ChangeToCenterTab
 import kotlinx.android.synthetic.main.fragment_page_deal_home.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
     private var tabAdapter: TabAdapter? = null
@@ -24,8 +28,8 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
         var dealHomeFragment = DealHomeFragment()
         tabAdapter?.addFragment(dealHomeFragment, "")
 
-        var dealSubcribeFragment =
-            DealSubcribeFragment()
+        var dealSubcribeFragment = DealSubcribeFragment()
+        dealSubcribeFragment.setLocation(0)
         tabAdapter?.addFragment(dealSubcribeFragment, "")
 
         vpContent.adapter = tabAdapter
@@ -92,4 +96,20 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
     }
 
     override fun setObserver() {}
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
+
+    @Subscribe
+    public fun onChangeToCenterTab(changeToCenterTab: ChangeToCenterTab){
+        vpContent.currentItem = changeToCenterTab.position
+    }
 }

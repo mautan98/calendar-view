@@ -12,10 +12,12 @@ import com.namviet.vtvtravel.model.f2booking.DataHelpCenter
 import com.namviet.vtvtravel.ultils.F2Util
 import com.namviet.vtvtravel.view.f2.MyGiftActivity
 import com.namviet.vtvtravel.view.f3.deal.adapter.TabAdapter
+import com.namviet.vtvtravel.view.f3.deal.event.ChangeToCenterTab
 import com.namviet.vtvtravel.view.f3.deal.model.BlockResponse
 import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel
 import kotlinx.android.synthetic.main.fragment_deal_home.*
 import kotlinx.android.synthetic.main.fragment_page_deal_home.vpContent
+import org.greenrobot.eventbus.EventBus
 import java.util.*
 
 class DealHomeFragment : BaseFragment<FragmentDealHomeBinding?>(), Observer {
@@ -53,7 +55,10 @@ class DealHomeFragment : BaseFragment<FragmentDealHomeBinding?>(), Observer {
                 }
 
                 override fun onClickSubscribeDeal() {
-                    addFragment(DealSubcribeFragment())
+//                    var dealSubcribeFragment = DealSubcribeFragment();
+//                    dealSubcribeFragment.setLocation(1)
+//                    addFragment(dealSubcribeFragment)
+                    EventBus.getDefault().post(ChangeToCenterTab(2))
                 }
 
                 override fun onClickHelpCenter() {

@@ -17,6 +17,12 @@ import java.util.*
 class ListDealTabFragment : BaseFragment<FragmentListDealTabBinding?>,  Observer {
     private var dealViewModel : DealViewModel? = null
     private var block : Block? = null
+    private var isProcessing : String = "1"
+
+
+    public fun setIsProcessing(isProcessing : String){
+        this.isProcessing = isProcessing
+    }
     constructor()
 
     constructor(block: Block?){
@@ -29,7 +35,7 @@ class ListDealTabFragment : BaseFragment<FragmentListDealTabBinding?>,  Observer
     override fun initView() {
         dealViewModel = DealViewModel();
         dealViewModel?.addObserver(this)
-        dealViewModel?.getDeal(block?.link)
+        dealViewModel?.getDealWithReplaceParam(block?.link, isProcessing)
     }
     override fun initData() {
 
