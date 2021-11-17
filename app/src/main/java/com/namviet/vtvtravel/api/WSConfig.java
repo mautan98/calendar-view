@@ -207,6 +207,7 @@ public class WSConfig {
         public static final String CTKM_BLOCK = "ctkm";
         public static final String DEAL_CAMPAIGN_DETAIL = "deals/campaigns/details";
         public static final String DEAL_CHILD_DETAIL = "deals/details";
+        public static final String DEAL_BY_CAMPAIGN = "deals/byCampaigns";
     }
 
     public class KeyParam {

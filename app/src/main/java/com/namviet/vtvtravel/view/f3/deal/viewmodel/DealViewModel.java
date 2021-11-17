@@ -902,10 +902,10 @@ public class DealViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
-    public void getDealByCampaign(String url) {
+    public void getDealByCampaign(String status, String id) {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
-        Disposable disposable = newsService.getDealByCampain(url)
+        Disposable disposable = newsService.getDealByCampaign(status,id)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<DealResponse>() {

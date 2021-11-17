@@ -35,6 +35,7 @@ import com.namviet.vtvtravel.view.f3.deal.Utils;
 import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealInDealHomeAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealFilterAdapter;
+import com.namviet.vtvtravel.view.f3.deal.constant.IsProcessingType;
 import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
 import com.namviet.vtvtravel.view.f3.deal.view.dealdetail.DealItemDetailFragment;
 import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
@@ -187,7 +188,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         mShimmerFrameLayout.setVisibility(View.VISIBLE);
                         mShimmerFrameLayout.startShimmer();
                         dealItemDetailFragment.setIOnClickTabReloadData(MoreViewHolder.this);
-                        mILoadDataDeal.onLoadDataDeal("");
+                        mILoadDataDeal.onLoadDataDeal(IsProcessingType.DANG_DIEN_RA_TYPE);
                         dealCampaignDetail.setDataLoaded(true);
                     }
                     rclContent.setAdapter(new GridDealInDealHomeAdapter(dealCampaignDetail.getDealByCampaign()));
@@ -200,7 +201,15 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             rclContent.setVisibility(View.INVISIBLE);
                             mShimmerFrameLayout.startShimmer();
                             dealItemDetailFragment.setIOnClickTabReloadData(MoreViewHolder.this);
-                            mILoadDataDeal.onLoadDataDeal("");
+                            String status = "";
+                            if(position == 0){
+                                status = IsProcessingType.DANG_DIEN_RA_TYPE;
+                            }else if(position == 1){
+                                status = IsProcessingType.SAP_DIEN_RA_TYPE;
+                            }else if(position == 2){
+                                status = IsProcessingType.KET_THUC_TYPE;
+                            }
+                            mILoadDataDeal.onLoadDataDeal(status);
                         }
                     }, false);
                     rcvTabHeader1.setAdapter(mF3HeaderAdapter);

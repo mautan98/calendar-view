@@ -126,8 +126,8 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
             mDealAdapter = new DealAdapter(dealCampaignDetail,mActivity,this,DealItemDetailFragment.this);
             mDealAdapter.setILoadDataDeal(new DealAdapter.ILoadDataDeal() {
                 @Override
-                public void onLoadDataDeal(String url) {
-                    mDealViewModel.getDealByCampaign(urlTab);
+                public void onLoadDataDeal(String status) {
+                    mDealViewModel.getDealByCampaign(status,idDetail);
                 }
             });
             getBinding().rcvDetailDeal.setAdapter(mDealAdapter);
