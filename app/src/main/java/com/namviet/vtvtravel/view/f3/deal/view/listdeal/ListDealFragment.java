@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 public class ListDealFragment extends BaseFragment<FragmentListDealBinding> {
     private ArrayList<Block> listBlock = new ArrayList<>();
+    private int positionSelected = 0;
     private DealTabStyleAdapter mainAdapter;
     private String isProcessing = "1";
     @Override
@@ -30,16 +31,7 @@ public class ListDealFragment extends BaseFragment<FragmentListDealBinding> {
 
     @Override
     public void initView() {
-        getBinding().check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    isProcessing = IsProcessingType.SAP_DIEN_RA_TYPE;
-                }else {
-                    isProcessing = IsProcessingType.DANG_DIEN_RA_TYPE;
-                }
-            }
-        });
+
     }
 
     @Override
@@ -75,6 +67,7 @@ public class ListDealFragment extends BaseFragment<FragmentListDealBinding> {
         }
         getBinding().tabLayout.addOnTabSelectedListener(OnTabSelectedListener);
         getBinding().vpContent.setOffscreenPageLimit(4);
+        getBinding().vpContent.setCurrentItem(positionSelected);
     }
 
     @Override
@@ -123,7 +116,9 @@ public class ListDealFragment extends BaseFragment<FragmentListDealBinding> {
         }
     };
 
-    public void setListBlock(ArrayList<Block> listBlock) {
+    public void setListBlock(ArrayList<Block> listBlock, String isProcessing, int positionSelected) {
         this.listBlock = listBlock;
+        this.isProcessing = isProcessing;
+        this.positionSelected = positionSelected;
     }
 }

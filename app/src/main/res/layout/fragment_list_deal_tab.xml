@@ -6,6 +6,62 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_marginTop="13dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="13dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/check"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="@drawable/f3_checkbox_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:text="Sắp diễn ra"
+                android:textColor="#1A94FF"
+                android:textSize="14sp"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:visibility="invisible"
+                android:id="@+id/lnl_view_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="7dp"
+                    android:text="Xem tiếp"
+                    android:textColor="#707070"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="17dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="4dp"
+                    android:src="@drawable/f3_view_more" />
+            </LinearLayout>
+        </LinearLayout>
+
        <androidx.recyclerview.widget.RecyclerView
            android:id="@+id/rclContent"
            android:layout_width="match_parent"

@@ -21,6 +21,7 @@ import com.brandongogetap.stickyheaders.exposed.StickyHeaderHandler;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.view.f3.deal.constant.IsProcessingType;
 import com.namviet.vtvtravel.view.f3.deal.model.Block;
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealHomeChildFragment;
@@ -245,6 +246,10 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             }
         }
 
+        public int getPositionTab(){
+            return positionTab;
+        }
+
         @Override
         public void update(Observable observable, Object o) {
 //            shimmer.setVisibility(View.GONE);
@@ -273,6 +278,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             btnViewMore = itemView.findViewById(R.id.lnl_view_more);
         }
 
+        private boolean isCheck = false;
         public void bindItem(int position) {
             this.position = position;
             rclContent.setAdapter(new GridDealInDealHomeAdapter(dealResponseForBlockContent2));
@@ -284,13 +290,14 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     showLoading();
                     headerViewHolder2.getData(isChecked);
+                    isCheck = isChecked;
                 }
             });
 
             btnViewMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ListDealActivity.Companion.startScreen(context, blocksMenuHeader2);
+                    ListDealActivity.Companion.startScreen(context, blocksMenuHeader2, headerViewHolder2.getPositionTab(), isCheck? IsProcessingType.SAP_DIEN_RA_TYPE: IsProcessingType.DANG_DIEN_RA_TYPE);
                 }
             });
         }

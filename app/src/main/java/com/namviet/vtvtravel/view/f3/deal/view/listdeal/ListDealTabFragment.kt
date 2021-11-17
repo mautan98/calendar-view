@@ -1,13 +1,12 @@
 package com.namviet.vtvtravel.view.f3.deal.view.listdeal
 
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.FragmentListDealTabBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
-import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealAdapter
 import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealInDealHomeAdapter
+import com.namviet.vtvtravel.view.f3.deal.constant.IsProcessingType
 import com.namviet.vtvtravel.view.f3.deal.model.Block
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse
 import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel
@@ -36,12 +35,22 @@ class ListDealTabFragment : BaseFragment<FragmentListDealTabBinding?>,  Observer
         dealViewModel = DealViewModel();
         dealViewModel?.addObserver(this)
         dealViewModel?.getDealWithReplaceParam(block?.link, isProcessing)
+
+        check.isChecked = isProcessing != IsProcessingType.DANG_DIEN_RA_TYPE
     }
     override fun initData() {
 
     }
     override fun inject() {}
     override fun setClickListener() {
+        binding!!.check.setOnCheckedChangeListener { _, isChecked ->
+            isProcessing = if (isChecked) {
+                IsProcessingType.SAP_DIEN_RA_TYPE
+            } else {
+                IsProcessingType.DANG_DIEN_RA_TYPE
+            }
+            dealViewModel?.getDealWithReplaceParam(block?.link, isProcessing)
+        }
     }
     override fun setObserver() {}
 
