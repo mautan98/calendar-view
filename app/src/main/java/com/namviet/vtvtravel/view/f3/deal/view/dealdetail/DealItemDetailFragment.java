@@ -134,8 +134,6 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
             getBinding().tvTitle.setText(dealCampaignDetail.getData().getName());
             for (int i = 0; i < dealCampaignDetail.getData().getGalleryUri().size(); i++){
                 dataBanner.add(dealCampaignDetail.getData().getGalleryUri().get(i));
-                dataBanner.add(dealCampaignDetail.getData().getGalleryUri().get(i));
-                dataBanner.add(dealCampaignDetail.getData().getGalleryUri().get(i));
             }
             initBanner();
         }
