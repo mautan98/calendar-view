@@ -31,6 +31,7 @@ public class F3TabDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public int selectedItem = 0;
     private ClickTab clickTab;
     private boolean isFromHome = true;
+    private int positionSelected = 0;
 
     @Override
     public int getItemViewType(int position) {
@@ -39,14 +40,15 @@ public class F3TabDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     public F3TabDealAdapter(int position, ArrayList<Block> items, Context context, ClickTab clickTab, boolean isFromHome) {
-        for (int i = 0; i < items.size(); i++) {
-            if(items.get(i).getCode_type().equals("CTKM_RUNNING")){
-                this.items.add(items.get(i));
+        ArrayList<Block> blocks = items.get(position).getListChildBlock();
+        for (int i = 0; i < blocks.size(); i++) {
+            if(blocks.get(i).getCode_type().equals("CTKM_RUNNING")){
+                this.items.add(blocks.get(i));
             }
         }
-        for (int i = 0; i < items.size(); i++) {
-            if(items.get(i).getCode_type().equals("CTKM_UPCOMING")){
-                this.items.add(items.get(i));
+        for (int i = 0; i < blocks.size(); i++) {
+            if(blocks.get(i).getCode_type().equals("CTKM_UPCOMING")){
+                this.items.add(blocks.get(i));
             }
         }
         this.context = context;
@@ -81,7 +83,7 @@ public class F3TabDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public int getItemCount() {
         try {
-            return items.get(0).getListChildBlock().size() - 1;
+            return items.size();
         } catch (Exception e) {
             return 0;
         }
@@ -101,8 +103,9 @@ public class F3TabDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    selectedItem = position;
-                    clickTab.onClickTab(selectedItem);
+//                    selectedItem = position;
+                    positionSelected =  position;
+                    clickTab.onClickTab(position);
                     notifyDataSetChanged();
                 }
             });
@@ -114,14 +117,14 @@ public class F3TabDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
               if(!isFromHome){
                     imgSelected.setBackgroundColor(Color.parseColor("#F93134"));
                 }
-            if (position == selectedItem) {
+            if (position == positionSelected) {
                 tvTitle.setTextColor(ContextCompat.getColor(context, R.color.black));
                 imgSelected.setVisibility(View.VISIBLE);
             } else {
                 tvTitle.setTextColor(Color.parseColor("#707070"));
                 imgSelected.setVisibility(View.GONE);
             }
-            tvTitle.setText(items.get(0).getListChildBlock().get(position).getName());
+            tvTitle.setText(items.get(position).getName());
         }
     }
 

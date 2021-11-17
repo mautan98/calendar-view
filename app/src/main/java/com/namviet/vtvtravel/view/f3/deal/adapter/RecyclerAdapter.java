@@ -341,7 +341,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                 blocksMenuHeader1.get(0).setDataLoaded(true);
             }
 
-            F3TabDealAdapter f3TabDealAdapter = new F3TabDealAdapter(0, blocksMenuHeader1, context, new F3TabDealAdapter.ClickTab() {
+            F3TabDealAdapter f3TabDealAdapter = new F3TabDealAdapter(positionHeader1, blocksMenuHeader1, context, new F3TabDealAdapter.ClickTab() {
                 @Override
                 public void onClickTab(int positionClick) {
                     mShimmerFrameLayout.setVisibility(View.VISIBLE);

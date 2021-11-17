@@ -74,15 +74,9 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
 
             if (content.isCampaign) {
-//                layoutTotalMustHaveChild.setVisibility(View.VISIBLE)
-//                itemView.layoutTotalHuntingUser.visibility = View.GONE
-//                itemView.layoutIsHuntingUser.visibility = View.INVISIBLE
                 itemView.tvTotalMustHaveChild.visibility = View.VISIBLE
             } else {
                 itemView.tvTotalMustHaveChild.visibility = View.GONE
-//                layoutTotalMustHaveChild.setVisibility(View.GONE)
-//                itemView.layoutTotalHuntingUser.visibility = View.VISIBLE
-
             }
 
 
