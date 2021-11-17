@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class ListDealFragment extends BaseFragment<FragmentListDealBinding> {
     private ArrayList<Block> listBlock = new ArrayList<>();
     private DealTabStyleAdapter mainAdapter;
+    private String isProcessing = "1";
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_list_deal;
@@ -36,6 +37,7 @@ public class ListDealFragment extends BaseFragment<FragmentListDealBinding> {
 
         for (int i = 0; i < listBlock.size(); i++) {
             ListDealTabFragment listDealTabFragment = new ListDealTabFragment(listBlock.get(i));
+            listDealTabFragment.setIsProcessing(isProcessing);
             mainAdapter.addFragment(listDealTabFragment, "");
         }
 
