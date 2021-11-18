@@ -41,6 +41,7 @@ import com.namviet.vtvtravel.view.f3.deal.view.dealdetail.DealItemDetailFragment
 import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
 import com.ornach.richtext.RichText;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -625,20 +626,31 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tvStatusDeal = itemView.findViewById(R.id.tv_status_deal);
         }
 
+        private String convertPrice(String string){
+            try {
+                DecimalFormat df = new DecimalFormat("###.###.###");
+                return df.format(Double.parseDouble(string));
+            } catch (NumberFormatException e) {
+                return string;
+            }
+
+        }
+
 
         @SuppressLint("DefaultLocale")
         public void bindItem(int position) {
             try {
                 mTvTilte.setText(dealCampaignDetail.getData().getName());
-                mTvOldPrice.setText(String.format("%dđ", dealCampaignDetail.getData().getPriceBeforePromo()));
-                mTvNewPrice.setText(String.format("%dđ", dealCampaignDetail.getData().getPriceAfterPromo()));
+
+                mTvOldPrice.setText(String.format("%dđ", convertPrice(dealCampaignDetail.getData().getPriceBeforePromo().toString())));
+                mTvNewPrice.setText(String.format("%dđ", convertPrice(dealCampaignDetail.getData().getPriceAfterPromo().toString())));
                 mTvOldPrice.setPaintFlags(mTvOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 mTvDisCount.setText(String.format("%d%%", dealCampaignDetail.getData().getValuePromotion()));
                 String expirationDate = Utils.CalendarUtils.ConvertMilliSecondsToFormattedDate(dealCampaignDetail.getData().getEndAt());
-                mTvExpirationDate.setText(expirationDate);
+                mTvExpirationDate.setText("HSD: "+expirationDate);
                 tvTimeHold.setText(Utils.CalendarUtils.getTimeHold(dealCampaignDetail.getData().getTotalHoldTime()));
                 mTvTimeCountDown.setText(Utils.CalendarUtils.getDayLeft(dealCampaignDetail.getData().getEndAt()));
-                mProgressCountDown.setProgress(Utils.CalendarUtils.getPercentProgress(dealCampaignDetail.getData().getBeginAt(), dealCampaignDetail.getData().getEndAt()));
+                mProgressCountDown.setProgress(100 - Utils.CalendarUtils.getPercentProgress(dealCampaignDetail.getData().getBeginAt(), dealCampaignDetail.getData().getEndAt()));
 
                 int status = dealCampaignDetail.getData().getStatus();
                 if (status == 0) {
