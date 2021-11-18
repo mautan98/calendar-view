@@ -1,5 +1,6 @@
 package com.namviet.vtvtravel.view.f3.deal.view.listhotdeal
 
+import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -32,9 +33,7 @@ class ListHotDealTabFragment : BaseFragment<FragmentListDealTabBinding?>, Observ
         dealViewModel?.getDeal(block?.link)
     }
     override fun initData() {
-        rclContent.adapter = GridDealAdapter()
-        val gridLayoutManager = GridLayoutManager(mActivity, 2)
-        rclContent.layoutManager = gridLayoutManager
+        layoutCheckbox.visibility = View.GONE
     }
     override fun inject() {}
     override fun setClickListener() {

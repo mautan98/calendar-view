@@ -68,12 +68,12 @@
         </RelativeLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="14.5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="146dp"
+                android:layout_width="150dp"
                 android:layout_height="0dp"
                 android:src="@drawable/ic_text"
                 app:layout_constraintDimensionRatio="153:21"
@@ -88,7 +88,7 @@
             app:tabIndicatorHeight="0dp"
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="40dp"/>
+            android:layout_height="58dp"/>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vpContent"
