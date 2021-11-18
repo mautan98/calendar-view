@@ -100,7 +100,7 @@
                     android:layout_marginTop="5dp"
                     android:orientation="vertical">
                     <LinearLayout
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:id="@+id/lnl_price"
                         android:orientation="vertical"
                         android:layout_width="wrap_content"

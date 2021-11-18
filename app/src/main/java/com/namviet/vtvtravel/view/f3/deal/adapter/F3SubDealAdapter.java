@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.view.f3.deal.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,11 +18,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.ultils.DateUtltils;
+import com.namviet.vtvtravel.view.f3.deal.constant.DiscountDisplayType;
 import com.namviet.vtvtravel.view.f3.deal.constant.IsProcessingType;
 import com.namviet.vtvtravel.view.f3.deal.model.deal.Content;
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 import com.namviet.vtvtravel.view.f3.deal.view.dealdetail.DetailDealActivity;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
+
+import java.text.DecimalFormat;
 
 public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
@@ -194,6 +198,61 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             } else {
                 layoutIsHuntingUser.setVisibility(View.INVISIBLE);
             }
+
+
+            try {
+                tvDisplayPrice.setText(convertPrice(String.valueOf(content.getPriceAfterPromo())) + " đ");
+            } catch (Exception e) {
+                try {
+                    tvDisplayPrice.setText(content.getPriceAfterPromo() + " đ");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                e.printStackTrace();
+            }
+
+
+            try {
+                tvOriginPrice.setText(convertPrice(String.valueOf(content.getPriceBeforePromo())) + " đ");
+            } catch (Exception e) {
+                try {
+                    tvOriginPrice.setText(content.getPriceBeforePromo() + " đ");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                e.printStackTrace();
+            }
+
+
+            tvOriginPrice.setPaintFlags(tvOriginPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+
+            try {
+                if (content.getDisplayType() != null) {
+                    if (content.getDisplayType() == DiscountDisplayType.PERCENT_TYPE) {
+                        tvDiscount.setText(content.getValuePromotion().toString() + "%");
+                        tvDiscount.setVisibility(View.VISIBLE);
+                    } else {
+                        tvDiscount.setVisibility(View.GONE);
+                    }
+
+                } else {
+                    tvDiscount.setVisibility(View.GONE);
+                }
+            } catch (Exception e) {
+                tvDiscount.setVisibility(View.GONE);
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    public static String convertPrice(String string) {
+        try {
+            DecimalFormat df = new DecimalFormat("###.###.###");
+            return df.format(Double.parseDouble(string));
+        } catch (Exception e) {
+            return string;
         }
     }
 }
