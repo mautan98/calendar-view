@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.view.f3.deal.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,9 +110,11 @@ public class F3Header2Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             this.position = position;
             if (position == selectedItem) {
                 tvTitle.setTextColor(Color.parseColor("#FF2929"));
+                tvTitle.setTypeface(tvTitle.getTypeface(), Typeface.BOLD);
                 viewIndicator.setVisibility(View.VISIBLE);
             } else {
-                tvTitle.setTextColor(ContextCompat.getColor(context, R.color.black));
+                tvTitle.setTextColor(Color.parseColor("#7A7A7A"));
+                tvTitle.setTypeface(tvTitle.getTypeface(), Typeface.NORMAL);
                 viewIndicator.setVisibility(View.INVISIBLE);
 
             }
