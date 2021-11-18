@@ -20,6 +20,7 @@ import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.view.f3.deal.constant.IsProcessingType;
 import com.namviet.vtvtravel.view.f3.deal.model.deal.Content;
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
+import com.namviet.vtvtravel.view.f3.deal.view.dealdetail.DetailDealActivity;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
 public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -117,7 +118,12 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             tvName.setText(content.getName());
             tvUserTotal.setText(content.getUserHuntingCount() + "+");
 
-
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DetailDealActivity.startScreen(context, content.getId().toString(),content.isCampaign());
+                }
+            });
             if (content.getIsProcessing() != null) {
 
                 if (content.getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)) {
