@@ -71,6 +71,9 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
             itemView.setOnClickListener {
                 DetailDealActivity.startScreen(itemView.context, content.id.toString(),content.isCampaign)
             }
+
+            itemView.tvUserTotal.text = content.userHuntingCount.toString() + "+"
+
             if (content.isCampaign) {
                 itemView.tvTotalMustHaveChild.visibility = View.VISIBLE
             } else {
@@ -106,6 +109,7 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         val seconds: String = ((distance % 3600 % 60).toInt()).toString()
                         itemView.tvDayLeft.text = "Còn lại $days$hours:$minutes:$seconds"
                     }
+                    itemView.progress1.progress = getPercentProgress(content.beginAt, content.endAt)
                 } else if (content.isProcessing.equals(IsProcessingType.SAP_DIEN_RA_TYPE)) {
                     val timeStamp = content.beginAt
                     val myCurrentTimeMillis = System.currentTimeMillis()
@@ -119,11 +123,14 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         val seconds: String = ((distance % 3600 % 60).toInt()).toString()
                         itemView.tvDayLeft.text = "Bắt đầu sau $days$hours:$minutes:$seconds"
                     }
+                    itemView.progress1.progress = 100
                 } else {
-                    itemView.tvDayLeft.text = "Đã hết hạn"
+                    itemView.tvDayLeft.text = "Đã kết thúc"
+                    itemView.progress1.progress = 0
                 }
             } else {
-                itemView.tvDayLeft.text = "Đã hết hạn"
+                itemView.tvDayLeft.text = "Đã kết thúc"
+                itemView.progress1.progress = 0
             }
 
 
@@ -180,10 +187,26 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     fun convertPrice(string: String): String? {
         return try {
-            val df = DecimalFormat("###,###,###")
+            val df = DecimalFormat("###.###.###")
             df.format(string.toDouble())
         } catch (e: java.lang.Exception) {
             string
+        }
+    }
+
+    private fun getPercentProgress(startTime: Long, endTime: Long): Int {
+        return try {
+            val myCurrentTimeMillis = System.currentTimeMillis()
+            if (myCurrentTimeMillis < startTime) {
+                return 0
+            }
+            if (myCurrentTimeMillis > endTime) {
+                100
+            } else {
+                100 - ((myCurrentTimeMillis - startTime).toDouble() / (endTime - startTime).toDouble() * 100).toInt()
+            }
+        } catch (e: Exception) {
+            50
         }
     }
 
