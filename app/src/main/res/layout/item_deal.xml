@@ -112,7 +112,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto_bold"
                 android:text="KINGS HOTEL ĐÀ LẠT - Trọn Gói Vé Cổng + Tham Gia Hoạt Động ..."
-                android:textColor="#000000"
+                android:textColor="#393939"
                 android:textSize="12dp" />
 
 

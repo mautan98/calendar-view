@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.namviet.vtvtravel.R;
@@ -106,15 +107,16 @@ public class F3Header2Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 imgSelected.setVisibility(View.INVISIBLE);
             }
 
-
             this.position = position;
             if (position == selectedItem) {
+                Typeface typeface = ResourcesCompat.getFont(context, R.font.roboto_bold);
                 tvTitle.setTextColor(Color.parseColor("#FF2929"));
-                tvTitle.setTypeface(tvTitle.getTypeface(), Typeface.BOLD);
+                tvTitle.setTypeface(typeface);
                 viewIndicator.setVisibility(View.VISIBLE);
             } else {
+                Typeface typeface = ResourcesCompat.getFont(context, R.font.roboto_medium);
                 tvTitle.setTextColor(Color.parseColor("#7A7A7A"));
-                tvTitle.setTypeface(tvTitle.getTypeface(), Typeface.NORMAL);
+                tvTitle.setTypeface(typeface);
                 viewIndicator.setVisibility(View.INVISIBLE);
 
             }
