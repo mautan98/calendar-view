@@ -27,6 +27,9 @@ public class F3Header2Adapter2 extends RecyclerView.Adapter<RecyclerView.ViewHol
     public int selectedItem = 0;
     private F3Header2Adapter.ClickTab clickTab;
     private boolean isHeader1;
+    private int oldPosition = 0;
+
+    private ArrayList<HeaderViewHolder> headerViewHolders = new ArrayList<>();
 
     @Override
     public int getItemViewType(int position) {
@@ -52,7 +55,9 @@ public class F3Header2Adapter2 extends RecyclerView.Adapter<RecyclerView.ViewHol
         View v;
         if (viewType == TYPE_ITEM) {
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f3_item_header2, parent, false);
-            return new HeaderViewHolder(v);
+            HeaderViewHolder headerViewHolder = new HeaderViewHolder(v);
+            headerViewHolders.add(headerViewHolder);
+            return headerViewHolder;
         }
         return null;
     }
@@ -96,7 +101,9 @@ public class F3Header2Adapter2 extends RecyclerView.Adapter<RecyclerView.ViewHol
                 public void onClick(View view) {
                     selectedItem = position;
                     clickTab.onClickTab(selectedItem);
-                    notifyDataSetChanged();
+                    //Fix một nứa nhưng lại được cả
+                    headerViewHolders.get(selectedItem).bindItem(selectedItem);
+//                    notifyItemChanged(selectedItem);
                 }
             });
 
@@ -118,6 +125,7 @@ public class F3Header2Adapter2 extends RecyclerView.Adapter<RecyclerView.ViewHol
                 tvTitle.setTextColor(Color.parseColor("#FF2929"));
                 tvTitle.setTypeface(typeface);
                 viewIndicator.setVisibility(View.VISIBLE);
+                oldPosition = position;
             } else {
                 Typeface typeface = ResourcesCompat.getFont(context, R.font.roboto_medium);
                 tvTitle.setTextColor(Color.parseColor("#7A7A7A"));

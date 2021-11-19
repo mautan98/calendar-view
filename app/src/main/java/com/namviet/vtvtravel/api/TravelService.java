@@ -728,7 +728,7 @@ public interface TravelService {
 
 
     @GET(WSConfig.Api.DEAL_BY_CAMPAIGN)
-    Observable<DealResponse> getDealByCampaign(@Query("isProcessing") String isProcessing, @Query("campaignId") String campaignId);
+    Observable<DealResponse> getDealByCampaign(@Query("isProcessing") String isProcessing, @Query("campaignId") String campaignId, @Query("rewardStatus") String rewardStatus);
 
 
 

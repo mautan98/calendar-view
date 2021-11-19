@@ -92,7 +92,7 @@ public class DealHomeChildFragment extends BaseFragment<FragmentDealHomeChildBin
         f3Header2Adapter2 = new F3Header2Adapter2(0, blocksMenuHeader2, mActivity, new F3Header2Adapter.ClickTab() {
             @Override
             public void onClickTab(int position) {
-                Log.e("xxx", "onTab2Click: " + blocksMenuHeader2.get(position).getCode());
+//                Log.e("xxx", "onTab2Click: " + blocksMenuHeader2.get(position).getCode());
                 adapter.setPositionSelected2(position);
                 adapter.notifyItemChanged(2);
 

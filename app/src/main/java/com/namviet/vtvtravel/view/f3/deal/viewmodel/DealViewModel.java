@@ -19,6 +19,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import retrofit2.HttpException;
+import retrofit2.http.Query;
 
 public class DealViewModel extends BaseViewModel {
 
@@ -902,10 +903,10 @@ public class DealViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
-    public void getDealByCampaign(String status, String id) {
+    public void getDealByCampaign(String status, String id, String rewardStatus) {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
-        Disposable disposable = newsService.getDealByCampaign(status,id)
+        Disposable disposable = newsService.getDealByCampaign(status,id, rewardStatus)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<DealResponse>() {

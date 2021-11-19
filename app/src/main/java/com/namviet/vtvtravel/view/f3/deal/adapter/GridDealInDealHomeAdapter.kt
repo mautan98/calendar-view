@@ -187,7 +187,7 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     fun convertPrice(string: String): String? {
         return try {
-            val df = DecimalFormat("###.###.###")
+            val df = DecimalFormat("###,###,###")
             df.format(string.toDouble())
         } catch (e: java.lang.Exception) {
             string

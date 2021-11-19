@@ -39,6 +39,7 @@ import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealInDealHomeAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealFilterAdapter;
 import com.namviet.vtvtravel.view.f3.deal.constant.IsProcessingType;
 import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
+import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.RewardStatus;
 import com.namviet.vtvtravel.view.f3.deal.view.dealdetail.DealItemDetailFragment;
 import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
 import com.ornach.richtext.RichText;
@@ -161,6 +162,10 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private ShimmerFrameLayout mShimmerFrameLayout;
         private LinearLayout lnlParent;
         private Button btnHunt;
+        private String status = "";
+        private String filter = "";
+
+        private ArrayList<RewardStatus> listFilter = new ArrayList<>();
 
 
         public MoreViewHolder(View itemView) {
@@ -169,6 +174,11 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tabs.add("Đang diễn ra");
             tabs.add("Sắp diễn ra");
             tabs.add("Đã kết thúc");
+
+            listFilter.add(new RewardStatus("", "Tất cả", true));
+            listFilter.add(new RewardStatus("2", "Đang săn", false));
+            listFilter.add(new RewardStatus("3", "Săn thành công", false));
+            listFilter.add(new RewardStatus("5", "Săn không thành công", false));
         }
 
         private void initView(View itemView) {
@@ -193,7 +203,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         mShimmerFrameLayout.setVisibility(View.VISIBLE);
                         mShimmerFrameLayout.startShimmer();
                         dealItemDetailFragment.setIOnClickTabReloadData(MoreViewHolder.this);
-                        mILoadDataDeal.onLoadDataDeal(IsProcessingType.DANG_DIEN_RA_TYPE);
+                        mILoadDataDeal.onLoadDataDeal(IsProcessingType.DANG_DIEN_RA_TYPE, filter);
                         dealCampaignDetail.setDataLoaded(true);
                     }
                     rclContent.setAdapter(new GridDealInDealHomeAdapter(dealCampaignDetail.getDealByCampaign()));
@@ -206,7 +216,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             rclContent.setVisibility(View.INVISIBLE);
                             mShimmerFrameLayout.startShimmer();
                             dealItemDetailFragment.setIOnClickTabReloadData(MoreViewHolder.this);
-                            String status = "";
+
                             if(position == 0){
                                 status = IsProcessingType.DANG_DIEN_RA_TYPE;
                             }else if(position == 1){
@@ -214,10 +224,32 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             }else if(position == 2){
                                 status = IsProcessingType.KET_THUC_TYPE;
                             }
-                            mILoadDataDeal.onLoadDataDeal(status);
+                            mILoadDataDeal.onLoadDataDeal(status, filter);
                         }
                     }, false);
                     rcvTabHeader1.setAdapter(mF3HeaderAdapter);
+
+
+
+                    rclFilterDeal.setAdapter(new DealFilterAdapter(mContext, listFilter, new DealFilterAdapter.ClickItem() {
+                        @Override
+                        public void onClickItem(int position) {
+                            filter = listFilter.get(position).getId();
+                            mILoadDataDeal.onLoadDataDeal(status, filter);
+                        }
+                    }));
+
+
+
+//                    ; = DealFilterAdapter(mActivity, listFilter) { position ->
+//                            listDeal.clear()
+//                        dealSubscribeParentAdapter?.notifyDataSetChanged()
+//                        filter = listFilter[position].id
+//                        dealViewModel?.getDealFollow(
+//                                "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/follows",
+//                                filter
+//                        )
+//                    }
                 }
                 else {
                     btnHunt.setVisibility(View.VISIBLE);
@@ -679,7 +711,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public interface ILoadDataDeal {
-        void onLoadDataDeal(String url);
+        void onLoadDataDeal(String url, String rewardStatus);
     }
 
     public interface LoadData {
