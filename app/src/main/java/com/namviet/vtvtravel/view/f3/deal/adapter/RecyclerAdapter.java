@@ -86,6 +86,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
     public void setPositionSelected2(int positionSelected2) {
         this.positionHeader2 = positionSelected2;
+        headerViewHolder2.getData();
     }
 
 
@@ -205,7 +206,6 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
     public class HeaderViewHolder2 extends BaseViewHolder implements Observer {
         private int position;
-        private int positionTab;
         private RecyclerView rcvTabHeader1;
         private F3Header2Adapter mF3Header2Adapter;
         private DealViewModel dealViewModel;
@@ -222,9 +222,9 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             mF3Header2Adapter = new F3Header2Adapter(positionHeader2, blocksMenuHeader2, itemView.getContext(), new F3Header2Adapter.ClickTab() {
                 @Override
                 public void onClickTab(int position) {
-                    positionTab = position;
+                    positionHeader2 = position;
                     contentViewHolder2.showLoading();
-                    getData(contentViewHolder2.checkBox.isChecked());
+                    getData();
                     iOnTabHotClick.onTab2Click(position);
 
                 }
@@ -238,16 +238,16 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         }
 
 
-        public void getData(boolean isChecked){
-            if(isChecked){
-                dealViewModel.getDealWithReplaceParam(blocksMenuHeader2.get(positionTab).getLink(), "2");
+        public void getData(){
+            if(contentViewHolder2.checkBox.isChecked()){
+                dealViewModel.getDealWithReplaceParam(blocksMenuHeader2.get(positionHeader2).getLink(), "2");
             }else {
-                dealViewModel.getDealWithReplaceParam(blocksMenuHeader2.get(positionTab).getLink(), "1");
+                dealViewModel.getDealWithReplaceParam(blocksMenuHeader2.get(positionHeader2).getLink(), "1");
             }
         }
 
         public int getPositionTab(){
-            return positionTab;
+            return positionHeader2;
         }
 
         @Override
@@ -289,7 +289,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     showLoading();
-                    headerViewHolder2.getData(isChecked);
+                    headerViewHolder2.getData();
                     isCheck = isChecked;
                 }
             });
