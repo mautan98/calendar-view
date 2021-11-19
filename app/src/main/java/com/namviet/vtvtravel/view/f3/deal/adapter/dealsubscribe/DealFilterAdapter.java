@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.RewardStatus;
 import com.namviet.vtvtravel.viewmodel.newhome.ChangeRegionDialog;
+import com.ornach.richtext.RichText;
 
 import java.util.ArrayList;
 
@@ -68,7 +70,7 @@ public class DealFilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgMark;
-        private TextView tvTitle;
+        private RichText tvTitle;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -80,7 +82,9 @@ public class DealFilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             tvTitle.setText(listFilter.get(position).getLabel());
             if (listFilter.get(position).isMarked()) {
                 imgMark.setVisibility(View.VISIBLE);
+                tvTitle.setBackgroundColor(Color.parseColor("#FFE8CB"));
             } else {
+                tvTitle.setBackgroundColor(Color.parseColor("#F6F5FB"));
                 imgMark.setVisibility(View.GONE);
             }
 
