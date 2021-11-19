@@ -81,8 +81,6 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto_medium"
-                android:lines="2"
-                android:maxLines="2"
                 android:text="KINGS HOTEL ĐÀ LẠT - Trọn Gói Vé Cổng + Tham Gia Hoạt Động"
                 android:textColor="#393939"
                 android:textSize="12dp" />
@@ -97,7 +95,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="2dp"
                     android:orientation="vertical">
                     <LinearLayout
                         android:visibility="visible"

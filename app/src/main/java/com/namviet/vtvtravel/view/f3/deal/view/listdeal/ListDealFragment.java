@@ -1,10 +1,13 @@
 package com.namviet.vtvtravel.view.f3.deal.view.listdeal;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+
+import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.material.tabs.TabLayout;
 import com.namviet.vtvtravel.R;
@@ -51,18 +54,23 @@ public class ListDealFragment extends BaseFragment<FragmentListDealBinding> {
         for (int i = 0; i < listBlock.size(); i++) {
             View tabHome = LayoutInflater.from(mActivity).inflate(R.layout.f3_item_header1, null);
             TextView tvHome = tabHome.findViewById(R.id.tv_title);
+            View view = tabHome.findViewById(R.id.v_indicator);
             tvHome.setText(listBlock.get(i).getName());
             if (i == 0) {
-                tvHome.setTextColor(Color.parseColor("#00918D"));
+
+                Typeface typeface = ResourcesCompat.getFont(mActivity, R.font.roboto_bold);
+                tvHome.setTypeface(typeface);
+                tvHome.setTextColor(Color.parseColor("#FF2929"));
             } else {
-                tvHome.setTextColor(Color.parseColor("#101010"));
+                Typeface typeface = ResourcesCompat.getFont(mActivity, R.font.roboto_medium);
+                tvHome.setTypeface(typeface);
+                tvHome.setTextColor(Color.parseColor("#7A7A7A"));
             }
-//            View view = tabHome.findViewById(R.id.indicator);
-//            if (i == 0) {
-//                view.setVisibility(View.VISIBLE);
-//            } else {
-//                view.setVisibility(View.INVISIBLE);
-//            }
+            if (i == 0) {
+                view.setVisibility(View.VISIBLE);
+            } else {
+                view.setVisibility(View.INVISIBLE);
+            }
             getBinding().tabLayout.getTabAt(i).setCustomView(tabHome);
         }
         getBinding().tabLayout.addOnTabSelectedListener(OnTabSelectedListener);
@@ -101,13 +109,13 @@ public class ListDealFragment extends BaseFragment<FragmentListDealBinding> {
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
             int c = tab.getPosition();
-            mainAdapter.SetOnSelectView(getBinding().tabLayout, c);
+            setOnSelectView(getBinding().tabLayout, c);
         }
 
         @Override
         public void onTabUnselected(TabLayout.Tab tab) {
             int c = tab.getPosition();
-            mainAdapter.SetUnSelectView(getBinding().tabLayout, c);
+            setUnSelectView(getBinding().tabLayout, c);
         }
 
         @Override
@@ -115,6 +123,30 @@ public class ListDealFragment extends BaseFragment<FragmentListDealBinding> {
 
         }
     };
+
+    public void setOnSelectView(TabLayout tabLayout, int position) {
+        TabLayout.Tab tab = tabLayout.getTabAt(position);
+        View selected = tab.getCustomView();
+        TextView iv_text = selected.findViewById(R.id.tv_title);
+        View view = selected.findViewById(R.id.v_indicator);
+        view.setVisibility(View.VISIBLE);
+        Typeface typeface = ResourcesCompat.getFont(mActivity, R.font.roboto_bold);
+        iv_text.setTypeface(typeface);
+        iv_text.setTextColor(Color.parseColor("#FF2929"));
+
+    }
+
+    public void setUnSelectView(TabLayout tabLayout, int position) {
+        TabLayout.Tab tab = tabLayout.getTabAt(position);
+        View selected = tab.getCustomView();
+        TextView iv_text = selected.findViewById(R.id.tv_title);
+        View view = selected.findViewById(R.id.v_indicator);
+        view.setVisibility(View.INVISIBLE);
+        Typeface typeface = ResourcesCompat.getFont(mActivity, R.font.roboto_medium);
+        iv_text.setTypeface(typeface);
+        iv_text.setTextColor(Color.parseColor("#7A7A7A"));
+
+    }
 
     public void setListBlock(ArrayList<Block> listBlock, String isProcessing, int positionSelected) {
         this.listBlock = listBlock;

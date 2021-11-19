@@ -674,8 +674,12 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 @Override
                 public void onClickTab(int positionClick) {
                     shimmer.setVisibility(View.VISIBLE);
+                    dealResponse = null;
+                    f3SubDealAdapter = new F3SubDealAdapter(context, dealResponse, viewModel);
+                    rclContent.setAdapter(f3SubDealAdapter);
+
                     if (positionClick == 0) {
-                        dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/home");
+                        dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/home?page=0&size=4");
                     } else {
                         dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/home?size=5&page=0");
                     }
@@ -693,11 +697,12 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                 }
             });
+
             rclTab.setAdapter(f3TabDealAdapter);
 
             if (dealResponse == null) {
                 shimmer.setVisibility(View.VISIBLE);
-                dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/home");
+                dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/home?page=0&size=4");
             }
 
             try {
