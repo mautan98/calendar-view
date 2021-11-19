@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.brandongogetap.stickyheaders.exposed.StickyHeader;
@@ -276,15 +277,15 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             rclContent = itemView.findViewById(R.id.rclContent);
             checkBox = itemView.findViewById(R.id.check);
             btnViewMore = itemView.findViewById(R.id.lnl_view_more);
+
         }
 
         private boolean isCheck = false;
         public void bindItem(int position) {
             this.position = position;
+            StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+            rclContent.setLayoutManager(layoutManager);
             rclContent.setAdapter(new GridDealInDealHomeAdapter(dealResponseForBlockContent2));
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(itemView.getContext(), 2);
-            rclContent.setLayoutManager(gridLayoutManager);
-
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

@@ -25,9 +25,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.material.tabs.TabLayout;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.travelnews.CommentInDetailTravelNewsAdapter;
@@ -176,11 +178,13 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             rcvTabHeader1 = itemView.findViewById(R.id.rcv_tab_header1);
             lnlParent = itemView.findViewById(R.id.lnl_parent);
             btnHunt = itemView.findViewById(R.id.btn_hunt);
+
         }
 
         public void bindItem(int position) {
-
             try {
+                StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+                rclContent.setLayoutManager(layoutManager);
                 if(dealCampaignDetail.getData().isCampaign()){
                     btnHunt.setVisibility(View.GONE);
                     lnlParent.setVisibility(View.VISIBLE);
