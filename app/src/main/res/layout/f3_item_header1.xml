@@ -23,9 +23,10 @@
             android:layout_width="9dp"
             android:layout_height="9dp"/>
         <TextView
+            android:fontFamily="@font/roboto_medium"
             android:id="@+id/tv_title"
             android:text="Đi đâu"
-            android:textColor="#000"
+            android:textColor="#7A7A7A"
             android:textSize="14dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
