@@ -78,15 +78,14 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         this.mILoadDataDeal = mILoadDataDeal;
     }
 
-    private int positionSelected1 = 0;
-    private int positionSelected2 = 0;
+
 
     public void setPositionSelected1(int positionSelected1) {
-        this.positionSelected1 = positionSelected1;
+        this.positionHeader1 = positionSelected1;
     }
 
     public void setPositionSelected2(int positionSelected2) {
-        this.positionSelected2 = positionSelected2;
+        this.positionHeader2 = positionSelected2;
     }
 
 
@@ -190,7 +189,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
         public void bindItem(int position) {
             this.position = position;
-            mF3Header1Adapter = new F3Header1Adapter(positionSelected1, blocksMenuHeader1, itemView.getContext(), new F3Header1Adapter.ClickTab() {
+            mF3Header1Adapter = new F3Header1Adapter(positionHeader1, blocksMenuHeader1, itemView.getContext(), new F3Header1Adapter.ClickTab() {
                 @Override
                 public void onClickTab(int position) {
                     Log.e("xxx", "onClickTabHeader1: " + blocksMenuHeader1.get(position).getName());
@@ -220,7 +219,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
         public void bindItem(int position) {
             this.position = position;
-            mF3Header2Adapter = new F3Header2Adapter(positionSelected2, blocksMenuHeader2, itemView.getContext(), new F3Header2Adapter.ClickTab() {
+            mF3Header2Adapter = new F3Header2Adapter(positionHeader2, blocksMenuHeader2, itemView.getContext(), new F3Header2Adapter.ClickTab() {
                 @Override
                 public void onClickTab(int position) {
                     positionTab = position;
