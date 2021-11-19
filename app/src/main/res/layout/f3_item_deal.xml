@@ -140,9 +140,12 @@
                     </LinearLayout>
 
                     <com.ornach.richtext.RichView
-                        android:layout_marginTop="6dp"
-                        android:padding="3dp"
-                        app:rt_radius="5dp"
+                        android:layout_marginTop="7dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        app:rt_radius="3dp"
                         app:rt_backgroundColor="#FE1B1B"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
