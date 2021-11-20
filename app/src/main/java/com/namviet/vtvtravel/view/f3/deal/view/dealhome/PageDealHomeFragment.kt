@@ -9,6 +9,7 @@ import com.namviet.vtvtravel.databinding.FragmentPageDealHomeBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.view.f3.deal.adapter.TabAdapter
 import com.namviet.vtvtravel.view.f3.deal.event.ChangeToCenterTab
+import com.namviet.vtvtravel.view.f3.deal.event.FinishDeal
 import kotlinx.android.synthetic.main.fragment_page_deal_home.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -111,5 +112,10 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
     @Subscribe
     public fun onChangeToCenterTab(changeToCenterTab: ChangeToCenterTab){
         vpContent.currentItem = changeToCenterTab.position
+    }
+
+    @Subscribe
+    public fun onFinish(changeToCenterTab: FinishDeal){
+        mActivity.finish()
     }
 }

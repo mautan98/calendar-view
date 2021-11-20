@@ -11,6 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -269,6 +270,8 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         private ShimmerFrameLayout shimmerFrameLayout;
         public CheckBox checkBox;
         private LinearLayout btnViewMore;
+        private ConstraintLayout layoutNote;
+        private View btnClose;
 
         public ContentViewHolder2(View itemView) {
             super(itemView);
@@ -276,6 +279,8 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             rclContent = itemView.findViewById(R.id.rclContent);
             checkBox = itemView.findViewById(R.id.check);
             btnViewMore = itemView.findViewById(R.id.lnl_view_more);
+            layoutNote = itemView.findViewById(R.id.layoutNote);
+            btnClose = itemView.findViewById(R.id.btnClose);
 
         }
 
@@ -300,6 +305,13 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                     ListDealActivity.Companion.startScreen(context, blocksMenuHeader2, headerViewHolder2.getPositionTab(), isCheck? IsProcessingType.SAP_DIEN_RA_TYPE: IsProcessingType.DANG_DIEN_RA_TYPE);
                 }
             });
+            btnClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    layoutNote.setVisibility(View.GONE);
+                }
+            });
+
         }
 
         public void showLoading(){

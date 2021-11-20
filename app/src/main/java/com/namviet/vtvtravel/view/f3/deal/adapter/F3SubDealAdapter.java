@@ -249,7 +249,7 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public static String convertPrice(String string) {
         try {
-            DecimalFormat df = new DecimalFormat("###.###.###");
+            DecimalFormat df = new DecimalFormat("###,###,###");
             return df.format(Double.parseDouble(string));
         } catch (Exception e) {
             return string;

@@ -175,10 +175,8 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tabs.add("Sắp diễn ra");
             tabs.add("Đã kết thúc");
 
-            listFilter.add(new RewardStatus("", "Tất cả", true));
-            listFilter.add(new RewardStatus("2", "Đang săn", false));
-            listFilter.add(new RewardStatus("3", "Săn thành công", false));
-            listFilter.add(new RewardStatus("5", "Săn không thành công", false));
+            listFilter.add(new RewardStatus("0", "Tất cả", true));
+            listFilter.add(new RewardStatus("1", "Đang săn", false));
         }
 
         private void initView(View itemView) {

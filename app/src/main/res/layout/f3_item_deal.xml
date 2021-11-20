@@ -4,6 +4,7 @@
     android:layout_marginBottom="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:foreground="@drawable/ripple_effect_click"
     android:orientation="horizontal"
     android:padding="2dp">
 
@@ -11,8 +12,7 @@
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
-        android:background="@drawable/f2_bg_small_location_item"
-        android:foreground="@drawable/ripple_effect_click">
+        android:background="@drawable/f2_bg_small_location_item">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -81,8 +81,6 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto_bold"
-                android:lines="2"
-                android:maxLines="2"
                 android:text="KINGS HOTEL ĐÀ LẠT - Trọn Gói Vé Cổng + Tham Gia Hoạt Động"
                 android:textColor="#393939"
                 android:textSize="12dp" />

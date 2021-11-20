@@ -13,6 +13,7 @@ import com.namviet.vtvtravel.view.f2.MyGiftActivity
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealFilterAdapter
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealSubscribeParentAdapter
 import com.namviet.vtvtravel.view.f3.deal.event.ChangeToCenterTab
+import com.namviet.vtvtravel.view.f3.deal.event.FinishDeal
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollow
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollowResponse
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.RewardStatus
@@ -108,7 +109,8 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
                     if(location == 0){
                         EventBus.getDefault().post(ChangeToCenterTab(1))
                     }else{
-                        mActivity.onBackPressed()
+                        mActivity.finish()
+                        EventBus.getDefault().post(FinishDeal())
                     }
                 }
 
@@ -116,8 +118,8 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
                     if(location == 0) {
                         mActivity.onBackPressed()
                     }else{
-                        mActivity.onBackPressed()
-//                        mActivity.onBackPressed()
+                        mActivity.finish()
+                        EventBus.getDefault().post(FinishDeal())
                     }
                 }
 
