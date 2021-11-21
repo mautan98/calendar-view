@@ -1,227 +1,259 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginBottom="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
     android:foreground="@drawable/ripple_effect_click"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:padding="2dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/f2_bg_small_location_item">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="125:77"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:background="@color/colorPrimary"
-                android:id="@+id/imgAvatar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
-            <LinearLayout
-                android:id="@+id/layoutTotalHuntingUser"
-                android:paddingBottom="2dp"
-                android:paddingTop="2dp"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="8dp"
-                android:layout_alignParentBottom="true"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/f3_bg_hunting_deal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="Đang săn:"
-                    android:textColor="#ffff"
-                    android:textSize="12dp" />
-                <TextView
-                    android:layout_marginStart="2dp"
-                    android:id="@+id/tvUserTotal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="100+"
-                    android:textStyle="bold"
-                    android:textColor="#ffff"
-                    android:textSize="12dp" />
-            </LinearLayout>
-
-        </RelativeLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/f2_bg_small_location_item">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="125:77"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imgAvatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary"
+                    android:scaleType="centerCrop" />
+
+                <LinearLayout
+                    android:id="@+id/layoutTotalHuntingUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/f3_bg_hunting_deal"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Đang săn:"
+                        android:textColor="#ffff"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:id="@+id/tvUserTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="2dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="100+"
+                        android:textColor="#ffff"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:fontFamily="@font/roboto_bold"
-                android:text="KINGS HOTEL ĐÀ LẠT - Trọn Gói Vé Cổng + Tham Gia Hoạt Động"
-                android:textColor="#393939"
-                android:textSize="12dp" />
-
-
             <LinearLayout
-                android:weightSum="5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="3"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:orientation="vertical">
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="KINGS HOTEL ĐÀ LẠT - Trọn Gói Vé Cổng + Tham Gia Hoạt Động"
+                    android:textColor="#393939"
+                    android:textSize="12dp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
                     <LinearLayout
-                        android:visibility="visible"
-                        android:id="@+id/lnl_price"
-                        android:orientation="vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/tvDisplayPrice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="3"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/lnl_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_bold"
-                            android:text="1,898,000đ"
-                            android:textColor="#000"
-                            android:textSize="12dp" />
-                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:orientation="vertical"
+                            android:visibility="visible">
+
+                            <TextView
+                                android:id="@+id/tvDisplayPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="1,898,000đ"
+                                android:textColor="#000"
+                                android:textSize="12dp" />
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/tvOriginPrice"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:text="2,299,000đ"
+                                    android:textColor="#999999"
+                                    android:textSize="10dp" />
+
+                                <TextView
+                                    android:id="@+id/tvDiscount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:gravity="center"
+                                    android:text="-35%"
+                                    android:textColor="#FF0000"
+                                    android:textSize="10dp"
+                                    android:textStyle="bold" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </LinearLayout>
+
+                        <com.ornach.richtext.RichView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginTop="7dp"
+                            android:paddingLeft="5dp"
+                            android:paddingTop="2dp"
+                            android:paddingRight="5dp"
+                            android:paddingBottom="2dp"
+                            app:rt_backgroundColor="#FE1B1B"
+                            app:rt_radius="3dp">
+
                             <TextView
-                                android:id="@+id/tvOriginPrice"
+                                android:id="@+id/tvDayLeft"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/roboto_regular"
-                                android:text="2,299,000đ"
-                                android:textColor="#999999"
-                                android:textSize="10dp" />
-                            <TextView
-                                android:layout_marginLeft="5dp"
-                                android:id="@+id/tvDiscount"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/roboto_medium"
                                 android:gravity="center"
-                                android:text="-35%"
+                                android:text="Còn lại 4 ngày 22:21:14"
+                                android:textColor="@color/white"
+                                android:textSize="9dp"
                                 android:textStyle="bold"
-                                android:textColor="#FF0000"
-                                android:textSize="10dp" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-                    </LinearLayout>
+                                android:visibility="visible" />
 
-                    <com.ornach.richtext.RichView
-                        android:layout_marginTop="7dp"
-                        android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        app:rt_radius="3dp"
-                        app:rt_backgroundColor="#FE1B1B"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true">
+                        </com.ornach.richtext.RichView>
+
                         <TextView
-                            android:id="@+id/tvDayLeft"
+                            android:id="@+id/expiry_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_medium"
-                            android:gravity="center"
-                            android:text="Còn lại 4 ngày 22:21:14"
-                            android:textColor="@color/white"
-                            android:textSize="9dp"
-                            android:textStyle="bold"
-                            android:visibility="visible" />
-
-                    </com.ornach.richtext.RichView>
-                    <TextView
-                        android:layout_marginTop="3dp"
-                        android:text="HSD: 20.10.2021"
-                        android:textSize="9dp"
-                        android:textColor="#727272"
-                        android:id="@+id/expiry_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:orientation="vertical">
-                    <LinearLayout
-                        android:id="@+id/layoutIsHuntingUser"
-                        android:layout_gravity="right"
-                        android:gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:src="@drawable/f3_icon_flag"
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"/>
-                        <TextView
-                            android:fontFamily="@font/roboto_regular"
-                            android:id="@+id/tv_you_hunting"
-                            android:layout_marginLeft="3dp"
-                            android:textSize="8dp"
-                            android:textColor="#007CF8"
-                            android:text="Bạn đang săn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_marginTop="3dp"
+                            android:text="HSD: 20.10.2021"
+                            android:textColor="#727272"
+                            android:textSize="9dp" />
                     </LinearLayout>
-                    <RelativeLayout
-                        android:id="@+id/layoutTotalMustHaveChild"
-                        android:background="@drawable/f3_bg_strock_red"
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_gravity="right"
-                        android:layout_width="61dp"
-                        android:layout_height="29dp">
-                        <TextView
-                            android:fontFamily="@font/roboto_medium"
-                            android:id="@+id/tvTotalMustHaveChild"
-                            android:layout_centerInParent="true"
-                            android:textSize="9dp"
-                            android:gravity="center"
-                            android:textColor="#FF0000"
-                            android:text="Tích lũy từ 10 CTKM"
+                        android:layout_weight="2"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/layoutIsHuntingUser"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                    </RelativeLayout>
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@drawable/f3_icon_flag" />
+
+                            <TextView
+                                android:id="@+id/tv_you_hunting"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="3dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="Bạn đang săn"
+                                android:textColor="#007CF8"
+                                android:textSize="8dp" />
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/layoutTotalMustHaveChild"
+                            android:layout_width="65dp"
+                            android:layout_height="29dp"
+                            android:layout_gravity="right"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/f3_bg_strock_red">
+
+                            <TextView
+                                android:id="@+id/tvTotalMustHaveChild"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:fontFamily="@font/roboto_medium"
+                                android:gravity="center"
+                                android:text="Tích lũy từ 10 CTKM"
+                                android:textColor="#FF0000"
+                                android:textSize="9dp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
                 </LinearLayout>
+
 
             </LinearLayout>
-
 
         </LinearLayout>
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_marginTop="10dp"
+        android:background="#EEEEEE"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
 
 </LinearLayout>
