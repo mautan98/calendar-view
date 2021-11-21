@@ -231,7 +231,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             mShimmerFrameLayout.setVisibility(View.VISIBLE);
                             rclContent.setVisibility(View.INVISIBLE);
                             mShimmerFrameLayout.startShimmer();
-                            dealItemDetailFragment.setIOnClickTabReloadData(MoreViewHolder.this);
+//                            dealItemDetailFragment.setIOnClickTabReloadData(MoreViewHolder.this);
 
                             if(position == 0){
                                 status = IsProcessingType.DANG_DIEN_RA_TYPE;
@@ -253,6 +253,10 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         @Override
                         public void onClickItem(int position) {
                             filter = listFilter.get(position).getId();
+
+                            mShimmerFrameLayout.setVisibility(View.VISIBLE);
+                            rclContent.setVisibility(View.INVISIBLE);
+                            mShimmerFrameLayout.startShimmer();
                             dealViewModel.getDealByCampaign(status, String.valueOf(dealCampaignDetail.getData().getId()), filter);
                         }
                     }));
