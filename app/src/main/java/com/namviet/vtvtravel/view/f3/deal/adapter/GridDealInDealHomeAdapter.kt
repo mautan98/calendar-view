@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.ultils.DateUtltils
 import com.namviet.vtvtravel.view.f3.deal.constant.DiscountDisplayType
@@ -180,6 +181,12 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
             } catch (e: Exception) {
                 itemView.layoutDiscount.visibility = View.GONE
                 e.printStackTrace()
+            }
+
+            itemView.tvTotalMustHaveChild.text = "Tích lũy từ " + content.totalDeal+ " CTKM"
+            try {
+                Glide.with(context).load(content.avatarUri).into(itemView.imgAvatar)
+            } catch (e: Exception) {
             }
         }
 

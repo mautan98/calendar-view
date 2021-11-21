@@ -38,15 +38,19 @@ import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealInDealHomeAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealFilterAdapter;
 import com.namviet.vtvtravel.view.f3.deal.constant.IsProcessingType;
+import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.RewardStatus;
 import com.namviet.vtvtravel.view.f3.deal.view.dealdetail.DealItemDetailFragment;
+import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel;
 import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
 import com.ornach.richtext.RichText;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private DealCampaignDetail dealCampaignDetail;
@@ -61,6 +65,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private LoadData loadData;
     private DealItemDetailFragment dealItemDetailFragment;
     private ILoadDataDeal mILoadDataDeal;
+    private DealResponse dealResponse;
 
     public void setILoadDataDeal(ILoadDataDeal mILoadDataDeal) {
         this.mILoadDataDeal = mILoadDataDeal;
@@ -152,7 +157,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
 
-    public class MoreViewHolder extends RecyclerView.ViewHolder implements NewHomeFragment.IOnClickTabReloadData {
+    public class MoreViewHolder extends RecyclerView.ViewHolder implements NewHomeFragment.IOnClickTabReloadData, Observer {
         private RecyclerView rclFilterDeal;
         private RecyclerView rclContent;
 
@@ -162,10 +167,12 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private ShimmerFrameLayout mShimmerFrameLayout;
         private LinearLayout lnlParent;
         private Button btnHunt;
-        private String status = "";
-        private String filter = "";
+        private String status = "0";
+        private String filter = "0";
 
         private ArrayList<RewardStatus> listFilter = new ArrayList<>();
+
+        private DealViewModel dealViewModel;
 
 
         public MoreViewHolder(View itemView) {
@@ -177,6 +184,9 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             listFilter.add(new RewardStatus("0", "Tất cả", true));
             listFilter.add(new RewardStatus("1", "Đang săn", false));
+
+            dealViewModel = new DealViewModel();
+            dealViewModel.addObserver(this);
         }
 
         private void initView(View itemView) {
@@ -196,15 +206,23 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 if(dealCampaignDetail.getData().isCampaign()){
                     btnHunt.setVisibility(View.GONE);
                     lnlParent.setVisibility(View.VISIBLE);
-                    if (!dealCampaignDetail.isDataLoaded()) {
+//                    if (!dealCampaignDetail.isDataLoaded()) {
+//                        rclContent.setVisibility(View.INVISIBLE);
+//                        mShimmerFrameLayout.setVisibility(View.VISIBLE);
+//                        mShimmerFrameLayout.startShimmer();
+//                        dealItemDetailFragment.setIOnClickTabReloadData(MoreViewHolder.this);
+//                        mILoadDataDeal.onLoadDataDeal(IsProcessingType.DANG_DIEN_RA_TYPE, filter);
+//                        dealCampaignDetail.setDataLoaded(true);
+//                    }
+//                    rclContent.setAdapter(new GridDealInDealHomeAdapter(dealCampaignDetail.getDealByCampaign()));
+
+                    if (dealResponse == null) {
                         rclContent.setVisibility(View.INVISIBLE);
                         mShimmerFrameLayout.setVisibility(View.VISIBLE);
                         mShimmerFrameLayout.startShimmer();
-                        dealItemDetailFragment.setIOnClickTabReloadData(MoreViewHolder.this);
-                        mILoadDataDeal.onLoadDataDeal(IsProcessingType.DANG_DIEN_RA_TYPE, filter);
-                        dealCampaignDetail.setDataLoaded(true);
+                        dealViewModel.getDealByCampaign(status, String.valueOf(dealCampaignDetail.getData().getId()), filter);
                     }
-                    rclContent.setAdapter(new GridDealInDealHomeAdapter(dealCampaignDetail.getDealByCampaign()));
+
                     rclFilterDeal.setAdapter(new DealFilterAdapter(mContext, null, null));
                     mF3HeaderAdapter = new F3HeaderAdapter(0, tabs, itemView.getContext(), new F3HeaderAdapter.ClickTab() {
 
@@ -222,7 +240,9 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             }else if(position == 2){
                                 status = IsProcessingType.KET_THUC_TYPE;
                             }
-                            mILoadDataDeal.onLoadDataDeal(status, filter);
+//                            mILoadDataDeal.onLoadDataDeal(status, filter);
+
+                            dealViewModel.getDealByCampaign(status, String.valueOf(dealCampaignDetail.getData().getId()), filter);
                         }
                     }, false);
                     rcvTabHeader1.setAdapter(mF3HeaderAdapter);
@@ -233,7 +253,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         @Override
                         public void onClickItem(int position) {
                             filter = listFilter.get(position).getId();
-                            mILoadDataDeal.onLoadDataDeal(status, filter);
+                            dealViewModel.getDealByCampaign(status, String.valueOf(dealCampaignDetail.getData().getId()), filter);
                         }
                     }));
 
@@ -275,6 +295,20 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void update(Observable observable, Object o) {
+//            shimmer.setVisibility(View.GONE);
+            if (observable instanceof DealViewModel) {
+                if (o instanceof DealResponse) {
+                    dealResponse = (DealResponse) o;
+                    rclContent.setAdapter(new GridDealInDealHomeAdapter(dealResponse));
+                    mShimmerFrameLayout.stopShimmer();
+                    mShimmerFrameLayout.setVisibility(View.GONE);
+                    rclContent.setVisibility(View.VISIBLE);
+                }
             }
         }
 
