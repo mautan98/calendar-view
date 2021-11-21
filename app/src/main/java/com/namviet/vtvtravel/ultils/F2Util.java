@@ -31,7 +31,7 @@ public class F2Util {
         activity.startActivity(intent);
     }
 
-    public static void startSendMessIntent(AppCompatActivity activity, String phone, String mess) {
+    public static void startSendMessIntent(Context activity, String phone, String mess) {
         Intent I = new Intent(Intent.ACTION_VIEW);
         I.setData(Uri.parse("smsto:"));
         I.setType("vnd.android-dir/mms-sms");

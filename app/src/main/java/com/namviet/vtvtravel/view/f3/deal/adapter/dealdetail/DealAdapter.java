@@ -33,6 +33,7 @@ import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.material.tabs.TabLayout;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.travelnews.CommentInDetailTravelNewsAdapter;
+import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.view.f3.deal.Utils;
 import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealInDealHomeAdapter;
@@ -293,6 +294,15 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         btnHunt.setText(Utils.CalendarUtils.getDayStart(dealCampaignDetail.getData().getEndAt()));
                         btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.f3_btn_agree));
                     }
+
+                    btnHunt.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(status == 1){
+                                F2Util.startSendMessIntent(mContext, "1039", "D "+dealCampaignDetail.getData().getCode());
+                            }
+                        }
+                    });
 
 
                 }
