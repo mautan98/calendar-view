@@ -167,7 +167,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private ShimmerFrameLayout mShimmerFrameLayout;
         private LinearLayout lnlParent;
         private Button btnHunt;
-        private String status = "0";
+        private String status = IsProcessingType.DANG_DIEN_RA_TYPE;
         private String filter = "0";
 
         private ArrayList<RewardStatus> listFilter = new ArrayList<>();
