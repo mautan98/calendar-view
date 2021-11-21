@@ -20,6 +20,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
+            <View
+                android:visibility="gone"
+                android:background="#F89C1C"
+                android:id="@+id/viewFullScreen"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"/>
+
             <TextView
                 android:id="@+id/btnClose"
                 android:layout_width="match_parent"

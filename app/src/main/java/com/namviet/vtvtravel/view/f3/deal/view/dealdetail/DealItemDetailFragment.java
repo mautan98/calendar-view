@@ -3,24 +3,34 @@ package com.namviet.vtvtravel.view.f3.deal.view.dealdetail;
 import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.PagerSnapHelper;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.databinding.FragmentDealItemDetailBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.model.f2booking.DataHelpCenter;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
+import com.namviet.vtvtravel.ultils.F2Util;
+import com.namviet.vtvtravel.view.f2.MyGiftActivity;
 import com.namviet.vtvtravel.view.f3.deal.adapter.RecyclerAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealdetail.DealAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealdetail.SubDealHeaderItemAdapter;
 
+import com.namviet.vtvtravel.view.f3.deal.event.FinishDeal;
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
+import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealMenuDialog;
+import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealSubcribeFragment;
 import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel;
 import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
 import com.namviet.vtvtravel.viewmodel.f2travelnews.DetailNewsTravelViewModel;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +87,6 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
 
         getBinding().imgBack.setOnClickListener(this);
         getBinding().imgSearch.setOnClickListener(this);
-        getBinding().imgMenu.setOnClickListener(this);
         getBinding().appbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
@@ -102,7 +111,45 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
 
     @Override
     public void setClickListener() {
+        getBinding().imgMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DealMenuDialog dealMenuDialog = new DealMenuDialog();
+                dealMenuDialog.setFullScreen(true);
+                dealMenuDialog.setClickListener(new DealMenuDialog.Click() {
+                    @Override
+                    public void onClickRule() {
+                        Toast.makeText(mActivity, "Thể lệ", Toast.LENGTH_SHORT).show();
+                    }
 
+                    @Override
+                    public void onClickSubscribeDeal() {
+                        DealSubcribeFragment dealSubcribeFragment = new DealSubcribeFragment();
+                        dealSubcribeFragment.setLocation(1);
+                        dealSubcribeFragment.setFullScreen(true);
+                        addFragment(dealSubcribeFragment);
+                    }
+
+                    @Override
+                    public void onClickHelpCenter() {
+                        DataHelpCenter dataHelpCenter = new Gson().fromJson(F2Util.loadJSONFromAsset(mActivity, "helpcenter_pro"), DataHelpCenter.class);
+                        MyGiftActivity.startScreen(mActivity, dataHelpCenter.getItemMenus(), dataHelpCenter.getName());
+                    }
+
+                    @Override
+                    public void onClickGoDealHome() {
+                        mActivity.onBackPressed();
+                    }
+
+                    @Override
+                    public void onClickGoHome() {
+                        mActivity.onBackPressed();
+                        EventBus.getDefault().post(new FinishDeal());
+                    }
+                });
+                addFragment(dealMenuDialog);
+            }
+        });
     }
 
     @Override

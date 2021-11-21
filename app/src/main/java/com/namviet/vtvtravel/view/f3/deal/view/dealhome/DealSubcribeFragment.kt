@@ -19,8 +19,10 @@ import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollowResponse
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.RewardStatus
 import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel
 import kotlinx.android.synthetic.main.fragment_deal_home.*
+import kotlinx.android.synthetic.main.fragment_deal_menu.*
 import kotlinx.android.synthetic.main.fragment_deal_subcribe.*
 import kotlinx.android.synthetic.main.fragment_deal_subcribe.btnMenu
+import kotlinx.android.synthetic.main.fragment_deal_subcribe.viewFullScreen
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 import kotlin.collections.ArrayList
@@ -33,9 +35,14 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
     private var filter = ""
     private var location : Int? = null // 0: trong tab, 1 từ add fragment
 
+    private var isFullScreen = false
 
     public fun setLocation(location : Int?){
         this.location = location
+    }
+
+    public fun setFullScreen(isFullScreen : Boolean){
+        this.isFullScreen = isFullScreen
     }
 
 
@@ -49,6 +56,13 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
     }
 
     override fun initData() {
+
+        if(isFullScreen){
+            viewFullScreen.visibility = View.VISIBLE
+        }else{
+            viewFullScreen.visibility = View.GONE
+        }
+
         listFilter.add(RewardStatus("", "Tất cả", true))
         listFilter.add(RewardStatus("2", "Đang săn", false))
         listFilter.add(RewardStatus("3", "Săn thành công", false))

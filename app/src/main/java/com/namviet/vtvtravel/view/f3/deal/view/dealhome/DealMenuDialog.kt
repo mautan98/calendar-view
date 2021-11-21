@@ -1,5 +1,6 @@
 package com.namviet.vtvtravel.view.f3.deal.view.dealhome
 
+import android.view.View
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.FragmentDealMenuBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
@@ -7,16 +8,29 @@ import kotlinx.android.synthetic.main.fragment_deal_menu.*
 
 class DealMenuDialog : BaseFragment<FragmentDealMenuBinding?>() {
     private var click : Click? = null
+    private var isFullScreen = false
 
     public fun setClickListener(click : Click?){
         this.click = click
     }
+
+    public fun setFullScreen(isFullScreen : Boolean){
+        this.isFullScreen = isFullScreen
+    }
+
+
     override fun getLayoutRes(): Int {
         return R.layout.fragment_deal_menu
     }
 
     override fun initView() {}
-    override fun initData() {}
+    override fun initData() {
+        if(isFullScreen){
+            viewFullScreen.visibility = View.VISIBLE
+        }else{
+            viewFullScreen.visibility = View.GONE
+        }
+    }
     override fun inject() {}
     override fun setClickListener() {
         btnClose.setOnClickListener {
