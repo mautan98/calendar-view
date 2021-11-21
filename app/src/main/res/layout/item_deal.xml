@@ -109,7 +109,6 @@
                 android:id="@+id/tvName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
                 android:fontFamily="@font/roboto_bold"
                 android:text="KINGS HOTEL ĐÀ LẠT - Trọn Gói Vé Cổng + Tham Gia Hoạt Động ..."
                 android:textColor="#393939"
