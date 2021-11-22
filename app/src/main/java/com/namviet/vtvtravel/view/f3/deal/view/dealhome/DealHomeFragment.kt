@@ -16,7 +16,6 @@ import com.namviet.vtvtravel.view.f3.deal.event.ChangeToCenterTab
 import com.namviet.vtvtravel.view.f3.deal.model.BlockResponse
 import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel
 import kotlinx.android.synthetic.main.fragment_deal_home.*
-import kotlinx.android.synthetic.main.fragment_page_deal_home.vpContent
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 

@@ -350,7 +350,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
         public void bindItem(int position) {
             this.position = position;
-            rclContent.setAdapter(new F3SubDealAdapter(null, blocksMenuHeader1.get(0).getDealResponse(), null));
+            rclContent.setAdapter(new F3SubDealAdapter(context, blocksMenuHeader1.get(0).getDealResponse(), null));
             if (!blocksMenuHeader1.get(0).isDataLoaded()) {
                 rclContent.setVisibility(View.INVISIBLE);
                 mShimmerFrameLayout.setVisibility(View.VISIBLE);
@@ -435,7 +435,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    rclContent.setAdapter(new F3SubDealAdapter(null, blocksMenuHeader1.get(0).getDealResponse(), null));
+                    rclContent.setAdapter(new F3SubDealAdapter(context, blocksMenuHeader1.get(0).getDealResponse(), null));
                     mShimmerFrameLayout.stopShimmer();
                     mShimmerFrameLayout.setVisibility(View.GONE);
                     rclContent.setVisibility(View.VISIBLE);

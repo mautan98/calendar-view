@@ -77,31 +77,31 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
             tvDealSubscribe.setTextColor(Color.parseColor("#707070"))
         }
 
-        vpContent.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-            }
-
-            override fun onPageSelected(position: Int) {
-                when (position) {
-                    0 -> {
-                        btnMyGift.performClick()
-                    }
-                    1 -> {
-                        btnHome.performClick()
-                    }
-                    else -> {
-                        btnDealSubcribe.performClick()
-                    }
-                }
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {
-            }
-        })
+//        vpContent.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+//            override fun onPageScrolled(
+//                position: Int,
+//                positionOffset: Float,
+//                positionOffsetPixels: Int
+//            ) {
+//            }
+//
+//            override fun onPageSelected(position: Int) {
+//                when (position) {
+//                    0 -> {
+//                        btnMyGift.performClick()
+//                    }
+//                    1 -> {
+//                        btnHome.performClick()
+//                    }
+//                    else -> {
+//                        btnDealSubcribe.performClick()
+//                    }
+//                }
+//            }
+//
+//            override fun onPageScrollStateChanged(state: Int) {
+//            }
+//        })
     }
 
     override fun setObserver() {}
