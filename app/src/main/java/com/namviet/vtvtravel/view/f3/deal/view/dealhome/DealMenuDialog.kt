@@ -2,8 +2,11 @@ package com.namviet.vtvtravel.view.f3.deal.view.dealhome
 
 import android.view.View
 import com.namviet.vtvtravel.R
+import com.namviet.vtvtravel.app.MyApplication
 import com.namviet.vtvtravel.databinding.FragmentDealMenuBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.view.f2.CreateTripActivity
+import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew
 import kotlinx.android.synthetic.main.fragment_deal_menu.*
 
 class DealMenuDialog : BaseFragment<FragmentDealMenuBinding?>() {
@@ -43,8 +46,13 @@ class DealMenuDialog : BaseFragment<FragmentDealMenuBinding?>() {
         }
 
         btnSubscribe.setOnClickListener {
-            mActivity.onBackPressed()
-            click?.onClickSubscribeDeal()
+            val account = MyApplication.getInstance().account
+            if (null != account && account.isLogin) {
+                mActivity.onBackPressed()
+                click?.onClickSubscribeDeal()
+            } else {
+                LoginAndRegisterActivityNew.startScreen(mActivity, 0, false)
+            }
         }
 
         btnHelpCenter.setOnClickListener {

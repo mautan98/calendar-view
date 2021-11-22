@@ -169,7 +169,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private LinearLayout lnlParent;
         private Button btnHunt;
         private String status = IsProcessingType.DANG_DIEN_RA_TYPE;
-        private String filter = "0";
+        private String filter = "";
 
         private ArrayList<RewardStatus> listFilter = new ArrayList<>();
 
@@ -183,7 +183,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tabs.add("Sắp diễn ra");
             tabs.add("Đã kết thúc");
 
-            listFilter.add(new RewardStatus("0", "Tất cả", true));
+            listFilter.add(new RewardStatus("", "Tất cả", true));
             listFilter.add(new RewardStatus("1", "Đang săn", false));
 
             dealViewModel = new DealViewModel();

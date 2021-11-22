@@ -7,7 +7,7 @@
         android:background="#ECECEC"
         android:layout_height="match_parent">
 
-        <androidx.viewpager.widget.ViewPager
+        <com.namviet.vtvtravel.widget.CustomViewPager
             android:id="@+id/vpContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

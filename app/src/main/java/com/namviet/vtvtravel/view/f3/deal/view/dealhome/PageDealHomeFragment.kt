@@ -3,10 +3,12 @@ package com.namviet.vtvtravel.view.f3.deal.view.dealhome
 import android.graphics.Color
 import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
-import com.daimajia.slider.library.Tricks.ViewPagerEx
 import com.namviet.vtvtravel.R
+import com.namviet.vtvtravel.app.MyApplication
 import com.namviet.vtvtravel.databinding.FragmentPageDealHomeBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.view.f2.CreateTripActivity
+import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew
 import com.namviet.vtvtravel.view.f3.deal.adapter.TabAdapter
 import com.namviet.vtvtravel.view.f3.deal.event.ChangeToCenterTab
 import com.namviet.vtvtravel.view.f3.deal.event.FinishDeal
@@ -51,13 +53,19 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
             tvDealSubscribe.setTextColor(Color.parseColor("#707070"))
         }
         btnDealSubcribe.setOnClickListener {
-            vpContent.currentItem = 2
+            val account = MyApplication.getInstance().account
+            if (null != account && account.isLogin) {
+                vpContent.currentItem = 2
 
-            imgMyGift.setImageResource(R.drawable.ic_my_gift_unselected)
-            tvMyGift.setTextColor(Color.parseColor("#707070"))
+                imgMyGift.setImageResource(R.drawable.ic_my_gift_unselected)
+                tvMyGift.setTextColor(Color.parseColor("#707070"))
 
-            imgDealSubscribe.setImageResource(R.drawable.ic_my_subcribe_selected)
-            tvDealSubscribe.setTextColor(Color.parseColor("#F92418"))
+                imgDealSubscribe.setImageResource(R.drawable.ic_my_subcribe_selected)
+                tvDealSubscribe.setTextColor(Color.parseColor("#F92418"))
+            } else {
+                LoginAndRegisterActivityNew.startScreen(mActivity, 0, false)
+            }
+
         }
         btnHome.setOnClickListener {
             vpContent.currentItem = 1
