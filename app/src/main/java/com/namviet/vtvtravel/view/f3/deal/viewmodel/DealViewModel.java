@@ -304,6 +304,67 @@ public class DealViewModel extends BaseViewModel {
             "                      \"children\": []\n" +
             "                    }\n" +
             "                  ]\n" +
+            "                },\n" +
+            "                {\n" +
+            "                  \"id\": \"617282a397b99256c22b9a54\",\n" +
+            "                  \"code\": \"CTKM_ACCUMULATION_HOT_PLACE\",\n" +
+            "                  \"code_type\": \"CTKM_ACCUMULATION_HOT_PLACE\",\n" +
+            "                  \"name\": \"Khác\",\n" +
+            "                  \"icon_url\": null,\n" +
+            "                  \"icon_enable_url\": null,\n" +
+            "                  \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                  \"category_id\": \"\",\n" +
+            "                  \"html_icon\": \"\",\n" +
+            "                  \"weight\": 0,\n" +
+            "                  \"banner_url\": null,\n" +
+            "                  \"short_description\": \"\",\n" +
+            "                  \"children\": [\n" +
+            "                    {\n" +
+            "                      \"id\": \"6172d0e8a89ee359f10cc4b4\",\n" +
+            "                      \"code\": \"CTKM_ACCUMULATION_HOT_PLACE_UPCOMING\",\n" +
+            "                      \"code_type\": \"CTKM_UPCOMING\",\n" +
+            "                      \"name\": \"SapDienRa\",\n" +
+            "                      \"icon_url\": null,\n" +
+            "                      \"icon_enable_url\": null,\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=5&page=0&categoryCode=0.1.5&isHighlight=1&isProcessing=2\",\n" +
+            "                      \"category_id\": \"\",\n" +
+            "                      \"html_icon\": \"\",\n" +
+            "                      \"weight\": 0,\n" +
+            "                      \"banner_url\": null,\n" +
+            "                      \"short_description\": \"\",\n" +
+            "                      \"children\": []\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                      \"id\": \"6172d08338ea2546bc5186e4\",\n" +
+            "                      \"code\": \"CTKM_ACCUMULATION_HOT_PLACE_RUNNING\",\n" +
+            "                      \"code_type\": \"CTKM_RUNNING\",\n" +
+            "                      \"name\": \"DangDienRa\",\n" +
+            "                      \"icon_url\": null,\n" +
+            "                      \"icon_enable_url\": null,\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=5&page=0&categoryCode=0.1.5&isHighlight=1&isProcessing=1\",\n" +
+            "                      \"category_id\": \"\",\n" +
+            "                      \"html_icon\": \"\",\n" +
+            "                      \"weight\": 0,\n" +
+            "                      \"banner_url\": null,\n" +
+            "                      \"short_description\": \"\",\n" +
+            "                      \"children\": []\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                      \"id\": \"6172cf3d411b26725f0d82b4\",\n" +
+            "                      \"code\": \"CTKM_ACCUMULATION_HOT_PLACE_SLIDE\",\n" +
+            "                      \"code_type\": \"CTKM_SLIDE\",\n" +
+            "                      \"name\": \"Slide\",\n" +
+            "                      \"icon_url\": null,\n" +
+            "                      \"icon_enable_url\": null,\n" +
+            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"category_id\": \"\",\n" +
+            "                      \"html_icon\": \"\",\n" +
+            "                      \"weight\": 0,\n" +
+            "                      \"banner_url\": null,\n" +
+            "                      \"short_description\": \"\",\n" +
+            "                      \"children\": []\n" +
+            "                    }\n" +
+            "                  ]\n" +
             "                }\n" +
             "              ]\n" +
             "            },\n" +
@@ -374,6 +435,21 @@ public class DealViewModel extends BaseViewModel {
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
             "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=8&page=0&categoryCode=0.1.3&isHighlight=0\",\n" +
+            "                  \"category_id\": \"\",\n" +
+            "                  \"html_icon\": \"\",\n" +
+            "                  \"weight\": 0,\n" +
+            "                  \"banner_url\": null,\n" +
+            "                  \"short_description\": \"\",\n" +
+            "                  \"children\": []\n" +
+            "                },\n" +
+            "                {\n" +
+            "                  \"id\": \"6172d273bb16a4069d48a404\",\n" +
+            "                  \"code\": \"CTKM_ACCUMULATION_HINTBLOCK_RESTAURANT\",\n" +
+            "                  \"code_type\": \"CTKM_ACCUMULATION_HINTBLOCK_RESTAURANT\",\n" +
+            "                  \"name\": \"Khác\",\n" +
+            "                  \"icon_url\": null,\n" +
+            "                  \"icon_enable_url\": null,\n" +
+            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=8&page=0&categoryCode=0.1.5&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -656,6 +732,67 @@ public class DealViewModel extends BaseViewModel {
             "                      \"children\": []\n" +
             "                    }\n" +
             "                  ]\n" +
+            "                },\n" +
+            "                {\n" +
+            "                  \"id\": \"6172d54c0f4f41248a20b7c4\",\n" +
+            "                  \"code\": \"CTKM_HUNTING_HOT_RESTAURANT\",\n" +
+            "                  \"code_type\": \"CTKM_HUNTING_HOT_RESTAURANT\",\n" +
+            "                  \"name\": \"Khác\",\n" +
+            "                  \"icon_url\": null,\n" +
+            "                  \"icon_enable_url\": null,\n" +
+            "                  \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                  \"category_id\": \"\",\n" +
+            "                  \"html_icon\": \"\",\n" +
+            "                  \"weight\": 0,\n" +
+            "                  \"banner_url\": null,\n" +
+            "                  \"short_description\": \"\",\n" +
+            "                  \"children\": [\n" +
+            "                    {\n" +
+            "                      \"id\": \"6172d782e28c5e2fd32f11b4\",\n" +
+            "                      \"code\": \"CTKM_HUNTING_HOT_RESTAURANT_UPCOMING\",\n" +
+            "                      \"code_type\": \"CTKM_UPCOMING\",\n" +
+            "                      \"name\": \"SapDienRa\",\n" +
+            "                      \"icon_url\": null,\n" +
+            "                      \"icon_enable_url\": null,\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=5&page=0&isProcessing=2&category=0.1.5&isHighlight=0\",\n" +
+            "                      \"category_id\": \"\",\n" +
+            "                      \"html_icon\": \"\",\n" +
+            "                      \"weight\": 0,\n" +
+            "                      \"banner_url\": null,\n" +
+            "                      \"short_description\": \"\",\n" +
+            "                      \"children\": []\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                      \"id\": \"6172d76872a17541776a5c94\",\n" +
+            "                      \"code\": \"CTKM_HUNTING_HOT_RESTAURANT_RUNNING\",\n" +
+            "                      \"code_type\": \"CTKM_RUNNING\",\n" +
+            "                      \"name\": \"DangDienRa\",\n" +
+            "                      \"icon_url\": null,\n" +
+            "                      \"icon_enable_url\": null,\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=5&page=0&isProcessing=1&category=0.1.5&isHighlight=0\",\n" +
+            "                      \"category_id\": \"\",\n" +
+            "                      \"html_icon\": \"\",\n" +
+            "                      \"weight\": 0,\n" +
+            "                      \"banner_url\": null,\n" +
+            "                      \"short_description\": \"\",\n" +
+            "                      \"children\": []\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                      \"id\": \"6172d7504a3f21227354e834\",\n" +
+            "                      \"code\": \"CTKM_HUNTING_HOT_RESTAURANT_SLIDE\",\n" +
+            "                      \"code_type\": \"CTKM_SLIDE\",\n" +
+            "                      \"name\": \"Slide\",\n" +
+            "                      \"icon_url\": null,\n" +
+            "                      \"icon_enable_url\": null,\n" +
+            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"category_id\": \"\",\n" +
+            "                      \"html_icon\": \"\",\n" +
+            "                      \"weight\": 0,\n" +
+            "                      \"banner_url\": null,\n" +
+            "                      \"short_description\": \"\",\n" +
+            "                      \"children\": []\n" +
+            "                    }\n" +
+            "                  ]\n" +
             "                }\n" +
             "              ]\n" +
             "            },\n" +
@@ -726,6 +863,21 @@ public class DealViewModel extends BaseViewModel {
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
             "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=8&page=0&category=0.1.2&isHighlight=0\",\n" +
+            "                  \"category_id\": \"\",\n" +
+            "                  \"html_icon\": \"\",\n" +
+            "                  \"weight\": 0,\n" +
+            "                  \"banner_url\": null,\n" +
+            "                  \"short_description\": \"\",\n" +
+            "                  \"children\": []\n" +
+            "                },\n" +
+            "\t\t\t\t{\n" +
+            "                  \"id\": \"6172d4d56088d821153cec15\",\n" +
+            "                  \"code\": \"CTKM_HUNTING_HINTBLOCK_HOTEL\",\n" +
+            "                  \"code_type\": \"CTKM_HUNTING_HINTBLOCK_HOTEL\",\n" +
+            "                  \"name\": \"Khác\",\n" +
+            "                  \"icon_url\": null,\n" +
+            "                  \"icon_enable_url\": null,\n" +
+            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=8&page=0&category=0.1.5&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +

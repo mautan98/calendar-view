@@ -230,7 +230,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
                 }
             }, false);
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 4);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 5);
             rcvTabHeader1.setLayoutManager(gridLayoutManager);
             rcvTabHeader1.setAdapter(mF3Header2Adapter);
             if(dealResponseForBlockContent2 == null){

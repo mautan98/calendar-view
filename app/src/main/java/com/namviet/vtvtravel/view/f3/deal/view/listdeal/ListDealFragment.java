@@ -85,6 +85,8 @@ public class ListDealFragment extends BaseFragment<FragmentListDealBinding> {
         getBinding().tabLayout.addOnTabSelectedListener(OnTabSelectedListener);
         getBinding().vpContent.setOffscreenPageLimit(4);
         getBinding().vpContent.setCurrentItem(positionSelected);
+
+        setTitleText();
     }
 
     @Override
@@ -192,5 +194,19 @@ public class ListDealFragment extends BaseFragment<FragmentListDealBinding> {
         this.listBlock = listBlock;
         this.isProcessing = isProcessing;
         this.positionSelected = positionSelected;
+    }
+
+    private void setTitleText() {
+        try {
+            if (listBlock.get(0).getLink().contains("campaigns")){
+                getBinding().tvTitle.setText("Tích luỹ nhận quà");
+                getBinding().tvDescription.setText("Tích luỹ ngay");
+            }else {
+                getBinding().tvTitle.setText("Săn quà");
+                getBinding().tvDescription.setText("Săn quà ngay");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
