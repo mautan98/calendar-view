@@ -30,6 +30,7 @@
             
             
             <View
+                android:foreground="@drawable/bg_round_ripple"
                 android:id="@+id/btnHome"
                 android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"

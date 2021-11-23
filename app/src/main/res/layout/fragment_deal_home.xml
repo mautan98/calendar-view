@@ -16,6 +16,7 @@
 
 
             <TextView
+                android:textSize="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -94,7 +95,7 @@
                                     android:id="@+id/tvTitleTab1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/roboto_bold"
+                                    android:fontFamily="@font/roboto_black"
                                     android:text="Tích lũy nhận quà"
                                     android:textAllCaps="true"
                                     android:textColor="@color/white" />
@@ -146,7 +147,7 @@
                                     android:id="@+id/tvTitleTab2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/roboto_bold"
+                                    android:fontFamily="@font/roboto_black"
                                     android:text="Săn quà"
                                     android:textAllCaps="true"
                                     android:textColor="@color/white" />
