@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -180,11 +181,13 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
     public class HeaderViewHolder1 extends BaseViewHolder {
         private int position;
         private RecyclerView rcvTabHeader1;
+        private ImageView btnSeeMore;
         private F3Header1Adapter mF3Header1Adapter;
 
         public HeaderViewHolder1(View itemView) {
             super(itemView);
             rcvTabHeader1 = itemView.findViewById(R.id.rcv_tab_header1);
+            btnSeeMore = itemView.findViewById(R.id.btnSeeMore);
 
 
         }
@@ -202,6 +205,26 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                 }
             }, true);
             rcvTabHeader1.setAdapter(mF3Header1Adapter);
+
+            btnSeeMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Lấy danh sách tab đang diễn ra và sắp diễn ra
+                    ArrayList<Block> listBlockResult = new ArrayList<>();
+                    ArrayList<Block> blocks = blocksMenuHeader1.get(positionHeader1).getListChildBlock();
+                    for (int i = 0; i < blocks.size(); i++) {
+                        if(blocks.get(i).getCode_type().equals("CTKM_RUNNING")){
+                            listBlockResult.add(blocks.get(i));
+                        }
+                    }
+                    for (int i = 0; i < blocks.size(); i++) {
+                        if(blocks.get(i).getCode_type().equals("CTKM_UPCOMING")){
+                            listBlockResult.add(blocks.get(i));
+                        }
+                    }
+                    ListHotDealActivity.Companion.startScreen(context, listBlockResult);
+                }
+            });
         }
     }
 
