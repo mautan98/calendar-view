@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollow;
+import com.namviet.vtvtravel.view.f3.deal.view.dealdetail.DetailDealActivity;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
@@ -131,8 +132,28 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
                 tvStatus.setText("Hết thời gian");
             }
 
-            tvTotalHoldTime.setText(dealFollows.get(position).getTotalHoldTime());
-            Glide.with(context).load(dealFollows.get(position).getAvatarUri()).into(imgAvatar);
+            try {
+                long time = Integer.parseInt(dealFollows.get(position).getTotalHoldTime())/1000;
+
+                String days = (int)(time / 86400) + " NGÀY ";
+                String hours = String.valueOf((int)((time % 86400) / 3600));
+                String minutes = String.valueOf((int)((time % 3600) / 60));
+                String seconds = String.valueOf((int)((time % 3600) % 60));
+
+                tvTotalHoldTime.setText(days + hours+" : "+minutes+" : "+seconds);
+
+
+            } catch (Exception e) {
+                tvTotalHoldTime.setText("0 NGÀY");
+
+            }
+
+
+            try {
+                Glide.with(context).load(dealFollows.get(position).getAvatarUri()).into(imgAvatar);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             if(dealFollows.get(position).isShowChild()){
                 rclContent.setVisibility(View.VISIBLE);
@@ -155,6 +176,18 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
                 Glide.with(context).load(R.drawable.ic_clock_2).into(imgAvatar);
                 e.printStackTrace();
             }
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        DetailDealActivity.startScreen(context, dealFollows.get(position).getId(), true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
 
 
         }

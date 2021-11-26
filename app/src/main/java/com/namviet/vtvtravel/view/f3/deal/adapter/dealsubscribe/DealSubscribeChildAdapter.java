@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollow;
+import com.namviet.vtvtravel.view.f3.deal.view.dealdetail.DetailDealActivity;
 
 import java.util.ArrayList;
 
@@ -141,7 +142,7 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
                 }else {
                     layoutChecked.setVisibility(View.GONE);
                 }
-            } catch (NumberFormatException e) {
+            } catch (Exception e) {
                 tvTotalHoldTime.setText("0 NGÀY");
                 layoutChecked.setVisibility(View.GONE);
             }
@@ -151,6 +152,19 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
             }else {
                 viewCoverVertical.setVisibility(View.GONE);
             }
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        DetailDealActivity.startScreen(context, dealFollows.get(position).getId(), false);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
         }
     }
 }
