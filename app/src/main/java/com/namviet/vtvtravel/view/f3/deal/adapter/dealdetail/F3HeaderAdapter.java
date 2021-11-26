@@ -95,13 +95,13 @@ public class F3HeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
         public void bindItem(int position) {
-            if (isHeader1) {
-                if (position == 1 || position == 4) {
-                    imgSelected.setVisibility(View.VISIBLE);
-                } else imgSelected.setVisibility(View.INVISIBLE);
-            } else {
-                imgSelected.setVisibility(View.INVISIBLE);
-            }
+//            if (isHeader1) {
+//                if (position == 1 || position == 4) {
+//                    imgSelected.setVisibility(View.VISIBLE);
+//                } else imgSelected.setVisibility(View.INVISIBLE);
+//            } else {
+//                imgSelected.setVisibility(View.INVISIBLE);
+//            }
 
 
             this.position = position;

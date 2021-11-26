@@ -99,13 +99,13 @@ public class F3Header2Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
 
         public void bindItem(int position) {
-            if (isHeader1) {
-                if (position == 1 || position == 4) {
-                    imgSelected.setVisibility(View.VISIBLE);
-                } else imgSelected.setVisibility(View.INVISIBLE);
-            } else {
-                imgSelected.setVisibility(View.INVISIBLE);
-            }
+//            if (isHeader1) {
+//                if (position == 1 || position == 4) {
+//                    imgSelected.setVisibility(View.VISIBLE);
+//                } else imgSelected.setVisibility(View.INVISIBLE);
+//            } else {
+//                imgSelected.setVisibility(View.INVISIBLE);
+//            }
 
             this.position = position;
             if (position == selectedItem) {
