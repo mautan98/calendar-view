@@ -73,7 +73,7 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 DetailDealActivity.startScreen(itemView.context, content.id.toString(),content.isCampaign)
             }
 
-            itemView.tvUserTotal.text = content.userHuntingCount.toString() + "+"
+            itemView.tvUserTotal.text = F3SubDealAdapter.getHuntingUserCount(content.userHuntingCount) + "+"
 
             if (content.isCampaign) {
                 itemView.tvTotalMustHaveChild.visibility = View.VISIBLE

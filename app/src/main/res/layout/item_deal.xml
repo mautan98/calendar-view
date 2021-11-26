@@ -110,7 +110,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
-                android:text="KINGS HOTEL ĐÀ LẠT - Trọn Gói Vé Cổng + Tham Gia Hoạt Động ..."
+                android:text="Name"
                 android:textColor="#393939"
                 android:textSize="12dp" />
 
@@ -157,7 +157,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"
-                        android:text="2,299,000đ"
+                        android:text="N/A"
                         android:textColor="#999999"
                         android:textSize="13dp" />
 
@@ -167,7 +167,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="-5dp"
                         android:fontFamily="@font/roboto_bold"
-                        android:text="1,898,000 đ"
+                        android:text="N/A"
                         android:textColor="#000000"
                         android:textSize="17dp" />
                 </LinearLayout>
@@ -197,7 +197,7 @@
                         android:paddingTop="3dp"
                         android:paddingEnd="5dp"
                         android:paddingBottom="3dp"
-                        android:text="-50%"
+                        android:text="-0%"
                         android:textColor="@color/white"
                         android:textSize="13dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -221,7 +221,7 @@
                 android:layout_centerInParent="true"
                 android:background="@drawable/f3_bg_strock_red_no_radius"
                 android:gravity="center"
-                android:text="Tích lũy từ 10 CTKM"
+                android:text="Tích lũy từ 0 CTKM"
                 android:textColor="#FF0000"
                 android:textSize="9dp" />
 
