@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.view.f3.deal.constant.IsProcessingType;
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollow;
 import com.namviet.vtvtravel.view.f3.deal.view.dealdetail.DetailDealActivity;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
@@ -127,7 +128,7 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
             tvName.setText(dealFollows.get(position).getName());
             tvRank.setText(dealFollows.get(position).getRanking());
             try {
-                tvStatus.setText(dealFollows.get(position).getIsProcessing().equals("1")?"Đang diễn ra": (dealFollows.get(position).getIsProcessing().equals("2")?"Sắp diễn ra": "Hết thời gian"));
+                tvStatus.setText(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)?"Đang diễn ra": (dealFollows.get(position).getIsProcessing().equals(IsProcessingType.SAP_DIEN_RA_TYPE)?"Sắp diễn ra": "Hết thời gian"));
             } catch (Exception e) {
                 tvStatus.setText("Hết thời gian");
             }
