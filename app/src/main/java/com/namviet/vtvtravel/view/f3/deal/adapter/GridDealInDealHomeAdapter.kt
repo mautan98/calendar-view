@@ -21,13 +21,17 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private val TYPE_ITEM = 0
     private var dealResponse: DealResponse? = null
     private var context: Context? = null
-    private var url: String? =
-        "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/details?id=105&isProcessing=1"
-
+    private var onDataChange : OnDataChange? = null;
     constructor()
     constructor(dealResponse: DealResponse?) : super() {
         this.dealResponse = dealResponse
     }
+
+    public fun setOnDataChangeListener(onDataChange : OnDataChange?){
+        this.onDataChange = onDataChange
+    }
+
+
 
 
     override fun getItemViewType(position: Int): Int {
@@ -43,9 +47,16 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     override fun getItemCount(): Int {
         return try {
-            dealResponse!!.data.content.size
+            if(dealResponse!!.data.content.size > 0){
+                onDataChange?.onDataChange(false)
+            }else{
+                onDataChange?.onDataChange(true)
+            }
+            return dealResponse!!.data.content.size
+
         } catch (e: Exception) {
-            0
+            onDataChange?.onDataChange(true)
+            return 0
         }
     }
 
@@ -241,6 +252,10 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
         } catch (e: Exception) {
             50
         }
+    }
+
+    public interface OnDataChange{
+        fun onDataChange(isShow : Boolean)
     }
 
 }

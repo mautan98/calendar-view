@@ -43,7 +43,18 @@ class ListHotDealTabFragment : BaseFragment<FragmentListDealTabBinding?>, Observ
     override fun update(observable: Observable?, o: Any?) {
         if (observable is DealViewModel) {
             if (o is DealResponse) {
-                rclContent.adapter = GridDealInDealHomeAdapter(o)
+                var adapter = GridDealInDealHomeAdapter(o)
+                adapter.setOnDataChangeListener(object : GridDealInDealHomeAdapter.OnDataChange{
+                    override fun onDataChange(isShow: Boolean) {
+                        if (isShow) {
+                            layoutNoData.visibility = View.VISIBLE
+                        } else {
+                            layoutNoData.visibility = View.GONE
+                        }
+                    }
+
+                })
+                rclContent.adapter = adapter
                 val gridLayoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
                 rclContent.layoutManager = gridLayoutManager
             }

@@ -8,10 +8,10 @@
 
         <LinearLayout
             android:id="@+id/layoutCheckbox"
-            android:layout_marginTop="13dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="13dp"
             android:layout_marginBottom="13dp"
             android:orientation="horizontal">
 
@@ -35,7 +35,6 @@
                 android:textStyle="italic" />
 
             <LinearLayout
-                android:visibility="invisible"
                 android:id="@+id/lnl_view_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,7 +42,8 @@
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="invisible">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -63,10 +63,25 @@
             </LinearLayout>
         </LinearLayout>
 
-       <androidx.recyclerview.widget.RecyclerView
-           android:id="@+id/rclContent"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/layoutNoData"
+                android:alpha="0.5"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/img_no_deal_data"
+                android:layout_width="200dp"
+                android:layout_height="200dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rclContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+
+        </RelativeLayout>
     </LinearLayout>
 </layout>
