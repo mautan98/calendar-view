@@ -120,7 +120,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/roboto_bold"
-                                android:text="N/A"
+                                android:text=""
                                 android:textColor="#000"
                                 android:textSize="12dp" />
 
@@ -134,7 +134,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/roboto_regular"
-                                    android:text="N/A"
+                                    android:text=""
                                     android:textColor="#999999"
                                     android:textSize="10dp" />
 

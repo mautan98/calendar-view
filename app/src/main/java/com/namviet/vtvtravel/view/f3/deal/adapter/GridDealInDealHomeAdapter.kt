@@ -185,7 +185,7 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             itemView.tvTotalMustHaveChild.text = "Tích lũy từ " + content.totalDeal+ " CTKM"
             try {
-                Glide.with(context!!).load(content.avatarUri).into(itemView.imgAvatar)
+                Glide.with(itemView.context!!).load(content.avatarUri).into(itemView.imgAvatar)
             } catch (e: Exception) {
             }
         }
