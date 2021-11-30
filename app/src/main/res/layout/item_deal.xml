@@ -238,6 +238,7 @@
                     android:layout_alignParentBottom="true">
 
                     <ProgressBar
+                        android:layout_marginStart="5dp"
                         android:id="@+id/progress1"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
