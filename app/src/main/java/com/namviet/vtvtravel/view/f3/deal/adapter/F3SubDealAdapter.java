@@ -176,8 +176,13 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
 
             try {
-                tvExpiryDate.setText("HSD: " + DateUtltils.timeToString18(content.getExpireDate()));
+                if(content.getExpireDate() != null) {
+                    tvExpiryDate.setText("HSD: " + DateUtltils.timeToString18(content.getExpireDate()));
+                }else {
+                    tvExpiryDate.setText("");
+                }
             } catch (Exception e) {
+                tvExpiryDate.setText("");
                 e.printStackTrace();
             }
 
@@ -201,11 +206,19 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
             try {
-                tvDisplayPrice.setText(convertPrice(String.valueOf(content.getPriceAfterPromo())) + " đ");
+                if(content.getPriceAfterPromo() != null) {
+                    tvDisplayPrice.setVisibility(View.VISIBLE);
+                    tvDisplayPrice.setText(convertPrice(String.valueOf(content.getPriceAfterPromo())) + " đ");
+                }else {
+                    tvDisplayPrice.setText("");
+                    tvDisplayPrice.setVisibility(View.GONE);
+                }
             } catch (Exception e) {
                 try {
+                    tvDisplayPrice.setVisibility(View.VISIBLE);
                     tvDisplayPrice.setText(content.getPriceAfterPromo() + " đ");
                 } catch (Exception ex) {
+                    tvDisplayPrice.setVisibility(View.GONE);
                     ex.printStackTrace();
                 }
                 e.printStackTrace();
@@ -213,12 +226,20 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
             try {
-                tvOriginPrice.setText(convertPrice(String.valueOf(content.getPriceBeforePromo())) + " đ");
+                if(content.getPriceBeforePromo() != null) {
+                    tvOriginPrice.setVisibility(View.VISIBLE);
+                    tvOriginPrice.setText(convertPrice(String.valueOf(content.getPriceBeforePromo())) + " đ");
+                }else {
+                    tvOriginPrice.setText("");
+                    tvOriginPrice.setVisibility(View.GONE);
+                }
             } catch (Exception e) {
                 try {
+                    tvOriginPrice.setVisibility(View.VISIBLE);
                     tvOriginPrice.setText(content.getPriceBeforePromo() + " đ");
                 } catch (Exception ex) {
                     ex.printStackTrace();
+                    tvOriginPrice.setVisibility(View.GONE);
                 }
                 e.printStackTrace();
             }
