@@ -69,6 +69,9 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
     private int positionHeader1 = 0;
     private int positionHeader2 = 0;
 
+    public RecyclerAdapter(Context context) {
+        this.context = context;
+    }
 
     private DealResponse dealResponseForBlockContent2;
 
@@ -92,11 +95,10 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
     }
 
 
-    public void setData(List<Item> items, Context context, ArrayList<Block> blocksMenuHeader1, ArrayList<Block> blocksMenuHeader2, DealHomeChildFragment dealHomeChildFragment) {
+    public void setData(List<Item> items, ArrayList<Block> blocksMenuHeader1, ArrayList<Block> blocksMenuHeader2, DealHomeChildFragment dealHomeChildFragment) {
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new SimpleDiffCallback(data, items));
         data.clear();
         data.addAll(items);
-        this.context = context;
         this.blocksMenuHeader1 = blocksMenuHeader1;
         this.blocksMenuHeader2 = blocksMenuHeader2;
         this.dealHomeChildFragment = dealHomeChildFragment;

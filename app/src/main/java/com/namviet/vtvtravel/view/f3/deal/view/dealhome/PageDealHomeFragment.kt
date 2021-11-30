@@ -2,16 +2,15 @@ package com.namviet.vtvtravel.view.f3.deal.view.dealhome
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.viewpager.widget.ViewPager
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.app.MyApplication
 import com.namviet.vtvtravel.databinding.FragmentPageDealHomeBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
-import com.namviet.vtvtravel.view.f2.CreateTripActivity
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew
 import com.namviet.vtvtravel.view.f3.deal.adapter.TabAdapter
 import com.namviet.vtvtravel.view.f3.deal.event.ChangeToCenterTab
 import com.namviet.vtvtravel.view.f3.deal.event.FinishDeal
+import com.namviet.vtvtravel.view.f3.deal.view.mygift.MyGiftFragment
 import kotlinx.android.synthetic.main.fragment_page_deal_home.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe

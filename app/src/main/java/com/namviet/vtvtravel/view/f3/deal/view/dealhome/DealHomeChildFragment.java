@@ -99,8 +99,8 @@ public class DealHomeChildFragment extends BaseFragment<FragmentDealHomeChildBin
 
             }
         }, false);
-        adapter = new RecyclerAdapter();
-        adapter.setData(ItemGenerator.demoList(), mActivity, blocksMenuHeader1, blocksMenuHeader2, this);
+        adapter = new RecyclerAdapter(mActivity);
+        adapter.setData(ItemGenerator.demoList(), blocksMenuHeader1, blocksMenuHeader2, this);
         adapter.setILoadDataDeal(new RecyclerAdapter.ILoadDataDeal() {
             @Override
             public void onLoadDataDeal(String url) {
