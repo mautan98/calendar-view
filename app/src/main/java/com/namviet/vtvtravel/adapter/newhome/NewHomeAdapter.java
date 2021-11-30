@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Handler;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.viewpager.widget.ViewPager;
 import androidx.recyclerview.widget.LinearSnapHelper;
@@ -88,12 +89,17 @@ import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
 import com.zhpan.indicator.IndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -679,7 +685,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     rclContent.setAdapter(f3SubDealAdapter);
 
                     if (positionClick == 0) {
-                        dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/home?page=0&size=4");
+                        dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/home?page=0&size=5");
                     } else {
                         dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/home?size=5&page=0");
                     }
