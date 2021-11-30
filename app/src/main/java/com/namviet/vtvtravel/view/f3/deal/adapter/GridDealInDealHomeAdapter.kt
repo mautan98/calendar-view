@@ -70,10 +70,15 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
             val content = dealResponse!!.data.content[position]
             itemView.tvName.text = content.name
             itemView.setOnClickListener {
-                DetailDealActivity.startScreen(itemView.context, content.id.toString(),content.isCampaign)
+                DetailDealActivity.startScreen(
+                    itemView.context,
+                    content.id.toString(),
+                    content.isCampaign
+                )
             }
 
-            itemView.tvUserTotal.text = F3SubDealAdapter.getHuntingUserCount(content.userHuntingCount) + "+"
+            itemView.tvUserTotal.text =
+                F3SubDealAdapter.getHuntingUserCount(content.userHuntingCount) + "+"
 
             if (content.isCampaign) {
                 itemView.tvTotalMustHaveChild.visibility = View.VISIBLE
@@ -89,8 +94,12 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
 
             try {
-                itemView.tvExpiryDate.text =
-                    "HSD: " + DateUtltils.timeToString18(content.expireDate)
+                if (content.expireDate != null) {
+                    itemView.tvExpiryDate.text =
+                        "HSD: " + DateUtltils.timeToString18(content.expireDate)
+                } else {
+                    itemView.tvExpiryDate.text = ""
+                }
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
             }
@@ -137,12 +146,20 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
 
             try {
-                itemView.tvDisplayPrice.text =
-                    convertPrice(content.priceAfterPromo.toString()) + " đ"
+                if (content.priceAfterPromo != null) {
+                    itemView.tvDisplayPrice.text =
+                        convertPrice(content.priceAfterPromo.toString()) + " đ"
+                    itemView.tvDisplayPrice.visibility = View.VISIBLE
+                } else {
+                    itemView.tvDisplayPrice.text = ""
+                    itemView.tvDisplayPrice.visibility = View.GONE
+                }
             } catch (e: Exception) {
                 try {
                     itemView.tvDisplayPrice.text = content.priceAfterPromo.toString() + " đ"
+                    itemView.tvDisplayPrice.visibility = View.VISIBLE
                 } catch (ex: java.lang.Exception) {
+                    itemView.tvDisplayPrice.visibility = View.GONE
                     ex.printStackTrace()
                 }
                 e.printStackTrace()
@@ -150,12 +167,21 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
 
             try {
-                itemView.tvOriginPrice.text =
-                    convertPrice(content.priceBeforePromo.toString()) + " đ"
+                if (content.priceBeforePromo != null) {
+                    itemView.tvOriginPrice.text =
+                        convertPrice(content.priceBeforePromo.toString()) + " đ"
+                    itemView.tvOriginPrice.visibility = View.VISIBLE
+                } else {
+                    itemView.tvOriginPrice.text = ""
+                    itemView.tvOriginPrice.visibility = View.GONE
+                }
+
             } catch (e: java.lang.Exception) {
                 try {
+                    itemView.tvOriginPrice.visibility = View.VISIBLE
                     itemView.tvOriginPrice.text = content.priceBeforePromo.toString() + " đ"
                 } catch (ex: Exception) {
+                    itemView.tvOriginPrice.visibility = View.GONE
                     ex.printStackTrace()
                 }
                 e.printStackTrace()
@@ -183,7 +209,7 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 e.printStackTrace()
             }
 
-            itemView.tvTotalMustHaveChild.text = "Tích lũy từ " + content.totalDeal+ " CTKM"
+            itemView.tvTotalMustHaveChild.text = "Tích lũy từ " + content.totalDeal + " CTKM"
             try {
                 Glide.with(itemView.context!!).load(content.avatarUri).into(itemView.imgAvatar)
             } catch (e: Exception) {
