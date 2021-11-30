@@ -708,7 +708,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             if (dealResponse == null) {
                 shimmer.setVisibility(View.VISIBLE);
-                dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/home?page=0&size=4");
+                dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/home?page=0&size=5");
             }
 
             try {

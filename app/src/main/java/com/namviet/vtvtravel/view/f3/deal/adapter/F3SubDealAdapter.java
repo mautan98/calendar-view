@@ -119,7 +119,11 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         public void bindItem(int position) {
             Content content = dealResponse.getData().getContent().get(position);
-            tvName.setText(content.getName());
+            if(content.getName() != null) {
+                tvName.setText(content.getName());
+            }else {
+                tvName.setText("");
+            }
             tvUserTotal.setText(getHuntingUserCount(content.getUserHuntingCount()) + "+");
 
             itemView.setOnClickListener(new View.OnClickListener() {

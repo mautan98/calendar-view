@@ -90,7 +90,6 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="Name"
                     android:textColor="#393939"
                     android:textSize="12dp" />
 
@@ -183,7 +182,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
-                            android:text="HSD: 20.10.2021"
                             android:textColor="#727272"
                             android:textSize="9dp" />
                     </LinearLayout>

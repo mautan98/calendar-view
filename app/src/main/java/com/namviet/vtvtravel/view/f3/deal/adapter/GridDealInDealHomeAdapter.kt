@@ -79,7 +79,13 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         fun bindItem(position: Int) {
             val content = dealResponse!!.data.content[position]
-            itemView.tvName.text = content.name
+
+            if(content.name != null) {
+                itemView.tvName.text = content.name
+            }else{
+                itemView.tvName.text = ""
+            }
+
             itemView.setOnClickListener {
                 DetailDealActivity.startScreen(
                     itemView.context,
@@ -242,10 +248,10 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return try {
             val myCurrentTimeMillis = System.currentTimeMillis()
             if (myCurrentTimeMillis < startTime) {
-                return 0
+                return 100
             }
             if (myCurrentTimeMillis > endTime) {
-                100
+                0
             } else {
                 100 - ((myCurrentTimeMillis - startTime).toDouble() / (endTime - startTime).toDouble() * 100).toInt()
             }
