@@ -346,7 +346,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if (observable instanceof DealViewModel) {
                 if (o instanceof DealResponse) {
                     dealResponse = (DealResponse) o;
-                    rclContent.setAdapter(new GridDealInDealHomeAdapter(dealResponse));
+                    rclContent.setAdapter(new GridDealInDealHomeAdapter((ArrayList<Content>) dealResponse.getData().getContent()));
                     mShimmerFrameLayout.stopShimmer();
                     mShimmerFrameLayout.setVisibility(View.GONE);
                     rclContent.setVisibility(View.VISIBLE);
@@ -359,7 +359,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    rclContent.setAdapter(new GridDealInDealHomeAdapter(dealCampaignDetail.getDealByCampaign()));
+                    rclContent.setAdapter(new GridDealInDealHomeAdapter((ArrayList<Content>) dealCampaignDetail.getDealByCampaign().getData().getContent()));
                     mShimmerFrameLayout.stopShimmer();
                     mShimmerFrameLayout.setVisibility(View.GONE);
                     rclContent.setVisibility(View.VISIBLE);

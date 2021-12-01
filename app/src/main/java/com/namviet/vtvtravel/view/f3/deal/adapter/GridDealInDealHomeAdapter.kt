@@ -11,6 +11,7 @@ import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.ultils.DateUtltils
 import com.namviet.vtvtravel.view.f3.deal.constant.DiscountDisplayType
 import com.namviet.vtvtravel.view.f3.deal.constant.IsProcessingType
+import com.namviet.vtvtravel.view.f3.deal.model.deal.Content
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse
 import com.namviet.vtvtravel.view.f3.deal.view.dealdetail.DetailDealActivity
 import kotlinx.android.synthetic.main.item_deal.view.*
@@ -19,12 +20,12 @@ import java.text.DecimalFormat
 
 class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private val TYPE_ITEM = 0
-    private var dealResponse: DealResponse? = null
+    private var listDeal: ArrayList<Content>? = null
     private var context: Context? = null
     private var onDataChange : OnDataChange? = null;
     constructor()
-    constructor(dealResponse: DealResponse?) : super() {
-        this.dealResponse = dealResponse
+    constructor(listDeal: ArrayList<Content>?) : super() {
+        this.listDeal = listDeal
     }
 
     public fun setOnDataChangeListener(onDataChange : OnDataChange?){
@@ -47,12 +48,12 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     override fun getItemCount(): Int {
         return try {
-            if(dealResponse!!.data.content.size > 0){
+            if(listDeal!!.size > 0){
                 onDataChange?.onDataChange(false)
             }else{
                 onDataChange?.onDataChange(true)
             }
-            return dealResponse!!.data.content.size
+            return listDeal!!.size
 
         } catch (e: Exception) {
             onDataChange?.onDataChange(true)
@@ -78,7 +79,7 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         fun bindItem(position: Int) {
-            val content = dealResponse!!.data.content[position]
+            val content = listDeal!![position]
 
             if(content.name != null) {
                 itemView.tvName.text = content.name

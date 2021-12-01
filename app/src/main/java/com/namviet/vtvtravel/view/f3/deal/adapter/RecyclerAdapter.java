@@ -26,6 +26,7 @@ import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.view.f3.deal.constant.IsProcessingType;
 import com.namviet.vtvtravel.view.f3.deal.model.Block;
+import com.namviet.vtvtravel.view.f3.deal.model.deal.Content;
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealHomeChildFragment;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
@@ -314,7 +315,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             this.position = position;
             StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
             rclContent.setLayoutManager(layoutManager);
-            rclContent.setAdapter(new GridDealInDealHomeAdapter(dealResponseForBlockContent2));
+            rclContent.setAdapter(new GridDealInDealHomeAdapter((ArrayList<Content>) dealResponseForBlockContent2.getData().getContent()));
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
