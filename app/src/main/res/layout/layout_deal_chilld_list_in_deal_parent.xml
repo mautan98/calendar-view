@@ -41,7 +41,7 @@
 
 
             <TextView
-
+                android:id="@+id/tv_total_hold_count"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -50,7 +50,7 @@
                 android:fontFamily="@font/roboto_bold"
                 android:gravity="start"
                 android:singleLine="true"
-                android:text="Danh sách tích lũy (30)"
+                tools:text="Danh sách tích lũy (30)"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="12dp"
@@ -73,6 +73,7 @@
 
 
                 <com.ornach.richtext.RichText
+                    android:id="@+id/tv_day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_black"
@@ -98,6 +99,7 @@
                     android:textSize="14dp" />
 
                 <com.ornach.richtext.RichText
+                    android:id="@+id/tv_hour"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_black"
@@ -122,6 +124,7 @@
                     android:textSize="14dp" />
 
                 <com.ornach.richtext.RichText
+                    android:id="@+id/tv_minutes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_black"
@@ -146,6 +149,7 @@
                     android:textSize="14dp" />
 
                 <com.ornach.richtext.RichText
+                    android:id="@+id/tv_second"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_black"

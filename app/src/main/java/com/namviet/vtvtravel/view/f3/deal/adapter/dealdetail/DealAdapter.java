@@ -38,8 +38,11 @@ import com.namviet.vtvtravel.view.f3.deal.Utils;
 import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealInDealHomeAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealFilterAdapter;
+import com.namviet.vtvtravel.view.f3.deal.constant.DiscountDisplayType;
 import com.namviet.vtvtravel.view.f3.deal.constant.IsProcessingType;
+import com.namviet.vtvtravel.view.f3.deal.model.deal.Content;
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
+import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.Data;
 import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.RewardStatus;
 import com.namviet.vtvtravel.view.f3.deal.view.dealdetail.DealItemDetailFragment;
@@ -174,6 +177,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private ArrayList<RewardStatus> listFilter = new ArrayList<>();
 
         private DealViewModel dealViewModel;
+        private TextView tvDay, tvHour, tvMinutes, tvSecond,tvTotalHoldCount;
 
 
         public MoreViewHolder(View itemView) {
@@ -197,14 +201,41 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             rcvTabHeader1 = itemView.findViewById(R.id.rcv_tab_header1);
             lnlParent = itemView.findViewById(R.id.lnl_parent);
             btnHunt = itemView.findViewById(R.id.btn_hunt);
+            tvDay = itemView.findViewById(R.id.tv_day);
+            tvHour = itemView.findViewById(R.id.tv_hour);
+            tvMinutes = itemView.findViewById(R.id.tv_minutes);
+            tvSecond = itemView.findViewById(R.id.tv_second);
+            tvTotalHoldCount = itemView.findViewById(R.id.tv_total_hold_count);
 
         }
 
         public void bindItem(int position) {
+
+            Data data = dealCampaignDetail.getData();
             try {
-                StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+                long distance = data.getTotalHoldTime() / 1000;
+                String days = (int) (distance / 86400) + " ngày ";
+                String hours = String.valueOf((int) ((distance % 86400) / 3600));
+                String minutes = String.valueOf((int) ((distance % 3600) / 60));
+                String seconds = String.valueOf((int) ((distance % 3600) % 60));
+                tvDay.setText(days);
+                tvHour.setText(hours);
+                tvMinutes.setText(minutes);
+                tvSecond.setText(seconds);
+                tvTotalHoldCount.setText(String.format("Danh sách tích lũy (%d)", dealCampaignDetail.getData().getTotalDeal()));
+            } catch (Exception e) {
+                e.printStackTrace();
+                tvDay.setText("0 ngày");
+                tvHour.setText("0");
+                tvMinutes.setText("0");
+                tvSecond.setText("0");
+                tvTotalHoldCount.setText(String.format("Danh sách tích lũy (%d)", 0));
+            }
+
+            try {
+                StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
                 rclContent.setLayoutManager(layoutManager);
-                if(dealCampaignDetail.getData().isCampaign()){
+                if (dealCampaignDetail.getData().isCampaign()) {
                     btnHunt.setVisibility(View.GONE);
                     lnlParent.setVisibility(View.VISIBLE);
 //                    if (!dealCampaignDetail.isDataLoaded()) {
@@ -234,11 +265,11 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             mShimmerFrameLayout.startShimmer();
 //                            dealItemDetailFragment.setIOnClickTabReloadData(MoreViewHolder.this);
 
-                            if(position == 0){
+                            if (position == 0) {
                                 status = IsProcessingType.DANG_DIEN_RA_TYPE;
-                            }else if(position == 1){
+                            } else if (position == 1) {
                                 status = IsProcessingType.SAP_DIEN_RA_TYPE;
-                            }else if(position == 2){
+                            } else if (position == 2) {
                                 status = IsProcessingType.KET_THUC_TYPE;
                             }
 //                            mILoadDataDeal.onLoadDataDeal(status, filter);
@@ -247,7 +278,6 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         }
                     }, false);
                     rcvTabHeader1.setAdapter(mF3HeaderAdapter);
-
 
 
                     rclFilterDeal.setAdapter(new DealFilterAdapter(mContext, listFilter, new DealFilterAdapter.ClickItem() {
@@ -263,7 +293,6 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }));
 
 
-
 //                    ; = DealFilterAdapter(mActivity, listFilter) { position ->
 //                            listDeal.clear()
 //                        dealSubscribeParentAdapter?.notifyDataSetChanged()
@@ -273,8 +302,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //                                filter
 //                        )
 //                    }
-                }
-                else {
+                } else {
                     btnHunt.setVisibility(View.VISIBLE);
                     lnlParent.setVisibility(View.GONE);
                     btnHunt.setOnClickListener(new View.OnClickListener() {
@@ -298,8 +326,8 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     btnHunt.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if(status == 1){
-                                F2Util.startSendMessIntent(mContext, "1039", "D "+dealCampaignDetail.getData().getCode());
+                            if (status == 1) {
+                                F2Util.startSendMessIntent(mContext, "1039", "D " + dealCampaignDetail.getData().getCode());
                             }
                         }
                     });
@@ -407,33 +435,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private List<String> urls;
         private TabLayout mTabLayout;
         private TextView tvTab1, tvTab2, tvTab3;
-        private String url = "<head><style>body{font-family:'roboto','Roboto',sans-serif;}</style></head><body><p style=\"text-align: justify;\"><strong>Top 6 địa điểm du lịch đẹp \"đụng thiên đường\" ở Bình Phước</strong></p>\n" +
-                "    <p style=\"text-align: justify;\"><em><span style=\"font-weight: 400;\">Một Bình Phước tuyệt đẹp, hoang sơ luôn là chốn dừng chân lý tưởng cho những tâm hồn yêu khám phá thiên nhiên. Hè rồi xách balo lên và trải nghiệm miền đất đặc biệt này thôi!</span></em></p>\n" +
-                "    <figure class=\"image\" style=\"text-align: center;margin:0;padding:0;\"> " +
-                "    <figcaption style=\"text-align: center;padding:5px;\"><em>ảnh lấy trên mạng. </em></figcaption>\n" +
-                "    </figure>";
-        private String url2 = "<head><style>body{font-family:'roboto','Roboto',sans-serif;}</style></head><body><p style=\"text-align: justify;\"><strong>Top 6 địa điểm du lịch đẹp \"đụng thiên đường\" ở Bình Phước</strong></p>\n" +
-                "    <p style=\"text-align: justify;\"><em><span style=\"font-weight: 400;\">Một Bình Phước tuyệt đẹp, hoang sơ luôn là chốn dừng chân lý tưởng cho những tâm hồn yêu khám phá thiên nhiên. Hè rồi xách balo lên và trải nghiệm miền đất đặc biệt này thôi!</span></em></p>\n" +
-                "    <figure class=\"image\" style=\"text-align: center;margin:0;padding:0;\"> " +
-                "    <figcaption style=\"text-align: center;padding:5px;\"><em>ảnh lấy trên mạng. </em></figcaption>\n" +
-                "    </figure>" + "<head><style>body{font-family:'roboto','Roboto',sans-serif;}</style></head><body><p style=\"text-align: justify;\"><strong>Top 6 địa điểm du lịch đẹp \"đụng thiên đường\" ở Bình Phước</strong></p>\n" +
-                "    <p style=\"text-align: justify;\"><em><span style=\"font-weight: 400;\">Một Bình Phước tuyệt đẹp, hoang sơ luôn là chốn dừng chân lý tưởng cho những tâm hồn yêu khám phá thiên nhiên. Hè rồi xách balo lên và trải nghiệm miền đất đặc biệt này thôi!</span></em></p>\n" +
-                "    <figure class=\"image\" style=\"text-align: center;margin:0;padding:0;\"> " +
-                "    <figcaption style=\"text-align: center;padding:5px;\"><em>ảnh lấy trên mạng. </em></figcaption>\n" +
-                "    </figure>";
-        private String url3 = "<head><style>body{font-family:'roboto','Roboto',sans-serif;}</style></head><body><p style=\"text-align: justify;\"><strong>Top 6 địa điểm du lịch đẹp \"đụng thiên đường\" ở Bình Phước</strong></p>\n" +
-                "    <p style=\"text-align: justify;\"><em><span style=\"font-weight: 400;\">Một Bình Phước tuyệt đẹp, hoang sơ luôn là chốn dừng chân lý tưởng cho những tâm hồn yêu khám phá thiên nhiên. Hè rồi xách balo lên và trải nghiệm miền đất đặc biệt này thôi!</span></em></p>\n" +
-                "    <figure class=\"image\" style=\"text-align: center;margin:0;padding:0;\"> " +
-                "    <figcaption style=\"text-align: center;padding:5px;\"><em>ảnh lấy trên mạng. </em></figcaption>\n" +
-                "    </figure>" + "<head><style>body{font-family:'roboto','Roboto',sans-serif;}</style></head><body><p style=\"text-align: justify;\"><strong>Top 6 địa điểm du lịch đẹp \"đụng thiên đường\" ở Bình Phước</strong></p>\n" +
-                "    <p style=\"text-align: justify;\"><em><span style=\"font-weight: 400;\">Một Bình Phước tuyệt đẹp, hoang sơ luôn là chốn dừng chân lý tưởng cho những tâm hồn yêu khám phá thiên nhiên. Hè rồi xách balo lên và trải nghiệm miền đất đặc biệt này thôi!</span></em></p>\n" +
-                "    <figure class=\"image\" style=\"text-align: center;margin:0;padding:0;\"> " +
-                "    <figcaption style=\"text-align: center;padding:5px;\"><em>ảnh lấy trên mạng. </em></figcaption>\n" +
-                "    </figure>" + "<head><style>body{font-family:'roboto','Roboto',sans-serif;}</style></head><body><p style=\"text-align: justify;\"><strong>Top 6 địa điểm du lịch đẹp \"đụng thiên đường\" ở Bình Phước</strong></p>\n" +
-                "    <p style=\"text-align: justify;\"><em><span style=\"font-weight: 400;\">Một Bình Phước tuyệt đẹp, hoang sơ luôn là chốn dừng chân lý tưởng cho những tâm hồn yêu khám phá thiên nhiên. Hè rồi xách balo lên và trải nghiệm miền đất đặc biệt này thôi!</span></em></p>\n" +
-                "    <figure class=\"image\" style=\"text-align: center;margin:0;padding:0;\"> " +
-                "    <figcaption style=\"text-align: center;padding:5px;\"><em>ảnh lấy trên mạng. </em></figcaption>\n" +
-                "    </figure>";
+
 
         public ContentViewHolder(View itemView) {
             super(itemView);
@@ -449,9 +451,6 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tvTab3 = itemView.findViewById(R.id.tv_tab3);
             webView = itemView.findViewById(R.id.web_view);
             urls = new ArrayList<>();
-            urls.add(url);
-            urls.add(url2);
-            urls.add(url3);
             // mTabLayout.setupWithViewPager(mPagerContent);
 
         }
@@ -463,47 +462,28 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public void bindItem(int position) {
-//            adapter = new InfomationDealAdapter(mContext, urls);
-//            mPagerContent.setAdapter(adapter);
-//            mPagerContent.setOffscreenPageLimit(3);
             resetTabColor();
             tvTab1.setTextColor(mContext.getResources().getColor(R.color.black));
-//            mPagerContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//                @Override
-//                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//
-//                }
-//
-//                @Override
-//                public void onPageSelected(int position) {
-//
-//                }
-//
-//                @Override
-//                public void onPageScrollStateChanged(int state) {
-//
-//                }
-//            });
-            webView.loadDataWithBaseURL("", urls.get(0), "text/html", "UTF-8", null);
+            webView.loadDataWithBaseURL("", dealCampaignDetail.getData().getDescription(), "text/html", "UTF-8", null);
             tvTab1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     onTabSelected(0);
-                    webView.loadDataWithBaseURL("", urls.get(0), "text/html", "UTF-8", null);
+                    webView.loadDataWithBaseURL("", dealCampaignDetail.getData().getDescription(), "text/html", "UTF-8", null);
                 }
             });
             tvTab2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     onTabSelected(1);
-                    webView.loadDataWithBaseURL("", urls.get(1), "text/html", "UTF-8", null);
+                    webView.loadDataWithBaseURL("", dealCampaignDetail.getData().getRule(), "text/html", "UTF-8", null);
                 }
             });
             tvTab3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     onTabSelected(2);
-                    webView.loadDataWithBaseURL("", urls.get(2), "text/html", "UTF-8", null);
+                    webView.loadDataWithBaseURL("", dealCampaignDetail.getData().getGuide(), "text/html", "UTF-8", null);
                 }
             });
             mBtnCollapse.setOnClickListener(new View.OnClickListener() {
@@ -670,6 +650,8 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                mTvTimeKeepDeal.setText("Bạn chưa tích lũy");
+                mTvRank.setText("Bạn chưa tích lũy");
             }
         }
     }
@@ -708,7 +690,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tvStatusDeal = itemView.findViewById(R.id.tv_status_deal);
         }
 
-        private String convertPrice(String string){
+        private String convertPrice(String string) {
             try {
                 DecimalFormat df = new DecimalFormat("###.###.###");
                 return df.format(Double.parseDouble(string));
@@ -721,38 +703,135 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @SuppressLint("DefaultLocale")
         public void bindItem(int position) {
+            Data data = dealCampaignDetail.getData();
+            mTvTilte.setText(dealCampaignDetail.getData().getName());
             try {
-                mTvTilte.setText(dealCampaignDetail.getData().getName());
-
-                mTvOldPrice.setText(String.format("%dđ", convertPrice(dealCampaignDetail.getData().getPriceBeforePromo().toString())));
-                mTvNewPrice.setText(String.format("%dđ", convertPrice(dealCampaignDetail.getData().getPriceAfterPromo().toString())));
-                mTvOldPrice.setPaintFlags(mTvOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                mTvDisCount.setText(String.format("%d%%", dealCampaignDetail.getData().getValuePromotion()));
-                String expirationDate = Utils.CalendarUtils.ConvertMilliSecondsToFormattedDate(dealCampaignDetail.getData().getEndAt());
-                mTvExpirationDate.setText("HSD: "+expirationDate);
-                tvTimeHold.setText(Utils.CalendarUtils.getTimeHold(dealCampaignDetail.getData().getTotalHoldTime()));
-                mTvTimeCountDown.setText(Utils.CalendarUtils.getDayLeft(dealCampaignDetail.getData().getEndAt()));
-                mProgressCountDown.setProgress(100 - Utils.CalendarUtils.getPercentProgress(dealCampaignDetail.getData().getBeginAt(), dealCampaignDetail.getData().getEndAt()));
-
-                int status = dealCampaignDetail.getData().getStatus();
-                if (status == 0) {
-                    rllStatusDeal.setBackgroundColor(Color.parseColor("#FF0909"));
-                    tvStatusDeal.setText("Chương trình đã kết thúc!");
-                    mProgressCountDown.setProgress(0);
-                    mTvTimeCountDown.setText("Đã hết hạn");
-                } else if (status == 1) {
-                    rllStatusDeal.setBackgroundColor(Color.parseColor("#01B819"));
-                    tvStatusDeal.setText("Chương trình đang diễn ra!");
-                } else if (status == 2) {
-                    rllStatusDeal.setBackgroundColor(Color.parseColor("#E9BB00"));
-                    tvStatusDeal.setText("Chương trình sắp diễn ra!");
+                if (data.getPriceAfterPromo() != null) {
+                    mTvNewPrice.setVisibility(View.VISIBLE);
+                    mTvNewPrice.setText(convertPrice(String.valueOf(data.getPriceAfterPromo())) + " đ");
+                } else {
+                    mTvNewPrice.setText("");
+                    mTvNewPrice.setVisibility(View.GONE);
                 }
+            } catch (Exception e) {
+                try {
+                    mTvNewPrice.setVisibility(View.VISIBLE);
+                    mTvNewPrice.setText(data.getPriceAfterPromo() + " đ");
+                } catch (Exception ex) {
+                    mTvNewPrice.setVisibility(View.GONE);
+                    ex.printStackTrace();
+                }
+                e.printStackTrace();
+            }
 
 
+            try {
+                if (data.getPriceBeforePromo() != null) {
+                    mTvOldPrice.setVisibility(View.VISIBLE);
+                    mTvOldPrice.setText(convertPrice(String.valueOf(data.getPriceBeforePromo())) + " đ");
+                } else {
+                    mTvOldPrice.setText("");
+                    mTvOldPrice.setVisibility(View.GONE);
+                }
+            } catch (Exception e) {
+                try {
+                    mTvOldPrice.setVisibility(View.VISIBLE);
+                    mTvOldPrice.setText(data.getPriceBeforePromo() + " đ");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    mTvOldPrice.setVisibility(View.GONE);
+                }
+                e.printStackTrace();
+            }
+
+            try {
+                mTvOldPrice.setPaintFlags(mTvOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                try {
+                    if (data.getDisplayType() != null) {
+                        if (data.getDisplayType() == DiscountDisplayType.PERCENT_TYPE) {
+                            mTvDisCount.setText(data.getValuePromotion().toString() + "%");
+                            mTvDisCount.setVisibility(View.VISIBLE);
+                        } else {
+                            mTvDisCount.setVisibility(View.GONE);
+                        }
+
+                    } else {
+                        mTvDisCount.setVisibility(View.GONE);
+                    }
+                } catch (Exception e) {
+                    mTvDisCount.setVisibility(View.GONE);
+                    e.printStackTrace();
+                }
+                String expirationDate = Utils.CalendarUtils.ConvertMilliSecondsToFormattedDate(dealCampaignDetail.getData().getEndAt());
+                mTvExpirationDate.setText("HSD: " + expirationDate);
+                mProgressCountDown.setProgress(GridDealInDealHomeAdapter.Companion.getPercentProgress(data.getBeginAt(), data.getEndAt()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
+            try {
+                if (data.getStatus() != null) {
+                    int status = dealCampaignDetail.getData().getStatus();
+                    if (status == 0) {
+                        rllStatusDeal.setBackgroundColor(Color.parseColor("#FF0909"));
+                        tvStatusDeal.setText("Chương trình đã kết thúc!");
+                        mProgressCountDown.setProgress(0);
+                        mTvTimeCountDown.setText("Đã hết hạn");
+
+                    } else if (status == 1) {
+                        rllStatusDeal.setBackgroundColor(Color.parseColor("#01B819"));
+                        tvStatusDeal.setText("Chương trình đang diễn ra!");
+                        long timeStamp = data.getEndAt();
+                        long myCurrentTimeMillis = System.currentTimeMillis();
+                        if (myCurrentTimeMillis > timeStamp) {
+                            mTvTimeCountDown.setText("Còn lại 0 ngày");
+                        } else {
+                            long distance = (timeStamp - myCurrentTimeMillis) / 1000;
+
+                            String days = (int) (distance / 86400) + " ngày ";
+                            String hours = String.valueOf((int) ((distance % 86400) / 3600));
+                            String minutes = String.valueOf((int) ((distance % 3600) / 60));
+                            String seconds = String.valueOf((int) ((distance % 3600) % 60));
+
+                            mTvTimeCountDown.setText("Còn lại " + days + hours + ":" + minutes + ":" + seconds);
+
+                        }
+                    } else if (status == 2) {
+                        rllStatusDeal.setBackgroundColor(Color.parseColor("#E9BB00"));
+                        tvStatusDeal.setText("Chương trình sắp diễn ra!");
+                        long timeStamp = data.getBeginAt();
+                        long myCurrentTimeMillis = System.currentTimeMillis();
+                        if (myCurrentTimeMillis > timeStamp) {
+                            mTvTimeCountDown.setText("Bắt đầu sau 0 ngày");
+                        } else {
+                            long distance = (timeStamp - myCurrentTimeMillis) / 1000;
+
+                            String days = (int) (distance / 86400) + " ngày ";
+                            String hours = String.valueOf((int) ((distance % 86400) / 3600));
+                            String minutes = String.valueOf((int) ((distance % 3600) / 60));
+                            String seconds = String.valueOf((int) ((distance % 3600) % 60));
+
+                            mTvTimeCountDown.setText("Bắt đầu sau " + days + hours + ":" + minutes + ":" + seconds);
+                        }
+                    }
+                } else {
+                    mTvTimeCountDown.setText("Đã hết hạn");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            // set time total hold time
+            try {
+                long distance = data.getTotalHoldTime() / 1000;
+                String days = (int) (distance / 86400) + " ngày ";
+                String hours = String.valueOf((int) ((distance % 86400) / 3600));
+                String minutes = String.valueOf((int) ((distance % 3600) / 60));
+                String seconds = String.valueOf((int) ((distance % 3600) % 60));
+                tvTimeHold.setText("Còn lại " + days + hours + ":" + minutes + ":" + seconds);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
