@@ -828,7 +828,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 String hours = String.valueOf((int) ((distance % 86400) / 3600));
                 String minutes = String.valueOf((int) ((distance % 3600) / 60));
                 String seconds = String.valueOf((int) ((distance % 3600) % 60));
-                tvTimeHold.setText("Còn lại " + days + hours + ":" + minutes + ":" + seconds);
+                tvTimeHold.setText(days + hours + ":" + minutes + ":" + seconds);
             } catch (Exception e) {
                 e.printStackTrace();
             }
