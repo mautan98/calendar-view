@@ -18,6 +18,7 @@ import com.namviet.vtvtravel.model.f2booking.DataHelpCenter;
 import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.view.f2.MyGiftActivity;
 import com.namviet.vtvtravel.view.f3.deal.adapter.DealTabStyleAdapter;
+import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealInDealHomeAdapter;
 import com.namviet.vtvtravel.view.f3.deal.event.FinishDeal;
 import com.namviet.vtvtravel.view.f3.deal.model.Block;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealMenuDialog;

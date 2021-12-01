@@ -244,24 +244,28 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
-    private fun getPercentProgress(startTime: Long, endTime: Long): Int {
-        return try {
-            val myCurrentTimeMillis = System.currentTimeMillis()
-            if (myCurrentTimeMillis < startTime) {
-                return 100
-            }
-            if (myCurrentTimeMillis > endTime) {
-                0
-            } else {
-                100 - ((myCurrentTimeMillis - startTime).toDouble() / (endTime - startTime).toDouble() * 100).toInt()
-            }
-        } catch (e: Exception) {
-            50
-        }
-    }
+
 
     public interface OnDataChange{
         fun onDataChange(isShow : Boolean)
+    }
+
+    companion object {
+        fun getPercentProgress(startTime: Long, endTime: Long): Int {
+            return try {
+                val myCurrentTimeMillis = System.currentTimeMillis()
+                if (myCurrentTimeMillis < startTime) {
+                    return 100
+                }
+                if (myCurrentTimeMillis > endTime) {
+                    0
+                } else {
+                    100 - ((myCurrentTimeMillis - startTime).toDouble() / (endTime - startTime).toDouble() * 100).toInt()
+                }
+            } catch (e: Exception) {
+                50
+            }
+        }
     }
 
 }

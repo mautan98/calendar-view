@@ -119,9 +119,9 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         public void bindItem(int position) {
             Content content = dealResponse.getData().getContent().get(position);
-            if(content.getName() != null) {
+            if (content.getName() != null) {
                 tvName.setText(content.getName());
-            }else {
+            } else {
                 tvName.setText("");
             }
             tvUserTotal.setText(getHuntingUserCount(content.getUserHuntingCount()) + "+");
@@ -129,7 +129,7 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    DetailDealActivity.startScreen(context, content.getId().toString(),content.isCampaign());
+                    DetailDealActivity.startScreen(context, content.getId().toString(), content.isCampaign());
                 }
             });
             if (content.getIsProcessing() != null) {
@@ -150,7 +150,7 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         tvDayLeft.setText("Còn lại " + days + hours + ":" + minutes + ":" + seconds);
 
                     }
-                }else if(content.getIsProcessing().equals(IsProcessingType.SAP_DIEN_RA_TYPE)){
+                } else if (content.getIsProcessing().equals(IsProcessingType.SAP_DIEN_RA_TYPE)) {
                     long timeStamp = content.getBeginAt();
                     long myCurrentTimeMillis = System.currentTimeMillis();
                     if (myCurrentTimeMillis > timeStamp) {
@@ -166,10 +166,10 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         tvDayLeft.setText("Bắt đầu sau " + days + hours + ":" + minutes + ":" + seconds);
 
                     }
-                }else {
+                } else {
                     tvDayLeft.setText("Đã hết hạn");
                 }
-            }else {
+            } else {
                 tvDayLeft.setText("Đã hết hạn");
             }
 
@@ -180,9 +180,9 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
 
             try {
-                if(content.getExpireDate() != null) {
+                if (content.getExpireDate() != null) {
                     tvExpiryDate.setText("HSD: " + DateUtltils.timeToString18(content.getExpireDate()));
-                }else {
+                } else {
                     tvExpiryDate.setText("");
                 }
             } catch (Exception e) {
@@ -210,10 +210,10 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
             try {
-                if(content.getPriceAfterPromo() != null) {
+                if (content.getPriceAfterPromo() != null) {
                     tvDisplayPrice.setVisibility(View.VISIBLE);
                     tvDisplayPrice.setText(convertPrice(String.valueOf(content.getPriceAfterPromo())) + " đ");
-                }else {
+                } else {
                     tvDisplayPrice.setText("");
                     tvDisplayPrice.setVisibility(View.GONE);
                 }
@@ -230,10 +230,10 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
             try {
-                if(content.getPriceBeforePromo() != null) {
+                if (content.getPriceBeforePromo() != null) {
                     tvOriginPrice.setVisibility(View.VISIBLE);
                     tvOriginPrice.setText(convertPrice(String.valueOf(content.getPriceBeforePromo())) + " đ");
-                }else {
+                } else {
                     tvOriginPrice.setText("");
                     tvOriginPrice.setVisibility(View.GONE);
                 }
@@ -281,23 +281,23 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    public static String getHuntingUserCount(Integer input){
-        if(input == null || input < 10){
+    public static String getHuntingUserCount(Integer input) {
+        if (input == null) {
             return "0";
+        } else if (input < 10) {
+            return String.valueOf(input);
+        } else if (input < 100) {
+            return "10";
+        } else if (input < 1000) {
+            return "100";
+        } else if (input < 10000) {
+            return "1000";
+        } else if (input < 100000) {
+            return "10000";
+        } else if (input < 1000000) {
+            return "100000";
         } else {
-            if(input < 100){
-                return "10";
-            }else if(input < 1000){
-                return "100";
-            }else if(input < 10000){
-                return "1000";
-            }else if(input < 100000){
-                return "10000";
-            }else if(input < 1000000){
-                return "100000";
-            }else {
-                return "1000000";
-            }
+            return "1000000";
         }
     }
 }
