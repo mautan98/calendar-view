@@ -17,6 +17,7 @@ import org.greenrobot.eventbus.Subscribe
 
 class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
     private var tabAdapter: TabAdapter? = null
+    private var dealHomeFragment: DealHomeFragment? = null
     override fun getLayoutRes(): Int {
         return R.layout.fragment_page_deal_home
     }
@@ -27,7 +28,7 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
             MyGiftFragment()
         tabAdapter?.addFragment(myGiftFragment, "")
 
-        var dealHomeFragment = DealHomeFragment()
+        dealHomeFragment = DealHomeFragment()
         tabAdapter?.addFragment(dealHomeFragment, "")
 
         var dealSubcribeFragment = DealSubcribeFragment()
@@ -67,13 +68,17 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
 
         }
         btnHome.setOnClickListener {
-            vpContent.currentItem = 1
+            if (vpContent.currentItem == 1) {
+                dealHomeFragment?.initView()
+            } else {
+                vpContent.currentItem = 1
 
-            imgMyGift.setImageResource(R.drawable.ic_my_gift_unselected)
-            tvMyGift.setTextColor(Color.parseColor("#707070"))
+                imgMyGift.setImageResource(R.drawable.ic_my_gift_unselected)
+                tvMyGift.setTextColor(Color.parseColor("#707070"))
 
-            imgDealSubscribe.setImageResource(R.drawable.ic_my_subcribe_unselected)
-            tvDealSubscribe.setTextColor(Color.parseColor("#707070"))
+                imgDealSubscribe.setImageResource(R.drawable.ic_my_subcribe_unselected)
+                tvDealSubscribe.setTextColor(Color.parseColor("#707070"))
+            }
         }
 
 //        vpContent.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -117,12 +122,12 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
 
 
     @Subscribe
-    public fun onChangeToCenterTab(changeToCenterTab: ChangeToCenterTab){
+    public fun onChangeToCenterTab(changeToCenterTab: ChangeToCenterTab) {
         vpContent.currentItem = changeToCenterTab.position
     }
 
     @Subscribe
-    public fun onFinish(changeToCenterTab: FinishDeal){
+    public fun onFinish(changeToCenterTab: FinishDeal) {
         mActivity.finish()
     }
 }
