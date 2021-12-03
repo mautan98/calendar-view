@@ -174,7 +174,7 @@ public class OtpF2Fragment extends BaseFragment<F2FragmentOtpBinding> implements
                     getBinding().otpView.showError();
 
                     if(responseError.getErrorCode().equals("USER_OTP_TIMEOUT")){
-                        ((LoginAndRegisterActivityNew)mActivity).showWarning("Mã OTP hết hiệu lực, vui lòng kiểm tra và thao tác lại");
+                        ((LoginAndRegisterActivityNew)mActivity).showWarning("Mã OTP hết hiệu lực, vui lòng nhập lại");
                         getBinding().otpView.showError();
                     }
                 } catch (Exception e) {
