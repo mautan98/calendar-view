@@ -260,16 +260,16 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             rcvTabHeader1.setLayoutManager(gridLayoutManager);
             rcvTabHeader1.setAdapter(mF3Header2Adapter);
             if(dealResponseForBlockContent2 == null){
-                dealViewModel.getDealWithReplaceParam(blocksMenuHeader2.get(0).getLink(), "1");
+                dealViewModel.getDealWithReplaceParam(blocksMenuHeader2.get(0).getLink(), "1",  0);
             }
         }
 
 
         public void getData(){
             if(contentViewHolder2.checkBox.isChecked()){
-                dealViewModel.getDealWithReplaceParam(blocksMenuHeader2.get(positionHeader2).getLink(), "2");
+                dealViewModel.getDealWithReplaceParam(blocksMenuHeader2.get(positionHeader2).getLink(), "2", 0);
             }else {
-                dealViewModel.getDealWithReplaceParam(blocksMenuHeader2.get(positionHeader2).getLink(), "1");
+                dealViewModel.getDealWithReplaceParam(blocksMenuHeader2.get(positionHeader2).getLink(), "1", 0);
             }
         }
 

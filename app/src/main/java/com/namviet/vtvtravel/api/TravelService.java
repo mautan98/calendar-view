@@ -715,7 +715,7 @@ public interface TravelService {
     Observable<DealResponse> getDeal(@Url String url);
 
     @GET
-    Observable<DealResponse> getDealWithParam(@Url String url, @Query("isProcessing") String isProcessing);
+    Observable<DealResponse> getDealWithParam(@Url String url, @Query("isProcessing") String isProcessing, @Query("page") int page);
 
     @GET(WSConfig.Api.DEAL_CAMPAIGN_DETAIL)
     Observable<DealCampaignDetail> getDealCampaignDetail(@Query("id") String id);

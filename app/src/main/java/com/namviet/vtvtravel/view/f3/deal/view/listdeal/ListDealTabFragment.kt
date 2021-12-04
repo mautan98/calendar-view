@@ -20,22 +20,27 @@ import kotlinx.android.synthetic.main.fragment_list_deal_tab.rclContent
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ListDealTabFragment : BaseFragment<FragmentListDealTabBinding?>,  Observer {
-    private var dealViewModel : DealViewModel? = null
-    private var block : Block? = null
-    private var isProcessing : String = "1"
+class ListDealTabFragment : BaseFragment<FragmentListDealTabBinding?>, Observer {
+    private var dealViewModel: DealViewModel? = null
+    private var block: Block? = null
+    private var isProcessing: String = "1"
     private var listDeal = ArrayList<Content>()
-    private var adapter : GridDealInDealHomeAdapter? = null
+    private var adapter: GridDealInDealHomeAdapter? = null
+    private var isLoadMore = false;
+
+    private var page = 0;
 
 
-    public fun setIsProcessing(isProcessing : String){
+    public fun setIsProcessing(isProcessing: String) {
         this.isProcessing = isProcessing
     }
+
     constructor()
 
-    constructor(block: Block?){
+    constructor(block: Block?) {
         this.block = block
     }
+
     override fun getLayoutRes(): Int {
         return R.layout.fragment_list_deal_tab
     }
@@ -43,13 +48,16 @@ class ListDealTabFragment : BaseFragment<FragmentListDealTabBinding?>,  Observer
     override fun initView() {
         dealViewModel = DealViewModel();
         dealViewModel?.addObserver(this)
-        dealViewModel?.getDealWithReplaceParam(block?.link, isProcessing)
+
+        isLoadMore = false;
+        dealViewModel?.getDealWithReplaceParam(block?.link, isProcessing, page)
 
         check.isChecked = isProcessing != IsProcessingType.DANG_DIEN_RA_TYPE
     }
+
     override fun initData() {
         adapter = GridDealInDealHomeAdapter(listDeal)
-        adapter?.setOnDataChangeListener(object : GridDealInDealHomeAdapter.OnDataChange{
+        adapter?.setOnDataChangeListener(object : GridDealInDealHomeAdapter.OnDataChange {
             override fun onDataChange(isShow: Boolean) {
                 if (isShow) {
                     layoutNoData.visibility = View.VISIBLE
@@ -63,11 +71,12 @@ class ListDealTabFragment : BaseFragment<FragmentListDealTabBinding?>,  Observer
         val gridLayoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         rclContent.layoutManager = gridLayoutManager
 
-        rclContent.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+        rclContent.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && !recyclerView.canScrollVertically(1)) {
-
+                    isLoadMore = true;
+                    dealViewModel?.getDealWithReplaceParam(block?.link, isProcessing, page)
                 }
             }
 
@@ -76,6 +85,7 @@ class ListDealTabFragment : BaseFragment<FragmentListDealTabBinding?>,  Observer
             }
         })
     }
+
     override fun inject() {}
     override fun setClickListener() {
         binding!!.check.setOnCheckedChangeListener { _, isChecked ->
@@ -84,17 +94,26 @@ class ListDealTabFragment : BaseFragment<FragmentListDealTabBinding?>,  Observer
             } else {
                 IsProcessingType.DANG_DIEN_RA_TYPE
             }
-            dealViewModel?.getDealWithReplaceParam(block?.link, isProcessing)
+            page = 0;
+            isLoadMore = false;
+            dealViewModel?.getDealWithReplaceParam(block?.link, isProcessing, page)
         }
     }
+
     override fun setObserver() {}
 
     override fun update(observable: Observable?, o: Any?) {
         if (observable is DealViewModel) {
             if (o is DealResponse) {
-                listDeal.clear()
-                listDeal.addAll(o.data.content)
-                adapter?.notifyDataSetChanged()
+                if(isLoadMore){
+                    listDeal.addAll(o.data.content)
+                    adapter?.notifyDataSetChanged()
+                }else {
+                    listDeal.clear()
+                    listDeal.addAll(o.data.content)
+                    adapter?.notifyDataSetChanged()
+                }
+                page += 1
             }
         }
     }
