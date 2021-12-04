@@ -85,7 +85,6 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
     }
 
 
-
     public void setPositionSelected1(int positionSelected1) {
         this.positionHeader1 = positionSelected1;
     }
@@ -108,6 +107,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
     private ContentViewHolder2 contentViewHolder2;
     private HeaderViewHolder2 headerViewHolder2;
+
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
@@ -216,12 +216,12 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                     ArrayList<Block> listBlockResult = new ArrayList<>();
                     ArrayList<Block> blocks = blocksMenuHeader1.get(positionHeader1).getListChildBlock();
                     for (int i = 0; i < blocks.size(); i++) {
-                        if(blocks.get(i).getCode_type().equals("CTKM_RUNNING")){
+                        if (blocks.get(i).getCode_type().equals("CTKM_RUNNING")) {
                             listBlockResult.add(blocks.get(i));
                         }
                     }
                     for (int i = 0; i < blocks.size(); i++) {
-                        if(blocks.get(i).getCode_type().equals("CTKM_UPCOMING")){
+                        if (blocks.get(i).getCode_type().equals("CTKM_UPCOMING")) {
                             listBlockResult.add(blocks.get(i));
                         }
                     }
@@ -259,21 +259,21 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 5);
             rcvTabHeader1.setLayoutManager(gridLayoutManager);
             rcvTabHeader1.setAdapter(mF3Header2Adapter);
-            if(dealResponseForBlockContent2 == null){
-                dealViewModel.getDealWithReplaceParam(blocksMenuHeader2.get(0).getLink(), "1",  0);
+            if (dealResponseForBlockContent2 == null) {
+                dealViewModel.getDealWithReplaceParam(blocksMenuHeader2.get(0).getLink(), "1", 0);
             }
         }
 
 
-        public void getData(){
-            if(contentViewHolder2.checkBox.isChecked()){
+        public void getData() {
+            if (contentViewHolder2.checkBox.isChecked()) {
                 dealViewModel.getDealWithReplaceParam(blocksMenuHeader2.get(positionHeader2).getLink(), "2", 0);
-            }else {
+            } else {
                 dealViewModel.getDealWithReplaceParam(blocksMenuHeader2.get(positionHeader2).getLink(), "1", 0);
             }
         }
 
-        public int getPositionTab(){
+        public int getPositionTab() {
             return positionHeader2;
         }
 
@@ -298,6 +298,8 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         private LinearLayout btnViewMore;
         private ConstraintLayout layoutNote;
         private View btnClose;
+        private View layoutNoData;
+        private View layoutWhite;
 
         public ContentViewHolder2(View itemView) {
             super(itemView);
@@ -307,15 +309,30 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             btnViewMore = itemView.findViewById(R.id.lnl_view_more);
             layoutNote = itemView.findViewById(R.id.layoutNote);
             btnClose = itemView.findViewById(R.id.btnClose);
+            layoutNoData = itemView.findViewById(R.id.layoutNoData);
+            layoutWhite = itemView.findViewById(R.id.layoutWhite);
 
         }
 
         private boolean isCheck = false;
+
         public void bindItem(int position) {
             this.position = position;
-            StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+            StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
             rclContent.setLayoutManager(layoutManager);
-            rclContent.setAdapter(new GridDealInDealHomeAdapter((ArrayList<Content>) dealResponseForBlockContent2.getData().getContent()));
+            GridDealInDealHomeAdapter gridDealInDealHomeAdapter = new GridDealInDealHomeAdapter((ArrayList<Content>) dealResponseForBlockContent2.getData().getContent());
+            gridDealInDealHomeAdapter.setOnDataChangeListener(new GridDealInDealHomeAdapter.OnDataChange() {
+                @Override
+                public void onDataChange(boolean isShow) {
+                    if (isShow) {
+                        layoutNoData.setVisibility(View.VISIBLE);
+                    } else {
+                        layoutNoData.setVisibility(View.GONE);
+                    }
+                }
+            });
+            rclContent.setAdapter(gridDealInDealHomeAdapter);
+
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -328,7 +345,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             btnViewMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ListDealActivity.Companion.startScreen(context, blocksMenuHeader2, headerViewHolder2.getPositionTab(), isCheck? IsProcessingType.SAP_DIEN_RA_TYPE: IsProcessingType.DANG_DIEN_RA_TYPE);
+                    ListDealActivity.Companion.startScreen(context, blocksMenuHeader2, headerViewHolder2.getPositionTab(), isCheck ? IsProcessingType.SAP_DIEN_RA_TYPE : IsProcessingType.DANG_DIEN_RA_TYPE);
                 }
             });
             btnClose.setOnClickListener(new View.OnClickListener() {
@@ -340,11 +357,14 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
         }
 
-        public void showLoading(){
+        public void showLoading() {
+            layoutWhite.setVisibility(View.VISIBLE);
             shimmerFrameLayout.setVisibility(View.VISIBLE);
             rclContent.setVisibility(View.INVISIBLE);
         }
-        public void hideLoading(){
+
+        public void hideLoading() {
+            layoutWhite.setVisibility(View.GONE);
             shimmerFrameLayout.setVisibility(View.GONE);
             rclContent.setVisibility(View.VISIBLE);
         }
@@ -386,7 +406,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                 //Lấy position của tab dang dien ra
                 int runningPosition = 0;
                 for (int i = 0; i < blocksMenuHeader1.get(positionHeader1).getListChildBlock().size(); i++) {
-                    if(blocksMenuHeader1.get(positionHeader1).getListChildBlock().get(i).getCode_type().equals("CTKM_RUNNING")){
+                    if (blocksMenuHeader1.get(positionHeader1).getListChildBlock().get(i).getCode_type().equals("CTKM_RUNNING")) {
                         runningPosition = i;
                         break;
                     }
@@ -439,12 +459,12 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                     ArrayList<Block> listBlockResult = new ArrayList<>();
                     ArrayList<Block> blocks = blocksMenuHeader1.get(positionHeader1).getListChildBlock();
                     for (int i = 0; i < blocks.size(); i++) {
-                        if(blocks.get(i).getCode_type().equals("CTKM_RUNNING")){
+                        if (blocks.get(i).getCode_type().equals("CTKM_RUNNING")) {
                             listBlockResult.add(blocks.get(i));
                         }
                     }
                     for (int i = 0; i < blocks.size(); i++) {
-                        if(blocks.get(i).getCode_type().equals("CTKM_UPCOMING")){
+                        if (blocks.get(i).getCode_type().equals("CTKM_UPCOMING")) {
                             listBlockResult.add(blocks.get(i));
                         }
                     }

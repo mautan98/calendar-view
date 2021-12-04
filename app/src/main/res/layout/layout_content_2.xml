@@ -118,6 +118,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <View
+            android:id="@+id/layoutWhite"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/shimmer_view_container"
+            app:layout_constraintTop_toTopOf="@+id/shimmer_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+
         <com.facebook.shimmer.ShimmerFrameLayout
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
