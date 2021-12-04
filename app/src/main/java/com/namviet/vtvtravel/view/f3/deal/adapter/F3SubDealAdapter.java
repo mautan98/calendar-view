@@ -124,7 +124,7 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             } else {
                 tvName.setText("");
             }
-            tvUserTotal.setText(getHuntingUserCount(content.getUserHuntingCount()) + "+");
+            tvUserTotal.setText(getHuntingUserCount(content.getUserHuntingCount()));
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -287,17 +287,17 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else if (input < 10) {
             return String.valueOf(input);
         } else if (input < 100) {
-            return "10";
+            return "10+";
         } else if (input < 1000) {
-            return "100";
+            return "100+";
         } else if (input < 10000) {
-            return "1000";
+            return "1000+";
         } else if (input < 100000) {
-            return "10000";
+            return "10000+";
         } else if (input < 1000000) {
-            return "100000";
+            return "100000+";
         } else {
-            return "1000000";
+            return "1000000+";
         }
     }
 }

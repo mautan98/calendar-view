@@ -96,7 +96,7 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
 
             itemView.tvUserTotal.text =
-                F3SubDealAdapter.getHuntingUserCount(content.userHuntingCount) + "+"
+                F3SubDealAdapter.getHuntingUserCount(content.userHuntingCount)
 
             if (content.isCampaign) {
                 itemView.tvTotalMustHaveChild.visibility = View.VISIBLE
