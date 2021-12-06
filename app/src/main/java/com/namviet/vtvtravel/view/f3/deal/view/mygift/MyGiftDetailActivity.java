@@ -20,6 +20,7 @@ public class MyGiftDetailActivity extends BaseActivityNew<ActivityMyGiftDetailBi
     public static class Type{
         public static String CARD_TYPE = "CARD_TYPE";
         public static String VOUCHER_TYPE = "VOUCHER_TYPE";
+        public static String DATA_CODE_TYPE = "DATA_CODE_TYPE";
     }
 
     @Override
@@ -58,7 +59,9 @@ public class MyGiftDetailActivity extends BaseActivityNew<ActivityMyGiftDetailBi
     public BaseFragment initFragment() {
         if(type.equals( Type.CARD_TYPE)){
             return new CardDetailFragment();
-        }else {
+        }else if(type.equals( Type.DATA_CODE_TYPE)){
+            return new DataCodeDetailFragment();
+        } else  {
             return new VoucherDetailFragment();
         }
 
