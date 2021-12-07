@@ -148,7 +148,6 @@
                                     android:id="@+id/tvDiscount"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
                                     android:fontFamily="@font/roboto_regular"
                                     android:gravity="center"
                                     android:text="-0%"

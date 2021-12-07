@@ -123,7 +123,11 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
 
     @Subscribe
     public fun onChangeToCenterTab(changeToCenterTab: ChangeToCenterTab) {
-        vpContent.currentItem = changeToCenterTab.position
+        if(changeToCenterTab.position == 1){
+            btnHome.performClick();
+        }else if(changeToCenterTab.position == 2){
+            btnDealSubcribe.performClick()
+        }
     }
 
     @Subscribe
