@@ -358,6 +358,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         }
 
         public void showLoading() {
+            layoutNoData.setVisibility(View.VISIBLE);
             layoutWhite.setVisibility(View.VISIBLE);
             shimmerFrameLayout.setVisibility(View.VISIBLE);
             rclContent.setVisibility(View.INVISIBLE);
