@@ -380,6 +380,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         private CircleIndicator indicator;
         private ViewPager mPagerSlide;
         private View btnSeeMore;
+        private View layoutNoData;
 
 
         public ContentViewHolder1(View itemView) {
@@ -391,6 +392,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             mPagerSlide = itemView.findViewById(R.id.vp_cache);
             btnSeeMore = itemView.findViewById(R.id.btnSeeMore);
             mShimmerFrameLayout = itemView.findViewById(R.id.shimmer_view_container);
+            layoutNoData = itemView.findViewById(R.id.layoutNoData);
 
 
         }
@@ -482,10 +484,25 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    rclContent.setAdapter(new F3SubDealAdapter(context, blocksMenuHeader1.get(0).getDealResponse(), null));
-                    mShimmerFrameLayout.stopShimmer();
-                    mShimmerFrameLayout.setVisibility(View.GONE);
-                    rclContent.setVisibility(View.VISIBLE);
+                    try {
+                        rclContent.setAdapter(new F3SubDealAdapter(context, blocksMenuHeader1.get(0).getDealResponse(), null));
+                        mShimmerFrameLayout.stopShimmer();
+                        mShimmerFrameLayout.setVisibility(View.GONE);
+                        rclContent.setVisibility(View.VISIBLE);
+
+                        try {
+                            if(blocksMenuHeader1.get(0).getDealResponse().getData().getContent().size() > 0){
+                                layoutNoData.setVisibility(View.GONE);
+                            }else {
+                                layoutNoData.setVisibility(View.VISIBLE);
+                            }
+                        } catch (Exception e) {
+                            layoutNoData.setVisibility(View.VISIBLE);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 }
             }, 300);
         }
