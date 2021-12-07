@@ -32,6 +32,7 @@ import java.util.ArrayList;
 public class ListHotDealFragment extends BaseFragment<FragmentListHotDealBinding> {
     private ArrayList<Block> listBlock = new ArrayList<>();
     private DealTabStyleAdapter mainAdapter;
+    private int positionClick = 0;
 
     @Override
     public int getLayoutRes() {
@@ -72,6 +73,7 @@ public class ListHotDealFragment extends BaseFragment<FragmentListHotDealBinding
         }
         getBinding().tabLayout.addOnTabSelectedListener(OnTabSelectedListener);
         getBinding().vpContent.setOffscreenPageLimit(4);
+        getBinding().vpContent.setCurrentItem(positionClick);
 
         setTitleText();
     }
@@ -153,8 +155,9 @@ public class ListHotDealFragment extends BaseFragment<FragmentListHotDealBinding
         }
     };
 
-    public void setListBlock(ArrayList<Block> listBlock) {
+    public void setData(ArrayList<Block> listBlock, int positionClick) {
         this.listBlock = listBlock;
+        this.positionClick = positionClick;
     }
 
     public void setOnSelectView(TabLayout tabLayout, int position) {

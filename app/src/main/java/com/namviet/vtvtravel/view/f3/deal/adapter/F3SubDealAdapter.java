@@ -255,7 +255,7 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             try {
                 if (content.getDisplayType() != null) {
                     if (content.getDisplayType() == DiscountDisplayType.PERCENT_TYPE) {
-                        tvDiscount.setText(content.getValuePromotion().toString() + "%");
+                        tvDiscount.setText("-"+content.getValuePromotion().toString() + "%");
                         tvDiscount.setVisibility(View.VISIBLE);
                     } else {
                         tvDiscount.setVisibility(View.GONE);

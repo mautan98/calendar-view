@@ -137,6 +137,13 @@
                                     android:textColor="#999999"
                                     android:textSize="10dp" />
 
+                                <View
+                                    android:layout_marginStart="12dp"
+                                    android:layout_marginEnd="2.5dp"
+                                    android:background="#DDDDDD"
+                                    android:layout_width="0.5dp"
+                                    android:layout_height="match_parent"/>
+
                                 <TextView
                                     android:id="@+id/tvDiscount"
                                     android:layout_width="wrap_content"
@@ -189,7 +196,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="10dp"
                         android:layout_weight="2"
                         android:orientation="vertical">
 

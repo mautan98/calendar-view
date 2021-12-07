@@ -108,6 +108,8 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
     private ContentViewHolder2 contentViewHolder2;
     private HeaderViewHolder2 headerViewHolder2;
 
+    private ContentViewHolder1 contentViewHolder1;
+
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
@@ -117,7 +119,8 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             return new HeaderViewHolder1(view);
         } else if (viewType == TYPE_CONTENT_1) {
             view = from(parent.getContext()).inflate(R.layout.layout_content_1, parent, false);
-            return new ContentViewHolder1(view);
+            contentViewHolder1 = new ContentViewHolder1(view);
+            return contentViewHolder1;
         }
         if (viewType == TYPE_HEADER_2) {
             view = from(parent.getContext()).inflate(R.layout.layout_header_2, parent, false);
@@ -225,7 +228,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                             listBlockResult.add(blocks.get(i));
                         }
                     }
-                    ListHotDealActivity.Companion.startScreen(context, listBlockResult);
+                    ListHotDealActivity.Companion.startScreen(context, listBlockResult, contentViewHolder1.getPositionClick());
                 }
             });
         }
@@ -382,6 +385,12 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         private View btnSeeMore;
         private View layoutNoData;
 
+        private int positionClick = 0;
+
+        public int getPositionClick(){
+            return positionClick;
+        }
+
 
         public ContentViewHolder1(View itemView) {
             super(itemView);
@@ -426,6 +435,8 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                     mShimmerFrameLayout.startShimmer();
                     dealHomeChildFragment.setmIOnClickTabReloadData(ContentViewHolder1.this);
                     mILoadDataDeal.onLoadDataDeal(blocks.get(positionClick).getLink());
+
+                    ContentViewHolder1.this.positionClick = positionClick;
                 }
             }, false);
             rclTab.setAdapter(f3TabDealAdapter);
@@ -471,7 +482,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                             listBlockResult.add(blocks.get(i));
                         }
                     }
-                    ListHotDealActivity.Companion.startScreen(context, listBlockResult);
+                    ListHotDealActivity.Companion.startScreen(context, listBlockResult, positionClick);
 
                 }
             });

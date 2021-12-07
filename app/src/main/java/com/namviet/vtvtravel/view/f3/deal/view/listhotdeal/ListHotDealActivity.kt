@@ -11,10 +11,10 @@ import com.namviet.vtvtravel.databinding.ActivityListDealBinding
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.view.f3.deal.model.Block
-import com.namviet.vtvtravel.view.f3.deal.view.listdeal.ListDealFragment
 
 class ListHotDealActivity : BaseActivityNew<ActivityListDealBinding?>() {
     private var listBlock = ArrayList<Block>()
+    private var positionClick = 0;
     override fun getLayoutRes(): Int {
         return R.layout.activity_list_deal
     }
@@ -25,11 +25,12 @@ class ListHotDealActivity : BaseActivityNew<ActivityListDealBinding?>() {
 
     override fun getDataFromIntent() {
         listBlock = intent.getSerializableExtra(Constants.IntentKey.DATA) as ArrayList<Block>
+        positionClick = intent.getIntExtra("position", 0)
     }
     override fun setClick() {}
     override fun initFragment(): BaseFragment<*> {
         var listHotDealFragment = ListHotDealFragment();
-        listHotDealFragment.setListBlock(listBlock)
+        listHotDealFragment.setData(listBlock, positionClick)
         return listHotDealFragment
     }
 
@@ -41,9 +42,10 @@ class ListHotDealActivity : BaseActivityNew<ActivityListDealBinding?>() {
     }
 
     companion object {
-        fun startScreen(activity: Context, listBlock: ArrayList<Block>?) {
+        fun startScreen(activity: Context, listBlock: ArrayList<Block>?, position : Int) {
             val intent = Intent(activity, ListHotDealActivity::class.java)
             intent.putExtra(Constants.IntentKey.DATA, listBlock);
+            intent.putExtra("position", position);
             activity.startActivity(intent)
         }
     }
