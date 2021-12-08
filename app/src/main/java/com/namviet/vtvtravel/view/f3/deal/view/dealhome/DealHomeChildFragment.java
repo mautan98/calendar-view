@@ -104,7 +104,7 @@ public class DealHomeChildFragment extends BaseFragment<FragmentDealHomeChildBin
         adapter.setILoadDataDeal(new RecyclerAdapter.ILoadDataDeal() {
             @Override
             public void onLoadDataDeal(String url) {
-                mDealViewModel.getDeal(url);
+                mDealViewModel.getHotDealWithReplaceParam(url, 0);
             }
         });
         adapter.setiOnTabHotClick(this);

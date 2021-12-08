@@ -20,6 +20,10 @@ import kotlin.collections.ArrayList
 class ListHotDealTabFragment : BaseFragment<FragmentListDealTabBinding?>, Observer {
     private var dealViewModel : DealViewModel? = null
     private var block : Block? = null
+    private var listDeal = ArrayList<Content>()
+    private var adapter: GridDealInDealHomeAdapter? = null
+    private var isLoadMore = false;
+    private var page = 0;
     constructor()
 
     constructor(block: Block?){
@@ -32,10 +36,44 @@ class ListHotDealTabFragment : BaseFragment<FragmentListDealTabBinding?>, Observ
     override fun initView() {
         dealViewModel = DealViewModel();
         dealViewModel?.addObserver(this)
-        dealViewModel?.getDeal(block?.link)
+
+        isLoadMore = false;
+        dealViewModel?.getHotDealWithReplaceParam(block?.link, page)
     }
     override fun initData() {
         layoutCheckbox.visibility = View.GONE
+
+
+
+        adapter = GridDealInDealHomeAdapter(listDeal)
+        adapter?.setOnDataChangeListener(object : GridDealInDealHomeAdapter.OnDataChange{
+            override fun onDataChange(isShow: Boolean) {
+                if (isShow) {
+                    layoutNoData.visibility = View.VISIBLE
+                } else {
+                    layoutNoData.visibility = View.GONE
+                }
+            }
+
+        })
+        rclContent.adapter = adapter
+        val gridLayoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
+        rclContent.layoutManager = gridLayoutManager
+
+
+        rclContent.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && !recyclerView.canScrollVertically(1)) {
+                    isLoadMore = true;
+                    dealViewModel?.getHotDealWithReplaceParam(block?.link, page)
+                }
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+            }
+        })
     }
     override fun inject() {}
     override fun setClickListener() {
@@ -45,20 +83,15 @@ class ListHotDealTabFragment : BaseFragment<FragmentListDealTabBinding?>, Observ
     override fun update(observable: Observable?, o: Any?) {
         if (observable is DealViewModel) {
             if (o is DealResponse) {
-                var adapter = GridDealInDealHomeAdapter(o.data.content as ArrayList<Content>?)
-                adapter.setOnDataChangeListener(object : GridDealInDealHomeAdapter.OnDataChange{
-                    override fun onDataChange(isShow: Boolean) {
-                        if (isShow) {
-                            layoutNoData.visibility = View.VISIBLE
-                        } else {
-                            layoutNoData.visibility = View.GONE
-                        }
-                    }
-
-                })
-                rclContent.adapter = adapter
-                val gridLayoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
-                rclContent.layoutManager = gridLayoutManager
+                if(isLoadMore){
+                    listDeal.addAll(o.data.content)
+                    adapter?.notifyDataSetChanged()
+                }else {
+                    listDeal.clear()
+                    listDeal.addAll(o.data.content)
+                    adapter?.notifyDataSetChanged()
+                }
+                page += 1
             }
         }
     }
