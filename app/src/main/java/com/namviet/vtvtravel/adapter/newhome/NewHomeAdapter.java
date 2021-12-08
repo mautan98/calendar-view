@@ -623,6 +623,8 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private RecyclerView rclTab;
         private DealViewModel dealViewModel;
         private DealResponse dealResponse;
+        private View layoutNoData;
+        private View viewWhite;
 
         public DealViewHolder(View itemView) {
             super(itemView);
@@ -635,6 +637,8 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             shimmer = itemView.findViewById(R.id.shimmer_view_container);
+            layoutNoData = itemView.findViewById(R.id.layoutNoData);
+            viewWhite = itemView.findViewById(R.id.viewWhite);
 
             try {
                 SnapHelper helper = new LinearSnapHelper();
@@ -679,6 +683,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             f3TabDealAdapter = new F3TabDealInHomeAdapter(0,  (ArrayList<Item>) ItemGenerator.demoTabDealList(), context, new F3TabDealInHomeAdapter.ClickTab() {
                 @Override
                 public void onClickTab(int positionClick) {
+                    viewWhite.setVisibility(View.VISIBLE);
                     shimmer.setVisibility(View.VISIBLE);
                     dealResponse = null;
                     f3SubDealAdapter = new F3SubDealAdapter(context, dealResponse, viewModel);
@@ -707,6 +712,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             rclTab.setAdapter(f3TabDealAdapter);
 
             if (dealResponse == null) {
+                viewWhite.setVisibility(View.VISIBLE);
                 shimmer.setVisibility(View.VISIBLE);
                 dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/home?page=0&size=5");
             }
@@ -721,12 +727,28 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         @Override
         public void update(Observable observable, Object o) {
+            viewWhite.setVisibility(View.GONE);
             shimmer.setVisibility(View.GONE);
+            layoutNoData.setVisibility(View.VISIBLE);
             if (observable instanceof DealViewModel) {
                 if (o instanceof DealResponse) {
-                    dealResponse = (DealResponse) o;
-                    f3SubDealAdapter = new F3SubDealAdapter(context, dealResponse, viewModel);
-                    rclContent.setAdapter(f3SubDealAdapter);
+                    try {
+                        dealResponse = (DealResponse) o;
+                        f3SubDealAdapter = new F3SubDealAdapter(context, dealResponse, viewModel);
+                        rclContent.setAdapter(f3SubDealAdapter);
+
+                        try {
+                            if(dealResponse.getData().getContent().size() > 0){
+                                layoutNoData.setVisibility(View.GONE);
+                            }else {
+                                layoutNoData.setVisibility(View.VISIBLE);
+                            }
+                        } catch (Exception e) {
+                            layoutNoData.setVisibility(View.VISIBLE);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
