@@ -389,7 +389,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Ở đâu\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=10&categoryCode=0.1.2&isHighlight=0&\",\n" +
+            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=10&categoryCode=0.1.2&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -525,7 +525,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"DangDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&page=0&isProcessing=1&category=0.1.4&isHighlight=0\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&page=0&isProcessing=1&categoryCode=0.1.4&isHighlight=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -540,7 +540,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"SapDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&page=0&isProcessing=2&category=0.1.4&isHighlight=0\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&page=0&isProcessing=2&categoryCode=0.1.4&isHighlight=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -571,7 +571,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"SapDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&page=0&isProcessing=2&category=0.1.1&isHighlight=0\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&page=0&isProcessing=2&categoryCode=0.1.1&isHighlight=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -586,7 +586,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"DangDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&page=0&isProcessing=1&category=0.1.1&isHighlight=0\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&page=0&isProcessing=1&categoryCode=0.1.1&isHighlight=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -647,7 +647,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"DangDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&page=0&isProcessing=1&category=0.1.2&isHighlight=0\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&page=0&isProcessing=1&categoryCode=0.1.2&isHighlight=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -662,7 +662,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"SapDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&page=0&isProcessing=2&category=0.1.2&isHighlight=0\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&page=0&isProcessing=2&categoryCode=0.1.2&isHighlight=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -693,7 +693,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"SapDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&page=0&isProcessing=2&category=0.1.3&isHighlight=0\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&page=0&isProcessing=2&categoryCode=0.1.3&isHighlight=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -708,7 +708,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"DangDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&page=0&isProcessing=1&category=0.1.3&isHighlight=0\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&page=0&isProcessing=1&categoryCode=0.1.3&isHighlight=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -754,7 +754,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"SapDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&page=0&isProcessing=2&category=0.1.5&isHighlight=0\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&page=0&isProcessing=2&categoryCode=0.1.5&isHighlight=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -769,7 +769,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"DangDienRa\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&page=0&isProcessing=1&category=0.1.5&isHighlight=0\",\n" +
+            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&page=0&isProcessing=1&categoryCode=0.1.5&isHighlight=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -817,7 +817,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Ăn gì\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=10&category=0.1.3&isHighlight=0\",\n" +
+            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=10&categoryCode=0.1.3&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -832,7 +832,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Chơi gì\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=10&category=0.1.4&isHighlight=0\",\n" +
+            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=10&categoryCode=0.1.4&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -847,7 +847,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"ĐI đâu\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=10&category=0.1.1&isHighlight=0\",\n" +
+            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=10&categoryCode=0.1.1&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -862,7 +862,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Ở đâu\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=10&category=0.1.2&isHighlight=0\",\n" +
+            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=10&categoryCode=0.1.2&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -877,7 +877,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Khác\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=10&category=0.1.5&isHighlight=0\",\n" +
+            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=10&categoryCode=0.1.5&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
