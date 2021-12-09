@@ -53,7 +53,6 @@ public class DealHomeChildFragment extends BaseFragment<FragmentDealHomeChildBin
         this.mIOnClickTabReloadData = mIOnClickTabReloadData;
     }
 
-    private String urlDeal = "https://core-testing.vtvtravel.vn/api/v1/deals/home?size=1&page=0";
 
     public DealHomeChildFragment() {
     }
