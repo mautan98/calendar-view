@@ -104,9 +104,9 @@ public class SubRankingItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 }else {
                     mTvNo.setText(String.valueOf(position+1));
                 }
-                String phoneNumSercurity = rank.getMobile().substring(rank.getMobile().lastIndexOf(rank.getMobile().length(),rank.getMobile().length()-3));
+                String phoneNumSercurity = rank.getMobile().substring(0,rank.getMobile().length()-3);
                 mTvPhoneNumber.setText(phoneNumSercurity+"xxx");
-                String timeHold = Utils.CalendarUtils.getTimeHold(rank.getHoldTime());
+                String timeHold = Utils.CalendarUtils.ConvertMilliSecondsToHH(rank.getHoldTime());
                 mTvTimeKeep.setText(timeHold);
             } catch (Exception e) {
                 e.printStackTrace();

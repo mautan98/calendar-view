@@ -29,6 +29,7 @@ import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealSubcribeFragment;
 import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel;
 import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
 import com.namviet.vtvtravel.viewmodel.f2travelnews.DetailNewsTravelViewModel;
+import com.ornach.richtext.RichText;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -47,6 +48,7 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
     private DealViewModel mDealViewModel;
     private String urlTab = "https://core-testing.vtvtravel.vn/api/v1/deals/byCampaigns?campaignId=105&isProcessing=0";
     private DealCampaignDetail dealCampaignDetail;
+    private RichText tvMyGif;
     public DealItemDetailFragment() {
         // Required empty public constructor
     }
@@ -97,6 +99,12 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
                 } else {
                     getBinding().tvTitle.setVisibility(View.GONE);
                 }
+            }
+        });
+        getBinding().tvMyGift.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mActivity, "Quà Của tôi!", Toast.LENGTH_SHORT).show();
             }
         });
 

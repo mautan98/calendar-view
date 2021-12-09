@@ -56,6 +56,14 @@ public class Utils {
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(milliSeconds);
             return simpleDateFormat.format(calendar.getTime());
+
+        }
+        public static String ConvertMilliSecondsToHH(Long milliSeconds) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(milliSeconds);
+            String dateFormat = "HH:mm:ss";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
+            return simpleDateFormat.format(calendar.getTime());
         }
 
         public static String getDayLeft(long timeStamp) {

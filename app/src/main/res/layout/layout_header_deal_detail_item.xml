@@ -142,44 +142,6 @@
                     android:textSize="13dp"
                     android:textStyle="bold" />
 
-                <com.ornach.richtext.RichView
-                    android:id="@+id/rll_my_gift"
-                    android:layout_width="155dp"
-                    android:layout_height="35dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="-10dp"
-                   >
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <com.ornach.richtext.RichText
-                            app:rt_backgroundColor="#42FFC73B"
-                            app:rt_radius="20dp"
-                            android:id="@+id/tv_my_gift"
-                            android:layout_width="wrap_content"
-                            android:layout_height="28dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentBottom="true"
-                            android:gravity="center"
-                            android:paddingLeft="40dp"
-                            android:paddingRight="20dp"
-                            android:text="Đến Quà của tôi"
-                            android:textColor="#C19730"
-                            android:textSize="11dp" />
-
-                        <ImageView
-
-                            android:layout_width="22dp"
-                            android:layout_height="22dp"
-                            android:layout_marginLeft="20dp"
-                            android:src="@drawable/giftbox" />
-                    </RelativeLayout>
-
-                </com.ornach.richtext.RichView>
-
             </RelativeLayout>
 
 

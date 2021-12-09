@@ -35,6 +35,7 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.travelnews.CommentInDetailTravelNewsAdapter;
 import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.view.f3.deal.Utils;
+import com.namviet.vtvtravel.view.f3.deal.adapter.F3SubDealAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealInDealHomeAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe.DealFilterAdapter;
@@ -496,7 +497,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         mBtnCollapse.setText("Ẩn bớt");
                         isCollapse = true;
                     } else {
-                        params.height = com.brucetoo.videoplayer.utils.Utils.dp2px(mContext, 150);
+                        params.height = com.brucetoo.videoplayer.utils.Utils.dp2px(mContext, 120);
                         webView.setLayoutParams(params);
                         mBtnCollapse.setText("Xem thêm");
                         isCollapse = false;
@@ -626,10 +627,11 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         }
 
+
         public void bindItem(int position) {
             try {
                 mTvCode.setText(dealCampaignDetail.getData().getCode());
-                mHuntingCount.setText(String.format("%d+", dealCampaignDetail.getData().getUserHuntingCount()));
+                mHuntingCount.setText(F3SubDealAdapter.getHuntingUserCount(dealCampaignDetail.getData().getUserHuntingCount()));
                 int status = dealCampaignDetail.getData().getStatus();
                 if (dealCampaignDetail.getData().getPromptRank() == 0) {
                     mTvRank.setText("Bạn chưa tích lũy");

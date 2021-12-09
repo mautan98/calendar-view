@@ -93,7 +93,7 @@
         <WebView
             android:id="@+id/web_view"
             android:layout_width="match_parent"
-            android:layout_height="150dp"/>
+            android:layout_height="120dp"/>
         <Button
             android:layout_below="@+id/web_view"
             android:layout_marginTop="15dp"
@@ -101,7 +101,7 @@
             android:textColor="#676767"
             android:text="Xem thêm"
             android:background="@drawable/bg_button_chat6"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="22dp"
             android:layout_centerHorizontal="true"
             android:id="@+id/btn_collapse"
             android:layout_width="250dp"
