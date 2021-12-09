@@ -143,6 +143,7 @@
 
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/layoutChecked"
                 android:gravity="center_vertical"
                 android:layout_marginStart="21dp"

@@ -20,9 +20,6 @@ public class DealFollow {
     @SerializedName("rewardStatus")
     private String rewardStatus;
     @Expose
-    @SerializedName("isWin")
-    private String isWin;
-    @Expose
     @SerializedName("isProcessing")
     private String isProcessing;
     @Expose
@@ -63,13 +60,6 @@ public class DealFollow {
         this.rewardStatus = rewardStatus;
     }
 
-    public String getIsWin() {
-        return isWin;
-    }
-
-    public void setIsWin(String isWin) {
-        this.isWin = isWin;
-    }
 
     public String getIsProcessing() {
         return isProcessing;
