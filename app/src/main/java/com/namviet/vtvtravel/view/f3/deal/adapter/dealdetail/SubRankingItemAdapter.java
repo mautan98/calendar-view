@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.app.MyApplication;
+import com.namviet.vtvtravel.model.Account;
+import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f3.deal.Utils;
 import com.namviet.vtvtravel.view.f3.deal.model.Rank;
 import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
@@ -62,7 +65,11 @@ public class SubRankingItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public int getItemCount() {
-        return itemList != null ? itemList.getData().getDealCampaignScores().size() : 0;
+        try {
+            return itemList.getData().getDealCampaignScores() != null ? itemList.getData().getDealCampaignScores().size() : 0;
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
 
@@ -108,9 +115,17 @@ public class SubRankingItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 mTvPhoneNumber.setText(phoneNumSercurity+"xxx");
                 String timeHold = Utils.CalendarUtils.ConvertMilliSecondsToHH(rank.getHoldTime());
                 mTvTimeKeep.setText(timeHold);
+                Account account = MyApplication.getInstance().getAccount();
+                if (null != account && account.isLogin()) {
+                    if(account.getMobile().equals(rank.getMobile())){
+                        mTvPhoneNumber.setTextColor(Color.parseColor("#FF0000"));
+                        mTvTimeKeep.setTextColor(Color.parseColor("#FF0000"));
+                    }
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
         }
 
 

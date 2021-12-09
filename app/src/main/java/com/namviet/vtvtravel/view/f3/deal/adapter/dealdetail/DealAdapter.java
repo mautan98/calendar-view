@@ -524,7 +524,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private LinearLayout mLnlRankContent;
         private RecyclerView mRcvRankItem;
         private SubRankingItemAdapter adapter;
-
+        private TextView tvEmptyRank;
         public RankingViewHolder(View itemView) {
             super(itemView);
             initView(itemView);
@@ -537,6 +537,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mRcvRankItem = (RecyclerView) itemView.findViewById(R.id.rcv_rank_item);
             adapter = new SubRankingItemAdapter(mContext, dealCampaignDetail);
             mRcvRankItem.setAdapter(adapter);
+            tvEmptyRank = itemView.findViewById(R.id.tv_empty_rank);
         }
 
         public void bindItem(int position) {
@@ -552,6 +553,14 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                 }
             });
+            try {
+                if(dealCampaignDetail.getData().getDealCampaignScores().size() >0){
+                    tvEmptyRank.setVisibility(View.GONE);
+                }
+                else tvEmptyRank.setVisibility(View.VISIBLE);
+            } catch (Exception e) {
+                tvEmptyRank.setVisibility(View.VISIBLE);
+            }
         }
     }
 
