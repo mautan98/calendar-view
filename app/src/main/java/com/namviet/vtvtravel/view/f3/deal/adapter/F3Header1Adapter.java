@@ -87,7 +87,6 @@ public class F3Header1Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
-        private View imgSelected;
         private View viewIndicator;
         private TextView tvTitle;
         private int position;
@@ -96,7 +95,6 @@ public class F3Header1Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             super(itemView);
 
             tvTitle = itemView.findViewById(R.id.tv_title);
-            imgSelected = itemView.findViewById(R.id.v_selected);
             viewIndicator = itemView.findViewById(R.id.v_indicator);
 
             itemView.setOnClickListener(new View.OnClickListener() {

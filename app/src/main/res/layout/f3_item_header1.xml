@@ -1,43 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:minWidth="60dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginRight="12dp"
-    android:paddingTop="5dp"
-    android:layout_height="wrap_content">
-    <LinearLayout
-        android:gravity="bottom|center"
-        android:minWidth="60dp"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <ImageView
-            android:visibility="invisible"
-            android:layout_gravity="right"
-            android:layout_above="@+id/tv_title"
-            android:layout_alignRight="@+id/tv_title"
-            android:src="@drawable/f3_ic_notifi_header1"
-            android:id="@+id/v_selected"
-            android:layout_width="9dp"
-            android:layout_height="9dp"/>
-        <TextView
-            android:fontFamily="@font/roboto_medium"
-            android:id="@+id/tv_title"
-            android:text="Đi đâu"
-            android:textColor="#7A7A7A"
-            android:textSize="14dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+    android:paddingEnd="12dp"
+    android:paddingStart="12dp"
+    android:paddingTop="14dp">
 
-    </LinearLayout>
+    <TextView
+        android:gravity="center"
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_regular"
+        android:text="Đi đâu"
+        android:textColor="#7A7A7A"
+        android:textSize="14dp" />
+
 
     <View
-        android:layout_marginTop="14dp"
         android:id="@+id/v_indicator"
-        android:layout_alignParentBottom="true"
-        android:background="#FF2929"
-        android:layout_width="60dp"
-        android:layout_height="1dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="14dp"
+        android:background="#FF2929" />
 </LinearLayout>
