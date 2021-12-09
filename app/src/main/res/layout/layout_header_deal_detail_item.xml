@@ -172,36 +172,54 @@
                 android:layout_marginTop="14dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp">
-
-                <ProgressBar
-                    android:id="@+id/progress_count_down"
-                    style="?android:attr/progressBarStyleHorizontal"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="15dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerVertical="true"
-                    android:progress="0"
-                    android:progressDrawable="@drawable/f2_rounded_corners_progress_bar_time_left" />
-
-
-                <TextView
-                    android:id="@+id/tv_time_count_down"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/img_win"
+                        android:visibility="gone"
+                        app:layout_constraintDimensionRatio="1069:60"
+                        android:src="@drawable/progress_win"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        tools:ignore="MissingConstraints" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <RelativeLayout
+                    android:id="@+id/rll_progress"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:fontFamily="@font/roboto_regular"
-                    android:gravity="center"
-                    tools:text="còn lại 4 ngay 22:14:22"
-                    android:textAllCaps="true"
-                    android:textColor="@color/white"
-                    android:textSize="10dp"
-                    android:visibility="visible" />
+                    android:layout_height="match_parent">
+                    <ProgressBar
+                        android:id="@+id/progress_count_down"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerVertical="true"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/f2_rounded_corners_progress_bar_time_left" />
 
-                <ImageView
-                    android:layout_width="17dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentBottom="true"
-                    android:src="@drawable/ic_hot_deal" />
+
+                    <TextView
+                        android:id="@+id/tv_time_count_down"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center"
+                        tools:text="còn lại 4 ngay 22:14:22"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="10dp"
+                        android:visibility="visible" />
+
+                    <ImageView
+                        android:id="@+id/img_progress"
+                        android:layout_width="17dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentBottom="true"
+                        android:src="@drawable/ic_hot_deal" />
+                </RelativeLayout>
+
 
             </RelativeLayout>
 

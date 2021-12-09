@@ -9,6 +9,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class Data {
 
+
+    @SerializedName("isProcessing")
+    @Expose
+    private String isProcessing;
+
+    public String getIsProcessing() {
+        return isProcessing;
+    }
+
+    public void setIsProcessing(String isProcessing) {
+        this.isProcessing = isProcessing;
+    }
+
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -125,7 +138,7 @@ public class Data {
     private Boolean isUserHunting;
     @SerializedName("ranking")
     @Expose
-    private Object ranking;
+    private Integer ranking;
     @SerializedName("deals")
     @Expose
     private List<Deal> deals = null;
@@ -448,11 +461,11 @@ public class Data {
         this.isUserHunting = isUserHunting;
     }
 
-    public Object getRanking() {
+    public Integer getRanking() {
         return ranking;
     }
 
-    public void setRanking(Object ranking) {
+    public void setRanking(Integer ranking) {
         this.ranking = ranking;
     }
 

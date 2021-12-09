@@ -178,7 +178,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private ArrayList<RewardStatus> listFilter = new ArrayList<>();
 
         private DealViewModel dealViewModel;
-        private TextView tvDay, tvHour, tvMinutes, tvSecond,tvTotalHoldCount;
+        private TextView tvDay, tvHour, tvMinutes, tvSecond, tvTotalHoldCount;
 
 
         public MoreViewHolder(View itemView) {
@@ -525,6 +525,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private RecyclerView mRcvRankItem;
         private SubRankingItemAdapter adapter;
         private TextView tvEmptyRank;
+
         public RankingViewHolder(View itemView) {
             super(itemView);
             initView(itemView);
@@ -554,10 +555,9 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
             try {
-                if(dealCampaignDetail.getData().getDealCampaignScores().size() >0){
+                if (dealCampaignDetail.getData().getDealCampaignScores().size() > 0) {
                     tvEmptyRank.setVisibility(View.GONE);
-                }
-                else tvEmptyRank.setVisibility(View.VISIBLE);
+                } else tvEmptyRank.setVisibility(View.VISIBLE);
             } catch (Exception e) {
                 tvEmptyRank.setVisibility(View.VISIBLE);
             }
@@ -682,6 +682,9 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private SubDealHeaderItemAdapter adapter;
         private RelativeLayout rllStatusDeal;
         private TextView tvStatusDeal;
+        private ImageView imgProgress;
+        private ImageView imgWin;
+        private RelativeLayout rllProgress;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -699,6 +702,9 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tvTimeHold = (RichText) itemView.findViewById(R.id.tv_time_hold);
             rllStatusDeal = itemView.findViewById(R.id.rll_status_deal);
             tvStatusDeal = itemView.findViewById(R.id.tv_status_deal);
+            imgProgress = itemView.findViewById(R.id.img_progress);
+            imgWin = itemView.findViewById(R.id.img_win);
+            rllProgress = itemView.findViewById(R.id.rll_progress);
         }
 
         private String convertPrice(String string) {
@@ -781,13 +787,19 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
 
             try {
-                if (data.getStatus() != null) {
-                    int status = dealCampaignDetail.getData().getStatus();
+                if (data.getIsProcessing() != null) {
+                    int status = Integer.parseInt(data.getIsProcessing());
                     if (status == 0) {
                         rllStatusDeal.setBackgroundColor(Color.parseColor("#FF0909"));
-                        tvStatusDeal.setText("Chương trình đã kết thúc!");
                         mProgressCountDown.setProgress(0);
-                        mTvTimeCountDown.setText("Đã hết hạn");
+                        if (data.getRanking() == 1) {
+                            tvStatusDeal.setText("Bạn đã giành được CTKM này!");
+                            imgWin.setVisibility(View.VISIBLE);
+                            rllProgress.setVisibility(View.GONE);
+                        } else {
+                            tvStatusDeal.setText("Chương trình đã kết thúc!");
+                            mTvTimeCountDown.setText("Đã hết hạn");
+                        }
 
                     } else if (status == 1) {
                         rllStatusDeal.setBackgroundColor(Color.parseColor("#01B819"));
@@ -824,6 +836,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                             mTvTimeCountDown.setText("Bắt đầu sau " + days + hours + ":" + minutes + ":" + seconds);
                         }
+
                     }
                 } else {
                     mTvTimeCountDown.setText("Đã hết hạn");
