@@ -61,7 +61,7 @@ public class ListDealFragment extends BaseFragment<FragmentListDealBinding> {
 
 
         for (int i = 0; i < listBlock.size(); i++) {
-            View tabHome = LayoutInflater.from(mActivity).inflate(R.layout.f3_item_header1, null);
+            View tabHome = LayoutInflater.from(mActivity).inflate(R.layout.f3_item_header2, null);
             TextView tvHome = tabHome.findViewById(R.id.tv_title);
             View view = tabHome.findViewById(R.id.v_indicator);
             tvHome.setText(listBlock.get(i).getName());
