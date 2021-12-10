@@ -131,10 +131,27 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         itemView.tvDayLeft.text = "Còn lại 0 ngày"
                     } else {
                         val distance = (timeStamp - myCurrentTimeMillis) / 1000
-                        val days: String = ((distance / 86400).toInt()).toString() + " ngày "
-                        val hours: String = ((distance % 86400 / 3600).toInt()).toString()
-                        val minutes: String = ((distance % 3600 / 60).toInt()).toString()
-                        val seconds: String = ((distance % 3600 % 60).toInt()).toString()
+                        var days: String = ((distance / 86400).toInt()).toString() + " ngày "
+                        var hours: String = ((distance % 86400 / 3600).toInt()).toString()
+                        var minutes: String = ((distance % 3600 / 60).toInt()).toString()
+                        var seconds: String = ((distance % 3600 % 60).toInt()).toString()
+
+                        if(days.length == 1){
+                            days = "0$days"
+                        }
+
+                        if(hours.length == 1){
+                            hours = "0$hours"
+                        }
+
+                        if(minutes.length == 1){
+                            minutes = "0$minutes"
+                        }
+
+                        if(seconds.length == 1){
+                            seconds = "0$seconds"
+                        }
+
                         itemView.tvDayLeft.text = "Còn lại $days$hours:$minutes:$seconds"
                     }
                     itemView.progress1.progress = getPercentProgress(content.beginAt, content.endAt)
@@ -145,10 +162,27 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         itemView.tvDayLeft.text = "Bắt đầu sau 0 ngày"
                     } else {
                         val distance = (timeStamp - myCurrentTimeMillis) / 1000
-                        val days: String = ((distance / 86400).toInt()).toString() + " ngày "
-                        val hours: String = ((distance % 86400 / 3600).toInt()).toString()
-                        val minutes: String = ((distance % 3600 / 60).toInt()).toString()
-                        val seconds: String = ((distance % 3600 % 60).toInt()).toString()
+                        var days: String = ((distance / 86400).toInt()).toString() + " ngày "
+                        var hours: String = ((distance % 86400 / 3600).toInt()).toString()
+                        var minutes: String = ((distance % 3600 / 60).toInt()).toString()
+                        var seconds: String = ((distance % 3600 % 60).toInt()).toString()
+
+                        if(days.length == 1){
+                            days = "0$days"
+                        }
+
+                        if(hours.length == 1){
+                            hours = "0$hours"
+                        }
+
+                        if(minutes.length == 1){
+                            minutes = "0$minutes"
+                        }
+
+                        if(seconds.length == 1){
+                            seconds = "0$seconds"
+                        }
+
                         itemView.tvDayLeft.text = "Bắt đầu sau $days$hours:$minutes:$seconds"
                     }
                     itemView.progress1.progress = 100

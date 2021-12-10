@@ -147,6 +147,22 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         String minutes = String.valueOf((int) ((distance % 3600) / 60));
                         String seconds = String.valueOf((int) ((distance % 3600) % 60));
 
+                        if(days.length() == 1){
+                            days = "0"+days;
+                        }
+
+                        if(hours.length() == 1){
+                            hours = "0"+hours;
+                        }
+
+                        if(minutes.length() == 1){
+                            minutes = "0"+minutes;
+                        }
+
+                        if(seconds.length() == 1){
+                            seconds = "0"+seconds;
+                        }
+
                         tvDayLeft.setText("Còn lại " + days + hours + ":" + minutes + ":" + seconds);
 
                     }
@@ -162,6 +178,23 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         String hours = String.valueOf((int) ((distance % 86400) / 3600));
                         String minutes = String.valueOf((int) ((distance % 3600) / 60));
                         String seconds = String.valueOf((int) ((distance % 3600) % 60));
+
+
+                        if(days.length() == 1){
+                            days = "0"+days;
+                        }
+
+                        if(hours.length() == 1){
+                            hours = "0"+hours;
+                        }
+
+                        if(minutes.length() == 1){
+                            minutes = "0"+minutes;
+                        }
+
+                        if(seconds.length() == 1){
+                            seconds = "0"+seconds;
+                        }
 
                         tvDayLeft.setText("Bắt đầu sau " + days + hours + ":" + minutes + ":" + seconds);
 

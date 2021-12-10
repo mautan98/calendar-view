@@ -788,8 +788,8 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             try {
                 if (data.getIsProcessing() != null) {
-                    int status = Integer.parseInt(data.getIsProcessing());
-                    if (status == 0) {
+                    String status = data.getIsProcessing();
+                    if (status.equals(IsProcessingType.KET_THUC_TYPE)) {
                         rllStatusDeal.setBackgroundColor(Color.parseColor("#FF0909"));
                         mProgressCountDown.setProgress(0);
                         if (data.getRanking() == 1) {
@@ -801,7 +801,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             mTvTimeCountDown.setText("Đã hết hạn");
                         }
 
-                    } else if (status == 1) {
+                    } else if (status.equals(IsProcessingType.DANG_DIEN_RA_TYPE)) {
                         rllStatusDeal.setBackgroundColor(Color.parseColor("#01B819"));
                         tvStatusDeal.setText("Chương trình đang diễn ra!");
                         long timeStamp = data.getEndAt();
@@ -819,7 +819,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             mTvTimeCountDown.setText("Còn lại " + days + hours + ":" + minutes + ":" + seconds);
 
                         }
-                    } else if (status == 2) {
+                    } else if (status.equals(IsProcessingType.SAP_DIEN_RA_TYPE)) {
                         rllStatusDeal.setBackgroundColor(Color.parseColor("#E9BB00"));
                         tvStatusDeal.setText("Chương trình sắp diễn ra!");
                         long timeStamp = data.getBeginAt();

@@ -46,7 +46,6 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
     private String idDetail;
     private boolean isCampaign;
     private DealViewModel mDealViewModel;
-    private String urlTab = "https://core-testing.vtvtravel.vn/api/v1/deals/byCampaigns?campaignId=105&isProcessing=0";
     private DealCampaignDetail dealCampaignDetail;
     private RichText tvMyGif;
     public DealItemDetailFragment() {
