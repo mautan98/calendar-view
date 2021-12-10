@@ -769,6 +769,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     mTvDisCount.setVisibility(View.GONE);
                     e.printStackTrace();
                 }
+                if(data.getExpireDate() != null)
                 mTvExpirationDate.setText("HSD: " + DateUtltils.timeToString18(data.getExpireDate()));
                 mProgressCountDown.setProgress(GridDealInDealHomeAdapter.Companion.getPercentProgress(data.getBeginAt(), data.getEndAt()));
             } catch (Exception e) {
@@ -844,6 +845,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 tvTimeHold.setText(days + hours + ":" + minutes + ":" + seconds);
             } catch (Exception e) {
                 e.printStackTrace();
+                tvTimeHold.setText("0 ngày, 00 : 00 : 00");
             }
         }
     }

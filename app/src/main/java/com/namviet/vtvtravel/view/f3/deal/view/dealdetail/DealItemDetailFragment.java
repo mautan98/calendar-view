@@ -74,6 +74,9 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
 
     @Override
     public void initData() {
+        getBinding().rllContent.setVisibility(View.GONE);
+        getBinding().shimmerViewContainer.setVisibility(View.VISIBLE);
+        getBinding().shimmerViewContainer.startShimmer();
         dataBanner = new ArrayList<>();
         viewModel = new DetailNewsTravelViewModel();
         viewModel.addObserver(this);
@@ -172,6 +175,11 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
                 break;
         }
     }
+    private void stopLoading(){
+        getBinding().shimmerViewContainer.stopShimmer();
+        getBinding().shimmerViewContainer.setVisibility(View.GONE);
+        getBinding().rllContent.setVisibility(View.VISIBLE);
+    }
 
     @Override
     public void update(Observable observable, Object o) {
@@ -190,6 +198,8 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
                 dataBanner.add(dealCampaignDetail.getData().getGalleryUri().get(i));
             }
             initBanner();
+            stopLoading();
+
         }
         else if(o instanceof DealResponse){
             if(dealCampaignDetail == null){
@@ -203,10 +213,12 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
                 mIOnClickTabReloadData.onTabClick(RecyclerAdapter.TypeString.DEAL_HOME);
                 isFirstLoad = true;
             }
+            stopLoading();
         }
         else if(o instanceof ErrorResponse){
             mIOnClickTabReloadData.onTabClick(RecyclerAdapter.TypeString.DEAL_HOME);
             isFirstLoad = true;
+            stopLoading();
         }
     }
     private void initBanner() {
