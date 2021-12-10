@@ -153,7 +153,7 @@ public class Data {
     @SerializedName("deals")
     @Expose
     private List<Deal> deals = null;
-    @SerializedName("dealCampaignScores")
+    @SerializedName("dealScores")
     @Expose
     private List<DealCampaignScore> dealCampaignScores = null;
     @SerializedName("isParent")
