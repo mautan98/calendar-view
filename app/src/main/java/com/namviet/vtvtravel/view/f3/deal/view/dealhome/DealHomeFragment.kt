@@ -31,6 +31,11 @@ class DealHomeFragment : BaseFragment<FragmentDealHomeBinding?>(), Observer {
         dealViewModel?.addObserver(this)
         dealViewModel?.getDealBlock()
     }
+
+    public fun resetTab(){
+        layoutTab1.performClick()
+    }
+
     override fun initData() {}
     override fun inject() {}
     override fun setClickListener() {

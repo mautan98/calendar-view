@@ -70,6 +70,7 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
         btnHome.setOnClickListener {
             if (vpContent.currentItem == 1) {
                 dealHomeFragment?.initView()
+                dealHomeFragment?.resetTab()
             } else {
                 vpContent.currentItem = 1
 

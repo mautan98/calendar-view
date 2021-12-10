@@ -413,7 +413,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         public void bindItem(int position) {
             this.position = position;
             rclContent.setAdapter(new F3SubDealAdapter(context, blocksMenuHeader1.get(0).getDealResponse(), null));
-            if (!blocksMenuHeader1.get(0).isDataLoaded()) {
+//            if (!blocksMenuHeader1.get(0).isDataLoaded()) {
                 rclContent.setVisibility(View.INVISIBLE);
                 mShimmerFrameLayout.setVisibility(View.VISIBLE);
                 mShimmerFrameLayout.startShimmer();
@@ -428,8 +428,8 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                     }
                 }
                 mILoadDataDeal.onLoadDataDeal(blocksMenuHeader1.get(positionHeader1).getListChildBlock().get(runningPosition).getLink());
-                blocksMenuHeader1.get(0).setDataLoaded(true);
-            }
+//                blocksMenuHeader1.get(0).setDataLoaded(true);
+//            }
 
             F3TabDealAdapter f3TabDealAdapter = new F3TabDealAdapter(positionHeader1, blocksMenuHeader1, context, new F3TabDealAdapter.ClickTab() {
                 @Override
