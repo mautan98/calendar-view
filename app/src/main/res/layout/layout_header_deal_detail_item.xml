@@ -18,7 +18,7 @@
             android:id="@+id/rll_status_deal"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:background="#00C574">
+            android:background="#01B819">
 
             <ImageView
                 android:id="@+id/img_speaker"
