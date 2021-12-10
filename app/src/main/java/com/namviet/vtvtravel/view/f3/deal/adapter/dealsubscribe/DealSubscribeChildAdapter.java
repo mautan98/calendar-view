@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +75,7 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
         private TextView tvRank;
         private TextView tvStatus;
         private LinearLayout lnlPrice;
-        private LinearLayout layoutChecked;
+//        private LinearLayout layoutChecked;
         private ImageView imgClock;
         private ImageView imgWin;
         private View viewCoverVertical;
@@ -89,7 +90,7 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
             tvRank = itemView.findViewById(R.id.tvRank);
             tvStatus = itemView.findViewById(R.id.tvStatus);
             imgClock = itemView.findViewById(R.id.imgClock);
-            layoutChecked = itemView.findViewById(R.id.layoutChecked);
+//            layoutChecked = itemView.findViewById(R.id.layoutChecked);
             viewCoverVertical = itemView.findViewById(R.id.viewCoverVertical);
 
         }
@@ -100,7 +101,7 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
             tvTotalHoldTime.setText(dealFollows.get(position).getTotalHoldTime());
             Glide.with(context).load(dealFollows.get(position).getAvatarUri()).into(imgAvatar);
             try {
-                if(dealFollows.get(position).getIsProcessing().equals("1")){
+                if(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)){
                     Glide.with(context).load(R.drawable.ic_clock).into(imgClock);
                 }else {
                     Glide.with(context).load(R.drawable.ic_clock_2).into(imgClock);
@@ -111,14 +112,16 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
             }
 
             try {
-                tvStatus.setText(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)?"Đang diễn ra": (dealFollows.get(position).getIsProcessing().equals(IsProcessingType.SAP_DIEN_RA_TYPE)?"Sắp diễn ra": "Đã hết hạn"));
+                tvStatus.setText(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)?"Đang diễn ra": (dealFollows.get(position).getIsProcessing().equals(IsProcessingType.SAP_DIEN_RA_TYPE)?"Sắp diễn ra": "Đã kết thúc"));
+                tvStatus.setTextColor(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)? Color.parseColor("#25C400") : Color.parseColor("#C2C2C2"));
             } catch (Exception e) {
-                tvStatus.setText("Đã hết hạn");
+                tvStatus.setText("Đã kết thúc");
+                tvStatus.setTextColor(Color.parseColor("#C2C2C2"));
             }
 
 
             try {
-                if(dealFollows.get(position).getIsWin().equals("1")){
+                if(Integer.parseInt(dealFollows.get(position).getRanking()) == 1 && dealFollows.get(position).getIsProcessing().equals(IsProcessingType.KET_THUC_TYPE)){
                     imgWin.setVisibility(View.VISIBLE);
                 }else {
                     imgWin.setVisibility(View.GONE);
@@ -138,14 +141,14 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
 
                 tvTotalHoldTime.setText(days + hours+" : "+minutes+" : "+seconds);
 
-                if(time > 0){
-                    layoutChecked.setVisibility(View.VISIBLE);
-                }else {
-                    layoutChecked.setVisibility(View.GONE);
-                }
+//                if(time > 0){
+//                    layoutChecked.setVisibility(View.VISIBLE);
+//                }else {
+//                    layoutChecked.setVisibility(View.GONE);
+//                }
             } catch (Exception e) {
                 tvTotalHoldTime.setText("0 NGÀY");
-                layoutChecked.setVisibility(View.GONE);
+//                layoutChecked.setVisibility(View.GONE);
             }
 
             if(position == dealFollows.size() - 1){

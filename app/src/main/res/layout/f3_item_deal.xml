@@ -34,17 +34,17 @@
 
                 <LinearLayout
                     android:id="@+id/layoutTotalHuntingUser"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/f3_bg_hunting_deal"
                     android:gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:orientation="horizontal"
-                    android:paddingLeft="10dp"
                     android:paddingTop="2dp"
-                    android:paddingRight="10dp"
                     android:paddingBottom="2dp">
 
                     <TextView

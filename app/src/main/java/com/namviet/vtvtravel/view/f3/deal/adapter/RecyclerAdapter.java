@@ -320,43 +320,47 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         private boolean isCheck = false;
 
         public void bindItem(int position) {
-            this.position = position;
-            StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-            rclContent.setLayoutManager(layoutManager);
-            GridDealInDealHomeAdapter gridDealInDealHomeAdapter = new GridDealInDealHomeAdapter((ArrayList<Content>) dealResponseForBlockContent2.getData().getContent());
-            gridDealInDealHomeAdapter.setOnDataChangeListener(new GridDealInDealHomeAdapter.OnDataChange() {
-                @Override
-                public void onDataChange(boolean isShow) {
-                    if (isShow) {
-                        layoutNoData.setVisibility(View.VISIBLE);
-                    } else {
-                        layoutNoData.setVisibility(View.GONE);
+            try {
+                this.position = position;
+                StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                rclContent.setLayoutManager(layoutManager);
+                GridDealInDealHomeAdapter gridDealInDealHomeAdapter = new GridDealInDealHomeAdapter((ArrayList<Content>) dealResponseForBlockContent2.getData().getContent());
+                gridDealInDealHomeAdapter.setOnDataChangeListener(new GridDealInDealHomeAdapter.OnDataChange() {
+                    @Override
+                    public void onDataChange(boolean isShow) {
+                        if (isShow) {
+                            layoutNoData.setVisibility(View.VISIBLE);
+                        } else {
+                            layoutNoData.setVisibility(View.GONE);
+                        }
                     }
-                }
-            });
-            rclContent.setAdapter(gridDealInDealHomeAdapter);
+                });
+                rclContent.setAdapter(gridDealInDealHomeAdapter);
 
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    showLoading();
-                    headerViewHolder2.getData();
-                    isCheck = isChecked;
-                }
-            });
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        showLoading();
+                        headerViewHolder2.getData();
+                        isCheck = isChecked;
+                    }
+                });
 
-            btnViewMore.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ListDealActivity.Companion.startScreen(context, blocksMenuHeader2, headerViewHolder2.getPositionTab(), isCheck ? IsProcessingType.SAP_DIEN_RA_TYPE : IsProcessingType.DANG_DIEN_RA_TYPE);
-                }
-            });
-            btnClose.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    layoutNote.setVisibility(View.GONE);
-                }
-            });
+                btnViewMore.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ListDealActivity.Companion.startScreen(context, blocksMenuHeader2, headerViewHolder2.getPositionTab(), isCheck ? IsProcessingType.SAP_DIEN_RA_TYPE : IsProcessingType.DANG_DIEN_RA_TYPE);
+                    }
+                });
+                btnClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        layoutNote.setVisibility(View.GONE);
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }
 

@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -127,10 +128,13 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
             });
             tvName.setText(dealFollows.get(position).getName());
             tvRank.setText(dealFollows.get(position).getRanking());
+
             try {
-                tvStatus.setText(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)?"Đang diễn ra": (dealFollows.get(position).getIsProcessing().equals(IsProcessingType.SAP_DIEN_RA_TYPE)?"Sắp diễn ra": "Hết thời gian"));
+                tvStatus.setText(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)?"Đang diễn ra": (dealFollows.get(position).getIsProcessing().equals(IsProcessingType.SAP_DIEN_RA_TYPE)?"Sắp diễn ra": "Đã kết thúc"));
+                tvStatus.setTextColor(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)? Color.parseColor("#25C400") : Color.parseColor("#C2C2C2"));
             } catch (Exception e) {
-                tvStatus.setText("Hết thời gian");
+                tvStatus.setText("Đã kết thúc");
+                tvStatus.setTextColor(Color.parseColor("#C2C2C2"));
             }
 
             try {
@@ -168,7 +172,7 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
 
 
             try {
-                if(dealFollows.get(position).getIsProcessing().equals("1")){
+                if(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)){
                     Glide.with(context).load(R.drawable.ic_clock).into(imgClock);
                 }else {
                     Glide.with(context).load(R.drawable.ic_clock_2).into(imgClock);

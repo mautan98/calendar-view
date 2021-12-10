@@ -65,7 +65,7 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
 
         listFilter.add(RewardStatus("", "Tất cả", true))
         listFilter.add(RewardStatus("2", "Đang săn", false))
-        listFilter.add(RewardStatus("3", "Săn thành công", false))
+        listFilter.add(RewardStatus("4", "Săn thành công", false))
         listFilter.add(RewardStatus("5", "Săn không thành công", false))
 
         rclFilterDeal.adapter = DealFilterAdapter(mActivity, listFilter) { position ->
