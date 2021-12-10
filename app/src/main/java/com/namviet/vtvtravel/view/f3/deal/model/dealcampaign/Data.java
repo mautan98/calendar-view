@@ -9,6 +9,17 @@ import com.google.gson.annotations.SerializedName;
 
 public class Data {
 
+    @SerializedName("expireDate")
+    @Expose
+    private Long expireDate;
+
+    public Long getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(Long expireDate) {
+        this.expireDate = expireDate;
+    }
 
     @SerializedName("isProcessing")
     @Expose
