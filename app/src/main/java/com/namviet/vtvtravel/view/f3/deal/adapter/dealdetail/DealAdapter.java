@@ -33,6 +33,7 @@ import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.material.tabs.TabLayout;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.travelnews.CommentInDetailTravelNewsAdapter;
+import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.view.f3.deal.Utils;
 import com.namviet.vtvtravel.view.f3.deal.adapter.F3SubDealAdapter;
@@ -707,17 +708,6 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             rllProgress = itemView.findViewById(R.id.rll_progress);
         }
 
-        private String convertPrice(String string) {
-            try {
-                DecimalFormat df = new DecimalFormat("###.###.###");
-                return df.format(Double.parseDouble(string));
-            } catch (NumberFormatException e) {
-                return string;
-            }
-
-        }
-
-
         @SuppressLint("DefaultLocale")
         public void bindItem(int position) {
             Data data = dealCampaignDetail.getData();
@@ -725,7 +715,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             try {
                 if (data.getPriceAfterPromo() != null) {
                     mTvNewPrice.setVisibility(View.VISIBLE);
-                    mTvNewPrice.setText(convertPrice(String.valueOf(data.getPriceAfterPromo())) + " đ");
+                    mTvNewPrice.setText(F3SubDealAdapter.convertPrice(String.valueOf(data.getPriceAfterPromo())) + " đ");
                 } else {
                     mTvNewPrice.setText("");
                     mTvNewPrice.setVisibility(View.GONE);
@@ -745,7 +735,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             try {
                 if (data.getPriceBeforePromo() != null) {
                     mTvOldPrice.setVisibility(View.VISIBLE);
-                    mTvOldPrice.setText(convertPrice(String.valueOf(data.getPriceBeforePromo())) + " đ");
+                    mTvOldPrice.setText(F3SubDealAdapter.convertPrice(String.valueOf(data.getPriceBeforePromo())) + " đ");
                 } else {
                     mTvOldPrice.setText("");
                     mTvOldPrice.setVisibility(View.GONE);
@@ -779,8 +769,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     mTvDisCount.setVisibility(View.GONE);
                     e.printStackTrace();
                 }
-                String expirationDate = Utils.CalendarUtils.ConvertMilliSecondsToFormattedDate(dealCampaignDetail.getData().getEndAt());
-                mTvExpirationDate.setText("HSD: " + expirationDate);
+                mTvExpirationDate.setText("HSD: " + DateUtltils.timeToString18(data.getExpireDate()));
                 mProgressCountDown.setProgress(GridDealInDealHomeAdapter.Companion.getPercentProgress(data.getBeginAt(), data.getEndAt()));
             } catch (Exception e) {
                 e.printStackTrace();
