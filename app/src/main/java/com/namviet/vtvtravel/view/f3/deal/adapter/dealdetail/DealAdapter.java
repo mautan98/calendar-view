@@ -166,6 +166,8 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public class MoreViewHolder extends RecyclerView.ViewHolder implements NewHomeFragment.IOnClickTabReloadData, Observer {
         private RecyclerView rclFilterDeal;
         private RecyclerView rclContent;
+        private View layoutNoData;
+        private View viewWhite;
 
         private RecyclerView rcvTabHeader1;
         private F3HeaderAdapter mF3HeaderAdapter;
@@ -208,6 +210,8 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tvMinutes = itemView.findViewById(R.id.tv_minutes);
             tvSecond = itemView.findViewById(R.id.tv_second);
             tvTotalHoldCount = itemView.findViewById(R.id.tv_total_hold_count);
+            layoutNoData = itemView.findViewById(R.id.layoutNoData);
+            viewWhite = itemView.findViewById(R.id.viewWhite);
 
         }
 
@@ -254,6 +258,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         rclContent.setVisibility(View.INVISIBLE);
                         mShimmerFrameLayout.setVisibility(View.VISIBLE);
                         mShimmerFrameLayout.startShimmer();
+                        viewWhite.setVisibility(View.VISIBLE);
                         dealViewModel.getDealByCampaign(status, String.valueOf(dealCampaignDetail.getData().getId()), filter);
                     }
 
@@ -265,6 +270,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             mShimmerFrameLayout.setVisibility(View.VISIBLE);
                             rclContent.setVisibility(View.INVISIBLE);
                             mShimmerFrameLayout.startShimmer();
+                            viewWhite.setVisibility(View.VISIBLE);
 //                            dealItemDetailFragment.setIOnClickTabReloadData(MoreViewHolder.this);
 
                             if (position == 0) {
@@ -290,6 +296,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             mShimmerFrameLayout.setVisibility(View.VISIBLE);
                             rclContent.setVisibility(View.INVISIBLE);
                             mShimmerFrameLayout.startShimmer();
+                            viewWhite.setVisibility(View.VISIBLE);
                             dealViewModel.getDealByCampaign(status, String.valueOf(dealCampaignDetail.getData().getId()), filter);
                         }
                     }));
@@ -344,27 +351,53 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @Override
         public void update(Observable observable, Object o) {
-//            shimmer.setVisibility(View.GONE);
+            viewWhite.setVisibility(View.GONE);
+            mShimmerFrameLayout.setVisibility(View.GONE);
+            layoutNoData.setVisibility(View.VISIBLE);
             if (observable instanceof DealViewModel) {
                 if (o instanceof DealResponse) {
                     dealResponse = (DealResponse) o;
                     rclContent.setAdapter(new GridDealInDealHomeAdapter((ArrayList<Content>) dealResponse.getData().getContent()));
-                    mShimmerFrameLayout.stopShimmer();
-                    mShimmerFrameLayout.setVisibility(View.GONE);
                     rclContent.setVisibility(View.VISIBLE);
+
+                    try {
+                        if(dealResponse.getData().getContent().size() > 0){
+                            layoutNoData.setVisibility(View.GONE);
+                            rclContent.setVisibility(View.VISIBLE);
+                        }else {
+                            layoutNoData.setVisibility(View.VISIBLE);
+                            rclContent.setVisibility(View.GONE);
+                        }
+                    } catch (Exception e) {
+                        layoutNoData.setVisibility(View.VISIBLE);
+                        rclContent.setVisibility(View.GONE);
+                    }
                 }
             }
         }
 
         @Override
         public void onTabClick(String code) {
+            viewWhite.setVisibility(View.GONE);
+            mShimmerFrameLayout.setVisibility(View.GONE);
+            layoutNoData.setVisibility(View.VISIBLE);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     rclContent.setAdapter(new GridDealInDealHomeAdapter((ArrayList<Content>) dealCampaignDetail.getDealByCampaign().getData().getContent()));
-                    mShimmerFrameLayout.stopShimmer();
-                    mShimmerFrameLayout.setVisibility(View.GONE);
-                    rclContent.setVisibility(View.VISIBLE);
+
+                    try {
+                        if(dealCampaignDetail.getDealByCampaign().getData().getContent().size() > 0){
+                            layoutNoData.setVisibility(View.GONE);
+                            rclContent.setVisibility(View.VISIBLE);
+                        }else {
+                            layoutNoData.setVisibility(View.VISIBLE);
+                            rclContent.setVisibility(View.GONE);
+                        }
+                    } catch (Exception e) {
+                        layoutNoData.setVisibility(View.VISIBLE);
+                        rclContent.setVisibility(View.GONE);
+                    }
                 }
             }, 300);
         }

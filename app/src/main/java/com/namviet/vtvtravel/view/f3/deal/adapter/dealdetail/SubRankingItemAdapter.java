@@ -113,8 +113,29 @@ public class SubRankingItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 }
                 String phoneNumSercurity = rank.getMobile().substring(0,rank.getMobile().length()-3);
                 mTvPhoneNumber.setText(phoneNumSercurity+"xxx");
-                String timeHold = Utils.CalendarUtils.ConvertMilliSecondsToHH(rank.getHoldTime());
+
+
+                long distance = rank.getHoldTime() / 1000;
+                String hours = String.valueOf((int) ((distance % 86400) / 3600));
+                String minutes = String.valueOf((int) ((distance % 3600) / 60));
+                String seconds = String.valueOf((int) ((distance % 3600) % 60));
+
+                if(hours.length() == 1){
+                    hours = "0"+hours;
+                }
+
+                if(minutes.length() == 1){
+                    minutes = "0"+minutes;
+                }
+
+                if(seconds.length() == 1){
+                    seconds = "0"+seconds;
+                }
+
+                String timeHold = hours + ":" + minutes + ":" + seconds;
                 mTvTimeKeep.setText(timeHold);
+
+
                 Account account = MyApplication.getInstance().getAccount();
                 if (null != account && account.isLogin()) {
                     if(account.getMobile().equals(rank.getMobile())){

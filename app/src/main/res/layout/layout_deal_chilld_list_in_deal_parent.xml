@@ -50,14 +50,14 @@
                 android:fontFamily="@font/roboto_bold"
                 android:gravity="start"
                 android:singleLine="true"
-                tools:text="Danh sách tích lũy (30)"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/layoutTime"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Danh sách tích lũy (30)" />
 
 
             <LinearLayout
@@ -223,13 +223,32 @@
             android:layout_height="wrap_content"
             android:minHeight="280dp">
 
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:visibility="visible"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/layoutNoData"
+                android:alpha="0.5"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/img_no_deal_data"
+                android:layout_width="200dp"
+                android:layout_height="200dp"/>
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rclContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                />
+                android:orientation="vertical" />
 
+
+            <View
+                android:background="@color/white"
+                android:id="@+id/viewWhite"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"/>
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmer_view_container"
