@@ -16,8 +16,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
 class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
+    private var isLogin  = false;
     private var tabAdapter: TabAdapter? = null
     private var dealHomeFragment: DealHomeFragment? = null
+    private var dealSubcribeFragment: DealSubcribeFragment? = null
     override fun getLayoutRes(): Int {
         return R.layout.fragment_page_deal_home
     }
@@ -31,8 +33,8 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
         dealHomeFragment = DealHomeFragment()
         tabAdapter?.addFragment(dealHomeFragment, "")
 
-        var dealSubcribeFragment = DealSubcribeFragment()
-        dealSubcribeFragment.setLocation(0)
+        dealSubcribeFragment = DealSubcribeFragment()
+        dealSubcribeFragment?.setLocation(0)
         tabAdapter?.addFragment(dealSubcribeFragment, "")
 
         vpContent.adapter = tabAdapter
@@ -41,7 +43,10 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
 
     }
 
-    override fun initData() {}
+    override fun initData() {
+        var account = MyApplication.getInstance().account;
+        isLogin = account.isLogin
+    }
     override fun inject() {}
     override fun setClickListener() {
         btnMyGift.setOnClickListener {
@@ -62,6 +67,11 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
 
                 imgDealSubscribe.setImageResource(R.drawable.ic_my_subcribe_selected)
                 tvDealSubscribe.setTextColor(Color.parseColor("#F92418"))
+
+                if(!isLogin){
+                    isLogin = true
+                    dealSubcribeFragment?.getData(0)
+                }
             } else {
                 LoginAndRegisterActivityNew.startScreen(mActivity, 0, false)
             }

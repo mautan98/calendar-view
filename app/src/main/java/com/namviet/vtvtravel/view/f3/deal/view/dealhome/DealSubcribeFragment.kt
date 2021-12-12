@@ -69,13 +69,14 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
         listFilter.add(RewardStatus("5", "Săn không thành công", false))
 
         rclFilterDeal.adapter = DealFilterAdapter(mActivity, listFilter) { position ->
-            listDeal.clear()
-            dealSubscribeParentAdapter?.notifyDataSetChanged()
-            filter = listFilter[position].id
-            dealViewModel?.getDealFollow(
-                "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/follows",
-                filter
-            )
+//            listDeal.clear()
+//            dealSubscribeParentAdapter?.notifyDataSetChanged()
+//            filter = listFilter[position].id
+//            dealViewModel?.getDealFollow(
+//                "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/follows",
+//                filter
+//            )
+            getData(position)
         }
 
         dealSubscribeParentAdapter = DealSubscribeParentAdapter(mActivity, listDeal) {
@@ -88,6 +89,16 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
         }
         rclContent.adapter = dealSubscribeParentAdapter
 
+        dealViewModel?.getDealFollow(
+            "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/follows",
+            filter
+        )
+    }
+
+    public fun getData(position : Int){
+        listDeal.clear()
+        dealSubscribeParentAdapter?.notifyDataSetChanged()
+        filter = listFilter[position].id
         dealViewModel?.getDealFollow(
             "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/follows",
             filter
