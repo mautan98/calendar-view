@@ -12,6 +12,8 @@
     <!--        app:cardUseCompatPadding="true">-->
 
     <com.ornach.richtext.RichView
+        android:layout_marginEnd="-1dp"
+        android:layout_marginStart="-1dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="@drawable/ripple_effect_click"

@@ -78,7 +78,15 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rclContent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_centerHorizontal="true"
+                android:layout_alignTop="@+id/rclContent"
+                android:layout_alignBottom="@+id/rclContent"
+                android:background="#ECECEC"
+                android:layout_width="1dp"
+                android:layout_height="0dp"/>
 
 
 
