@@ -111,7 +111,6 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
             var dealMenuDialog = DealMenuDialog()
             dealMenuDialog.setClickListener(object : DealMenuDialog.Click{
                 override fun onClickRule() {
-                    Toast.makeText(mActivity, "Thể lệ", Toast.LENGTH_SHORT).show();
                 }
 
                 override fun onClickSubscribeDeal() {

@@ -110,7 +110,6 @@ public class ListDealFragment extends BaseFragment<FragmentListDealBinding> {
                 dealMenuDialog.setClickListener(new DealMenuDialog.Click() {
                     @Override
                     public void onClickRule() {
-                        Toast.makeText(mActivity, "Thể lệ", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

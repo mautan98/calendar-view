@@ -79,7 +79,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"id\": \"6172d1161c29c438783c25f4\",\n" +
             "                      \"code\": \"CTKM_ACCUMULATION_HOT_CENTER_UPCOMING\",\n" +
             "                      \"code_type\": \"CTKM_UPCOMING\",\n" +
-            "                      \"name\": \"SapDienRa\",\n" +
+            "                      \"name\": \"Sắp diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
             "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.4&isHighlight=1&isProcessing=2\",\n" +
@@ -94,7 +94,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"id\": \"6172d06b44c4ee31bb386314\",\n" +
             "                      \"code\": \"CTKM_ACCUMULATION_HOT_CENTER_RUNNING\",\n" +
             "                      \"code_type\": \"CTKM_RUNNING\",\n" +
-            "                      \"name\": \"DangDienRa\",\n" +
+            "                      \"name\": \"Đang diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
             "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.4&isHighlight=1&isProcessing=1\",\n" +
@@ -140,7 +140,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"id\": \"6172d12c93671d344809e924\",\n" +
             "                      \"code\": \"CTKM_ACCUMULATION_HOT_RESTAURANT_UPCOMING\",\n" +
             "                      \"code_type\": \"CTKM_UPCOMING\",\n" +
-            "                      \"name\": \"SapDienRa\",\n" +
+            "                      \"name\": \"Sắp diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
             "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.3&isHighlight=1&isProcessing=2\",\n" +
@@ -155,7 +155,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"id\": \"6172d01706699d29eb0ba904\",\n" +
             "                      \"code\": \"CTKM_ACCUMULATION_HOT_RESTAURANT_RUNNING\",\n" +
             "                      \"code_type\": \"CTKM_RUNNING\",\n" +
-            "                      \"name\": \"DangDienRa\",\n" +
+            "                      \"name\": \"Đang diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
             "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.3&isHighlight=1&isProcessing=1\",\n" +
@@ -201,7 +201,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"id\": \"6172d1006caa2408f65a7044\",\n" +
             "                      \"code\": \"CTKM_ACCUMULATION_HOT_HOTEL_UPCOMING\",\n" +
             "                      \"code_type\": \"CTKM_UPCOMING\",\n" +
-            "                      \"name\": \"SapDienRa\",\n" +
+            "                      \"name\": \"Sắp diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
             "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.2&isHighlight=1&isProcessing=2\",\n" +
@@ -216,7 +216,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"id\": \"6172d0519181240cad2b1ac4\",\n" +
             "                      \"code\": \"CTKM_ACCUMULATION_HOT_HOTEL_RUNNING\",\n" +
             "                      \"code_type\": \"CTKM_RUNNING\",\n" +
-            "                      \"name\": \"DangDienRa\",\n" +
+            "                      \"name\": \"Đang diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
             "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.2&isHighlight=1&isProcessing=1\",\n" +
@@ -262,7 +262,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"id\": \"6172d0e8a89ee359f10cc4b4\",\n" +
             "                      \"code\": \"CTKM_ACCUMULATION_HOT_PLACE_UPCOMING\",\n" +
             "                      \"code_type\": \"CTKM_UPCOMING\",\n" +
-            "                      \"name\": \"SapDienRa\",\n" +
+            "                      \"name\": \"Sắp diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
             "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.1&isHighlight=1&isProcessing=2\",\n" +
@@ -277,7 +277,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"id\": \"6172d08338ea2546bc5186e4\",\n" +
             "                      \"code\": \"CTKM_ACCUMULATION_HOT_PLACE_RUNNING\",\n" +
             "                      \"code_type\": \"CTKM_RUNNING\",\n" +
-            "                      \"name\": \"DangDienRa\",\n" +
+            "                      \"name\": \"Đang diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
             "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.1&isHighlight=1&isProcessing=1\",\n" +
@@ -323,7 +323,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"id\": \"6172d0e8a89ee359f10cc4b4\",\n" +
             "                      \"code\": \"CTKM_ACCUMULATION_HOT_PLACE_UPCOMING\",\n" +
             "                      \"code_type\": \"CTKM_UPCOMING\",\n" +
-            "                      \"name\": \"SapDienRa\",\n" +
+            "                      \"name\": \"Sắp diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
             "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.5&isHighlight=1&isProcessing=2\",\n" +
@@ -338,7 +338,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"id\": \"6172d08338ea2546bc5186e4\",\n" +
             "                      \"code\": \"CTKM_ACCUMULATION_HOT_PLACE_RUNNING\",\n" +
             "                      \"code_type\": \"CTKM_RUNNING\",\n" +
-            "                      \"name\": \"DangDienRa\",\n" +
+            "                      \"name\": \"Đang diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
             "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.5&isHighlight=1&isProcessing=1\",\n" +
@@ -401,7 +401,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"id\": \"6172d2a6255617269f2b1524\",\n" +
             "                  \"code\": \"CTKM_ACCUMULATION_HINTBLOCK_PLACE\",\n" +
             "                  \"code_type\": \"CTKM_ACCUMULATION_HINTBLOCK_PLACE\",\n" +
-            "                  \"name\": \"ĐI đâu\",\n" +
+            "                  \"name\": \"Đi đâu\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
             "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=10&categoryCode=0.1.1&isHighlight=0\",\n" +
@@ -522,7 +522,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"id\": \"6172d678118c1c22bb0728e4\",\n" +
             "                      \"code\": \"CTKM_HUNTING_HOT_CENTER_RUNNING\",\n" +
             "                      \"code_type\": \"CTKM_RUNNING\",\n" +
-            "                      \"name\": \"DangDienRa\",\n" +
+            "                      \"name\": \"Đang diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
             "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=1&categoryCode=0.1.4&isHighlight=1\",\n" +
@@ -537,7 +537,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"id\": \"6172d6533371202dc34a1834\",\n" +
             "                      \"code\": \"CTKM_HUNTING_HOT_CENTER_UPCOMING\",\n" +
             "                      \"code_type\": \"CTKM_UPCOMING\",\n" +
-            "                      \"name\": \"SapDienRa\",\n" +
+            "                      \"name\": \"Sắp diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
             "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=2&categoryCode=0.1.4&isHighlight=1\",\n" +
@@ -568,7 +568,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"id\": \"6172d6e9f6e0ea34523d3404\",\n" +
             "                      \"code\": \"CTKM_HUNTING_HOT_PLACE_UPCOMING\",\n" +
             "                      \"code_type\": \"CTKM_UPCOMING\",\n" +
-            "                      \"name\": \"SapDienRa\",\n" +
+            "                      \"name\": \"Sắp diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
             "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=2&categoryCode=0.1.1&isHighlight=1\",\n" +
@@ -583,7 +583,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"id\": \"6172d6d44775bf3b2e762ad4\",\n" +
             "                      \"code\": \"CTKM_HUNTING_HOT_PLACE_RUNNING\",\n" +
             "                      \"code_type\": \"CTKM_RUNNING\",\n" +
-            "                      \"name\": \"DangDienRa\",\n" +
+            "                      \"name\": \"Đang diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
             "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=1&categoryCode=0.1.1&isHighlight=1\",\n" +
@@ -644,7 +644,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"id\": \"6172d71eb4254c463c152194\",\n" +
             "                      \"code\": \"CTKM_HUNTING_HOT_HOTEL_RUNNING\",\n" +
             "                      \"code_type\": \"CTKM_RUNNING\",\n" +
-            "                      \"name\": \"DangDienRa\",\n" +
+            "                      \"name\": \"Đang diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
             "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=1&categoryCode=0.1.2&isHighlight=1\",\n" +
@@ -659,7 +659,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"id\": \"6172d702f1450d06426fdd24\",\n" +
             "                      \"code\": \"CTKM_HUNTING_HOT_HOTEL_UPCOMING\",\n" +
             "                      \"code_type\": \"CTKM_UPCOMING\",\n" +
-            "                      \"name\": \"SapDienRa\",\n" +
+            "                      \"name\": \"Sắp diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
             "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=2&categoryCode=0.1.2&isHighlight=1\",\n" +
@@ -690,7 +690,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"id\": \"6172d782e28c5e2fd32f11b4\",\n" +
             "                      \"code\": \"CTKM_HUNTING_HOT_RESTAURANT_UPCOMING\",\n" +
             "                      \"code_type\": \"CTKM_UPCOMING\",\n" +
-            "                      \"name\": \"SapDienRa\",\n" +
+            "                      \"name\": \"Sắp diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
             "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=2&categoryCode=0.1.3&isHighlight=1\",\n" +
@@ -705,7 +705,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"id\": \"6172d76872a17541776a5c94\",\n" +
             "                      \"code\": \"CTKM_HUNTING_HOT_RESTAURANT_RUNNING\",\n" +
             "                      \"code_type\": \"CTKM_RUNNING\",\n" +
-            "                      \"name\": \"DangDienRa\",\n" +
+            "                      \"name\": \"Đang diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
             "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=1&categoryCode=0.1.3&isHighlight=1\",\n" +
@@ -751,7 +751,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"id\": \"6172d782e28c5e2fd32f11b4\",\n" +
             "                      \"code\": \"CTKM_HUNTING_HOT_RESTAURANT_UPCOMING\",\n" +
             "                      \"code_type\": \"CTKM_UPCOMING\",\n" +
-            "                      \"name\": \"SapDienRa\",\n" +
+            "                      \"name\": \"Sắp diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
             "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=2&categoryCode=0.1.5&isHighlight=1\",\n" +
@@ -766,7 +766,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"id\": \"6172d76872a17541776a5c94\",\n" +
             "                      \"code\": \"CTKM_HUNTING_HOT_RESTAURANT_RUNNING\",\n" +
             "                      \"code_type\": \"CTKM_RUNNING\",\n" +
-            "                      \"name\": \"DangDienRa\",\n" +
+            "                      \"name\": \"Đang diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
             "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=1&categoryCode=0.1.5&isHighlight=1\",\n" +
@@ -844,7 +844,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"id\": \"6172d4f003d115051609c225\",\n" +
             "                  \"code\": \"CTKM_HUNTING_HINTBLOCK_PLACE\",\n" +
             "                  \"code_type\": \"CTKM_HUNTING_HINTBLOCK_PLACE\",\n" +
-            "                  \"name\": \"ĐI đâu\",\n" +
+            "                  \"name\": \"Đi đâu\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
             "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=10&categoryCode=0.1.1&isHighlight=0\",\n" +

@@ -346,7 +346,8 @@
         <activity android:name=".view.f3.deal.view.dealdetail.DetailDealActivity" android:screenOrientation="portrait"/>
         <activity android:name=".view.f3.deal.view.listdeal.ListDealActivity" android:screenOrientation="portrait"/>
         <activity android:name=".view.f3.deal.view.listhotdeal.ListHotDealActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".view.f3.deal.view.dealdetail.PopupBannerDealActivity" />
+        <activity android:name=".view.f3.deal.view.dealdetail.PopupBannerDealActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".view.f3.deal.view.dealrule.DealRuleActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

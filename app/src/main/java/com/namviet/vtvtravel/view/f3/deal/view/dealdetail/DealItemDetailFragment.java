@@ -129,7 +129,6 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
                 dealMenuDialog.setClickListener(new DealMenuDialog.Click() {
                     @Override
                     public void onClickRule() {
-                        Toast.makeText(mActivity, "Thể lệ", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
