@@ -35,6 +35,12 @@ public class DealFollow {
     @SerializedName("name")
     private String name;
     @Expose
+    @SerializedName("campaignId")
+    private String campaignId;
+    @Expose
+    @SerializedName("dealId")
+    private String dealId;
+    @Expose
     @SerializedName("id")
     private String id;
     @Expose
@@ -115,5 +121,21 @@ public class DealFollow {
 
     public void setAvatarUri(String avatarUri) {
         this.avatarUri = avatarUri;
+    }
+
+    public String getCampaignId() {
+        return campaignId;
+    }
+
+    public void setCampaignId(String campaignId) {
+        this.campaignId = campaignId;
+    }
+
+    public String getDealId() {
+        return dealId;
+    }
+
+    public void setDealId(String dealId) {
+        this.dealId = dealId;
     }
 }

@@ -162,7 +162,7 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
                 @Override
                 public void onClick(View view) {
                     try {
-                        DetailDealActivity.startScreen(context, dealFollows.get(position).getId(), false);
+                        DetailDealActivity.startScreen(context, dealFollows.get(position).getDealId(), false);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

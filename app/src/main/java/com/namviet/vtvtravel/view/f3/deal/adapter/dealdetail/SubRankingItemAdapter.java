@@ -116,7 +116,7 @@ public class SubRankingItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 
                 long distance = rank.getHoldTime() / 1000;
-                String hours = String.valueOf((int) ((distance % 86400) / 3600));
+                String hours = String.valueOf((int) ((distance) / 3600));
                 String minutes = String.valueOf((int) ((distance % 3600) / 60));
                 String seconds = String.valueOf((int) ((distance % 3600) % 60));
 
