@@ -96,6 +96,7 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
     }
 
     public fun getData(position : Int){
+        layoutLoading.visibility = View.VISIBLE
         listDeal.clear()
         dealSubscribeParentAdapter?.notifyDataSetChanged()
         filter = listFilter[position].id
@@ -156,6 +157,7 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
 
 
     override fun update(observable: Observable?, o: Any?) {
+        layoutLoading.visibility = View.GONE
         if (observable is DealViewModel && null != o) {
             when (o) {
                 is DealFollowResponse -> {

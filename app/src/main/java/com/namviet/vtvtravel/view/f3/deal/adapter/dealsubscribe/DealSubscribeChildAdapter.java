@@ -139,6 +139,22 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
                 String minutes = String.valueOf((int)((time % 3600) / 60));
                 String seconds = String.valueOf((int)((time % 3600) % 60));
 
+                if(days.length() == 1){
+                    days = "0"+days;
+                }
+
+                if(hours.length() == 1){
+                    hours = "0"+hours;
+                }
+
+                if(minutes.length() == 1){
+                    minutes = "0"+minutes;
+                }
+
+                if(seconds.length() == 1){
+                    seconds = "0"+seconds;
+                }
+
                 tvTotalHoldTime.setText(days + hours+" : "+minutes+" : "+seconds);
 
 //                if(time > 0){
