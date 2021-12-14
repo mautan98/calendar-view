@@ -157,7 +157,7 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
 
 
     override fun update(observable: Observable?, o: Any?) {
-        layoutLoading.visibility = View.GONE
+        binding?.layoutLoading?.visibility = View.GONE
         if (observable is DealViewModel && null != o) {
             when (o) {
                 is DealFollowResponse -> {

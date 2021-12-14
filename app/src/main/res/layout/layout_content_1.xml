@@ -104,6 +104,7 @@
 
 
         <LinearLayout
+            android:foreground="@drawable/ripple_effect_click"
             android:id="@+id/btnSeeMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
