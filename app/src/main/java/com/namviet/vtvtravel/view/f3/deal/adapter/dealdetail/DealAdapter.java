@@ -224,6 +224,21 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 String hours = String.valueOf((int) ((distance % 86400) / 3600));
                 String minutes = String.valueOf((int) ((distance % 3600) / 60));
                 String seconds = String.valueOf((int) ((distance % 3600) % 60));
+                if(days.length() == 1){
+                    days = "0"+days;
+                }
+
+                if(hours.length() == 1){
+                    hours = "0"+hours;
+                }
+
+                if(minutes.length() == 1){
+                    minutes = "0"+minutes;
+                }
+
+                if(seconds.length() == 1){
+                    seconds = "0"+seconds;
+                }
                 tvDay.setText(days);
                 tvHour.setText(hours);
                 tvMinutes.setText(minutes);
@@ -232,9 +247,9 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             } catch (Exception e) {
                 e.printStackTrace();
                 tvDay.setText("0 ngày");
-                tvHour.setText("0");
-                tvMinutes.setText("0");
-                tvSecond.setText("0");
+                tvHour.setText("00");
+                tvMinutes.setText("00");
+                tvSecond.setText("00");
                 tvTotalHoldCount.setText(String.format("Danh sách tích lũy (%d)", 0));
             }
 
@@ -687,11 +702,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 } else {
                     try {
                         long distance = dealCampaignDetail.getData().getTotalHoldTime() / 1000;
-                        String days = (int) (distance / 86400) + " ngày ";
-                        String hours = String.valueOf((int) ((distance % 86400) / 3600));
-                        String minutes = String.valueOf((int) ((distance % 3600) / 60));
-                        String seconds = String.valueOf((int) ((distance % 3600) % 60));
-                        mTvTimeKeepDeal.setText(days + hours + ":" + minutes + ":" + seconds);
+                       setTime(distance,mTvTimeKeepDeal);
                     } catch (Exception e) {
                         e.printStackTrace();
                         mTvTimeKeepDeal.setText("0 ngày, 00 : 00 : 00");
@@ -702,6 +713,33 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 mTvTimeKeepDeal.setText("Bạn chưa tích lũy");
                 mTvRank.setText("Bạn chưa tích lũy");
             }
+        }
+    }
+    public static void setTime(long s, TextView tv){
+        try {
+            String days = (int) (s / 86400) + " ngày ";
+            String hours = String.valueOf((int) ((s % 86400) / 3600));
+            String minutes = String.valueOf((int) ((s % 3600) / 60));
+            String seconds = String.valueOf((int) ((s % 3600) % 60));
+            if(days.length() == 1){
+                days = "0"+days;
+            }
+
+            if(hours.length() == 1){
+                hours = "0"+hours;
+            }
+
+            if(minutes.length() == 1){
+                minutes = "0"+minutes;
+            }
+
+            if(seconds.length() == 1){
+                seconds = "0"+seconds;
+            }
+            tv.setText(days + hours + ":" + minutes + ":" + seconds);
+        } catch (Exception e) {
+            e.printStackTrace();
+            tv.setText("0 ngày, 00 : 00 : 00");
         }
     }
 
@@ -839,13 +877,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             mTvTimeCountDown.setText("Còn lại 0 ngày");
                         } else {
                             long distance = (timeStamp - myCurrentTimeMillis) / 1000;
-
-                            String days = (int) (distance / 86400) + " ngày ";
-                            String hours = String.valueOf((int) ((distance % 86400) / 3600));
-                            String minutes = String.valueOf((int) ((distance % 3600) / 60));
-                            String seconds = String.valueOf((int) ((distance % 3600) % 60));
-
-                            mTvTimeCountDown.setText("Còn lại " + days + hours + ":" + minutes + ":" + seconds);
+                           setTime(distance,mTvTimeCountDown);
 
                         }
                     } else if (status.equals(IsProcessingType.SAP_DIEN_RA_TYPE)) {
@@ -857,13 +889,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             mTvTimeCountDown.setText("Bắt đầu sau 0 ngày");
                         } else {
                             long distance = (timeStamp - myCurrentTimeMillis) / 1000;
-
-                            String days = (int) (distance / 86400) + " ngày ";
-                            String hours = String.valueOf((int) ((distance % 86400) / 3600));
-                            String minutes = String.valueOf((int) ((distance % 3600) / 60));
-                            String seconds = String.valueOf((int) ((distance % 3600) % 60));
-
-                            mTvTimeCountDown.setText("Bắt đầu sau " + days + hours + ":" + minutes + ":" + seconds);
+                            setTime(distance,mTvTimeCountDown);
                         }
 
                     }
@@ -882,11 +908,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             // set time total hold time
             try {
                 long distance = data.getTotalHoldTime() / 1000;
-                String days = (int) (distance / 86400) + " ngày ";
-                String hours = String.valueOf((int) ((distance % 86400) / 3600));
-                String minutes = String.valueOf((int) ((distance % 3600) / 60));
-                String seconds = String.valueOf((int) ((distance % 3600) % 60));
-                tvTimeHold.setText(days + hours + ":" + minutes + ":" + seconds);
+                setTime(distance,tvTimeHold);
             } catch (Exception e) {
                 e.printStackTrace();
                 tvTimeHold.setText("0 ngày, 00 : 00 : 00");
