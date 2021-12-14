@@ -314,20 +314,14 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 } else {
                     btnHunt.setVisibility(View.VISIBLE);
                     lnlParent.setVisibility(View.GONE);
-                    btnHunt.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Toast.makeText(mContext, "Clicked!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    int status = dealCampaignDetail.getData().getStatus();
-                    if (status == 0) {
+                    String status = data.getIsProcessing();
+                    if (status.equals(IsProcessingType.KET_THUC_TYPE)) {
                         btnHunt.setText("Đã hết hạn");
                         btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.bg_btn_hunt_disable));
-                    } else if (status == 1) {
+                    } else if (status.equals(IsProcessingType.DANG_DIEN_RA_TYPE)) {
                         btnHunt.setText("Săn ngay");
                         btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.f3_btn_agree));
-                    } else if (status == 2) {
+                    } else if (status.equals(IsProcessingType.SAP_DIEN_RA_TYPE)) {
                         btnHunt.setText(Utils.CalendarUtils.getDayStart(dealCampaignDetail.getData().getEndAt()));
                         btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.f3_btn_agree));
                     }
@@ -335,7 +329,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     btnHunt.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (status == 1) {
+                            if (status.equals(IsProcessingType.DANG_DIEN_RA_TYPE)) {
                                 F2Util.startSendMessIntent(mContext, "1039", "D " + dealCampaignDetail.getData().getCode());
                             }
                         }
@@ -361,10 +355,10 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     rclContent.setVisibility(View.VISIBLE);
 
                     try {
-                        if(dealResponse.getData().getContent().size() > 0){
+                        if (dealResponse.getData().getContent().size() > 0) {
                             layoutNoData.setVisibility(View.GONE);
                             rclContent.setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             layoutNoData.setVisibility(View.VISIBLE);
                             rclContent.setVisibility(View.GONE);
                         }
@@ -387,10 +381,10 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     rclContent.setAdapter(new GridDealInDealHomeAdapter((ArrayList<Content>) dealCampaignDetail.getDealByCampaign().getData().getContent()));
 
                     try {
-                        if(dealCampaignDetail.getDealByCampaign().getData().getContent().size() > 0){
+                        if (dealCampaignDetail.getDealByCampaign().getData().getContent().size() > 0) {
                             layoutNoData.setVisibility(View.GONE);
                             rclContent.setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             layoutNoData.setVisibility(View.VISIBLE);
                             rclContent.setVisibility(View.GONE);
                         }
@@ -675,23 +669,33 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             try {
                 mTvCode.setText(dealCampaignDetail.getData().getCode());
                 mHuntingCount.setText(F3SubDealAdapter.getHuntingUserCount(dealCampaignDetail.getData().getUserHuntingCount()));
-                int status = dealCampaignDetail.getData().getStatus();
-                if (dealCampaignDetail.getData().getPromptRank() == 0) {
+                String status = dealCampaignDetail.getData().getIsProcessing();
+                if (dealCampaignDetail.getData().getRanking() == 0) {
                     mTvRank.setText("Bạn chưa tích lũy");
-                } else if (dealCampaignDetail.getData().getPromptRank() == 1) {
+                } else if (dealCampaignDetail.getData().getRanking() == 1) {
                     mTvRank.setVisibility(View.GONE);
                     imgNo1.setVisibility(View.VISIBLE);
                 } else {
-                    mTvRank.setText(String.valueOf(dealCampaignDetail.getData().getPromptRank()));
+                    mTvRank.setText(String.valueOf(dealCampaignDetail.getData().getRanking()));
                 }
-                if (status == 2) {
+                if (status.equals(IsProcessingType.SAP_DIEN_RA_TYPE)) {
                     mTvTimeKeepDeal.setText("Chưa bắt đầu");
                     mTvRank.setText("Chưa bắt đầu");
                 }
                 if (dealCampaignDetail.getData().getIsUserHunting()) {
                     mTvTimeKeepDeal.setText("Bạn chưa tích lũy");
                 } else {
-                    mTvTimeKeepDeal.setText(Utils.CalendarUtils.getTimeHold(dealCampaignDetail.getData().getTotalHoldTime()));
+                    try {
+                        long distance = dealCampaignDetail.getData().getTotalHoldTime() / 1000;
+                        String days = (int) (distance / 86400) + " ngày ";
+                        String hours = String.valueOf((int) ((distance % 86400) / 3600));
+                        String minutes = String.valueOf((int) ((distance % 3600) / 60));
+                        String seconds = String.valueOf((int) ((distance % 3600) % 60));
+                        mTvTimeKeepDeal.setText(days + hours + ":" + minutes + ":" + seconds);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        mTvTimeKeepDeal.setText("0 ngày, 00 : 00 : 00");
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -802,8 +806,8 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     mTvDisCount.setVisibility(View.GONE);
                     e.printStackTrace();
                 }
-                if(data.getExpireDate() != null)
-                mTvExpirationDate.setText("HSD: " + DateUtltils.timeToString18(data.getExpireDate()));
+                if (data.getExpireDate() != null)
+                    mTvExpirationDate.setText("HSD: " + DateUtltils.timeToString18(data.getExpireDate()));
                 mProgressCountDown.setProgress(GridDealInDealHomeAdapter.Companion.getPercentProgress(data.getBeginAt(), data.getEndAt()));
             } catch (Exception e) {
                 e.printStackTrace();
@@ -813,15 +817,17 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 if (data.getIsProcessing() != null) {
                     String status = data.getIsProcessing();
                     if (status.equals(IsProcessingType.KET_THUC_TYPE)) {
-                        rllStatusDeal.setBackgroundColor(Color.parseColor("#FF0909"));
                         mProgressCountDown.setProgress(0);
                         if (data.getRanking() == 1) {
+                            rllStatusDeal.setBackgroundColor(Color.parseColor("#01B819"));
                             tvStatusDeal.setText("Bạn đã giành được CTKM này!");
                             imgWin.setVisibility(View.VISIBLE);
                             rllProgress.setVisibility(View.GONE);
                         } else {
+                            rllStatusDeal.setBackgroundColor(Color.parseColor("#FF0909"));
                             tvStatusDeal.setText("Chương trình đã kết thúc!");
                             mTvTimeCountDown.setText("Đã hết hạn");
+                            mProgressCountDown.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.f2_rounded_corners_progress_bar_end));
                         }
 
                     } else if (status.equals(IsProcessingType.DANG_DIEN_RA_TYPE)) {
@@ -863,9 +869,14 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                 } else {
                     mTvTimeCountDown.setText("Đã hết hạn");
+                    mProgressCountDown.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.f2_rounded_corners_progress_bar_end));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                rllStatusDeal.setBackgroundColor(Color.parseColor("#FF0909"));
+                tvStatusDeal.setText("Chương trình đã kết thúc!");
+                mTvTimeCountDown.setText("Đã hết hạn");
+                mProgressCountDown.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.f2_rounded_corners_progress_bar_end));
             }
 
             // set time total hold time

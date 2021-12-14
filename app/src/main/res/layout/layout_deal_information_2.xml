@@ -68,6 +68,7 @@
 
 
         <TextView
+            android:textColor="#FF2929"
             android:id="@+id/hunting_count"
             android:textSize="16dp"
             android:fontFamily="@font/roboto_bold"
