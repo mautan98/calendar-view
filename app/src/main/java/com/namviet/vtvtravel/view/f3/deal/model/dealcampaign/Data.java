@@ -149,7 +149,7 @@ public class Data {
     private Boolean isUserHunting;
     @SerializedName("ranking")
     @Expose
-    private Integer ranking;
+    private int ranking;
     @SerializedName("deals")
     @Expose
     private List<Deal> deals = null;

@@ -224,20 +224,20 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 String hours = String.valueOf((int) ((distance % 86400) / 3600));
                 String minutes = String.valueOf((int) ((distance % 3600) / 60));
                 String seconds = String.valueOf((int) ((distance % 3600) % 60));
-                if(days.length() == 1){
-                    days = "0"+days;
+                if (days.length() == 1) {
+                    days = "0" + days;
                 }
 
-                if(hours.length() == 1){
-                    hours = "0"+hours;
+                if (hours.length() == 1) {
+                    hours = "0" + hours;
                 }
 
-                if(minutes.length() == 1){
-                    minutes = "0"+minutes;
+                if (minutes.length() == 1) {
+                    minutes = "0" + minutes;
                 }
 
-                if(seconds.length() == 1){
-                    seconds = "0"+seconds;
+                if (seconds.length() == 1) {
+                    seconds = "0" + seconds;
                 }
                 tvDay.setText(days);
                 tvHour.setText(hours);
@@ -696,13 +696,14 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 if (status.equals(IsProcessingType.SAP_DIEN_RA_TYPE)) {
                     mTvTimeKeepDeal.setText("Chưa bắt đầu");
                     mTvRank.setText("Chưa bắt đầu");
+                    return;
                 }
-                if (dealCampaignDetail.getData().getIsUserHunting()) {
+                if (!dealCampaignDetail.getData().getIsUserHunting()) {
                     mTvTimeKeepDeal.setText("Bạn chưa tích lũy");
                 } else {
                     try {
                         long distance = dealCampaignDetail.getData().getTotalHoldTime() / 1000;
-                       setTime(distance,mTvTimeKeepDeal);
+                        setTime(distance, mTvTimeKeepDeal, "", true);
                     } catch (Exception e) {
                         e.printStackTrace();
                         mTvTimeKeepDeal.setText("0 ngày, 00 : 00 : 00");
@@ -715,28 +716,38 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
         }
     }
-    public static void setTime(long s, TextView tv){
+
+    public static void setTime(long s, TextView tv, String isProcessing, boolean isHoldTime) {
         try {
             String days = (int) (s / 86400) + " ngày ";
             String hours = String.valueOf((int) ((s % 86400) / 3600));
             String minutes = String.valueOf((int) ((s % 3600) / 60));
             String seconds = String.valueOf((int) ((s % 3600) % 60));
-            if(days.length() == 1){
-                days = "0"+days;
+            if (days.length() == 1) {
+                days = "0" + days;
             }
 
-            if(hours.length() == 1){
-                hours = "0"+hours;
+            if (hours.length() == 1) {
+                hours = "0" + hours;
             }
 
-            if(minutes.length() == 1){
-                minutes = "0"+minutes;
+            if (minutes.length() == 1) {
+                minutes = "0" + minutes;
             }
 
-            if(seconds.length() == 1){
-                seconds = "0"+seconds;
+            if (seconds.length() == 1) {
+                seconds = "0" + seconds;
             }
-            tv.setText(days + hours + ":" + minutes + ":" + seconds);
+            if (isHoldTime) {
+                tv.setText(days + hours + ":" + minutes + ":" + seconds);
+            } else {
+                if (isProcessing.equals(IsProcessingType.SAP_DIEN_RA_TYPE)) {
+                    tv.setText("Bắt đầu sau " + days + hours + ":" + minutes + ":" + seconds);
+                } else {
+                    tv.setText("Còn lại " + days + hours + ":" + minutes + ":" + seconds);
+                }
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             tv.setText("0 ngày, 00 : 00 : 00");
@@ -877,7 +888,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             mTvTimeCountDown.setText("Còn lại 0 ngày");
                         } else {
                             long distance = (timeStamp - myCurrentTimeMillis) / 1000;
-                           setTime(distance,mTvTimeCountDown);
+                            setTime(distance, mTvTimeCountDown, IsProcessingType.DANG_DIEN_RA_TYPE, false);
 
                         }
                     } else if (status.equals(IsProcessingType.SAP_DIEN_RA_TYPE)) {
@@ -889,7 +900,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             mTvTimeCountDown.setText("Bắt đầu sau 0 ngày");
                         } else {
                             long distance = (timeStamp - myCurrentTimeMillis) / 1000;
-                            setTime(distance,mTvTimeCountDown);
+                            setTime(distance, mTvTimeCountDown, IsProcessingType.SAP_DIEN_RA_TYPE, false);
                         }
 
                     }
@@ -908,7 +919,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             // set time total hold time
             try {
                 long distance = data.getTotalHoldTime() / 1000;
-                setTime(distance,tvTimeHold);
+                setTime(distance, tvTimeHold, "", true);
             } catch (Exception e) {
                 e.printStackTrace();
                 tvTimeHold.setText("0 ngày, 00 : 00 : 00");
