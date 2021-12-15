@@ -54,7 +54,8 @@ class MenuLuckyWheelFragment : BaseFragment<F2FragmentMenuLuckyWheel2Binding?>()
         }
 
         btnGift.setOnClickListener {
-            HistoryLuckyWheelActivity.startScreen(mActivity)
+//            HistoryLuckyWheelActivity.startScreen(mActivity)
+            addFragment(LuckyWheelHistoriesFragment())
         }
 
 

@@ -704,4 +704,7 @@ public interface TravelService {
     @POST(WSConfig.Api.TICKET_INFO)
     Observable<TicketInfo> ticketInfo(@Body RequestBody body);
 
+    @GET
+    Observable<WheelChartResponse> getVQMMHistories(@Url String url);
+
 }

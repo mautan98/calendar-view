@@ -169,6 +169,32 @@ public class LuckyWheelViewModel extends BaseViewModel {
     }
 
 
+    public void getVQMMHistories(String link) {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelService();
+        Disposable disposable = newsService.getVQMMHistories(link)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<WheelChartResponse>() {
+                    @Override
+                    public void accept(WheelChartResponse response) throws Exception {
+                        if (response != null) {
+                            requestSuccess(response);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable, "");
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+
+
+
     private void requestSuccess(Object object) {
         setChanged();
         notifyObservers(object);
