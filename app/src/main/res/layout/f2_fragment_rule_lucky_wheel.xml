@@ -12,7 +12,10 @@
         android:focusable="true"
         android:orientation="vertical">
 
-
+        <View
+            android:background="#00918D"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
