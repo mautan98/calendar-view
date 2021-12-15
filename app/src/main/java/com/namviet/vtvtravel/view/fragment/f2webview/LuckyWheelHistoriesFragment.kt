@@ -29,7 +29,11 @@ class LuckyWheelHistoriesFragment : BaseFragment<F3VqmmHistoriesBinding?>(), Obs
     }
 
     override fun inject() {}
-    override fun setClickListener() {}
+    override fun setClickListener() {
+        binding?.btnBack?.setOnClickListener {
+            mActivity.onBackPressed()
+        }
+    }
     override fun setObserver() {}
     override fun update(observable: Observable?, o: Any?) {
         hideLoading()
