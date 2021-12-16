@@ -223,7 +223,8 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
                     highlight(v)
                 }
                 MotionEvent.ACTION_UP -> {
-                    HistoryLuckyWheelActivity.startScreen(mActivity)
+//                    HistoryLuckyWheelActivity.startScreen(mActivity)
+                    addFragment(LuckyWheelHistoriesFragment())
                     run { unHighLight(v) }
                 }
             }
