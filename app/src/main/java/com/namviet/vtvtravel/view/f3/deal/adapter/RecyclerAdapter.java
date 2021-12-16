@@ -21,6 +21,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.brandongogetap.stickyheaders.exposed.StickyHeader;
 import com.brandongogetap.stickyheaders.exposed.StickyHeaderHandler;
+import com.bumptech.glide.Glide;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
 import com.namviet.vtvtravel.R;
@@ -303,6 +304,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         private View btnClose;
         private View layoutNoData;
         private View layoutWhite;
+        private ImageView imgNote;
 
         public ContentViewHolder2(View itemView) {
             super(itemView);
@@ -314,6 +316,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             btnClose = itemView.findViewById(R.id.btnClose);
             layoutNoData = itemView.findViewById(R.id.layoutNoData);
             layoutWhite = itemView.findViewById(R.id.layoutWhite);
+            imgNote = itemView.findViewById(R.id.imgNote);
 
         }
 
@@ -343,6 +346,14 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                         showLoading();
                         headerViewHolder2.getData();
                         isCheck = isChecked;
+                        
+                        if(layoutNote.getVisibility() == View.VISIBLE){
+                            if(isCheck){
+                                Glide.with(context).load(R.drawable.img_banner_deal_2).into(imgNote);
+                            }else {
+                                Glide.with(context).load(R.drawable.img_banner_deal).into(imgNote);
+                            }
+                        }
                     }
                 });
 
