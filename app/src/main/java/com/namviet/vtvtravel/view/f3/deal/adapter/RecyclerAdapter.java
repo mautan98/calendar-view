@@ -299,7 +299,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         private RecyclerView rclContent;
         private ShimmerFrameLayout shimmerFrameLayout;
         public CheckBox checkBox;
-        private LinearLayout btnViewMore;
+        private View btnViewMore;
         private ConstraintLayout layoutNote;
         private View btnClose;
         private View layoutNoData;

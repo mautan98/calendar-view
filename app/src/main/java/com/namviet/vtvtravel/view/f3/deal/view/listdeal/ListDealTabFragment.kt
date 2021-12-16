@@ -103,6 +103,7 @@ class ListDealTabFragment : BaseFragment<FragmentListDealTabBinding?>, Observer 
     override fun setObserver() {}
 
     override fun update(observable: Observable?, o: Any?) {
+        binding?.shimmerViewContainer?.visibility = View.GONE
         if (observable is DealViewModel) {
             if (o is DealResponse) {
                 if(isLoadMore){
