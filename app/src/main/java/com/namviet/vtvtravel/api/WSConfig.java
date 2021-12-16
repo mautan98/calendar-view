@@ -66,6 +66,7 @@ public class WSConfig {
         public static final String REFRESH_TOKEN = "user/refreshToken";
         public static final String REGISTER = "user/create";
         public static final String RESENT_OTP = "user/resendOtp";
+        public static final String RESENT_OTP_FOR_RESET_PASSWORD = "user/resendOtpForResetPassword";
         public static final String GET_INFO = "user/getInfo";
         public static final String REGISTER_OTP = "user/verifyRegisterOtp";
         public static final String RESET_PASS_OTP = "user/verifyResetPasswordOtp";

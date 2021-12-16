@@ -160,6 +160,31 @@ public class AccountViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
+    public void resendOtpForResetPassword(String mobile, String packageCode) {
+
+        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(Param.resendOtp(mobile, packageCode)).toString());
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+
+        Disposable disposable = newsService.resendOtpForResetPassword(jsonBodyObject)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<AccountResponse>() {
+                    @Override
+                    public void accept(AccountResponse baseResponse) throws Exception {
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable);
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+
     public void verifyOtpRegister(String mobile, String otp, String packageCode) {
 
         RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.getParams(Param.verifyOtp(mobile, otp, packageCode)).toString());

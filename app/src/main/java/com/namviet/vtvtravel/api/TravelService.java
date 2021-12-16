@@ -181,6 +181,9 @@ public interface TravelService {
     @POST(WSConfig.Api.RESENT_OTP)
     Observable<AccountResponse> resend(@Body RequestBody body);
 
+    @POST(WSConfig.Api.RESENT_OTP_FOR_RESET_PASSWORD)
+    Observable<AccountResponse> resendOtpForResetPassword(@Body RequestBody body);
+
     @POST(WSConfig.Api.GET_INFO)
     Observable<AccountResponse> getInfo(@Body RequestBody body);
 

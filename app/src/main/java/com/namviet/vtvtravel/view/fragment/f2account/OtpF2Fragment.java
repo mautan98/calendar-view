@@ -102,7 +102,14 @@ public class OtpF2Fragment extends BaseFragment<F2FragmentOtpBinding> implements
             public void onClick(View v) {
                 cancelTimer();
                 startCountDown();
-                accountViewModel.resendOtp(StringUtils.isPhoneValidateV2(mobile, 84), ((LoginAndRegisterActivityNew)mActivity).packageCode);
+
+                if (typeOtp.equals(Constants.IntentKey.TYPE_OTP_REGISTER)) {
+                    accountViewModel.resendOtp(StringUtils.isPhoneValidateV2(mobile, 84), ((LoginAndRegisterActivityNew)mActivity).packageCode);
+                } else if (typeOtp.equals(Constants.IntentKey.TYPE_OTP_RESET_PASS)) {
+                    accountViewModel.resendOtpForResetPassword(StringUtils.isPhoneValidateV2(mobile, 84), ((LoginAndRegisterActivityNew)mActivity).packageCode);
+                }
+
+
             }
         });
     }
