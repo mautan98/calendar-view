@@ -12,6 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.app.MyApplication;
+import com.namviet.vtvtravel.model.Account;
+import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.RewardStatus;
 import com.namviet.vtvtravel.viewmodel.newhome.ChangeRegionDialog;
 import com.ornach.richtext.RichText;
@@ -91,12 +94,30 @@ public class DealFilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    for (int i = 0; i < listFilter.size(); i++) {
-                        listFilter.get(i).setMarked(false);
+
+                    Account account = MyApplication.getInstance().getAccount();
+                    if (account != null && account.isLogin()) {
+                        for (int i = 0; i < listFilter.size(); i++) {
+                            listFilter.get(i).setMarked(false);
+                        }
+                        listFilter.get(position).setMarked(true);
+                        clickItem.onClickItem(position);
+                        notifyDataSetChanged();
+                    } else {
+                        if (listFilter.get(position).getId().equals("2")
+                                || listFilter.get(position).getId().equals("4")
+                                || listFilter.get(position).getId().equals("5")) {
+                            LoginAndRegisterActivityNew.startScreen(context, 0, false);
+                        }else {
+                            for (int i = 0; i < listFilter.size(); i++) {
+                                listFilter.get(i).setMarked(false);
+                            }
+                            listFilter.get(position).setMarked(true);
+                            clickItem.onClickItem(position);
+                            notifyDataSetChanged();
+                        }
                     }
-                    listFilter.get(position).setMarked(true);
-                    clickItem.onClickItem(position);
-                    notifyDataSetChanged();
+
                 }
             });
         }

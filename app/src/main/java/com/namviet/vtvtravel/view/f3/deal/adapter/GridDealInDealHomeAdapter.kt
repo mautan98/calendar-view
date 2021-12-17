@@ -206,12 +206,14 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
                             if(content.dealScoresList != null && content.dealScoresList.size > 0 && content.dealScoresList[0].mobile == account.mobile){
                                 itemView.layoutIsWinner.visibility = View.VISIBLE
                                 itemView.layoutProgressBar.visibility = View.GONE
+                                itemView.layoutIsHuntingUser.visibility = View.GONE
                             }else{
                                 if(content.isUserHunting) {
                                     itemView.layoutIsWinner.visibility = View.GONE
                                     itemView.layoutProgressBar.visibility = View.VISIBLE
                                     itemView.progress1.progress = 0
                                     itemView.tvDayLeft.text = "Săn không thành công"
+                                    itemView.layoutIsHuntingUser.visibility = View.GONE
                                 }else{
                                     itemView.layoutIsWinner.visibility = View.GONE
                                     itemView.layoutProgressBar.visibility = View.VISIBLE

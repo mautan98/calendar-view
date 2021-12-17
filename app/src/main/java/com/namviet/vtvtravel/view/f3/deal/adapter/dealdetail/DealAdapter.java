@@ -182,6 +182,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private DealViewModel dealViewModel;
         private TextView tvDay, tvHour, tvMinutes, tvSecond, tvTotalHoldCount;
+        private DealFilterAdapter dealFilterAdapter;
 
 
         public MoreViewHolder(View itemView) {
@@ -191,13 +192,34 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tabs.add("Sắp diễn ra");
             tabs.add("Đã kết thúc");
 
+            initDangDienRa();
+
+
+            dealViewModel = new DealViewModel();
+            dealViewModel.addObserver(this);
+        }
+
+        private void initDangDienRa(){
+            listFilter.clear();
             listFilter.add(new RewardStatus("", "Tất cả", true));
             listFilter.add(new RewardStatus("2", "Đang săn", false));
             listFilter.add(new RewardStatus("4", "Săn thành công", false));
             listFilter.add(new RewardStatus("5", "Săn không thành công", false));
+            filter = "";
+        }
 
-            dealViewModel = new DealViewModel();
-            dealViewModel.addObserver(this);
+        private void initSapDienRa(){
+            listFilter.clear();
+            listFilter.add(new RewardStatus("", "Tất cả", true));
+            filter = "";
+        }
+
+        private void initDaKetThuc(){
+            listFilter.clear();
+            listFilter.add(new RewardStatus("", "Tất cả", true));
+            listFilter.add(new RewardStatus("4", "Săn thành công", false));
+            listFilter.add(new RewardStatus("5", "Săn không thành công", false));
+            filter = "";
         }
 
         private void initView(View itemView) {
@@ -279,7 +301,6 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         dealViewModel.getDealByCampaign(status, String.valueOf(dealCampaignDetail.getData().getId()), filter);
                     }
 
-                    rclFilterDeal.setAdapter(new DealFilterAdapter(mContext, null, null));
                     mF3HeaderAdapter = new F3HeaderAdapter(0, tabs, itemView.getContext(), new F3HeaderAdapter.ClickTab() {
 
                         @Override
@@ -292,11 +313,15 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                             if (position == 0) {
                                 status = IsProcessingType.DANG_DIEN_RA_TYPE;
+                                initDangDienRa();
                             } else if (position == 1) {
                                 status = IsProcessingType.SAP_DIEN_RA_TYPE;
+                                initSapDienRa();
                             } else if (position == 2) {
                                 status = IsProcessingType.KET_THUC_TYPE;
+                                initDaKetThuc();
                             }
+                            dealFilterAdapter.notifyDataSetChanged();
 //                            mILoadDataDeal.onLoadDataDeal(status, filter);
 
                             dealViewModel.getDealByCampaign(status, String.valueOf(dealCampaignDetail.getData().getId()), filter);
@@ -305,7 +330,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     rcvTabHeader1.setAdapter(mF3HeaderAdapter);
 
 
-                    rclFilterDeal.setAdapter(new DealFilterAdapter(mContext, listFilter, new DealFilterAdapter.ClickItem() {
+                    dealFilterAdapter = new DealFilterAdapter(mContext, listFilter, new DealFilterAdapter.ClickItem() {
                         @Override
                         public void onClickItem(int position) {
                             filter = listFilter.get(position).getId();
@@ -316,7 +341,8 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             viewWhite.setVisibility(View.VISIBLE);
                             dealViewModel.getDealByCampaign(status, String.valueOf(dealCampaignDetail.getData().getId()), filter);
                         }
-                    }));
+                    });
+                    rclFilterDeal.setAdapter(dealFilterAdapter);
 
 
 //                    ; = DealFilterAdapter(mActivity, listFilter) { position ->
