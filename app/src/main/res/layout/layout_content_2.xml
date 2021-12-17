@@ -34,10 +34,8 @@
             android:textStyle="italic" />
 
         <LinearLayout
-            android:foreground="@drawable/ripple_effect_click"
-            android:id="@+id/lnl_view_more"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="right"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
@@ -45,8 +43,11 @@
             android:orientation="horizontal">
 
             <TextView
+                android:foreground="@drawable/ripple_effect_click"
+                android:gravity="center"
+                android:id="@+id/lnl_view_more"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginLeft="7dp"
                 android:text="Xem tiếp"
