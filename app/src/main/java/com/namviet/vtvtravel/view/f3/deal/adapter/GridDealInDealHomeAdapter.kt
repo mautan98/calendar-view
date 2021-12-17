@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.namviet.vtvtravel.R
+import com.namviet.vtvtravel.app.MyApplication
 import com.namviet.vtvtravel.ultils.DateUtltils
 import com.namviet.vtvtravel.view.f3.deal.constant.DiscountDisplayType
 import com.namviet.vtvtravel.view.f3.deal.constant.IsProcessingType
@@ -22,17 +23,22 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private val TYPE_ITEM = 0
     private var listDeal: ArrayList<Content>? = null
     private var context: Context? = null
-    private var onDataChange : OnDataChange? = null;
+    private var onDataChange: OnDataChange? = null;
+    private var isDealByCampaign = false
+
     constructor()
+    constructor(listDeal: ArrayList<Content>?, isDealByCampaign: Boolean) : super() {
+        this.listDeal = listDeal
+        this.isDealByCampaign = isDealByCampaign
+    }
+
     constructor(listDeal: ArrayList<Content>?) : super() {
         this.listDeal = listDeal
     }
 
-    public fun setOnDataChangeListener(onDataChange : OnDataChange?){
+    public fun setOnDataChangeListener(onDataChange: OnDataChange?) {
         this.onDataChange = onDataChange
     }
-
-
 
 
     override fun getItemViewType(position: Int): Int {
@@ -48,9 +54,9 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     override fun getItemCount(): Int {
         return try {
-            if(listDeal!!.size > 0){
+            if (listDeal!!.size > 0) {
                 onDataChange?.onDataChange(false)
-            }else{
+            } else {
                 onDataChange?.onDataChange(true)
             }
             return listDeal!!.size
@@ -81,9 +87,9 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
         fun bindItem(position: Int) {
             val content = listDeal!![position]
 
-            if(content.name != null) {
+            if (content.name != null) {
                 itemView.tvName.text = content.name
-            }else{
+            } else {
                 itemView.tvName.text = ""
             }
 
@@ -136,19 +142,19 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         var minutes: String = ((distance % 3600 / 60).toInt()).toString()
                         var seconds: String = ((distance % 3600 % 60).toInt()).toString()
 
-                        if(days.length == 1){
+                        if (days.length == 1) {
                             days = "0$days"
                         }
 
-                        if(hours.length == 1){
+                        if (hours.length == 1) {
                             hours = "0$hours"
                         }
 
-                        if(minutes.length == 1){
+                        if (minutes.length == 1) {
                             minutes = "0$minutes"
                         }
 
-                        if(seconds.length == 1){
+                        if (seconds.length == 1) {
                             seconds = "0$seconds"
                         }
 
@@ -167,28 +173,65 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         var minutes: String = ((distance % 3600 / 60).toInt()).toString()
                         var seconds: String = ((distance % 3600 % 60).toInt()).toString()
 
-                        if(days.length == 1){
+                        if (days.length == 1) {
                             days = "0$days"
                         }
 
-                        if(hours.length == 1){
+                        if (hours.length == 1) {
                             hours = "0$hours"
                         }
 
-                        if(minutes.length == 1){
+                        if (minutes.length == 1) {
                             minutes = "0$minutes"
                         }
 
-                        if(seconds.length == 1){
+                        if (seconds.length == 1) {
                             seconds = "0$seconds"
                         }
 
                         itemView.tvDayLeft.text = "Bắt đầu sau $days$hours:$minutes:$seconds"
                     }
                     itemView.progress1.progress = 100
-                } else {
-                    itemView.tvDayLeft.text = "Đã kết thúc"
-                    itemView.progress1.progress = 0
+                } else if (content.isProcessing.equals(IsProcessingType.KET_THUC_TYPE)) {
+                    if (isDealByCampaign) {
+
+                        if(content.rewardStatus != null && content.rewardStatus.toInt() == 6){
+                            itemView.layoutIsAccumulate.visibility = View.VISIBLE
+                        }else{
+                            itemView.layoutIsAccumulate.visibility = View.GONE
+                        }
+
+                        try {
+                            var account = MyApplication.getInstance().account
+                            if(content.dealScoresList != null && content.dealScoresList.size > 0 && content.dealScoresList[0].mobile == account.mobile){
+                                itemView.layoutIsWinner.visibility = View.VISIBLE
+                                itemView.layoutProgressBar.visibility = View.GONE
+                            }else{
+                                if(content.isUserHunting) {
+                                    itemView.layoutIsWinner.visibility = View.GONE
+                                    itemView.layoutProgressBar.visibility = View.VISIBLE
+                                    itemView.progress1.progress = 0
+                                    itemView.tvDayLeft.text = "Săn không thành công"
+                                }else{
+                                    itemView.layoutIsWinner.visibility = View.GONE
+                                    itemView.layoutProgressBar.visibility = View.VISIBLE
+                                    itemView.progress1.progress = 0
+                                    itemView.tvDayLeft.text = "Đã kết thúc"
+                                }
+
+                            }
+                        } catch (e: Exception) {
+                            itemView.layoutIsWinner.visibility = View.GONE
+                            itemView.layoutProgressBar.visibility = View.VISIBLE
+                            itemView.progress1.progress = 0
+                            itemView.tvDayLeft.text = "Đã kết thúc"
+                        }
+
+
+                    } else {
+                        itemView.tvDayLeft.text = "Đã kết thúc"
+                        itemView.progress1.progress = 0
+                    }
                 }
             } else {
                 itemView.tvDayLeft.text = "Đã kết thúc"
@@ -280,9 +323,8 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
 
-
-    public interface OnDataChange{
-        fun onDataChange(isShow : Boolean)
+    public interface OnDataChange {
+        fun onDataChange(isShow: Boolean)
     }
 
     companion object {

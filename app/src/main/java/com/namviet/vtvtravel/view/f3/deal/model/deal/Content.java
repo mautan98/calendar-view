@@ -4,6 +4,9 @@ package com.namviet.vtvtravel.view.f3.deal.model.deal;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignScore;
+
+import java.util.ArrayList;
 
 public class Content {
 
@@ -124,6 +127,31 @@ public class Content {
     @Expose
     @SerializedName("isProcessing")
     private String isProcessing;
+    @Expose
+    @SerializedName("ranking")
+    private String ranking;
+    @Expose
+    @SerializedName("dealScores")
+    private ArrayList<DealCampaignScore> dealScoresList;
+    @Expose
+    @SerializedName("rewardStatus")
+    private String rewardStatus;
+
+    public String getRewardStatus() {
+        return rewardStatus;
+    }
+
+    public void setRewardStatus(String rewardStatus) {
+        this.rewardStatus = rewardStatus;
+    }
+
+    public ArrayList<DealCampaignScore> getDealScoresList() {
+        return dealScoresList;
+    }
+
+    public void setDealScoresList(ArrayList<DealCampaignScore> dealScoresList) {
+        this.dealScoresList = dealScoresList;
+    }
 
     public String getIsProcessing() {
         return isProcessing;
@@ -445,4 +473,11 @@ public class Content {
         this.userHuntingCount = userHuntingCount;
     }
 
+    public String getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(String ranking) {
+        this.ranking = ranking;
+    }
 }

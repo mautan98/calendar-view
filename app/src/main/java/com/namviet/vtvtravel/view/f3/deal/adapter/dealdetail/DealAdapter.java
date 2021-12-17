@@ -192,7 +192,9 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tabs.add("Đã kết thúc");
 
             listFilter.add(new RewardStatus("", "Tất cả", true));
-            listFilter.add(new RewardStatus("1", "Đang săn", false));
+            listFilter.add(new RewardStatus("2", "Đang săn", false));
+            listFilter.add(new RewardStatus("4", "Săn thành công", false));
+            listFilter.add(new RewardStatus("5", "Săn không thành công", false));
 
             dealViewModel = new DealViewModel();
             dealViewModel.addObserver(this);
@@ -366,7 +368,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if (observable instanceof DealViewModel) {
                 if (o instanceof DealResponse) {
                     dealResponse = (DealResponse) o;
-                    rclContent.setAdapter(new GridDealInDealHomeAdapter((ArrayList<Content>) dealResponse.getData().getContent()));
+                    rclContent.setAdapter(new GridDealInDealHomeAdapter((ArrayList<Content>) dealResponse.getData().getContent(), true));
                     rclContent.setVisibility(View.VISIBLE);
 
                     try {
@@ -393,7 +395,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    rclContent.setAdapter(new GridDealInDealHomeAdapter((ArrayList<Content>) dealCampaignDetail.getDealByCampaign().getData().getContent()));
+                    rclContent.setAdapter(new GridDealInDealHomeAdapter((ArrayList<Content>) dealCampaignDetail.getDealByCampaign().getData().getContent(), true));
 
                     try {
                         if (dealCampaignDetail.getDealByCampaign().getData().getContent().size() > 0) {
