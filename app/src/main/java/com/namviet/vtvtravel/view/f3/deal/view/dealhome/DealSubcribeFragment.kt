@@ -1,7 +1,6 @@
 package com.namviet.vtvtravel.view.f3.deal.view.dealhome
 
 import android.view.View
-import android.widget.Toast
 import com.google.gson.Gson
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.FragmentDealSubcribeBinding
@@ -18,11 +17,7 @@ import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollow
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollowResponse
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.RewardStatus
 import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel
-import kotlinx.android.synthetic.main.fragment_deal_home.*
-import kotlinx.android.synthetic.main.fragment_deal_menu.*
 import kotlinx.android.synthetic.main.fragment_deal_subcribe.*
-import kotlinx.android.synthetic.main.fragment_deal_subcribe.btnMenu
-import kotlinx.android.synthetic.main.fragment_deal_subcribe.viewFullScreen
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 import kotlin.collections.ArrayList
@@ -110,6 +105,9 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
     override fun setClickListener() {
         btnMenu.setOnClickListener {
             var dealMenuDialog = DealMenuDialog()
+            if(location == 1){
+                dealMenuDialog.setFullScreen(true)
+            }
             dealMenuDialog.setClickListener(object : DealMenuDialog.Click{
                 override fun onClickRule() {
                 }
@@ -135,7 +133,7 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
                         EventBus.getDefault().post(ChangeToCenterTab(1))
                     }else{
                         mActivity.finish()
-                        EventBus.getDefault().post(FinishDeal())
+//                        EventBus.getDefault().post(FinishDeal())
                     }
                 }
 
