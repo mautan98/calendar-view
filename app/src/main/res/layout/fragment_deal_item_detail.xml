@@ -126,7 +126,7 @@
                                     android:layout_toRightOf="@+id/img_back"
                                     android:ellipsize="end"
                                     android:maxLines="1"
-                                    android:text="[COMBO T10] Vé xem phim CGV + voucher du lịch 3 miền"
+                                    tools:text="[COMBO T10] Vé xem phim CGV + voucher du lịch 3 miền"
                                     android:textColor="@color/black"
                                     android:textSize="14dp"
                                     android:textStyle="bold"
@@ -240,6 +240,7 @@
         </RelativeLayout>
 
         <com.facebook.shimmer.ShimmerFrameLayout
+            android:layout_marginTop="70dp"
             android:id="@+id/shimmer_view_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

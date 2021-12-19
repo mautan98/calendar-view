@@ -346,11 +346,11 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                         showLoading();
                         headerViewHolder2.getData();
                         isCheck = isChecked;
-                        
-                        if(layoutNote.getVisibility() == View.VISIBLE){
-                            if(isCheck){
+
+                        if (layoutNote.getVisibility() == View.VISIBLE) {
+                            if (isCheck) {
                                 Glide.with(context).load(R.drawable.img_banner_deal_2).into(imgNote);
-                            }else {
+                            } else {
                                 Glide.with(context).load(R.drawable.img_banner_deal).into(imgNote);
                             }
                         }
@@ -393,6 +393,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         private int position;
         private RecyclerView rclContent;
         private ShimmerFrameLayout mShimmerFrameLayout;
+        private View viewWhite;
         private RecyclerView rclTab;
         private HorizontalInfiniteCycleViewPager infiniteCycleViewPager;
         private CircleIndicator indicator;
@@ -402,7 +403,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
         private int positionClick = 0;
 
-        public int getPositionClick(){
+        public int getPositionClick() {
             return positionClick;
         }
 
@@ -417,6 +418,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             btnSeeMore = itemView.findViewById(R.id.btnSeeMore);
             mShimmerFrameLayout = itemView.findViewById(R.id.shimmer_view_container);
             layoutNoData = itemView.findViewById(R.id.layoutNoData);
+            viewWhite = itemView.findViewById(R.id.viewWhite);
 
 
         }
@@ -425,20 +427,21 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
             this.position = position;
             rclContent.setAdapter(new F3SubDealAdapter(context, blocksMenuHeader1.get(0).getDealResponse(), null));
 //            if (!blocksMenuHeader1.get(0).isDataLoaded()) {
-                rclContent.setVisibility(View.INVISIBLE);
-                mShimmerFrameLayout.setVisibility(View.VISIBLE);
-                mShimmerFrameLayout.startShimmer();
-                dealHomeChildFragment.setmIOnClickTabReloadData(ContentViewHolder1.this);
+            rclContent.setVisibility(View.INVISIBLE);
+            mShimmerFrameLayout.setVisibility(View.VISIBLE);
+            viewWhite.setVisibility(View.VISIBLE);
+            mShimmerFrameLayout.startShimmer();
+            dealHomeChildFragment.setmIOnClickTabReloadData(ContentViewHolder1.this);
 
-                //Lấy position của tab dang dien ra
-                int runningPosition = 0;
-                for (int i = 0; i < blocksMenuHeader1.get(positionHeader1).getListChildBlock().size(); i++) {
-                    if (blocksMenuHeader1.get(positionHeader1).getListChildBlock().get(i).getCode_type().equals("CTKM_RUNNING")) {
-                        runningPosition = i;
-                        break;
-                    }
+            //Lấy position của tab dang dien ra
+            int runningPosition = 0;
+            for (int i = 0; i < blocksMenuHeader1.get(positionHeader1).getListChildBlock().size(); i++) {
+                if (blocksMenuHeader1.get(positionHeader1).getListChildBlock().get(i).getCode_type().equals("CTKM_RUNNING")) {
+                    runningPosition = i;
+                    break;
                 }
-                mILoadDataDeal.onLoadDataDeal(blocksMenuHeader1.get(positionHeader1).getListChildBlock().get(runningPosition).getLink());
+            }
+            mILoadDataDeal.onLoadDataDeal(blocksMenuHeader1.get(positionHeader1).getListChildBlock().get(runningPosition).getLink());
 //                blocksMenuHeader1.get(0).setDataLoaded(true);
 //            }
 
@@ -446,6 +449,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                 @Override
                 public void onClickTab(int positionClick, ArrayList<Block> blocks) {
                     mShimmerFrameLayout.setVisibility(View.VISIBLE);
+                    viewWhite.setVisibility(View.VISIBLE);
                     rclContent.setVisibility(View.INVISIBLE);
                     mShimmerFrameLayout.startShimmer();
                     dealHomeChildFragment.setmIOnClickTabReloadData(ContentViewHolder1.this);
@@ -514,12 +518,13 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                         rclContent.setAdapter(new F3SubDealAdapter(context, blocksMenuHeader1.get(0).getDealResponse(), null));
                         mShimmerFrameLayout.stopShimmer();
                         mShimmerFrameLayout.setVisibility(View.GONE);
+                        viewWhite.setVisibility(View.GONE);
                         rclContent.setVisibility(View.VISIBLE);
 
                         try {
-                            if(blocksMenuHeader1.get(0).getDealResponse().getData().getContent().size() > 0){
+                            if (blocksMenuHeader1.get(0).getDealResponse().getData().getContent().size() > 0) {
                                 layoutNoData.setVisibility(View.GONE);
-                            }else {
+                            } else {
                                 layoutNoData.setVisibility(View.VISIBLE);
                             }
                         } catch (Exception e) {

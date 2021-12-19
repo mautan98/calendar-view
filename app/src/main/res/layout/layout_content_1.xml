@@ -159,6 +159,12 @@
             android:visibility="visible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
+        <View
+            android:id="@+id/viewWhite"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"/>
+
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer_view_container"
             android:layout_width="match_parent"

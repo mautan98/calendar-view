@@ -74,7 +74,7 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
 
     @Override
     public void initData() {
-        getBinding().rllContent.setVisibility(View.GONE);
+//        getBinding().rllContent.setVisibility(View.GONE);
         getBinding().shimmerViewContainer.setVisibility(View.VISIBLE);
         getBinding().shimmerViewContainer.startShimmer();
         dataBanner = new ArrayList<>();
