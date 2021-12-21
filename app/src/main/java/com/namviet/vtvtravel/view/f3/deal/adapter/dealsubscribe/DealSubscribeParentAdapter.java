@@ -129,13 +129,50 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
             tvName.setText(dealFollows.get(position).getName());
             tvRank.setText(dealFollows.get(position).getRanking());
 
+//            try {
+//                tvStatus.setText(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)?"Đang diễn ra": (dealFollows.get(position).getIsProcessing().equals(IsProcessingType.SAP_DIEN_RA_TYPE)?"Sắp diễn ra": "Đã kết thúc"));
+//                tvStatus.setTextColor(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)? Color.parseColor("#25C400") : Color.parseColor("#C2C2C2"));
+//            } catch (Exception e) {
+//                tvStatus.setText("Đã kết thúc");
+//                tvStatus.setTextColor(Color.parseColor("#C2C2C2"));
+//            }
+
+
             try {
-                tvStatus.setText(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)?"Đang diễn ra": (dealFollows.get(position).getIsProcessing().equals(IsProcessingType.SAP_DIEN_RA_TYPE)?"Sắp diễn ra": "Đã kết thúc"));
-                tvStatus.setTextColor(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)? Color.parseColor("#25C400") : Color.parseColor("#C2C2C2"));
+                if(dealFollows.get(position).getRewardStatus().equals("2")){
+                    tvStatus.setText("Đang diễn ra");
+                    tvStatus.setTextColor(Color.parseColor("#25C400"));
+                    Glide.with(context).load(R.drawable.ic_clock).into(imgClock);
+                }else if (dealFollows.get(position).getRewardStatus().equals("4")){
+                    tvStatus.setText("Đã chiến thắng");
+                    tvStatus.setTextColor(Color.parseColor("#C2C2C2"));
+                    Glide.with(context).load(R.drawable.ic_clock_2).into(imgClock);
+                }else if(dealFollows.get(position).getRewardStatus().equals("5")){
+                    tvStatus.setText("Săn không thành công");
+                    tvStatus.setTextColor(Color.parseColor("#C2C2C2"));
+                    Glide.with(context).load(R.drawable.ic_clock_2).into(imgClock);
+                }else {
+                    tvStatus.setText("Đang diễn ra");
+                    tvStatus.setTextColor(Color.parseColor("#25C400"));
+                    Glide.with(context).load(R.drawable.ic_clock).into(imgClock);
+                }
             } catch (Exception e) {
-                tvStatus.setText("Đã kết thúc");
-                tvStatus.setTextColor(Color.parseColor("#C2C2C2"));
+                tvStatus.setText("Đang diễn ra");
+                tvStatus.setTextColor(Color.parseColor("#25C400"));
+                Glide.with(context).load(R.drawable.ic_clock).into(imgClock);
             }
+
+//            try {
+//                if(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)){
+//                    Glide.with(context).load(R.drawable.ic_clock).into(imgClock);
+//                }else {
+//                    Glide.with(context).load(R.drawable.ic_clock_2).into(imgClock);
+//                }
+//            } catch (Exception e) {
+//                Glide.with(context).load(R.drawable.ic_clock_2).into(imgAvatar);
+//                e.printStackTrace();
+//            }
+
 
             try {
                 long time = Integer.parseInt(dealFollows.get(position).getTotalHoldTime())/1000;
@@ -187,17 +224,6 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
                 Glide.with(context).load(R.drawable.ic_show_child).into(btnShowHide);
             }
 
-
-            try {
-                if(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)){
-                    Glide.with(context).load(R.drawable.ic_clock).into(imgClock);
-                }else {
-                    Glide.with(context).load(R.drawable.ic_clock_2).into(imgClock);
-                }
-            } catch (Exception e) {
-                Glide.with(context).load(R.drawable.ic_clock_2).into(imgAvatar);
-                e.printStackTrace();
-            }
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

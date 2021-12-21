@@ -75,7 +75,7 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
         private TextView tvRank;
         private TextView tvStatus;
         private LinearLayout lnlPrice;
-//        private LinearLayout layoutChecked;
+        private LinearLayout layoutChecked;
         private ImageView imgClock;
         private ImageView imgWin;
         private View viewCoverVertical;
@@ -90,7 +90,7 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
             tvRank = itemView.findViewById(R.id.tvRank);
             tvStatus = itemView.findViewById(R.id.tvStatus);
             imgClock = itemView.findViewById(R.id.imgClock);
-//            layoutChecked = itemView.findViewById(R.id.layoutChecked);
+            layoutChecked = itemView.findViewById(R.id.layoutChecked);
             viewCoverVertical = itemView.findViewById(R.id.viewCoverVertical);
 
         }
@@ -101,9 +101,9 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
             tvTotalHoldTime.setText(dealFollows.get(position).getTotalHoldTime());
             Glide.with(context).load(dealFollows.get(position).getAvatarUri()).into(imgAvatar);
             try {
-                if(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)){
+                if (dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)) {
                     Glide.with(context).load(R.drawable.ic_clock).into(imgClock);
-                }else {
+                } else {
                     Glide.with(context).load(R.drawable.ic_clock_2).into(imgClock);
                 }
             } catch (Exception e) {
@@ -112,8 +112,8 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
             }
 
             try {
-                tvStatus.setText(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)?"Đang diễn ra": (dealFollows.get(position).getIsProcessing().equals(IsProcessingType.SAP_DIEN_RA_TYPE)?"Sắp diễn ra": "Đã kết thúc"));
-                tvStatus.setTextColor(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)? Color.parseColor("#25C400") : Color.parseColor("#C2C2C2"));
+                tvStatus.setText(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE) ? "Đang diễn ra" : (dealFollows.get(position).getIsProcessing().equals(IsProcessingType.SAP_DIEN_RA_TYPE) ? "Sắp diễn ra" : "Đã hết hạn"));
+                tvStatus.setTextColor(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE) ? Color.parseColor("#25C400") : Color.parseColor("#C2C2C2"));
             } catch (Exception e) {
                 tvStatus.setText("Đã kết thúc");
                 tvStatus.setTextColor(Color.parseColor("#C2C2C2"));
@@ -121,9 +121,9 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
 
 
             try {
-                if(Integer.parseInt(dealFollows.get(position).getRanking()) == 1 && dealFollows.get(position).getIsProcessing().equals(IsProcessingType.KET_THUC_TYPE)){
+                if (Integer.parseInt(dealFollows.get(position).getRanking()) == 1 && dealFollows.get(position).getIsProcessing().equals(IsProcessingType.KET_THUC_TYPE)) {
                     imgWin.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     imgWin.setVisibility(View.GONE);
                 }
             } catch (Exception e) {
@@ -132,30 +132,30 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
 
 
             try {
-                long time = Integer.parseInt(dealFollows.get(position).getTotalHoldTime())/1000;
+                long time = Integer.parseInt(dealFollows.get(position).getTotalHoldTime()) / 1000;
 
-                String days = (int)(time / 86400) + " NGÀY ";
-                String hours = String.valueOf((int)((time % 86400) / 3600));
-                String minutes = String.valueOf((int)((time % 3600) / 60));
-                String seconds = String.valueOf((int)((time % 3600) % 60));
+                String days = (int) (time / 86400) + " NGÀY ";
+                String hours = String.valueOf((int) ((time % 86400) / 3600));
+                String minutes = String.valueOf((int) ((time % 3600) / 60));
+                String seconds = String.valueOf((int) ((time % 3600) % 60));
 
-                if(days.length() == 1){
-                    days = "0"+days;
+                if (days.length() == 1) {
+                    days = "0" + days;
                 }
 
-                if(hours.length() == 1){
-                    hours = "0"+hours;
+                if (hours.length() == 1) {
+                    hours = "0" + hours;
                 }
 
-                if(minutes.length() == 1){
-                    minutes = "0"+minutes;
+                if (minutes.length() == 1) {
+                    minutes = "0" + minutes;
                 }
 
-                if(seconds.length() == 1){
-                    seconds = "0"+seconds;
+                if (seconds.length() == 1) {
+                    seconds = "0" + seconds;
                 }
 
-                tvTotalHoldTime.setText(days + hours+" : "+minutes+" : "+seconds);
+                tvTotalHoldTime.setText(days + hours + " : " + minutes + " : " + seconds);
 
 //                if(time > 0){
 //                    layoutChecked.setVisibility(View.VISIBLE);
@@ -167,10 +167,22 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
 //                layoutChecked.setVisibility(View.GONE);
             }
 
-            if(position == dealFollows.size() - 1){
+            if (position == dealFollows.size() - 1) {
                 viewCoverVertical.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 viewCoverVertical.setVisibility(View.GONE);
+            }
+
+
+            try {
+                if (dealFollows.get(position).getRewardStatus().equals("6")) {
+                    layoutChecked.setVisibility(View.VISIBLE);
+                } else {
+                    layoutChecked.setVisibility(View.GONE);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                layoutChecked.setVisibility(View.GONE);
             }
 
 

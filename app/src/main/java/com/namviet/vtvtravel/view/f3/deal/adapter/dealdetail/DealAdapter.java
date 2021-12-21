@@ -770,7 +770,8 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 tv.setText(days + hours + ":" + minutes + ":" + seconds);
             } else {
                 if (isProcessing.equals(IsProcessingType.SAP_DIEN_RA_TYPE)) {
-                    tv.setText("Bắt đầu sau " + days + hours + ":" + minutes + ":" + seconds);
+//                    tv.setText("Bắt đầu sau " + days + hours + ":" + minutes + ":" + seconds);
+                    tv.setText("Chưa đầu sau");
                 } else {
                     tv.setText("Còn lại " + days + hours + ":" + minutes + ":" + seconds);
                 }
