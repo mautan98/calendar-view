@@ -652,6 +652,12 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void bindItem(int position) {
             if (dealCampaignDetail.getData().isCampaign()) {
                 rllHunt.setVisibility(View.GONE);
+            }else {
+                if(dealCampaignDetail.getData().getIsProcessing().equals(IsProcessingType.SAP_DIEN_RA_TYPE)){
+                    rllHunt.setVisibility(View.GONE);
+                }else {
+                    rllHunt.setVisibility(View.VISIBLE);
+                }
             }
             tvCode.setText("D " + dealCampaignDetail.getData().getCode());
             imgCopy.setOnClickListener(new View.OnClickListener() {
@@ -922,7 +928,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         }
                     } else if (status.equals(IsProcessingType.SAP_DIEN_RA_TYPE)) {
                         rllStatusDeal.setBackgroundColor(Color.parseColor("#E9BB00"));
-                        tvStatusDeal.setText("Chương trình sắp diễn ra!");
+                        tvStatusDeal.setText("Chương trình chưa bắt đầu!");
                         long timeStamp = data.getBeginAt();
                         long myCurrentTimeMillis = System.currentTimeMillis();
                         if (myCurrentTimeMillis > timeStamp) {
