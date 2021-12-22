@@ -359,8 +359,14 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     lnlParent.setVisibility(View.GONE);
                     String status = data.getIsProcessing();
                     if (status.equals(IsProcessingType.KET_THUC_TYPE)) {
-                        btnHunt.setText("Đã hết hạn");
-                        btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.bg_btn_hunt_disable));
+                        if (data.getRanking() == 1) {
+                            btnHunt.setText("Đồng ý tích luỹ");
+                            btnHunt.setVisibility(View.VISIBLE);
+                        } else {
+                            btnHunt.setVisibility(View.GONE);
+                        }
+//                        btnHunt.setText("Đã hết hạn");
+//                        btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.bg_btn_hunt_disable));
                     } else if (status.equals(IsProcessingType.DANG_DIEN_RA_TYPE)) {
                         btnHunt.setText("Săn ngay");
                         btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.f3_btn_agree));
@@ -374,6 +380,10 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         public void onClick(View v) {
                             if (status.equals(IsProcessingType.DANG_DIEN_RA_TYPE)) {
                                 F2Util.startSendMessIntent(mContext, "1039", "D " + dealCampaignDetail.getData().getCode());
+                            }else if(status.equals(IsProcessingType.KET_THUC_TYPE)){
+                                if (data.getRanking() == 1) {
+                                    F2Util.startSendMessIntent(mContext, "1039", "YD " + dealCampaignDetail.getData().getCode());
+                                }
                             }
                         }
                     });
@@ -637,14 +647,14 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public class HotLineViewHolder extends RecyclerView.ViewHolder {
         private TextView tvCode;
-        private ImageView imgCopy;
+        private View btnCopyDealCode;
         private ImageView imgShare;
         private RelativeLayout rllHunt;
 
         public HotLineViewHolder(View itemView) {
             super(itemView);
             tvCode = itemView.findViewById(R.id.tv_code);
-            imgCopy = itemView.findViewById(R.id.img_copy);
+            btnCopyDealCode = itemView.findViewById(R.id.btnCopyDealCode);
             imgShare = itemView.findViewById(R.id.img_share);
             rllHunt = itemView.findViewById(R.id.rll_hunt);
         }
@@ -657,10 +667,15 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     rllHunt.setVisibility(View.GONE);
                 }else {
                     rllHunt.setVisibility(View.VISIBLE);
+                    if(dealCampaignDetail.getData().getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)){
+                        btnCopyDealCode.setVisibility(View.VISIBLE);
+                    }else {
+                        btnCopyDealCode.setVisibility(View.GONE);
+                    }
                 }
             }
             tvCode.setText("D " + dealCampaignDetail.getData().getCode());
-            imgCopy.setOnClickListener(new View.OnClickListener() {
+            btnCopyDealCode.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     try {
@@ -716,7 +731,17 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public void bindItem(int position) {
             try {
-                mTvCode.setText(dealCampaignDetail.getData().getCode());
+                try {
+                    if(dealCampaignDetail.getData().getIsProcessing().equals(IsProcessingType.SAP_DIEN_RA_TYPE)){
+                        mTvCode.setText("Chưa bắt đầu");
+                    }else {
+                        mTvCode.setText(dealCampaignDetail.getData().getCode());
+                    }
+                } catch (Exception e) {
+                    mTvCode.setText("Chưa bắt đầu");
+                    e.printStackTrace();
+                }
+
                 mHuntingCount.setText(F3SubDealAdapter.getHuntingUserCount(dealCampaignDetail.getData().getUserHuntingCount()));
                 String status = dealCampaignDetail.getData().getIsProcessing();
                 if (dealCampaignDetail.getData().getRanking() == 0) {
