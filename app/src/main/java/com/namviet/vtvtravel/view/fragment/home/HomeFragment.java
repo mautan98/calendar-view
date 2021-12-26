@@ -130,9 +130,9 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 //        binding.menuFooter.setLogin(true);
 //        binding.menuFooter.setHomeBarBottomOnClick(this);
 
-        binding.ivCall.setOnClickListener(this);
-        binding.ivChat.setOnClickListener(this);
-        binding.ivCallFake.setOnClickListener(this);
+//        binding.ivCall.setOnClickListener(this);
+//        binding.ivChat.setOnClickListener(this);
+//        binding.ivCallFake.setOnClickListener(this);
         binding.layoutMenuFloat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -292,8 +292,20 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
+                Log.e("event", event.getX() + "");
+                Log.e("event", event.getY() + "");
+
+
                 if (gestureDetector.onTouchEvent(event)) {
                     // single tap
+
+                    if(event.getX() > 0 && event.getX() < 217 ){
+                        if(event.getY() > 0 && event.getY() < 120){
+                            Toast.makeText(mActivity, "Call click", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(mActivity, "Chat click", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 //                    if (layout.getVisibility() == View.INVISIBLE) {
 ////                        params.width = WindowManager.LayoutParams.MATCH_PARENT;
 ////                        mWindowManager.updateViewLayout(mChatHeadView, params);
