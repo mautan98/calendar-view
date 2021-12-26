@@ -15,7 +15,9 @@ import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
 
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -283,8 +285,62 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
         });
 
 
+        gestureDetector = new GestureDetector(mActivity, new SingleTapConfirm());
+        binding.layoutButton.setOnTouchListener(new View.OnTouchListener() {
+            float dX, dY;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                if (gestureDetector.onTouchEvent(event)) {
+                    // single tap
+//                    if (layout.getVisibility() == View.INVISIBLE) {
+////                        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+////                        mWindowManager.updateViewLayout(mChatHeadView, params);
+//                        layout.setVisibility(View.VISIBLE);
+//                    } else {
+////                        params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+////                        mWindowManager.updateViewLayout(mChatHeadView, params);
+//                        layout.setVisibility(View.INVISIBLE);
+//                    }
+                    return true;
+                } else {
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                        dX = binding.layoutButton.getX() - event.getRawX();
+                        dY = binding.layoutButton.getY() - event.getRawY();
+                        return true;
+                    }
+
+                    binding.layoutButton.animate()
+                            .x(event.getRawX() + dX)
+                            .y(event.getRawY() + dY)
+                            .setDuration(0)
+                            .start();
+
+//                    trashView.setVisibility(View.VISIBLE);
+
+//                    if(event.getAction() == MotionEvent.ACTION_UP){
+//                        trashView.setVisibility(View.GONE);
+//                    }
+                    return true;
+                }
+            }
+        });
+
+
         updateViews();
     }
+
+    private GestureDetector gestureDetector;
+
+    private class SingleTapConfirm extends GestureDetector.SimpleOnGestureListener {
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent event) {
+            return true;
+        }
+    }
+
     private void showMenuAnim(){
         Animation scaleDown = AnimationUtils.loadAnimation(mActivity, R.anim.scale_up1);
         scaleDown.setAnimationListener(new Animation.AnimationListener() {
