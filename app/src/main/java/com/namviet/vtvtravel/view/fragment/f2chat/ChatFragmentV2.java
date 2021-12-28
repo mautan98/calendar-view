@@ -287,19 +287,31 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
     private boolean isAlreadyCall = false;
 
     public void call(String message) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-        alertDialogBuilder
-                .setMessage("" + message)
-                .setPositiveButton(R.string.call, (dialog, id) -> {
-                    String phone = "1039";
-                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
-                    mActivity.startActivity(intent);
-                    isAlreadyCall = true;
-                    cancelTimer();
-                })
-                .setNegativeButton(R.string.dimiss, (dialog, id) -> dialog.cancel());
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
+//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+//        alertDialogBuilder
+//                .setMessage("" + message)
+//                .setPositiveButton(R.string.call, (dialog, id) -> {
+//                    String phone = "1039";
+//                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
+//                    mActivity.startActivity(intent);
+//                    isAlreadyCall = true;
+//                    cancelTimer();
+//                })
+//                .setNegativeButton(R.string.dimiss, (dialog, id) -> dialog.cancel());
+//        AlertDialog alertDialog = alertDialogBuilder.create();
+//        alertDialog.show();
+
+        QuestionCall1939Dialog questionCall1939Dialog = new QuestionCall1939Dialog(new QuestionCall1939Dialog.ClickOption() {
+            @Override
+            public void clickChangeTheme() {
+                String phone = "1039";
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
+                mActivity.startActivity(intent);
+                isAlreadyCall = true;
+                cancelTimer();
+            }
+        });
+        questionCall1939Dialog.show(mActivity.getSupportFragmentManager(), null);
     }
 
     private void initTextChangeListener() {

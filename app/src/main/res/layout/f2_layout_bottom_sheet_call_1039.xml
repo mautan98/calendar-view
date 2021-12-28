@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data></data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/f2_bg_round_see_more"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/f2_dialog_comment_border">
+
+                <ImageView
+                    android:src="@drawable/ic_phone_call"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:tint="@color/colorPrimary" />
+
+
+                <TextView
+                    android:layout_marginStart="20dp"
+                    android:id="@+id/tvChangeTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+
+                    android:paddingTop="14dp"
+                    android:paddingBottom="17dp"
+                    android:text="Gọi 1039"
+                    android:textColor="#007AFF"
+                    android:textSize="18dp" />
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:textAllCaps="true"
+            android:id="@+id/tvCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/f2_bg_round_see_more"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:paddingTop="14dp"
+            android:paddingBottom="17dp"
+            android:text="Hủy"
+            android:textColor="#007AFF"
+            android:textSize="16dp" />
+    </LinearLayout>
+</layout>

@@ -274,11 +274,11 @@ public class FormChatFragment extends MainFragment implements Observer {
                 if (mUsername.isEmpty() || mPhone.isEmpty() || mTimeContact.isEmpty() || mStartTime.isEmpty() || mEndTime.isEmpty() || mContent.isEmpty()) {
                     Toast.makeText(mActivity, "Bạn cần nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
                 } else if (!ValidateUtils.isValidPhoneNumber(mPhone)) {
-                    Toast.makeText(mActivity, "Số điện thoai không chính xác!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, "Số điện thoại bạn nhập không đúng. Xin vui lòng nhập lại", Toast.LENGTH_SHORT).show();
                 } else {
 
                     if(!ValidateUtils.isValidEmail(email)){
-                        Toast.makeText(mActivity, "Email không đúng định dạng", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mActivity, "Email bạn nhập không đúng định dạng. Xin vui lòng nhập lại", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -314,6 +314,7 @@ public class FormChatFragment extends MainFragment implements Observer {
 //                    mActivity.switchFragment(SlideMenu.MenuType.FORM_SUCCESS_SCREEN);
                     FormSuccessDialog formSuccessDialog = FormSuccessDialog.newInstance();
                     formSuccessDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+                    formSuccessDialog.setCancelable(false);
                 }
             } else if (arg instanceof ResponseError) {
                 ResponseError responseError = (ResponseError) arg;

@@ -11,10 +11,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+        <View
+            android:id="@+id/toolBar"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
         <LinearLayout
+            android:layout_below="@+id/toolBar"
+            android:layout_marginTop="48dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:background="@drawable/bg_button_chat2"
@@ -28,21 +35,23 @@
                 android:src="@drawable/ic_form_success" />
 
             <TextView
+                android:fontFamily="@font/roboto_regular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="16dp"
-                android:text="VTVTravel đã nhận được thông tin của Quý khách. Chúng tôi sẽ liên hệ tới bạn trong thời gian sớm nhất. Xin cảm ơn!" />
+                android:text="VTV Travel đã nhận được thông tin của Quý khách. Chúng tôi sẽ liên hệ theo thời gian Quý khách yêu cầu. Xin cảm ơn." />
 
             <Button
+                android:textSize="14dp"
+                android:fontFamily="@font/roboto_medium"
                 android:id="@+id/btnBack"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
-                android:text="Quay lại"
+                android:text="Quay lại Chatbot"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:textColor="@color/white" />
 
         </LinearLayout>
     </RelativeLayout>
