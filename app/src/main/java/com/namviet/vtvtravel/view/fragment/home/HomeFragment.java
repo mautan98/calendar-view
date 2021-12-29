@@ -1,5 +1,6 @@
 package com.namviet.vtvtravel.view.fragment.home;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -88,6 +89,10 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
     private HomeViewModel homeViewModel;
     private HomeMenuAdapter adapter;
 
+
+    float x = 0f;
+    float y = 0f;
+
     private boolean isShowBottomMenu = false;
 
     private Fragment mFragment = null;
@@ -132,7 +137,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 
 //        binding.ivCall.setOnClickListener(this);
 //        binding.ivChat.setOnClickListener(this);
-//        binding.ivCallFake.setOnClickListener(this);
+        binding.ivCallFake.setOnClickListener(this);
         binding.layoutMenuFloat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -284,6 +289,15 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             }
         });
 
+        binding.layoutButton.post(new Runnable() {
+            @Override
+            public void run() {
+                x = binding.layoutButton.getX();
+                y = binding.layoutButton.getY();
+            }
+        });
+
+
 
         gestureDetector = new GestureDetector(mActivity, new SingleTapConfirm());
         binding.layoutButton.setOnTouchListener(new View.OnTouchListener() {
@@ -301,9 +315,53 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 
                     if(event.getX() > 0 && event.getX() < 217 ){
                         if(event.getY() > 0 && event.getY() < 120){
-                            Toast.makeText(mActivity, "Call click", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(mActivity, "Call click", Toast.LENGTH_SHORT).show();
+//
+                            binding.layoutButton.animate().x(x).y(y).setDuration(500L).setListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    binding.layoutMenuFloat.setVisibility(View.VISIBLE);
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animation) {
+
+                                }
+                            }).start();
                         }else {
-                            Toast.makeText(mActivity, "Chat click", Toast.LENGTH_SHORT).show();
+                            binding.layoutButton.animate().x(x).y(y).setDuration(500L).setListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    ChatActivity.startScreen(mActivity);
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animation) {
+
+                                }
+                            }).start();
+//                            Toast.makeText(mActivity, "Chat click", Toast.LENGTH_SHORT).show();
+//
                         }
                     }
 //                    if (layout.getVisibility() == View.INVISIBLE) {
@@ -323,11 +381,13 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
                         return true;
                     }
 
-                    binding.layoutButton.animate()
-                            .x(event.getRawX() + dX)
-                            .y(event.getRawY() + dY)
-                            .setDuration(0)
-                            .start();
+//                    binding.layoutButton.animate()
+//                            .x(event.getRawX() + dX)
+//                            .y(event.getRawY() + dY)
+//                            .setDuration(0)
+//                            .start();
+                    binding.layoutButton.setX(event.getRawX()+ dX);
+                    binding.layoutButton.setY(event.getRawY() + dY);
 
 //                    trashView.setVisibility(View.VISIBLE);
 
