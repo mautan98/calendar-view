@@ -29,6 +29,13 @@
         android:glEsVersion="0x00020000"
         android:required="true" />
 
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.SENDTO"/>
+            <data android:scheme="smsto" android:host="*" />
+        </intent>
+    </queries>
+
     <application
         android:name=".app.MyApplication"
         android:allowBackup="false"
@@ -171,6 +178,7 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
 
         <service
             android:name=".fcm.MyFirebaseMessagingService"

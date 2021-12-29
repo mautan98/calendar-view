@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.ultils;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -32,12 +33,28 @@ public class F2Util {
     }
 
     public static void startSendMessIntent(AppCompatActivity activity, String phone, String mess) {
-        Intent I = new Intent(Intent.ACTION_VIEW);
-        I.setData(Uri.parse("smsto:"));
-        I.setType("vnd.android-dir/mms-sms");
-        I.putExtra("address", new String(phone));
-        I.putExtra("sms_body", mess);
-        activity.startActivity(I);
+        try {
+            Intent I = new Intent(Intent.ACTION_SENDTO);
+            I.setData(Uri.parse("smsto:"));
+            I.setType("vnd.android-dir/mms-sms");
+            I.putExtra("address", new String(phone));
+            I.putExtra("sms_body", mess);
+            activity.startActivity(I);
+        } catch (Exception e) {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            String phoneNumber = phone;
+            intent.setData(Uri.parse("smsto:" + phoneNumber));  // This ensures only SMS apps respond
+
+            intent.putExtra("sms_body", mess);
+            if (intent.resolveActivity(activity.getPackageManager()) != null) {
+                try {
+                    activity.startActivity(intent);
+                } catch (ActivityNotFoundException anfe) {
+//                Utilities.showLogError(LOG_TAG, anfe, "Couldn't find SMS activity");
+//                showSnackbar(MainActivity.this, null, 4500, true, new SpannableString("No SMS app installed on your device"), false, "DISMISS", null);
+                }
+            }
+        }
     }
 
     public static String genEndPointShareLink(String cateId, String link){
