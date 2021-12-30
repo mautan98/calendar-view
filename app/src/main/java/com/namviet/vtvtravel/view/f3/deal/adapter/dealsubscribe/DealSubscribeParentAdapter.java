@@ -144,7 +144,8 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
                     tvStatus.setTextColor(Color.parseColor("#25C400"));
                     Glide.with(context).load(R.drawable.ic_clock).into(imgClock);
                 }else if (dealFollows.get(position).getRewardStatus().equals("4")){
-                    tvStatus.setText("Đã chiến thắng");
+//                    tvStatus.setText("Đã chiến thắng");
+                    tvStatus.setText("Hết thời gian");
                     tvStatus.setTextColor(Color.parseColor("#C2C2C2"));
                     Glide.with(context).load(R.drawable.ic_clock_2).into(imgClock);
                 }else if(dealFollows.get(position).getRewardStatus().equals("5")){
