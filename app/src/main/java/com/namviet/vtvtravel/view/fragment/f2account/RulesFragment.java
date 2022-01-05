@@ -65,12 +65,12 @@ public class RulesFragment extends BaseFragment<F2FragmentRulesBinding> implemen
 
     @Override
     public void setClickListener() {
-//        getBinding().btnBack.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mActivity.onBackPressed();
-//            }
-//        });
+        getBinding().btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mActivity.onBackPressed();
+            }
+        });
 
 
     }
@@ -85,14 +85,10 @@ public class RulesFragment extends BaseFragment<F2FragmentRulesBinding> implemen
         if (observable instanceof AccountViewModel && null != o) {
             if (o instanceof HtmlResponse) {
                 HtmlResponse htmlResponse = (HtmlResponse) o;
+                getBinding().webView.setVisibility(View.VISIBLE);
                 getBinding().webView.loadDataWithBaseURL("", htmlResponse.getData().getDescription(), "text/html", "UTF-8", null);
             } else if (o instanceof ErrorResponse) {
                 ErrorResponse responseError = (ErrorResponse) o;
-                try {
-                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
-                } catch (Exception e) {
-
-                }
             }
 
         }

@@ -10,57 +10,69 @@
     </data>
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
 
 
         <LinearLayout
+            android:id="@+id/layoutToolbar"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:clickable="true"
-            android:focusable="true"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-
-<!--            <RelativeLayout-->
-<!--                android:id="@+id/layoutToolbar"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:background="@color/colorPrimary">-->
-
-<!--                <LinearLayout-->
-<!--                    android:id="@+id/btnBack"-->
-<!--                    android:layout_width="50dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:gravity="center">-->
-
-<!--                    <ImageView-->
-<!--                        android:layout_width="10dp"-->
-<!--                        android:layout_height="18dp"-->
-<!--                        android:src="@drawable/video_top_back" />-->
-
-<!--                </LinearLayout>-->
-
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_centerInParent="true"-->
-<!--                    android:fontFamily="@font/roboto_medium"-->
-<!--                    android:gravity="center"-->
-<!--                    android:text="Các điều khoản"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="18dp" />-->
-
-
-<!--            </RelativeLayout>-->
-
-            <WebView
-                android:id="@+id/webView"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="50dp"
+                android:background="@color/white">
 
+                <LinearLayout
+                    android:id="@+id/btnBack"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:tint="@color/colorPrimary"
+                        android:layout_width="10dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/video_top_back" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center"
+                    android:text="Điều kiện / điều khoản sử dụng"
+                    android:textColor="@color/md_black_1000"
+                    android:textSize="18dp" />
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#ECECEC" />
 
         </LinearLayout>
+
+        <WebView
+            android:visibility="gone"
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </RelativeLayout>
 
 
 </layout>
