@@ -204,8 +204,7 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
 
 
             } catch (Exception e) {
-                tvTotalHoldTime.setText("0 NGÀY");
-
+                tvTotalHoldTime.setText("0 NGÀY 00 : 00 : 00");
             }
 
 

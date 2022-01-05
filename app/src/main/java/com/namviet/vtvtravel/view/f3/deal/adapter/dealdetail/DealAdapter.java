@@ -33,6 +33,8 @@ import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.material.tabs.TabLayout;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.travelnews.CommentInDetailTravelNewsAdapter;
+import com.namviet.vtvtravel.app.MyApplication;
+import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.view.f3.deal.Utils;
@@ -362,6 +364,14 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         if (data.getRanking() == 1) {
                             btnHunt.setText("Đồng ý tích luỹ");
                             btnHunt.setVisibility(View.VISIBLE);
+
+                            try {
+                                if(data.getDealCampaignScores().get(0).getRewardStatus() == 6){
+                                    btnHunt.setVisibility(View.GONE);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         } else {
                             btnHunt.setVisibility(View.GONE);
                         }
@@ -801,8 +811,8 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 tv.setText(days + hours + ":" + minutes + ":" + seconds);
             } else {
                 if (isProcessing.equals(IsProcessingType.SAP_DIEN_RA_TYPE)) {
-//                    tv.setText("Bắt đầu sau " + days + hours + ":" + minutes + ":" + seconds);
-                    tv.setText("Chưa đầu sau");
+                    tv.setText("Bắt đầu sau " + days + hours + ":" + minutes + ":" + seconds);
+//                    tv.setText("Chưa đầu sau");
                 } else {
                     tv.setText("Còn lại " + days + hours + ":" + minutes + ":" + seconds);
                 }
@@ -953,7 +963,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         }
                     } else if (status.equals(IsProcessingType.SAP_DIEN_RA_TYPE)) {
                         rllStatusDeal.setBackgroundColor(Color.parseColor("#E9BB00"));
-                        tvStatusDeal.setText("Chương trình chưa bắt đầu!");
+                        tvStatusDeal.setText("Chưa bắt đầu");
                         long timeStamp = data.getBeginAt();
                         long myCurrentTimeMillis = System.currentTimeMillis();
                         if (myCurrentTimeMillis > timeStamp) {
