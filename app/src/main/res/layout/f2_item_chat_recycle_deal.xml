@@ -9,37 +9,38 @@
     <androidx.cardview.widget.CardView
         app:cardUseCompatPadding="true"
         android:layout_width="235dp"
-        android:layout_height="wrap_content"
+        android:layout_height="260dp"
         android:layout_marginEnd="6dp"
         app:cardCornerRadius="4dp">
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="#F2F2F2"
-            android:padding="11dp">
+            android:background="@color/white">
 
             <WebView
+                android:layout_weight="1"
                 android:id="@+id/webViewContent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 tools:ignore="WebViewLayout" />
 
             <TextView
+                android:layout_marginBottom="16dp"
                 android:id="@+id/tvLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/f2_bg_button"
                 android:fontFamily="@font/roboto_regular"
-                android:paddingStart="23dp"
+                android:paddingStart="35dp"
                 android:paddingTop="8dp"
-                android:paddingEnd="23dp"
+                android:paddingEnd="35dp"
                 android:paddingBottom="7dp"
-                android:text="Săn deal ngay"
+                android:text="Săn ngay"
                 android:textColor="#FFFF"
                 android:textSize="14sp" />
         </LinearLayout>

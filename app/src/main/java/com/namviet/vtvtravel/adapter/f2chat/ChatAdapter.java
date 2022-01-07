@@ -15,6 +15,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -51,10 +52,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
     private List<ChatData> mListChat;
     private ChatListener mChatListener;
 
-    public ChatAdapter(ChatActivity context, List<ChatData> chatDatas, ChatListener chatListener) {
+    private RecyclerView recyclerView;
+
+    public ChatAdapter(ChatActivity context, List<ChatData> chatDatas, ChatListener chatListener, RecyclerView recyclerView) {
         this.mContext = context;
         this.mListChat = chatDatas;
         this.mChatListener = chatListener;
+        this.recyclerView = recyclerView;
     }
 
     public void updateChatList(final List<ChatData> chatBases, RecyclerView recyclerView) {
@@ -804,7 +808,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
             super.bindItem(position);
             ChatData chatData = mListChat.get(position);
 
-            UserGuildSlideAdapter userGuildSlideAdapter = new UserGuildSlideAdapter(mContext, chatData.getItemPostUserGuild());
+            UserGuildSlideAdapter userGuildSlideAdapter = new UserGuildSlideAdapter(mContext, chatData.getItemPostUserGuild(), recyclerView);
             recycleDeal.setAdapter(userGuildSlideAdapter);
             userGuildSlideAdapter.setClickItem(this);
 

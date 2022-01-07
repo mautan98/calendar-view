@@ -172,7 +172,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
         getBinding().layoutChat.setVisibility(View.GONE);
         getBinding().view.setVisibility(View.GONE);
 
-        mChatAdapter = new ChatAdapter((ChatActivity) mActivity, mListChat, this);
+        mChatAdapter = new ChatAdapter((ChatActivity) mActivity, mListChat, this, getBinding().recyclerChat);
         getBinding().recyclerChat.setAdapter(mChatAdapter);
         mChatViewModel = new ChatViewModel();
         getBinding().setChatViewModel(mChatViewModel);

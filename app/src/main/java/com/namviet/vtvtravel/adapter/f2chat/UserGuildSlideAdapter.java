@@ -4,6 +4,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -18,14 +19,16 @@ public class UserGuildSlideAdapter extends RecyclerView.Adapter<UserGuildSlideAd
     private Context context;
     private List<PostUserGuildResponse.Data.Item> itemList;
     private ClickItem clickItem;
+    private RecyclerView recyclerView;
 
     public void setClickItem(ClickItem clickItem) {
         this.clickItem = clickItem;
     }
 
-    public UserGuildSlideAdapter(Context context, List<PostUserGuildResponse.Data.Item> itemList) {
+    public UserGuildSlideAdapter(Context context, List<PostUserGuildResponse.Data.Item> itemList, RecyclerView recyclerView) {
         this.context = context;
         this.itemList = itemList;
+        this.recyclerView = recyclerView;
     }
 
     @NonNull
@@ -70,6 +73,13 @@ public class UserGuildSlideAdapter extends RecyclerView.Adapter<UserGuildSlideAd
                 }
             });
             webViewContent.loadData(item.getDescriptions(), "text/html; charset=utf-8", "UTF-8");
+            webViewContent.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    recyclerView.requestDisallowInterceptTouchEvent(true);
+                    return false;
+                }
+            });
         }
     }
 
