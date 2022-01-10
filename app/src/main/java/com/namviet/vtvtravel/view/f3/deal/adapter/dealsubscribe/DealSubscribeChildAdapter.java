@@ -112,7 +112,7 @@ public class DealSubscribeChildAdapter extends RecyclerView.Adapter<RecyclerView
             }
 
             try {
-                tvStatus.setText(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE) ? "Đang diễn ra" : (dealFollows.get(position).getIsProcessing().equals(IsProcessingType.SAP_DIEN_RA_TYPE) ? "Sắp diễn ra" : "Hết thời gian"));
+                tvStatus.setText(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE) ? "Đang săn" : (dealFollows.get(position).getIsProcessing().equals(IsProcessingType.SAP_DIEN_RA_TYPE) ? "Sắp diễn ra" : "Hết thời gian"));
                 tvStatus.setTextColor(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE) ? Color.parseColor("#25C400") : Color.parseColor("#C2C2C2"));
             } catch (Exception e) {
                 tvStatus.setText("Đã kết thúc");

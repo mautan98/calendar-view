@@ -209,6 +209,9 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                     positionHeader1 = position;
                     iOnTabHotClick.onTab1Click(position);
 
+                    //Fix lỗi lấy position tab
+                    contentViewHolder1.setPositionClick(0);
+
                 }
             }, true);
             rcvTabHeader1.setAdapter(mF3Header1Adapter);
@@ -405,6 +408,10 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
 
         public int getPositionClick() {
             return positionClick;
+        }
+
+        public void setPositionClick(int position){
+            this.positionClick = position;
         }
 
 
