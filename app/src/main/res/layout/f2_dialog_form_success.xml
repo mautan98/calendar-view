@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="16dp"
-                android:text="VTV Travel đã nhận được thông tin của Quý khách. Chúng tôi sẽ liên hệ theo thời gian Quý khách yêu cầu. Xin cảm ơn." />
+                android:text="VTVTravel đã nhận được thông tin của Quý khách. Chúng tôi sẽ liên hệ theo thời gian Quý khách yêu cầu. Xin cảm ơn." />
 
             <Button
                 android:textSize="14dp"

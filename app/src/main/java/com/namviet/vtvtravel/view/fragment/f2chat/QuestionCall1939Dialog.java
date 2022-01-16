@@ -16,11 +16,15 @@ import androidx.databinding.DataBindingUtil;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.databinding.F2LayoutBottomSheetCall1039Binding;
 import com.namviet.vtvtravel.databinding.F2LayoutBottomSheetQuestionChangeThemeBinding;
+import com.namviet.vtvtravel.model.f2event.OnDismissCall1039ChatbotDialog;
 import com.namviet.vtvtravel.view.fragment.f2offline.BaseDialogBottom;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Objects;
 
-public class QuestionCall1939Dialog extends BaseDialogBottom{
+public class QuestionCall1939Dialog extends BaseDialogBottom {
     private F2LayoutBottomSheetCall1039Binding binding;
     ClickOption option;
 
@@ -28,7 +32,9 @@ public class QuestionCall1939Dialog extends BaseDialogBottom{
     public QuestionCall1939Dialog(ClickOption option) {
         this.option = option;
     }
-    public QuestionCall1939Dialog() {}
+
+    public QuestionCall1939Dialog() {
+    }
 
     @Override
     protected int getLayoutResource() {
@@ -40,6 +46,7 @@ public class QuestionCall1939Dialog extends BaseDialogBottom{
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         view.setBackgroundColor(Color.TRANSPARENT);
     }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -80,5 +87,26 @@ public class QuestionCall1939Dialog extends BaseDialogBottom{
 
     public interface ClickOption {
         void clickChangeTheme();
+    }
+
+    @Override
+    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onDismissDialog(OnDismissCall1039ChatbotDialog onDismissCall1039ChatbotDialog) {
+        try {
+            dismissAllowingStateLoss();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
