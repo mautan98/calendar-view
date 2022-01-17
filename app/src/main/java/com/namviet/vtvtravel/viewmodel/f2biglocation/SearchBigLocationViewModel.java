@@ -15,15 +15,20 @@ import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import retrofit2.HttpException;
 
+
 public class SearchBigLocationViewModel extends BaseViewModel {
 
 
-
+    @Inject
+    public SearchBigLocationViewModel() {
+    }
 
     public void getLocation() {
         MyApplication myApplication = MyApplication.getInstance();

@@ -3,6 +3,8 @@ package com.namviet.vtvtravel.view.f2;
 import android.content.Context;
 import android.content.Intent;
 
+import androidx.core.content.ContextCompat;
+
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.databinding.F2ActivityServiceBinding;
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
@@ -43,5 +45,15 @@ public class SearchActivity extends BaseActivityNew<F2ActivityServiceBinding> {
     public static void startScreen(Context activity) {
         Intent intent = new Intent(activity, SearchActivity.class);
         activity.startActivity(intent);
+    }
+
+    @Override
+    public void afterSetContentView() {
+        super.afterSetContentView();
+        try {
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.white));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

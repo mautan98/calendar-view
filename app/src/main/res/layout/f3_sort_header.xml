@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:paddingEnd="8dp"
+    android:layout_height="wrap_content">
+
+
+    <com.ornach.richtext.RichView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/layoutContent"
+        app:layout_constraintTop_toTopOf="@id/layoutContent"
+        app:layout_constraintBottom_toBottomOf="@id/layoutContent"
+        app:layout_constraintEnd_toEndOf="@id/layoutContent"
+        app:rt_backgroundColor="#F6F6F6"
+        app:rt_radius="5dp" />
+
+    <com.ornach.richtext.RichView
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/layoutContent"
+        app:layout_constraintTop_toTopOf="@id/layoutContent"
+        app:layout_constraintBottom_toBottomOf="@id/layoutContent"
+        app:layout_constraintEnd_toEndOf="@id/layoutContent"
+        app:rt_backgroundColor="#00918D"
+        app:rt_radius="5dp" />
+
+    <LinearLayout
+        android:id="@+id/layoutContent"
+        android:padding="11dp"
+        android:gravity="center_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="@color/black"
+            android:textSize="12dp"
+            android:fontFamily="@font/roboto_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sắp xếp theo" />
+
+        <ImageView
+            android:layout_marginStart="8dp"
+            android:src="@drawable/f2_ic_down_small"
+            android:layout_width="9dp"
+            android:layout_height="5dp"
+            app:tint="@color/black" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
