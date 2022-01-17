@@ -10,10 +10,17 @@ import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2ActivityBigLocationBinding;
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
+import com.namviet.vtvtravel.model.newhome.ItemHomeService;
+import com.namviet.vtvtravel.view.f3.smalllocation.view.fragment.SmallLocationMainPageFragment;
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.DetailSmallLocationFragment;
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.SmallLocationFragment;
 
+import java.util.ArrayList;
+
 public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocationBinding> {
+    private ArrayList<ItemHomeService<?>.Item> itemsMenu;
+    ////
+
     private String linkToLoadSmallLocation;
     private String codeToLoadSmallLocation;
     private String regionIdToLoadSmallLocation;
@@ -40,6 +47,7 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
     public void getDataFromIntent() {
         screenType = getIntent().getIntExtra(Constants.IntentKey.SCREEN_TYPE, OpenType.LIST);
         if (screenType == OpenType.LIST) {
+            itemsMenu = (ArrayList<ItemHomeService<?>.Item>) getIntent().getSerializableExtra(Constants.IntentKey.DATA);
             linkToLoadSmallLocation = getIntent().getStringExtra(Constants.IntentKey.LINK);
             codeToLoadSmallLocation = getIntent().getStringExtra(Constants.IntentKey.CODE);
             regionIdToLoadSmallLocation = getIntent().getStringExtra(Constants.IntentKey.REGION_ID);
@@ -69,7 +77,8 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
     @Override
     public BaseFragment initFragment() {
         if (screenType == OpenType.LIST) {
-            return new SmallLocationFragment(linkToLoadSmallLocation, codeToLoadSmallLocation, regionIdToLoadSmallLocation);
+//            return new SmallLocationFragment(linkToLoadSmallLocation, codeToLoadSmallLocation, regionIdToLoadSmallLocation);
+            return new SmallLocationMainPageFragment(itemsMenu);
         }else {
             return new DetailSmallLocationFragment(detailLink);
         }
@@ -87,6 +96,14 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
     public static void startScreen(Context activity, String link, String code, int screenType) {
         Intent intent = new Intent(activity, SmallLocationActivity.class);
         intent.putExtra(Constants.IntentKey.LINK, link);
+        intent.putExtra(Constants.IntentKey.CODE, code);
+        intent.putExtra(Constants.IntentKey.SCREEN_TYPE, screenType);
+        activity.startActivity(intent);
+    }
+
+    public static void startScreen(Context activity, int screenType, ArrayList<ItemHomeService.Item> items, String code){
+        Intent intent = new Intent(activity, SmallLocationActivity.class);
+        intent.putExtra(Constants.IntentKey.DATA, items);
         intent.putExtra(Constants.IntentKey.CODE, code);
         intent.putExtra(Constants.IntentKey.SCREEN_TYPE, screenType);
         activity.startActivity(intent);

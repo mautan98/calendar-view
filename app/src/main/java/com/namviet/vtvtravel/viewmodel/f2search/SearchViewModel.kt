@@ -7,8 +7,9 @@ import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.viewmodel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import retrofit2.HttpException
+import javax.inject.Inject
 
-class SearchViewModel : BaseViewModel() {
+class SearchViewModel @Inject constructor() : BaseViewModel() {
     fun getYourVoucher(link: String) {
         val myApplication = MyApplication.getInstance()
         val newsService = myApplication.travelService

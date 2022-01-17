@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="androidx.core.content.ContextCompat" />
+
+        <variable
+            name="SmallLocationMainViewModel"
+            type="com.namviet.vtvtravel.view.f3.smalllocation.viewmodel.SmallLocationMainViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@{ContextCompat.getColor(context, SmallLocationMainViewModel.backgroundToolbar)}">
+
+            <ImageView
+                android:visibility="@{SmallLocationMainViewModel.stateBtnBack1}"
+                android:id="@+id/btnBack"
+                android:layout_width="38dp"
+                android:layout_height="50dp"
+                android:paddingStart="15dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:src="@drawable/f2_ic_back"
+                app:tint="@color/white" />
+
+            <RelativeLayout
+                android:layout_marginStart="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="7dp"
+                android:layout_weight="1">
+
+                <com.ornach.richtext.RichView
+                    android:visibility="@{SmallLocationMainViewModel.stateLayoutSearch1}"
+                    android:id="@+id/layoutSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:rt_backgroundColor="@color/white"
+                    app:rt_radius="19dp"/>
+
+                <com.ornach.richtext.RichView
+                    android:visibility="@{SmallLocationMainViewModel.stateLayoutSearch2}"
+                    android:id="@+id/layoutSearch2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:rt_backgroundColor="#F6F6F6"
+                    app:rt_radius="19dp"/>
+
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:layout_width="91dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_left_search_small_location">
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="14dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="Hà Nội"
+                            android:textColor="@color/md_black_1000"
+                            android:textSize="14dp" />
+
+
+                        <ImageView
+                            android:layout_width="11dp"
+                            android:layout_height="7dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="11dp"
+                            android:src="@drawable/f2_ic_down_small" />
+
+                    </RelativeLayout>
+
+                    <EditText
+                        android:gravity="center_vertical"
+                        android:id="@+id/edtSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="19dp"
+                        android:background="@{ContextCompat.getColor(context, SmallLocationMainViewModel.backgroundEditTextSearch)}"
+                        android:fontFamily="@font/roboto_regular"
+                        android:hint="Bạn muốn tìm gì?"
+                        android:singleLine="true"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvCancelSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="19dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Hủy"
+                android:textSize="14dp"
+                android:visibility="@{SmallLocationMainViewModel.stateCancelButton, default = gone}" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.tabs.TabLayout
+                    app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:tabIndicatorColor="@color/colorPrimary"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabIndicatorHeight="2dp"
+                    app:tabMinWidth="75dp"
+                    app:tabPaddingEnd="10dp"
+                    app:tabPaddingStart="10dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/colorPrimary" />
+
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/vpContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/layoutSearchSuggestion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:visibility="@{SmallLocationMainViewModel.stateSearchSuggestion}">
+
+                <include layout="@layout/f2_layout_keyword"/>
+
+                <View
+                    android:visibility="gone"
+                    android:background="#ECECEC"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:id="@+id/rclSearchSuggestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>
