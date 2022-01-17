@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data></data>
 
@@ -75,21 +76,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
+
+
+                    <ImageView
+                        android:src="@drawable/ic_filter"
+                        android:layout_marginEnd="6dp"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_gravity="center_vertical" />
+
                     <TextView
+                        android:layout_marginEnd="12dp"
+                        android:textColor="@color/black"
                         android:id="@+id/tvFilter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
                         android:fontFamily="@font/roboto_regular"
                         android:text="Lọc"
-                        android:textSize="12dp" />
-
-                    <ImageView
-                        android:layout_marginEnd="12dp"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center_vertical"
-                        android:background="@color/black" />
+                        android:textSize="14dp" />
 
                 </LinearLayout>
 
@@ -175,6 +180,8 @@
 
 
                     <TextView
+                        android:paddingBottom="3dp"
+                        android:paddingTop="3dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="11dp"
@@ -185,15 +192,140 @@
                         android:textColor="@color/black" />
 
 
+
+                    <com.ornach.richtext.RichView
+                        android:gravity="center_vertical"
+                        app:rt_borderWidth="0.5dp"
+                        app:rt_borderColor="#DFDFDF"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginEnd="14dp"
+                        android:layout_marginStart="14dp"
+                        android:paddingEnd="18dp"
+                        android:paddingStart="16dp"
+                        android:paddingBottom="11dp"
+                        android:paddingTop="9dp"
+                        app:rt_radius="100dp"
+                        app:rt_backgroundColor="#F6F6F6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="--- Chọn tỉnh/thành phố ---"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+
+                        <ImageView
+                            android:src="@drawable/f2_ic_arrow_down"
+                            android:layout_width="10dp"
+                            android:layout_height="6dp"
+                            app:tint="@color/black" />
+
+
+                    </com.ornach.richtext.RichView>
+
+                    <com.ornach.richtext.RichView
+                        android:gravity="center_vertical"
+                        app:rt_borderWidth="0.5dp"
+                        app:rt_borderColor="#DFDFDF"
+                        android:layout_marginTop="26dp"
+                        android:layout_marginEnd="14dp"
+                        android:layout_marginStart="14dp"
+                        android:paddingEnd="18dp"
+                        android:paddingStart="16dp"
+                        android:paddingBottom="11dp"
+                        android:paddingTop="9dp"
+                        app:rt_radius="100dp"
+                        app:rt_backgroundColor="#F6F6F6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:textColor="#C1C1C1"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="--- Chọn quận/huyện ---"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+
+                        <ImageView
+                            android:src="@drawable/f2_ic_arrow_down"
+                            android:layout_width="10dp"
+                            android:layout_height="6dp"
+                            app:tint="@color/black" />
+
+
+                    </com.ornach.richtext.RichView>
+
+
+                    <com.ornach.richtext.RichView
+                        android:gravity="center_vertical"
+                        app:rt_borderWidth="0.5dp"
+                        app:rt_borderColor="#DFDFDF"
+                        android:layout_marginTop="26dp"
+                        android:layout_marginEnd="14dp"
+                        android:layout_marginStart="14dp"
+                        android:paddingEnd="18dp"
+                        android:paddingStart="16dp"
+                        android:paddingBottom="11dp"
+                        android:paddingTop="9dp"
+                        app:rt_radius="100dp"
+                        app:rt_backgroundColor="#F6F6F6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:textColor="#C1C1C1"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="--- Chọn xã/phường ---"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+
+                        <ImageView
+                            android:src="@drawable/f2_ic_arrow_down"
+                            android:layout_width="10dp"
+                            android:layout_height="6dp"
+                            app:tint="@color/black" />
+
+
+                    </com.ornach.richtext.RichView>
+
+
+
+
                     <TextView
+                        android:paddingBottom="3dp"
+                        android:paddingTop="3dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="11dp"
+                        android:layout_marginTop="40dp"
                         android:background="#F3F3F3"
                         android:fontFamily="@font/roboto_medium"
                         android:paddingStart="16dp"
                         android:text="Danh mục"
                         android:textColor="@color/black" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginBottom="40dp"
+                        android:layout_marginTop="16dp"
+                        tools:itemCount="4"
+                        android:layout_gravity="center_horizontal"
+                        tools:listitem="@layout/f3_item_search_category"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="horizontal"
+                        android:id="@+id/rclCategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
 
                     <LinearLayout
@@ -276,6 +408,12 @@
                         app:rt_radius="21dp" />
 
                 </LinearLayout>
+
+
+                <FrameLayout
+                    android:id="@+id/mainFrame"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
             </RelativeLayout>
 

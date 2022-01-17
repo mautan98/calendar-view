@@ -192,11 +192,11 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                     is ResultSearch -> {
                         when (o.type) {
                             SearchType.NEWS -> {
-                                newsSearchFragment?.setList(o.data.items as ArrayList<Travel>?, o.data.more_link, o.data.total, keyword!!)
+                                newsSearchFragment?.setList(o.data.items as ArrayList<Travel>?, o.data.more_link, o.data.total, keyword!!, o.data.approximately)
                             }
 
                             SearchType.DESTINATION -> {
-                                destinationSearchFragment?.setList(o.data.items as ArrayList<Travel>?, o.data.more_link, o.data.total, keyword!!)
+                                destinationSearchFragment?.setList(o.data.items as ArrayList<Travel>?, o.data.more_link, o.data.total, keyword!!, o.data.approximately)
                             }
 
 
@@ -205,7 +205,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                     }
 
                     is ResultVideoSearch -> {
-                        resultVideosSearchFragment?.setList(o.data.items as ArrayList<Video>?, o.data.more_link, o.data.total, keyword!!)
+                        resultVideosSearchFragment?.setList(o.data.items as ArrayList<Video>?, o.data.more_link, o.data.total, keyword!!, o.data.approximately)
                     }
 
                     is ErrorResponse -> {
