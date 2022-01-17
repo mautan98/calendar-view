@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/btnCloseFilter"
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:padding="20dp"
+                    android:src="@drawable/f2_ic_close"
+                    app:tint="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Chọn Tỉnh/Thành phố"
+                    android:textColor="@color/black"
+                    android:textSize="14dp" />
+
+            </RelativeLayout>
+
+
+
+
+
+            <com.ornach.richtext.RichView
+                android:gravity="center_vertical"
+                app:rt_borderWidth="0.5dp"
+                app:rt_borderColor="#DFDFDF"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginStart="14dp"
+                android:paddingEnd="18dp"
+                android:paddingStart="17dp"
+                android:paddingBottom="11dp"
+                android:paddingTop="9dp"
+                app:rt_radius="100dp"
+                app:rt_backgroundColor="#F6F6F6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:src="@mipmap/ic_search"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    app:tint="#858585" />
+
+
+                <EditText
+                    android:hint="Tìm kiếm Tỉnh/Thành phố"
+                    android:textSize="14dp"
+                    android:layout_marginStart="7dp"
+                    android:background="@color/transparent"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto_regular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+
+
+            </com.ornach.richtext.RichView>
+            
+            
+            <LinearLayout
+                android:layout_marginTop="14dp"
+                android:paddingStart="23dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                
+                <ImageView
+                    android:layout_marginEnd="11dp"
+                    android:src="@drawable/f2_ic_current_location"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:tint="#2884EC" />
+
+
+
+                <TextView
+                    android:textSize="14dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="#2884EC"
+                    android:text="Vị trí của tôi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                
+                
+            </LinearLayout>
+
+
+            <View
+                android:layout_marginTop="14.5dp"
+                android:background="#ececec"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+
+
+            <TextView
+                android:layout_marginTop="7.5dp"
+                android:layout_marginStart="9dp"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Chọn khu vực"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="5dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:id="@+id/rclCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="24dp">
+
+
+
+
+            <com.ornach.richtext.RichText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="54dp"
+                android:layout_marginEnd="54dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:paddingStart="18dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="10dp"
+                android:text="Chọn"
+                android:textColor="@color/white"
+                app:rt_backgroundColor="@color/colorPrimary"
+                app:rt_radius="21dp" />
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
