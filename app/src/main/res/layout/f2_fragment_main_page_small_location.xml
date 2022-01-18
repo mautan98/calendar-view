@@ -20,8 +20,9 @@
 
 
         <LinearLayout
+            android:paddingTop="25dp"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="75dp"
             android:background="@{ContextCompat.getColor(context, SmallLocationMainViewModel.backgroundToolbar)}">
 
             <ImageView
@@ -137,16 +138,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     app:tabIndicatorColor="@color/colorPrimary"
-                    app:tabIndicatorFullWidth="false"
-                    app:tabIndicatorHeight="2dp"
+                    app:tabIndicatorFullWidth="true"
+                    app:tabIndicatorHeight="3dp"
+                    app:tabIndicator="@drawable/custom_tab_indicator"
                     app:tabMinWidth="75dp"
-                    app:tabPaddingEnd="10dp"
-                    app:tabPaddingStart="10dp" />
+                    android:layout_marginEnd="18dp"
+                    android:layout_marginStart="18dp"
+                    />
 
                 <View
+                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/colorPrimary" />
+                    android:background="#E4E4E4" />
 
 
                 <androidx.viewpager.widget.ViewPager

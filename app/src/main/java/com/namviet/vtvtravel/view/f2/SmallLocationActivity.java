@@ -33,6 +33,7 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
 
     }
 
+
     @Override
     public int getLayoutRes() {
         return R.layout.f2_activity_big_location;
@@ -65,7 +66,7 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
 
     @Override
     public void doAfterOnCreate() {
-
+        setTransparentStatusBar();
     }
 
     @Override

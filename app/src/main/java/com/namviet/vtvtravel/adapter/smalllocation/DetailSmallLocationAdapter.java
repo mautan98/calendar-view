@@ -6,6 +6,8 @@ import android.content.Context;
 import android.graphics.Color;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,6 +31,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.tabs.TabLayout;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.travelnews.Travel;
@@ -36,6 +40,7 @@ import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationRespons
 import com.namviet.vtvtravel.view.f2.MapActivity;
 import com.namviet.vtvtravel.view.f2.SlideImageActivity;
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.DetailSmallLocationFragment;
+import com.namviet.vtvtravel.widget.AppBarStateChangeListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -284,15 +289,16 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
         private TextView tvOpenState;
         private ImageView imgIcon;
         private TextView tvPrice;
-        private RelativeLayout layoutPrice;
-        private LinearLayout layoutOpenType;
         private LinearLayout layoutPhone;
         private LinearLayout layoutURL;
+        private RelativeLayout layoutPrice;
+        private LinearLayout layoutOpenType;
         private View viewTime;
         private MapView mapView;
 
         private SupportMapFragment mapFragment;
         private GoogleMap mGoogleMap;
+
 
 
         public InformationViewHolder(View itemView) {
@@ -680,14 +686,39 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
         private int position;
         private RecyclerView rclContent;
         private SubNearbyExperienceInSmallLocationDetailAdapter subNearbyExperienceInSmallLocationDetailAdapter;
-
+        private TabLayout tabs;
+        private ArrayList<String> tabsList = new ArrayList<>();
+        private ShimmerFrameLayout shimmerFrameLayout;
         public NearbyExperienceViewHolder(View itemView) {
             super(itemView);
             rclContent = itemView.findViewById(R.id.rclContent);
+            shimmerFrameLayout = itemView.findViewById(R.id.shimmer_view_container);
+            tabs = itemView.findViewById(R.id.tabs);
+            tabsList.add("Tất cả");
+            tabsList.add("Đi đâu");
+            tabsList.add("Ở Đâu");
+            tabsList.add("Ăn gì");
+            tabsList.add("Chơi gì");
         }
 
         public void bindItem(int position) {
             this.position = position;
+            genTab();
+            tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    setOnSelectView(tabs, tab.getPosition());
+                    loadData();
+                }
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+                    setUnSelectView(tabs, tab.getPosition());
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+                }
+            });
             subNearbyExperienceInSmallLocationDetailAdapter = new SubNearbyExperienceInSmallLocationDetailAdapter(items.get(position).getItems(), context, new SubNearbyExperienceInSmallLocationDetailAdapter.ClickItem() {
                 @Override
                 public void onClickItem(Travel travel) {
@@ -696,9 +727,63 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
             });
 
             rclContent.setAdapter(subNearbyExperienceInSmallLocationDetailAdapter);
-
+        }
+        private void loadData() {
+            shimmerFrameLayout.setVisibility(View.VISIBLE);
+            rclContent.setVisibility(View.INVISIBLE);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    shimmerFrameLayout.setVisibility(View.GONE);
+                    rclContent.setVisibility(View.VISIBLE);
+                }
+            },2000);
+        }
+        public void setOnSelectView(TabLayout tabLayout, int position) {
+            TabLayout.Tab tab = tabLayout.getTabAt(position);
+            View selected = tab.getCustomView();
+            TextView iv_text = selected.findViewById(R.id.tvTitle);
+            View view = selected.findViewById(R.id.indicator);
+            view.setVisibility(View.VISIBLE);
+            iv_text.setTextColor(Color.parseColor("#00918D"));
 
         }
+
+        public void setUnSelectView(TabLayout tabLayout, int position) {
+            TabLayout.Tab tab = tabLayout.getTabAt(position);
+            View selected = tab.getCustomView();
+            TextView iv_text = selected.findViewById(R.id.tvTitle);
+            View view = selected.findViewById(R.id.indicator);
+            view.setVisibility(View.INVISIBLE);
+            iv_text.setTextColor(Color.parseColor("#101010"));
+
+        }
+        private void genTab() {
+            try {
+                for (int i = 0; i < tabsList.size(); i++) {
+//                getBinding().tabs.addTab(getBinding().tabs.newTab().setText(detailSmallLocationResponse.getData().getTabs().get(i).getTitle()));
+                    View tabHome = LayoutInflater.from(context).inflate(R.layout.f2_custom_tab_vtv_style, null);
+                    TextView tvHome = tabHome.findViewById(R.id.tvTitle);
+                    tvHome.setText((tabsList.get(i)));
+                    if (i == 0) {
+                        tvHome.setTextColor(Color.parseColor("#00918D"));
+                    } else {
+                        tvHome.setTextColor(Color.parseColor("#101010"));
+                    }
+                    View view = tabHome.findViewById(R.id.indicator);
+                    if (i == 0) {
+                        view.setVisibility(View.VISIBLE);
+                    } else {
+                        view.setVisibility(View.INVISIBLE);
+                    }
+                    tabs.addTab(tabs.newTab().setCustomView(tabHome));
+                    //            getBinding().tabs.addTab(getBinding().tabs.newTab().setText(detailSmallLocationResponse.getData().getTabs().get(i).getTitle()));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public interface ClickItem {
