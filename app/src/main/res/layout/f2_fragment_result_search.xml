@@ -194,6 +194,7 @@
 
 
                     <com.ornach.richtext.RichView
+                        android:id="@+id/btnChooseCity"
                         android:gravity="center_vertical"
                         app:rt_borderWidth="0.5dp"
                         app:rt_borderColor="#DFDFDF"
@@ -411,7 +412,7 @@
 
 
                 <FrameLayout
-                    android:id="@+id/mainFrame"
+                    android:id="@+id/chooseRegionFrame"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 

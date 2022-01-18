@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.VideoView
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.tabs.TabLayout
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.adapter.f2search.SearchMainPageAdapter
@@ -111,6 +112,10 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
         btnCloseFilter.setOnClickListener {
             drawerLayout.closeDrawer(GravityCompat.END)
+        }
+
+        btnChooseCity.setOnClickListener {
+            fragmentManager?.beginTransaction()?.replace(R.id.chooseRegionFrame, ChooseRegionFragment())?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)?.commit()
         }
     }
 
