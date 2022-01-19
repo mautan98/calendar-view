@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.view.f3.smalllocation.view.fragment
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
@@ -16,6 +17,7 @@ import com.namviet.vtvtravel.database.StorageManager
 import com.namviet.vtvtravel.databinding.F2FragmentMainPageSmallLocationBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
+import com.namviet.vtvtravel.model.f2event.UpdateAllListTicket
 import com.namviet.vtvtravel.model.newhome.ItemHomeService
 import com.namviet.vtvtravel.model.travelnews.Travel
 import com.namviet.vtvtravel.response.f2biglocation.LocationResponse
@@ -28,6 +30,9 @@ import com.namviet.vtvtravel.response.newhome.ItemAppExperienceResponse
 import com.namviet.vtvtravel.tracking.TrackingAnalytic
 import com.namviet.vtvtravel.ultils.highlight.HighLightController
 import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
+import com.namviet.vtvtravel.view.f3.model.ClickHideMapView
+import com.namviet.vtvtravel.view.f3.model.HideMapView
+import com.namviet.vtvtravel.view.f3.model.ShowMapView
 import com.namviet.vtvtravel.view.f3.smalllocation.viewmodel.SmallLocationMainViewModel
 import com.namviet.vtvtravel.view.fragment.f2search.ResultSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.SmallLocationFragment
@@ -40,6 +45,8 @@ import kotlinx.android.synthetic.main.f2_fragment_main_page_small_location.tabLa
 import kotlinx.android.synthetic.main.f2_fragment_main_page_small_location.vpContent
 import kotlinx.android.synthetic.main.f2_layout_keyword.*
 import kotlinx.android.synthetic.main.f2_layout_keyword.view.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -67,10 +74,34 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
         binding?.smallLocationMainViewModel = smallLocationMainViewModel
         searchViewModel.addObserver(this)
     }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe
+    public fun ShowMapView(showMapView: ShowMapView){
+        tabLayout.visibility = View.GONE
+        rll_header_map.visibility = View.VISIBLE
+    }
+    @Subscribe
+    public fun HidemapView(hideMapView: HideMapView){
+        tabLayout.visibility = View.VISIBLE
+        rll_header_map.visibility = View.GONE
+    }
     override fun initData() {
         smallLocationMainViewModel.setStateFirst()
 
-
+        btnBackmap.setOnClickListener {
+            rll_header_map.visibility = View.GONE
+            tabLayout.visibility = View.VISIBLE
+            EventBus.getDefault().post(ClickHideMapView())
+        }
         mainAdapter = MainAdapter(childFragmentManager)
         vpContent.offscreenPageLimit = 10
 

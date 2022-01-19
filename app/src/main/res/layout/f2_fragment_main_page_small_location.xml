@@ -18,109 +18,177 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-
-        <LinearLayout
-            android:paddingTop="25dp"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:background="@{ContextCompat.getColor(context, SmallLocationMainViewModel.backgroundToolbar)}">
-
-            <ImageView
-                android:visibility="@{SmallLocationMainViewModel.stateBtnBack1}"
-                android:id="@+id/btnBack"
-                android:layout_width="38dp"
-                android:layout_height="50dp"
-                android:paddingStart="15dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:src="@drawable/f2_ic_back"
-                app:tint="@color/white" />
-
-            <RelativeLayout
-                android:layout_marginStart="15dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/lnl_header"
+                android:paddingTop="25dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="7dp"
-                android:layout_weight="1">
+                android:layout_height="75dp"
+                android:background="@{ContextCompat.getColor(context, SmallLocationMainViewModel.backgroundToolbar)}">
 
-                <com.ornach.richtext.RichView
-                    android:visibility="@{SmallLocationMainViewModel.stateLayoutSearch1}"
-                    android:id="@+id/layoutSearch"
+                <ImageView
+                    android:visibility="@{SmallLocationMainViewModel.stateBtnBack1}"
+                    android:id="@+id/btnBack"
+                    android:layout_width="38dp"
+                    android:layout_height="50dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:src="@drawable/f2_ic_back"
+                    app:tint="@color/white" />
+
+                <RelativeLayout
+                    android:layout_marginStart="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:rt_backgroundColor="@color/white"
-                    app:rt_radius="19dp"/>
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="18dp"
+                    android:layout_marginBottom="7dp"
+                    android:layout_weight="1">
 
-                <com.ornach.richtext.RichView
-                    android:visibility="@{SmallLocationMainViewModel.stateLayoutSearch2}"
-                    android:id="@+id/layoutSearch2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:rt_backgroundColor="#F6F6F6"
-                    app:rt_radius="19dp"/>
-
-                <LinearLayout
-                    android:gravity="center_vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <RelativeLayout
-                        android:layout_width="91dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/bg_left_search_small_location">
-
-                        <TextView
-                            android:layout_width="50dp"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="14dp"
-                            android:fontFamily="@font/roboto_regular"
-                            android:text="Hà Nội"
-                            android:textColor="@color/md_black_1000"
-                            android:textSize="14dp" />
-
-
-                        <ImageView
-                            android:layout_width="11dp"
-                            android:layout_height="7dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="11dp"
-                            android:src="@drawable/f2_ic_down_small" />
-
-                    </RelativeLayout>
-
-                    <EditText
-                        android:gravity="center_vertical"
-                        android:id="@+id/edtSearch"
+                    <com.ornach.richtext.RichView
+                        android:visibility="@{SmallLocationMainViewModel.stateLayoutSearch1}"
+                        android:id="@+id/layoutSearch"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="19dp"
-                        android:background="@{ContextCompat.getColor(context, SmallLocationMainViewModel.backgroundEditTextSearch)}"
-                        android:fontFamily="@font/roboto_regular"
-                        android:hint="Bạn muốn tìm gì?"
-                        android:singleLine="true"
-                        android:textSize="14dp" />
+                        app:rt_backgroundColor="@color/white"
+                        app:rt_radius="19dp"/>
 
-                </LinearLayout>
+                    <com.ornach.richtext.RichView
+                        android:visibility="@{SmallLocationMainViewModel.stateLayoutSearch2}"
+                        android:id="@+id/layoutSearch2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:rt_backgroundColor="#F6F6F6"
+                        app:rt_radius="19dp"/>
 
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <RelativeLayout
+                            android:layout_width="91dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_left_search_small_location">
+
+                            <TextView
+                                android:layout_width="50dp"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="14dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="Hà Nội"
+                                android:textColor="@color/md_black_1000"
+                                android:textSize="14dp" />
+
+
+                            <ImageView
+                                android:layout_width="11dp"
+                                android:layout_height="7dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="11dp"
+                                android:src="@drawable/f2_ic_down_small" />
+
+                        </RelativeLayout>
+
+                        <EditText
+                            android:gravity="center_vertical"
+                            android:id="@+id/edtSearch"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="19dp"
+                            android:background="@{ContextCompat.getColor(context, SmallLocationMainViewModel.backgroundEditTextSearch)}"
+                            android:fontFamily="@font/roboto_regular"
+                            android:hint="Bạn muốn tìm gì?"
+                            android:singleLine="true"
+                            android:textSize="14dp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvCancelSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="19dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Hủy"
+                    android:textSize="14dp"
+                    android:visibility="@{SmallLocationMainViewModel.stateCancelButton, default = gone}" />
+
+            </LinearLayout>
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/rll_header_map"
+                android:background="#00918D"
+                android:paddingTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="75dp">
+                <ImageView
+                    android:id="@+id/btnBackmap"
+                    android:layout_width="38dp"
+                    android:layout_height="50dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:src="@drawable/f2_ic_back"
+                    app:tint="@color/white" />
+
+                <RelativeLayout
+                    android:layout_marginStart="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="18dp"
+                    android:layout_marginBottom="7dp"
+                    android:layout_weight="1">
+                    <com.ornach.richtext.RichView
+                        android:layout_centerInParent="true"
+                        app:rt_radius="5dp"
+                        app:rt_backgroundColor="#025D5A"
+                        android:gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <RelativeLayout
+                            android:layout_width="136dp"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="14dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="Hà Nội"
+                                android:textColor="@color/white"
+                                android:textSize="18dp" />
+
+
+                            <ImageView
+                                android:layout_width="11dp"
+                                android:layout_height="7dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="11dp"
+                                android:src="@drawable/f2_ic_down_small"
+                                app:tint="@color/white" />
+
+                        </RelativeLayout>
+                    </com.ornach.richtext.RichView>
+
+                </RelativeLayout>
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/tvCancelSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="19dp"
-                android:fontFamily="@font/roboto_regular"
-                android:text="Hủy"
-                android:textSize="14dp"
-                android:visibility="@{SmallLocationMainViewModel.stateCancelButton, default = gone}" />
+        </RelativeLayout>
 
-        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"

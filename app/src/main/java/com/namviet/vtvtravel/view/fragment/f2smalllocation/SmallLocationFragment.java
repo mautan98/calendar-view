@@ -40,6 +40,7 @@ import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.MyLocation;
 import com.namviet.vtvtravel.model.f2event.OnDoneFilterOption;
+import com.namviet.vtvtravel.model.f2event.OnReOpenChatScreen;
 import com.namviet.vtvtravel.model.f2smalllocation.Travel;
 import com.namviet.vtvtravel.model.travelnews.Location;
 import com.namviet.vtvtravel.response.f2filter.DistanceClass;
@@ -54,6 +55,9 @@ import com.namviet.vtvtravel.ultils.PreferenceUtil;
 import com.namviet.vtvtravel.ultils.ServiceUltils;
 import com.namviet.vtvtravel.view.f2.FilterActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.view.f3.model.ClickHideMapView;
+import com.namviet.vtvtravel.view.f3.model.HideMapView;
+import com.namviet.vtvtravel.view.f3.model.ShowMapView;
 import com.namviet.vtvtravel.view.fragment.f2filter.SortDialog;
 import com.namviet.vtvtravel.view.fragment.nearbyexperience.SearchLocationFragment;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
@@ -77,7 +81,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationBinding> implements Observer {
     String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final int REQUEST_CODE_PERMISSION = 2;
-    private SupportMapFragment mapFragment;
+  //  private SupportMapFragment mapFragment;
     private GoogleMap mGoogleMap;
 
     private SmallLocationAdapter smallLocationAdapter;
@@ -132,6 +136,14 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         getBinding().shimmerViewContainer.setVisibility(View.VISIBLE);
         getBinding().shimmerViewContainer.startShimmer();
 
+    }
+    @Subscribe
+    public void onClickbackHideMap(ClickHideMapView clickHideMapView) {
+        getBinding().layoutButtonMap.setVisibility(View.INVISIBLE);
+        getBinding().layoutItem.setVisibility(View.GONE);
+        getBinding().layoutMap.setVisibility(View.INVISIBLE);
+        getBinding().rclContent.setVisibility(View.VISIBLE);
+        getBinding().layoutButtonList.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -274,6 +286,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 //                getBinding().layoutItem.setVisibility(View.VISIBLE);
                 getBinding().layoutMap.setVisibility(View.VISIBLE);
                 getBinding().layoutButtonList.setVisibility(View.INVISIBLE);
+                EventBus.getDefault().post(new ShowMapView());
             }
         });
 
@@ -285,6 +298,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                 getBinding().layoutMap.setVisibility(View.INVISIBLE);
                 getBinding().rclContent.setVisibility(View.VISIBLE);
                 getBinding().layoutButtonList.setVisibility(View.VISIBLE);
+                EventBus.getDefault().post(new HideMapView());
             }
         });
 
@@ -788,10 +802,11 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
     private void initMap() {
         try {
-            mapFragment = SupportMapFragment.newInstance();
+           // mapFragment = SupportMapFragment.newInstance();
 
-
-            mapFragment.getMapAsync(new OnMapReadyCallback() {
+            getBinding().mapView.onCreate(null);
+            getBinding().mapView.onResume();
+            getBinding().mapView.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
                     mGoogleMap = googleMap;
@@ -849,7 +864,13 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                     });
                 }
             });
-            mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.map, mapFragment).commit();
+//            mapFragment.getMapAsync(new OnMapReadyCallback() {
+//                @Override
+//                public void onMapReady(GoogleMap googleMap) {
+//
+//                }
+//            });
+            //mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.map, mapFragment).commit();
 
         } catch (Exception e) {
             e.printStackTrace();
