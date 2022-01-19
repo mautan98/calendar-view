@@ -185,7 +185,11 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
 
 //            addFragment(SearchSuggestionFragment(edtKeyword.text.toString(), location, locationsMain, true, this))
             var chooseRegionMainFragment = ChooseRegionMainFragment();
-            chooseRegionMainFragment.setData(locationsMain)
+            chooseRegionMainFragment.setData(locationsMain, object : ChooseRegionMainFragment.ChooseRegion{
+                override fun clickRegion(location: Location?) {
+                    TODO("Not yet implemented")
+                }
+            })
             addFragment(chooseRegionMainFragment)
 
         }
@@ -595,7 +599,4 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
     override fun onClickLayoutKeyword(location: Location?, keyword: String?) {
         goToSearchResult(location, keyword)
     }
-
-
-
 }

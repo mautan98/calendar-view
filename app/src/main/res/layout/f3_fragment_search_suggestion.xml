@@ -22,7 +22,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:background="@color/white">
 
 
@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:rt_backgroundColor="#f6f6f6"
-                    app:rt_radius="19dp" />
+                    app:rt_radius="100dp" />
 
 
                 <LinearLayout

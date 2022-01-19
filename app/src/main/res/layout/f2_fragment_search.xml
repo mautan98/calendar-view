@@ -19,7 +19,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="55dp"
                 android:background="@color/white">
 
 
@@ -37,7 +37,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:rt_backgroundColor="#f6f6f6"
-                        app:rt_radius="19dp" />
+                        app:rt_radius="100dp" />
 
 
                     <LinearLayout
@@ -119,6 +119,12 @@
             </LinearLayout>
 
 
+            <View
+                android:background="#707070"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+
+
             <!--        layout for main search-->
             <LinearLayout
                 android:id="@+id/layoutForMainSearch"
@@ -149,7 +155,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="12dp"
-                                android:layout_marginTop="33dp"
+                                android:layout_marginTop="15dp"
                                 android:gravity="center_vertical">
 
                                 <ImageView
