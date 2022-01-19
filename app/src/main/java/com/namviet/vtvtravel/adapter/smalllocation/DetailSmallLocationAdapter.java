@@ -39,6 +39,7 @@ import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
 import com.namviet.vtvtravel.view.f2.MapActivity;
 import com.namviet.vtvtravel.view.f2.SlideImageActivity;
+import com.namviet.vtvtravel.view.f3.smalllocation.activities.NearByExperienceActivity;
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.DetailSmallLocationFragment;
 import com.namviet.vtvtravel.widget.AppBarStateChangeListener;
 
@@ -689,9 +690,11 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
         private TabLayout tabs;
         private ArrayList<String> tabsList = new ArrayList<>();
         private ShimmerFrameLayout shimmerFrameLayout;
+        private TextView tvViewMore;
         public NearbyExperienceViewHolder(View itemView) {
             super(itemView);
             rclContent = itemView.findViewById(R.id.rclContent);
+            tvViewMore = itemView.findViewById(R.id.tv_view_more);
             shimmerFrameLayout = itemView.findViewById(R.id.shimmer_view_container);
             tabs = itemView.findViewById(R.id.tabs);
             tabsList.add("Tất cả");
@@ -702,6 +705,12 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
         }
 
         public void bindItem(int position) {
+            tvViewMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    NearByExperienceActivity.startScreenDetail(context,NearByExperienceActivity.OpenType.LIST,items.get(position).getItems());
+                }
+            });
             this.position = position;
             genTab();
             tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

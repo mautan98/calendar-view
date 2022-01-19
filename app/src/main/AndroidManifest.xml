@@ -348,6 +348,7 @@
             android:value="ca-app-pub-3459722054810147~6205999249"/>
 
         <activity android:name=".view.f3.floor.view.FloorActivity" />
+        <activity android:name=".view.f3.smalllocation.activities.NearByExperienceActivity" />
 
         <activity android:name=".view.f3.booking.view.BookingActivity" />
         <activity android:name=".view.f3.notification.view.NotificationActivity" />
