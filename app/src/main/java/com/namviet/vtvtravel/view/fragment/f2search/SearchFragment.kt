@@ -183,7 +183,10 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
 //            layoutForMainSearch.visibility = View.GONE
 //            layoutSearchRegion.visibility = View.VISIBLE
 
-            addFragment(SearchSuggestionFragment(edtKeyword.text.toString(), location, locationsMain, true, this))
+//            addFragment(SearchSuggestionFragment(edtKeyword.text.toString(), location, locationsMain, true, this))
+            var chooseRegionMainFragment = ChooseRegionMainFragment();
+            chooseRegionMainFragment.setData(locationsMain)
+            addFragment(chooseRegionMainFragment)
 
         }
 

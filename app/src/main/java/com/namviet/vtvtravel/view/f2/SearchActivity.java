@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.view.f2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 
 import androidx.core.content.ContextCompat;
 
@@ -52,6 +53,7 @@ public class SearchActivity extends BaseActivityNew<F2ActivityServiceBinding> {
         super.afterSetContentView();
         try {
             getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.white));
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//  set status text dark
         } catch (Exception e) {
             e.printStackTrace();
         }
