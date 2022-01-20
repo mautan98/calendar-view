@@ -16,7 +16,9 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.tabs.TabLayout
 import com.namviet.vtvtravel.R
+import com.namviet.vtvtravel.adapter.f2search.CategorySortedAdapter
 import com.namviet.vtvtravel.adapter.f2search.SearchMainPageAdapter
+import com.namviet.vtvtravel.adapter.f2search.SortAdapter
 import com.namviet.vtvtravel.databinding.F2FragmentResultSearchBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
@@ -51,7 +53,12 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     private var destinationSearchFragment: ResultDestinationSearchFragment? = null
     private var newsSearchFragment: ResultNewsSearchFragment? = null
     private var resultVideosSearchFragment: ResultVideosSearchFragment? = null
+
+
+
     //
+    private var sortAdapter : SortAdapter? = null
+    private var categorySortedAdapter : CategorySortedAdapter? = null
 
     private var keyword: String? = null
     private var regionId: String? = null
@@ -86,6 +93,12 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             drawerLayout.openDrawer(GravityCompat.END)
         }
         edtSearch.text = keyword
+
+        sortAdapter = SortAdapter();
+        binding!!.rclSort.adapter = sortAdapter
+
+        categorySortedAdapter = CategorySortedAdapter();
+        binding!!.rclCategorySorted.adapter = categorySortedAdapter
     }
 
     override fun inject() {
@@ -116,6 +129,10 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
         btnChooseCity.setOnClickListener {
             fragmentManager?.beginTransaction()?.replace(R.id.chooseRegionFrame, ChooseRegionFragment())?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)?.commit()
+        }
+
+        layoutExpand.setOnClickListener {
+            layoutExpand.visibility = View.GONE
         }
     }
 
