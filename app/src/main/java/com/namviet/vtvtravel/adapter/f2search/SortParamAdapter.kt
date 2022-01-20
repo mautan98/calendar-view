@@ -9,7 +9,7 @@ import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.response.newhome.AppVoucherResponse
 import com.namviet.vtvtravel.viewmodel.newhome.ChangeRegionDialog
 
-class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
+class SortParamAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private val TYPE_ITEM = 0
     private var context: Context? = null
     private var items: List<AppVoucherResponse.Item>? = null
@@ -30,7 +30,7 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var v: View
 //        if (viewType == TYPE_ITEM) {
-        v = LayoutInflater.from(parent.context).inflate(R.layout.f3_item_sort_in_search, parent, false)
+        v = LayoutInflater.from(parent.context).inflate(R.layout.f3_item_search_sort_param, parent, false)
         return HeaderViewHolder(v)
 //        }
 //        return null

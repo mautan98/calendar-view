@@ -2,16 +2,11 @@ package com.namviet.vtvtravel.view.fragment.f2search
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.graphics.Typeface
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.TextView
-import android.widget.VideoView
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.tabs.TabLayout
@@ -19,28 +14,24 @@ import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.adapter.f2search.CategorySortedAdapter
 import com.namviet.vtvtravel.adapter.f2search.SearchMainPageAdapter
 import com.namviet.vtvtravel.adapter.f2search.SortAdapter
+import com.namviet.vtvtravel.adapter.f2search.SortParamAdapter
 import com.namviet.vtvtravel.databinding.F2FragmentResultSearchBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.Video
-import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.model.travelnews.Travel
-import com.namviet.vtvtravel.response.f2searchmain.MainResultSearchResponse
-import com.namviet.vtvtravel.response.f2searchmain.SearchSuggestionResponse
 import com.namviet.vtvtravel.response.f2searchmain.result.ResultSearch
 import com.namviet.vtvtravel.response.f2searchmain.result.ResultVideoSearch
 import com.namviet.vtvtravel.response.f2searchmain.result.SearchType
 import com.namviet.vtvtravel.tracking.TrackingAnalytic
 import com.namviet.vtvtravel.ultils.highlight.HighLightController
 import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
-import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultDestinationSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultNewsSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultVideosSearchFragment
 import com.namviet.vtvtravel.viewmodel.f2search.SearchResultViewModel
 import kotlinx.android.synthetic.main.f2_fragment_result_search.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 @SuppressLint("ValidFragment")
 class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observer {
@@ -59,6 +50,9 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     //
     private var sortAdapter : SortAdapter? = null
     private var categorySortedAdapter : CategorySortedAdapter? = null
+
+
+    private var sortParamAdapter : SortParamAdapter? = null
 
     private var keyword: String? = null
     private var regionId: String? = null
@@ -94,11 +88,21 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         }
         edtSearch.text = keyword
 
-        sortAdapter = SortAdapter();
+        sortAdapter = SortAdapter(mActivity, object : SortAdapter.ClickItem{
+            override fun onClickItem() {
+                if(binding!!.layoutExpand.visibility != View.VISIBLE){
+                    showMenuAnim()
+                }
+            }
+
+        });
         binding!!.rclSort.adapter = sortAdapter
 
         categorySortedAdapter = CategorySortedAdapter();
         binding!!.rclCategorySorted.adapter = categorySortedAdapter
+
+        sortParamAdapter = SortParamAdapter();
+        binding!!.rclSortParam.adapter = sortParamAdapter
     }
 
     override fun inject() {
@@ -132,7 +136,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         }
 
         layoutExpand.setOnClickListener {
-            layoutExpand.visibility = View.GONE
+            hideMenuAnim()
         }
     }
 
@@ -265,5 +269,52 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         var iHighLightText  = SearchHighLightText()
         var highLightController =  HighLightController(iHighLightText)
         highLightController.highLight(context!!, tv, textToHighlight)
+    }
+
+
+    private fun showMenuAnim() {
+        val scaleDown = AnimationUtils.loadAnimation(mActivity, R.anim.scale_top_to_bottom)
+        scaleDown.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {
+                try {
+                    binding!!.layoutExpand.visibility = View.VISIBLE
+                } catch (e: java.lang.Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onAnimationEnd(animation: Animation) {
+                try {
+                    binding!!.viewCover.visibility = View.VISIBLE
+                } catch (e: java.lang.Exception) {
+                    e.printStackTrace()
+                }
+            }
+            override fun onAnimationRepeat(animation: Animation) {}
+        })
+        binding!!.layoutExpand.startAnimation(scaleDown)
+    }
+
+    private fun hideMenuAnim() {
+        val scaleDown = AnimationUtils.loadAnimation(mActivity, R.anim.un_scale_bottom_to_top)
+        scaleDown.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {
+                try {
+                    binding!!.viewCover.visibility = View.GONE
+                } catch (e: java.lang.Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onAnimationEnd(animation: Animation) {
+                try {
+                    binding!!.layoutExpand.visibility = View.GONE
+                } catch (e: java.lang.Exception) {
+                    e.printStackTrace()
+                }
+            }
+            override fun onAnimationRepeat(animation: Animation) {}
+        })
+        binding!!.layoutExpand.startAnimation(scaleDown)
     }
 }
