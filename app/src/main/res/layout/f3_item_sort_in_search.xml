@@ -13,6 +13,7 @@
 
 
             <com.ornach.richtext.RichText
+                android:id="@+id/viewBackground"
                 app:rt_radius="5dp"
                 app:rt_backgroundColor="#F6F6F6"
                 app:layout_constraintStart_toStartOf="parent"

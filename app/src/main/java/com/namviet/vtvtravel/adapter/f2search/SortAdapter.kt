@@ -1,18 +1,22 @@
 package com.namviet.vtvtravel.adapter.f2search
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.namviet.vtvtravel.R
+import com.namviet.vtvtravel.model.f2search.SortHeader
 import com.namviet.vtvtravel.response.newhome.AppVoucherResponse
 import com.namviet.vtvtravel.viewmodel.newhome.ChangeRegionDialog
+import kotlinx.android.synthetic.main.f3_item_sort_in_search.view.*
 
 class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private val TYPE_ITEM = 0
     private var context: Context? = null
-    private var items: List<AppVoucherResponse.Item>? = null
+    private var items: List<SortHeader>? = null
     private var clickItem : ClickItem? = null;
 
     constructor()
@@ -68,6 +72,15 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         fun bindItem(position: Int) {
             this.position = position
+            itemView.tvTitle.text = items!![position].name
+
+            if(items!![position].isSelected){
+                itemView.viewBackground.backgroundColor = Color.parseColor("#00918D")
+                itemView.tvTitle.setTextColor(R.color.white)
+            }else{
+                itemView.viewBackground.backgroundColor = Color.parseColor("#F6F6F6")
+                itemView.tvTitle.setTextColor(R.color.black)
+            }
         }
 
     }
