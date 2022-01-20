@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.view.f2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 
 import androidx.core.app.ActivityCompat;
 
@@ -26,6 +27,7 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
     private String regionIdToLoadSmallLocation;
     private String detailLink;
     private int screenType;
+    private SmallLocationMainPageFragment smallLocationMainPageFragment;
 
     public class OpenType {
         public static final int LIST = 0;
@@ -78,7 +80,7 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
     public BaseFragment initFragment() {
         if (screenType == OpenType.LIST) {
 //            return new SmallLocationFragment(linkToLoadSmallLocation, codeToLoadSmallLocation, regionIdToLoadSmallLocation);
-            return new SmallLocationMainPageFragment(itemsMenu);
+            return smallLocationMainPageFragment = new SmallLocationMainPageFragment(itemsMenu);
         }else {
             return new DetailSmallLocationFragment(detailLink);
         }
@@ -116,5 +118,12 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
         activity.startActivity(intent);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        if(smallLocationMainPageFragment != null && smallLocationMainPageFragment.getStateMapView() == View.VISIBLE){
+            smallLocationMainPageFragment.hideMapView();
+            return;
+        }
+        else super.onBackPressed();
+    }
 }

@@ -94,6 +94,14 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
         tabLayout.visibility = View.VISIBLE
         rll_header_map.visibility = View.GONE
     }
+    public fun getStateMapView() : Int {
+        return rll_header_map.visibility
+    }
+    public fun hideMapView() {
+        tabLayout.visibility = View.VISIBLE
+        rll_header_map.visibility = View.GONE
+        EventBus.getDefault().post(ClickHideMapView())
+    }
     override fun initData() {
         smallLocationMainViewModel.setStateFirst()
 
