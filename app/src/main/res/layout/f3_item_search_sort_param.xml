@@ -9,6 +9,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.ornach.richtext.RichText
+        android:id="@+id/tvTitle"
         android:gravity="center"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"

@@ -1,13 +1,9 @@
 package com.namviet.vtvtravel.model.f2search;
 
-import java.util.ArrayList;
-
-public class SortHeader {
+public class Children {
     private String name;
     private String id;
     private boolean isSelected = false;
-    private ArrayList<Children> children;
-    private Content content;
 
     public String getName() {
         return name;
@@ -31,21 +27,5 @@ public class SortHeader {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
-    }
-
-    public ArrayList<Children> getChildren() {
-        return children;
-    }
-
-    public void setChildren(ArrayList<Children> children) {
-        this.children = children;
-    }
-
-    public Content getContent() {
-        return content;
-    }
-
-    public void setContent(Content content) {
-        this.content = content;
     }
 }

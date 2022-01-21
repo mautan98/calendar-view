@@ -6,18 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.namviet.vtvtravel.R
+import com.namviet.vtvtravel.model.f2search.Children
 import com.namviet.vtvtravel.response.newhome.AppVoucherResponse
 import com.namviet.vtvtravel.viewmodel.newhome.ChangeRegionDialog
+import kotlinx.android.synthetic.main.f3_item_search_category_drop_down.view.*
 
 class CategoryDropdownAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private val TYPE_ITEM = 0
     private var context: Context? = null
-    private var items: List<AppVoucherResponse.Item>? = null
+    private var items: List<Children>? = null
     private var clickItem : ClickItem? = null;
 
     constructor()
 
-    constructor(context: Context?, clickItem : ClickItem?) {
+    constructor(context: Context?,items: List<Children>?, clickItem : ClickItem?) {
         this.context = context
         this.items = items
         this.clickItem = clickItem
@@ -40,7 +42,7 @@ class CategoryDropdownAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return try {
             items!!.size;
         } catch (e: Exception) {
-            4;
+            0;
         }
     }
 
@@ -68,6 +70,7 @@ class CategoryDropdownAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         fun bindItem(position: Int) {
             this.position = position
+            itemView.tvTitle.text = items!![position].name
         }
 
     }

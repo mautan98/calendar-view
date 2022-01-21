@@ -32,8 +32,12 @@
       "id": "Sắp xếp theo",
       "isSelected": false,
       "children": [
-
-      ]
+      ],
+      "content": {
+        "cityId": "",
+        "district": "",
+        "commune": ""
+      }
     },
     {
       "name": "Danh mục",
@@ -67,27 +71,10 @@
       "id": "Sắp xếp theo",
       "isSelected": false,
       "children": [
-        {
-          "name": "Đi đâu",
-          "id": "Tất cả",
-          "isSelected": false
-        },
-        {
-          "name": "Ở đâu",
-          "id": "Tất cả",
-          "isSelected": false
-        },
-        {
-          "name": "Ăn gì",
-          "id": "Tất cả",
-          "isSelected": false
-        },
-        {
-          "name": "Chơi gì",
-          "id": "Tất cả",
-          "isSelected": false
-        }
-      ]
+      ],
+      "content": {
+        "isOpen": false
+      }
     }
   ]
 }

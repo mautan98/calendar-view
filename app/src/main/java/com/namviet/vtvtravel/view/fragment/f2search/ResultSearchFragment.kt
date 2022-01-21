@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.tabs.TabLayout
+import com.google.gson.Gson
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.adapter.f2search.CategorySortedAdapter
 import com.namviet.vtvtravel.adapter.f2search.SearchMainPageAdapter
@@ -19,12 +20,14 @@ import com.namviet.vtvtravel.databinding.F2FragmentResultSearchBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.Video
+import com.namviet.vtvtravel.model.f2search.SortAndFilter
 import com.namviet.vtvtravel.model.f2search.SortHeader
 import com.namviet.vtvtravel.model.travelnews.Travel
 import com.namviet.vtvtravel.response.f2searchmain.result.ResultSearch
 import com.namviet.vtvtravel.response.f2searchmain.result.ResultVideoSearch
 import com.namviet.vtvtravel.response.f2searchmain.result.SearchType
 import com.namviet.vtvtravel.tracking.TrackingAnalytic
+import com.namviet.vtvtravel.ultils.F2Util
 import com.namviet.vtvtravel.ultils.highlight.HighLightController
 import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultDestinationSearchFragment
@@ -90,14 +93,39 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         }
         edtSearch.text = keyword
 
-        sortAdapter = SortAdapter(mActivity, null, object : SortAdapter.ClickItem {
+        createSortData()
+
+        categorySortedAdapter = CategorySortedAdapter();
+        binding!!.rclCategorySorted.adapter = categorySortedAdapter
+
+
+    }
+
+    override fun inject() {
+
+    }
+
+    private fun createSortData(){
+        var sortAndFilter = Gson().fromJson(F2Util.loadJSONFromAsset(mActivity, "filter_and_sort_in_search"), SortAndFilter::class.java)
+
+        sortAdapter = SortAdapter(mActivity, sortAndFilter.sortHeader, object : SortAdapter.ClickItem {
             override fun onClickItem(position: Int) {
                 when (position){
-                    0 -> fragmentManager!!.beginTransaction().replace(R.id.sortFrame, SortFollowFragment()).commit()
+                    0 -> {
+                        var sortFollowFragment = SortFollowFragment()
+                        sortFollowFragment.setData(sortAndFilter.sortHeader[0].children)
+                        fragmentManager!!.beginTransaction().replace(R.id.sortFrame, sortFollowFragment).commit()
+                    }
 
-                    1 -> fragmentManager!!.beginTransaction().replace(R.id.sortFrame, DropDownLocationFragment()).commit()
+                    1 -> {
+                        fragmentManager!!.beginTransaction().replace(R.id.sortFrame, DropDownLocationFragment()).commit()
+                    }
 
-                    2 -> fragmentManager!!.beginTransaction().replace(R.id.sortFrame, DropDownCategoryFragment()).commit()
+                    2 -> {
+                        var dropDownCategoryFragment = DropDownCategoryFragment()
+                        dropDownCategoryFragment.setData(sortAndFilter.sortHeader[2].children)
+                        fragmentManager!!.beginTransaction().replace(R.id.sortFrame, dropDownCategoryFragment).commit()
+                    }
 
                 }
 
@@ -108,14 +136,6 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
         });
         binding!!.rclSort.adapter = sortAdapter
-
-        categorySortedAdapter = CategorySortedAdapter();
-        binding!!.rclCategorySorted.adapter = categorySortedAdapter
-
-
-    }
-
-    override fun inject() {
 
     }
 

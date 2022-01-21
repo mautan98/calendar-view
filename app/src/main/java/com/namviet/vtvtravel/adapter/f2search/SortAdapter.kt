@@ -44,7 +44,7 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return try {
             items!!.size;
         } catch (e: Exception) {
-            5;
+            0;
         }
     }
 
