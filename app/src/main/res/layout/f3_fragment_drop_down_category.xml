@@ -9,14 +9,17 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:gravity="center"
             android:id="@+id/layoutSort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
 
             <androidx.recyclerview.widget.RecyclerView
+                tools:itemCount="4"
+                tools:listitem="@layout/f3_item_search_category_drop_down"
                 android:id="@+id/rclSortParam"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="22dp"

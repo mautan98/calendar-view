@@ -98,6 +98,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                     1 -> fragmentManager!!.beginTransaction().replace(R.id.sortFrame, DropDownLocationFragment()).commit()
 
                     2 -> fragmentManager!!.beginTransaction().replace(R.id.sortFrame, DropDownCategoryFragment()).commit()
+
                 }
 
                 if (binding!!.layoutExpand.visibility != View.VISIBLE) {
