@@ -1,0 +1,93 @@
+{
+  "sortHeader": [
+    {
+      "name": "Sắp xếp theo",
+      "id": "Sắp xếp theo",
+      "isSelected": false,
+      "children": [
+        {
+          "name": "Tất cả",
+          "id": "Tất cả",
+          "isSelected": false
+        },
+        {
+          "name": "Đúng nhất",
+          "id": "Tất cả",
+          "isSelected": false
+        },
+        {
+          "name": "Gần trung tâm nhất",
+          "id": "Tất cả",
+          "isSelected": false
+        },
+        {
+          "name": "Yêu thích nhất",
+          "id": "Tất cả",
+          "isSelected": false
+        }
+      ]
+    },
+    {
+      "name": "Địa điểm",
+      "id": "Sắp xếp theo",
+      "isSelected": false,
+      "children": [
+
+      ]
+    },
+    {
+      "name": "Danh mục",
+      "id": "Sắp xếp theo",
+      "isSelected": false,
+      "children": [
+        {
+          "name": "Đi đâu",
+          "id": "Tất cả",
+          "isSelected": false
+        },
+        {
+          "name": "Ở đâu",
+          "id": "Tất cả",
+          "isSelected": false
+        },
+        {
+          "name": "Ăn gì",
+          "id": "Tất cả",
+          "isSelected": false
+        },
+        {
+          "name": "Chơi gì",
+          "id": "Tất cả",
+          "isSelected": false
+        }
+      ]
+    },
+    {
+      "name": "Đang mở",
+      "id": "Sắp xếp theo",
+      "isSelected": false,
+      "children": [
+        {
+          "name": "Đi đâu",
+          "id": "Tất cả",
+          "isSelected": false
+        },
+        {
+          "name": "Ở đâu",
+          "id": "Tất cả",
+          "isSelected": false
+        },
+        {
+          "name": "Ăn gì",
+          "id": "Tất cả",
+          "isSelected": false
+        },
+        {
+          "name": "Chơi gì",
+          "id": "Tất cả",
+          "isSelected": false
+        }
+      ]
+    }
+  ]
+}

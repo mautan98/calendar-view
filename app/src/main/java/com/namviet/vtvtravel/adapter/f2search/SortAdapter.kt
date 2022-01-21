@@ -21,7 +21,7 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     constructor()
 
-    constructor(context: Context?, clickItem : ClickItem?) {
+    constructor(context: Context?, items: List<SortHeader>?, clickItem : ClickItem?) {
         this.context = context
         this.items = items
         this.clickItem = clickItem
