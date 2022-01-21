@@ -64,7 +64,7 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         constructor(itemView: View?) : super(itemView!!) {
             itemView.setOnClickListener {
-                clickItem?.onClickItem()
+                clickItem?.onClickItem(position!!)
             }
 
 
@@ -76,17 +76,17 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             if(items!![position].isSelected){
                 itemView.viewBackground.backgroundColor = Color.parseColor("#00918D")
-                itemView.tvTitle.setTextColor(R.color.white)
+                itemView.tvTitle.setTextColor(context!!.resources!!.getColor(R.color.white))
             }else{
                 itemView.viewBackground.backgroundColor = Color.parseColor("#F6F6F6")
-                itemView.tvTitle.setTextColor(R.color.black)
+                itemView.tvTitle.setTextColor(context!!.resources!!.getColor(R.color.black))
             }
         }
 
     }
 
     interface ClickItem{
-        fun onClickItem()
+        fun onClickItem(position : Int)
     }
 
 

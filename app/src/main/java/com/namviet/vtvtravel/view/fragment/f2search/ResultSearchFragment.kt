@@ -30,6 +30,9 @@ import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultDestinationSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultNewsSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultVideosSearchFragment
+import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.DropDownCategoryFragment
+import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.DropDownLocationFragment
+import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.SortFollowFragment
 import com.namviet.vtvtravel.viewmodel.f2search.SearchResultViewModel
 import kotlinx.android.synthetic.main.f2_fragment_result_search.*
 import java.util.*
@@ -52,7 +55,6 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     private var categorySortedAdapter: CategorySortedAdapter? = null
 
 
-    private var sortParamAdapter: SortParamAdapter? = null
 
     private var keyword: String? = null
     private var regionId: String? = null
@@ -62,9 +64,6 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
 
     private var searchViewModel: SearchResultViewModel? = null
-
-
-    private var sortHeader = ArrayList<SortHeader>()
 
     constructor(keyword: String?, regionId: String?, categoryId: String?) {
         this.keyword = keyword
@@ -91,8 +90,16 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         }
         edtSearch.text = keyword
 
-        sortAdapter = SortAdapter(mActivity, object : SortAdapter.ClickItem {
-            override fun onClickItem() {
+        sortAdapter = SortAdapter(mActivity, null, object : SortAdapter.ClickItem {
+            override fun onClickItem(position: Int) {
+                when (position){
+                    0 -> fragmentManager!!.beginTransaction().replace(R.id.sortFrame, SortFollowFragment()).commit()
+
+                    1 -> fragmentManager!!.beginTransaction().replace(R.id.sortFrame, DropDownLocationFragment()).commit()
+
+                    2 -> fragmentManager!!.beginTransaction().replace(R.id.sortFrame, DropDownCategoryFragment()).commit()
+                }
+
                 if (binding!!.layoutExpand.visibility != View.VISIBLE) {
                     showMenuAnim()
                 }
@@ -104,17 +111,13 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         categorySortedAdapter = CategorySortedAdapter();
         binding!!.rclCategorySorted.adapter = categorySortedAdapter
 
-        sortParamAdapter = SortParamAdapter();
-        binding!!.rclSortParam.adapter = sortParamAdapter
+
     }
 
     override fun inject() {
 
     }
 
-    fun genListSortHeader(){
-        sortHeader.add(SortHeader("Sắp xếp theo"), )
-    }
 
     override fun setClickListener() {
         btnBack.setOnClickListener {
