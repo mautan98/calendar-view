@@ -35,6 +35,7 @@ import com.namviet.vtvtravel.view.f3.model.HideMapView
 import com.namviet.vtvtravel.view.f3.model.ShowMapView
 import com.namviet.vtvtravel.view.f3.smalllocation.viewmodel.SmallLocationMainViewModel
 import com.namviet.vtvtravel.view.fragment.f2search.ResultSearchFragment
+import com.namviet.vtvtravel.view.fragment.f2smalllocation.SearchResultFragment
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.SmallLocationFragment
 import com.namviet.vtvtravel.viewmodel.f2search.SearchViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -130,12 +131,12 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
         searchSuggestionKeyWordAdapter = SearchSuggestionKeyWordAdapter(searchSuggestions, mActivity, object : SearchSuggestionKeyWordAdapter.ClickItem{
             override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
                 try {
-//                    edtKeyword.setText(searchKeywordSuggestion?.title)
+                    edtSearch.setText(searchKeywordSuggestion?.title)
 //                    addRecentSearch(edtKeyword.text.toString())
 //                    recentAdapter?.setData(getRecentSearch())
-//                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, searchKeywordSuggestion?.categoryCode))
-//                    KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
-//                    edtKeyword.clearFocus()
+                    addFragment(SearchResultFragment("http://api.vtvtravel.vn/nearby?content_type=","APP_WHERE_GO",""))
+                    KeyboardUtils.hideKeyboard(mActivity, edtSearch)
+                    //edtKeyword.clearFocus()
                 } catch (e: Exception) {
                 }
             }
