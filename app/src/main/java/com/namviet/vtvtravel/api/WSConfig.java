@@ -17,9 +17,9 @@ public class WSConfig {
     public static final String HOST_VQMM_GUIDE = "http://103.21.148.54:8856/page/LUCKY_WHEEL_GUIDE?";
     public static final String API_VQMM_RULE = "https://api-testing.vtvtravel.vn/page/60542239c28629466576d339";
     public static final String API_VQMM_GUIDE = "https://api-testing.vtvtravel.vn/page/60542047c28629466576d338";
-    public static final String HOST_CREATE_TRIP = "http://103.21.148.54:8858/my-trip/create";
-    public static final String HOST_MY_TRIP = "http://103.21.148.54:8858/my-trip";
-    public static final String HOST_RECEIVE_TRIP = "http://103.21.148.54:8858/my-trip/detail";
+    public static final String HOST_CREATE_TRIP = "http://tour-testing.vtvtravel.vn/my-trip/create";
+    public static final String HOST_MY_TRIP = "http://tour-testing.vtvtravel.vn/my-trip";
+    public static final String HOST_RECEIVE_TRIP = "http://tour-testing.vtvtravel.vn/my-trip/detail";
     public static final String HOST_LANDING_PAGE = "https://m1.travel.onex.vn/LandingPage1039";
     public static final String LINK_DEAL = "http://deal.vtvtravel.vn";
     public static final String HOST_ORDER = "https://booking-testing.vtvtravel.vn/order/dashboard";

@@ -205,14 +205,14 @@ public class OtpF2Fragment extends BaseFragment<F2FragmentOtpBinding> implements
                     second = "0" + second;
                 }
                 getBinding().tvTimeLeft.setText("0" + minute + ":" + second);
-//                getBinding().tvResentOTP.setAlpha(0.5f);
-//                getBinding().tvResentOTP.setClickable(false);
+                getBinding().tvResentOTP.setAlpha(0.5f);
+                getBinding().tvResentOTP.setClickable(false);
             }
 
             public void onFinish() {
                 getBinding().tvTimeLeft.setText("");
-//                getBinding().tvResentOTP.setAlpha(1);
-//                getBinding().tvResentOTP.setClickable(true);
+                getBinding().tvResentOTP.setAlpha(1);
+                getBinding().tvResentOTP.setClickable(true);
             }
 
         }.start();
