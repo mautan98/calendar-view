@@ -98,6 +98,7 @@ import com.namviet.vtvtravel.model.News;
 import com.namviet.vtvtravel.model.chat.ChatBase;
 import com.namviet.vtvtravel.model.f2.Contact;
 import com.namviet.vtvtravel.model.f2event.OnGetLocation;
+import com.namviet.vtvtravel.model.f2event.OnLoadContactSuccess;
 import com.namviet.vtvtravel.model.f2event.OnLoadFail;
 import com.namviet.vtvtravel.model.f2event.OnReceiveNotiVip;
 import com.namviet.vtvtravel.model.f2event.OnUpdateLogin;
@@ -1755,6 +1756,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 Log.e("MainActivity", "Lấy danh bạ thành công");
+                EventBus.getDefault().post(new OnLoadContactSuccess());
 
             }
 

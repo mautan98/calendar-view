@@ -32,6 +32,7 @@ import com.namviet.vtvtravel.model.f2.CheckCountInviteFail;
 import com.namviet.vtvtravel.model.f2.ClassForInvitedUser;
 import com.namviet.vtvtravel.model.f2.Contact;
 import com.namviet.vtvtravel.model.f2callnow.CallList;
+import com.namviet.vtvtravel.model.f2event.OnLoadContactSuccess;
 import com.namviet.vtvtravel.response.ResponseError;
 import com.namviet.vtvtravel.response.f2callnow.CallListResponse;
 import com.namviet.vtvtravel.response.f2callnow.CheckNumberHaveInvitedOrNot;
@@ -40,6 +41,9 @@ import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.view.fragment.f2offline.InviteDialog;
 import com.namviet.vtvtravel.viewmodel.f2callnow.ContactAllViewModel;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.lang.reflect.Type;
 import java.text.Collator;
@@ -471,5 +475,23 @@ public class ContactAllFragment extends MainFragment implements AllContactAdapte
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Override
+    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onLoadContactSuccess(OnLoadContactSuccess onLoadContactSuccess){
+        getAllContact();
     }
 }
