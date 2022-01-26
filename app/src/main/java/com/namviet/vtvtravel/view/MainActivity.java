@@ -1533,9 +1533,9 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
                 new NotificationCompat.Builder(this, channelId)
                         .setSmallIcon(R.mipmap.ic_app)
                         .setContentTitle("Oops! Mất mạng rồi")
-                        .setContentText("Trải nghiệm ngày các tính năng đang có của VTV Travel để nhận nhiều ưu đãi:")
+                        .setContentText("Trải nghiệm ngay các tính năng đang có của VTV Travel để nhận nhiều ưu đãi:")
                         .setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText("Trải nghiệm ngày các tính năng đang có của VTV Travel để nhận nhiều ưu đãi: " +
+                                .bigText("Trải nghiệm ngay các tính năng đang có của VTV Travel để nhận nhiều ưu đãi: " +
                                         "\n - Gọi thoại giá rẻ (200đ/phút)." +
                                         "\n - Săn Deal giành ngàn quà tặng." +
                                         "\n - Đăng ký dịch vụ, trải nghiệm mọi tính năng." +
