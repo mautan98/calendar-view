@@ -6,16 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.namviet.vtvtravel.R
+import com.namviet.vtvtravel.model.f2search.Children
 import com.namviet.vtvtravel.response.newhome.AppVoucherResponse
 
 class CategorySortedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private val TYPE_ITEM = 0
     private var context: Context? = null
-    private var items: List<AppVoucherResponse.Item>? = null
+    private var items: ArrayList<Children>? = null
 
     constructor()
 
-    constructor(items: List<AppVoucherResponse.Item>?, context: Context?) {
+    constructor(items: ArrayList<Children>?, context: Context?) {
         this.context = context
         this.items = items
     }
@@ -37,7 +38,7 @@ class CategorySortedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return try {
             items!!.size;
         } catch (e: Exception) {
-            5;
+            0;
         }
     }
 
@@ -57,7 +58,8 @@ class CategorySortedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         constructor(itemView: View?) : super(itemView!!) {
             itemView?.setOnClickListener {
-
+                items!!.removeAt(position!!)
+                notifyDataSetChanged()
             }
 
 

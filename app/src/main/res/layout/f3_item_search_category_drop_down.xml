@@ -21,6 +21,9 @@
 
 
             <com.ornach.richtext.RichText
+                android:id="@+id/layoutBackground"
+                app:rt_borderWidth="0.5dp"
+                app:rt_borderColor="#DEDEDE"
                 app:rt_backgroundColor="@color/white"
                 app:rt_radius="10dp"
                 android:layout_width="match_parent"

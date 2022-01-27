@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.adapter.f2search
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,11 +16,11 @@ class SortParamAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private val TYPE_ITEM = 0
     private var context: Context? = null
     private var items: List<Children>? = null
-    private var clickItem : ClickItem? = null;
+    private var clickItem: ClickItem? = null;
 
     constructor()
 
-    constructor(context: Context?, items: List<Children>?, clickItem : ClickItem?) {
+    constructor(context: Context?, items: List<Children>?, clickItem: ClickItem?) {
         this.context = context
         this.items = items
         this.clickItem = clickItem
@@ -32,7 +33,8 @@ class SortParamAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var v: View
 //        if (viewType == TYPE_ITEM) {
-        v = LayoutInflater.from(parent.context).inflate(R.layout.f3_item_search_sort_param, parent, false)
+        v = LayoutInflater.from(parent.context)
+            .inflate(R.layout.f3_item_search_sort_param, parent, false)
         return HeaderViewHolder(v)
 //        }
 //        return null
@@ -63,6 +65,19 @@ class SortParamAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         constructor(itemView: View?) : super(itemView!!) {
             itemView.setOnClickListener {
                 clickItem?.onClickItem()
+
+                if (items!![position!!].isSelected) {
+                    items!![position!!].isSelected = false
+                } else {
+
+                    for (i in items!!.indices) {
+                        items!![i].isSelected = false
+                    }
+                    items!![position!!].isSelected = true
+                }
+
+                notifyDataSetChanged()
+
             }
 
 
@@ -71,11 +86,19 @@ class SortParamAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         fun bindItem(position: Int) {
             this.position = position
             itemView.tvTitle.text = items!![position].name
+
+            if (!items!![position].isSelected) {
+                itemView.tvTitle.backgroundColor = context!!.resources.getColor(R.color.white)
+                itemView.tvTitle.setTextColor(context!!.resources.getColor(R.color.black))
+            } else {
+                itemView.tvTitle.backgroundColor = Color.parseColor("#ECB14A")
+                itemView.tvTitle.setTextColor(context!!.resources.getColor(R.color.white))
+            }
         }
 
     }
 
-    interface ClickItem{
+    interface ClickItem {
         fun onClickItem()
     }
 

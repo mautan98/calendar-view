@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.adapter.f2search
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,8 @@ import com.namviet.vtvtravel.model.f2search.Children
 import com.namviet.vtvtravel.response.newhome.AppVoucherResponse
 import com.namviet.vtvtravel.viewmodel.newhome.ChangeRegionDialog
 import kotlinx.android.synthetic.main.f3_item_search_category_drop_down.view.*
+import kotlinx.android.synthetic.main.f3_item_search_category_drop_down.view.tvTitle
+import kotlinx.android.synthetic.main.f3_item_search_sort_param.view.*
 
 class CategoryDropdownAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private val TYPE_ITEM = 0
@@ -63,6 +66,18 @@ class CategoryDropdownAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         constructor(itemView: View?) : super(itemView!!) {
             itemView.setOnClickListener {
                 clickItem?.onClickItem()
+
+                if (items!![position!!].isSelected) {
+                    items!![position!!].isSelected = false
+                } else {
+
+                    for (i in items!!.indices) {
+                        items!![i].isSelected = false
+                    }
+                    items!![position!!].isSelected = true
+                }
+
+                notifyDataSetChanged()
             }
 
 
@@ -71,6 +86,15 @@ class CategoryDropdownAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         fun bindItem(position: Int) {
             this.position = position
             itemView.tvTitle.text = items!![position].name
+
+
+            if (!items!![position].isSelected) {
+                itemView.layoutBackground.backgroundColor = context!!.resources.getColor(R.color.white)
+                itemView.tvTitle.setTextColor(context!!.resources.getColor(R.color.black))
+            } else {
+                itemView.layoutBackground.backgroundColor = Color.parseColor("#ECB14A")
+                itemView.tvTitle.setTextColor(context!!.resources.getColor(R.color.white))
+            }
         }
 
     }
