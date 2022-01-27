@@ -67,15 +67,7 @@ class CategoryDropdownAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
             itemView.setOnClickListener {
                 clickItem?.onClickItem()
 
-                if (items!![position!!].isSelected) {
-                    items!![position!!].isSelected = false
-                } else {
-
-                    for (i in items!!.indices) {
-                        items!![i].isSelected = false
-                    }
-                    items!![position!!].isSelected = true
-                }
+                items!![position!!].isSelected = !items!![position!!].isSelected
 
                 notifyDataSetChanged()
             }
@@ -86,8 +78,6 @@ class CategoryDropdownAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         fun bindItem(position: Int) {
             this.position = position
             itemView.tvTitle.text = items!![position].name
-
-
             if (!items!![position].isSelected) {
                 itemView.layoutBackground.backgroundColor = context!!.resources.getColor(R.color.white)
                 itemView.tvTitle.setTextColor(context!!.resources.getColor(R.color.black))

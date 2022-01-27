@@ -12,14 +12,12 @@ import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.tabs.TabLayout
 import com.google.gson.Gson
 import com.namviet.vtvtravel.R
-import com.namviet.vtvtravel.adapter.f2search.CategorySortedAdapter
-import com.namviet.vtvtravel.adapter.f2search.SearchMainPageAdapter
-import com.namviet.vtvtravel.adapter.f2search.SortAdapter
-import com.namviet.vtvtravel.adapter.f2search.SortParamAdapter
+import com.namviet.vtvtravel.adapter.f2search.*
 import com.namviet.vtvtravel.databinding.F2FragmentResultSearchBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.Video
+import com.namviet.vtvtravel.model.f2search.Children
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
 import com.namviet.vtvtravel.model.f2search.SortHeader
 import com.namviet.vtvtravel.model.travelnews.Travel
@@ -58,7 +56,6 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     private var categorySortedAdapter: CategorySortedAdapter? = null
 
 
-
     private var keyword: String? = null
     private var regionId: String? = null
     private var categoryId: String? = null
@@ -67,6 +64,9 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
 
     private var searchViewModel: SearchResultViewModel? = null
+
+
+    private var categorySearchInSlideAdapter : CategorySearchInSlideAdapter? = null
 
     constructor(keyword: String?, regionId: String?, categoryId: String?) {
         this.keyword = keyword
@@ -95,8 +95,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
         createSortData()
 
-        categorySortedAdapter = CategorySortedAdapter();
-        binding!!.rclCategorySorted.adapter = categorySortedAdapter
+
+
 
 
     }
@@ -105,37 +105,68 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     }
 
-    private fun createSortData(){
-        var sortAndFilter = Gson().fromJson(F2Util.loadJSONFromAsset(mActivity, "filter_and_sort_in_search"), SortAndFilter::class.java)
+    private fun createSortData() {
+        var sortAndFilter = Gson().fromJson(
+            F2Util.loadJSONFromAsset(mActivity, "filter_and_sort_in_search"),
+            SortAndFilter::class.java
+        )
 
-        sortAdapter = SortAdapter(mActivity, sortAndFilter.sortHeader, object : SortAdapter.ClickItem {
-            override fun onClickItem(position: Int) {
-                when (position){
-                    0 -> {
-                        var sortFollowFragment = SortFollowFragment()
-                        sortFollowFragment.setData(sortAndFilter.sortHeader[0].children)
-                        fragmentManager!!.beginTransaction().replace(R.id.sortFrame, sortFollowFragment).commit()
+        sortAdapter =
+            SortAdapter(mActivity, sortAndFilter.sortHeader, object : SortAdapter.ClickItem {
+                override fun onClickItem(position: Int) {
+                    when (position) {
+                        0 -> {
+                            var sortFollowFragment = SortFollowFragment()
+                            sortFollowFragment.setData(
+                                sortAndFilter.sortHeader[0].children,
+                                object : SortFollowFragment.Listener {
+                                    override fun onApply(listChild: ArrayList<Children>?) {
+                                        sortAndFilter.sortHeader[0].children = listChild
+                                        hideMenuAnim()
+                                    }
+
+                                })
+                            fragmentManager!!.beginTransaction()
+                                .replace(R.id.sortFrame, sortFollowFragment).commit()
+                        }
+
+                        1 -> {
+                            fragmentManager!!.beginTransaction()
+                                .replace(R.id.sortFrame, DropDownLocationFragment()).commit()
+                        }
+
+                        2 -> {
+                            var dropDownCategoryFragment = DropDownCategoryFragment()
+                            dropDownCategoryFragment.setData(sortAndFilter.sortHeader[2].children, object : DropDownCategoryFragment.Listener{
+                                override fun onApply(listChild: ArrayList<Children>?) {
+                                    sortAndFilter.sortHeader[2].children.clear()
+                                    sortAndFilter.sortHeader[2].children.addAll(listChild!!)
+                                    hideMenuAnim()
+                                    categorySearchInSlideAdapter?.notifyDataSetChanged()
+                                    categorySortedAdapter?.notifyDataSetChanged()
+                                }
+
+                            })
+                            fragmentManager!!.beginTransaction()
+                                .replace(R.id.sortFrame, dropDownCategoryFragment).commit()
+                        }
+
                     }
 
-                    1 -> {
-                        fragmentManager!!.beginTransaction().replace(R.id.sortFrame, DropDownLocationFragment()).commit()
+                    if (binding!!.layoutExpand.visibility != View.VISIBLE) {
+                        showMenuAnim()
                     }
-
-                    2 -> {
-                        var dropDownCategoryFragment = DropDownCategoryFragment()
-                        dropDownCategoryFragment.setData(sortAndFilter.sortHeader[2].children)
-                        fragmentManager!!.beginTransaction().replace(R.id.sortFrame, dropDownCategoryFragment).commit()
-                    }
-
                 }
 
-                if (binding!!.layoutExpand.visibility != View.VISIBLE) {
-                    showMenuAnim()
-                }
-            }
-
-        });
+            });
         binding!!.rclSort.adapter = sortAdapter
+
+
+        categorySearchInSlideAdapter = CategorySearchInSlideAdapter(mActivity, sortAndFilter.sortHeader[2].children, null)
+        binding!!.rclCategory.adapter = categorySearchInSlideAdapter
+
+        categorySortedAdapter = CategorySortedAdapter(sortAndFilter.sortHeader[2].children, mActivity);
+        binding!!.rclCategorySorted.adapter = categorySortedAdapter
 
     }
 
