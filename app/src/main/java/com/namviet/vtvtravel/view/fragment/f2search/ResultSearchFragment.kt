@@ -8,9 +8,11 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.tabs.TabLayout
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.adapter.f2search.*
 import com.namviet.vtvtravel.databinding.F2FragmentResultSearchBinding
@@ -19,7 +21,6 @@ import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.Video
 import com.namviet.vtvtravel.model.f2search.Children
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
-import com.namviet.vtvtravel.model.f2search.SortHeader
 import com.namviet.vtvtravel.model.travelnews.Travel
 import com.namviet.vtvtravel.response.f2searchmain.result.ResultSearch
 import com.namviet.vtvtravel.response.f2searchmain.result.ResultVideoSearch
@@ -31,6 +32,7 @@ import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultDestinationSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultNewsSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultVideosSearchFragment
+import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.SlideMenuSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.DropDownCategoryFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.DropDownLocationFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.SortFollowFragment
@@ -65,8 +67,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     private var searchViewModel: SearchResultViewModel? = null
 
+    private var sortAndFilter : SortAndFilter? = null
 
-    private var categorySearchInSlideAdapter : CategorySearchInSlideAdapter? = null
 
     constructor(keyword: String?, regionId: String?, categoryId: String?) {
         this.keyword = keyword
@@ -95,8 +97,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
         createSortData()
 
-
-
+        initSlideMenu()
 
 
     }
@@ -105,23 +106,61 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     }
 
+    private fun initSlideMenu(){
+        createMenuFragment()
+
+        binding!!.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener{
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+
+            }
+
+            override fun onDrawerOpened(drawerView: View) {
+                createMenuFragment()
+            }
+
+            override fun onDrawerClosed(drawerView: View) {
+                slideMenuSearchFragment?.deleteFragment()
+            }
+
+            override fun onDrawerStateChanged(newState: Int) {
+
+            }
+
+        })
+    }
+
+    private var slideMenuSearchFragment : SlideMenuSearchFragment? = null
+
+    private fun createMenuFragment(){
+        slideMenuSearchFragment = SlideMenuSearchFragment();
+        slideMenuSearchFragment?.setData(sortAndFilter, object : SlideMenuSearchFragment.Listener{
+            override fun onApply(sortAndFilter : SortAndFilter?) {
+
+            }
+
+        })
+
+
+        fragmentManager!!.beginTransaction().replace(R.id.chooseRegionFrame, slideMenuSearchFragment!!).commit()
+    }
+
     private fun createSortData() {
-        var sortAndFilter = Gson().fromJson(
+        sortAndFilter = Gson().fromJson(
             F2Util.loadJSONFromAsset(mActivity, "filter_and_sort_in_search"),
             SortAndFilter::class.java
         )
 
         sortAdapter =
-            SortAdapter(mActivity, sortAndFilter.sortHeader, object : SortAdapter.ClickItem {
+            SortAdapter(mActivity, sortAndFilter!!.sortHeader, object : SortAdapter.ClickItem {
                 override fun onClickItem(position: Int) {
                     when (position) {
                         0 -> {
                             var sortFollowFragment = SortFollowFragment()
                             sortFollowFragment.setData(
-                                sortAndFilter.sortHeader[0].children,
+                                sortAndFilter!!.sortHeader[0].children,
                                 object : SortFollowFragment.Listener {
                                     override fun onApply(listChild: ArrayList<Children>?) {
-                                        sortAndFilter.sortHeader[0].children = listChild
+                                        sortAndFilter!!.sortHeader[0].children = listChild
                                         hideMenuAnim()
                                     }
 
@@ -137,12 +176,11 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
                         2 -> {
                             var dropDownCategoryFragment = DropDownCategoryFragment()
-                            dropDownCategoryFragment.setData(sortAndFilter.sortHeader[2].children, object : DropDownCategoryFragment.Listener{
+                            dropDownCategoryFragment.setData(sortAndFilter!!.sortHeader[2].children, object : DropDownCategoryFragment.Listener{
                                 override fun onApply(listChild: ArrayList<Children>?) {
-                                    sortAndFilter.sortHeader[2].children.clear()
-                                    sortAndFilter.sortHeader[2].children.addAll(listChild!!)
+                                    sortAndFilter!!.sortHeader[2].children.clear()
+                                    sortAndFilter!!.sortHeader[2].children.addAll(listChild!!)
                                     hideMenuAnim()
-                                    categorySearchInSlideAdapter?.notifyDataSetChanged()
                                     categorySortedAdapter?.notifyDataSetChanged()
                                 }
 
@@ -161,15 +199,10 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             });
         binding!!.rclSort.adapter = sortAdapter
 
-
-        categorySearchInSlideAdapter = CategorySearchInSlideAdapter(mActivity, sortAndFilter.sortHeader[2].children, null)
-        binding!!.rclCategory.adapter = categorySearchInSlideAdapter
-
-        categorySortedAdapter = CategorySortedAdapter(sortAndFilter.sortHeader[2].children, mActivity);
+        categorySortedAdapter = CategorySortedAdapter(sortAndFilter!!.sortHeader[2].children, mActivity);
         binding!!.rclCategorySorted.adapter = categorySortedAdapter
 
     }
-
 
     override fun setClickListener() {
         btnBack.setOnClickListener {
@@ -189,15 +222,6 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             drawerLayout.openDrawer(GravityCompat.END)
         }
 
-        btnCloseFilter.setOnClickListener {
-            drawerLayout.closeDrawer(GravityCompat.END)
-        }
-
-        btnChooseCity.setOnClickListener {
-            fragmentManager?.beginTransaction()
-                ?.replace(R.id.chooseRegionFrame, ChooseRegionFragment())
-                ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)?.commit()
-        }
 
         layoutExpand.setOnClickListener {
             hideMenuAnim()
