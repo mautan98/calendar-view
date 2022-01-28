@@ -107,7 +107,6 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     }
 
     private fun initSlideMenu(){
-        createMenuFragment()
 
         binding!!.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener{
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
@@ -135,7 +134,9 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         slideMenuSearchFragment = SlideMenuSearchFragment();
         slideMenuSearchFragment?.setData(sortAndFilter, object : SlideMenuSearchFragment.Listener{
             override fun onApply(sortAndFilter : SortAndFilter?) {
-
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[2].children.clear()
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[2].children.addAll(sortAndFilter!!.sortHeader[2].children)
+                categorySortedAdapter!!.notifyDataSetChanged()
             }
 
         })

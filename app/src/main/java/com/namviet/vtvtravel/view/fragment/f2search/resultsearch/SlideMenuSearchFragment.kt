@@ -39,6 +39,10 @@ class SlideMenuSearchFragment : BaseFragment<F3FragmentSlideSearchBinding?>() {
                 ?.add(R.id.chooseRegionFrame, ChooseRegionFragment())
                 ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)?.addToBackStack(null)!!.commit()
         }
+
+        binding!!.btnApply.setOnClickListener{
+            listener?.onApply(sortAndFilter)
+        }
     }
     override fun setObserver() {}
 
