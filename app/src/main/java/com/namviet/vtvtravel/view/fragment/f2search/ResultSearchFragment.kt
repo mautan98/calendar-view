@@ -164,6 +164,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                                     override fun onApply(listChild: ArrayList<Children>?) {
                                         sortAndFilter!!.sortHeader[0].children = listChild
                                         hideMenuAnim()
+                                        sortAdapter?.notifyDataSetChanged()
                                     }
 
                                 })
@@ -184,6 +185,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                                     sortAndFilter!!.sortHeader[2].children.addAll(listChild!!)
                                     hideMenuAnim()
                                     categorySortedAdapter?.notifyDataSetChanged()
+                                    sortAdapter?.notifyDataSetChanged()
                                 }
 
                             })

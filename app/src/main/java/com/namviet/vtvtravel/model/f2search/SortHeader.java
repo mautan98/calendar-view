@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class SortHeader {
     private String name;
+    private String label;
     private String id;
     private boolean isSelected = false;
     private ArrayList<Children> children;
@@ -47,5 +48,13 @@ public class SortHeader {
 
     public void setContent(Content content) {
         this.content = content;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

@@ -2,6 +2,7 @@
   "sortHeader": [
     {
       "name": "Sắp xếp theo",
+      "label" : "Sắp xếp theo",
       "id": "Sắp xếp theo",
       "isSelected": false,
       "children": [
@@ -28,6 +29,7 @@
       ]
     },
     {
+      "label" : "Địa điểm",
       "name": "Địa điểm",
       "id": "Sắp xếp theo",
       "isSelected": false,
@@ -40,6 +42,7 @@
       }
     },
     {
+      "label" : "Danh mục",
       "name": "Danh mục",
       "id": "Sắp xếp theo",
       "isSelected": false,
@@ -67,6 +70,7 @@
       ]
     },
     {
+      "label" : "Đang mở",
       "name": "Đang mở",
       "id": "Sắp xếp theo",
       "isSelected": false,
