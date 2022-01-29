@@ -28,14 +28,11 @@ import com.namviet.vtvtravel.view.f3.search.viewmodel.SearchSuggestionViewModel
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionMainFragment
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.f2_fragment_search.*
 import kotlinx.android.synthetic.main.f2_layout_keyword.*
 import kotlinx.android.synthetic.main.f2_layout_keyword.view.*
 import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.*
 import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.imgCloseSearch
 import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.layoutRegion
-import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.layoutSearchRegion
-import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.rclLocation
 import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.rclSearchSuggestion
 import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.tvRegion
 import org.greenrobot.eventbus.EventBus
@@ -47,7 +44,6 @@ import kotlin.collections.ArrayList
 class SearchSuggestionFragment(private var keyword: String? = null, private var location: Location? = null, private var locationsMain: ArrayList<Location>? = null, private var clickRegion: Boolean = false, private var searchSuggestionCallback: SearchSuggestionCallback? = null) : BaseFragment<F3FragmentSearchSuggestionBinding?>(), Observer {
 
     private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
-    private var searchAllLocationAdapter: SearchAllLocationAdapter? = null
 
     private var searchSuggestions: ArrayList<SearchSuggestionResponse.Data.Item>? = ArrayList()
 
@@ -85,17 +81,6 @@ class SearchSuggestionFragment(private var keyword: String? = null, private var 
         })
         rclSearchSuggestion.adapter = searchSuggestionKeyWordAdapter
 
-
-        searchAllLocationAdapter = SearchAllLocationAdapter(mActivity, locationsMain, SearchAllLocationAdapter.ClickItem { location ->
-            tvRegion.text = location?.name
-            this.location = location
-            if(edtSearch.text.isNotEmpty()) {
-                mActivity.onBackPressed()
-                searchSuggestionCallback?.onClickRegion(location, keyword)
-            }
-
-        })
-        rclLocation.adapter = searchAllLocationAdapter
 
         checkKeyword()
         checkClickRegion()
@@ -140,10 +125,8 @@ class SearchSuggestionFragment(private var keyword: String? = null, private var 
 
     private fun checkClickRegion() {
         if (clickRegion) {
-            layoutSearchRegion.visibility = View.VISIBLE
             layoutSearchSuggestion.visibility = View.GONE
         } else {
-            layoutSearchRegion.visibility = View.GONE
             layoutSearchSuggestion.visibility = View.VISIBLE
             focusSearch()
         }
@@ -198,8 +181,11 @@ class SearchSuggestionFragment(private var keyword: String? = null, private var 
 
         edtSearch.setOnFocusChangeListener { view, b ->
             if(b){
-                layoutSearchRegion.visibility = View.GONE
-                layoutSearchSuggestion.visibility = View.VISIBLE
+                if(edtSearch.text.toString().isNotEmpty()) {
+                    layoutSearchSuggestion.visibility = View.VISIBLE
+                }else{
+                    layoutSearchSuggestion.visibility = View.GONE
+                }
             }
         }
 
@@ -294,7 +280,6 @@ class SearchSuggestionFragment(private var keyword: String? = null, private var 
                 is AllLocationResponse -> {
                     locationsMain?.clear()
                     locationsMain?.addAll(o.data as ArrayList<Location>)
-                    searchAllLocationAdapter?.notifyDataSetChanged()
                 }
                 is LocationResponse -> {
                     tvRegion.text = o.data.name
