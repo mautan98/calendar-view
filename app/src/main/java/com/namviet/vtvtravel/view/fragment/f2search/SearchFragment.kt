@@ -187,7 +187,9 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
             var chooseRegionMainFragment = ChooseRegionMainFragment();
             chooseRegionMainFragment.setData(locationsMain, object : ChooseRegionMainFragment.ChooseRegion{
                 override fun clickRegion(location: Location?) {
-                    TODO("Not yet implemented")
+                    tvRegion.text = location?.name
+                    this@SearchFragment.location = location
+                    this@SearchFragment.regionId = location?.id
                 }
             })
             addFragment(chooseRegionMainFragment)

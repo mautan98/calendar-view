@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.view.fragment.f2search
 
 import android.annotation.SuppressLint
 import android.view.View
+import com.baseapp.utils.KeyboardUtils
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.adapter.f2biglocation.SearchAllLocationAdapter
@@ -31,19 +32,19 @@ class ChooseRegionMainFragment : BaseFragment<F3FragmentSearchRegionMainBinding?
         viewModel = SearchBigLocationViewModel()
         viewModel!!.addObserver(this)
         locations.addAll(locationsMain!!)
-        searchAllLocationAdapter = SearchAllLocationAdapter(mActivity, locations, SearchAllLocationAdapter.ClickItem { location ->
-//            tvRegion.text = location?.name
-//            this.location = location
-//            if(edtSearch.text.isNotEmpty()) {
-//                mActivity.onBackPressed()
-//                searchSuggestionCallback?.onClickRegion(location, keyword)
-//            }
+        searchAllLocationAdapter = SearchAllLocationAdapter(
+            mActivity,
+            locations,
+            SearchAllLocationAdapter.ClickItem { location ->
+                mActivity.onBackPressed()
+                chooseRegion?.clickRegion(location)
 
 
-        })
+            })
         rclLocation.adapter = searchAllLocationAdapter
         handleSearch()
     }
+
     override fun inject() {}
     override fun setClickListener() {
         binding!!.btnClose.setOnClickListener { mActivity.onBackPressed() }
@@ -51,13 +52,13 @@ class ChooseRegionMainFragment : BaseFragment<F3FragmentSearchRegionMainBinding?
 
     override fun setObserver() {}
 
-    public fun setData(locationsMain: ArrayList<Location>?, chooseRegion: ChooseRegion?){
+    public fun setData(locationsMain: ArrayList<Location>?, chooseRegion: ChooseRegion?) {
         this.locationsMain = locationsMain
         this.chooseRegion = chooseRegion
     }
 
-    interface ChooseRegion{
-        fun clickRegion(location: Location?);
+    public interface ChooseRegion {
+        fun clickRegion(location: Location?)
     }
 
     override fun update(o: Observable?, arg: Any?) {
@@ -89,5 +90,13 @@ class ChooseRegionMainFragment : BaseFragment<F3FragmentSearchRegionMainBinding?
                 } catch (e: Exception) {
                 }
             }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        try {
+            KeyboardUtils.hideKeyboard(mActivity, binding!!.edtSearch)
+        } catch (e: Exception) {
+        }
     }
 }

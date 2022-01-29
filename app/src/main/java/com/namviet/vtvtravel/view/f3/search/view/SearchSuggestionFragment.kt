@@ -25,13 +25,19 @@ import com.namviet.vtvtravel.ultils.PreferenceUtil
 import com.namviet.vtvtravel.ultils.highlight.HighLightController
 import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
 import com.namviet.vtvtravel.view.f3.search.viewmodel.SearchSuggestionViewModel
+import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionMainFragment
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.f2_fragment_search.*
 import kotlinx.android.synthetic.main.f2_layout_keyword.*
 import kotlinx.android.synthetic.main.f2_layout_keyword.view.*
 import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.*
+import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.imgCloseSearch
+import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.layoutRegion
+import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.layoutSearchRegion
 import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.rclLocation
 import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.rclSearchSuggestion
+import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.tvRegion
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -173,8 +179,21 @@ class SearchSuggestionFragment(private var keyword: String? = null, private var 
         layoutRegion.setOnClickListener {
             KeyboardUtils.hideKeyboard(mActivity, edtSearch)
             edtSearch.clearFocus()
-            layoutSearchRegion.visibility = View.VISIBLE
-            layoutSearchSuggestion.visibility = View.GONE
+//            layoutSearchRegion.visibility = View.VISIBLE
+//            layoutSearchSuggestion.visibility = View.GONE
+            var chooseRegionMainFragment = ChooseRegionMainFragment();
+            chooseRegionMainFragment.setData(locationsMain, object : ChooseRegionMainFragment.ChooseRegion{
+                override fun clickRegion(location: Location?) {
+                    tvRegion.text = location?.name
+                    tvRegion.text = location?.name
+                    this@SearchSuggestionFragment.location = location
+                    if(edtSearch.text.isNotEmpty()) {
+                        mActivity.onBackPressed()
+                        searchSuggestionCallback?.onClickRegion(location, keyword)
+                    }
+                }
+            })
+            addFragment(chooseRegionMainFragment)
         }
 
         edtSearch.setOnFocusChangeListener { view, b ->
