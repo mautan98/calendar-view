@@ -21,6 +21,7 @@ import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.Video
 import com.namviet.vtvtravel.model.f2search.Children
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
+import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.model.travelnews.Travel
 import com.namviet.vtvtravel.response.f2searchmain.result.ResultSearch
 import com.namviet.vtvtravel.response.f2searchmain.result.ResultVideoSearch
@@ -69,11 +70,14 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     private var sortAndFilter : SortAndFilter? = null
 
+    private var locationMain : ArrayList<Location>? = null
 
-    constructor(keyword: String?, regionId: String?, categoryId: String?) {
+
+    constructor(keyword: String?, regionId: String?, categoryId: String?, locationMain : ArrayList<Location>?) {
         this.keyword = keyword
         this.regionId = regionId
         this.categoryId = categoryId
+        this.locationMain = locationMain
     }
 
     constructor()
@@ -173,8 +177,15 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                         }
 
                         1 -> {
+                            var dropDownLocationFragment = DropDownLocationFragment()
+                            dropDownLocationFragment.setData(locationMain, object : DropDownLocationFragment.Callback{
+                                override fun onApply() {
+
+                                }
+
+                            })
                             fragmentManager!!.beginTransaction()
-                                .replace(R.id.sortFrame, DropDownLocationFragment()).commit()
+                                .replace(R.id.sortFrame, dropDownLocationFragment).commit()
                         }
 
                         2 -> {

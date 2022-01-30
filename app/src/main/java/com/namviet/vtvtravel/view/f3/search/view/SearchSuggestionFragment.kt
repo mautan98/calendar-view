@@ -168,7 +168,6 @@ class SearchSuggestionFragment(private var keyword: String? = null, private var 
             chooseRegionMainFragment.setData(locationsMain, object : ChooseRegionMainFragment.ChooseRegion{
                 override fun clickRegion(location: Location?) {
                     tvRegion.text = location?.name
-                    tvRegion.text = location?.name
                     this@SearchSuggestionFragment.location = location
                     if(edtSearch.text.isNotEmpty()) {
                         mActivity.onBackPressed()
