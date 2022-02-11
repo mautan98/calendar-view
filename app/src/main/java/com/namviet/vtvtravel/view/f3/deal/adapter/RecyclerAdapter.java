@@ -210,7 +210,8 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                     iOnTabHotClick.onTab1Click(position);
 
                     //Fix lỗi lấy position tab
-                    contentViewHolder1.setPositionClick(0);
+//                    contentViewHolder1.setPositionClick(0);
+                    positionClick = 0;
 
                 }
             }, true);
@@ -232,7 +233,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                             listBlockResult.add(blocks.get(i));
                         }
                     }
-                    ListHotDealActivity.Companion.startScreen(context, listBlockResult, contentViewHolder1.getPositionClick());
+                    ListHotDealActivity.Companion.startScreen(context, listBlockResult, positionClick);
                 }
             });
         }
@@ -392,6 +393,8 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         }
     }
 
+    public int positionClick = 0;
+
     public class ContentViewHolder1 extends BaseViewHolder implements NewHomeFragment.IOnClickTabReloadData {
         private int position;
         private RecyclerView rclContent;
@@ -404,15 +407,14 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
         private View btnSeeMore;
         private View layoutNoData;
 
-        private int positionClick = 0;
 
-        public int getPositionClick() {
-            return positionClick;
-        }
-
-        public void setPositionClick(int position){
-            this.positionClick = position;
-        }
+//        public int getPositionClick() {
+//            return positionClick;
+//        }
+//
+//        public void setPositionClick(int position){
+//            this.positionClick = position;
+//        }
 
 
         public ContentViewHolder1(View itemView) {
@@ -462,7 +464,7 @@ public final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.
                     dealHomeChildFragment.setmIOnClickTabReloadData(ContentViewHolder1.this);
                     mILoadDataDeal.onLoadDataDeal(blocks.get(positionClick).getLink());
 
-                    ContentViewHolder1.this.positionClick = positionClick;
+                    RecyclerAdapter.this.positionClick = positionClick;
                 }
             }, false);
             rclTab.setAdapter(f3TabDealAdapter);
