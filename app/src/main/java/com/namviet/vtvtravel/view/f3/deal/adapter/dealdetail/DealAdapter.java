@@ -382,6 +382,14 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.f3_btn_agree));
                     } else if (status.equals(IsProcessingType.SAP_DIEN_RA_TYPE)) {
                         btnHunt.setText(Utils.CalendarUtils.getDayStart(dealCampaignDetail.getData().getEndAt()));
+                        long timeStamp = data.getBeginAt();
+                        long myCurrentTimeMillis = System.currentTimeMillis();
+                        if (myCurrentTimeMillis > timeStamp) {
+                            btnHunt.setText("Bắt đầu sau 0 ngày");
+                        } else {
+                            long distance = (timeStamp - myCurrentTimeMillis) / 1000;
+                            setTime(distance, btnHunt, IsProcessingType.SAP_DIEN_RA_TYPE, false);
+                        }
                         btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.f3_btn_agree));
                     }
 
