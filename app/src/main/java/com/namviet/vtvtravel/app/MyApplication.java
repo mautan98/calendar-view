@@ -26,6 +26,7 @@ import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.database.AppDatabase;
 import com.namviet.vtvtravel.di.DaggerViewModelComponent;
 import com.namviet.vtvtravel.di.ViewModelComponent;
+import com.namviet.vtvtravel.di.module.StorageModule;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.City;
 import com.namviet.vtvtravel.model.MyLocation;
@@ -206,7 +207,7 @@ public class MyApplication extends Application implements Observer {
         }
 
 
-        viewModelComponent = DaggerViewModelComponent.create();
+        viewModelComponent = DaggerViewModelComponent.builder().storageModule(new StorageModule(this)).build();
 
     }
 

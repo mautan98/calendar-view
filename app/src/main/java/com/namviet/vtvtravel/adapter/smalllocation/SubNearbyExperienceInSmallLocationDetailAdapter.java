@@ -77,7 +77,6 @@ public class SubNearbyExperienceInSmallLocationDetailAdapter extends RecyclerVie
         private TextView tvOpenDate;
         private TextView tvOpenTime;
         private TextView tvOpenState;
-        private View viewTime;
         private int position;
 
         public HeaderViewHolder(View itemView) {
@@ -89,7 +88,6 @@ public class SubNearbyExperienceInSmallLocationDetailAdapter extends RecyclerVie
             tvAddress = itemView.findViewById(R.id.tvAddress);
             tvOpenDate = itemView.findViewById(R.id.tvOpenDate);
             tvOpenTime = itemView.findViewById(R.id.tvOpenTime);
-            viewTime = itemView.findViewById(R.id.viewTime);
             tvOpenState = itemView.findViewById(R.id.tvOpenState);
             
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -149,15 +147,15 @@ public class SubNearbyExperienceInSmallLocationDetailAdapter extends RecyclerVie
 
             try {
                 if(travel.getRange_time().isEmpty()){
-                    viewTime.setVisibility(View.GONE);
+
                     tvOpenTime.setVisibility(View.GONE);
                 }else {
-                    viewTime.setVisibility(View.VISIBLE);
+
                     tvOpenTime.setText(travel.getRange_time());
                     tvOpenTime.setVisibility(View.VISIBLE);
                 }
             } catch (Exception e) {
-                viewTime.setVisibility(View.GONE);
+
                 tvOpenTime.setVisibility(View.GONE);
                 e.printStackTrace();
             }

@@ -127,6 +127,7 @@ public class Constants {
         public static final String SCHEDULE_ID = "SCHEDULE_ID";
         public static final String NOTIFICATION_TYPE = "NOTIFICATION_TYPE";
         public static final String NOTIFICATION = "NOTIFICATION";
+        public static final String RECENT_SEARCH_SMALLOCATION = "RECENT_SEARCH_SMALLOCATION";
 
 
 

@@ -6,46 +6,48 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Handler;
 import android.test.mock.MockPackageManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.smalllocation.SmallLocationAdapter;
+import com.namviet.vtvtravel.adapter.smalllocation.SubNearbyExperienceInSmallLocationDetailAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
-import com.namviet.vtvtravel.databinding.F2FragmentSmallLocationBinding;
+import com.namviet.vtvtravel.databinding.F3FragmentNearExperienceSmallLocationBinding;
+import com.namviet.vtvtravel.databinding.F3FragmentSearchResultBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.MyLocation;
 import com.namviet.vtvtravel.model.f2event.OnDoneFilterOption;
-import com.namviet.vtvtravel.model.f2event.OnReOpenChatScreen;
 import com.namviet.vtvtravel.model.f2smalllocation.Travel;
 import com.namviet.vtvtravel.model.travelnews.Location;
 import com.namviet.vtvtravel.response.f2filter.DistanceClass;
 import com.namviet.vtvtravel.response.f2filter.FilterByCodeResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByPageResponse;
+import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SmallLocationResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SortSmallLocationResponse;
 import com.namviet.vtvtravel.service.TrackLocationService;
@@ -61,6 +63,7 @@ import com.namviet.vtvtravel.view.f3.model.ShowMapView;
 import com.namviet.vtvtravel.view.fragment.f2filter.SortDialog;
 import com.namviet.vtvtravel.view.fragment.nearbyexperience.SearchLocationFragment;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
+import com.namviet.vtvtravel.viewmodel.f2smalllocation.DetailSmallLocationViewModel;
 import com.namviet.vtvtravel.viewmodel.f2smalllocation.SmallLocationViewModel;
 
 import org.ankit.gpslibrary.ADLocation;
@@ -78,10 +81,11 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationBinding> implements Observer {
+public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBinding> implements Observer {
+
     String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final int REQUEST_CODE_PERMISSION = 2;
-  //  private SupportMapFragment mapFragment;
+    //  private SupportMapFragment mapFragment;
     private GoogleMap mGoogleMap;
 
     private SmallLocationAdapter smallLocationAdapter;
@@ -92,25 +96,25 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
     private String typeDestination = Constants.TypeDestination.PLACES;
     private String link;
     private String code;
-    private List<Travel> travelList = new ArrayList<>();
+    private List<com.namviet.vtvtravel.model.f2smalllocation.Travel> travelList = new ArrayList<>();
     private String loadMoreLink;
     private String regionId;
 
     private Marker lastMarker;
 
     @SuppressLint("ValidFragment")
-    public SmallLocationFragment(String link, String code, String regionId) {
+    public SearchResultFragment(String link, String code, String regionId) {
         this.link = link;
         this.code = code;
         this.regionId = regionId;
     }
 
-    public SmallLocationFragment() {
+    public SearchResultFragment() {
     }
 
     @Override
     public int getLayoutRes() {
-        return R.layout.f2_fragment_small_location;
+        return R.layout.f3_fragment_search_result;
     }
 
 
@@ -150,7 +154,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
     public void initData() {
         smallLocationAdapter = new SmallLocationAdapter(travelList, mActivity, new SmallLocationAdapter.ClickItem() {
             @Override
-            public void onClickItem(Travel travel) {
+            public void onClickItem(com.namviet.vtvtravel.model.f2smalllocation.Travel travel) {
                 addFragment(new DetailSmallLocationFragment(travel.getDetail_link()));
             }
 
@@ -158,7 +162,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
             public void likeEvent(int position) {
                 try {
                     Account account = MyApplication.getInstance().getAccount();
-                    Travel travel = travelList.get(position);
+                    com.namviet.vtvtravel.model.f2smalllocation.Travel travel = travelList.get(position);
                     if (null != account && account.isLogin()) {
                         viewModel.likeEvent(travel.getId(), travel.getContent_type());
                         try {
@@ -393,7 +397,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                     getBinding().layoutItem.setVisibility(View.GONE);
                     mGoogleMap.clear();
                     lastMarker = null;
-                    for (Travel travel : travelList) {
+                    for (com.namviet.vtvtravel.model.f2smalllocation.Travel travel : travelList) {
                         try {
                             if (travel.getLoc() != null && travel.getLoc().getCoordinates() != null
                                     && travel.getLoc().getCoordinates().get(0) != null
@@ -719,7 +723,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         }
     }
 
-    private void initItemMarker(Travel travel) {
+    private void initItemMarker(com.namviet.vtvtravel.model.f2smalllocation.Travel travel) {
         getBinding().layoutItem.setVisibility(View.VISIBLE);
         Glide.with(mActivity).load(travel.getLogo_url()).into(getBinding().imgAvatar);
         getBinding().tvName.setText(travel.getName());
@@ -802,7 +806,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
     private void initMap() {
         try {
-           // mapFragment = SupportMapFragment.newInstance();
+            // mapFragment = SupportMapFragment.newInstance();
 
             getBinding().mapView.onCreate(null);
             getBinding().mapView.onResume();
@@ -811,7 +815,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                 public void onMapReady(GoogleMap googleMap) {
                     mGoogleMap = googleMap;
                     lastMarker = null;
-                    for (Travel travel : travelList) {
+                    for (com.namviet.vtvtravel.model.f2smalllocation.Travel travel : travelList) {
                         try {
                             if (travel.getLoc() != null && travel.getLoc().getCoordinates() != null
                                     && travel.getLoc().getCoordinates().get(0) != null

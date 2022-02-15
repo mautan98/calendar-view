@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.view.f2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 
 import androidx.core.app.ActivityCompat;
 
@@ -10,15 +11,23 @@ import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2ActivityBigLocationBinding;
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
+import com.namviet.vtvtravel.model.newhome.ItemHomeService;
+import com.namviet.vtvtravel.view.f3.smalllocation.view.fragment.SmallLocationMainPageFragment;
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.DetailSmallLocationFragment;
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.SmallLocationFragment;
 
+import java.util.ArrayList;
+
 public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocationBinding> {
+    private ArrayList<ItemHomeService<?>.Item> itemsMenu;
+    ////
+
     private String linkToLoadSmallLocation;
     private String codeToLoadSmallLocation;
     private String regionIdToLoadSmallLocation;
     private String detailLink;
     private int screenType;
+    private SmallLocationMainPageFragment smallLocationMainPageFragment;
 
     public class OpenType {
         public static final int LIST = 0;
@@ -40,6 +49,7 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
     public void getDataFromIntent() {
         screenType = getIntent().getIntExtra(Constants.IntentKey.SCREEN_TYPE, OpenType.LIST);
         if (screenType == OpenType.LIST) {
+            itemsMenu = (ArrayList<ItemHomeService<?>.Item>) getIntent().getSerializableExtra(Constants.IntentKey.DATA);
             linkToLoadSmallLocation = getIntent().getStringExtra(Constants.IntentKey.LINK);
             codeToLoadSmallLocation = getIntent().getStringExtra(Constants.IntentKey.CODE);
             regionIdToLoadSmallLocation = getIntent().getStringExtra(Constants.IntentKey.REGION_ID);
@@ -57,7 +67,7 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
 
     @Override
     public void doAfterOnCreate() {
-
+        setTransparentStatusBar();
     }
 
     @Override
@@ -69,7 +79,8 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
     @Override
     public BaseFragment initFragment() {
         if (screenType == OpenType.LIST) {
-            return new SmallLocationFragment(linkToLoadSmallLocation, codeToLoadSmallLocation, regionIdToLoadSmallLocation);
+//            return new SmallLocationFragment(linkToLoadSmallLocation, codeToLoadSmallLocation, regionIdToLoadSmallLocation);
+            return smallLocationMainPageFragment = new SmallLocationMainPageFragment(itemsMenu);
         }else {
             return new DetailSmallLocationFragment(detailLink);
         }
@@ -92,6 +103,14 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
         activity.startActivity(intent);
     }
 
+    public static void startScreen(Context activity, int screenType, ArrayList<ItemHomeService.Item> items, String code){
+        Intent intent = new Intent(activity, SmallLocationActivity.class);
+        intent.putExtra(Constants.IntentKey.DATA, items);
+        intent.putExtra(Constants.IntentKey.CODE, code);
+        intent.putExtra(Constants.IntentKey.SCREEN_TYPE, screenType);
+        activity.startActivity(intent);
+    }
+
     public static void startScreenDetail(Context activity, int screenType, String detailLink) {
         Intent intent = new Intent(activity, SmallLocationActivity.class);
         intent.putExtra(Constants.IntentKey.SCREEN_TYPE, screenType);
@@ -99,5 +118,12 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
         activity.startActivity(intent);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        if(smallLocationMainPageFragment != null && smallLocationMainPageFragment.getStateMapView() == View.VISIBLE){
+            smallLocationMainPageFragment.hideMapView();
+            return;
+        }
+        else super.onBackPressed();
+    }
 }
