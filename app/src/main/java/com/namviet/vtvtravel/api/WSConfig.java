@@ -45,7 +45,7 @@ public class WSConfig {
 //    public static final String HOST_LANDING_PAGE = "https://m.vtvtravel.vn/LandingPage1039";
 //    public static final String LINK_DEAL = "http://deal.vtvtravel.vn";
 //    public static final String HOST_ORDER = "http://booking.vtvtravel.vn/order/dashboard/";
-//    public static final String API_VQMM_HISTORY = "https://api.vtvtravel.vn/api/v1/wheel/history";
+//    public static final String API_VQMM_HISTORY = "https://core.vtvtravel.vn/api/v1/wheel/history";
 
 
     public static final String URL_ENCODE = "http://api.travel.onex.vn/test/rsa/decrypt";
