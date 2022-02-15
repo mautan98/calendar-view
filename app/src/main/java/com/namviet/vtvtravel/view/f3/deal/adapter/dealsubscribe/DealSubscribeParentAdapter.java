@@ -127,7 +127,11 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
                 }
             });
             tvName.setText(dealFollows.get(position).getName());
-            tvRank.setText(dealFollows.get(position).getRanking());
+
+            if(dealFollows.get(position).getRanking() == null){
+                tvRank.setText("0");
+            }
+            else tvRank.setText(dealFollows.get(position).getRanking());
 
 //            try {
 //                tvStatus.setText(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.DANG_DIEN_RA_TYPE)?"Đang diễn ra": (dealFollows.get(position).getIsProcessing().equals(IsProcessingType.SAP_DIEN_RA_TYPE)?"Sắp diễn ra": "Đã kết thúc"));
