@@ -345,7 +345,7 @@
         <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3459722054810147~6205999249"/>
+            android:value="ca-app-pub-3459722054810147~6205999222"/>
 
         <activity android:name=".view.f3.floor.view.FloorActivity" />
 

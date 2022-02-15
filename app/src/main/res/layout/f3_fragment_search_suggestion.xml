@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="FloorViewModel"
+            type="com.namviet.vtvtravel.view.f3.floor.viewmodel.FloorViewModel" />
+
+
+    </data>
+
+
+    <LinearLayout
+        android:clickable="true"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@color/white">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="7dp"
+                android:layout_weight="1">
+
+                <com.ornach.richtext.RichView
+                    android:id="@+id/layoutSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:rt_backgroundColor="#f6f6f6"
+                    app:rt_radius="100dp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/layoutRegion"
+                        android:layout_width="91dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_left_search_small_location">
+
+                        <TextView
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:id="@+id/tvRegion"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="14dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="Tất cả"
+                            android:textColor="@color/md_black_1000"
+                            android:textSize="14dp" />
+
+
+                        <ImageView
+                            android:layout_width="11dp"
+                            android:layout_height="7dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="11dp"
+                            android:src="@drawable/f2_ic_down_small" />
+
+                    </RelativeLayout>
+
+                    <EditText
+                        android:layout_weight="1"
+                        android:imeActionLabel="Tìm kiếm"
+                        android:imeOptions="actionSearch"
+                        android:id="@+id/edtSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:background="#f6f6f6"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center_vertical"
+                        android:hint="Bạn muốn tìm gì?"
+                        android:singleLine="true"
+                        android:textSize="14dp" />
+
+                    <LinearLayout
+                        android:id="@+id/imgCloseSearch"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:src="@drawable/f2_ic_gray_close" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvCancelSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="19dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Hủy"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#DCDCDC" />
+
+
+        <LinearLayout
+            android:visibility="visible"
+            android:id="@+id/layoutSearchSuggestion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <include layout="@layout/f2_layout_keyword"/>
+
+            <View
+                android:visibility="gone"
+                android:background="#ECECEC"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:id="@+id/rclSearchSuggestion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

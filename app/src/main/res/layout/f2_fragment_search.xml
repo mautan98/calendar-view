@@ -15,132 +15,114 @@
             android:orientation="vertical">
 
 
+
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="end">
+                android:layout_height="55dp"
+                android:background="@color/white">
 
-                <LinearLayout
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="18dp"
+                    android:layout_marginBottom="7dp"
+                    android:layout_weight="1">
+
+                    <com.ornach.richtext.RichView
+                        android:id="@+id/layoutSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:rt_backgroundColor="#f6f6f6"
+                        app:rt_radius="100dp" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/layoutRegion"
+                            android:layout_width="91dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_left_search_small_location">
+
+                            <TextView
+                                android:ellipsize="end"
+                                android:singleLine="true"
+                                android:id="@+id/tvRegion"
+                                android:layout_width="50dp"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="14dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="Tất cả"
+                                android:textColor="@color/md_black_1000"
+                                android:textSize="14dp" />
+
+
+                            <ImageView
+                                android:layout_width="11dp"
+                                android:layout_height="7dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="11dp"
+                                android:src="@drawable/f2_ic_down_small" />
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:id="@+id/edtKeyword"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:background="#f6f6f6"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center_vertical"
+                            android:hint="Bạn muốn tìm gì?"
+                            android:singleLine="true"
+                            android:textSize="14dp" />
+
+
+                        <LinearLayout
+                            android:id="@+id/imgCloseSearch"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:src="@drawable/f2_ic_gray_close" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <TextView
                     android:id="@+id/btnBack"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/ripple_effect_click"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:layout_width="13dp"
-                        android:layout_height="13dp"
-                        android:src="@drawable/f2_ic_close"
-                        android:tint="#00918D" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:background="@drawable/f2_bg_screen_searc"
-                android:gravity="center_vertical"
-                android:paddingStart="1dp"
-                android:paddingTop="4dp"
-                android:paddingEnd="1dp"
-                android:paddingBottom="4dp">
-
-                <ImageView
-                    android:layout_width="11dp"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="15dp"
-                    android:background="@drawable/f2_ic_gray_location2" />
-
-
-                <EditText
-                    android:id="@+id/edtRegion"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_weight="1"
-                    android:background="@color/white"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="19dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:hint="Tất cả"
-                    android:maxLines="1"
-                    android:textColorHint="#878787"
-                    android:textSize="16dp" />
-
-                <LinearLayout
-                    android:id="@+id/imgCloseSearchRegion"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_marginEnd="15dp"
-                        android:src="@drawable/f2_ic_gray_close" />
-
-                </LinearLayout>
+                    android:text="Hủy"
+                    android:textSize="14dp" />
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_marginTop="15dp"
-                android:id="@+id/linearUsername"
+
+            <View
+                android:background="#707070"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:background="@drawable/f2_bg_screen_searc"
-                android:gravity="center_vertical"
-                android:paddingStart="1dp"
-                android:paddingTop="4dp"
-                android:paddingEnd="1dp"
-                android:paddingBottom="4dp">
-
-                <ImageView
-                    android:layout_width="19dp"
-                    android:layout_height="19dp"
-                    android:layout_marginStart="15dp"
-                    android:background="@drawable/f2_ic_search2" />
-
-
-                <EditText
-                    android:id="@+id/edtKeyword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="7dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:background="@color/white"
-                    android:fontFamily="@font/roboto_regular"
-                    android:hint="Nhập từ khoá để tìm kiếm"
-                    android:imeOptions="actionSearch"
-                    android:singleLine="true"
-                    android:textColorHint="#878787"
-                    android:textSize="16dp" />
-
-                <LinearLayout
-                    android:id="@+id/imgCloseSearch"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_marginEnd="15dp"
-                        android:src="@drawable/f2_ic_gray_close" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-
+                android:layout_height="0.5dp"/>
 
 
             <!--        layout for main search-->
@@ -173,7 +155,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="12dp"
-                                android:layout_marginTop="33dp"
+                                android:layout_marginTop="15dp"
                                 android:gravity="center_vertical">
 
                                 <ImageView

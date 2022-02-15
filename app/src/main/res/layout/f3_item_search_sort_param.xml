@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="4.5dp"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    android:paddingEnd="4.5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.ornach.richtext.RichText
+        android:id="@+id/tvTitle"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:textColor="@color/white"
+        android:text="Tất cả"
+        app:rt_backgroundColor="#ECB14A"
+        app:rt_borderColor="#C9C9C9"
+        app:rt_borderWidth="1dp"
+        app:rt_radius="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

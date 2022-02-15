@@ -2,43 +2,48 @@ package com.namviet.vtvtravel.view.fragment.f2search
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.graphics.Typeface
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.TextView
-import android.widget.VideoView
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.tabs.TabLayout
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.namviet.vtvtravel.R
-import com.namviet.vtvtravel.adapter.f2search.SearchMainPageAdapter
+import com.namviet.vtvtravel.adapter.f2search.*
 import com.namviet.vtvtravel.databinding.F2FragmentResultSearchBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.Video
-import com.namviet.vtvtravel.model.f2event.OnDestroySearchResult
+import com.namviet.vtvtravel.model.f2search.Children
+import com.namviet.vtvtravel.model.f2search.SortAndFilter
+import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.model.travelnews.Travel
-import com.namviet.vtvtravel.response.f2searchmain.MainResultSearchResponse
 import com.namviet.vtvtravel.response.f2searchmain.result.ResultSearch
 import com.namviet.vtvtravel.response.f2searchmain.result.ResultVideoSearch
 import com.namviet.vtvtravel.response.f2searchmain.result.SearchType
 import com.namviet.vtvtravel.tracking.TrackingAnalytic
+import com.namviet.vtvtravel.ultils.F2Util
 import com.namviet.vtvtravel.ultils.highlight.HighLightController
 import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultDestinationSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultNewsSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultVideosSearchFragment
+import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.SlideMenuSearchFragment
+import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.DropDownCategoryFragment
+import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.DropDownLocationFragment
+import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.SortFollowFragment
 import com.namviet.vtvtravel.viewmodel.f2search.SearchResultViewModel
 import kotlinx.android.synthetic.main.f2_fragment_result_search.*
-import org.greenrobot.eventbus.EventBus
 import java.util.*
 import kotlin.collections.ArrayList
 
 @SuppressLint("ValidFragment")
 class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observer {
-
 
 
     //viewpager
@@ -47,7 +52,12 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     private var destinationSearchFragment: ResultDestinationSearchFragment? = null
     private var newsSearchFragment: ResultNewsSearchFragment? = null
     private var resultVideosSearchFragment: ResultVideosSearchFragment? = null
+
+
     //
+    private var sortAdapter: SortAdapter? = null
+    private var categorySortedAdapter: CategorySortedAdapter? = null
+
 
     private var keyword: String? = null
     private var regionId: String? = null
@@ -58,10 +68,16 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     private var searchViewModel: SearchResultViewModel? = null
 
-    constructor(keyword: String?, regionId: String?, categoryId: String?) {
+    private var sortAndFilter : SortAndFilter? = null
+
+    private var locationMain : ArrayList<Location>? = null
+
+
+    constructor(keyword: String?, regionId: String?, categoryId: String?, locationMain : ArrayList<Location>?) {
         this.keyword = keyword
         this.regionId = regionId
         this.categoryId = categoryId
+        this.locationMain = locationMain
     }
 
     constructor()
@@ -78,6 +94,15 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     override fun initData() {
         genViewPagerSearchResult()
 //        searchViewModel?.getPreResultSearch(keyword!!, regionId, false)
+        btnFilter.setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.END)
+        }
+        edtSearch.text = keyword
+
+        createSortData()
+
+        initSlideMenu()
+
 
     }
 
@@ -85,9 +110,136 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     }
 
+    private fun initSlideMenu(){
+
+        binding!!.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener{
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+
+            }
+
+            override fun onDrawerOpened(drawerView: View) {
+                createMenuFragment()
+            }
+
+            override fun onDrawerClosed(drawerView: View) {
+                slideMenuSearchFragment?.deleteFragment()
+            }
+
+            override fun onDrawerStateChanged(newState: Int) {
+
+            }
+
+        })
+    }
+
+    private var slideMenuSearchFragment : SlideMenuSearchFragment? = null
+
+    private fun createMenuFragment(){
+        slideMenuSearchFragment = SlideMenuSearchFragment();
+        slideMenuSearchFragment?.setData(sortAndFilter, object : SlideMenuSearchFragment.Listener{
+            override fun onApply(sortAndFilter : SortAndFilter?) {
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[2].children.clear()
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[2].children.addAll(sortAndFilter!!.sortHeader[2].children)
+                categorySortedAdapter!!.notifyDataSetChanged()
+                binding!!.drawerLayout.closeDrawer(GravityCompat.END)
+            }
+
+        })
+
+
+        fragmentManager!!.beginTransaction().replace(R.id.chooseRegionFrame, slideMenuSearchFragment!!).commit()
+    }
+
+    private fun createSortData() {
+        sortAndFilter = Gson().fromJson(
+            F2Util.loadJSONFromAsset(mActivity, "filter_and_sort_in_search"),
+            SortAndFilter::class.java
+        )
+
+        sortAdapter =
+            SortAdapter(mActivity, sortAndFilter!!.sortHeader, object : SortAdapter.ClickItem {
+                override fun onClickItem(position: Int) {
+                    when (position) {
+                        0 -> {
+                            var sortFollowFragment = SortFollowFragment()
+                            sortFollowFragment.setData(
+                                sortAndFilter!!.sortHeader[0].children,
+                                object : SortFollowFragment.Listener {
+                                    override fun onApply(listChild: ArrayList<Children>?) {
+                                        sortAndFilter!!.sortHeader[0].children = listChild
+                                        hideMenuAnim()
+                                        sortAdapter?.notifyDataSetChanged()
+                                    }
+
+                                })
+                            fragmentManager!!.beginTransaction()
+                                .replace(R.id.sortFrame, sortFollowFragment).commit()
+                        }
+
+                        1 -> {
+                            var dropDownLocationFragment = DropDownLocationFragment()
+                            dropDownLocationFragment.setData(locationMain, object : DropDownLocationFragment.Callback{
+                                override fun onApply() {
+
+                                }
+
+                            })
+                            fragmentManager!!.beginTransaction()
+                                .replace(R.id.sortFrame, dropDownLocationFragment).commit()
+                        }
+
+                        2 -> {
+                            var dropDownCategoryFragment = DropDownCategoryFragment()
+                            dropDownCategoryFragment.setData(sortAndFilter!!.sortHeader[2].children, object : DropDownCategoryFragment.Listener{
+                                override fun onApply(listChild: ArrayList<Children>?) {
+                                    sortAndFilter!!.sortHeader[2].children.clear()
+                                    sortAndFilter!!.sortHeader[2].children.addAll(listChild!!)
+                                    hideMenuAnim()
+                                    categorySortedAdapter?.notifyDataSetChanged()
+                                    sortAdapter?.notifyDataSetChanged()
+                                }
+
+                            })
+                            fragmentManager!!.beginTransaction()
+                                .replace(R.id.sortFrame, dropDownCategoryFragment).commit()
+                        }
+
+                    }
+
+                    if (binding!!.layoutExpand.visibility != View.VISIBLE) {
+                        showMenuAnim()
+                    }
+                }
+
+            });
+        binding!!.rclSort.adapter = sortAdapter
+
+        categorySortedAdapter = CategorySortedAdapter(sortAndFilter!!.sortHeader[2].children, mActivity);
+        binding!!.rclCategorySorted.adapter = categorySortedAdapter
+
+    }
+
     override fun setClickListener() {
-        imgBack.setOnClickListener {
+        btnBack.setOnClickListener {
             mActivity.onBackPressed()
+        }
+
+        edtSearch.setOnClickListener {
+//            addFragment(SearchSuggestionFragment(object :SearchSuggestionFragment.ClickSuggestion{
+//
+//                override fun onClickSuggestion(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?, location: Location?) {
+//
+//                }
+//            }, keyword))
+        }
+
+        btnFilter.setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.END)
+        }
+
+
+        layoutExpand.setOnClickListener {
+            hideMenuAnim()
         }
     }
 
@@ -96,19 +248,19 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     }
 
-    public fun searchAll(type : String?) {
+    public fun searchAll(type: String?) {
         searchViewModel?.searchAll(type, keyword, regionId, type, categoryId)
     }
 
-    public fun searchAllWithLink(link : String?, type : String?) {
+    public fun searchAllWithLink(link: String?, type: String?) {
         searchViewModel?.searchAllWithFullLink(link, type)
     }
 
-    public fun searchAllVideo(type : String?) {
+    public fun searchAllVideo(type: String?) {
         searchViewModel?.searchAllVideo(type, keyword, regionId, type, categoryId)
     }
 
-    public fun searchAllVideoWithLink(link : String?, type : String?) {
+    public fun searchAllVideoWithLink(link: String?, type: String?) {
         searchViewModel?.searchAllVideoWithFullLink(link, type)
     }
 
@@ -131,7 +283,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         tabLayout.setupWithViewPager(vpContent)
 
 
-        val tabHome = LayoutInflater.from(mActivity).inflate(R.layout.f2_layout_main_tab_search, null)
+        val tabHome =
+            LayoutInflater.from(mActivity).inflate(R.layout.f2_layout_main_tab_search, null)
         val tvHome = tabHome.findViewById<TextView>(R.id.tvTitle)
         tvHome.text = "Điểm đến"
         tvHome.setTextColor(Color.parseColor("#00918D"))
@@ -140,7 +293,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         tabLayout.getTabAt(0)?.customView = tabHome
 
 
-        val tabNews = LayoutInflater.from(mActivity).inflate(R.layout.f2_layout_main_tab_search, null)
+        val tabNews =
+            LayoutInflater.from(mActivity).inflate(R.layout.f2_layout_main_tab_search, null)
         val tvNews = tabNews.findViewById<TextView>(R.id.tvTitle)
         tvNews.text = "Tin tức"
         tvNews.setTextColor(Color.parseColor("#8A8A8A"))
@@ -149,7 +303,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         tabLayout.getTabAt(1)?.customView = tabNews
 
 
-        val tabVideos = LayoutInflater.from(mActivity).inflate(R.layout.f2_layout_main_tab_search, null)
+        val tabVideos =
+            LayoutInflater.from(mActivity).inflate(R.layout.f2_layout_main_tab_search, null)
         val tvVideos = tabVideos.findViewById<TextView>(R.id.tvTitle)
         tvVideos.text = "Video"
         tvVideos.setTextColor(Color.parseColor("#8A8A8A"))
@@ -169,11 +324,23 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                     is ResultSearch -> {
                         when (o.type) {
                             SearchType.NEWS -> {
-                                newsSearchFragment?.setList(o.data.items as ArrayList<Travel>?, o.data.more_link, o.data.total, keyword!!, o.data.approximately)
+                                newsSearchFragment?.setList(
+                                    o.data.items as ArrayList<Travel>?,
+                                    o.data.more_link,
+                                    o.data.total,
+                                    keyword!!,
+                                    o.data.approximately
+                                )
                             }
 
                             SearchType.DESTINATION -> {
-                                destinationSearchFragment?.setList(o.data.items as ArrayList<Travel>?, o.data.more_link, o.data.total, keyword!!, o.data.approximately)
+                                destinationSearchFragment?.setList(
+                                    o.data.items as ArrayList<Travel>?,
+                                    o.data.more_link,
+                                    o.data.total,
+                                    keyword!!,
+                                    o.data.approximately
+                                )
                             }
 
 
@@ -182,7 +349,13 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                     }
 
                     is ResultVideoSearch -> {
-                        resultVideosSearchFragment?.setList(o.data.items as ArrayList<Video>?, o.data.more_link, o.data.total, keyword!!, o.data.approximately)
+                        resultVideosSearchFragment?.setList(
+                            o.data.items as ArrayList<Video>?,
+                            o.data.more_link,
+                            o.data.total,
+                            keyword!!,
+                            o.data.approximately
+                        )
                     }
 
                     is ErrorResponse -> {
@@ -197,33 +370,81 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         }
     }
 
-    private val onTabSelectedListener: TabLayout.OnTabSelectedListener = object : TabLayout.OnTabSelectedListener {
-        override fun onTabSelected(tab: TabLayout.Tab) {
-            val c = tab.position
-            mainAdapter!!.setOnSelectView(tabLayout, c)
-        }
+    private val onTabSelectedListener: TabLayout.OnTabSelectedListener =
+        object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                val c = tab.position
+                mainAdapter!!.setOnSelectView(tabLayout, c)
+            }
 
-        override fun onTabUnselected(tab: TabLayout.Tab) {
-            val c = tab.position
-            mainAdapter!!.setUnSelectView(tabLayout, c)
-        }
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+                val c = tab.position
+                mainAdapter!!.setUnSelectView(tabLayout, c)
+            }
 
-        override fun onTabReselected(tab: TabLayout.Tab) {}
-    }
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        }
 
     override fun setScreenTitle() {
         super.setScreenTitle()
-        setDataScreen(TrackingAnalytic.ScreenCode.SEARCH_RESULT, TrackingAnalytic.ScreenTitle.SEARCH_RESULT)
+        setDataScreen(
+            TrackingAnalytic.ScreenCode.SEARCH_RESULT,
+            TrackingAnalytic.ScreenTitle.SEARCH_RESULT
+        )
     }
 
     public fun setHighLightedText(tv: TextView, textToHighlight: String) {
-        var iHighLightText  = SearchHighLightText()
-        var highLightController =  HighLightController(iHighLightText)
+        var iHighLightText = SearchHighLightText()
+        var highLightController = HighLightController(iHighLightText)
         highLightController.highLight(context!!, tv, textToHighlight)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        EventBus.getDefault().post(OnDestroySearchResult())
+
+    private fun showMenuAnim() {
+        val scaleDown = AnimationUtils.loadAnimation(mActivity, R.anim.scale_top_to_bottom)
+        scaleDown.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {
+                try {
+                    binding!!.layoutExpand.visibility = View.VISIBLE
+                } catch (e: java.lang.Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onAnimationEnd(animation: Animation) {
+                try {
+                    binding!!.viewCover.visibility = View.VISIBLE
+                } catch (e: java.lang.Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onAnimationRepeat(animation: Animation) {}
+        })
+        binding!!.layoutExpand.startAnimation(scaleDown)
+    }
+
+    private fun hideMenuAnim() {
+        val scaleDown = AnimationUtils.loadAnimation(mActivity, R.anim.un_scale_bottom_to_top)
+        scaleDown.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {
+                try {
+                    binding!!.viewCover.visibility = View.GONE
+                } catch (e: java.lang.Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onAnimationEnd(animation: Animation) {
+                try {
+                    binding!!.layoutExpand.visibility = View.GONE
+                } catch (e: java.lang.Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onAnimationRepeat(animation: Animation) {}
+        })
+        binding!!.layoutExpand.startAnimation(scaleDown)
     }
 }
