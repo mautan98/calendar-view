@@ -36,6 +36,7 @@ import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultVideosSea
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.SlideMenuSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.DropDownCategoryFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.DropDownLocationFragment
+import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.DropDownStatusFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.SortFollowFragment
 import com.namviet.vtvtravel.viewmodel.f2search.SearchResultViewModel
 import kotlinx.android.synthetic.main.f2_fragment_result_search.*
@@ -218,6 +219,12 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                             })
                             fragmentManager!!.beginTransaction()
                                 .replace(R.id.sortFrame, dropDownCategoryFragment).commit()
+                        }
+
+                        3 -> {
+                            var dropDownStatusFragment = DropDownStatusFragment()
+                            fragmentManager!!.beginTransaction()
+                                .replace(R.id.sortFrame, dropDownStatusFragment).commit()
                         }
 
                     }
