@@ -106,6 +106,22 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     }
 
+    private fun createFragment(){
+        slideMenuSearchFragment = SlideMenuSearchFragment();
+        slideMenuSearchFragment?.setData(sortAndFilter, object : SlideMenuSearchFragment.Listener{
+            override fun onApply(sortAndFilter : SortAndFilter?) {
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[2].children.clear()
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[2].children.addAll(sortAndFilter!!.sortHeader[2].children)
+                categorySortedAdapter!!.notifyDataSetChanged()
+                binding!!.drawerLayout.closeDrawer(GravityCompat.END)
+            }
+
+        })
+
+
+        fragmentManager!!.beginTransaction().replace(R.id.chooseRegionFrame, slideMenuSearchFragment!!).commit()
+    }
+
     override fun inject() {
 
     }
@@ -368,6 +384,18 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             } catch (e: Exception) {
             }
         }
+    }
+
+    public fun searchWithLink(link: String?, type: String?) {
+        searchViewModel?.searchAllWithFullLink(link, type)
+    }
+
+    public fun searchVideo(type: String?) {
+        searchViewModel?.searchAllVideo(type, keyword, regionId, type, categoryId)
+    }
+
+    public fun searchVideoWithLink(link: String?, type: String?) {
+        searchViewModel?.searchAllVideoWithFullLink(link, type)
     }
 
     private val onTabSelectedListener: TabLayout.OnTabSelectedListener =
