@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <TextView
@@ -215,49 +216,88 @@
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_marginEnd="6dp"
-                android:src="@drawable/f2_ic_time" />
+                android:src="@drawable/ic_calenda" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/tvOpenDate"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="8dp"-->
+<!--                android:fontFamily="@font/roboto_regular"-->
+<!--                tools:text="Mở cửa T2 - CN"-->
+<!--                android:textColor="#5E5E5E"-->
+<!--                android:textSize="12dp" />-->
 
             <TextView
-                android:id="@+id/tvOpenDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="@font/roboto_regular"
-
-                android:textColor="#5E5E5E"
-                android:textSize="12dp" />
-
-            <TextView
+                android:visibility="gone"
                 android:id="@+id/viewTime"
                 android:layout_width="1dp"
                 android:layout_height="12dp"
                 android:layout_marginEnd="8dp"
                 android:background="#707070" />
 
-            <TextView
-                android:id="@+id/tvOpenTime"
+<!--            <TextView-->
+<!--                android:id="@+id/tvOpenTime"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="8dp"-->
+<!--                android:fontFamily="@font/roboto_regular"-->
+<!--                tools:text="06:30 - 21:30"-->
+<!--                android:textColor="#5E5E5E"-->
+<!--                android:textSize="12dp" />-->
+            <LinearLayout
+                android:layout_marginStart="11dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="@font/roboto_regular"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvOpenDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    tools:text="Mở cửa T2 - CN"
+                    android:textColor="#5E5E5E"
+                    android:textSize="12dp" />
+                <TextView
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:background="@drawable/bg_time_open"
+                    tools:text="06:30 - 21:30"
+                    android:id="@+id/tvOpenTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="#5E5E5E"
+                    android:textSize="12dp" />
 
-                android:textColor="#5E5E5E"
-                android:textSize="12dp" />
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="1dp"
-                android:layout_height="12dp"
-                android:layout_marginEnd="8dp"
-                android:background="#707070" />
-
-            <TextView
-                android:id="@+id/tvOpenState"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_medium"
+                android:layout_weight="1"
+                android:gravity="right|center"
+                android:orientation="horizontal">
 
-                android:textColor="#0FB403"
-                android:textSize="12dp" />
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/bg_circle_green_small_location" />
+
+                <TextView
+                    android:id="@+id/tvOpenState"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="6dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:singleLine="true"
+                    android:text="Đang mở"
+                    android:textColor="#0FB403"
+                    android:textSize="12dp" />
+            </LinearLayout>
 
         </LinearLayout>
 

@@ -52,6 +52,7 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
     private static final int TYPE_ITEM_IMAGE = 2;
     private static final int TYPE_ITEM_RATING = 3;
     private static final int TYPE_ITEM_NEARBY_EXPERIENCE = 4;
+    private static final int TYPE_ITEM_MORE = 5;
     private BitmapDescriptor mMarkerIcon;
     private Context context;
     private ClickItem clickItem;
@@ -71,6 +72,7 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
         public static final String TYPE_ITEM_IMAGE = "GALLERY";
         public static final String TYPE_ITEM_RATING = "FEEDBACK";
         public static final String TYPE_ITEM_NEARBY_EXPERIENCE = "NEARPOINT";
+        public static final String TYPE_ITEM_MORE = "MORE";
     }
 
     private List<DetailSmallLocationResponse.Data.Tab> items;
@@ -114,6 +116,7 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
                 return TYPE_ITEM_INFORMATION;
             case TypeString.TYPE_ITEM_IMAGE:
                 return TYPE_ITEM_IMAGE;
+
             case TypeString.TYPE_ITEM_RATING:
                 return TYPE_ITEM_RATING;
             case TypeString.TYPE_ITEM_NEARBY_EXPERIENCE:
@@ -145,6 +148,10 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
             return new RatingViewHolder(v);
         }
         if (viewType == TYPE_ITEM_NEARBY_EXPERIENCE) {
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_layout_detail_small_location_nearby_experience, parent, false);
+            return new NearbyExperienceViewHolder(v);
+        }
+        if (viewType == TYPE_ITEM_MORE ) {
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_layout_detail_small_location_nearby_experience, parent, false);
             return new NearbyExperienceViewHolder(v);
         }
@@ -195,6 +202,7 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
         private RelativeLayout btnControl;
         private ImageView imgDown;
         private ImageView imgUp;
+        private int count;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -294,7 +302,6 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
         private LinearLayout layoutURL;
         private RelativeLayout layoutPrice;
         private LinearLayout layoutOpenType;
-        private View viewTime;
         private MapView mapView;
 
         private SupportMapFragment mapFragment;
@@ -306,7 +313,6 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
             super(itemView);
             tvDistance = itemView.findViewById(R.id.tvDistance);
             mapView = itemView.findViewById(R.id.mapView);
-            viewTime = itemView.findViewById(R.id.viewTime);
             layoutPhone = itemView.findViewById(R.id.layoutPhone);
             layoutURL = itemView.findViewById(R.id.layoutURL);
             tvAddress = itemView.findViewById(R.id.tvAddress);
@@ -415,15 +421,15 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
 
             try {
                 if (tab.getRange_time().isEmpty()) {
-                    viewTime.setVisibility(View.GONE);
+
                     tvOpenTime.setVisibility(View.GONE);
                 } else {
-                    viewTime.setVisibility(View.VISIBLE);
+
                     tvOpenTime.setText(tab.getRange_time());
                     tvOpenTime.setVisibility(View.VISIBLE);
                 }
             } catch (Exception e) {
-                viewTime.setVisibility(View.GONE);
+
                 tvOpenTime.setVisibility(View.GONE);
                 e.printStackTrace();
             }

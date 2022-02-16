@@ -28,6 +28,7 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
     private String detailLink;
     private int screenType;
     private SmallLocationMainPageFragment smallLocationMainPageFragment;
+    private int position;
 
     public class OpenType {
         public static final int LIST = 0;
@@ -53,6 +54,7 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
             linkToLoadSmallLocation = getIntent().getStringExtra(Constants.IntentKey.LINK);
             codeToLoadSmallLocation = getIntent().getStringExtra(Constants.IntentKey.CODE);
             regionIdToLoadSmallLocation = getIntent().getStringExtra(Constants.IntentKey.REGION_ID);
+            position = getIntent().getIntExtra(Constants.IntentKey.POSITION,0);
         }else {
             detailLink = getIntent().getStringExtra(Constants.IntentKey.DATA);
         }
@@ -80,7 +82,7 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
     public BaseFragment initFragment() {
         if (screenType == OpenType.LIST) {
 //            return new SmallLocationFragment(linkToLoadSmallLocation, codeToLoadSmallLocation, regionIdToLoadSmallLocation);
-            return smallLocationMainPageFragment = new SmallLocationMainPageFragment(itemsMenu);
+            return smallLocationMainPageFragment = new SmallLocationMainPageFragment(itemsMenu,position);
         }else {
             return new DetailSmallLocationFragment(detailLink);
         }
@@ -103,10 +105,11 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
         activity.startActivity(intent);
     }
 
-    public static void startScreen(Context activity, int screenType, ArrayList<ItemHomeService.Item> items, String code){
+    public static void startScreen(Context activity, int screenType, ArrayList<ItemHomeService.Item> items, String code, int position){
         Intent intent = new Intent(activity, SmallLocationActivity.class);
         intent.putExtra(Constants.IntentKey.DATA, items);
         intent.putExtra(Constants.IntentKey.CODE, code);
+        intent.putExtra(Constants.IntentKey.POSITION, position);
         intent.putExtra(Constants.IntentKey.SCREEN_TYPE, screenType);
         activity.startActivity(intent);
     }

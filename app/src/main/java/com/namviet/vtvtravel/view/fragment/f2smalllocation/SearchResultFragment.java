@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.view.fragment.f2smalllocation;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -101,6 +102,7 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
     private String regionId;
 
     private Marker lastMarker;
+    private Context context;
 
     @SuppressLint("ValidFragment")
     public SearchResultFragment(String link, String code, String regionId) {

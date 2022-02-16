@@ -120,6 +120,7 @@ public class Constants {
         public static final String SCREEN_TYPE = "SCREEN_TYPE";
         public static final String DETAIL_LINK = "DETAIL_LINK";
         public static final String REGION_ID = "REGION_ID";
+        public static final String POSITION = "POSITION";
         public static final String FROM_REG_VIP = "FROM_REG_VIP";
         public static final String LAT = "LAT";
         public static final String LONG = "LONG";

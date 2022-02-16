@@ -202,6 +202,7 @@ public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSm
                         contentLayoutManager.scrollToPositionWithOffset(targetPostion, 0);
                         targetPostion = -1;
                     }
+
                 }
             }
 
@@ -218,6 +219,7 @@ public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSm
                 if (!canScroll) {
                     canScroll = true;
                 } else {
+
                     targetPostion = tab.getPosition();
                     if (!AppBarStateChangeListener.State.COLLAPSED.equals(appBarStateChangeListener.getCurrentState())) {
                         getBinding().appBar.setExpanded(false, true);
@@ -251,41 +253,44 @@ public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSm
             }
         });
 
-//        getBinding().imgHeart.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                try {
-//                    Account account = MyApplication.getInstance().getAccount();
-//                    if (null != account && account.isLogin()) {
-//                        viewModel.likeEvent(response.getData().getId(), response.getData().getContent_type());
-//                        if (response.getData().isLiked()) {
-//                            response.getData().setLiked(false);
-////                            getBinding().imgHeart.setImageResource(R.drawable.f2_ic_white_border_heart);
-//                            getBinding().imgHeart.setLiked(false);
-//                        } else {
-//                            response.getData().setLiked(true);
-////                            getBinding().imgHeart.setImageResource(R.drawable.f2_ic_red_heart);
-//                            getBinding().imgHeart.setLiked(true);
-//                        }
-//
-//
-//                        try {
-//                            TrackingAnalytic.postEvent(TrackingAnalytic.LIKE, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SMALL_LOCATION_DETAIL, TrackingAnalytic.ScreenTitle.SMALL_LOCATION_DETAIL)
-//                                    .setContent_id(response.getData().getId())
-//                                    .setContent_type(response.getData().getContent_type())
-//                                    .setScreen_class(this.getClass().getName()));
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                    } else {
-//                        LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
+
+    }
+    private void onClickHear(){
+        getBinding().imgHeart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Account account = MyApplication.getInstance().getAccount();
+                    if (null != account && account.isLogin()) {
+                        viewModel.likeEvent(response.getData().getId(), response.getData().getContent_type());
+                        if (response.getData().isLiked()) {
+                            response.getData().setLiked(false);
+//                            getBinding().imgHeart.setImageResource(R.drawable.f2_ic_white_border_heart);
+                            getBinding().imgHeart.setLiked(false);
+                        } else {
+                            response.getData().setLiked(true);
+//                            getBinding().imgHeart.setImageResource(R.drawable.f2_ic_red_heart);
+                            getBinding().imgHeart.setLiked(true);
+                        }
+
+
+                        try {
+                            TrackingAnalytic.postEvent(TrackingAnalytic.LIKE, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SMALL_LOCATION_DETAIL, TrackingAnalytic.ScreenTitle.SMALL_LOCATION_DETAIL)
+                                    .setContent_id(response.getData().getId())
+                                    .setContent_type(response.getData().getContent_type())
+                                    .setScreen_class(this.getClass().getName()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    } else {
+                        LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void clickHeart() {
