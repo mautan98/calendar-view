@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <ImageView
+        tools:src="@drawable/f2_banner_intro_offline"
+        android:id="@+id/img_pic_small_item"
+        android:layout_width="match_parent"
+        android:layout_height="197dp"
+        android:scaleType="centerCrop" />
+</FrameLayout>
