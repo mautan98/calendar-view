@@ -158,6 +158,10 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                 this@ResultSearchFragment.sortAndFilter!!.sortHeader[2].children.clear()
                 this@ResultSearchFragment.sortAndFilter!!.sortHeader[2].children.addAll(sortAndFilter!!.sortHeader[2].children)
                 categorySortedAdapter!!.notifyDataSetChanged()
+
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[3].content.isOpen = sortAndFilter.sortHeader[3].content.isOpen
+
+                sortAdapter?.notifyDataSetChanged()
                 binding!!.drawerLayout.closeDrawer(GravityCompat.END)
             }
 
