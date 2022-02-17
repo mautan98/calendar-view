@@ -4,7 +4,13 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +27,12 @@ import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2smalllocation.Travel;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.view.f2.MapActivity;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import me.relex.circleindicator.CircleIndicator2;
 
 public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
@@ -76,7 +86,7 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
 
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imgAvatar;
+    //    private ImageView imgAvatar;
         private TextView tvName;
         private TextView tvDescription;
         private TextView tvRating;
@@ -88,20 +98,24 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
         private TextView tvOpenTime;
         private TextView tvOpenState;
         private TextView tvPrice;
+        private TextView tvCountImg;
+        private TextView tv_open_map;
 
         private LinearLayout layoutOpen;
         private LinearLayout layoutPrice;
         private View viewTime;
         private LikeButton imgHeart;
-
+        private RecyclerView rcvItemImg;
+        private CircleIndicator2 indicator;
         private int position;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
             viewTime = itemView.findViewById(R.id.viewTime);
             tvName = itemView.findViewById(R.id.tvName);
-            imgAvatar = itemView.findViewById(R.id.imgAvatar);
+       //     imgAvatar = itemView.findViewById(R.id.imgAvatar);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+            rcvItemImg = itemView.findViewById(R.id.rcv_item_img);
             tvRating = itemView.findViewById(R.id.tvRating);
             tvRateText = itemView.findViewById(R.id.tvRateText);
             tvCommentCount = itemView.findViewById(R.id.tvCommentCount);
@@ -112,9 +126,11 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
             tvOpenState = itemView.findViewById(R.id.tvOpenState);
             tvPrice = itemView.findViewById(R.id.tvPrice);
             imgHeart = itemView.findViewById(R.id.imgHeart);
-
+            indicator = itemView.findViewById(R.id.indicator);
             layoutOpen = itemView.findViewById(R.id.layoutOpen);
             layoutPrice = itemView.findViewById(R.id.layoutPrice);
+            tvCountImg = itemView.findViewById(R.id.tv_count_img);
+            tv_open_map = itemView.findViewById(R.id.tv_open_map);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -193,11 +209,42 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
             });
             tvName.setText(travel.getName());
             tvDescription.setText(travel.getShort_description());
-            Glide.with(context).load(travel.getLogo_url()).into(imgAvatar);
+        //    Glide.with(context).load(travel.getLogo_url()).into(imgAvatar);
             tvCommentCount.setText(travel.getComment_count());
             tvAddress.setText(travel.getAddress());
             tvRating.setText(travel.getEvaluate());
             tvRateText.setText(travel.getEvaluate_text());
+            List<String> urlsImg = new ArrayList<>();
+            urlsImg.add(travel.getLogo_url());
+            urlsImg.add(travel.getLogo_url());
+            urlsImg.add(travel.getLogo_url());
+            tvCountImg.setText(1+"/"+urlsImg.size());
+
+            SubSmallLocationAdapter subSmallLocationAdapter = new SubSmallLocationAdapter(context, urlsImg, new SubSmallLocationAdapter.IOnSubItemClick() {
+                @Override
+                public void onSubitemClick() {
+                    clickItem.onClickItem(items.get(position));
+                }
+            });
+            rcvItemImg.setAdapter(subSmallLocationAdapter);
+            tv_open_map.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        MapActivity.startScreen(context, items.get(position).getLoc().getCoordinates().get(1), items.get(position).getLoc().getCoordinates().get(0), items.get(position).getAddress());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            rcvItemImg.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                    int current = ((LinearLayoutManager)rcvItemImg.getLayoutManager())
+                            .findFirstVisibleItemPosition();
+                    tvCountImg.setText((current + 1) +"/"+urlsImg.size());
+                }
+            });
 
             if (Constants.TypeDestination.RESTAURANTS.equals(travel.getContent_type()) || Constants.TypeDestination.HOTELS.equals(travel.getContent_type())) {
                 layoutPrice.setVisibility(View.VISIBLE);
@@ -208,7 +255,6 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
                 layoutOpen.setVisibility(View.VISIBLE);
                 tvOpenDate.setText(travel.getOpen_week());
                 tvOpenState.setText(travel.getType_open());
-
 
                 try {
                     tvOpenState.setTextColor(Color.parseColor(travel.getTypeOpenColor()));
@@ -224,16 +270,16 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
 
                 try {
                     if (travel.getRange_time().isEmpty()) {
-                        viewTime.setVisibility(View.GONE);
+                    //    viewTime.setVisibility(View.GONE);
                         tvOpenTime.setVisibility(View.GONE);
                     } else {
-                        viewTime.setVisibility(View.VISIBLE);
+                    //    viewTime.setVisibility(View.VISIBLE);
                         tvOpenTime.setText(travel.getRange_time());
                         tvOpenTime.setVisibility(View.VISIBLE);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    viewTime.setVisibility(View.GONE);
+                 //   viewTime.setVisibility(View.GONE);
                     tvOpenTime.setVisibility(View.GONE);
                 }
             }
@@ -252,9 +298,16 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            // nếu để trên thì postion bị sai
+            try {
+                SnapHelper pagerSnapHelper = new PagerSnapHelper();
+                pagerSnapHelper.attachToRecyclerView(rcvItemImg);
+                indicator.attachToRecyclerView(rcvItemImg, pagerSnapHelper);
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            }
         }
     }
-
     public interface ClickItem {
         void onClickItem(Travel travel);
 

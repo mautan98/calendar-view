@@ -81,7 +81,7 @@ public class SubNearByAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    clickItem.onClickItem(items.get(position));
+                    clickItem.onClickItem(items.get(position),position);
                 }
             });
 
@@ -96,7 +96,7 @@ public class SubNearByAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public interface ClickItem{
-        void onClickItem(ItemHomeService.Item item);
+        void onClickItem(ItemHomeService.Item item, int position);
     }
 
 

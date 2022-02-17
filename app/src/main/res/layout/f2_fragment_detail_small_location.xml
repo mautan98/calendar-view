@@ -49,6 +49,7 @@
                     <!--                        app:layout_collapseMode="parallax" />-->
 
                     <androidx.appcompat.widget.Toolbar
+
                         android:contentInsetLeft="0dp"
                         android:contentInsetStart="0dp"
                         app:contentInsetLeft="0dp"
@@ -222,6 +223,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
+                    <include layout="@layout/data_placeholder_layout" />
 
                     <include layout="@layout/data_placeholder_layout" />
 

@@ -53,7 +53,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeService<*>.Item>? = null) : BaseFragment<F2FragmentMainPageSmallLocationBinding?>(), Observer {
+class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeService<*>.Item>? = null, private var position : Int) : BaseFragment<F2FragmentMainPageSmallLocationBinding?>(), Observer {
     private var mainAdapter : MainAdapter? = null
     private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
     private var searchSuggestions: ArrayList<SearchSuggestionResponse.Data.Item>? = ArrayList()
@@ -121,6 +121,7 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
         vpContent.adapter = mainAdapter
         tabLayout.setTabTextColors(ContextCompat.getColor(mActivity, R.color.md_black_1000), ContextCompat.getColor(mActivity, R.color.f2_color_package))
         tabLayout.setupWithViewPager(vpContent)
+        vpContent.setCurrentItem(position,true)
 
         for(i in 0 until dataMenu!!.size){
             tabLayout.getTabAt(i)?.text = dataMenu?.get(i)?.name

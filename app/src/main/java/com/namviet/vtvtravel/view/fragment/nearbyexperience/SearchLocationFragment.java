@@ -63,15 +63,44 @@ public class SearchLocationFragment extends BaseFragment<F2FragmentSearchLocatio
                     KeyboardUtils.hideKeyboard(mActivity, getBinding().edtLocation);
                     doneSearch.onDoneSearch(location);
                     mActivity.onBackPressed();
+
                 }
             }
         });
         getBinding().rclLocation.setAdapter(searchAllLocationAdapter);
     }
 
+
     @Override
     public void inject() {
 
+    }
+    private void getData (){
+        searchAllLocationAdapter = new SearchAllLocationAdapter(mActivity, locations, new SearchAllLocationAdapter.ClickItem() {
+            @Override
+            public void onClick(Location location) {
+                if(location.getId() != null && !location.getId().isEmpty()) {
+                    KeyboardUtils.hideKeyboard(mActivity, getBinding().edtLocation);
+                    doneSearch.onDoneSearch(location);
+                    mActivity.onBackPressed();
+
+                }
+            }
+        });
+        getBinding().imgCloseSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getBinding().edtLocation.setText("");
+            }
+        });
+
+        getBinding().btnCurrentLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewModel.getLocation();
+
+            }
+        });
     }
 
     @Override
@@ -88,6 +117,7 @@ public class SearchLocationFragment extends BaseFragment<F2FragmentSearchLocatio
             @Override
             public void onClick(View view) {
                 viewModel.getLocation();
+
             }
         });
         getBinding().btnBack.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +148,7 @@ public class SearchLocationFragment extends BaseFragment<F2FragmentSearchLocatio
             }else if (o instanceof ErrorResponse) {
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
+
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
                 } catch (Exception e) {
 
@@ -152,6 +183,16 @@ public class SearchLocationFragment extends BaseFragment<F2FragmentSearchLocatio
 
     public interface DoneSearch{
         void onDoneSearch(Location location);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override

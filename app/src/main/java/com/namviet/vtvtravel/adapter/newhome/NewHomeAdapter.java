@@ -804,9 +804,9 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public void bindItem(int position) {
             subNearByAdapter = new SubNearByAdapter(homeServiceResponse.getData().get(position).getItems(), context, new SubNearByAdapter.ClickItem() {
                 @Override
-                public void onClickItem(ItemHomeService.Item item) {
+                public void onClickItem(ItemHomeService.Item item, int i) {
 //                    clickItemSmallLocation.onClickItemSmallLocation(item);
-                    SmallLocationActivity.startScreen(context, SmallLocationActivity.OpenType.LIST, (ArrayList<ItemHomeService.Item>) homeServiceResponse.getData().get(position).getItems(), item.getCode());
+                    SmallLocationActivity.startScreen(context, SmallLocationActivity.OpenType.LIST, (ArrayList<ItemHomeService.Item>) homeServiceResponse.getData().get(position).getItems(), item.getCode(),i);
                 }
             });
             recyclerNearPlace.setAdapter(subNearByAdapter);
