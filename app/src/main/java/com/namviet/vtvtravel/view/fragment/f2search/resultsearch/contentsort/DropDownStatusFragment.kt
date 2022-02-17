@@ -1,5 +1,6 @@
 package com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort
 
+import android.widget.CompoundButton
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.namviet.vtvtravel.R
@@ -18,11 +19,27 @@ class DropDownStatusFragment : BaseFragment<F3FragmentDropDownStatusBinding?>() 
     override fun initView() {}
     override fun initData() {
         if(isOpen == null){
-            switchStatus.isEnabled = false
             switchStatus.alpha = 0.5f
         }else{
             switchStatus.alpha = 1f
             switchStatus.isChecked = isOpen!!
+        }
+
+
+        switchStatus.setOnCheckedChangeListener { _, p1 ->
+            switchStatus.isChecked = p1
+            isOpen = p1
+            switchStatus.alpha = 1f
+        }
+
+        btnApply.setOnClickListener {
+            listener?.onApply(isOpen)
+        }
+
+        btnClearFilter.setOnClickListener {
+            isOpen = null
+            switchStatus.alpha = 0.5f
+            listener?.onApply(isOpen)
         }
     }
     override fun inject() {}
@@ -30,10 +47,10 @@ class DropDownStatusFragment : BaseFragment<F3FragmentDropDownStatusBinding?>() 
     override fun setObserver() {}
 
     public interface Listener{
-        fun onApply(isOpen: Boolean)
+        fun onApply(isOpen: Boolean?)
     }
 
-    public fun setData(isOpen: Boolean, listener: Listener){
+    public fun setData(isOpen: Boolean?, listener: Listener){
         this.isOpen = isOpen
         this.listener = listener
     }

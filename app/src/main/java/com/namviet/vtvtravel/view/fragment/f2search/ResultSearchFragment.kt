@@ -224,8 +224,10 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                         3 -> {
                             var dropDownStatusFragment = DropDownStatusFragment()
                             dropDownStatusFragment.setData(sortAndFilter!!.sortHeader[3].content.isOpen, object : DropDownStatusFragment.Listener{
-                                override fun onApply(isOpen : Boolean) {
+                                override fun onApply(isOpen : Boolean?) {
                                     sortAndFilter!!.sortHeader[3].content.isOpen = isOpen
+                                    hideMenuAnim()
+                                    sortAdapter?.notifyDataSetChanged()
                                 }
 
                             })

@@ -124,13 +124,27 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         }
                     }
                 }
+                3 -> {
+                    items!![position].label = "Trạng thái"
+                    if (items!![position].content.isOpen != null) {
+                        if(items!![position].content.isOpen){
+                            items!![position].label = "Đang mở"
+                        }else{
+                            items!![position].label = "Đang đóng"
+                        }
+                        return true
+                    }
+                }
             }
 
             return false
         }
 
         fun ImageView.setTint(@ColorRes colorRes: Int) {
-            ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(ContextCompat.getColor(context, colorRes)))
+            ImageViewCompat.setImageTintList(
+                this,
+                ColorStateList.valueOf(ContextCompat.getColor(context, colorRes))
+            )
         }
 
     }
