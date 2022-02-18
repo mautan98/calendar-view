@@ -14,12 +14,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.adapter.f2video.SortVideoAdapter;
 import com.namviet.vtvtravel.adapter.vtvtabstyle.VTVTabStyleAdapter;
 import com.namviet.vtvtravel.databinding.F2FragmentVideoBinding;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.model.f2search.SortAndFilter;
 import com.namviet.vtvtravel.response.f2video.VideoResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
+import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.view.f2.f2oldbase.SearchActivity;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.viewmodel.f2video.VideoViewModel;
@@ -31,6 +35,10 @@ public class VideoFragment extends MainFragment implements Observer {
     private F2FragmentVideoBinding binding;
     private VideoViewModel viewModel;
     private VideoResponse videoResponse;
+
+    private SortVideoAdapter sortVideoAdapter;
+
+    private SortAndFilter sortAndFilter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,6 +83,8 @@ public class VideoFragment extends MainFragment implements Observer {
                 SearchActivity.startScreen(mActivity);
             }
         });
+
+        getFilterData();
 
     }
 
@@ -156,5 +166,17 @@ public class VideoFragment extends MainFragment implements Observer {
         }
     };
 
+
+    private void getFilterData(){
+        sortAndFilter = new Gson().fromJson(F2Util.loadJSONFromAsset(mActivity, "filter_and_sort_in_search_video"), SortAndFilter.class);
+        sortVideoAdapter = new SortVideoAdapter(mActivity, sortAndFilter.getSortHeader(), new SortVideoAdapter.ClickItem() {
+            @Override
+            public void onClickItem(int position) {
+
+            }
+        });
+
+        binding.rclSort.setAdapter(sortVideoAdapter);
+    }
 
 }

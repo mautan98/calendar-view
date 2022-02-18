@@ -1,0 +1,45 @@
+{
+  "sortHeader": [
+    {
+      "name": "Sắp xếp theo",
+      "label" : "Sắp xếp theo",
+      "id": "Sắp xếp theo",
+      "isSelected": false,
+      "children": [
+        {
+          "name": "Tất cả",
+          "id": "Tất cả",
+          "isSelected": false
+        },
+        {
+          "name": "Đúng nhất",
+          "id": "Tất cả",
+          "isSelected": false
+        },
+        {
+          "name": "Gần trung tâm nhất",
+          "id": "Tất cả",
+          "isSelected": false
+        },
+        {
+          "name": "Yêu thích nhất",
+          "id": "Tất cả",
+          "isSelected": false
+        }
+      ]
+    },
+    {
+      "label" : "Địa điểm",
+      "name": "Địa điểm",
+      "id": "Sắp xếp theo",
+      "isSelected": false,
+      "children": [
+      ],
+      "content": {
+        "cityId": "",
+        "district": "",
+        "commune": ""
+      }
+    }
+  ]
+}
