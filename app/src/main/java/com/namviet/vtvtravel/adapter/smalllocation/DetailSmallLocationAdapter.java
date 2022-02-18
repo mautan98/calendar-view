@@ -330,13 +330,6 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
 
         private void addMyLocation(double lat, double lng, String address) {
             try {
-//                LatLng sydney = new LatLng(lat, lng);
-//                CameraUpdate center = CameraUpdateFactory.newLatLng(sydney);
-//                CameraUpdate zoom = CameraUpdateFactory.zoomTo(16);
-//                mGoogleMap.addMarker(new MarkerOptions().position(sydney).title(address));
-//                mGoogleMap.moveCamera(center);
-
-
                 LatLng coordinate = new LatLng(lat, lng); //Store these lat lng values somewhere. These should be constant.
                 mGoogleMap.addMarker(new MarkerOptions()
                         .position(coordinate)
@@ -382,16 +375,6 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
                         }
                     }
                 });
-//                mapFragment = (SupportMapFragment) detailSmallLocationFragment.getChildFragmentManager()
-//                        .findFragmentById(R.id.map);
-
-//                mapFragment.getMapAsync(new OnMapReadyCallback() {
-//                    @Override
-//                    public void onMapReady(GoogleMap googleMap) {
-//
-//                    }
-//                });
-//                detailSmallLocationFragment.getChildFragmentManager().beginTransaction().replace(R.id.map, mapFragment).commit();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -776,7 +759,6 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
         private void genTab() {
             try {
                 for (int i = 0; i < tabsList.size(); i++) {
-//                getBinding().tabs.addTab(getBinding().tabs.newTab().setText(detailSmallLocationResponse.getData().getTabs().get(i).getTitle()));
                     View tabHome = LayoutInflater.from(context).inflate(R.layout.f2_custom_tab_vtv_style, null);
                     TextView tvHome = tabHome.findViewById(R.id.tvTitle);
                     tvHome.setText((tabsList.get(i)));
