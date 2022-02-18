@@ -21,6 +21,7 @@ import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.ornach.richtext.RichText;
 
 import java.util.List;
 
@@ -107,6 +108,7 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
         private int position;
         private View viewTime;
         private LikeButton imgHeart;
+        private RichText viewStatus;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -130,6 +132,7 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
             tvTime = itemView.findViewById(R.id.tvTime);
             tvViewCount = itemView.findViewById(R.id.tvViewCount);
             imgHeart = itemView.findViewById(R.id.imgHeart);
+            viewStatus = itemView.findViewById(R.id.viewStatus);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -261,9 +264,11 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
 
                 try {
                     tvStatus.setTextColor(Color.parseColor(travel.getTypeOpenColor()));
+                    viewStatus.setBackgroundColor(Color.parseColor(travel.getTypeOpenColor()));
                 } catch (Exception e) {
                     try {
                         tvStatus.setTextColor(Color.parseColor("#FF0000"));
+                        viewStatus.setBackgroundColor(Color.parseColor("#FF0000"));
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }

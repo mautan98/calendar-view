@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:foreground="@drawable/ripple_effect_click"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        android:foreground="@drawable/ripple_effect_click"
         android:orientation="vertical">
 
         <LinearLayout
@@ -49,26 +50,25 @@
                         android:textColor="@color/white"
                         android:textSize="12dp" />
 
-<!--                    <ImageView-->
-<!--                        android:id="@+id/imgHeart"-->
-<!--                        android:layout_width="32dp"-->
-<!--                        android:layout_height="36dp"-->
-<!--                        android:layout_alignParentEnd="true"-->
-<!--                        android:layout_marginEnd="10dp"-->
-<!--                        android:src="@drawable/f2_ic_transparent_heart" />-->
+                    <!--                    <ImageView-->
+                    <!--                        android:id="@+id/imgHeart"-->
+                    <!--                        android:layout_width="32dp"-->
+                    <!--                        android:layout_height="36dp"-->
+                    <!--                        android:layout_alignParentEnd="true"-->
+                    <!--                        android:layout_marginEnd="10dp"-->
+                    <!--                        android:src="@drawable/f2_ic_transparent_heart" />-->
 
                     <com.like.LikeButton
                         android:id="@+id/imgHeart"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:layout_gravity="center"
                         android:layout_alignParentEnd="true"
+                        android:layout_gravity="center"
                         android:layout_marginEnd="10dp"
                         app:anim_scale_factor="4.5"
                         app:icon_size="30dp"
                         app:like_drawable="@drawable/f2_ic_heart"
                         app:unlike_drawable="@drawable/f2_ic_transparent_heart" />
-
 
 
                 </RelativeLayout>
@@ -210,13 +210,6 @@
 
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tvStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_medium"
-                        android:textColor="#FF0000"
-                        android:textSize="12dp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -240,7 +233,8 @@
                             android:maxLines="1"
                             android:singleLine="true"
                             android:textColor="#5E5E5E"
-                            android:textSize="11dp" />
+                            android:textSize="11dp"
+                            tools:text="Ngõ Đình Đại, Hai Bà Trưng, Hà Nội" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -262,11 +256,12 @@
                             android:layout_marginStart="3dp"
                             android:fontFamily="@font/roboto_regular"
                             android:textColor="#5E5E5E"
-                            android:textSize="11dp" />
+                            android:textSize="11dp"
+                            tools:text="Cách bạn 5km" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="3dp"
@@ -279,12 +274,39 @@
 
                         <TextView
                             android:id="@+id/tvType"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="3dp"
+                            android:layout_weight="1"
                             android:fontFamily="@font/roboto_regular"
                             android:textColor="#5E5E5E"
-                            android:textSize="11dp" />
+                            android:textSize="11dp"
+                            tools:text="Đi đâu" />
+
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <com.ornach.richtext.RichText
+                                app:rt_radius="100dp"
+                                app:rt_backgroundColor="#0FB403"
+                                android:id="@+id/viewStatus"
+                                android:layout_marginEnd="6dp"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"/>
+
+                            <TextView
+                                android:id="@+id/tvStatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Mở cửa"
+                                android:textColor="#FF0000"
+                                android:textSize="12dp" />
+
+                        </LinearLayout>
                     </LinearLayout>
 
                 </LinearLayout>

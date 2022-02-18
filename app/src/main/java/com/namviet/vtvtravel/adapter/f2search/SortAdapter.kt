@@ -119,7 +119,6 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     items!![position].label = items!![position].name
                     for (i in items!!.indices) {
                         if (items!![position].children[i].isSelected) {
-                            items!![position].label = items!![position].children[i].name
                             return true
                         }
                     }
