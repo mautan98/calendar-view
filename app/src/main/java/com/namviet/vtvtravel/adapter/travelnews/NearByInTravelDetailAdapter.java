@@ -280,9 +280,9 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
                         viewTime.setVisibility(View.GONE);
                         tvOpenTime.setVisibility(View.GONE);
                     }else {
-                        viewTime.setVisibility(View.VISIBLE);
+                        viewTime.setVisibility(View.INVISIBLE);
                         tvOpenTime.setText(travel.getRange_time());
-                        tvOpenTime.setVisibility(View.VISIBLE);
+                        tvOpenTime.setVisibility(View.INVISIBLE);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
