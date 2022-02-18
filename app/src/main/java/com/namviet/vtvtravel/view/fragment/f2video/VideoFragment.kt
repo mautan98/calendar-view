@@ -1,182 +1,243 @@
-package com.namviet.vtvtravel.view.fragment.f2video;
+package com.namviet.vtvtravel.view.fragment.f2video
 
-import androidx.databinding.DataBindingUtil;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.os.Handler;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.tabs.TabLayout;
-import androidx.core.content.ContextCompat;
+import android.graphics.Color
+import android.os.Bundle
+import android.os.Handler
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import com.google.android.material.tabs.TabLayout
+import com.google.gson.Gson
+import com.namviet.vtvtravel.R
+import com.namviet.vtvtravel.adapter.f2video.SortVideoAdapter
+import com.namviet.vtvtravel.adapter.vtvtabstyle.VTVTabStyleAdapter
+import com.namviet.vtvtravel.databinding.F2FragmentVideoBinding
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
+import com.namviet.vtvtravel.model.f2search.Children
+import com.namviet.vtvtravel.model.f2search.SortAndFilter
+import com.namviet.vtvtravel.response.f2video.VideoResponse
+import com.namviet.vtvtravel.tracking.TrackingAnalytic
+import com.namviet.vtvtravel.ultils.F2Util
+import com.namviet.vtvtravel.view.f2.f2oldbase.SearchActivity
+import com.namviet.vtvtravel.view.fragment.MainFragment
+import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.DropDownLocationFragment
+import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.SortFollowFragment
+import com.namviet.vtvtravel.viewmodel.f2video.VideoViewModel
+import java.util.*
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
-import com.google.gson.Gson;
-import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.adapter.f2video.SortVideoAdapter;
-import com.namviet.vtvtravel.adapter.vtvtabstyle.VTVTabStyleAdapter;
-import com.namviet.vtvtravel.databinding.F2FragmentVideoBinding;
-import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
-import com.namviet.vtvtravel.model.f2search.SortAndFilter;
-import com.namviet.vtvtravel.response.f2video.VideoResponse;
-import com.namviet.vtvtravel.tracking.TrackingAnalytic;
-import com.namviet.vtvtravel.ultils.F2Util;
-import com.namviet.vtvtravel.view.f2.f2oldbase.SearchActivity;
-import com.namviet.vtvtravel.view.fragment.MainFragment;
-import com.namviet.vtvtravel.viewmodel.f2video.VideoViewModel;
-
-import java.util.Observable;
-import java.util.Observer;
-
-public class VideoFragment extends MainFragment implements Observer {
-    private F2FragmentVideoBinding binding;
-    private VideoViewModel viewModel;
-    private VideoResponse videoResponse;
-
-    private SortVideoAdapter sortVideoAdapter;
-
-    private SortAndFilter sortAndFilter;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+class VideoFragment : MainFragment(), Observer {
+    private var binding: F2FragmentVideoBinding? = null
+    private var viewModel: VideoViewModel? = null
+    private var videoResponse: VideoResponse? = null
+    private var sortVideoAdapter: SortVideoAdapter? = null
+    private var sortAndFilter: SortAndFilter? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.f2_fragment_video, container, false);
-        return binding.getRoot();
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.f2_fragment_video, container, false)
+        return binding?.root
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         try {
-            TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_VIEW, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.VIDEOS, TrackingAnalytic.ScreenTitle.VIDEOS).setScreen_class(this.getClass().getName()));
-        } catch (Exception e) {
-            e.printStackTrace();
+            TrackingAnalytic.postEvent(
+                TrackingAnalytic.SCREEN_VIEW,
+                TrackingAnalytic.getDefault(
+                    TrackingAnalytic.ScreenCode.VIDEOS,
+                    TrackingAnalytic.ScreenTitle.VIDEOS
+                ).setScreen_class(this.javaClass.name)
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-        initViews(view);
+        initViews(view)
     }
 
-    @Override
-    protected void initViews(View v) {
-        super.initViews(v);
-        binding.vpContent.setOffscreenPageLimit(10);
-        viewModel = new VideoViewModel();
-        binding.setVideoViewModel(viewModel);
-        viewModel.addObserver(this);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                viewModel.getCategoryVideo();
-            }
-        }, 500);
-
-        binding.btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SearchActivity.startScreen(mActivity);
-            }
-        });
-
-        getFilterData();
-
+    override fun initViews(v: View) {
+        super.initViews(v)
+        binding!!.vpContent.offscreenPageLimit = 10
+        viewModel = VideoViewModel()
+        binding!!.videoViewModel = viewModel
+        viewModel!!.addObserver(this)
+        Handler().postDelayed({ viewModel!!.getCategoryVideo() }, 500)
+        binding!!.btnSearch.setOnClickListener { SearchActivity.startScreen(mActivity) }
+        filterData
     }
 
-    private VTVTabStyleAdapter mainAdapter;
-    @Override
-    public void update(Observable observable, Object o) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    binding.shimmerViewContainer.stopShimmer();
-                    binding.shimmerViewContainer.setVisibility(View.GONE);
-                    binding.vpContent.setVisibility(View.VISIBLE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+    private var mainAdapter: VTVTabStyleAdapter? = null
+    override fun update(observable: Observable, o: Any) {
+        Handler().postDelayed({
+            try {
+                binding!!.shimmerViewContainer.stopShimmer()
+                binding!!.shimmerViewContainer.visibility = View.GONE
+                binding!!.vpContent.visibility = View.VISIBLE
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-        }, 1000);
-
-        if (observable instanceof VideoViewModel && null != o) {
-            if (o instanceof VideoResponse) {
-                videoResponse = (VideoResponse) o;
-                mainAdapter = new VTVTabStyleAdapter(getChildFragmentManager());
-                for (int i = 0; i < videoResponse.getData().size(); i++) {
-                    SubVideoFragment subVideoFragment = new SubVideoFragment();
-                    subVideoFragment.setContentLink(videoResponse.getData().get(i).getLink());
-                    mainAdapter.addFragment(subVideoFragment, "");
+        }, 1000)
+        if (observable is VideoViewModel && null != o) {
+            if (o is VideoResponse) {
+                videoResponse = o
+                mainAdapter = VTVTabStyleAdapter(childFragmentManager)
+                for (i in videoResponse!!.data.indices) {
+                    val subVideoFragment = SubVideoFragment()
+                    subVideoFragment.setContentLink(videoResponse!!.data[i].link)
+                    mainAdapter!!.addFragment(subVideoFragment, "")
                 }
-
-                binding.vpContent.setAdapter(mainAdapter);
-                binding.tabLayout.setupWithViewPager(binding.vpContent);
-                for (int i = 0; i < videoResponse.getData().size(); i++) {
-                    View tabHome = LayoutInflater.from(mActivity).inflate(R.layout.f2_custom_tab_vtv_style, null);
-                    TextView tvHome = tabHome.findViewById(R.id.tvTitle);
-                    tvHome.setText((videoResponse.getData().get(i).getName()));
+                binding!!.vpContent.adapter = mainAdapter
+                binding!!.tabLayout.setupWithViewPager(binding!!.vpContent)
+                for (i in videoResponse!!.data.indices) {
+                    val tabHome = LayoutInflater.from(mActivity)
+                        .inflate(R.layout.f2_custom_tab_vtv_style, null)
+                    val tvHome = tabHome.findViewById<TextView>(R.id.tvTitle)
+                    tvHome.text = videoResponse!!.data[i].name
                     if (i == 0) {
-                        tvHome.setTextColor(Color.parseColor("#00918D"));
+                        tvHome.setTextColor(Color.parseColor("#00918D"))
                     } else {
-                        tvHome.setTextColor(Color.parseColor("#101010"));
+                        tvHome.setTextColor(Color.parseColor("#101010"))
                     }
-                    View view = tabHome.findViewById(R.id.indicator);
+                    val view = tabHome.findViewById<View>(R.id.indicator)
                     if (i == 0) {
-                        view.setVisibility(View.VISIBLE);
+                        view.visibility = View.VISIBLE
                     } else {
-                        view.setVisibility(View.INVISIBLE);
+                        view.visibility = View.INVISIBLE
                     }
-                    binding.tabLayout.getTabAt(i).setCustomView(tabHome);
+                    binding!!.tabLayout.getTabAt(i)!!.customView = tabHome
                 }
-                binding.tabLayout.addOnTabSelectedListener(OnTabSelectedListener);
+                binding!!.tabLayout.addOnTabSelectedListener(OnTabSelectedListener)
             }
-
-        } else if (o instanceof ErrorResponse) {
-            ErrorResponse responseError = (ErrorResponse) o;
+        } else if (o is ErrorResponse) {
+            val responseError = o
             try {
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
-            } catch (Exception e) {
-
+            } catch (e: Exception) {
             }
         }
-
     }
 
-    private TabLayout.OnTabSelectedListener OnTabSelectedListener = new TabLayout.OnTabSelectedListener() {
-        @Override
-        public void onTabSelected(TabLayout.Tab tab) {
-            int c = tab.getPosition();
-            mainAdapter.SetOnSelectView(binding.tabLayout, c);
-        }
-
-        @Override
-        public void onTabUnselected(TabLayout.Tab tab) {
-            int c = tab.getPosition();
-            mainAdapter.SetUnSelectView(binding.tabLayout, c);
-        }
-
-        @Override
-        public void onTabReselected(TabLayout.Tab tab) {
-
-        }
-    };
-
-
-    private void getFilterData(){
-        sortAndFilter = new Gson().fromJson(F2Util.loadJSONFromAsset(mActivity, "filter_and_sort_in_search_video"), SortAndFilter.class);
-        sortVideoAdapter = new SortVideoAdapter(mActivity, sortAndFilter.getSortHeader(), new SortVideoAdapter.ClickItem() {
-            @Override
-            public void onClickItem(int position) {
-
+    private val OnTabSelectedListener: TabLayout.OnTabSelectedListener =
+        object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                val c = tab.position
+                mainAdapter!!.SetOnSelectView(binding!!.tabLayout, c)
             }
-        });
 
-        binding.rclSort.setAdapter(sortVideoAdapter);
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+                val c = tab.position
+                mainAdapter!!.SetUnSelectView(binding!!.tabLayout, c)
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        }
+
+    //                                hideMenuAnim()
+//                                sortAdapter?.notifyDataSetChanged()
+    private val filterData: Unit
+        private get() {
+            sortAndFilter = Gson().fromJson(
+                F2Util.loadJSONFromAsset(
+                    mActivity,
+                    "filter_and_sort_in_search_video"
+                ), SortAndFilter::class.java
+            )
+            sortVideoAdapter = SortVideoAdapter(
+                mActivity,
+                sortAndFilter?.sortHeader,
+                object : SortVideoAdapter.ClickItem {
+                    override fun onClickItem(position: Int) {
+                        when (position) {
+                            0 -> {
+                                val sortFollowFragment = SortFollowFragment()
+                                sortFollowFragment.setData(
+                                    sortAndFilter!!.sortHeader[0].children,
+                                    object : SortFollowFragment.Listener {
+                                        override fun onApply(listChild: ArrayList<Children>?) {
+                                            sortAndFilter!!.sortHeader[0].children = listChild
+                                            hideMenuAnim()
+                                            sortVideoAdapter?.notifyDataSetChanged()
+                                        }
+                                    })
+
+                                fragmentManager!!.beginTransaction()
+                                    .replace(R.id.sortFrame, sortFollowFragment).commit()
+                            }
+
+                            1 -> {
+                                var dropDownLocationFragment = DropDownLocationFragment()
+//                                dropDownLocationFragment.setData(locationMain, object : DropDownLocationFragment.Callback{
+//                                    override fun onApply() {
+//
+//                                    }
+//
+//                                })
+                                fragmentManager!!.beginTransaction()
+                                    .replace(R.id.sortFrame, dropDownLocationFragment).commit()
+                            }
+                        }
+                        if (binding!!.layoutExpand.visibility != View.VISIBLE) {
+                            showMenuAnim()
+                        }
+                    }
+                })
+            binding!!.rclSort.adapter = sortVideoAdapter
+        }
+
+    private fun showMenuAnim() {
+        val scaleDown = AnimationUtils.loadAnimation(mActivity, R.anim.scale_top_to_bottom)
+        scaleDown.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {
+                try {
+                    binding!!.layoutExpand.visibility = View.VISIBLE
+                } catch (e: java.lang.Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onAnimationEnd(animation: Animation) {
+                try {
+                    binding!!.viewCover.visibility = View.VISIBLE
+                } catch (e: java.lang.Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onAnimationRepeat(animation: Animation) {}
+        })
+        binding!!.layoutExpand.startAnimation(scaleDown)
     }
 
+    private fun hideMenuAnim() {
+        val scaleDown = AnimationUtils.loadAnimation(mActivity, R.anim.un_scale_bottom_to_top)
+        scaleDown.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {
+                try {
+                    binding!!.viewCover.visibility = View.GONE
+                } catch (e: java.lang.Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onAnimationEnd(animation: Animation) {
+                try {
+                    binding!!.layoutExpand.visibility = View.GONE
+                } catch (e: java.lang.Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onAnimationRepeat(animation: Animation) {}
+        })
+        binding!!.layoutExpand.startAnimation(scaleDown)
+    }
 }
