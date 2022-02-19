@@ -9,7 +9,10 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.tabs.TabLayout
 import com.google.gson.Gson
 import com.namviet.vtvtravel.R
@@ -19,14 +22,21 @@ import com.namviet.vtvtravel.databinding.F2FragmentVideoBinding
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.f2search.Children
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
+import com.namviet.vtvtravel.model.travelnews.Location
+import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse
+import com.namviet.vtvtravel.response.f2biglocation.LocationResponse
 import com.namviet.vtvtravel.response.f2video.VideoResponse
 import com.namviet.vtvtravel.tracking.TrackingAnalytic
 import com.namviet.vtvtravel.ultils.F2Util
 import com.namviet.vtvtravel.view.f2.f2oldbase.SearchActivity
 import com.namviet.vtvtravel.view.fragment.MainFragment
+import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionFragment
+import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.SlideMenuSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.DropDownLocationFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.SortFollowFragment
+import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import com.namviet.vtvtravel.viewmodel.f2video.VideoViewModel
+import kotlinx.android.synthetic.main.f2_fragment_search.*
 import java.util.*
 
 class VideoFragment : MainFragment(), Observer {
@@ -35,6 +45,11 @@ class VideoFragment : MainFragment(), Observer {
     private var videoResponse: VideoResponse? = null
     private var sortVideoAdapter: SortVideoAdapter? = null
     private var sortAndFilter: SortAndFilter? = null
+    private var locationsMain: ArrayList<Location> = ArrayList()
+    private val locations: ArrayList<Location>? = ArrayList()
+    private var locationViewModel: SearchBigLocationViewModel? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -70,9 +85,15 @@ class VideoFragment : MainFragment(), Observer {
         viewModel = VideoViewModel()
         binding!!.videoViewModel = viewModel
         viewModel!!.addObserver(this)
+
+        locationViewModel = SearchBigLocationViewModel()
+        locationViewModel?.addObserver(this)
+        locationViewModel?.getAllLocation()
+
         Handler().postDelayed({ viewModel!!.getCategoryVideo() }, 500)
         binding!!.btnSearch.setOnClickListener { SearchActivity.startScreen(mActivity) }
         filterData
+        initSlideMenu()
     }
 
     private var mainAdapter: VTVTabStyleAdapter? = null
@@ -86,7 +107,23 @@ class VideoFragment : MainFragment(), Observer {
                 e.printStackTrace()
             }
         }, 1000)
-        if (observable is VideoViewModel && null != o) {
+        if (observable is SearchBigLocationViewModel && null != o) {
+            when (o) {
+                is AllLocationResponse -> {
+                    locationsMain = o.data as ArrayList<Location>;
+                    locations?.addAll(0, locationsMain)
+                }
+//                is LocationResponse -> {
+//                    tvRegion.text = o.data.name
+//                }
+//                is ErrorResponse -> {
+//                    val responseError = o
+//                    try { //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
+//                    } catch (e: Exception) {
+//                    }
+//                }
+            }
+        } else if (observable is VideoViewModel && null != o) {
             if (o is VideoResponse) {
                 videoResponse = o
                 mainAdapter = VTVTabStyleAdapter(childFragmentManager)
@@ -174,13 +211,17 @@ class VideoFragment : MainFragment(), Observer {
                             }
 
                             1 -> {
-                                var dropDownLocationFragment = DropDownLocationFragment()
-//                                dropDownLocationFragment.setData(locationMain, object : DropDownLocationFragment.Callback{
-//                                    override fun onApply() {
-//
-//                                    }
-//
-//                                })
+                                var dropDownLocationFragment = DropDownLocationInVideoFragment()
+                                dropDownLocationFragment.setData(object : DropDownLocationInVideoFragment.Callback{
+                                    override fun onClickChooseLocation() {
+                                        binding!!.drawerLayout.openDrawer(GravityCompat.END)
+                                    }
+
+                                    override fun onApply() {
+
+                                    }
+
+                                })
                                 fragmentManager!!.beginTransaction()
                                     .replace(R.id.sortFrame, dropDownLocationFragment).commit()
                             }
@@ -192,6 +233,33 @@ class VideoFragment : MainFragment(), Observer {
                 })
             binding!!.rclSort.adapter = sortVideoAdapter
         }
+
+    private fun initSlideMenu(){
+
+        binding!!.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener{
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+
+            }
+
+            override fun onDrawerOpened(drawerView: View) {
+                createMenuFragment()
+            }
+
+            override fun onDrawerClosed(drawerView: View) {
+            }
+
+            override fun onDrawerStateChanged(newState: Int) {
+
+            }
+
+        })
+    }
+
+    private fun createMenuFragment(){
+        fragmentManager?.beginTransaction()
+            ?.add(R.id.chooseRegionFrame, ChooseRegionFragment())
+            ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)?.addToBackStack(null)!!.commit()
+    }
 
     private fun showMenuAnim() {
         val scaleDown = AnimationUtils.loadAnimation(mActivity, R.anim.scale_top_to_bottom)
