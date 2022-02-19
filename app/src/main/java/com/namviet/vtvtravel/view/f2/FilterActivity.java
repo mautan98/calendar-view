@@ -9,6 +9,7 @@ import com.namviet.vtvtravel.databinding.F2ActivityFilterBinding;
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.response.f2filter.FilterByCodeResponse;
+import com.namviet.vtvtravel.view.f3.smalllocation.view.fragment.FilterSmallLocationFragment;
 import com.namviet.vtvtravel.view.fragment.f2filter.FilterHomeFragment;
 
 public class FilterActivity extends BaseActivityNew<F2ActivityFilterBinding> {
@@ -40,7 +41,7 @@ public class FilterActivity extends BaseActivityNew<F2ActivityFilterBinding> {
 
     @Override
     public BaseFragment initFragment() {
-        return new FilterHomeFragment(filterByCodeResponse);
+        return new FilterSmallLocationFragment(filterByCodeResponse);
     }
 
     public static void startScreen(Activity activity, FilterByCodeResponse filterByCodeResponse){

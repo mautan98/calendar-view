@@ -3,175 +3,204 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="searchBigLocationViewModel"
             type="com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel" />
     </data>
 
-    <LinearLayout
-        android:background="@color/white"
-        android:focusable="true"
-        android:clickable="true"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:paddingTop="25dp"
-            android:id="@+id/btnBack"
+        <LinearLayout
+            android:layout_above="@+id/btn_apply"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="43dp"
-                android:layout_height="43dp"
-                android:padding="15dp"
-                android:src="@drawable/f2_ic_close"
-                android:tint="#707070" />
-
-            <TextView
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="43dp"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/roboto_bold"
-                android:text="Điểm đến"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#ECECEC" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="12dp">
 
             <RelativeLayout
-                android:id="@+id/relativeBigSearch"
+                android:id="@+id/btnBack"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/f2_bg_item_input_search_location">
+                android:layout_height="55dp"
+                android:background="#00918D"
+                android:gravity="center|left"
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imgLocation"
-                    android:layout_width="11dp"
-                    android:layout_height="16dp"
-                    android:layout_marginStart="17dp"
-                    android:layout_marginTop="13dp"
-                    android:layout_marginBottom="13dp"
-                    android:src="@drawable/f2_ic_gray_location2" />
+                    android:layout_width="43dp"
+                    android:layout_height="43dp"
+                    android:padding="15dp"
+                    android:rotation="180"
+                    android:src="@drawable/f3_ic_back"
+                    app:tint="#ffffff" />
 
-                <EditText
-                    android:layout_marginEnd="50dp"
-                    android:singleLine="true"
-                    android:background="#00000000"
-                    android:hint="Hà Nội"
-                    android:id="@+id/edtLocation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="12dp"
-                    android:layout_toEndOf="@id/imgLocation"
-                    android:fontFamily="@font/roboto_regular"
-                    android:textColor="#000000"
-                    android:textSize="16dp" />
-
-                <LinearLayout
-                    android:id="@+id/imgCloseSearch"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_marginEnd="15dp"
-                        android:src="@drawable/f2_ic_gray_close" />
-
-                </LinearLayout>
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="43dp"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:text="Điểm đến"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp" />
             </RelativeLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#ECECEC" />
+
             <RelativeLayout
-                android:id="@+id/relativeSearch"
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="12dp"
-                android:background="@drawable/f2_bg_item_input_search_location"
-                android:visibility="gone">
+                android:layout_marginEnd="12dp">
 
-                <ImageView
-                    android:id="@+id/imgLocation2"
-                    android:layout_width="11dp"
-                    android:layout_height="16dp"
-                    android:layout_marginStart="17dp"
-                    android:layout_marginTop="13dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="13dp"
-                    android:background="#FF0000" />
-
-                <EditText
+                <RelativeLayout
+                    android:id="@+id/relativeBigSearch"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_toEndOf="@id/imgLocation2"
-                    android:drawableLeft="#FF0000" />
+                    android:background="@drawable/f2_bg_item_input_search_location">
+
+                    <ImageView
+                        android:id="@+id/imgLocation"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginBottom="13dp"
+                        android:src="@drawable/f3_ic_search" />
+
+                    <EditText
+                        android:id="@+id/edtLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="50dp"
+                        android:layout_toEndOf="@id/imgLocation"
+                        android:background="#00000000"
+                        android:fontFamily="@font/roboto_regular"
+                        android:hint="Tìm kiếm tỉnh/thành phố"
+                        android:singleLine="true"
+                        android:textColor="#000000"
+                        android:textSize="16dp" />
+
+                    <LinearLayout
+                        android:id="@+id/imgCloseSearch"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginEnd="15dp"
+                            android:src="@drawable/f2_ic_gray_close" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/relativeSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/f2_bg_item_input_search_location"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/imgLocation2"
+                        android:layout_width="11dp"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="13dp"
+                        android:background="#FF0000" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toEndOf="@id/imgLocation2"
+                        android:drawableLeft="#FF0000" />
+
+                </RelativeLayout>
+
 
             </RelativeLayout>
 
 
-        </RelativeLayout>
-
-
-        <LinearLayout
-            android:id="@+id/btnCurrentLocation"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="22dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="13dp"
-                android:layout_height="13dp"
-                android:layout_gravity="center"
-                android:src="@drawable/f2_ic_current_location" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/btnCurrentLocation"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:fontFamily="@font/roboto_regular"
-                android:text="Vị trí hiện tại"
-                android:textColor="#00918D"
-                android:textSize="16dp" />
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="22dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <ImageView
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/f2_ic_current_location"
+                    app:tint="#2884EC" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Vị trí của tôi"
+                    android:textColor="#2884EC"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rclLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="7dp"
+                android:overScrollMode="never"
+                android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
         </LinearLayout>
+        <com.ornach.richtext.RichText
+            android:layout_marginTop="25dp"
+            android:id="@+id/btn_apply"
+            android:layout_marginBottom="25dp"
+            android:textAllCaps="true"
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="14dp"
+            android:text="quay lại"
+            android:gravity="center"
+            android:textColor="@color/white"
+            app:rt_radius="19dp"
+            app:rt_backgroundColor="#00918D"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="200dp"
+            android:layout_height="42dp"/>
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:visibility="visible"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:overScrollMode="never"
-            android:id="@+id/rclLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="7dp" />
-
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

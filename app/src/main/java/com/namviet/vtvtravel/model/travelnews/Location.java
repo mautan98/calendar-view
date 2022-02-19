@@ -23,6 +23,10 @@ public class Location {
     private String content_link;
     private String selected;
 
+    public Location(String name) {
+        this.name = name;
+    }
+
     public String getId() {
         return id;
     }
