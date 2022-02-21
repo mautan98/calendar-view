@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+    <TextView
+        android:padding="12dp"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:fontFamily="@font/roboto_medium"
+        android:id="@+id/tv_header"
+        android:text="Loại hình"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:id="@+id/rcv_item_text"
+        android:layout_below="@+id/tv_header"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="3"
+        android:layout_width="match_parent"
+        tools:listitem="@layout/f3_item_filter_text"
+        android:layout_height="wrap_content"/>
+    <View
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/rcv_item_text"
+        android:background="#ECECEC"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+</RelativeLayout>

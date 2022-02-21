@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:orientation="horizontal"
+    android:layout_height="32dp"
+    android:background="@drawable/f3_bg_filter_text"
+    android:gravity="center"
+    android:id="@+id/lnl_filter"
+    android:padding="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginEnd="5dp"
+    xmlns:tools="http://schemas.android.com/tools">
+    <TextView
+        android:layout_marginRight="5dp"
+        android:textColor="#00918D"
+        android:textSize="14dp"
+        android:fontFamily="@font/roboto_regular"
+        tools:text="Nhà Hàng"
+        android:id="@+id/tv_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:textColor="#808080"
+        android:textSize="14dp"
+        android:fontFamily="@font/roboto_regular"
+        tools:text="(900)"
+        android:id="@+id/tv_filter_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

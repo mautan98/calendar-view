@@ -26,17 +26,18 @@
                 android:paddingTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
-                android:background="@{ContextCompat.getColor(context, SmallLocationMainViewModel.backgroundToolbar)}">
+                android:background="@color/colorPrimary">
 
                 <ImageView
-                    android:visibility="@{SmallLocationMainViewModel.stateBtnBack1}"
+                    android:layout_marginStart="15dp"
+                    android:rotation="180"
+                    android:visibility="visible"
                     android:id="@+id/btnBack"
                     android:layout_width="38dp"
                     android:layout_height="50dp"
-                    android:paddingStart="15dp"
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
-                    android:src="@drawable/f2_ic_back"
+                    android:src="@drawable/f3_ic_back"
                     app:tint="@color/white" />
 
                 <RelativeLayout
@@ -49,7 +50,7 @@
                     android:layout_weight="1">
 
                     <com.ornach.richtext.RichView
-                        android:visibility="@{SmallLocationMainViewModel.stateLayoutSearch1}"
+                        android:visibility="visible"
                         android:id="@+id/layoutSearch"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -57,7 +58,7 @@
                         app:rt_radius="19dp"/>
 
                     <com.ornach.richtext.RichView
-                        android:visibility="@{SmallLocationMainViewModel.stateLayoutSearch2}"
+                        android:visibility="visible"
                         android:id="@+id/layoutSearch2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -102,7 +103,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="19dp"
-                            android:background="@{ContextCompat.getColor(context, SmallLocationMainViewModel.backgroundEditTextSearch)}"
+                            android:background="#f6f6f6"
                             android:fontFamily="@font/roboto_regular"
                             android:hint="Bạn muốn tìm gì?"
                             android:singleLine="true"
@@ -121,7 +122,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:text="Hủy"
                     android:textSize="14dp"
-                    android:visibility="@{SmallLocationMainViewModel.stateCancelButton, default = gone}" />
+                    android:visibility="gone" />
 
             </LinearLayout>
             <RelativeLayout
@@ -235,7 +236,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:visibility="@{SmallLocationMainViewModel.stateSearchSuggestion}">
+                android:visibility="gone">
 
                 <include layout="@layout/f2_layout_keyword"/>
 

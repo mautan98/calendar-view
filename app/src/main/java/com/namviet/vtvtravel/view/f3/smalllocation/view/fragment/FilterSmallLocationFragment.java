@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.CompoundButton;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.filter.DistanceAdapter;
@@ -20,6 +22,7 @@ import com.namviet.vtvtravel.response.f2filter.DistanceClass;
 import com.namviet.vtvtravel.response.f2filter.FilterByCodeResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByPageResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
+import com.namviet.vtvtravel.view.f3.smalllocation.adapter.FilterAdapter;
 import com.namviet.vtvtravel.view.fragment.f2filter.BaseFilterFragment;
 import com.namviet.vtvtravel.view.fragment.f2filter.FilterHomeFragment;
 import com.namviet.vtvtravel.view.fragment.f2filter.TypeFilterFragment;
@@ -35,6 +38,8 @@ import java.util.Observer;
 
 public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHomeBinding> implements Observer {
     private FilterHomeViewModel filterHomeViewModel;
+    private FilterAdapter mFilterAdapter;
+    private List<List<String>> data;
 
     @SuppressLint("ValidFragment")
     public FilterSmallLocationFragment(FilterByCodeResponse filterByCodeResponse) {
@@ -59,13 +64,13 @@ public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHo
         }
 
 
-
     }
 
     @Override
     public void initData() {
 
     }
+
     @Override
     public void inject() {
 
@@ -93,13 +98,13 @@ public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHo
                 for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
 
                     try {
-                        if(filterByCodeResponse.getData().getItems().get(i).getDataHasLoaded() != null) {
+                        if (filterByCodeResponse.getData().getItems().get(i).getDataHasLoaded() != null) {
                             int size = filterByCodeResponse.getData().getItems().get(i).getDataHasLoaded().getData().size();
                             FilterByPageResponse filterByPageResponse = filterByCodeResponse.getData().getItems().get(i).getDataHasLoaded();
                             for (int j = 0; j < size; j++) {
-                                if(j == 0){
+                                if (j == 0) {
                                     filterByPageResponse.getData().get(j).setSelected(true);
-                                }else {
+                                } else {
                                     filterByPageResponse.getData().get(j).setSelected(false);
                                 }
 
@@ -135,8 +140,8 @@ public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHo
                 addFragment(new SelectLocationFragment(new SelectLocationFragment.DoneSearch() {
                     @Override
                     public void onDoneSearch(Location location) {
-                        if(location != null){
-                            if(!location.getName().equals("")){
+                        if (location != null) {
+                            if (!location.getName().equals("")) {
                                 getBinding().lnlLocation.setVisibility(View.VISIBLE);
                                 getBinding().tvLocation.setText(location.getName());
                             }
@@ -145,7 +150,41 @@ public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHo
                 }));
             }
         });
+        setUpFilterRcv();
 
+    }
+
+    private void setUpFilterRcv() {
+        data = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            List<String> items = new ArrayList<>();
+            if (i == 0) {
+
+                items.add("Nhà Hàng");
+                items.add("Quán ăn bình dân");
+                items.add("Đồ uống");
+
+                data.add(items);
+            } else if (i == 3) {
+                items.add("Nhà Hàng");
+                items.add("Nhà hàng ngon");
+                items.add("Cộng Cafe");
+                items.add("Bar 1900");
+                data.add(items);
+            } else {
+                items.add("Hỗ trợ giao hàng");
+                items.add("Đồ ăn ngoài trời");
+                items.add("Nhà Hàng");
+                for (int j = 0; j < 8; j++) {
+                    items.add("Khách sạn");
+                }
+                data.add(items);
+            }
+        }
+        mFilterAdapter = new FilterAdapter(data, mActivity);
+        getBinding().rcvFilter.setLayoutManager(new LinearLayoutManager(mActivity));
+        getBinding().rcvFilter.setAdapter(mFilterAdapter);
+        mFilterAdapter.notifyDataSetChanged();
     }
 
     @Override

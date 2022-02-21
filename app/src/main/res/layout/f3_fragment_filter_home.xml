@@ -17,6 +17,7 @@
 
 
         <LinearLayout
+            android:layout_above="@+id/btnDoneOption"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -141,7 +142,6 @@
                     android:layout_height="1dp"
                     android:background="#ECECEC" />
                 <androidx.recyclerview.widget.RecyclerView
-                    android:layout_margin="11dp"
                     android:id="@+id/rcv_filter"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
@@ -151,7 +151,8 @@
         </LinearLayout>
 
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            app:cardElevation="15dp"
             android:id="@+id/btnDoneOption"
             android:layout_width="match_parent"
             android:layout_height="70dp"
@@ -174,7 +175,7 @@
                 android:textSize="14dp" />
 
 
-        </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
 </layout>
