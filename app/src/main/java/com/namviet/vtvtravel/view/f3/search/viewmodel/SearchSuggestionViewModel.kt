@@ -28,6 +28,25 @@ class SearchSuggestionViewModel @Inject constructor() : BaseViewModel() {
         compositeDisposable.add(disposable)
     }
 
+
+    fun getSearchSuggestionForSpecificContent(keyword: String, regionId: String?, contentType : String?) {
+        val myApplication = MyApplication.getInstance()
+        val newsService = myApplication.travelService
+        val queryMap = Param.getDefault()
+        val disposable = newsService.getSearchSuggestionForSpecificContent(queryMap, keyword, regionId, contentType)
+            .subscribeOn(myApplication.subscribeScheduler())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ videoResponse ->
+                videoResponse?.let {
+                    requestSuccess(it)
+                }
+            })
+            { throwable ->
+                requestFailed(throwable!!)
+            }
+        compositeDisposable.add(disposable)
+    }
+
     private fun requestSuccess(param: Any?) {
         setChanged()
         notifyObservers(param)

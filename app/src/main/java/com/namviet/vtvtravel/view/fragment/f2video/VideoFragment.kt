@@ -3,6 +3,7 @@ package com.namviet.vtvtravel.view.fragment.f2video
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.transition.Transition
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,8 @@ import com.namviet.vtvtravel.response.f2video.VideoResponse
 import com.namviet.vtvtravel.tracking.TrackingAnalytic
 import com.namviet.vtvtravel.ultils.F2Util
 import com.namviet.vtvtravel.view.f2.f2oldbase.SearchActivity
+import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentActivity
+import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentFragment
 import com.namviet.vtvtravel.view.fragment.MainFragment
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.SlideMenuSearchFragment
@@ -91,7 +94,9 @@ class VideoFragment : MainFragment(), Observer {
         locationViewModel?.getAllLocation()
 
         Handler().postDelayed({ viewModel!!.getCategoryVideo() }, 500)
-        binding!!.btnSearch.setOnClickListener { SearchActivity.startScreen(mActivity) }
+        binding!!.btnSearch.setOnClickListener {
+            SearchSuggestionForSpecificContentActivity.openScreen(mActivity, "", SearchSuggestionForSpecificContentActivity.Type.VIDEO)
+        }
         filterData
         initSlideMenu()
     }

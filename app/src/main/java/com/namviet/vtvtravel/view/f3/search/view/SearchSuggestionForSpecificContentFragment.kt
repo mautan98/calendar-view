@@ -9,34 +9,22 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.namviet.vtvtravel.R
-import com.namviet.vtvtravel.adapter.f2biglocation.SearchAllLocationAdapter
 import com.namviet.vtvtravel.adapter.f2search.SearchSuggestionKeyWordAdapter
 import com.namviet.vtvtravel.app.MyApplication
 import com.namviet.vtvtravel.config.Constants
-import com.namviet.vtvtravel.databinding.F3FragmentSearchSuggestionBinding
 import com.namviet.vtvtravel.databinding.F3FragmentSearchSuggestionForSpecificContentBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
-import com.namviet.vtvtravel.model.f2event.OnBackSearchSuggestion
 import com.namviet.vtvtravel.model.travelnews.Location
-import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse
-import com.namviet.vtvtravel.response.f2biglocation.LocationResponse
 import com.namviet.vtvtravel.response.f2searchmain.SearchSuggestionResponse
 import com.namviet.vtvtravel.ultils.PreferenceUtil
 import com.namviet.vtvtravel.ultils.highlight.HighLightController
 import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
 import com.namviet.vtvtravel.view.f3.search.viewmodel.SearchSuggestionViewModel
-import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionMainFragment
-import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.f2_layout_keyword.*
 import kotlinx.android.synthetic.main.f2_layout_keyword.view.*
-import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.*
-import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.imgCloseSearch
-import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.layoutRegion
-import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.rclSearchSuggestion
-import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.tvRegion
-import org.greenrobot.eventbus.EventBus
+import kotlinx.android.synthetic.main.f3_fragment_search_suggestion_for_specific_content.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -44,7 +32,7 @@ import kotlin.collections.ArrayList
 
 class SearchSuggestionForSpecificContentFragment(
     private var keyword: String? = null,
-    private var searchSuggestionCallback: SearchSuggestionCallback? = null
+    private var contentType: String? = null
 ) : BaseFragment<F3FragmentSearchSuggestionForSpecificContentBinding?>(), Observer {
 
     private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
@@ -67,15 +55,15 @@ class SearchSuggestionForSpecificContentFragment(
             mActivity,
             object : SearchSuggestionKeyWordAdapter.ClickItem {
                 override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
-                    try {
-                        mActivity.onBackPressed()
-                        searchSuggestionCallback?.onClickSuggestion(
-                            searchKeywordSuggestion
-                        )
-
-
-                    } catch (e: Exception) {
-                    }
+//                    try {
+//                        mActivity.onBackPressed()
+//                        searchSuggestionCallback?.onClickSuggestion(
+//                            searchKeywordSuggestion
+//                        )
+//
+//
+//                    } catch (e: Exception) {
+//                    }
                 }
 
             })
@@ -123,7 +111,7 @@ class SearchSuggestionForSpecificContentFragment(
 
     override fun setClickListener() {
         tvCancelSearch.setOnClickListener {
-            searchSuggestionCallback?.onCancelSearch( keyword)
+//            searchSuggestionCallback?.onCancelSearch( keyword)
             KeyboardUtils.hideKeyboard(mActivity, edtSearch)
             mActivity.onBackPressed()
         }
@@ -141,14 +129,14 @@ class SearchSuggestionForSpecificContentFragment(
 
         layoutKeyword.setOnClickListener {
             mActivity.onBackPressed()
-            searchSuggestionCallback?.onClickRegion( keyword)
+//            searchSuggestionCallback?.onClickRegion( keyword)
         }
 
         imgCloseSearch.setOnClickListener {
             KeyboardUtils.hideKeyboard(mActivity, edtSearch)
             edtSearch.setText("")
             keyword = ""
-            searchSuggestionCallback?.onCancelSearch( keyword)
+//            searchSuggestionCallback?.onCancelSearch( keyword)
             mActivity.onBackPressed()
         }
     }
@@ -177,7 +165,7 @@ class SearchSuggestionForSpecificContentFragment(
 
     private fun getSearchSuggestion() {
         //searchSuggestionViewModel?.getSearchSuggestion(edtSearch.text.toString(), regionId)
-        searchSuggestionViewModel.getSearchSuggestion(edtSearch.text.toString(), "")
+        searchSuggestionViewModel.getSearchSuggestionForSpecificContent(edtSearch.text.toString(), "", contentType)
         layoutKeyword.tvSearchFollow.text = "Tìm kiếm theo \"" + edtSearch.text.toString() + "\"";
         setHighLightedText(layoutKeyword.tvSearchFollow, "\"" + edtSearch.text.toString() + "\"")
         layoutSearchSuggestion.visibility = View.VISIBLE

@@ -38,12 +38,13 @@
                     android:textSize="18dp" />
 
                 <LinearLayout
+                    android:layout_alignParentBottom="true"
                     android:id="@+id/btnSearch"
                     android:layout_width="50dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
                     android:layout_alignParentEnd="true"
                     android:gravity="center"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <ImageView
                         android:layout_width="21dp"
