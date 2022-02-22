@@ -31,6 +31,7 @@ import com.namviet.vtvtravel.response.travelnews.NotebookResponse
 import com.namviet.vtvtravel.tracking.TrackingAnalytic
 import com.namviet.vtvtravel.ultils.F2Util
 import com.namviet.vtvtravel.view.f2.f2oldbase.SearchActivity
+import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentActivity
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.SortFollowFragment
 import com.namviet.vtvtravel.view.fragment.f2video.DropDownLocationInVideoFragment
@@ -101,7 +102,9 @@ class TravelNewsFragment : BaseFragment<F2FragmentTravelNewsBinding?>, Observer 
                 e.printStackTrace()
             }
         }
-        binding!!.btnSearch.setOnClickListener { SearchActivity.startScreen(mActivity) }
+        binding!!.btnSearch.setOnClickListener {
+            SearchSuggestionForSpecificContentActivity.openScreen(mActivity, "", SearchSuggestionForSpecificContentActivity.Type.NEWS)
+        }
         binding!!.vpContent.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
                 position: Int,
