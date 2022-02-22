@@ -115,7 +115,7 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
         vpContent.offscreenPageLimit = 10
 
         for(i in 0 until dataMenu!!.size){
-            var smallLocationFragment = SmallLocationFragment(dataMenu?.get(i)?.link, dataMenu?.get(i)?.code, "");
+            var smallLocationFragment = SmallLocationFragment(dataMenu?.get(i)?.link, dataMenu?.get(i)?.code, "",i);
             mainAdapter?.addFragment(smallLocationFragment, "")
         }
         vpContent.adapter = mainAdapter

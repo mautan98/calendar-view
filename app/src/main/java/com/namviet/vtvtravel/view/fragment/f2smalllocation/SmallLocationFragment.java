@@ -104,6 +104,13 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         this.code = code;
         this.regionId = regionId;
     }
+    @SuppressLint("ValidFragment")
+    public SmallLocationFragment(String link, String code, String regionId, int position) {
+        this.link = link;
+        this.code = code;
+        this.regionId = regionId;
+        this.positionTabSelected = position;
+    }
 
     public SmallLocationFragment() {
     }
@@ -267,6 +274,13 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         getBinding().btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++){
+                    if(positionTabSelected == i){
+                        filterByCodeResponse.getData().getItems().get(positionTabSelected).setSelected(true);
+                        Log.e("", "");
+                    }
+                    else filterByCodeResponse.getData().getItems().get(i).setSelected(false);
+                }
                 FilterActivity.startScreen(mActivity, filterByCodeResponse);
             }
         });
@@ -418,8 +432,8 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
             } else if (o instanceof FilterByCodeResponse) {
                 filterByCodeResponse = (FilterByCodeResponse) o;
-                getDefaultSelectedFilterTab();
-                setDefaultSelectedFilterTab(positionTabSelected);
+//                getDefaultSelectedFilterTab();
+//                setDefaultSelectedFilterTab(positionTabSelected);
                 setDistance();
             } else if (o instanceof SortSmallLocationResponse) {
                 sortSmallLocationResponse = (SortSmallLocationResponse) o;
@@ -434,6 +448,9 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
             }
 
         }
+    }
+    public void setTabSelected(){
+        setDefaultSelectedFilterTab(positionTabSelected);
     }
 
 

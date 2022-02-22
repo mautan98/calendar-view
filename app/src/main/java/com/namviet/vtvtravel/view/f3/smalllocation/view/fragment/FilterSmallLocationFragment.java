@@ -63,8 +63,24 @@ public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHo
         if (filterByCodeResponse == null) {
             filterHomeViewModel.getFilterByCode();
         }
+        getDataForDefaultTab();
+    }
 
-
+    private void getDataForDefaultTab() {
+        if (filterByCodeResponse.getData().getItems().get(getTabSelectedAndCodeSelected()).getDataHasLoaded() == null) {
+            filterHomeViewModel.getFilterByPage(filterByCodeResponse.getData().getItems().get(getTabSelectedAndCodeSelected()).getLink(), filterByCodeResponse.getData().getItems().get(getTabSelectedAndCodeSelected()).getCode());
+        }
+        else {
+            setUpFilterRcv(filterByCodeResponse.getData().getItems().get(getTabSelectedAndCodeSelected()).getDataHasLoaded());
+        }
+    }
+    private int getTabSelectedAndCodeSelected() {
+        for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
+            if (filterByCodeResponse.getData().getItems().get(i).isSelected()) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     @Override
@@ -103,13 +119,7 @@ public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHo
                             int size = filterByCodeResponse.getData().getItems().get(i).getDataHasLoaded().getData().size();
                             FilterByPageResponse filterByPageResponse = filterByCodeResponse.getData().getItems().get(i).getDataHasLoaded();
                             for (int j = 0; j < size; j++) {
-                                if (j == 0) {
-                                    filterByPageResponse.getData().get(j).setSelected(true);
-                                } else {
-                                    filterByPageResponse.getData().get(j).setSelected(false);
-                                }
-
-
+                                filterByPageResponse.getData().get(j).setSelected(false);
                                 try {
                                     int size2 = filterByPageResponse.getData().size();
                                     for (int k = 0; k < size2; k++) {
@@ -151,41 +161,46 @@ public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHo
                 }));
             }
         });
-        setUpFilterRcv();
-
     }
 
-    private void setUpFilterRcv() {
-        data = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
-            List<FilterTest> items = new ArrayList<>();
-            if (i == 0) {
-
-                items.add(new FilterTest("Nhà Hàng",0,false));
-                items.add(new FilterTest("Quán ăn bình dân",0,false));
-                items.add(new FilterTest("Đồ uống",0,false));
-                data.add(items);
-            } else if (i == 3) {
-                items.add(new FilterTest("Nhà Hàng",0,false));
-                items.add(new FilterTest("Nhà hàng ngon",0,false));
-                items.add(new FilterTest("Cộng Cafe",0,false));
-                items.add(new FilterTest("Bar 1900",0,false));
-                data.add(items);
-            } else {
-                items.add(new FilterTest("Hỗ trợ giao hàng",0,false));
-                items.add(new FilterTest("Đồ ăn ngoài trời",0,false));
-                items.add(new FilterTest("Nhà hàng",0,false));
-                for (int j = 0; j < 8; j++) {
-                    items.add(new FilterTest("Khách sạn",0,false));
-                }
-                data.add(items);
-            }
-        }
-        mFilterAdapter = new FilterAdapter(data, mActivity);
+    public void setUpFilterRcv(FilterByPageResponse filterByPageResponse) {
+        mFilterAdapter = new FilterAdapter(filterByPageResponse, mActivity);
         getBinding().rcvFilter.setLayoutManager(new LinearLayoutManager(mActivity));
         getBinding().rcvFilter.setAdapter(mFilterAdapter);
         mFilterAdapter.notifyDataSetChanged();
     }
+
+//    private void setUpFilterRcvTest() {
+//        data = new ArrayList<>();
+//        for (int i = 0; i < 7; i++) {
+//            List<FilterTest> items = new ArrayList<>();
+//            if (i == 0) {
+//
+//                items.add(new FilterTest("Nhà Hàng",0,false));
+//                items.add(new FilterTest("Quán ăn bình dân",0,false));
+//                items.add(new FilterTest("Đồ uống",0,false));
+//                data.add(items);
+//            } else if (i == 3) {
+//                items.add(new FilterTest("Nhà Hàng",0,false));
+//                items.add(new FilterTest("Nhà hàng ngon",0,false));
+//                items.add(new FilterTest("Cộng Cafe",0,false));
+//                items.add(new FilterTest("Bar 1900",0,false));
+//                data.add(items);
+//            } else {
+//                items.add(new FilterTest("Hỗ trợ giao hàng",0,false));
+//                items.add(new FilterTest("Đồ ăn ngoài trời",0,false));
+//                items.add(new FilterTest("Nhà hàng",0,false));
+//                for (int j = 0; j < 8; j++) {
+//                    items.add(new FilterTest("Khách sạn",0,false));
+//                }
+//                data.add(items);
+//            }
+//        }
+//        mFilterAdapter = new FilterAdapter(data, mActivity);
+//        getBinding().rcvFilter.setLayoutManager(new LinearLayoutManager(mActivity));
+//        getBinding().rcvFilter.setAdapter(mFilterAdapter);
+//        mFilterAdapter.notifyDataSetChanged();
+//    }
 
     @Override
     public void setObserver() {
@@ -197,7 +212,29 @@ public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHo
     @Override
     public void update(Observable observable, Object o) {
         if (observable instanceof FilterHomeViewModel && null != o) {
+            if (o instanceof FilterByCodeResponse) {
+                filterByCodeResponse = (FilterByCodeResponse) o;
+//                mainFilterTabAdapter = new MainFilterTabAdapter(filterByCodeResponse.getData().getItems(), mActivity, this);
+//                getBinding().rclTabFilter.setAdapter(mainFilterTabAdapter);
+//                getDataForDefaultTab();
+            } else if (o instanceof FilterByPageResponse) {
+                FilterByPageResponse response = (FilterByPageResponse) o;
+                for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
+                    if (filterByCodeResponse.getData().getItems().get(i).getCode().equals(response.getCodeSet())) {
+                        filterByCodeResponse.getData().getItems().get(i).setDataHasLoaded(response);
+                    }
+                }
+                setUpFilterRcv(response);
+            }
+            //     setDataForTextViewsAndShowHideTypeFilter();
 
+        } else if (o instanceof ErrorResponse) {
+            ErrorResponse responseError = (ErrorResponse) o;
+            try {
+//                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
+            } catch (Exception e) {
+
+            }
         }
     }
 

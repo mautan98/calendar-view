@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.response.f2filter.FilterByPageResponse;
 
 import java.util.List;
 
@@ -21,11 +22,12 @@ public class SubFilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private static final int TYPE = 0;
     private static final int TYPE_VIEW_MORE = 1;
     private Context context;
-    private List<FilterTest> data;
+    private FilterByPageResponse.Data data;
     private boolean isExpanded = false;
     private int selectedPosition = -1;
     private IOnFilterClick iOnFilterClick;
-    public SubFilterAdapter(List<FilterTest> data, Context context, IOnFilterClick iOnFilterClick) {
+
+    public SubFilterAdapter(FilterByPageResponse.Data data, Context context, IOnFilterClick iOnFilterClick) {
         this.context = context;
         this.data = data;
         this.iOnFilterClick = iOnFilterClick;
@@ -33,9 +35,9 @@ public class SubFilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-        if (data.size() > 7) {
+        if (data.getInputs().size() > 7) {
             if (isExpanded) {
-                if (position == data.size() - 1) {
+                if (position == data.getInputs().size() - 1) {
                     return TYPE_VIEW_MORE;
                 } else return TYPE;
             } else {
@@ -76,26 +78,26 @@ public class SubFilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemCount() {
-        if(isExpanded){
-            return data.size();
-        }else if (data.size() >7){
+        if (isExpanded) {
+            return data.getInputs().size();
+        } else if (data.getInputs().size() > 7) {
             return 8;
-        }else return data.size();
+        } else return data.getInputs().size();
     }
 
     public class ItemViewMore extends RecyclerView.ViewHolder {
         private TextView tvViewMore;
+
         public ItemViewMore(View itemView) {
             super(itemView);
             tvViewMore = itemView.findViewById(R.id.tv_view_more);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(isExpanded){
+                    if (isExpanded) {
                         isExpanded = false;
                         tvViewMore.setText("Hiển thị thêm");
-                    }
-                    else {
+                    } else {
                         isExpanded = true;
                         tvViewMore.setText("Thu gọn");
                     }
@@ -109,10 +111,12 @@ public class SubFilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         }
     }
+
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         private TextView tv_filter;
         private LinearLayout lnlFilter;
         private TextView tv_filter_count;
+
         public ItemViewHolder(View itemView) {
             super(itemView);
             tv_filter = itemView.findViewById(R.id.tv_filter);
@@ -121,25 +125,33 @@ public class SubFilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
 
         public void bindItem(int position) {
-            FilterTest filterTest = data.get(position);
-            if(filterTest.isSelected()){
+            FilterByPageResponse.Data.Input input = data.getInputs().get(position);
+            if (input.isSelected()) {
                 lnlFilter.setBackground(context.getResources().getDrawable(R.drawable.f3_bg_filter_text_selected));
                 tv_filter.setTextColor(context.getResources().getColor(R.color.white));
                 tv_filter_count.setTextColor(context.getResources().getColor(R.color.white));
-            }else {
+            } else {
                 lnlFilter.setBackground(context.getResources().getDrawable(R.drawable.f3_bg_filter_text));
                 tv_filter.setTextColor(Color.parseColor("#00918D"));
                 tv_filter_count.setTextColor(Color.parseColor("#808080"));
             }
-            tv_filter.setText(data.get(position).getName());
+            if (data.getCode().equals("HOTEL_STANDARD_RATE")) {
+                if (data.getInputs().get(position).getLabel().equals("1")) {
+                    tv_filter.setText(String.format("Kém: Dưới %s điểm", data.getInputs().get(position).getLabel()));
+                } else if (data.getInputs().get(position).getLabel().equals("2")) {
+                    tv_filter.setText(String.format("Trung bình: Dưới %s điểm", data.getInputs().get(position).getLabel()));
+                } else if (data.getInputs().get(position).getLabel().equals("3")) {
+                    tv_filter.setText(String.format("Tốt: %s điểm trở lên", data.getInputs().get(position).getLabel()));
+                } else
+                    tv_filter.setText(String.format("Trung bình: %s điểm trở lên", data.getInputs().get(position).getLabel()));
+            } else tv_filter.setText(data.getInputs().get(position).getLabel());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(filterTest.isSelected()){
-                        filterTest.setSelected(false);
-                    }
-                    else filterTest.setSelected(true);
-                    if(iOnFilterClick != null){
+                    if (input.isSelected()) {
+                        input.setSelected(false);
+                    } else input.setSelected(true);
+                    if (iOnFilterClick != null) {
                         iOnFilterClick.onItemFilterClick();
                     }
                     selectedPosition = position;
