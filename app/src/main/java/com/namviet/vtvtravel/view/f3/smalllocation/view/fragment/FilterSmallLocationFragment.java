@@ -23,6 +23,7 @@ import com.namviet.vtvtravel.response.f2filter.FilterByCodeResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByPageResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f3.smalllocation.adapter.FilterAdapter;
+import com.namviet.vtvtravel.view.f3.smalllocation.adapter.FilterTest;
 import com.namviet.vtvtravel.view.fragment.f2filter.BaseFilterFragment;
 import com.namviet.vtvtravel.view.fragment.f2filter.FilterHomeFragment;
 import com.namviet.vtvtravel.view.fragment.f2filter.TypeFilterFragment;
@@ -39,7 +40,7 @@ import java.util.Observer;
 public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHomeBinding> implements Observer {
     private FilterHomeViewModel filterHomeViewModel;
     private FilterAdapter mFilterAdapter;
-    private List<List<String>> data;
+    private List<List<FilterTest>> data;
 
     @SuppressLint("ValidFragment")
     public FilterSmallLocationFragment(FilterByCodeResponse filterByCodeResponse) {
@@ -157,26 +158,25 @@ public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHo
     private void setUpFilterRcv() {
         data = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
-            List<String> items = new ArrayList<>();
+            List<FilterTest> items = new ArrayList<>();
             if (i == 0) {
 
-                items.add("Nhà Hàng");
-                items.add("Quán ăn bình dân");
-                items.add("Đồ uống");
-
+                items.add(new FilterTest("Nhà Hàng",0,false));
+                items.add(new FilterTest("Quán ăn bình dân",0,false));
+                items.add(new FilterTest("Đồ uống",0,false));
                 data.add(items);
             } else if (i == 3) {
-                items.add("Nhà Hàng");
-                items.add("Nhà hàng ngon");
-                items.add("Cộng Cafe");
-                items.add("Bar 1900");
+                items.add(new FilterTest("Nhà Hàng",0,false));
+                items.add(new FilterTest("Nhà hàng ngon",0,false));
+                items.add(new FilterTest("Cộng Cafe",0,false));
+                items.add(new FilterTest("Bar 1900",0,false));
                 data.add(items);
             } else {
-                items.add("Hỗ trợ giao hàng");
-                items.add("Đồ ăn ngoài trời");
-                items.add("Nhà Hàng");
+                items.add(new FilterTest("Hỗ trợ giao hàng",0,false));
+                items.add(new FilterTest("Đồ ăn ngoài trời",0,false));
+                items.add(new FilterTest("Nhà hàng",0,false));
                 for (int j = 0; j < 8; j++) {
-                    items.add("Khách sạn");
+                    items.add(new FilterTest("Khách sạn",0,false));
                 }
                 data.add(items);
             }

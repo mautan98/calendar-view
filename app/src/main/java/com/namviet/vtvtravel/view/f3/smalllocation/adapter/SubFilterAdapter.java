@@ -21,11 +21,11 @@ public class SubFilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private static final int TYPE = 0;
     private static final int TYPE_VIEW_MORE = 1;
     private Context context;
-    private List<String> data;
+    private List<FilterTest> data;
     private boolean isExpanded = false;
     private int selectedPosition = -1;
     private IOnFilterClick iOnFilterClick;
-    public SubFilterAdapter(List<String> data, Context context, IOnFilterClick iOnFilterClick) {
+    public SubFilterAdapter(List<FilterTest> data, Context context, IOnFilterClick iOnFilterClick) {
         this.context = context;
         this.data = data;
         this.iOnFilterClick = iOnFilterClick;
@@ -121,7 +121,8 @@ public class SubFilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
 
         public void bindItem(int position) {
-            if(selectedPosition == position){
+            FilterTest filterTest = data.get(position);
+            if(filterTest.isSelected()){
                 lnlFilter.setBackground(context.getResources().getDrawable(R.drawable.f3_bg_filter_text_selected));
                 tv_filter.setTextColor(context.getResources().getColor(R.color.white));
                 tv_filter_count.setTextColor(context.getResources().getColor(R.color.white));
@@ -130,10 +131,14 @@ public class SubFilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 tv_filter.setTextColor(Color.parseColor("#00918D"));
                 tv_filter_count.setTextColor(Color.parseColor("#808080"));
             }
-            tv_filter.setText(data.get(position));
+            tv_filter.setText(data.get(position).getName());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if(filterTest.isSelected()){
+                        filterTest.setSelected(false);
+                    }
+                    else filterTest.setSelected(true);
                     if(iOnFilterClick != null){
                         iOnFilterClick.onItemFilterClick();
                     }

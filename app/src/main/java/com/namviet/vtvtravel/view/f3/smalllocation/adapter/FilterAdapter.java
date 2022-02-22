@@ -23,9 +23,9 @@ public class FilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_SWIPE = 1;
     private Context context;
-    private List<List<String>> data;
+    private List<List<FilterTest>> data;
 
-    public FilterAdapter(List<List<String>> data, Context context) {
+    public FilterAdapter(List<List<FilterTest>> data, Context context) {
         this.context = context;
         this.data = data;
     }
