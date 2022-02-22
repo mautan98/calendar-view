@@ -21,6 +21,7 @@ import com.namviet.vtvtravel.ultils.PreferenceUtil
 import com.namviet.vtvtravel.ultils.highlight.HighLightController
 import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
 import com.namviet.vtvtravel.view.f3.search.viewmodel.SearchSuggestionViewModel
+import com.namviet.vtvtravel.view.fragment.f2video.ResultSearchVideoActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.f2_layout_keyword.*
 import kotlinx.android.synthetic.main.f2_layout_keyword.view.*
@@ -55,15 +56,10 @@ class SearchSuggestionForSpecificContentFragment(
             mActivity,
             object : SearchSuggestionKeyWordAdapter.ClickItem {
                 override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
-//                    try {
-//                        mActivity.onBackPressed()
-//                        searchSuggestionCallback?.onClickSuggestion(
-//                            searchKeywordSuggestion
-//                        )
-//
-//
-//                    } catch (e: Exception) {
-//                    }
+                    try {
+                        ResultSearchVideoActivity.openScreen(mActivity)
+                    } catch (e: Exception) {
+                    }
                 }
 
             })
