@@ -22,6 +22,7 @@ import com.namviet.vtvtravel.ultils.PreferenceUtil
 import com.namviet.vtvtravel.ultils.highlight.HighLightController
 import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
 import com.namviet.vtvtravel.view.f3.search.viewmodel.SearchSuggestionViewModel
+import com.namviet.vtvtravel.view.fragment.f2travelnote.ResultSearchNewsActivity
 import com.namviet.vtvtravel.view.fragment.f2video.ResultSearchVideoActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.sentry.event.EventBuilder
@@ -62,24 +63,28 @@ class SearchSuggestionForSpecificContentFragment(
             object : SearchSuggestionKeyWordAdapter.ClickItem {
                 override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
                     try {
-                        if (!isFromResultPage) {
-                            ResultSearchVideoActivity.openScreen(
-                                mActivity,
-                                searchKeywordSuggestion?.title,
-                                null,
-                                searchKeywordSuggestion
-                            )
-                            mActivity.finish()
-                        } else {
-                            EventBus.getDefault().post(
-                                Done(
-                                    searchKeywordSuggestion?.title,
-                                    contentType,
-                                    searchKeywordSuggestion
-                                )
-                            )
-                            mActivity.finish()
+                        when (contentType){
+                            SearchSuggestionForSpecificContentActivity.Type.VIDEO -> {
+                                if (!isFromResultPage) {
+                                    ResultSearchVideoActivity.openScreen(mActivity, searchKeywordSuggestion?.title, null, searchKeywordSuggestion)
+                                    mActivity.finish()
+                                } else {
+                                    EventBus.getDefault().post(Done(searchKeywordSuggestion?.title, contentType, searchKeywordSuggestion))
+                                    mActivity.finish()
+                                }
+                            }
+
+                            SearchSuggestionForSpecificContentActivity.Type.NEWS -> {
+                                if (!isFromResultPage) {
+                                    ResultSearchNewsActivity.openScreen(mActivity, searchKeywordSuggestion?.title, null, searchKeywordSuggestion)
+                                    mActivity.finish()
+                                } else {
+                                    EventBus.getDefault().post(Done(searchKeywordSuggestion?.title, contentType, searchKeywordSuggestion))
+                                    mActivity.finish()
+                                }
+                            }
                         }
+
                     } catch (e: Exception) {
                     }
                 }
@@ -154,12 +159,15 @@ class SearchSuggestionForSpecificContentFragment(
         layoutKeyword.setOnClickListener {
             try {
                 if (!isFromResultPage) {
-                    ResultSearchVideoActivity.openScreen(
-                        mActivity,
-                        edtSearch.text.toString(),
-                        null,
-                        null
-                    )
+                    when (contentType){
+                        SearchSuggestionForSpecificContentActivity.Type.VIDEO -> {
+                            ResultSearchVideoActivity.openScreen(mActivity, edtSearch.text.toString(), null, null)
+                        }
+
+                        SearchSuggestionForSpecificContentActivity.Type.NEWS -> {
+                            ResultSearchNewsActivity.openScreen(mActivity, edtSearch.text.toString(), null, null)
+                        }
+                    }
                     mActivity.finish()
                 } else {
                     EventBus.getDefault().post(Done(keyword, contentType, null))
