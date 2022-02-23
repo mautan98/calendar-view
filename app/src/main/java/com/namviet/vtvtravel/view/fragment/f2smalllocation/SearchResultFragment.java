@@ -273,14 +273,14 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
         getBinding().btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FilterActivity.startScreen(mActivity, filterByCodeResponse);
+                FilterActivity.startScreen(mActivity, filterByCodeResponse,0);
             }
         });
 
         getBinding().btnFilter2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FilterActivity.startScreen(mActivity, filterByCodeResponse);
+                FilterActivity.startScreen(mActivity, filterByCodeResponse,0);
             }
         });
 

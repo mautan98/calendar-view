@@ -39,6 +39,7 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.SwitchCompat
+            android:theme="@style/CustomSwitchTheme"
             android:id="@+id/switchView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -87,7 +88,8 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switchView2"
+            android:theme="@style/CustomSwitchTheme"
+            android:id="@+id/sw_open_sate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp" />
@@ -135,6 +137,7 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.SwitchCompat
+            android:theme="@style/CustomSwitchTheme"
             android:id="@+id/switchView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

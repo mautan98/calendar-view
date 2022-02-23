@@ -78,11 +78,15 @@ public class SubFilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemCount() {
-        if (isExpanded) {
-            return data.getInputs().size();
-        } else if (data.getInputs().size() > 7) {
-            return 8;
-        } else return data.getInputs().size();
+        try {
+            if (isExpanded) {
+                return data.getInputs().size();
+            } else if (data.getInputs().size() > 7) {
+                return 8;
+            } else return data.getInputs().size();
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     public class ItemViewMore extends RecyclerView.ViewHolder {

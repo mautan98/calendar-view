@@ -261,7 +261,15 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
     public void inject() {
 
     }
-
+    public void onPageSelected(int position){
+        for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++){
+            if(position == i){
+                filterByCodeResponse.getData().getItems().get(position).setSelected(true);
+                Log.e("", "");
+            }
+            else filterByCodeResponse.getData().getItems().get(i).setSelected(false);
+        }
+    }
     @Override
     public void setClickListener() {
         getBinding().btnBack.setOnClickListener(new View.OnClickListener() {
@@ -274,21 +282,16 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         getBinding().btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++){
-                    if(positionTabSelected == i){
-                        filterByCodeResponse.getData().getItems().get(positionTabSelected).setSelected(true);
-                        Log.e("", "");
-                    }
-                    else filterByCodeResponse.getData().getItems().get(i).setSelected(false);
-                }
-                FilterActivity.startScreen(mActivity, filterByCodeResponse);
+                onPageSelected(positionTabSelected);
+                FilterActivity.startScreen(mActivity, filterByCodeResponse,positionTabSelected);
             }
         });
 
         getBinding().btnFilter2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FilterActivity.startScreen(mActivity, filterByCodeResponse);
+                onPageSelected(positionTabSelected);
+                FilterActivity.startScreen(mActivity, filterByCodeResponse,positionTabSelected);
             }
         });
 
@@ -456,25 +459,36 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
     @Subscribe
     public void onDoneOptionFilter(OnDoneFilterOption onDoneFilterOption) {
-        this.filterByCodeResponse = onDoneFilterOption.getFilterByCodeResponse();
-        clearRclData();
-        getMainCategory();
-        viewModel.getSmallLocation(genLinkToFilter(), false);
-        getAndSetPlaceHolder();
+        if(positionTabSelected == onDoneFilterOption.getPosition()){
+                this.filterByCodeResponse = onDoneFilterOption.getFilterByCodeResponse();
+                clearRclData();
+                getMainCategory();
+                viewModel.getSmallLocation(genLinkToFilter(), false);
+                getAndSetPlaceHolder();
+        }
+
+    }
+    private int getTabSelectedAndCodeSelected() {
+        for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
+            if (filterByCodeResponse.getData().getItems().get(i).isSelected()) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     private void setDefaultSelectedFilterTab(int position) {
         filterByCodeResponse.getData().getItems().get(position).setSelected(true);
     }
 
-    private void getDefaultSelectedFilterTab() {
-        for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
-            if (filterByCodeResponse.getData().getItems().get(i).getCode().equals(code)) {
-                positionTabSelected = i;
-                return;
-            }
-        }
-    }
+//    private void getDefaultSelectedFilterTab() {
+//        for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
+//            if (filterByCodeResponse.getData().getItems().get(i).getCode().equals(code)) {
+//                positionTabSelected = i;
+//                return;
+//            }
+//        }
+//    }
 
     public void setDistance() {
         DistanceClass distanceClass = new Gson().fromJson(loadJSONFromAsset(), DistanceClass.class);

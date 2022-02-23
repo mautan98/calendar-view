@@ -407,7 +407,7 @@ public class FilterHomeFragment extends BaseFragment<F2FragmentFilterHomeBinding
 
 
     private void setAllTypeForBaseFilter(int position) {
-            FilterByPageResponse.Data data = new FilterByPageResponse().new Data();
+            FilterByPageResponse.Data data = new FilterByPageResponse.Data();
             data.setLabel("Tất cả");
             data.setSelected(true);
             data.setField("all");

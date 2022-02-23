@@ -41,10 +41,12 @@ public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHo
     private FilterHomeViewModel filterHomeViewModel;
     private FilterAdapter mFilterAdapter;
     private List<List<FilterTest>> data;
+    private int i;
 
     @SuppressLint("ValidFragment")
-    public FilterSmallLocationFragment(FilterByCodeResponse filterByCodeResponse) {
+    public FilterSmallLocationFragment(FilterByCodeResponse filterByCodeResponse, int i) {
         this.filterByCodeResponse = filterByCodeResponse;
+        this.i = i;
     }
 
     public FilterSmallLocationFragment() {
@@ -164,7 +166,7 @@ public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHo
     }
 
     public void setUpFilterRcv(FilterByPageResponse filterByPageResponse) {
-        mFilterAdapter = new FilterAdapter(filterByPageResponse, mActivity);
+        mFilterAdapter = new FilterAdapter(filterByPageResponse, mActivity,filterByCodeResponse);
         getBinding().rcvFilter.setLayoutManager(new LinearLayoutManager(mActivity));
         getBinding().rcvFilter.setAdapter(mFilterAdapter);
         mFilterAdapter.notifyDataSetChanged();
@@ -221,6 +223,8 @@ public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHo
                 FilterByPageResponse response = (FilterByPageResponse) o;
                 for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
                     if (filterByCodeResponse.getData().getItems().get(i).getCode().equals(response.getCodeSet())) {
+                        response.getData().add(new FilterByPageResponse.Data(FilterByPageResponse.TYPE_OPEN_STATE));
+                        response.getData().add(new FilterByPageResponse.Data(FilterByPageResponse.TYPE_DISTANCE));
                         filterByCodeResponse.getData().getItems().get(i).setDataHasLoaded(response);
                     }
                 }
@@ -239,7 +243,18 @@ public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHo
     }
 
     public void postEventDoneFilterOption() {
-        EventBus.getDefault().post(new OnDoneFilterOption(filterByCodeResponse));
+//        if(filterByCodeResponse.getData() != null){
+//            FilterByPageResponse filterByPageResponse = filterByCodeResponse.getData().getItems().get(getTabSelectedAndCodeSelected()).getDataHasLoaded();
+//            if(filterByPageResponse != null){
+//                for (int i = 0; i< filterByPageResponse.getData().size(); i++){
+//                    if(filterByPageResponse.getData().get(i) == null){
+//                        filterByPageResponse.getData().remove(i);
+//                    }
+//                }
+//            }
+//
+//        }
+        EventBus.getDefault().post(new OnDoneFilterOption(filterByCodeResponse,i));
     }
 
     @Override
