@@ -46,7 +46,7 @@ public class ResultSearchVideoActivity extends BaseActivityNew<ActivitySearchRes
     @Override
     public BaseFragment initFragment() {
         ResultSearchVideoFragment resultSearchVideoFragment = new ResultSearchVideoFragment();
-        resultSearchVideoFragment.setData(keyword, regionID, item.getCategoryCode());
+        resultSearchVideoFragment.setData(keyword, regionID, item == null? null : item.getCategoryCode());
         return resultSearchVideoFragment;
     }
 

@@ -70,9 +70,9 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
         searchViewModel = SearchResultViewModel()
         searchViewModel?.addObserver(this)
 
-//        locationViewModel = SearchBigLocationViewModel()
-//        locationViewModel?.addObserver(this)
-//        locationViewModel?.getAllLocation()
+        locationViewModel = SearchBigLocationViewModel()
+        locationViewModel?.addObserver(this)
+        locationViewModel?.getAllLocation()
 
         filterData
         initSlideMenu()
@@ -320,6 +320,8 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
     public fun onDoneSearchSuggestion(onDone : SearchSuggestionForSpecificContentFragment.Done){
         if(onDone.type == SearchSuggestionForSpecificContentActivity.Type.VIDEO){
             keyword = onDone.keyword
+            categoryId = if (onDone.searchKeywordSuggestion == null)  null else onDone!!.searchKeywordSuggestion!!.categoryCode
+            edtSearch.text = keyword
             searchAllVideo(SearchType.VIDEO)
         }
     }

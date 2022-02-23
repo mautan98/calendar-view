@@ -5,6 +5,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.baseapp.utils.KeyboardUtils
+import com.github.nkzawa.socketio.client.On
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -30,6 +31,7 @@ import kotlinx.android.synthetic.main.f3_fragment_search_suggestion_for_specific
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 import java.util.concurrent.TimeUnit
+import java.util.logging.Handler
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
@@ -61,11 +63,22 @@ class SearchSuggestionForSpecificContentFragment(
                 override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
                     try {
                         if (!isFromResultPage) {
-//                            mActivity.finish()
-                            ResultSearchVideoActivity.openScreen(mActivity, searchKeywordSuggestion?.title, null, searchKeywordSuggestion)
-                        } else {
+                            ResultSearchVideoActivity.openScreen(
+                                mActivity,
+                                searchKeywordSuggestion?.title,
+                                null,
+                                searchKeywordSuggestion
+                            )
                             mActivity.finish()
-                            EventBus.getDefault().post(Done(keyword, contentType, searchKeywordSuggestion))
+                        } else {
+                            EventBus.getDefault().post(
+                                Done(
+                                    searchKeywordSuggestion?.title,
+                                    contentType,
+                                    searchKeywordSuggestion
+                                )
+                            )
+                            mActivity.finish()
                         }
                     } catch (e: Exception) {
                     }
@@ -90,6 +103,10 @@ class SearchSuggestionForSpecificContentFragment(
         }
 
         edtSearch.requestFocus()
+        android.os.Handler().postDelayed(Runnable {
+            KeyboardUtils.showKeyboard(mActivity, edtSearch)
+        }, 500)
+
     }
 
     private fun search() {
@@ -135,8 +152,21 @@ class SearchSuggestionForSpecificContentFragment(
         }
 
         layoutKeyword.setOnClickListener {
-            mActivity.onBackPressed()
-//            searchSuggestionCallback?.onClickRegion( keyword)
+            try {
+                if (!isFromResultPage) {
+                    ResultSearchVideoActivity.openScreen(
+                        mActivity,
+                        edtSearch.text.toString(),
+                        null,
+                        null
+                    )
+                    mActivity.finish()
+                } else {
+                    EventBus.getDefault().post(Done(keyword, contentType, null))
+                    mActivity.finish()
+                }
+            } catch (e: Exception) {
+            }
         }
 
         imgCloseSearch.setOnClickListener {
@@ -275,9 +305,9 @@ class SearchSuggestionForSpecificContentFragment(
         fun onClickLayoutKeywordkeyword(keyword: String?)
     }
 
-    public class Done{
-        public var keyword : String? = null
-        public var type : String? = null
+    public class Done {
+        public var keyword: String? = null
+        public var type: String? = null
         public var searchKeywordSuggestion: SearchSuggestionResponse.Data.Item? = null
 
         constructor(
