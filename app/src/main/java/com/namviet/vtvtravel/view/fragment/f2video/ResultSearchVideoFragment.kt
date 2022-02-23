@@ -130,13 +130,13 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
                         travels?.let { this.travels?.addAll(o.data.items) }
 //                        this.moreLink = moreLink
                         subTravelNewsAdapter?.notifyDataSetChanged()
-//                        if(!isApproximately) {
-//                            tvCountResult.text = "Có $count kết quả tìm kiếm video khớp với \"$keyword\""
-//                            resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
-//                        }else{
-//                            tvCountResult.text = "Có $count kết quả tìm kiếm video gần đúng khớp với \"$keyword\""
-//                            resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
-//                        }
+                        if(!isApproximately) {
+                            tvCountResult.text = "Có $count kết quả tìm kiếm video khớp với \"$keyword\""
+                            resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
+                        }else{
+                            tvCountResult.text = "Có $count kết quả tìm kiếm video gần đúng khớp với \"$keyword\""
+                            resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
+                        }
 
                     }
 

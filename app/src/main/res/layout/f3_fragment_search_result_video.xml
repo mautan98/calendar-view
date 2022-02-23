@@ -126,9 +126,27 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/f2_item_category_sorted" />
 
+
+                <LinearLayout
+                    android:id="@+id/layoutCount"
+                    android:layout_below="@id/rclCategorySorted"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="12dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tvCountResult"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Kết quả..." />
+
+
+                </LinearLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
-                    android:layout_marginTop="16dp"
-                    android:layout_below="@+id/rclCategorySorted"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/layoutCount"
                     android:paddingBottom="50dp"
                     android:clipToPadding="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
