@@ -4,9 +4,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.namviet.vtvtravel.response.BaseResponse;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SearchSuggestionResponse extends BaseResponse {
+public class SearchSuggestionResponse extends BaseResponse implements Serializable {
     private Data data;
 
     public Data getData() {
@@ -17,7 +18,7 @@ public class SearchSuggestionResponse extends BaseResponse {
         this.data = data;
     }
 
-    public class Data{
+    public class Data implements Serializable{
         private ArrayList<Item> items;
 
         public ArrayList<Item> getItems() {
@@ -28,7 +29,7 @@ public class SearchSuggestionResponse extends BaseResponse {
             this.items = items;
         }
 
-        public  class Item {
+        public  class Item implements Serializable {
 
             @Expose
             @SerializedName("icon")

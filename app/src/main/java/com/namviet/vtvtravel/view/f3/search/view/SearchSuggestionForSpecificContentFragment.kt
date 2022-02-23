@@ -61,11 +61,11 @@ class SearchSuggestionForSpecificContentFragment(
                 override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
                     try {
                         if (!isFromResultPage) {
-                            mActivity.finish()
-                            ResultSearchVideoActivity.openScreen(mActivity)
+//                            mActivity.finish()
+                            ResultSearchVideoActivity.openScreen(mActivity, searchKeywordSuggestion?.title, null, searchKeywordSuggestion)
                         } else {
                             mActivity.finish()
-                            EventBus.getDefault().post(Done(keyword, contentType))
+                            EventBus.getDefault().post(Done(keyword, contentType, searchKeywordSuggestion))
                         }
                     } catch (e: Exception) {
                     }
@@ -278,10 +278,16 @@ class SearchSuggestionForSpecificContentFragment(
     public class Done{
         public var keyword : String? = null
         public var type : String? = null
+        public var searchKeywordSuggestion: SearchSuggestionResponse.Data.Item? = null
 
-        constructor(keyword: String?, type: String?) {
+        constructor(
+            keyword: String?,
+            type: String?,
+            searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?
+        ) {
             this.keyword = keyword
             this.type = type
+            this.searchKeywordSuggestion = searchKeywordSuggestion
         }
     }
 }

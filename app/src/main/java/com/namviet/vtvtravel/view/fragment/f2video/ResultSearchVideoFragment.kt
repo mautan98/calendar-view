@@ -1,5 +1,6 @@
 package com.namviet.vtvtravel.view.fragment.f2video
 
+import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -19,6 +20,7 @@ import com.namviet.vtvtravel.model.f2search.Children
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse
+import com.namviet.vtvtravel.response.f2searchmain.SearchSuggestionResponse
 import com.namviet.vtvtravel.response.f2searchmain.result.ResultVideoSearch
 import com.namviet.vtvtravel.response.f2searchmain.result.SearchType
 import com.namviet.vtvtravel.ultils.F2Util
@@ -30,6 +32,7 @@ import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.Sor
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import com.namviet.vtvtravel.viewmodel.f2search.SearchResultViewModel
 import kotlinx.android.synthetic.main.f3_fragment_search_result_video.*
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.util.*
 
@@ -49,17 +52,27 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
     private var subTravelNewsAdapter: SubVideoAdapter? = null
     private var travels: ArrayList<Video> = ArrayList()
     private var categorySortedAdapter: CategorySortedAdapter? = null
+
+
+    public fun setData(keyword: String?, regionId: String?, categoryId: String?){
+        this.keyword = keyword
+        this.regionId = regionId
+        this.categoryId = categoryId
+    }
+
+
     override fun getLayoutRes(): Int {
         return R.layout.f3_fragment_search_result_video
     }
 
     override fun initView() {
+        edtSearch.text = keyword
         searchViewModel = SearchResultViewModel()
         searchViewModel?.addObserver(this)
 
-        locationViewModel = SearchBigLocationViewModel()
-        locationViewModel?.addObserver(this)
-        locationViewModel?.getAllLocation()
+//        locationViewModel = SearchBigLocationViewModel()
+//        locationViewModel?.addObserver(this)
+//        locationViewModel?.getAllLocation()
 
         filterData
         initSlideMenu()
@@ -309,5 +322,15 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
             keyword = onDone.keyword
             searchAllVideo(SearchType.VIDEO)
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 }
