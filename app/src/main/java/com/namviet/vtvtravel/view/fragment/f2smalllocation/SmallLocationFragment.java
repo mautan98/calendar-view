@@ -623,6 +623,47 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         }
     }
 
+    private String getParamFilter(){
+        String result = "";
+        // field filter
+        String baseFilter = "";
+        // value filter
+        String typeFilter = "";
+        int size = filterByCodeResponse.getData().getItems().size();
+        for (int i = 0; i < size; i++) {
+            FilterByPageResponse dataHasLoaded = filterByCodeResponse.getData().getItems().get(i).getDataHasLoaded();
+            if (dataHasLoaded != null) {
+                for (int j = 0; j < dataHasLoaded.getData().size(); j++) {
+//                    if (dataHasLoaded.getData().get(j).isSelected() && !dataHasLoaded.getData().get(j).getField().equals("standard_rate")) {
+//                        baseFilter = baseFilter + dataHasLoaded.getData().get(j).getField();
+//                        List<FilterByPageResponse.Data.Input> inputs = dataHasLoaded.getData().get(j).getInputs();
+//                        if (inputs != null) {
+//                            for (int k = 0; k < inputs.size(); k++) {
+//                                if (inputs.get(k).isSelected()) {
+//                                    typeFilter = typeFilter + inputs.get(k).getValue() + ",";
+//                                }
+//                            }
+//                        }
+//
+//                    }
+                    List<FilterByPageResponse.Data.Input> inputs = dataHasLoaded.getData().get(j).getInputs();
+                        if (inputs != null) {
+                            for (int k = 0; k < inputs.size(); k++) {
+                                if (inputs.get(k).isSelected()) {
+                                    baseFilter = dataHasLoaded.getData().get(j).getField();
+                                    typeFilter = inputs.get(k).getValue();
+                                    result = result+"&"+baseFilter+"="+typeFilter;
+                                }
+                            }
+                        }
+
+                }
+            }
+        }
+
+        return result;
+    }
+
     private String getDistance() {
         String result = "";
         for (int i = 0; i < filterByCodeResponse.getDistanceClass().getDistances().size(); i++) {
@@ -642,8 +683,9 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
     private String genLinkToFilter() {
         try {
-            String result = link + typeDestination + getParamForFilterService() + getDistance() + getOpenType() + genLinkSort() + genLinkRegionId() + genLinkSearch(getBinding().edtSearch.getText().toString());
+            String result = link + typeDestination + getParamFilter() + getDistance() + getOpenType() + genLinkSort() + genLinkRegionId() + genLinkSearch(getBinding().edtSearch.getText().toString());
             Log.e("resultttt", result);
+            Log.e("xxx", "genLinkToFilter: "+getParamFilter() );
             return result;
         } catch (Exception e) {
             return "";
