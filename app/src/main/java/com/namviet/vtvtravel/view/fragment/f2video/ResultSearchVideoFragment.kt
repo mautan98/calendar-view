@@ -8,17 +8,29 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
 import com.google.gson.Gson
 import com.namviet.vtvtravel.R
+import com.namviet.vtvtravel.adapter.f2search.CategorySortedAdapter
 import com.namviet.vtvtravel.adapter.f2video.SortVideoAdapter
+import com.namviet.vtvtravel.adapter.f2video.SubVideoAdapter
 import com.namviet.vtvtravel.databinding.F3FragmentSearchResultVideoBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
+import com.namviet.vtvtravel.model.Video
 import com.namviet.vtvtravel.model.f2search.Children
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse
+import com.namviet.vtvtravel.response.f2searchmain.result.ResultVideoSearch
+import com.namviet.vtvtravel.response.f2searchmain.result.SearchType
 import com.namviet.vtvtravel.ultils.F2Util
+import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentActivity
+import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentFragment
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionFragment
+import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.DropDownCategoryFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.SortFollowFragment
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
+import com.namviet.vtvtravel.viewmodel.f2search.SearchResultViewModel
+import kotlinx.android.synthetic.main.f3_fragment_search_result_video.*
+import org.greenrobot.eventbus.Subscribe
 import java.util.*
 
 class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBinding?>(), Observer {
@@ -28,21 +40,58 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
     private var locationsMain: ArrayList<Location> = ArrayList()
     private val locations: ArrayList<Location>? = ArrayList()
     private var locationViewModel: SearchBigLocationViewModel? = null
+    private var searchViewModel: SearchResultViewModel? = null
+
+    private var keyword: String? = "Cao Bằng"
+    private var regionId: String? = null
+    private var categoryId: String? = null
+
+    private var subTravelNewsAdapter: SubVideoAdapter? = null
+    private var travels: ArrayList<Video> = ArrayList()
+    private var categorySortedAdapter: CategorySortedAdapter? = null
     override fun getLayoutRes(): Int {
         return R.layout.f3_fragment_search_result_video
     }
 
     override fun initView() {
+        searchViewModel = SearchResultViewModel()
+        searchViewModel?.addObserver(this)
+
         locationViewModel = SearchBigLocationViewModel()
         locationViewModel?.addObserver(this)
         locationViewModel?.getAllLocation()
 
         filterData
         initSlideMenu()
+
+        subTravelNewsAdapter = SubVideoAdapter(mActivity, travels, null)
+        rclContent.adapter = subTravelNewsAdapter
+
+
+        searchAllVideo(SearchType.VIDEO)
+
+
     }
+
     override fun initData() {}
     override fun inject() {}
-    override fun setClickListener() {}
+    override fun setClickListener() {
+        btnBack.setOnClickListener {
+            mActivity.onBackPressed()
+        }
+
+        imgCloseSearch.setOnClickListener {
+            mActivity.onBackPressed()
+        }
+
+        layoutExpand.setOnClickListener {
+            hideMenuAnim()
+        }
+
+        edtSearch.setOnClickListener {
+            SearchSuggestionForSpecificContentActivity.openScreen(mActivity, keyword, SearchSuggestionForSpecificContentActivity.Type.VIDEO, true)
+        }
+    }
     override fun setObserver() {}
     override fun update(observable: Observable, o: Any) {
         if (observable is SearchBigLocationViewModel && null != o) {
@@ -53,7 +102,49 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
                 }
 
             }
+        } else if (observable is SearchResultViewModel && null != o) {
+            try {
+                when (o) {
+                    is ResultVideoSearch -> {
+//                        resultVideosSearchFragment?.setList(
+//                            o.data.items as ArrayList<Video>?,
+//                            o.data.more_link,
+//                            o.data.total,
+//                            keyword!!,
+//                            o.data.approximately
+//                        )
+
+                        travels?.let { this.travels?.addAll(o.data.items) }
+//                        this.moreLink = moreLink
+                        subTravelNewsAdapter?.notifyDataSetChanged()
+//                        if(!isApproximately) {
+//                            tvCountResult.text = "Có $count kết quả tìm kiếm video khớp với \"$keyword\""
+//                            resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
+//                        }else{
+//                            tvCountResult.text = "Có $count kết quả tìm kiếm video gần đúng khớp với \"$keyword\""
+//                            resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
+//                        }
+
+                    }
+
+                    is ErrorResponse -> {
+                        val responseError = o
+                        try {
+                        } catch (e: Exception) {
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+            }
         }
+    }
+
+    public fun searchAllVideo(type: String?) {
+        searchViewModel?.searchAllVideo(type, keyword, regionId, type, categoryId)
+    }
+
+    public fun searchAllVideoWithLink(link: String?, type: String?) {
+        searchViewModel?.searchAllVideoWithFullLink(link, type)
     }
 
 
@@ -89,7 +180,8 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
 
                             1 -> {
                                 var dropDownLocationFragment = DropDownLocationInVideoFragment()
-                                dropDownLocationFragment.setData(object : DropDownLocationInVideoFragment.Callback{
+                                dropDownLocationFragment.setData(object :
+                                    DropDownLocationInVideoFragment.Callback {
                                     override fun onClickChooseLocation() {
                                         binding!!.drawerLayout.openDrawer(GravityCompat.END)
                                     }
@@ -102,6 +194,22 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
                                 fragmentManager!!.beginTransaction()
                                     .replace(R.id.sortFrame, dropDownLocationFragment).commit()
                             }
+
+                            2 -> {
+                                var dropDownCategoryFragment = DropDownCategoryFragment()
+                                dropDownCategoryFragment.setData(sortAndFilter!!.sortHeader[2].children, object : DropDownCategoryFragment.Listener{
+                                    override fun onApply(listChild: ArrayList<Children>?) {
+                                        sortAndFilter!!.sortHeader[2].children.clear()
+                                        sortAndFilter!!.sortHeader[2].children.addAll(listChild!!)
+                                        hideMenuAnim()
+                                        categorySortedAdapter?.notifyDataSetChanged()
+                                        sortVideoAdapter?.notifyDataSetChanged()
+                                    }
+
+                                })
+                                fragmentManager!!.beginTransaction()
+                                    .replace(R.id.sortFrame, dropDownCategoryFragment).commit()
+                            }
                         }
                         if (binding!!.layoutExpand.visibility != View.VISIBLE) {
                             showMenuAnim()
@@ -109,11 +217,14 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
                     }
                 })
             binding!!.rclSort.adapter = sortVideoAdapter
+
+            categorySortedAdapter = CategorySortedAdapter(sortAndFilter!!.sortHeader[2].children, mActivity);
+            binding!!.rclCategorySorted.adapter = categorySortedAdapter
         }
 
-    private fun initSlideMenu(){
+    private fun initSlideMenu() {
 
-        binding!!.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener{
+        binding!!.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
 
             }
@@ -123,6 +234,7 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
             }
 
             override fun onDrawerClosed(drawerView: View) {
+                chooseRegionFragment?.deleteFragment()
             }
 
             override fun onDrawerStateChanged(newState: Int) {
@@ -132,10 +244,14 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
         })
     }
 
-    private fun createMenuFragment(){
+    private var chooseRegionFragment : ChooseRegionFragment? = null
+
+    private fun createMenuFragment() {
+        chooseRegionFragment = ChooseRegionFragment();
         fragmentManager?.beginTransaction()
-            ?.add(R.id.chooseRegionFrame, ChooseRegionFragment())
-            ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)?.addToBackStack(null)!!.commit()
+            ?.add(R.id.chooseRegionFrame, chooseRegionFragment!!)
+            ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)?.addToBackStack(null)!!
+            .commit()
     }
 
     private fun showMenuAnim() {
@@ -184,5 +300,14 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
             override fun onAnimationRepeat(animation: Animation) {}
         })
         binding!!.layoutExpand.startAnimation(scaleDown)
+    }
+
+
+    @Subscribe
+    public fun onDoneSearchSuggestion(onDone : SearchSuggestionForSpecificContentFragment.Done){
+        if(onDone.type == SearchSuggestionForSpecificContentActivity.Type.VIDEO){
+            keyword = onDone.keyword
+            searchAllVideo(SearchType.VIDEO)
+        }
     }
 }

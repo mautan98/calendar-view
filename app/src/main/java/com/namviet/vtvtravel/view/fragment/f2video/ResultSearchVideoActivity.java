@@ -2,6 +2,9 @@ package com.namviet.vtvtravel.view.fragment.f2video;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
+
+import androidx.core.content.ContextCompat;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.databinding.ActivitySearchResultContentSpecificBinding;
@@ -43,5 +46,17 @@ public class ResultSearchVideoActivity extends BaseActivityNew<ActivitySearchRes
     public static void openScreen(Context context){
         Intent intent = new Intent(context, ResultSearchVideoActivity.class);
         context.startActivity(intent);
+    }
+
+
+    @Override
+    public void afterSetContentView() {
+        super.afterSetContentView();
+        try {
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.white));
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//  set status text dark
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

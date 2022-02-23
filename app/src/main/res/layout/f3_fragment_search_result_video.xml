@@ -36,7 +36,8 @@
                     <ImageView
                         android:src="@drawable/f2_ic_back"
                         android:layout_width="11dp"
-                        android:layout_height="19dp"/>
+                        android:layout_height="19dp"
+                        app:tint="@color/black" />
 
 
                 </LinearLayout>
@@ -116,6 +117,18 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_below="@+id/rclSort"
+                    android:id="@+id/rclCategorySorted"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="12dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/f2_item_category_sorted" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginTop="16dp"
+                    android:layout_below="@+id/rclCategorySorted"
                     android:paddingBottom="50dp"
                     android:clipToPadding="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

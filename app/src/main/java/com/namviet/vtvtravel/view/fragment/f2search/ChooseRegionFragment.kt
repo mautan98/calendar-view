@@ -99,4 +99,10 @@ class ChooseRegionFragment : BaseFragment<F3LayoutSearchDestinationBinding?>() {
 //        } catch (e: Exception) {
 //        }
     }
+
+    public fun deleteFragment(){
+        fragmentManager?.beginTransaction()
+            ?.remove(this)
+            ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)?.commit()
+    }
 }

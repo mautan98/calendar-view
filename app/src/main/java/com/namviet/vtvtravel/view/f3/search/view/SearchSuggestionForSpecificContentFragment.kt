@@ -23,9 +23,11 @@ import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
 import com.namviet.vtvtravel.view.f3.search.viewmodel.SearchSuggestionViewModel
 import com.namviet.vtvtravel.view.fragment.f2video.ResultSearchVideoActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.sentry.event.EventBuilder
 import kotlinx.android.synthetic.main.f2_layout_keyword.*
 import kotlinx.android.synthetic.main.f2_layout_keyword.view.*
 import kotlinx.android.synthetic.main.f3_fragment_search_suggestion_for_specific_content.*
+import org.greenrobot.eventbus.EventBus
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -33,7 +35,8 @@ import kotlin.collections.ArrayList
 
 class SearchSuggestionForSpecificContentFragment(
     private var keyword: String? = null,
-    private var contentType: String? = null
+    private var contentType: String? = null,
+    private var isFromResultPage: Boolean = false
 ) : BaseFragment<F3FragmentSearchSuggestionForSpecificContentBinding?>(), Observer {
 
     private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
@@ -57,7 +60,13 @@ class SearchSuggestionForSpecificContentFragment(
             object : SearchSuggestionKeyWordAdapter.ClickItem {
                 override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
                     try {
-                        ResultSearchVideoActivity.openScreen(mActivity)
+                        if (!isFromResultPage) {
+                            mActivity.finish()
+                            ResultSearchVideoActivity.openScreen(mActivity)
+                        } else {
+                            mActivity.finish()
+                            EventBus.getDefault().post(Done(keyword, contentType))
+                        }
                     } catch (e: Exception) {
                     }
                 }
@@ -79,6 +88,8 @@ class SearchSuggestionForSpecificContentFragment(
                 false
             }
         }
+
+        edtSearch.requestFocus()
     }
 
     private fun search() {
@@ -161,7 +172,11 @@ class SearchSuggestionForSpecificContentFragment(
 
     private fun getSearchSuggestion() {
         //searchSuggestionViewModel?.getSearchSuggestion(edtSearch.text.toString(), regionId)
-        searchSuggestionViewModel.getSearchSuggestionForSpecificContent(edtSearch.text.toString(), "", contentType)
+        searchSuggestionViewModel.getSearchSuggestionForSpecificContent(
+            edtSearch.text.toString(),
+            "",
+            contentType
+        )
         layoutKeyword.tvSearchFollow.text = "Tìm kiếm theo \"" + edtSearch.text.toString() + "\"";
         setHighLightedText(layoutKeyword.tvSearchFollow, "\"" + edtSearch.text.toString() + "\"")
         layoutSearchSuggestion.visibility = View.VISIBLE
@@ -198,7 +213,8 @@ class SearchSuggestionForSpecificContentFragment(
         arrayListRecentSearchs = if (json.isEmpty()) {
             ArrayList()
         } else {
-            Gson().fromJson(json,
+            Gson().fromJson(
+                json,
                 object : TypeToken<ArrayList<String?>?>() {}.type
             )
         }
@@ -257,5 +273,15 @@ class SearchSuggestionForSpecificContentFragment(
         fun onCancelSearch(keyword: String?)
         fun onClickRegion(keyword: String?)
         fun onClickLayoutKeywordkeyword(keyword: String?)
+    }
+
+    public class Done{
+        public var keyword : String? = null
+        public var type : String? = null
+
+        constructor(keyword: String?, type: String?) {
+            this.keyword = keyword
+            this.type = type
+        }
     }
 }

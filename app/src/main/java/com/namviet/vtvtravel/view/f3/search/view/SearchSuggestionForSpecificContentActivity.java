@@ -19,6 +19,7 @@ public class SearchSuggestionForSpecificContentActivity extends BaseActivityNew<
     }
     private String keyword;
     private String type;
+    private boolean isFromResultPage;
     @Override
     public int getLayoutRes() {
         return R.layout.activity_search_suggestion_for_specific_content;
@@ -33,6 +34,7 @@ public class SearchSuggestionForSpecificContentActivity extends BaseActivityNew<
     public void getDataFromIntent() {
         keyword = getIntent().getStringExtra("keyword");
         type = getIntent().getStringExtra("type");
+        isFromResultPage = getIntent().getBooleanExtra("isFromResultPage", false);
     }
 
     @Override
@@ -47,13 +49,14 @@ public class SearchSuggestionForSpecificContentActivity extends BaseActivityNew<
 
     @Override
     public BaseFragment initFragment() {
-        return new SearchSuggestionForSpecificContentFragment(keyword, type);
+        return new SearchSuggestionForSpecificContentFragment(keyword, type, isFromResultPage);
     }
 
-    public static void openScreen(Context context, String keyword, String type){
+    public static void openScreen(Context context, String keyword, String type, boolean isFromResultPage){
         Intent intent = new Intent(context, SearchSuggestionForSpecificContentActivity.class);
         intent.putExtra("keyword", keyword);
         intent.putExtra("type", type);
+        intent.putExtra("isFromResultPage", isFromResultPage);
         context.startActivity(intent);
     }
 

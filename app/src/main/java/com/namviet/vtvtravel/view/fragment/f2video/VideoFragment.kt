@@ -95,7 +95,7 @@ class VideoFragment : MainFragment(), Observer {
 
         Handler().postDelayed({ viewModel!!.getCategoryVideo() }, 500)
         binding!!.btnSearch.setOnClickListener {
-            SearchSuggestionForSpecificContentActivity.openScreen(mActivity, "", SearchSuggestionForSpecificContentActivity.Type.VIDEO)
+            SearchSuggestionForSpecificContentActivity.openScreen(mActivity, "", SearchSuggestionForSpecificContentActivity.Type.VIDEO, false)
         }
         filterData
         initSlideMenu()

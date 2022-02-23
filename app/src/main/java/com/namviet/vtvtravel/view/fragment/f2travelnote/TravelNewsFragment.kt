@@ -103,7 +103,7 @@ class TravelNewsFragment : BaseFragment<F2FragmentTravelNewsBinding?>, Observer 
             }
         }
         binding!!.btnSearch.setOnClickListener {
-            SearchSuggestionForSpecificContentActivity.openScreen(mActivity, "", SearchSuggestionForSpecificContentActivity.Type.NEWS)
+            SearchSuggestionForSpecificContentActivity.openScreen(mActivity, "", SearchSuggestionForSpecificContentActivity.Type.NEWS, false)
         }
         binding!!.vpContent.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
