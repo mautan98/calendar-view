@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -71,9 +72,12 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -81,7 +85,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationBinding> implements Observer {
     String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final int REQUEST_CODE_PERMISSION = 2;
-  //  private SupportMapFragment mapFragment;
+    //  private SupportMapFragment mapFragment;
     private GoogleMap mGoogleMap;
 
     private SmallLocationAdapter smallLocationAdapter;
@@ -104,6 +108,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         this.code = code;
         this.regionId = regionId;
     }
+
     @SuppressLint("ValidFragment")
     public SmallLocationFragment(String link, String code, String regionId, int position) {
         this.link = link;
@@ -144,6 +149,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         getBinding().shimmerViewContainer.startShimmer();
 
     }
+
     @Subscribe
     public void onClickbackHideMap(ClickHideMapView clickHideMapView) {
         getBinding().layoutButtonMap.setVisibility(View.INVISIBLE);
@@ -261,15 +267,16 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
     public void inject() {
 
     }
-    public void onPageSelected(int position){
-        for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++){
-            if(position == i){
+
+    public void onPageSelected(int position) {
+        for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
+            if (position == i) {
                 filterByCodeResponse.getData().getItems().get(position).setSelected(true);
                 Log.e("", "");
-            }
-            else filterByCodeResponse.getData().getItems().get(i).setSelected(false);
+            } else filterByCodeResponse.getData().getItems().get(i).setSelected(false);
         }
     }
+
     @Override
     public void setClickListener() {
         getBinding().btnBack.setOnClickListener(new View.OnClickListener() {
@@ -283,7 +290,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
             @Override
             public void onClick(View view) {
                 onPageSelected(positionTabSelected);
-                FilterActivity.startScreen(mActivity, filterByCodeResponse,positionTabSelected);
+                FilterActivity.startScreen(mActivity, filterByCodeResponse, positionTabSelected);
             }
         });
 
@@ -291,7 +298,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
             @Override
             public void onClick(View v) {
                 onPageSelected(positionTabSelected);
-                FilterActivity.startScreen(mActivity, filterByCodeResponse,positionTabSelected);
+                FilterActivity.startScreen(mActivity, filterByCodeResponse, positionTabSelected);
             }
         });
 
@@ -374,7 +381,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
     @Override
     public void update(Observable observable, Object o) {
-        Log.e("xxx", "update: observable" );
+        Log.e("xxx", "update: observable");
         try {
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -383,7 +390,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                     getBinding().shimmerViewContainer.setVisibility(View.GONE);
                     getBinding().shimmerViewContainer.stopShimmer();
                 }
-            },500);
+            }, 500);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -452,22 +459,24 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
         }
     }
-    public void setTabSelected(){
+
+    public void setTabSelected() {
         setDefaultSelectedFilterTab(positionTabSelected);
     }
 
 
     @Subscribe
     public void onDoneOptionFilter(OnDoneFilterOption onDoneFilterOption) {
-        if(positionTabSelected == onDoneFilterOption.getPosition()){
-                this.filterByCodeResponse = onDoneFilterOption.getFilterByCodeResponse();
-                clearRclData();
-                getMainCategory();
-                viewModel.getSmallLocation(genLinkToFilter(), false);
-                getAndSetPlaceHolder();
+        if (positionTabSelected == onDoneFilterOption.getPosition()) {
+            this.filterByCodeResponse = onDoneFilterOption.getFilterByCodeResponse();
+            clearRclData();
+            getMainCategory();
+            viewModel.getSmallLocation(genLinkToFilter(), false);
+            getAndSetPlaceHolder();
         }
 
     }
+
     private int getTabSelectedAndCodeSelected() {
         for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
             if (filterByCodeResponse.getData().getItems().get(i).isSelected()) {
@@ -623,7 +632,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         }
     }
 
-    private String getParamFilter(){
+    private String getParamFilter() {
         String result = "";
         // field filter
         String baseFilter = "";
@@ -634,29 +643,30 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
             FilterByPageResponse dataHasLoaded = filterByCodeResponse.getData().getItems().get(i).getDataHasLoaded();
             if (dataHasLoaded != null) {
                 for (int j = 0; j < dataHasLoaded.getData().size(); j++) {
-//                    if (dataHasLoaded.getData().get(j).isSelected() && !dataHasLoaded.getData().get(j).getField().equals("standard_rate")) {
-//                        baseFilter = baseFilter + dataHasLoaded.getData().get(j).getField();
-//                        List<FilterByPageResponse.Data.Input> inputs = dataHasLoaded.getData().get(j).getInputs();
-//                        if (inputs != null) {
-//                            for (int k = 0; k < inputs.size(); k++) {
-//                                if (inputs.get(k).isSelected()) {
-//                                    typeFilter = typeFilter + inputs.get(k).getValue() + ",";
-//                                }
-//                            }
-//                        }
-//
-//                    }
                     List<FilterByPageResponse.Data.Input> inputs = dataHasLoaded.getData().get(j).getInputs();
-                        if (inputs != null) {
-                            for (int k = 0; k < inputs.size(); k++) {
-                                if (inputs.get(k).isSelected()) {
-                                    baseFilter = dataHasLoaded.getData().get(j).getField();
-                                    typeFilter = inputs.get(k).getValue();
-                                    result = result+"&"+baseFilter+"="+typeFilter;
-                                }
+                    Map<String, String> mapData = new HashMap<>();
+                    if (inputs != null) {
+                        for (int k = 0; k < inputs.size(); k++) {
+                            if (inputs.get(k).isSelected()) {
+                                baseFilter = dataHasLoaded.getData().get(j).getField();
+                                typeFilter = inputs.get(k).getValue();
+                                mapData.put(typeFilter, baseFilter);
                             }
                         }
 
+                    }
+                    Set<String> set = mapData.keySet();
+                    String keyFilter = "";
+                    String paramFilter = "";
+                    for (String key : set) {
+                        keyFilter = mapData.get(key);
+                        paramFilter = paramFilter + key+",";
+
+                    }
+                    if (!paramFilter.isEmpty()) {
+                        paramFilter = paramFilter.substring(0, paramFilter.length() - 1);
+                        result = result + "&" + keyFilter + "=" + paramFilter;
+                    }
                 }
             }
         }
@@ -685,7 +695,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         try {
             String result = link + typeDestination + getParamFilter() + getDistance() + getOpenType() + genLinkSort() + genLinkRegionId() + genLinkSearch(getBinding().edtSearch.getText().toString());
             Log.e("resultttt", result);
-            Log.e("xxx", "genLinkToFilter: "+getParamFilter() );
+            Log.e("xxx", "genLinkToFilter: " + getParamFilter());
             return result;
         } catch (Exception e) {
             return "";
@@ -875,7 +885,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
     private void initMap() {
         try {
-           // mapFragment = SupportMapFragment.newInstance();
+            // mapFragment = SupportMapFragment.newInstance();
 
             getBinding().mapView.onCreate(null);
             getBinding().mapView.onResume();
