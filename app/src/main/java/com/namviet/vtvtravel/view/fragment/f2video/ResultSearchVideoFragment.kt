@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
@@ -24,6 +25,8 @@ import com.namviet.vtvtravel.response.f2searchmain.SearchSuggestionResponse
 import com.namviet.vtvtravel.response.f2searchmain.result.ResultVideoSearch
 import com.namviet.vtvtravel.response.f2searchmain.result.SearchType
 import com.namviet.vtvtravel.ultils.F2Util
+import com.namviet.vtvtravel.ultils.highlight.HighLightController
+import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
 import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentActivity
 import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentFragment
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionFragment
@@ -130,12 +133,12 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
                         travels?.let { this.travels?.addAll(o.data.items) }
 //                        this.moreLink = moreLink
                         subTravelNewsAdapter?.notifyDataSetChanged()
-                        if(!isApproximately) {
-                            tvCountResult.text = "Có $count kết quả tìm kiếm video khớp với \"$keyword\""
-                            resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
+                        if(!o.data.approximately) {
+                            tvCountResult.text = "Có ${o.data.items.size} kết quả tìm kiếm video khớp với \"$keyword\""
+                            setHighLightedText(tvCountResult, "\"$keyword\"")
                         }else{
-                            tvCountResult.text = "Có $count kết quả tìm kiếm video gần đúng khớp với \"$keyword\""
-                            resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
+                            tvCountResult.text = "Có ${o.data.items.size} kết quả tìm kiếm video gần đúng khớp với \"$keyword\""
+                            setHighLightedText(tvCountResult, "\"$keyword\"")
                         }
 
                     }
@@ -150,6 +153,12 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
             } catch (e: Exception) {
             }
         }
+    }
+
+    public fun setHighLightedText(tv: TextView, textToHighlight: String) {
+        var iHighLightText = SearchHighLightText()
+        var highLightController = HighLightController(iHighLightText)
+        highLightController.highLight(context!!, tv, textToHighlight)
     }
 
     public fun searchAllVideo(type: String?) {
