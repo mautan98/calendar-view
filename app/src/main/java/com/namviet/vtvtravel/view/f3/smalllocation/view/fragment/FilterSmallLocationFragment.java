@@ -33,9 +33,12 @@ import com.namviet.vtvtravel.viewmodel.f2filter.FilterHomeViewModel;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 
 public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHomeBinding> implements Observer {
     private FilterHomeViewModel filterHomeViewModel;
@@ -71,11 +74,11 @@ public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHo
     private void getDataForDefaultTab() {
         if (filterByCodeResponse.getData().getItems().get(getTabSelectedAndCodeSelected()).getDataHasLoaded() == null) {
             filterHomeViewModel.getFilterByPage(filterByCodeResponse.getData().getItems().get(getTabSelectedAndCodeSelected()).getLink(), filterByCodeResponse.getData().getItems().get(getTabSelectedAndCodeSelected()).getCode());
-        }
-        else {
+        } else {
             setUpFilterRcv(filterByCodeResponse.getData().getItems().get(getTabSelectedAndCodeSelected()).getDataHasLoaded());
         }
     }
+
     private int getTabSelectedAndCodeSelected() {
         for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
             if (filterByCodeResponse.getData().getItems().get(i).isSelected()) {
@@ -115,33 +118,23 @@ public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHo
             public void onClick(View view) {
 
                 for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
-
-                    try {
-                        if (filterByCodeResponse.getData().getItems().get(i).getDataHasLoaded() != null) {
-                            int size = filterByCodeResponse.getData().getItems().get(i).getDataHasLoaded().getData().size();
-                            FilterByPageResponse filterByPageResponse = filterByCodeResponse.getData().getItems().get(i).getDataHasLoaded();
-                            for (int j = 0; j < size; j++) {
-                                filterByPageResponse.getData().get(j).setSelected(false);
-                                try {
-                                    int size2 = filterByPageResponse.getData().size();
-                                    for (int k = 0; k < size2; k++) {
-                                        filterByPageResponse.getData().get(j).getInputs().get(k).setSelected(false);
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
+                    FilterByPageResponse dataHasLoaded = filterByCodeResponse.getData().getItems().get(i).getDataHasLoaded();
+                    if (dataHasLoaded != null) {
+                        for (int j = 0; j < dataHasLoaded.getData().size(); j++) {
+                            List<FilterByPageResponse.Data.Input> inputs = dataHasLoaded.getData().get(j).getInputs();
+                            if (inputs != null) {
+                                for (int k = 0; k < inputs.size(); k++) {
+                                    inputs.get(k).setSelected(false);
                                 }
+
                             }
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
 
                 }
-
                 for (int i = 0; i < filterByCodeResponse.getDistanceClass().getDistances().size(); i++) {
                     filterByCodeResponse.getDistanceClass().getDistances().get(i).setSelected(false);
                 }
-
                 filterByCodeResponse.setTypeOpen(false);
                 postEventDoneFilterOption();
                 mActivity.onBackPressed();
@@ -166,7 +159,7 @@ public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHo
     }
 
     public void setUpFilterRcv(FilterByPageResponse filterByPageResponse) {
-        mFilterAdapter = new FilterAdapter(filterByPageResponse, mActivity,filterByCodeResponse);
+        mFilterAdapter = new FilterAdapter(filterByPageResponse, mActivity, filterByCodeResponse);
         getBinding().rcvFilter.setLayoutManager(new LinearLayoutManager(mActivity));
         getBinding().rcvFilter.setAdapter(mFilterAdapter);
         mFilterAdapter.notifyDataSetChanged();
@@ -254,7 +247,7 @@ public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHo
 //            }
 //
 //        }
-        EventBus.getDefault().post(new OnDoneFilterOption(filterByCodeResponse,i));
+        EventBus.getDefault().post(new OnDoneFilterOption(filterByCodeResponse, i));
     }
 
     @Override
