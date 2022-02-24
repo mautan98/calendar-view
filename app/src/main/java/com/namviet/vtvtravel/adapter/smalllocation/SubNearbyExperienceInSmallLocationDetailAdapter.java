@@ -12,7 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.model.travelnews.Travel;
+
+import com.namviet.vtvtravel.model.f2smalllocation.Travel;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 
 import java.util.List;

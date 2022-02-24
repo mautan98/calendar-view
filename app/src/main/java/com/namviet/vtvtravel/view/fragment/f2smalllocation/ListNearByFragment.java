@@ -44,8 +44,8 @@ import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.MyLocation;
 import com.namviet.vtvtravel.model.f2event.OnDoneFilterOption;
+import com.namviet.vtvtravel.model.f2smalllocation.Travel;
 import com.namviet.vtvtravel.model.travelnews.Location;
-import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.f2filter.DistanceClass;
 import com.namviet.vtvtravel.response.f2filter.FilterByCodeResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByPageResponse;
@@ -85,7 +85,7 @@ public class ListNearByFragment extends BaseFragment<F3FragmentNearExperienceSma
 
     private String link;
     private DetailSmallLocationViewModel viewModel;
-    private List<Travel> items = new ArrayList<>();
+    private List<com.namviet.vtvtravel.model.f2smalllocation.Travel> items = new ArrayList<>();
     private SubNearbyExperienceInSmallLocationDetailAdapter subNearbyExperienceInSmallLocationDetailAdapter;
     private TabLayout tabs;
     private ArrayList<String> tabsList = new ArrayList<>();
@@ -163,7 +163,7 @@ public class ListNearByFragment extends BaseFragment<F3FragmentNearExperienceSma
                 getBinding().shimmerMain.setVisibility(View.GONE);
                 subNearbyExperienceInSmallLocationDetailAdapter = new SubNearbyExperienceInSmallLocationDetailAdapter(items, mActivity, new SubNearbyExperienceInSmallLocationDetailAdapter.ClickItem() {
                     @Override
-                    public void onClickItem(Travel travel) {
+                    public void onClickItem(com.namviet.vtvtravel.model.f2smalllocation.Travel travel) {
 
                     }
                 });
@@ -207,7 +207,7 @@ public class ListNearByFragment extends BaseFragment<F3FragmentNearExperienceSma
                     getBinding().rclContent.setVisibility(View.VISIBLE);
                     subNearbyExperienceInSmallLocationDetailAdapter = new SubNearbyExperienceInSmallLocationDetailAdapter(items, mActivity, new SubNearbyExperienceInSmallLocationDetailAdapter.ClickItem() {
                         @Override
-                        public void onClickItem(Travel travel) {
+                        public void onClickItem(com.namviet.vtvtravel.model.f2smalllocation.Travel travel) {
 
                         }
                     });

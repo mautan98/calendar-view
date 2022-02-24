@@ -22,7 +22,7 @@ import java.util.List;
 public class NearByExperienceActivity extends BaseActivityNew<F2ActivityBigLocationBinding> {
     private String linkToLoadSmallLocation;
     private int screenType;
-    private  List<Travel> items ;
+    private  List<com.namviet.vtvtravel.model.f2smalllocation.Travel> items ;
     public class OpenType {
         public static final int LIST = 0;
     }
@@ -43,7 +43,7 @@ public class NearByExperienceActivity extends BaseActivityNew<F2ActivityBigLocat
         if (screenType == OpenType.LIST) {
            // linkToLoadSmallLocation = getIntent().getStringExtra(Constants.IntentKey.LINK);
             Bundle bundle = getIntent().getBundleExtra(Constants.IntentKey.DATA);
-            items = (List<Travel>) bundle.getSerializable("bundle");
+            items = (List<com.namviet.vtvtravel.model.f2smalllocation.Travel>) bundle.getSerializable("bundle");
         }
     }
 

@@ -218,15 +218,6 @@
                 android:layout_marginEnd="6dp"
                 android:src="@drawable/ic_calenda" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/tvOpenDate"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginEnd="8dp"-->
-<!--                android:fontFamily="@font/roboto_regular"-->
-<!--                tools:text="Mở cửa T2 - CN"-->
-<!--                android:textColor="#5E5E5E"-->
-<!--                android:textSize="12dp" />-->
 
             <TextView
                 android:visibility="gone"
@@ -235,16 +226,6 @@
                 android:layout_height="12dp"
                 android:layout_marginEnd="8dp"
                 android:background="#707070" />
-
-<!--            <TextView-->
-<!--                android:id="@+id/tvOpenTime"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginEnd="8dp"-->
-<!--                android:fontFamily="@font/roboto_regular"-->
-<!--                tools:text="06:30 - 21:30"-->
-<!--                android:textColor="#5E5E5E"-->
-<!--                android:textSize="12dp" />-->
             <LinearLayout
                 android:layout_marginStart="11dp"
                 android:layout_width="wrap_content"
@@ -282,9 +263,10 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:layout_gravity="center"
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:src="@drawable/bg_circle_green_small_location" />
+                    android:src="@drawable/green_radius" />
 
                 <TextView
                     android:id="@+id/tvOpenState"

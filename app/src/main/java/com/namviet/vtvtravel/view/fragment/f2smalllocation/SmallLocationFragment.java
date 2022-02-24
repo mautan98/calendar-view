@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -71,9 +72,12 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -81,7 +85,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationBinding> implements Observer {
     String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final int REQUEST_CODE_PERMISSION = 2;
-  //  private SupportMapFragment mapFragment;
+    //  private SupportMapFragment mapFragment;
     private GoogleMap mGoogleMap;
 
     private SmallLocationAdapter smallLocationAdapter;
@@ -103,6 +107,14 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         this.link = link;
         this.code = code;
         this.regionId = regionId;
+    }
+
+    @SuppressLint("ValidFragment")
+    public SmallLocationFragment(String link, String code, String regionId, int position) {
+        this.link = link;
+        this.code = code;
+        this.regionId = regionId;
+        this.positionTabSelected = position;
     }
 
     public SmallLocationFragment() {
@@ -137,6 +149,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         getBinding().shimmerViewContainer.startShimmer();
 
     }
+
     @Subscribe
     public void onClickbackHideMap(ClickHideMapView clickHideMapView) {
         getBinding().layoutButtonMap.setVisibility(View.INVISIBLE);
@@ -255,6 +268,15 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
     }
 
+    public void onPageSelected(int position) {
+        for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
+            if (position == i) {
+                filterByCodeResponse.getData().getItems().get(position).setSelected(true);
+                Log.e("", "");
+            } else filterByCodeResponse.getData().getItems().get(i).setSelected(false);
+        }
+    }
+
     @Override
     public void setClickListener() {
         getBinding().btnBack.setOnClickListener(new View.OnClickListener() {
@@ -267,14 +289,16 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         getBinding().btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FilterActivity.startScreen(mActivity, filterByCodeResponse);
+                onPageSelected(positionTabSelected);
+                FilterActivity.startScreen(mActivity, filterByCodeResponse, positionTabSelected);
             }
         });
 
         getBinding().btnFilter2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FilterActivity.startScreen(mActivity, filterByCodeResponse);
+                onPageSelected(positionTabSelected);
+                FilterActivity.startScreen(mActivity, filterByCodeResponse, positionTabSelected);
             }
         });
 
@@ -357,7 +381,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
     @Override
     public void update(Observable observable, Object o) {
-        Log.e("xxx", "update: observable" );
+        Log.e("xxx", "update: observable");
         try {
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -366,7 +390,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                     getBinding().shimmerViewContainer.setVisibility(View.GONE);
                     getBinding().shimmerViewContainer.stopShimmer();
                 }
-            },500);
+            }, 500);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -418,8 +442,8 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
             } else if (o instanceof FilterByCodeResponse) {
                 filterByCodeResponse = (FilterByCodeResponse) o;
-                getDefaultSelectedFilterTab();
-                setDefaultSelectedFilterTab(positionTabSelected);
+//                getDefaultSelectedFilterTab();
+//                setDefaultSelectedFilterTab(positionTabSelected);
                 setDistance();
             } else if (o instanceof SortSmallLocationResponse) {
                 sortSmallLocationResponse = (SortSmallLocationResponse) o;
@@ -436,28 +460,44 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         }
     }
 
+    public void setTabSelected() {
+        setDefaultSelectedFilterTab(positionTabSelected);
+    }
+
 
     @Subscribe
     public void onDoneOptionFilter(OnDoneFilterOption onDoneFilterOption) {
-        this.filterByCodeResponse = onDoneFilterOption.getFilterByCodeResponse();
-        clearRclData();
-        getMainCategory();
-        viewModel.getSmallLocation(genLinkToFilter(), false);
-        getAndSetPlaceHolder();
+        if (positionTabSelected == onDoneFilterOption.getPosition()) {
+            this.filterByCodeResponse = onDoneFilterOption.getFilterByCodeResponse();
+            clearRclData();
+            getMainCategory();
+            viewModel.getSmallLocation(genLinkToFilter(), false);
+            getAndSetPlaceHolder();
+        }
+
+    }
+
+    private int getTabSelectedAndCodeSelected() {
+        for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
+            if (filterByCodeResponse.getData().getItems().get(i).isSelected()) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     private void setDefaultSelectedFilterTab(int position) {
         filterByCodeResponse.getData().getItems().get(position).setSelected(true);
     }
 
-    private void getDefaultSelectedFilterTab() {
-        for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
-            if (filterByCodeResponse.getData().getItems().get(i).getCode().equals(code)) {
-                positionTabSelected = i;
-                return;
-            }
-        }
-    }
+//    private void getDefaultSelectedFilterTab() {
+//        for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
+//            if (filterByCodeResponse.getData().getItems().get(i).getCode().equals(code)) {
+//                positionTabSelected = i;
+//                return;
+//            }
+//        }
+//    }
 
     public void setDistance() {
         DistanceClass distanceClass = new Gson().fromJson(loadJSONFromAsset(), DistanceClass.class);
@@ -592,6 +632,48 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         }
     }
 
+    private String getParamFilter() {
+        String result = "";
+        // field filter
+        String baseFilter = "";
+        // value filter
+        String typeFilter = "";
+        int size = filterByCodeResponse.getData().getItems().size();
+        for (int i = 0; i < size; i++) {
+            FilterByPageResponse dataHasLoaded = filterByCodeResponse.getData().getItems().get(i).getDataHasLoaded();
+            if (dataHasLoaded != null) {
+                for (int j = 0; j < dataHasLoaded.getData().size(); j++) {
+                    List<FilterByPageResponse.Data.Input> inputs = dataHasLoaded.getData().get(j).getInputs();
+                    Map<String, String> mapData = new HashMap<>();
+                    if (inputs != null) {
+                        for (int k = 0; k < inputs.size(); k++) {
+                            if (inputs.get(k).isSelected()) {
+                                baseFilter = dataHasLoaded.getData().get(j).getField();
+                                typeFilter = inputs.get(k).getValue();
+                                mapData.put(typeFilter, baseFilter);
+                            }
+                        }
+
+                    }
+                    Set<String> set = mapData.keySet();
+                    String keyFilter = "";
+                    String paramFilter = "";
+                    for (String key : set) {
+                        keyFilter = mapData.get(key);
+                        paramFilter = paramFilter + key+",";
+
+                    }
+                    if (!paramFilter.isEmpty()) {
+                        paramFilter = paramFilter.substring(0, paramFilter.length() - 1);
+                        result = result + "&" + keyFilter + "=" + paramFilter;
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+
     private String getDistance() {
         String result = "";
         for (int i = 0; i < filterByCodeResponse.getDistanceClass().getDistances().size(); i++) {
@@ -611,8 +693,9 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
     private String genLinkToFilter() {
         try {
-            String result = link + typeDestination + getParamForFilterService() + getDistance() + getOpenType() + genLinkSort() + genLinkRegionId() + genLinkSearch(getBinding().edtSearch.getText().toString());
+            String result = link + typeDestination + getParamFilter() + getDistance() + getOpenType() + genLinkSort() + genLinkRegionId() + genLinkSearch(getBinding().edtSearch.getText().toString());
             Log.e("resultttt", result);
+            Log.e("xxx", "genLinkToFilter: " + getParamFilter());
             return result;
         } catch (Exception e) {
             return "";
@@ -802,7 +885,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
     private void initMap() {
         try {
-           // mapFragment = SupportMapFragment.newInstance();
+            // mapFragment = SupportMapFragment.newInstance();
 
             getBinding().mapView.onCreate(null);
             getBinding().mapView.onResume();

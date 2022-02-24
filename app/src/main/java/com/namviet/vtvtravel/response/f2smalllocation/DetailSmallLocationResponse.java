@@ -173,6 +173,9 @@ public class DetailSmallLocationResponse extends BaseResponse {
             @Expose
             @SerializedName("items")
             private List<Travel> items;
+            @SerializedName("menu")
+            @Expose
+            private List<Menu> menu;
             @Expose
             @SerializedName("comment_count")
             private String comment_count;
@@ -406,6 +409,13 @@ public class DetailSmallLocationResponse extends BaseResponse {
             public void setItems(List<Travel> items) {
                 this.items = items;
             }
+            public List<Menu> getMenu() {
+                return menu;
+            }
+
+            public void setMenu(List<Menu> menu) {
+                this.menu = menu;
+            }
 
             public String getTitle() {
                 return title;
@@ -550,6 +560,54 @@ public class DetailSmallLocationResponse extends BaseResponse {
             public void setDistance(String distance) {
                 this.distance = distance;
             }
+        }
+        public class Menu {
+
+            @SerializedName("id")
+            @Expose
+            private String id;
+            @SerializedName("code")
+            @Expose
+            private String code;
+            @SerializedName("name")
+            @Expose
+            private String name;
+            @SerializedName("link")
+            @Expose
+            private String link;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getCode() {
+                return code;
+            }
+
+            public void setCode(String code) {
+                this.code = code;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getLink() {
+                return link;
+            }
+
+            public void setLink(String link) {
+                this.link = link;
+            }
+
         }
     }
 }
