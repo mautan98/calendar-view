@@ -249,6 +249,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/img_open_state"
                         android:layout_width="10dp"
                         android:layout_height="10dp"
                         android:src="@drawable/bg_circle_green_small_location" />

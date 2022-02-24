@@ -84,8 +84,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class ListNearByFragment extends BaseFragment<F3FragmentNearExperienceSmallLocationBinding> implements Observer {
 
     private String link;
-    private DetailSmallLocationViewModel viewModel;
-    private List<com.namviet.vtvtravel.model.f2smalllocation.Travel> items = new ArrayList<>();
+    private SmallLocationViewModel viewModel;
+    private List<DetailSmallLocationResponse.Data.Menu> items = new ArrayList<>();
     private SubNearbyExperienceInSmallLocationDetailAdapter subNearbyExperienceInSmallLocationDetailAdapter;
     private TabLayout tabs;
     private ArrayList<String> tabsList = new ArrayList<>();
@@ -95,7 +95,7 @@ public class ListNearByFragment extends BaseFragment<F3FragmentNearExperienceSma
 
     }
     @SuppressLint("ValidFragment")
-    public ListNearByFragment(List<Travel> items) {
+    public ListNearByFragment(List<DetailSmallLocationResponse.Data.Menu> items) {
         this.items = items;
 
     }
@@ -123,17 +123,16 @@ public class ListNearByFragment extends BaseFragment<F3FragmentNearExperienceSma
 
     @Override
     public void initView() {
-        tabsList.add("Tất cả");
-        tabsList.add("Đi đâu");
-        tabsList.add("Ở Đâu");
-        tabsList.add("Ăn gì");
-        tabsList.add("Chơi gì");
+        tabsList.clear();
+        for (int i = 0; i < items.size(); i++) {
+            tabsList.add(items.get(i).getName());
+        }
         genTab();
         getBinding().tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 setOnSelectView(getBinding().tabs, tab.getPosition());
-                loadData();
+                loadData(tab.getPosition());
             }
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
@@ -144,9 +143,10 @@ public class ListNearByFragment extends BaseFragment<F3FragmentNearExperienceSma
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
-        viewModel = new DetailSmallLocationViewModel();
+        viewModel = new SmallLocationViewModel();
         getBinding().setDetailSmallLocationViewModel(viewModel);
         viewModel.addObserver(this);
+        loadData(0);
     //    viewModel.getDetailSmallLocation(link, false);
         getBinding().rclContent.setVisibility(View.INVISIBLE);
         getBinding().shimmerMain.setVisibility(View.VISIBLE);
@@ -156,22 +156,29 @@ public class ListNearByFragment extends BaseFragment<F3FragmentNearExperienceSma
                 mActivity.onBackPressed();
             }
         });
-        new Handler().postDelayed(new Runnable() {
+        subNearbyExperienceInSmallLocationDetailAdapter = new SubNearbyExperienceInSmallLocationDetailAdapter(travelList, mActivity, new SubNearbyExperienceInSmallLocationDetailAdapter.ClickItem() {
             @Override
-            public void run() {
-                getBinding().rclContent.setVisibility(View.VISIBLE);
-                getBinding().shimmerMain.setVisibility(View.GONE);
-                subNearbyExperienceInSmallLocationDetailAdapter = new SubNearbyExperienceInSmallLocationDetailAdapter(items, mActivity, new SubNearbyExperienceInSmallLocationDetailAdapter.ClickItem() {
-                    @Override
-                    public void onClickItem(com.namviet.vtvtravel.model.f2smalllocation.Travel travel) {
+            public void onClickItem(com.namviet.vtvtravel.model.f2smalllocation.Travel travel) {
 
-                    }
-                });
-
-                getBinding().rclContent.setAdapter(subNearbyExperienceInSmallLocationDetailAdapter);
             }
-        },2000);
+        });
 
+        getBinding().rclContent.setAdapter(subNearbyExperienceInSmallLocationDetailAdapter);
+        getBinding().rclContent.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                if (!recyclerView.canScrollVertically(1)) {
+                    viewModel.getSmallLocation(loadMoreLink, true);
+                    loadMoreLink = "";
+                }
+            }
+        });
+    }
+    private void stopLoading(){
+        getBinding().rclContent.setVisibility(View.VISIBLE);
+        getBinding().shimmerMain.setVisibility(View.GONE);
     }
 
     @Override
@@ -195,30 +202,33 @@ public class ListNearByFragment extends BaseFragment<F3FragmentNearExperienceSma
 
     }
 
-    private DetailSmallLocationResponse response;
-
+    private SmallLocationResponse response;
+    private String loadMoreLink;
+    private List<Travel> travelList = new ArrayList<>();
     @Override
     public void update(Observable observable, Object o) {
         getBinding().shimmerMain.setVisibility(View.GONE);
-        if (observable instanceof DetailSmallLocationViewModel && null != o) {
-            if (o instanceof DetailSmallLocationResponse) {
+        if (observable instanceof SmallLocationViewModel && null != o) {
+            if (o instanceof SmallLocationResponse) {
                 try {
-                    response = (DetailSmallLocationResponse) o;
+                    response = (SmallLocationResponse) o;
                     getBinding().rclContent.setVisibility(View.VISIBLE);
-                    subNearbyExperienceInSmallLocationDetailAdapter = new SubNearbyExperienceInSmallLocationDetailAdapter(items, mActivity, new SubNearbyExperienceInSmallLocationDetailAdapter.ClickItem() {
-                        @Override
-                        public void onClickItem(com.namviet.vtvtravel.model.f2smalllocation.Travel travel) {
-
-                        }
-                    });
-
-                    getBinding().rclContent.setAdapter(subNearbyExperienceInSmallLocationDetailAdapter);
+                    loadMoreLink = response.getData().getMore_link();
+                    if (response.isLoadMore()) {
+                        travelList.addAll(response.getData().getItems());
+                    } else {
+                        travelList.clear();
+                        travelList.addAll(response.getData().getItems());
+                    }
+                    subNearbyExperienceInSmallLocationDetailAdapter.notifyDataSetChanged();
+                    stopLoading();
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
             } else if (o instanceof ErrorResponse) {
+                stopLoading();
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
@@ -228,16 +238,10 @@ public class ListNearByFragment extends BaseFragment<F3FragmentNearExperienceSma
             }
         }
     }
-    private void loadData() {
+    private void loadData(int i) {
         getBinding().shimmerMain.setVisibility(View.VISIBLE);
         getBinding().rclContent.setVisibility(View.INVISIBLE);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getBinding().shimmerMain.setVisibility(View.GONE);
-                getBinding().rclContent.setVisibility(View.VISIBLE);
-            }
-        },2000);
+        viewModel.getSmallLocation(items.get(i).getLink(),false);
     }
     public void setOnSelectView(TabLayout tabLayout, int position) {
         TabLayout.Tab tab = tabLayout.getTabAt(position);

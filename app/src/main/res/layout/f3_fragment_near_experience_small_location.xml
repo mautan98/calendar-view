@@ -6,7 +6,7 @@
 
         <variable
             name="detailSmallLocationViewModel"
-            type="com.namviet.vtvtravel.viewmodel.f2smalllocation.DetailSmallLocationViewModel" />
+            type="com.namviet.vtvtravel.viewmodel.f2smalllocation.SmallLocationViewModel" />
     </data>
 
     <RelativeLayout

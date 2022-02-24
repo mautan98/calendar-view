@@ -708,7 +708,7 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
             tvViewMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    NearByExperienceActivity.startScreenDetail(context,NearByExperienceActivity.OpenType.LIST,items.get(position).getItems());
+                    NearByExperienceActivity.startScreenDetail(context,NearByExperienceActivity.OpenType.LIST,items.get(position).getMenu());
                 }
             });
             this.position = position;

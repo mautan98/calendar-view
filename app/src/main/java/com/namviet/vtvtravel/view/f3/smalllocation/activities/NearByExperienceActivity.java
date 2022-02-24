@@ -11,6 +11,7 @@ import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.model.travelnews.Travel;
+import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
 import com.namviet.vtvtravel.view.f3.smalllocation.view.fragment.SmallLocationMainPageFragment;
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.DetailSmallLocationFragment;
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.ListNearByFragment;
@@ -22,7 +23,7 @@ import java.util.List;
 public class NearByExperienceActivity extends BaseActivityNew<F2ActivityBigLocationBinding> {
     private String linkToLoadSmallLocation;
     private int screenType;
-    private  List<com.namviet.vtvtravel.model.f2smalllocation.Travel> items ;
+    private  List<DetailSmallLocationResponse.Data.Menu> items ;
     public class OpenType {
         public static final int LIST = 0;
     }
@@ -43,7 +44,7 @@ public class NearByExperienceActivity extends BaseActivityNew<F2ActivityBigLocat
         if (screenType == OpenType.LIST) {
            // linkToLoadSmallLocation = getIntent().getStringExtra(Constants.IntentKey.LINK);
             Bundle bundle = getIntent().getBundleExtra(Constants.IntentKey.DATA);
-            items = (List<com.namviet.vtvtravel.model.f2smalllocation.Travel>) bundle.getSerializable("bundle");
+            items = (List<DetailSmallLocationResponse.Data.Menu>) bundle.getSerializable("bundle");
         }
     }
 
@@ -80,7 +81,7 @@ public class NearByExperienceActivity extends BaseActivityNew<F2ActivityBigLocat
         intent.putExtra(Constants.IntentKey.DATA, detailLink);
         activity.startActivity(intent);
     }
-    public static void startScreenDetail(Context activity, int screenType, List<Travel> items ) {
+    public static void startScreenDetail(Context activity, int screenType, List<DetailSmallLocationResponse.Data.Menu> items ) {
         Intent intent = new Intent(activity, NearByExperienceActivity.class);
         intent.putExtra(Constants.IntentKey.SCREEN_TYPE, screenType);
         Bundle bundle = new Bundle();
