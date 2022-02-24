@@ -71,11 +71,15 @@
                         android:layout_height="match_parent">
 
                         <RelativeLayout
+                            android:id="@+id/layoutRegion"
                             android:layout_width="91dp"
                             android:layout_height="match_parent"
                             android:background="@drawable/bg_left_search_small_location">
 
                             <TextView
+                                android:ellipsize="end"
+                                android:singleLine="true"
+                                android:id="@+id/tvRegionName"
                                 android:layout_width="50dp"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
@@ -87,6 +91,7 @@
 
 
                             <ImageView
+
                                 android:layout_width="11dp"
                                 android:layout_height="7dp"
                                 android:layout_alignParentEnd="true"
@@ -96,7 +101,7 @@
 
                         </RelativeLayout>
 
-                        <EditText
+                        <TextView
                             android:gravity="center_vertical"
                             android:id="@+id/edtSearch"
                             android:layout_width="match_parent"
