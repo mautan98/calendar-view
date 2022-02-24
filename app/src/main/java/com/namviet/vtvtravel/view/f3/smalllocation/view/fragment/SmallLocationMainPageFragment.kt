@@ -25,8 +25,10 @@ import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
 import com.namviet.vtvtravel.view.f3.model.ClickHideMapView
 import com.namviet.vtvtravel.view.f3.model.HideMapView
 import com.namviet.vtvtravel.view.f3.model.ShowMapView
+import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionFragment
 import com.namviet.vtvtravel.view.f3.smalllocation.viewmodel.SmallLocationMainViewModel
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionMainFragment
+import com.namviet.vtvtravel.view.fragment.f2search.ResultSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.SearchResultFragment
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.SmallLocationFragment
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
@@ -38,6 +40,7 @@ import kotlinx.android.synthetic.main.f2_fragment_main_page_small_location.layou
 import kotlinx.android.synthetic.main.f2_fragment_main_page_small_location.rclSearchSuggestion
 import kotlinx.android.synthetic.main.f2_fragment_main_page_small_location.tabLayout
 import kotlinx.android.synthetic.main.f2_fragment_main_page_small_location.vpContent
+import kotlinx.android.synthetic.main.f2_fragment_search.*
 import kotlinx.android.synthetic.main.f2_layout_keyword.*
 import kotlinx.android.synthetic.main.f2_layout_keyword.view.*
 import org.greenrobot.eventbus.EventBus
@@ -47,7 +50,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeService<*>.Item>? = null, private var position : Int) : BaseFragment<F2FragmentMainPageSmallLocationBinding?>(), Observer {
+class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeService<*>.Item>? = null, private var position : Int) : BaseFragment<F2FragmentMainPageSmallLocationBinding?>(), Observer, SearchSuggestionSmallLocationFragment.SearchSuggestionCallback {
     private var mainAdapter : MainAdapter? = null
     private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
     private var searchSuggestions: ArrayList<SearchSuggestionResponse.Data.Item>? = ArrayList()
@@ -139,11 +142,11 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
             override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
                 try {
                     edtSearch.setText(searchKeywordSuggestion?.title)
-//                    addRecentSearch(edtKeyword.text.toString())
+//                    addRecentSearch(edtSearch.text.toString())
 //                    recentAdapter?.setData(getRecentSearch())
                     addFragment(SearchResultFragment("http://api.vtvtravel.vn/nearby?content_type=","APP_WHERE_GO",""))
                     KeyboardUtils.hideKeyboard(mActivity, edtSearch)
-                    //edtKeyword.clearFocus()
+                    //edtSearch.clearFocus()
                 } catch (e: Exception) {
                 }
             }
@@ -170,13 +173,13 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
 //                        storeManager.setStringValue(Constants.IntentKey.RECENT_SEARCH_SMALLOCATION, edtSearch.text.toString())
 //                        Log.e("hihihihi", storeManager.getStringValue(Constants.IntentKey.RECENT_SEARCH_SMALLOCATION))
 
-//                        searchViewModel.getSearchSuggestion(edtKeyword.text.toString(), regionId)
+//                        searchViewModel.getSearchSuggestion(edtSearch.text.toString(), regionId)
                         searchViewModel.getSearchSuggestion(edtSearch.text.toString(), "")
                         layoutKeyword.tvSearchFollow.text = "Tìm kiếm theo \""+ edtSearch.text.toString()+"\"";
                         setHighLightedText(layoutKeyword.tvSearchFollow, "\""+ edtSearch.text.toString()+"\"")
 
 //                        try {
-//                            TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtKeyword.text.toString()).setScreen_class(this.javaClass.name))
+//                            TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtSearch.text.toString()).setScreen_class(this.javaClass.name))
 //                        } catch (e: Exception) {
 //                            e.printStackTrace()
 //                        }
@@ -213,6 +216,9 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
         }
 
 
+        edtSearch.setOnClickListener {
+            addFragment(SearchSuggestionSmallLocationFragment( edtSearch.text.toString(), location, locationsMain, false, this))
+        }
 
     }
     override fun setObserver() {}
@@ -260,6 +266,49 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
         val iHighLightText  = SearchHighLightText()
         val highLightController =  HighLightController(iHighLightText)
         highLightController.highLight(mActivity, tv, textToHighlight)
+    }
+
+    override fun onClickSuggestion(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?, mLocation: Location?) {
+        handleLocation(mLocation)
+//        edtSearch.text = searchKeywordSuggestion?.title
+        if(searchKeywordSuggestion?.type.equals("category")){
+
+        }else{
+            edtSearch.text = searchKeywordSuggestion?.title
+        }
+        addFragment(SearchResultFragment())
+        KeyboardUtils.hideKeyboard(mActivity, edtSearch)
+    }
+
+    override fun onCancelSearch(location: Location?, keyword: String?) {
+        handleLocation(location)
+        edtSearch.text = keyword
+    }
+
+    override fun onClickRegion(location: Location?, keyword: String?) {
+        goToSearchResult(location, keyword)
+    }
+
+    override fun onClickLayoutKeyword(location: Location?, keyword: String?) {
+        goToSearchResult(location, keyword)
+    }
+
+
+    private fun goToSearchResult(location: Location?, keyword: String?){
+        handleLocation(location)
+        edtSearch.text = keyword
+        addFragment(SearchResultFragment())
+        KeyboardUtils.hideKeyboard(mActivity, edtSearch)
+    }
+
+
+    private fun handleLocation(location: Location?){
+        this.location = location
+        if(location != null) {
+            tvRegionName.text = location.name
+        }else {
+            tvRegionName.text = "Tất cả"
+        }
     }
 
 

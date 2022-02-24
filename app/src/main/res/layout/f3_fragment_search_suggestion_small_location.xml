@@ -4,6 +4,11 @@
 
     <data>
 
+        <variable
+            name="FloorViewModel"
+            type="com.namviet.vtvtravel.view.f3.floor.viewmodel.FloorViewModel" />
+
+
     </data>
 
 
@@ -16,10 +21,10 @@
         android:focusable="true">
 
         <LinearLayout
+            android:paddingTop="26dp"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="81dp"
             android:background="@color/white">
-
 
 
 
@@ -45,6 +50,35 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical">
 
+                    <RelativeLayout
+                        android:id="@+id/layoutRegion"
+                        android:layout_width="91dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_left_search_small_location">
+
+                        <TextView
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:id="@+id/tvRegion"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="14dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="Tất cả"
+                            android:textColor="@color/md_black_1000"
+                            android:textSize="14dp" />
+
+
+                        <ImageView
+                            android:layout_width="11dp"
+                            android:layout_height="7dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="11dp"
+                            android:src="@drawable/f2_ic_down_small" />
+
+                    </RelativeLayout>
 
                     <EditText
                         android:layout_weight="1"
@@ -53,7 +87,7 @@
                         android:id="@+id/edtSearch"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="17dp"
+                        android:layout_marginStart="10dp"
                         android:background="#f6f6f6"
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center_vertical"
@@ -79,7 +113,6 @@
             </RelativeLayout>
 
             <TextView
-                android:textColor="@color/black"
                 android:id="@+id/tvCancelSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
