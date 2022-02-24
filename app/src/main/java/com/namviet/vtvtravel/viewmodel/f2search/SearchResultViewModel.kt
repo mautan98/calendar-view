@@ -158,6 +158,47 @@ class SearchResultViewModel : BaseViewModel() {
         compositeDisposable.add(disposable)
     }
 
+
+
+    fun searchAllImage(path: String?, keyword: String?, regionId: String?, type:String?, categoryCode : String?) {
+        val myApplication = MyApplication.getInstance()
+        val newsService = myApplication.travelService
+        val queryMap = Param.getDefault()
+        val disposable = newsService.searchAllImage(path, queryMap,  keyword, regionId, categoryCode)
+            .subscribeOn(myApplication.subscribeScheduler())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                    videoResponse ->
+                videoResponse?.let {
+                    requestSuccess(it)
+                }
+            })
+            { throwable ->
+                requestFailed(throwable!!)
+            }
+        compositeDisposable.add(disposable)
+    }
+
+    fun searchAllImageWithFullLink(link:String?, type: String?) {
+        val myApplication = MyApplication.getInstance()
+        val newsService = myApplication.travelService
+        val queryMap = Param.getDefault()
+        val disposable = newsService.searchAllImageWithFullLink( link, queryMap)
+            .subscribeOn(myApplication.subscribeScheduler())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ videoResponse ->
+                videoResponse?.let {
+                    requestSuccess(it)
+                }
+            })
+            { throwable ->
+                requestFailed(throwable!!)
+            }
+        compositeDisposable.add(disposable)
+    }
+
+
+
     private fun requestSuccess(param: Any?) {
         setChanged()
         notifyObservers(param)

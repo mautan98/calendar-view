@@ -27,7 +27,7 @@ public class SubTravelNewsFragment extends BaseFragment<F2FragmentSubTravelNewsB
     private SubTravelNewsAdapter subTravelNewsAdapter;
     private String contentLink;
     private int position;
-    private List<Travel> travels = new ArrayList<>();
+    private ArrayList<Travel> travels = new ArrayList<>();
     private String loadMoreLink;
     private StaggeredGridLayoutManager linearLayoutManager;
 

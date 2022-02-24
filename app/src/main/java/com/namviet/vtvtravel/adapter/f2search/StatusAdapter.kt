@@ -17,7 +17,7 @@ import com.namviet.vtvtravel.response.newhome.AppVoucherResponse
 import com.namviet.vtvtravel.viewmodel.newhome.ChangeRegionDialog
 import kotlinx.android.synthetic.main.f3_item_sort_in_search.view.*
 
-class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
+class StatusAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private val TYPE_ITEM = 0
     private var context: Context? = null
     private var items: List<SortHeader>? = null
@@ -119,19 +119,9 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     items!![position].label = items!![position].name
                     for (i in items!!.indices) {
                         if (items!![position].children[i].isSelected) {
+                            items!![position].label = items!![position].children[i].name
                             return true
                         }
-                    }
-                }
-                3 -> {
-                    items!![position].label = "Trạng thái"
-                    if (items!![position].content.isOpen != null) {
-                        if(items!![position].content.isOpen){
-                            items!![position].label = "Đang mở"
-                        }else{
-                            items!![position].label = "Đang đóng"
-                        }
-                        return true
                     }
                 }
             }
@@ -140,10 +130,7 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         fun ImageView.setTint(@ColorRes colorRes: Int) {
-            ImageViewCompat.setImageTintList(
-                this,
-                ColorStateList.valueOf(ContextCompat.getColor(context, colorRes))
-            )
+            ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(ContextCompat.getColor(context, colorRes)))
         }
 
     }

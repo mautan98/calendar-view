@@ -1,5 +1,6 @@
 package com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort
 
+import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.namviet.vtvtravel.R
@@ -7,6 +8,7 @@ import com.namviet.vtvtravel.adapter.f2search.SortParamAdapter
 import com.namviet.vtvtravel.databinding.F3FragmentSortFollowBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.model.f2search.Children
+import com.namviet.vtvtravel.view.MainActivity
 import kotlinx.android.synthetic.main.f3_fragment_sort_follow.*
 
 
@@ -14,13 +16,23 @@ class SortFollowFragment : BaseFragment<F3FragmentSortFollowBinding?>() {
     private var listChild : ArrayList<Children>? = null
     private var sortParamAdapter: SortParamAdapter? = null
     private var listener: Listener? = null
+
+    private var mContext : Context? = null
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
+    }
+
     override fun getLayoutRes(): Int {
         return R.layout.f3_fragment_sort_follow
     }
 
-    override fun initView() {}
+    override fun initView() {
+    }
     override fun initData() {
-        sortParamAdapter = SortParamAdapter(mActivity, listChild, null);
+        sortParamAdapter = SortParamAdapter(mContext, listChild, null);
         binding!!.rclSortParam.adapter = sortParamAdapter
     }
     override fun inject() {}

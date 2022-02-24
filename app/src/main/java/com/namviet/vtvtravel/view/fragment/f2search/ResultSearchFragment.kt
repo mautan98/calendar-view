@@ -36,6 +36,7 @@ import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultVideosSea
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.SlideMenuSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.DropDownCategoryFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.DropDownLocationFragment
+import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.DropDownStatusFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.SortFollowFragment
 import com.namviet.vtvtravel.viewmodel.f2search.SearchResultViewModel
 import kotlinx.android.synthetic.main.f2_fragment_result_search.*
@@ -106,6 +107,22 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     }
 
+    private fun createFragment(){
+        slideMenuSearchFragment = SlideMenuSearchFragment();
+        slideMenuSearchFragment?.setData(sortAndFilter, object : SlideMenuSearchFragment.Listener{
+            override fun onApply(sortAndFilter : SortAndFilter?) {
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[2].children.clear()
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[2].children.addAll(sortAndFilter!!.sortHeader[2].children)
+                categorySortedAdapter!!.notifyDataSetChanged()
+                binding!!.drawerLayout.closeDrawer(GravityCompat.END)
+            }
+
+        })
+
+
+        fragmentManager!!.beginTransaction().replace(R.id.chooseRegionFrame, slideMenuSearchFragment!!).commit()
+    }
+
     override fun inject() {
 
     }
@@ -141,6 +158,10 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                 this@ResultSearchFragment.sortAndFilter!!.sortHeader[2].children.clear()
                 this@ResultSearchFragment.sortAndFilter!!.sortHeader[2].children.addAll(sortAndFilter!!.sortHeader[2].children)
                 categorySortedAdapter!!.notifyDataSetChanged()
+
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[3].content.isOpen = sortAndFilter.sortHeader[3].content.isOpen
+
+                sortAdapter?.notifyDataSetChanged()
                 binding!!.drawerLayout.closeDrawer(GravityCompat.END)
             }
 
@@ -202,6 +223,20 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                             })
                             fragmentManager!!.beginTransaction()
                                 .replace(R.id.sortFrame, dropDownCategoryFragment).commit()
+                        }
+
+                        3 -> {
+                            var dropDownStatusFragment = DropDownStatusFragment()
+                            dropDownStatusFragment.setData(sortAndFilter!!.sortHeader[3].content.isOpen, object : DropDownStatusFragment.Listener{
+                                override fun onApply(isOpen : Boolean?) {
+                                    sortAndFilter!!.sortHeader[3].content.isOpen = isOpen
+                                    hideMenuAnim()
+                                    sortAdapter?.notifyDataSetChanged()
+                                }
+
+                            })
+                            fragmentManager!!.beginTransaction()
+                                .replace(R.id.sortFrame, dropDownStatusFragment).commit()
                         }
 
                     }
@@ -368,6 +403,18 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             } catch (e: Exception) {
             }
         }
+    }
+
+    public fun searchWithLink(link: String?, type: String?) {
+        searchViewModel?.searchAllWithFullLink(link, type)
+    }
+
+    public fun searchVideo(type: String?) {
+        searchViewModel?.searchAllVideo(type, keyword, regionId, type, categoryId)
+    }
+
+    public fun searchVideoWithLink(link: String?, type: String?) {
+        searchViewModel?.searchAllVideoWithFullLink(link, type)
     }
 
     private val onTabSelectedListener: TabLayout.OnTabSelectedListener =
