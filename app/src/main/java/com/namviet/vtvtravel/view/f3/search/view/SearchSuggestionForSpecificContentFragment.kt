@@ -24,6 +24,7 @@ import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
 import com.namviet.vtvtravel.view.f3.search.viewmodel.SearchSuggestionViewModel
 import com.namviet.vtvtravel.view.fragment.f2travelnote.ResultSearchNewsActivity
 import com.namviet.vtvtravel.view.fragment.f2video.ResultSearchVideoActivity
+import com.namviet.vtvtravel.view.fragment.imagepart.ResultSearchImagesActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.sentry.event.EventBuilder
 import kotlinx.android.synthetic.main.f2_layout_keyword.*
@@ -77,6 +78,17 @@ class SearchSuggestionForSpecificContentFragment(
                             SearchSuggestionForSpecificContentActivity.Type.NEWS -> {
                                 if (!isFromResultPage) {
                                     ResultSearchNewsActivity.openScreen(mActivity, searchKeywordSuggestion?.title, null, searchKeywordSuggestion)
+                                    mActivity.finish()
+                                } else {
+                                    EventBus.getDefault().post(Done(searchKeywordSuggestion?.title, contentType, searchKeywordSuggestion))
+                                    mActivity.finish()
+                                }
+                            }
+
+
+                            SearchSuggestionForSpecificContentActivity.Type.IMAGE -> {
+                                if (!isFromResultPage) {
+                                    ResultSearchImagesActivity.openScreen(mActivity, searchKeywordSuggestion?.title, null, searchKeywordSuggestion)
                                     mActivity.finish()
                                 } else {
                                     EventBus.getDefault().post(Done(searchKeywordSuggestion?.title, contentType, searchKeywordSuggestion))
@@ -166,6 +178,10 @@ class SearchSuggestionForSpecificContentFragment(
 
                         SearchSuggestionForSpecificContentActivity.Type.NEWS -> {
                             ResultSearchNewsActivity.openScreen(mActivity, edtSearch.text.toString(), null, null)
+                        }
+
+                        SearchSuggestionForSpecificContentActivity.Type.IMAGE -> {
+                            ResultSearchImagesActivity.openScreen(mActivity, edtSearch.text.toString(), null, null)
                         }
                     }
                     mActivity.finish()

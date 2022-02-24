@@ -54,11 +54,12 @@
                     android:textSize="18dp" />
 
                 <LinearLayout
+                    android:id="@+id/btnSearch"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:gravity="center"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <ImageView
                         android:layout_width="21dp"
@@ -77,6 +78,7 @@
                 android:layout_marginTop="50dp">
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:visibility="gone"
                     android:id="@+id/rclSort"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

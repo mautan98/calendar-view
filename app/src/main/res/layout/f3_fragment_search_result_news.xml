@@ -144,9 +144,8 @@
                     android:layout_marginTop="10dp"
                     android:layout_below="@+id/layoutCount"
                     android:paddingBottom="50dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:clipToPadding="false"
-                    app:spanCount="2"
-                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"                    android:id="@+id/rclContent"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 
