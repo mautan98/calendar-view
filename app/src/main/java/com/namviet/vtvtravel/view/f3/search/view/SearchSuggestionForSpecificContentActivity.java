@@ -15,7 +15,7 @@ public class SearchSuggestionForSpecificContentActivity extends BaseActivityNew<
     public static class Type{
         public static String VIDEO = "videos";
         public static String NEWS = "news";
-        public static String IMAGE = "news";
+        public static String IMAGE = "newss";
     }
     private String keyword;
     private String type;

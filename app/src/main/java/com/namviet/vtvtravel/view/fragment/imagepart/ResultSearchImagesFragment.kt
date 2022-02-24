@@ -34,7 +34,7 @@ import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.Sor
 import com.namviet.vtvtravel.view.fragment.f2video.DropDownLocationInVideoFragment
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import com.namviet.vtvtravel.viewmodel.f2search.SearchResultViewModel
-import kotlinx.android.synthetic.main.f3_fragment_search_result_video.*
+import kotlinx.android.synthetic.main.f3_fragment_search_result_images.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.util.*
@@ -162,11 +162,11 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultImagesBind
     }
 
     public fun searchAll(type: String?) {
-        searchViewModel?.searchAllImage(type, keyword, regionId, type, categoryId)
+        searchViewModel?.searchAllImage("news", keyword, regionId, type, categoryId)
     }
 
     public fun searchAllWithLink(link: String?, type: String?) {
-        searchViewModel?.searchAllImageWithFullLink(link, type)
+        searchViewModel?.searchAllImageWithFullLink(link, "news")
     }
 
 
