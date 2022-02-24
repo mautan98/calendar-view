@@ -27,6 +27,7 @@ public class ItemImagePartResponse extends BaseResponse {
         private String page;
         private String hasMore;
         private String more_link;
+        public boolean approximately;
         private List<ItemImagePartResponse.Data.Item> items;
 
         public String getName() {

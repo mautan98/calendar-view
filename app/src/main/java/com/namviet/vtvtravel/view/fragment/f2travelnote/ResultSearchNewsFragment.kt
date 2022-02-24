@@ -137,10 +137,10 @@ class ResultSearchNewsFragment : BaseFragment<F3FragmentSearchResultNewsBinding?
 //                        this.moreLink = moreLink
                         subTravelNewsAdapter?.notifyDataSetChanged()
                         if(!o.data.approximately) {
-                            tvCountResult.text = "Có ${o.data.items.size} kết quả tìm kiếm video khớp với \"$keyword\""
+                            tvCountResult.text = "Có ${o.data.items.size} kết quả tìm kiếm tin tức khớp với \"$keyword\""
                             setHighLightedText(tvCountResult, "\"$keyword\"")
                         }else{
-                            tvCountResult.text = "Có ${o.data.items.size} kết quả tìm kiếm video gần đúng khớp với \"$keyword\""
+                            tvCountResult.text = "Có ${o.data.items.size} kết quả tìm kiếm tin tức gần đúng khớp với \"$keyword\""
                             setHighLightedText(tvCountResult, "\"$keyword\"")
                         }
 

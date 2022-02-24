@@ -12,20 +12,17 @@ import com.google.gson.Gson
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.adapter.f2search.CategorySortedAdapter
 import com.namviet.vtvtravel.adapter.f2video.SortVideoAdapter
-import com.namviet.vtvtravel.adapter.f2video.SubVideoAdapter
-import com.namviet.vtvtravel.adapter.travelnews.SubTravelNewsAdapter
+import com.namviet.vtvtravel.adapter.imagepart.HighLightestImagesAdapter
+import com.namviet.vtvtravel.databinding.F3FragmentSearchResultImagesBinding
 import com.namviet.vtvtravel.databinding.F3FragmentSearchResultNewsBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
-import com.namviet.vtvtravel.model.Video
 import com.namviet.vtvtravel.model.f2search.Children
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
 import com.namviet.vtvtravel.model.travelnews.Location
-import com.namviet.vtvtravel.model.travelnews.Travel
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse
-import com.namviet.vtvtravel.response.f2searchmain.result.ResultSearch
-import com.namviet.vtvtravel.response.f2searchmain.result.ResultVideoSearch
 import com.namviet.vtvtravel.response.f2searchmain.result.SearchType
+import com.namviet.vtvtravel.response.imagepart.ItemImagePartResponse
 import com.namviet.vtvtravel.ultils.F2Util
 import com.namviet.vtvtravel.ultils.highlight.HighLightController
 import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
@@ -42,7 +39,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.util.*
 
-class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultNewsBinding?>(), Observer {
+class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultImagesBinding?>(), Observer {
 
     private var sortVideoAdapter: SortVideoAdapter? = null
     private var sortAndFilter: SortAndFilter? = null
@@ -55,8 +52,8 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultNewsBindin
     private var regionId: String? = null
     private var categoryId: String? = null
 
-    private var subTravelNewsAdapter: SubTravelNewsAdapter? = null
-    private var travels: ArrayList<Travel>? = ArrayList();
+    private var highLightestImagesAdapter: HighLightestImagesAdapter? = null
+    private val travels: MutableList<ItemImagePartResponse.Data.Item> = ArrayList()
     private var categorySortedAdapter: CategorySortedAdapter? = null
 
 
@@ -68,7 +65,7 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultNewsBindin
 
 
     override fun getLayoutRes(): Int {
-        return R.layout.f3_fragment_search_result_news
+        return R.layout.f3_fragment_search_result_images
     }
 
     override fun initView() {
@@ -83,11 +80,11 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultNewsBindin
         filterData
         initSlideMenu()
 
-        subTravelNewsAdapter = SubTravelNewsAdapter(mActivity, travels, null)
-        rclContent.adapter = subTravelNewsAdapter
+        highLightestImagesAdapter = HighLightestImagesAdapter(travels, mActivity, null)
+        rclContent.adapter = highLightestImagesAdapter
 
 
-        searchAll(SearchType.NEWS)
+        searchAll(SearchType.IMAGE)
 
 
     }
@@ -124,7 +121,7 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultNewsBindin
         } else if (observable is SearchResultViewModel && null != o) {
             try {
                 when (o) {
-                    is ResultSearch -> {
+                    is ItemImagePartResponse -> {
 //                        resultVideosSearchFragment?.setList(
 //                            o.data.items as ArrayList<Video>?,
 //                            o.data.more_link,
@@ -135,12 +132,12 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultNewsBindin
 
                         travels?.let { this.travels?.addAll(o.data.items) }
 //                        this.moreLink = moreLink
-                        subTravelNewsAdapter?.notifyDataSetChanged()
+                        highLightestImagesAdapter?.notifyDataSetChanged()
                         if(!o.data.approximately) {
-                            tvCountResult.text = "Có ${o.data.items.size} kết quả tìm kiếm video khớp với \"$keyword\""
+                            tvCountResult.text = "Có ${o.data.items.size} kết quả tìm kiếm góc ảnh khớp với \"$keyword\""
                             setHighLightedText(tvCountResult, "\"$keyword\"")
                         }else{
-                            tvCountResult.text = "Có ${o.data.items.size} kết quả tìm kiếm video gần đúng khớp với \"$keyword\""
+                            tvCountResult.text = "Có ${o.data.items.size} kết quả tìm kiếm góc ảnh gần đúng khớp với \"$keyword\""
                             setHighLightedText(tvCountResult, "\"$keyword\"")
                         }
 
@@ -165,11 +162,11 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultNewsBindin
     }
 
     public fun searchAll(type: String?) {
-        searchViewModel?.searchAll(type, keyword, regionId, type, categoryId)
+        searchViewModel?.searchAllImage(type, keyword, regionId, type, categoryId)
     }
 
     public fun searchAllWithLink(link: String?, type: String?) {
-        searchViewModel?.searchAllWithFullLink(link, type)
+        searchViewModel?.searchAllImageWithFullLink(link, type)
     }
 
 
@@ -334,7 +331,7 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultNewsBindin
             keyword = onDone.keyword
             categoryId = if (onDone.searchKeywordSuggestion == null)  null else onDone!!.searchKeywordSuggestion!!.categoryCode
             edtSearch.text = keyword
-            searchAll(SearchType.NEWS)
+            searchAll(SearchType.IMAGE)
         }
     }
 

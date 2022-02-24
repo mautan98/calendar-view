@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-    </data>
+    <data></data>
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
@@ -25,14 +24,14 @@
 
                 <LinearLayout
                     android:id="@+id/btnBack"
-                    android:gravity="center"
                     android:layout_width="50dp"
-                    android:layout_height="50dp">
+                    android:layout_height="50dp"
+                    android:gravity="center">
 
                     <ImageView
-                        android:src="@drawable/f2_ic_back"
                         android:layout_width="11dp"
                         android:layout_height="19dp"
+                        android:src="@drawable/f2_ic_back"
                         app:tint="@color/black" />
 
 
@@ -62,17 +61,17 @@
 
 
                         <TextView
-                            android:layout_weight="1"
-                            android:imeActionLabel="Tìm kiếm"
-                            android:imeOptions="actionSearch"
                             android:id="@+id/edtSearch"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginStart="17dp"
+                            android:layout_weight="1"
                             android:background="#f6f6f6"
                             android:fontFamily="@font/roboto_regular"
                             android:gravity="center_vertical"
                             android:hint="Bạn muốn tìm gì?"
+                            android:imeActionLabel="Tìm kiếm"
+                            android:imeOptions="actionSearch"
                             android:singleLine="true"
                             android:textSize="14dp" />
 
@@ -112,10 +111,10 @@
                     tools:listitem="@layout/f3_item_sort_in_search" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:layout_below="@+id/rclSort"
                     android:id="@+id/rclCategorySorted"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/rclSort"
                     android:layout_marginTop="8dp"
                     android:orientation="horizontal"
                     android:paddingStart="12dp"
@@ -125,9 +124,9 @@
 
                 <LinearLayout
                     android:id="@+id/layoutCount"
-                    android:layout_below="@id/rclCategorySorted"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:layout_below="@id/rclCategorySorted"
                     android:layout_marginStart="12dp"
                     android:gravity="center_vertical">
 
@@ -141,14 +140,13 @@
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:layout_marginTop="10dp"
-                    android:layout_below="@+id/layoutCount"
-                    android:paddingBottom="50dp"
-                    android:clipToPadding="false"
-                    app:spanCount="2"
-                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"                    android:id="@+id/rclContent"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/layoutCount"
+                    android:layout_marginTop="10dp"
+                    android:clipToPadding="false"
+                    android:paddingBottom="50dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
                 <RelativeLayout
@@ -298,7 +296,6 @@
         </LinearLayout>
 
 
-
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/layoutFilter"
             android:layout_width="match_parent"
@@ -308,10 +305,10 @@
 
 
             <RelativeLayout
-                android:paddingBottom="55dp"
-                android:paddingTop="24dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingTop="24dp"
+                android:paddingBottom="55dp">
 
                 <FrameLayout
                     android:id="@+id/chooseRegionFrame"
