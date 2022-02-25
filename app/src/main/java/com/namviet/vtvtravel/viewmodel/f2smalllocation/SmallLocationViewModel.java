@@ -5,6 +5,7 @@ import com.namviet.vtvtravel.api.Param;
 import com.namviet.vtvtravel.api.TravelService;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByCodeResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SmallLocationResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SortSmallLocationResponse;
@@ -44,7 +45,29 @@ public class SmallLocationViewModel extends BaseViewModel {
 //        compositeDisposable.add(disposable);
 //    }
 
+    public void getAllLocation() {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelService();
+        Map<String, Object> queryMap = Param.getDefault();
+        Disposable disposable = newsService.getAllLocation(queryMap)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<AllLocationResponse>() {
+                    @Override
+                    public void accept(AllLocationResponse response) throws Exception {
+                        if (response != null) {
+                            requestSuccess(response);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable);
+                    }
+                });
 
+        compositeDisposable.add(disposable);
+    }
 
     public void getFilterByCode() {
         MyApplication myApplication = MyApplication.getInstance();

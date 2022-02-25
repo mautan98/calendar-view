@@ -11,8 +11,12 @@ import android.os.Handler;
 import android.test.mock.MockPackageManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -45,9 +49,11 @@ import com.namviet.vtvtravel.model.MyLocation;
 import com.namviet.vtvtravel.model.f2event.OnDoneFilterOption;
 import com.namviet.vtvtravel.model.f2smalllocation.Travel;
 import com.namviet.vtvtravel.model.travelnews.Location;
+import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse;
 import com.namviet.vtvtravel.response.f2filter.DistanceClass;
 import com.namviet.vtvtravel.response.f2filter.FilterByCodeResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByPageResponse;
+import com.namviet.vtvtravel.response.f2searchmain.SearchSuggestionResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SmallLocationResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SortSmallLocationResponse;
@@ -61,6 +67,7 @@ import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f3.model.ClickHideMapView;
 import com.namviet.vtvtravel.view.f3.model.HideMapView;
 import com.namviet.vtvtravel.view.f3.model.ShowMapView;
+import com.namviet.vtvtravel.view.f3.smalllocation.view.fragment.SearchSuggestionSmallLocationFragment;
 import com.namviet.vtvtravel.view.fragment.f2filter.SortDialog;
 import com.namviet.vtvtravel.view.fragment.nearbyexperience.SearchLocationFragment;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
@@ -75,14 +82,17 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBinding> implements Observer {
+public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBinding> implements Observer,SearchSuggestionSmallLocationFragment.SearchSuggestionCallback {
 
     String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final int REQUEST_CODE_PERMISSION = 2;
@@ -103,12 +113,17 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
 
     private Marker lastMarker;
     private Context context;
-
+    private String keyWordSearch;
+    private Location location;
+    private ArrayList<Location> locationsMain = new ArrayList<>();
+    private ArrayList<Location> locations = new ArrayList<>();
     @SuppressLint("ValidFragment")
-    public SearchResultFragment(String link, String code, String regionId) {
+    public SearchResultFragment(String link, String code, String regionId, String keyWordSearch,int positionTabSelected) {
         this.link = link;
         this.code = code;
         this.regionId = regionId;
+        this.keyWordSearch = keyWordSearch;
+        this.positionTabSelected = positionTabSelected;
     }
 
     public SearchResultFragment() {
@@ -137,6 +152,7 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
         viewModel = new SmallLocationViewModel();
         getBinding().setSmallLocationViewModel(viewModel);
         viewModel.addObserver(this);
+        viewModel.getAllLocation();
         getIconForMarker();
         getBinding().rclContent.setVisibility(View.INVISIBLE);
         getBinding().shimmerViewContainer.setVisibility(View.VISIBLE);
@@ -151,6 +167,52 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
         getBinding().rclContent.setVisibility(View.VISIBLE);
         getBinding().layoutButtonList.setVisibility(View.VISIBLE);
     }
+    private void showMenu()  {
+        // When user click on the Button 1, create a PopupMenu.
+        // And anchor Popup to the Button 2.
+        PopupMenu popup = new PopupMenu(mActivity, this.getBinding().btnChooseRegion);
+        popup.inflate(R.menu.layout_popup_menu);
+        Menu menu = popup.getMenu();
+        // com.android.internal.view.menu.MenuBuilder
+        // Register Menu Item Click event.
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                menuItemClicked(item);
+                handleType(item.getTitle().toString());
+                return true;
+            }
+        });
+
+        // Show the PopupMenu.
+        popup.show();
+    }
+    private void menuItemClicked(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuItem_where_go:
+                typeDestination = Constants.TypeDestination.PLACES;
+                positionTabSelected = 0;
+                break;
+            case R.id.menuItem_where_stay:
+                typeDestination = Constants.TypeDestination.HOTELS;
+                positionTabSelected = 1;
+                break;
+            case R.id.menuItem_what_eat:
+                typeDestination = Constants.TypeDestination.RESTAURANTS;
+                positionTabSelected = 2;
+                break;
+            case R.id.menuItem_what_play:
+                typeDestination = Constants.TypeDestination.CENTERS;
+                positionTabSelected = 3;
+                break;
+        }
+    }
+    private void handleType(String type){
+        getBinding().tvRegionName.setText(type);
+        clearRclData();
+        viewModel.getSmallLocation(genLinkToFilter(), false);
+    }
+
 
     @Override
     public void initData() {
@@ -195,22 +257,23 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
         switch (code) {
             case "APP_WHERE_GO":
                 typeDestination = Constants.TypeDestination.PLACES;
-                getBinding().edtSearch.setHint("Bạn muốn đi đâu");
+                getBinding().tvRegionName.setText("Đi đâu");
                 break;
             case "APP_WHAT_EAT":
                 typeDestination = Constants.TypeDestination.RESTAURANTS;
-                getBinding().edtSearch.setHint("Bạn muốn ăn gì");
+                getBinding().tvRegionName.setText("Ăn gì");
                 break;
             case "APP_WHAT_PLAY":
                 typeDestination = Constants.TypeDestination.CENTERS;
-                getBinding().edtSearch.setHint("Bạn muốn chơi gì");
+                getBinding().tvRegionName.setText("Chơi gì");
                 break;
             case "APP_WHERE_STAY":
                 typeDestination = Constants.TypeDestination.HOTELS;
-                getBinding().edtSearch.setHint("Bạn muốn ở đâu");
+                getBinding().tvRegionName.setText("Ở đâu");
                 break;
         }
-        viewModel.getSmallLocation(link + typeDestination + genLinkRegionId(), false);
+        viewModel.getSmallLocation(link + typeDestination + genLinkToSearch(), false);
+        Log.e("xxx", "initData: "+ link + typeDestination + genLinkToSearch());
         viewModel.getFilterByCode();
 
         viewModel.sortSmallLocation();
@@ -229,6 +292,12 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
         } catch (Exception e) {
             e.printStackTrace();
         }
+        getBinding().edtSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addFragment(new SearchSuggestionSmallLocationFragment( "", location, locationsMain, false, SearchResultFragment.this));
+            }
+        });
 
     }
 
@@ -273,14 +342,16 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
         getBinding().btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FilterActivity.startScreen(mActivity, filterByCodeResponse,0);
+                onPageSelected(positionTabSelected);
+                FilterActivity.startScreen(mActivity, filterByCodeResponse,positionTabSelected);
             }
         });
 
         getBinding().btnFilter2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FilterActivity.startScreen(mActivity, filterByCodeResponse,0);
+                onPageSelected(positionTabSelected);
+                FilterActivity.startScreen(mActivity, filterByCodeResponse,positionTabSelected);
             }
         });
 
@@ -338,19 +409,37 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
         getBinding().btnChooseRegion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addFragment(new SearchLocationFragment(new SearchLocationFragment.DoneSearch() {
-                    @Override
-                    public void onDoneSearch(Location location) {
-                        getBinding().tvRegionName.setText(location.getName());
-                        regionId = location.getId();
-                        clearRclData();
-                        viewModel.getSmallLocation(genLinkToFilter(), false);
-                    }
-                }));
+//                addFragment(new SearchLocationFragment(new SearchLocationFragment.DoneSearch() {
+//                    @Override
+//                    public void onDoneSearch(Location location) {
+//                        getBinding().tvRegionName.setText(location.getName());
+//                        regionId = location.getId();
+//                        clearRclData();
+//                        viewModel.getSmallLocation(genLinkToFilter(), false);
+//                    }
+//                }));
+                showMenu();
+            }
+        });
+        if(keyWordSearch != null && !keyWordSearch.equals("")){
+            getBinding().edtSearch.setText(keyWordSearch);
+        }
+        getBinding().imgClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getBinding().edtSearch.setText("Bạn muốn tìm gì?");
+                keyWordSearch = "";
             }
         });
     }
-
+    public void onPageSelected(int position) {
+        for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
+            if (position == i) {
+                filterByCodeResponse.getData().getItems().get(position).setSelected(true);
+                Log.e("", "");
+            } else filterByCodeResponse.getData().getItems().get(i).setSelected(false);
+        }
+    }
     private void clearRclData() {
         travelList.clear();
         smallLocationAdapter.notifyDataSetChanged();
@@ -390,7 +479,7 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
                     travelList.addAll(response.getData().getItems());
                 }
                 smallLocationAdapter.notifyDataSetChanged();
-                getBinding().tvRegionName.setText(response.getData().getNameRegion());
+//                getBinding().tvRegionName.setText(response.getData().getNameRegion());
 
                 try {
                     if (travelList == null || (travelList != null && travelList.size() == 0)) {
@@ -430,7 +519,13 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
             } else if (o instanceof SortSmallLocationResponse) {
                 sortSmallLocationResponse = (SortSmallLocationResponse) o;
 
-            } else if (o instanceof ErrorResponse) {
+            }
+            else if (o instanceof AllLocationResponse){
+                  AllLocationResponse data = ((AllLocationResponse) o);
+                  locationsMain = (ArrayList<Location>) data.getData();
+                  locations.addAll(0, locationsMain);
+            }
+            else if (o instanceof ErrorResponse) {
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
@@ -597,6 +692,47 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
             return "";
         }
     }
+    private String getParamFilter() {
+        String result = "";
+        // field filter
+        String baseFilter = "";
+        // value filter
+        String typeFilter = "";
+        int size = filterByCodeResponse.getData().getItems().size();
+        for (int i = 0; i < size; i++) {
+            FilterByPageResponse dataHasLoaded = filterByCodeResponse.getData().getItems().get(i).getDataHasLoaded();
+            if (dataHasLoaded != null) {
+                for (int j = 0; j < dataHasLoaded.getData().size(); j++) {
+                    List<FilterByPageResponse.Data.Input> inputs = dataHasLoaded.getData().get(j).getInputs();
+                    Map<String, String> mapData = new HashMap<>();
+                    if (inputs != null) {
+                        for (int k = 0; k < inputs.size(); k++) {
+                            if (inputs.get(k).isSelected()) {
+                                baseFilter = dataHasLoaded.getData().get(j).getField();
+                                typeFilter = inputs.get(k).getValue();
+                                mapData.put(typeFilter, baseFilter);
+                            }
+                        }
+
+                    }
+                    Set<String> set = mapData.keySet();
+                    String keyFilter = "";
+                    String paramFilter = "";
+                    for (String key : set) {
+                        keyFilter = mapData.get(key);
+                        paramFilter = paramFilter + key+",";
+
+                    }
+                    if (!paramFilter.isEmpty()) {
+                        paramFilter = paramFilter.substring(0, paramFilter.length() - 1);
+                        result = result + "&" + keyFilter + "=" + paramFilter;
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
 
     private String getDistance() {
         String result = "";
@@ -617,8 +753,17 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
 
     private String genLinkToFilter() {
         try {
-            String result = link + typeDestination + getParamForFilterService() + getDistance() + getOpenType() + genLinkSort() + genLinkRegionId() + genLinkSearch(getBinding().edtSearch.getText().toString());
+            String result = link + typeDestination + getParamFilter() + getDistance() + getOpenType() + genLinkSort() + genLinkRegionId() + genLinkSearch(keyWordSearch);
             Log.e("resultttt", result);
+            return result;
+        } catch (Exception e) {
+            return "";
+        }
+    }
+    private String genLinkToSearch() {
+        try {
+            String result = genLinkRegionId() + genLinkSearch(keyWordSearch);
+            Log.e("search", result);
             return result;
         } catch (Exception e) {
             return "";
@@ -1011,5 +1156,28 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
     public void setScreenTitle() {
         super.setScreenTitle();
         setDataScreen(TrackingAnalytic.ScreenCode.SMALL_LOCATIONS, TrackingAnalytic.ScreenTitle.SMALL_LOCATIONS);
+    }
+
+    @Override
+    public void onClickSuggestion(@Nullable SearchSuggestionResponse.Data.Item searchKeywordSuggestion, @Nullable Location location) {
+        keyWordSearch = searchKeywordSuggestion.getTitle();
+        getBinding().edtSearch.setText(keyWordSearch);
+        clearRclData();
+        viewModel.getSmallLocation(genLinkToFilter(), false);
+    }
+
+    @Override
+    public void onCancelSearch(@Nullable Location location, @Nullable String keyword) {
+
+    }
+
+    @Override
+    public void onClickRegion(@Nullable Location location, @Nullable String keyword) {
+
+    }
+
+    @Override
+    public void onClickLayoutKeyword(@Nullable Location location, @Nullable String keyword) {
+
     }
 }

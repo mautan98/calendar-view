@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.viewpager.widget.ViewPager
 import com.baseapp.utils.KeyboardUtils
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.adapter.f2offline.MainAdapter
 import com.namviet.vtvtravel.adapter.f2search.SearchSuggestionKeyWordAdapter
+import com.namviet.vtvtravel.api.WSConfig
 import com.namviet.vtvtravel.app.MyApplication
 import com.namviet.vtvtravel.database.StorageManager
 import com.namviet.vtvtravel.databinding.F2FragmentMainPageSmallLocationBinding
@@ -54,7 +56,7 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
     private var mainAdapter : MainAdapter? = null
     private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
     private var searchSuggestions: ArrayList<SearchSuggestionResponse.Data.Item>? = ArrayList()
-
+    private var tabSelectedPosition = 0;
 
     @Inject
     lateinit var smallLocationMainViewModel: SmallLocationMainViewModel
@@ -128,6 +130,19 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
             mainAdapter?.addFragment(smallLocationFragment, "")
         }
         vpContent.adapter = mainAdapter
+        vpContent?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+            }
+            override fun onPageSelected(position: Int) {
+                tabSelectedPosition = position;
+            }
+
+        })
         tabLayout.setTabTextColors(ContextCompat.getColor(mActivity, R.color.md_black_1000), ContextCompat.getColor(mActivity, R.color.f2_color_package))
         tabLayout.setupWithViewPager(vpContent)
         vpContent.setCurrentItem(position,true)
@@ -138,13 +153,14 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
 
 
 
+
         searchSuggestionKeyWordAdapter = SearchSuggestionKeyWordAdapter(searchSuggestions, mActivity, object : SearchSuggestionKeyWordAdapter.ClickItem{
             override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
                 try {
                     edtSearch.setText(searchKeywordSuggestion?.title)
 //                    addRecentSearch(edtSearch.text.toString())
 //                    recentAdapter?.setData(getRecentSearch())
-                    addFragment(SearchResultFragment("http://api.vtvtravel.vn/nearby?content_type=","APP_WHERE_GO",""))
+          //          addFragment(SearchResultFragment("http://api.vtvtravel.vn/nearby?content_type=","APP_WHERE_GO",""))
                     KeyboardUtils.hideKeyboard(mActivity, edtSearch)
                     //edtSearch.clearFocus()
                 } catch (e: Exception) {
@@ -276,7 +292,12 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
         }else{
             edtSearch.text = searchKeywordSuggestion?.title
         }
-        addFragment(SearchResultFragment())
+        for(i in 0 until dataMenu!!.size){
+            if(i == tabSelectedPosition){
+                addFragment(SearchResultFragment(WSConfig.HOST+"nearby?content_type=", dataMenu?.get(i)?.code,mLocation?.id,searchKeywordSuggestion?.title,i))
+            }
+        }
+
         KeyboardUtils.hideKeyboard(mActivity, edtSearch)
     }
 
@@ -297,7 +318,11 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
     private fun goToSearchResult(location: Location?, keyword: String?){
         handleLocation(location)
         edtSearch.text = keyword
-        addFragment(SearchResultFragment())
+        for(i in 0 until dataMenu!!.size){
+            if(i == tabSelectedPosition){
+                addFragment(SearchResultFragment(WSConfig.HOST+"nearby?content_type=", dataMenu?.get(i)?.code,location?.id,keyword,i))
+            }
+        }
         KeyboardUtils.hideKeyboard(mActivity, edtSearch)
     }
 

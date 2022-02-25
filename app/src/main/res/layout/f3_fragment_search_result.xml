@@ -73,8 +73,8 @@
                             android:layout_marginBottom="10dp"
                             android:layout_toRightOf="@id/btnBack"
                             android:gravity="center_vertical">
-                            <EditText
-                                android:textColor="@color/black"
+                            <TextView
+                                android:textColor="#575757"
                                 android:background="@android:color/transparent"
                                 android:id="@+id/edtSearch"
                                 android:layout_width="0dp"
@@ -84,10 +84,11 @@
                                 android:layout_marginEnd="19dp"
                                 android:fontFamily="@font/roboto_regular"
                                 android:gravity="center_vertical"
-                                android:hint="Bạn muốn tìm gì?"
+                                android:text="Bạn muốn tìm gì?"
                                 android:singleLine="true"
                                 android:textSize="14dp" />
                             <ImageView
+                                android:id="@+id/img_clear"
                                 android:padding="10dp"
                                 android:src="@drawable/ic_close_search_small_location"
                                 android:layout_width="40dp"
