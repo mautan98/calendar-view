@@ -9,6 +9,7 @@ import com.namviet.vtvtravel.databinding.F3FragmentSlideSearchBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.model.f2search.Children
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
+import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionFragment
 import kotlinx.android.synthetic.main.f3_fragment_drop_down_status.*
 import kotlinx.android.synthetic.main.f3_fragment_slide_search.*
@@ -23,6 +24,7 @@ class SlideMenuSearchFragment : BaseFragment<F3FragmentSlideSearchBinding?>() {
     private var listener: Listener? = null
 
     private var listCategory = ArrayList<Children>()
+    private var locations = ArrayList<Location>()
 
     override fun getLayoutRes(): Int {
         return R.layout.f3_fragment_slide_search
@@ -65,8 +67,10 @@ class SlideMenuSearchFragment : BaseFragment<F3FragmentSlideSearchBinding?>() {
         }
 
         binding!!.btnChooseCity.setOnClickListener {
+            var chooseRegionFragment = ChooseRegionFragment();
+            chooseRegionFragment.setData(locations, null)
             fragmentManager?.beginTransaction()
-                ?.add(R.id.chooseRegionFrame, ChooseRegionFragment())
+                ?.add(R.id.chooseRegionFrame, chooseRegionFragment)
                 ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)?.addToBackStack(null)!!.commit()
         }
 
@@ -77,10 +81,11 @@ class SlideMenuSearchFragment : BaseFragment<F3FragmentSlideSearchBinding?>() {
     override fun setObserver() {}
 
 
-    public fun setData(sortAndFilter : SortAndFilter?, listener: Listener){
+    public fun setData(sortAndFilter : SortAndFilter?, listener: Listener, locations: ArrayList<Location>){
         this.sortAndFilter = Gson().fromJson(Gson().toJson(sortAndFilter), SortAndFilter::class.java)
         this.listCategory.addAll(sortAndFilter!!.sortHeader[2].children)
         this.listener = listener
+        this.locations = locations
     }
 
     public interface Listener{

@@ -107,21 +107,6 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     }
 
-    private fun createFragment(){
-        slideMenuSearchFragment = SlideMenuSearchFragment();
-        slideMenuSearchFragment?.setData(sortAndFilter, object : SlideMenuSearchFragment.Listener{
-            override fun onApply(sortAndFilter : SortAndFilter?) {
-                this@ResultSearchFragment.sortAndFilter!!.sortHeader[2].children.clear()
-                this@ResultSearchFragment.sortAndFilter!!.sortHeader[2].children.addAll(sortAndFilter!!.sortHeader[2].children)
-                categorySortedAdapter!!.notifyDataSetChanged()
-                binding!!.drawerLayout.closeDrawer(GravityCompat.END)
-            }
-
-        })
-
-
-        fragmentManager!!.beginTransaction().replace(R.id.chooseRegionFrame, slideMenuSearchFragment!!).commit()
-    }
 
     override fun inject() {
 
@@ -165,7 +150,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                 binding!!.drawerLayout.closeDrawer(GravityCompat.END)
             }
 
-        })
+        }, locationMain!!)
 
 
         fragmentManager!!.beginTransaction().replace(R.id.chooseRegionFrame, slideMenuSearchFragment!!).commit()

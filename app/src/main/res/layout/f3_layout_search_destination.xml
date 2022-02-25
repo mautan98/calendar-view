@@ -127,7 +127,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_marginBottom="80dp"
-                    android:layout_marginStart="9dp"
+                    android:layout_marginStart="14.5dp"
                     android:id="@+id/rclCity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
