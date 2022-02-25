@@ -39,7 +39,7 @@
                     android:id="@+id/imgAvatar"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/f2_ic_go_where2" />
+                    android:src="@drawable/f3_ic_eating" />
 
                 <TextView
                     android:id="@+id/tvTitle"

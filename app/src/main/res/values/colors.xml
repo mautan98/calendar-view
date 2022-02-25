@@ -336,4 +336,10 @@
     <color name="color_border">#CFCFCF</color>
 
 
+    <color name="color_cat_0">#2884EC</color>
+    <color name="color_cat_1">#EC0C75</color>
+    <color name="color_cat_2">#EEC912</color>
+    <color name="color_cat_3">#0DD148</color>
+
+
 </resources>
