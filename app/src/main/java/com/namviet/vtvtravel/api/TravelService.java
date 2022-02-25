@@ -311,6 +311,9 @@ public interface TravelService {
     @GET(WSConfig.Api.SEARCH_SUGGESTION)
     Observable<SearchSuggestionResponse> getSearchSuggestion(@QueryMap Map<String, Object> param, @Query("keyword") String keyword, @Query("region_id") String regionId);
 
+    @GET(WSConfig.Api.SEARCH_SUGGESTION)
+    Observable<SearchSuggestionResponse> getSearchSuggestionForSpecificContent(@QueryMap Map<String, Object> param, @Query("keyword") String keyword, @Query("region_id") String regionId, @Query("content_type") String contentType);
+
 
     @GET(WSConfig.Api.SEARCH_ALL)
     Observable<ResultSearch> searchAll(@Path ("path") String path, @QueryMap Map<String, Object> queryMap,@Query("keyword") String keyword, @Query("region_id") String regionId, @Query("category_code") String categoryCode );
@@ -323,6 +326,13 @@ public interface TravelService {
 
     @GET
     Observable<ResultVideoSearch> searchAllVideoWithFullLink(@Url String url, @QueryMap Map<String, Object> param);
+
+
+    @GET(WSConfig.Api.SEARCH_ALL)
+    Observable<ItemImagePartResponse> searchAllImage(@Path ("path") String path, @QueryMap Map<String, Object> queryMap, @Query("keyword") String keyword, @Query("region_id") String regionId, @Query("category_code") String categoryCode);
+
+    @GET
+    Observable<ItemImagePartResponse> searchAllImageWithFullLink(@Url String url, @QueryMap Map<String, Object> param);
 
     @GET(WSConfig.Api.GET_SEARCH_RESULT)
     Observable<SearchResultResponse> loadSearchResult(@QueryMap Map<String, Object> param);

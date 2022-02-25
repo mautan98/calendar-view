@@ -11,177 +11,329 @@
     </data>
 
 
-    <RelativeLayout
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/colorPrimary">
+
+                    <LinearLayout
+                        android:id="@+id/btnBack"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/video_top_back" />
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/roboto_medium"
+                        android:gravity="center"
+                        android:text="Tin Tức du lịch"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="18dp" />
+
+                    <LinearLayout
+                        android:id="@+id/btnSearch"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:gravity="center"
+                        android:visibility="visible">
+
+                        <ImageView
+                            android:layout_width="21dp"
+                            android:layout_height="21dp"
+                            android:src="@drawable/f2_ic_search2"
+                            android:tint="@color/white" />
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+                <androidx.coordinatorlayout.widget.CoordinatorLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+
+                    <com.google.android.material.appbar.AppBarLayout
+                        android:id="@+id/appBarLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:elevation="0dp">
+
+                        <com.google.android.material.appbar.CollapsingToolbarLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            app:layout_scrollFlags="scroll">
+
+                            <RelativeLayout
+                                android:id="@+id/layoutLearnMore"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+
+                                <LinearLayout
+                                    android:id="@+id/linearTitle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="48dp"
+                                    android:gravity="center_vertical"
+                                    android:paddingStart="8dp">
+
+                                    <View
+                                        android:layout_width="4dp"
+                                        android:layout_height="32dp"
+                                        android:layout_marginEnd="8dp"
+                                        android:background="@drawable/f2_bg_button" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/roboto_bold"
+                                        android:text="Nổi Bật"
+                                        android:textColor="@color/md_black_1000"
+                                        android:textSize="16dp" />
+                                </LinearLayout>
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/rclHighLight"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/linearTitle"
+                                    android:layout_marginTop="5dp"
+                                    android:orientation="horizontal"
+                                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                            </RelativeLayout>
+
+                        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+                    </com.google.android.material.appbar.AppBarLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tabLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            app:tabIndicatorColor="@color/colorPrimary"
+                            app:tabIndicatorHeight="0dp"
+                            app:tabMode="scrollable" />
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:visibility="gone"
+                            android:id="@+id/rclSort"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tabLayout"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            android:paddingStart="12dp"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:listitem="@layout/f3_item_sort_in_search" />
+
+                        <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/vpContent"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_below="@id/rclSort" />
+
+
+                        <RelativeLayout
+                            android:id="@+id/layoutExpand"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_below="@+id/rclSort"
+                            android:visibility="gone">
+
+
+                            <View
+                                android:id="@+id/viewCover"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:alpha="0.3"
+                                android:background="@color/black"
+                                android:visibility="gone" />
+
+                            <com.ornach.richtext.RichView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="-11dp"
+                                android:orientation="vertical"
+                                app:rt_backgroundColor="@color/white"
+                                app:rt_radius="11dp">
+
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0.5dp"
+                                    android:layout_marginTop="20dp"
+                                    android:background="#ECECEC" />
+
+
+                                <FrameLayout
+                                    android:id="@+id/sortFrame"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
+
+                                <!--                        <LinearLayout-->
+                                <!--                            android:id="@+id/layoutSort"-->
+                                <!--                            android:layout_width="match_parent"-->
+                                <!--                            android:layout_height="wrap_content">-->
+
+
+                                <!--                            <androidx.recyclerview.widget.RecyclerView-->
+                                <!--                                android:paddingEnd="14dp"-->
+                                <!--                                android:paddingStart="14dp"-->
+                                <!--                                tools:listitem="@layout/f3_item_search_sort_param"-->
+                                <!--                                android:layout_marginBottom="22dp"-->
+                                <!--                                android:layout_marginTop="15dp"-->
+                                <!--                                android:orientation="vertical"-->
+                                <!--                                app:spanCount="2"-->
+                                <!--                                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
+                                <!--                                android:id="@+id/rclSortParam"-->
+                                <!--                                android:layout_width="match_parent"-->
+                                <!--                                android:layout_height="wrap_content"/>-->
+
+                                <!--                        </LinearLayout>-->
+
+
+                                <!--                        <LinearLayout-->
+                                <!--                            android:layout_width="match_parent"-->
+                                <!--                            android:layout_height="wrap_content"-->
+                                <!--                            android:layout_alignParentBottom="true"-->
+                                <!--                            android:layout_marginBottom="24dp">-->
+
+                                <!--                            <com.ornach.richtext.RichText-->
+                                <!--                                android:layout_width="0dp"-->
+                                <!--                                android:layout_height="wrap_content"-->
+                                <!--                                android:layout_marginStart="14dp"-->
+                                <!--                                android:layout_weight="1"-->
+                                <!--                                android:fontFamily="@font/roboto_regular"-->
+                                <!--                                android:gravity="center"-->
+                                <!--                                android:paddingStart="18dp"-->
+                                <!--                                android:paddingTop="8dp"-->
+                                <!--                                android:paddingEnd="18dp"-->
+                                <!--                                android:paddingBottom="8dp"-->
+                                <!--                                android:text="Xóa bộ lọc"-->
+                                <!--                                android:textAllCaps="true"-->
+                                <!--                                android:textColor="@color/black"-->
+                                <!--                                android:textSize="14dp"-->
+                                <!--                                app:rt_backgroundColor="#EEEEEE"-->
+                                <!--                                app:rt_radius="21dp" />-->
+
+
+                                <!--                            <com.ornach.richtext.RichText-->
+                                <!--                                android:layout_width="0dp"-->
+                                <!--                                android:layout_height="wrap_content"-->
+                                <!--                                android:layout_marginStart="16dp"-->
+                                <!--                                android:layout_marginEnd="14dp"-->
+                                <!--                                android:layout_weight="1"-->
+                                <!--                                android:fontFamily="@font/roboto_regular"-->
+                                <!--                                android:gravity="center"-->
+                                <!--                                android:paddingStart="18dp"-->
+                                <!--                                android:paddingTop="8dp"-->
+                                <!--                                android:paddingEnd="18dp"-->
+                                <!--                                android:paddingBottom="8dp"-->
+                                <!--                                android:text="Áp dụng"-->
+                                <!--                                android:textAllCaps="true"-->
+                                <!--                                android:textColor="@color/white"-->
+                                <!--                                app:rt_backgroundColor="@color/colorPrimary"-->
+                                <!--                                app:rt_radius="21dp" />-->
+
+                                <!--                        </LinearLayout>-->
+
+
+                            </com.ornach.richtext.RichView>
+
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+
+                </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/btnScrollToTop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/f2_bg_scroll_top"
+                android:drawableLeft="@drawable/f2_ic_go_fisrt"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="30dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="30dp"
+                android:paddingBottom="15dp"
+                android:text="Lên đầu trang"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+
+        </RelativeLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/layoutFilter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_gravity="end"
+            android:background="@color/white">
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/colorPrimary">
+                android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:id="@+id/btnBack"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="18dp"
-                        android:src="@drawable/video_top_back" />
-
-                </LinearLayout>
-
-
-                <TextView
-                    android:id="@+id/tvTitle"
+                <FrameLayout
+                    android:id="@+id/chooseRegionFrame"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:fontFamily="@font/roboto_medium"
-                    android:gravity="center"
-                    android:text="Tin Tức du lịch"
-                    android:textAllCaps="true"
-                    android:textColor="@color/white"
-                    android:textSize="18dp" />
-
-                <LinearLayout
-                    android:visibility="gone"
-                    android:id="@+id/btnSearch"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:layout_width="21dp"
-                        android:layout_height="21dp"
-                        android:src="@drawable/f2_ic_search2"
-                        android:tint="@color/white" />
-
-                </LinearLayout>
-
+                    android:layout_height="match_parent" />
 
             </RelativeLayout>
 
 
-            <androidx.coordinatorlayout.widget.CoordinatorLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+        </com.google.android.material.navigation.NavigationView>
 
-
-                <com.google.android.material.appbar.AppBarLayout
-                    android:id="@+id/appBarLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:elevation="0dp">
-
-                    <com.google.android.material.appbar.CollapsingToolbarLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        app:layout_scrollFlags="scroll">
-
-                        <RelativeLayout
-                            android:id="@+id/layoutLearnMore"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-
-                            <LinearLayout
-                                android:id="@+id/linearTitle"
-                                android:layout_width="match_parent"
-                                android:layout_height="48dp"
-                                android:gravity="center_vertical"
-                                android:paddingStart="8dp">
-
-                                <View
-                                    android:layout_width="4dp"
-                                    android:layout_height="32dp"
-                                    android:layout_marginEnd="8dp"
-                                    android:background="@drawable/f2_bg_button" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/roboto_bold"
-                                    android:text="Nổi Bật"
-                                    android:textColor="@color/md_black_1000"
-                                    android:textSize="16dp" />
-                            </LinearLayout>
-
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/rclHighLight"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/linearTitle"
-                                android:layout_marginTop="5dp"
-                                android:orientation="horizontal"
-                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-                        </RelativeLayout>
-
-                    </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-                </com.google.android.material.appbar.AppBarLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/tabLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        app:tabIndicatorHeight="0dp"
-                        app:tabIndicatorColor="@color/colorPrimary"
-                        app:tabMode="scrollable" />
-
-
-                    <androidx.viewpager.widget.ViewPager
-                        android:id="@+id/vpContent"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
-
-                </LinearLayout>
-
-
-            </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
-        </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/btnScrollToTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/f2_bg_scroll_top"
-            android:drawableLeft="@drawable/f2_ic_go_fisrt"
-            android:drawablePadding="10dp"
-            android:fontFamily="@font/roboto_medium"
-            android:gravity="center"
-            android:paddingStart="30dp"
-            android:paddingTop="15dp"
-            android:paddingEnd="30dp"
-            android:paddingBottom="15dp"
-            android:text="Lên đầu trang"
-            android:textColor="#000000"
-            android:textSize="16dp" />
-
-    </RelativeLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

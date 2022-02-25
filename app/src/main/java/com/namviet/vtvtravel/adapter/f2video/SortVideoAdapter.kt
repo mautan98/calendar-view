@@ -1,4 +1,4 @@
-package com.namviet.vtvtravel.adapter.f2search
+package com.namviet.vtvtravel.adapter.f2video
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -17,7 +17,7 @@ import com.namviet.vtvtravel.response.newhome.AppVoucherResponse
 import com.namviet.vtvtravel.viewmodel.newhome.ChangeRegionDialog
 import kotlinx.android.synthetic.main.f3_item_sort_in_search.view.*
 
-class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
+class SortVideoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private val TYPE_ITEM = 0
     private var context: Context? = null
     private var items: List<SortHeader>? = null
@@ -112,25 +112,6 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         return true
                     } else if (!items!![position].content.commune.isNullOrBlank()) {
                         items!![position].label = items!![position].content.cityId
-                        return true
-                    }
-                }
-                2 -> {
-                    items!![position].label = items!![position].name
-                    for (i in items!!.indices) {
-                        if (items!![position].children[i].isSelected) {
-                            return true
-                        }
-                    }
-                }
-                3 -> {
-                    items!![position].label = "Trạng thái"
-                    if (items!![position].content.isOpen != null) {
-                        if(items!![position].content.isOpen){
-                            items!![position].label = "Đang mở"
-                        }else{
-                            items!![position].label = "Đang đóng"
-                        }
                         return true
                     }
                 }

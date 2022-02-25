@@ -10,6 +10,10 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.model.f2search.Children
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionFragment
+import kotlinx.android.synthetic.main.f3_fragment_drop_down_status.*
+import kotlinx.android.synthetic.main.f3_fragment_slide_search.*
+import kotlinx.android.synthetic.main.f3_fragment_slide_search.btnApply
+import kotlinx.android.synthetic.main.f3_fragment_slide_search.switchStatus
 
 class SlideMenuSearchFragment : BaseFragment<F3FragmentSlideSearchBinding?>() {
 
@@ -28,6 +32,32 @@ class SlideMenuSearchFragment : BaseFragment<F3FragmentSlideSearchBinding?>() {
     override fun initData() {
         categorySearchInSlideAdapter = CategorySearchInSlideAdapter(mActivity, sortAndFilter!!.sortHeader[2].children, null)
         binding!!.rclCategory.adapter = categorySearchInSlideAdapter
+
+
+        if(sortAndFilter!!.sortHeader[3].content.isOpen == null){
+            switchStatus.alpha = 0.5f
+        }else{
+            switchStatus.alpha = 1f
+            switchStatus.isChecked = sortAndFilter!!.sortHeader[3].content.isOpen!!
+        }
+
+
+        switchStatus.setOnCheckedChangeListener { _, p1 ->
+            switchStatus.isChecked = p1
+            sortAndFilter!!.sortHeader[3].content.isOpen = p1
+            switchStatus.alpha = 1f
+        }
+
+//        btnApply.setOnClickListener {
+//            listener?.onApply(isOpen)
+//        }
+//
+//        btnClearFilter.setOnClickListener {
+//            isOpen = null
+//            switchStatus.alpha = 0.5f
+//            listener?.onApply(isOpen)
+//        }
+
     }
     override fun inject() {}
     override fun setClickListener() {

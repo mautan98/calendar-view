@@ -8,7 +8,7 @@ public class Content {
 
     private String cityId;
 
-    private boolean isOpen;
+    private Boolean isOpen;
 
     public String getCommune() {
         return commune;
@@ -34,11 +34,11 @@ public class Content {
         this.cityId = cityId;
     }
 
-    public boolean isOpen() {
+    public Boolean isOpen() {
         return isOpen;
     }
 
-    public void setOpen(boolean open) {
+    public void setOpen(Boolean open) {
         isOpen = open;
     }
 }

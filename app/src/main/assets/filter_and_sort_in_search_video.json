@@ -68,17 +68,6 @@
           "isSelected": false
         }
       ]
-    },
-    {
-      "label" : "Đang mở",
-      "name": "Đang mở",
-      "id": "Sắp xếp theo",
-      "isSelected": false,
-      "children": [
-      ],
-      "content": {
-        "isOpen": null
-      }
     }
   ]
 }

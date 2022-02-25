@@ -23,11 +23,19 @@ class ChooseRegionMainFragment : BaseFragment<F3FragmentSearchRegionMainBinding?
     private val locations: ArrayList<Location> = ArrayList()
     private var chooseRegion: ChooseRegion? = null
     private var searchAllLocationAdapter: SearchAllLocationAdapter? = null
+
+    private var isFullScreen = false;
     override fun getLayoutRes(): Int {
         return R.layout.f3_fragment_search_region_main
     }
 
-    override fun initView() {}
+    override fun initView() {
+        if(isFullScreen){
+            viewFull.visibility = View.VISIBLE
+        }else{
+            viewFull.visibility = View.GONE
+        }
+    }
     override fun initData() {
         viewModel = SearchBigLocationViewModel()
         viewModel!!.addObserver(this)
@@ -55,6 +63,13 @@ class ChooseRegionMainFragment : BaseFragment<F3FragmentSearchRegionMainBinding?
     public fun setData(locationsMain: ArrayList<Location>?, chooseRegion: ChooseRegion?) {
         this.locationsMain = locationsMain
         this.chooseRegion = chooseRegion
+    }
+
+
+    public fun setData(locationsMain: ArrayList<Location>?, chooseRegion: ChooseRegion?, isFullScreen : Boolean) {
+        this.locationsMain = locationsMain
+        this.chooseRegion = chooseRegion
+        this.isFullScreen = isFullScreen
     }
 
     public interface ChooseRegion {

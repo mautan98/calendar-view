@@ -21,8 +21,9 @@
         android:focusable="true">
 
         <LinearLayout
+            android:paddingTop="26dp"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="81dp"
             android:background="@color/white">
 
 
