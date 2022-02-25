@@ -31,7 +31,9 @@ class SlideMenuSearchFragment : BaseFragment<F3FragmentSlideSearchBinding?>() {
         return R.layout.f3_fragment_slide_search
     }
 
-    override fun initView() {}
+    override fun initView() {
+        tvCity.text = sortAndFilter!!.sortHeader[1].content.cityName
+    }
     override fun initData() {
         categorySearchInSlideAdapter = CategorySearchInSlideAdapter(mActivity, sortAndFilter!!.sortHeader[2].children, null)
         binding!!.rclCategory.adapter = categorySearchInSlideAdapter
