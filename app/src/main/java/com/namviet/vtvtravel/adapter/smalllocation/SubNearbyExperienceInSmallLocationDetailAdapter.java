@@ -71,6 +71,8 @@ public class SubNearbyExperienceInSmallLocationDetailAdapter extends RecyclerVie
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgAvatar;
+        private ImageView imgType;
+        private ImageView imgOpenState;
         private TextView tvName;
         private TextView tvDescription;
         private TextView tvDistance;
@@ -78,6 +80,7 @@ public class SubNearbyExperienceInSmallLocationDetailAdapter extends RecyclerVie
         private TextView tvOpenDate;
         private TextView tvOpenTime;
         private TextView tvOpenState;
+        private TextView tvType;
         private int position;
 
         public HeaderViewHolder(View itemView) {
@@ -90,7 +93,11 @@ public class SubNearbyExperienceInSmallLocationDetailAdapter extends RecyclerVie
             tvOpenDate = itemView.findViewById(R.id.tvOpenDate);
             tvOpenTime = itemView.findViewById(R.id.tvOpenTime);
             tvOpenState = itemView.findViewById(R.id.tvOpenState);
-            
+            tvType = itemView.findViewById(R.id.tv_type);
+            imgType = itemView.findViewById(R.id.img_type);
+            imgOpenState = itemView.findViewById(R.id.img_open_state);
+
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -110,11 +117,12 @@ public class SubNearbyExperienceInSmallLocationDetailAdapter extends RecyclerVie
             Travel travel = items.get(position);
 
             Glide.with(context).load(travel.getLogo_url()).into(imgAvatar);
+            Glide.with(context).load(travel.getUrl_icon()).into(imgType);
             tvName.setText(travel.getName());
             tvDescription.setText(travel.getShort_description());
             tvAddress.setText(travel.getAddress());
             tvOpenDate.setText(travel.getOpen_week());
-
+            tvType.setText(travel.getCollection().getName());
 
             try {
                 if(travel.isHas_location()) {

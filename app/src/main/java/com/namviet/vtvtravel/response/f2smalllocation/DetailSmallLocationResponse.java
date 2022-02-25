@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.BaseResponse;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class DetailSmallLocationResponse extends BaseResponse {
@@ -561,7 +562,7 @@ public class DetailSmallLocationResponse extends BaseResponse {
                 this.distance = distance;
             }
         }
-        public class Menu {
+        public class Menu implements Serializable {
 
             @SerializedName("id")
             @Expose

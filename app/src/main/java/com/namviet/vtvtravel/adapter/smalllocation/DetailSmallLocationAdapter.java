@@ -702,11 +702,13 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
 
         public void bindItem(int position) {
             this.position = position;
+            shimmerFrameLayout.setVisibility(View.VISIBLE);
+            rclContent.setVisibility(View.INVISIBLE);
             viewModel.getSmallLocation(items.get(position).getMenu().get(0).getLink(),false);
             tvViewMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    NearByExperienceActivity.startScreenDetail(context,NearByExperienceActivity.OpenType.LIST,items.get(position).getItems());
+                    NearByExperienceActivity.startScreenDetail(context,NearByExperienceActivity.OpenType.LIST,items.get(position).getMenu());
                 }
             });
             this.position = position;
@@ -715,7 +717,7 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
                 @Override
                 public void onTabSelected(TabLayout.Tab tab) {
                     setOnSelectView(tabs, tab.getPosition());
-                    loadData();
+                    loadData(tab.getPosition());
                 }
                 @Override
                 public void onTabUnselected(TabLayout.Tab tab) {
@@ -735,16 +737,14 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
 
             rclContent.setAdapter(subNearbyExperienceInSmallLocationDetailAdapter);
         }
-        private void loadData() {
+        private void loadData(int i) {
+            viewModel.getSmallLocation(items.get(position).getMenu().get(i).getLink(),false);
             shimmerFrameLayout.setVisibility(View.VISIBLE);
             rclContent.setVisibility(View.INVISIBLE);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    shimmerFrameLayout.setVisibility(View.GONE);
-                    rclContent.setVisibility(View.VISIBLE);
-                }
-            },2000);
+        }
+        private void stopLoading(){
+            shimmerFrameLayout.setVisibility(View.GONE);
+            rclContent.setVisibility(View.VISIBLE);
         }
         public void setOnSelectView(TabLayout tabLayout, int position) {
             TabLayout.Tab tab = tabLayout.getTabAt(position);
@@ -805,6 +805,7 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
                     travelList.addAll(response.getData().getItems());
                 }
                 subNearbyExperienceInSmallLocationDetailAdapter.notifyDataSetChanged();
+                stopLoading();
             }
         }
     }
