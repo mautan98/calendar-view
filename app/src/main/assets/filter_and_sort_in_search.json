@@ -37,8 +37,11 @@
       ],
       "content": {
         "cityId": "",
+        "cityName": "",
         "district": "",
-        "commune": ""
+        "districtName": "",
+        "commune": "",
+        "communeName": ""
       }
     },
     {

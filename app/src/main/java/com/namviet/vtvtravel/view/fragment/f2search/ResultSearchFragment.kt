@@ -20,6 +20,7 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.Video
 import com.namviet.vtvtravel.model.f2search.Children
+import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.model.travelnews.Travel
@@ -184,9 +185,11 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
                         1 -> {
                             var dropDownLocationFragment = DropDownLocationFragment()
-                            dropDownLocationFragment.setData(locationMain, object : DropDownLocationFragment.Callback{
-                                override fun onApply() {
-
+                            dropDownLocationFragment.setData(sortAndFilter!!.sortHeader[1].content, locationMain, object : DropDownLocationFragment.Callback{
+                                override fun onApply(content : Content?) {
+                                    hideMenuAnim()
+                                    sortAndFilter!!.sortHeader[1].content = content
+                                    sortAdapter?.notifyDataSetChanged()
                                 }
 
                             })

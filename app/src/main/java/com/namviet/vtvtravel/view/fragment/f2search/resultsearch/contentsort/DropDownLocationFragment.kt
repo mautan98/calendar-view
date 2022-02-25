@@ -5,6 +5,7 @@ import com.namviet.vtvtravel.adapter.f2search.SortParamAdapter
 import com.namviet.vtvtravel.databinding.F3FragmentDropDownLocationBinding
 import com.namviet.vtvtravel.databinding.F3FragmentSortFollowBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionMainFragment
 import kotlinx.android.synthetic.main.f3_fragment_drop_down_location.*
@@ -13,6 +14,7 @@ class DropDownLocationFragment : BaseFragment<F3FragmentDropDownLocationBinding?
     private var locationsMain: ArrayList<Location>? = null
     private var callback : Callback? = null
     private var city : Location? = null
+    private var content : Content? = null
     override fun getLayoutRes(): Int {
         return R.layout.f3_fragment_drop_down_location
     }
@@ -32,15 +34,20 @@ class DropDownLocationFragment : BaseFragment<F3FragmentDropDownLocationBinding?
             })
             addFragment(chooseRegionMainFragment)
         }
+
+        btnApply.setOnClickListener {
+            callback?.onApply(content)
+        }
     }
     override fun setObserver() {}
 
-    public fun setData(locationsMain: ArrayList<Location>?, callback: Callback?) {
+    public fun setData(content: Content, locationsMain: ArrayList<Location>?, callback: Callback?) {
         this.locationsMain = locationsMain
         this.callback = callback
+        this.content = content
     }
 
     public interface Callback{
-        fun onApply()
+        fun onApply(content : Content?)
     }
 }
