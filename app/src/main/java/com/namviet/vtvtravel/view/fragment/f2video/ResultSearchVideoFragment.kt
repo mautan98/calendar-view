@@ -240,7 +240,12 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
                 })
             binding!!.rclSort.adapter = sortVideoAdapter
 
-            categorySortedAdapter = CategorySortedAdapter(sortAndFilter!!.sortHeader[2].children, mActivity);
+            categorySortedAdapter = CategorySortedAdapter(sortAndFilter!!.sortHeader[2].children, mActivity, object : CategorySortedAdapter.ClickItem{
+                override fun onClickItem() {
+//                    sortAdapter?.notifyDataSetChanged()
+                }
+
+            });
             binding!!.rclCategorySorted.adapter = categorySortedAdapter
         }
 
@@ -270,6 +275,7 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
 
     private fun createMenuFragment() {
         chooseRegionFragment = ChooseRegionFragment();
+        chooseRegionFragment?.setData(locations, null)
         fragmentManager?.beginTransaction()
             ?.add(R.id.chooseRegionFrame, chooseRegionFragment!!)
             ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)?.addToBackStack(null)!!

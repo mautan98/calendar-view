@@ -249,7 +249,12 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             });
         binding!!.rclSort.adapter = sortAdapter
 
-        categorySortedAdapter = CategorySortedAdapter(sortAndFilter!!.sortHeader[2].children, mActivity);
+        categorySortedAdapter = CategorySortedAdapter(sortAndFilter!!.sortHeader[2].children, mActivity, object : CategorySortedAdapter.ClickItem{
+            override fun onClickItem() {
+                sortAdapter?.notifyDataSetChanged()
+            }
+
+        });
         binding!!.rclCategorySorted.adapter = categorySortedAdapter
 
     }

@@ -308,8 +308,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="24dp"
-                android:paddingBottom="55dp">
+                android:paddingTop="24dp">
 
                 <FrameLayout
                     android:id="@+id/chooseRegionFrame"
