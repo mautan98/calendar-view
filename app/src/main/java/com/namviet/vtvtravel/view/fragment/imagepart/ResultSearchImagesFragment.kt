@@ -48,7 +48,7 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultImagesBind
     private var locationViewModel: SearchBigLocationViewModel? = null
     private var searchViewModel: SearchResultViewModel? = null
 
-    private var keyword: String? = "Cao Bằng"
+    private var keyword: String? = ""
     private var regionId: String? = null
     private var categoryId: String? = null
 
