@@ -18,6 +18,7 @@ import com.namviet.vtvtravel.databinding.F3FragmentSearchResultNewsBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.f2search.Children
+import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse
@@ -34,7 +35,12 @@ import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.Sor
 import com.namviet.vtvtravel.view.fragment.f2video.DropDownLocationInVideoFragment
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import com.namviet.vtvtravel.viewmodel.f2search.SearchResultViewModel
+import kotlinx.android.synthetic.main.f2_fragment_high_lightest_images.*
 import kotlinx.android.synthetic.main.f3_fragment_search_result_images.*
+import kotlinx.android.synthetic.main.f3_fragment_search_result_images.btnBack
+import kotlinx.android.synthetic.main.f3_fragment_search_result_images.drawerLayout
+import kotlinx.android.synthetic.main.f3_fragment_search_result_images.layoutExpand
+import kotlinx.android.synthetic.main.f3_fragment_search_result_images.rclContent
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.util.*
@@ -55,6 +61,7 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultImagesBind
     private var highLightestImagesAdapter: HighLightestImagesAdapter? = null
     private val travels: MutableList<ItemImagePartResponse.Data.Item> = ArrayList()
     private var categorySortedAdapter: CategorySortedAdapter? = null
+    private var dropDownLocationFragment : DropDownLocationInVideoFragment? = null
 
 
     public fun setData(keyword: String?, regionId: String?, categoryId: String?){
@@ -201,8 +208,8 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultImagesBind
                             }
 
                             1 -> {
-                                var dropDownLocationFragment = DropDownLocationInVideoFragment()
-                                dropDownLocationFragment.setData(object :
+                                dropDownLocationFragment = DropDownLocationInVideoFragment()
+                                dropDownLocationFragment?.setData(object :
                                     DropDownLocationInVideoFragment.Callback {
                                     override fun onClickChooseLocation() {
                                         binding!!.drawerLayout.openDrawer(GravityCompat.END)
@@ -214,7 +221,7 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultImagesBind
 
                                 })
                                 fragmentManager!!.beginTransaction()
-                                    .replace(R.id.sortFrame, dropDownLocationFragment).commit()
+                                    .replace(R.id.sortFrame, dropDownLocationFragment!!).commit()
                             }
 
                             2 -> {
@@ -274,8 +281,15 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultImagesBind
     private var chooseRegionFragment : ChooseRegionFragment? = null
 
     private fun createMenuFragment() {
-        chooseRegionFragment = ChooseRegionFragment();
-        chooseRegionFragment?.setData(null, locations, null)
+        var chooseRegionFragment = ChooseRegionFragment();
+        chooseRegionFragment.setData(sortAndFilter!!.sortHeader[1].content, locations, object : ChooseRegionFragment.ChooseRegion{
+            override fun clickRegion(content: Content?) {
+                drawerLayout.closeDrawer(GravityCompat.END)
+                sortAndFilter!!.sortHeader[1].content = content
+                dropDownLocationFragment?.setData(content!!)
+
+            }
+        })
         fragmentManager?.beginTransaction()
             ?.add(R.id.chooseRegionFrame, chooseRegionFragment!!)
             ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)?.addToBackStack(null)!!

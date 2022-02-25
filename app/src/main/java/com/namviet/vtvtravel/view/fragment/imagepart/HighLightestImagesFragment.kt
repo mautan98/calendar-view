@@ -17,6 +17,7 @@ import com.namviet.vtvtravel.databinding.F2FragmentHighLightestImagesBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.f2search.Children
+import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse
@@ -26,6 +27,7 @@ import com.namviet.vtvtravel.ultils.F2Util
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew
 import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentActivity
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionFragment
+import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.DropDownLocationFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.SortFollowFragment
 import com.namviet.vtvtravel.view.fragment.f2video.DropDownLocationInVideoFragment
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
@@ -45,6 +47,8 @@ class HighLightestImagesFragment : BaseFragment<F2FragmentHighLightestImagesBind
     private var locationsMain: ArrayList<Location> = ArrayList()
     private val locations: ArrayList<Location>? = ArrayList()
     private var locationViewModel: SearchBigLocationViewModel? = null
+
+    private var dropDownLocationFragment : DropDownLocationInVideoFragment? = null
 
     @SuppressLint("ValidFragment")
     constructor(idGallery: String?) {
@@ -226,8 +230,8 @@ class HighLightestImagesFragment : BaseFragment<F2FragmentHighLightestImagesBind
                             }
 
                             1 -> {
-                                var dropDownLocationFragment = DropDownLocationInVideoFragment()
-                                dropDownLocationFragment.setData(object : DropDownLocationInVideoFragment.Callback{
+                                dropDownLocationFragment = DropDownLocationInVideoFragment()
+                                dropDownLocationFragment?.setData(object : DropDownLocationInVideoFragment.Callback{
                                     override fun onClickChooseLocation() {
                                         binding!!.drawerLayout.openDrawer(GravityCompat.END)
                                     }
@@ -238,7 +242,7 @@ class HighLightestImagesFragment : BaseFragment<F2FragmentHighLightestImagesBind
 
                                 })
                                 fragmentManager!!.beginTransaction()
-                                    .replace(R.id.sortFrame, dropDownLocationFragment).commit()
+                                    .replace(R.id.sortFrame, dropDownLocationFragment!!).commit()
                             }
                         }
                         if (binding!!.layoutExpand.visibility != View.VISIBLE) {
@@ -271,8 +275,17 @@ class HighLightestImagesFragment : BaseFragment<F2FragmentHighLightestImagesBind
     }
 
     private fun createMenuFragment(){
+        var chooseRegionFragment = ChooseRegionFragment();
+        chooseRegionFragment.setData(sortAndFilter!!.sortHeader[1].content, locations, object : ChooseRegionFragment.ChooseRegion{
+            override fun clickRegion(content: Content?) {
+                drawerLayout.closeDrawer(GravityCompat.END)
+                sortAndFilter!!.sortHeader[1].content = content
+                dropDownLocationFragment?.setData(content!!)
+
+            }
+        })
         fragmentManager?.beginTransaction()
-            ?.add(R.id.chooseRegionFrame, ChooseRegionFragment())
+            ?.add(R.id.chooseRegionFrame, chooseRegionFragment)
             ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)?.addToBackStack(null)!!.commit()
     }
 

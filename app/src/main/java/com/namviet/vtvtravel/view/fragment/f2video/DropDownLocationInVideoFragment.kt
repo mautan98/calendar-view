@@ -4,6 +4,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.F3FragmentDropDownLocationInVideoBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.travelnews.Location
 import kotlinx.android.synthetic.main.f3_fragment_drop_down_location.*
 
@@ -32,6 +33,10 @@ class DropDownLocationInVideoFragment : BaseFragment<F3FragmentDropDownLocationI
     public interface Callback{
         fun onClickChooseLocation()
         fun onApply()
+    }
+
+    public fun setData (content : Content){
+        tvCity.text = content.cityName
     }
 
 }
