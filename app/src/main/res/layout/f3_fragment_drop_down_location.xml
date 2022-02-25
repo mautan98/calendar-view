@@ -37,12 +37,13 @@
 
 
                 <TextView
+                    android:textColorHint="@color/black"
                     android:id="@+id/tvCity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="--- Chọn tỉnh/thành phố ---"
+                    android:hint="--- Chọn tỉnh/thành phố ---"
                     android:textColor="@color/black" />
 
 
@@ -73,11 +74,12 @@
 
 
                 <TextView
+                    android:id="@+id/tvDistrict"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="--- Chọn quận/huyện ---"
+                    android:hint="--- Chọn quận/huyện ---"
                     android:textColor="#C1C1C1" />
 
 
@@ -109,11 +111,12 @@
 
 
                 <TextView
+                    android:id="@+id/tvCommune"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="--- Chọn xã/phường ---"
+                    android:hint="--- Chọn xã/phường ---"
                     android:textColor="#C1C1C1" />
 
 

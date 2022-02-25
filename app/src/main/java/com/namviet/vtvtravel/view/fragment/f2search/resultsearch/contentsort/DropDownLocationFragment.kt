@@ -13,13 +13,16 @@ import kotlinx.android.synthetic.main.f3_fragment_drop_down_location.*
 class DropDownLocationFragment : BaseFragment<F3FragmentDropDownLocationBinding?>() {
     private var locationsMain: ArrayList<Location>? = null
     private var callback : Callback? = null
-    private var city : Location? = null
     private var content : Content? = null
     override fun getLayoutRes(): Int {
         return R.layout.f3_fragment_drop_down_location
     }
 
-    override fun initView() {}
+    override fun initView() {
+        tvCity.text = content?.cityName
+        tvDistrict.text = content?.districtName
+        tvCommune.text = content?.communeName
+    }
     override fun initData() {
     }
     override fun inject() {}
@@ -29,7 +32,8 @@ class DropDownLocationFragment : BaseFragment<F3FragmentDropDownLocationBinding?
             chooseRegionMainFragment.setData(locationsMain, object : ChooseRegionMainFragment.ChooseRegion{
                 override fun clickRegion(location: Location?) {
                     tvCity.text = location?.name
-                    this@DropDownLocationFragment.city = location
+                    content?.cityId = location?.id
+                    content?.cityName = location?.name
                 }
             })
             addFragment(chooseRegionMainFragment)
