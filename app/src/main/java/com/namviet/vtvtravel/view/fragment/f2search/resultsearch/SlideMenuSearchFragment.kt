@@ -8,6 +8,7 @@ import com.namviet.vtvtravel.adapter.f2search.CategorySearchInSlideAdapter
 import com.namviet.vtvtravel.databinding.F3FragmentSlideSearchBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.model.f2search.Children
+import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionFragment
@@ -68,7 +69,13 @@ class SlideMenuSearchFragment : BaseFragment<F3FragmentSlideSearchBinding?>() {
 
         binding!!.btnChooseCity.setOnClickListener {
             var chooseRegionFragment = ChooseRegionFragment();
-            chooseRegionFragment.setData(locations, null)
+            chooseRegionFragment.setData(sortAndFilter!!.sortHeader[1].content, locations, object : ChooseRegionFragment.ChooseRegion{
+                override fun clickRegion(content: Content?) {
+                    sortAndFilter!!.sortHeader[1].content = content
+                    tvCity.text = content?.cityName
+
+                }
+            })
             fragmentManager?.beginTransaction()
                 ?.add(R.id.chooseRegionFrame, chooseRegionFragment)
                 ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)?.addToBackStack(null)!!.commit()

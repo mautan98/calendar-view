@@ -7,6 +7,7 @@ import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.adapter.f2biglocation.SearchAllLocationAdapter
 import com.namviet.vtvtravel.databinding.F3LayoutSearchDestinationBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import kotlinx.android.synthetic.main.f3_fragment_search_region_main.*
@@ -18,12 +19,13 @@ class ChooseRegionFragment : BaseFragment<F3LayoutSearchDestinationBinding?>() {
     private val locations: ArrayList<Location> = ArrayList()
     private var chooseRegion: ChooseRegion? = null
     private var searchAllLocationAdapter: SearchAllLocationAdapter? = null
-    private var mContext : Context?  =null
-
+    private var mContext: Context? = null
+    private var content: Content? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
     }
+
     override fun getLayoutRes(): Int {
         return R.layout.f3_layout_search_destination
     }
@@ -38,13 +40,16 @@ class ChooseRegionFragment : BaseFragment<F3LayoutSearchDestinationBinding?>() {
             locations,
             SearchAllLocationAdapter.ClickItem { location ->
                 mActivity.onBackPressed()
-                chooseRegion?.clickRegion(location)
+                content?.cityId = location?.id
+                content?.cityName = location?.name
+                chooseRegion?.clickRegion(content)
 
 
             })
         rclCity.adapter = searchAllLocationAdapter
         handleSearch()
     }
+
     override fun inject() {}
     override fun setClickListener() {
         binding!!.btnCloseFilter.setOnClickListener {
@@ -55,13 +60,18 @@ class ChooseRegionFragment : BaseFragment<F3LayoutSearchDestinationBinding?>() {
         }
     }
 
-    public fun setData(locationsMain: ArrayList<Location>?, chooseRegion: ChooseRegion?) {
+    public fun setData(
+        content: Content?,
+        locationsMain: ArrayList<Location>?,
+        chooseRegion: ChooseRegion?
+    ) {
         this.locationsMain = locationsMain
         this.chooseRegion = chooseRegion
+        this.content = content
     }
 
     public interface ChooseRegion {
-        fun clickRegion(location: Location?)
+        fun clickRegion(content: Content?)
     }
 
     override fun setObserver() {}
@@ -100,7 +110,7 @@ class ChooseRegionFragment : BaseFragment<F3LayoutSearchDestinationBinding?>() {
 //        }
     }
 
-    public fun deleteFragment(){
+    public fun deleteFragment() {
         fragmentManager?.beginTransaction()
             ?.remove(this)
             ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)?.commit()

@@ -262,7 +262,7 @@ class VideoFragment : MainFragment(), Observer {
 
     private fun createMenuFragment(){
         var chooseRegionFragment = ChooseRegionFragment()
-        chooseRegionFragment.setData(locations, null)
+        chooseRegionFragment.setData(null, locations, null)
         fragmentManager?.beginTransaction()
             ?.add(R.id.chooseRegionFrame, chooseRegionFragment)
             ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)?.addToBackStack(null)!!.commit()

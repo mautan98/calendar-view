@@ -275,7 +275,7 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultImagesBind
 
     private fun createMenuFragment() {
         chooseRegionFragment = ChooseRegionFragment();
-        chooseRegionFragment?.setData(locations, null)
+        chooseRegionFragment?.setData(null, locations, null)
         fragmentManager?.beginTransaction()
             ?.add(R.id.chooseRegionFrame, chooseRegionFragment!!)
             ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)?.addToBackStack(null)!!
