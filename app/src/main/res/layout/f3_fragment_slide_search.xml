@@ -229,6 +229,7 @@
             android:layout_marginBottom="24dp">
 
             <com.ornach.richtext.RichText
+                android:id="@+id/btnClearFilter"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"

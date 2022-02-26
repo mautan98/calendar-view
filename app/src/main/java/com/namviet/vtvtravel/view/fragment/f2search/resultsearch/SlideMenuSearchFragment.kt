@@ -11,11 +11,14 @@ import com.namviet.vtvtravel.model.f2search.Children
 import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
 import com.namviet.vtvtravel.model.travelnews.Location
+import com.namviet.vtvtravel.ultils.F2Util
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionFragment
+import kotlinx.android.synthetic.main.f3_fragment_drop_down_location.*
 import kotlinx.android.synthetic.main.f3_fragment_drop_down_status.*
 import kotlinx.android.synthetic.main.f3_fragment_slide_search.*
 import kotlinx.android.synthetic.main.f3_fragment_slide_search.btnApply
 import kotlinx.android.synthetic.main.f3_fragment_slide_search.switchStatus
+import kotlinx.android.synthetic.main.f3_fragment_slide_search.tvCity
 
 class SlideMenuSearchFragment : BaseFragment<F3FragmentSlideSearchBinding?>() {
 
@@ -32,7 +35,18 @@ class SlideMenuSearchFragment : BaseFragment<F3FragmentSlideSearchBinding?>() {
     }
 
     override fun initView() {
-        tvCity.text = sortAndFilter!!.sortHeader[1].content.cityName
+        if(sortAndFilter!!.sortHeader[1].content.cityId.isNotEmpty()) {
+            tvCity.text = sortAndFilter!!.sortHeader[1].content.cityName
+        }
+
+        if(sortAndFilter!!.sortHeader[1].content.district.isNotEmpty()) {
+            tvDistrict.text = sortAndFilter!!.sortHeader[1].content.districtName
+        }
+
+        if(sortAndFilter!!.sortHeader[1].content.commune.isNotEmpty()) {
+            tvCommune.text = sortAndFilter!!.sortHeader[1].content.communeName
+        }
+
     }
     override fun initData() {
         categorySearchInSlideAdapter = CategorySearchInSlideAdapter(mActivity, sortAndFilter!!.sortHeader[2].children, null)
@@ -67,6 +81,7 @@ class SlideMenuSearchFragment : BaseFragment<F3FragmentSlideSearchBinding?>() {
     override fun inject() {}
     override fun setClickListener() {
         binding!!.btnCloseFilter.setOnClickListener {
+            listener?.onClose()
         }
 
         binding!!.btnChooseCity.setOnClickListener {
@@ -86,6 +101,14 @@ class SlideMenuSearchFragment : BaseFragment<F3FragmentSlideSearchBinding?>() {
         binding!!.btnApply.setOnClickListener{
             listener?.onApply(sortAndFilter)
         }
+
+        binding!!.btnClearFilter.setOnClickListener {
+            sortAndFilter = Gson().fromJson(
+                F2Util.loadJSONFromAsset(mActivity, "filter_and_sort_in_search"),
+                SortAndFilter::class.java
+            )
+            listener?.onApply(sortAndFilter)
+        }
     }
     override fun setObserver() {}
 
@@ -99,6 +122,7 @@ class SlideMenuSearchFragment : BaseFragment<F3FragmentSlideSearchBinding?>() {
 
     public interface Listener{
         fun onApply(sortAndFilter : SortAndFilter?)
+        fun onClose()
     }
 
     public fun deleteFragment(){

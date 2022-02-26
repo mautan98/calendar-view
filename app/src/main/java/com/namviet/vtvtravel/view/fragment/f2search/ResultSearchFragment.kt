@@ -149,7 +149,14 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
                 this@ResultSearchFragment.sortAndFilter!!.sortHeader[1].content = sortAndFilter.sortHeader[1].content
 
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[0].children.clear()
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[0].children.addAll(sortAndFilter!!.sortHeader[0].children)
+
                 sortAdapter?.notifyDataSetChanged()
+                binding!!.drawerLayout.closeDrawer(GravityCompat.END)
+            }
+
+            override fun onClose() {
                 binding!!.drawerLayout.closeDrawer(GravityCompat.END)
             }
 
