@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.view.fragment.f2search
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.view.KeyboardShortcutInfo
 import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.Animation
@@ -10,6 +11,7 @@ import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
+import com.baseapp.utils.KeyboardUtils
 import com.google.android.material.tabs.TabLayout
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -126,6 +128,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
             override fun onDrawerClosed(drawerView: View) {
                 slideMenuSearchFragment?.deleteFragment()
+                KeyboardUtils.hideKeyboard1(mActivity)
             }
 
             override fun onDrawerStateChanged(newState: Int) {

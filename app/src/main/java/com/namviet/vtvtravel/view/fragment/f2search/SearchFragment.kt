@@ -579,7 +579,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
         handleLocation(mLocation)
 //        edtKeyword.text = searchKeywordSuggestion?.title
         if(searchKeywordSuggestion?.type.equals("category")){
-
+            edtKeyword.text = searchKeywordSuggestion?.title
         }else{
             edtKeyword.text = searchKeywordSuggestion?.title
         }
