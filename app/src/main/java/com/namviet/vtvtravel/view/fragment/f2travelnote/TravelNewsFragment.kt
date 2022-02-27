@@ -339,6 +339,7 @@ class TravelNewsFragment : BaseFragment<F2FragmentTravelNewsBinding?>, Observer 
         })
     }
 
+
     private fun createMenuFragment(){
         fragmentManager?.beginTransaction()
             ?.add(R.id.chooseRegionFrame, ChooseRegionFragment())

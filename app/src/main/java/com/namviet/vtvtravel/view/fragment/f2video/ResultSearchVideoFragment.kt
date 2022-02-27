@@ -18,6 +18,7 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.Video
 import com.namviet.vtvtravel.model.f2search.Children
+import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse
@@ -34,12 +35,20 @@ import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.Dro
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.SortFollowFragment
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import com.namviet.vtvtravel.viewmodel.f2search.SearchResultViewModel
+import kotlinx.android.synthetic.main.f3_fragment_search_result_images.*
 import kotlinx.android.synthetic.main.f3_fragment_search_result_video.*
+import kotlinx.android.synthetic.main.f3_fragment_search_result_video.btnBack
+import kotlinx.android.synthetic.main.f3_fragment_search_result_video.drawerLayout
+import kotlinx.android.synthetic.main.f3_fragment_search_result_video.edtSearch
+import kotlinx.android.synthetic.main.f3_fragment_search_result_video.imgCloseSearch
+import kotlinx.android.synthetic.main.f3_fragment_search_result_video.layoutExpand
+import kotlinx.android.synthetic.main.f3_fragment_search_result_video.rclContent
+import kotlinx.android.synthetic.main.f3_fragment_search_result_video.tvCountResult
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.util.*
 
-class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBinding?>(), Observer {
+class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBinding?>, Observer {
 
     private var sortVideoAdapter: SortVideoAdapter? = null
     private var sortAndFilter: SortAndFilter? = null
@@ -55,9 +64,12 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
     private var subTravelNewsAdapter: SubVideoAdapter? = null
     private var travels: ArrayList<Video> = ArrayList()
     private var categorySortedAdapter: CategorySortedAdapter? = null
+    private var dropDownLocationFragment : DropDownLocationInVideoFragment? = null
+
+    constructor()
 
 
-    public fun setData(keyword: String?, regionId: String?, categoryId: String?){
+    constructor(keyword: String?, regionId: String?, categoryId: String?){
         this.keyword = keyword
         this.regionId = regionId
         this.categoryId = categoryId
@@ -201,8 +213,8 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
                             }
 
                             1 -> {
-                                var dropDownLocationFragment = DropDownLocationInVideoFragment()
-                                dropDownLocationFragment.setData(object :
+                                dropDownLocationFragment = DropDownLocationInVideoFragment()
+                                dropDownLocationFragment?.setData(object :
                                     DropDownLocationInVideoFragment.Callback {
                                     override fun onClickChooseLocation() {
                                         binding!!.drawerLayout.openDrawer(GravityCompat.END)
@@ -214,7 +226,7 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
 
                                 })
                                 fragmentManager!!.beginTransaction()
-                                    .replace(R.id.sortFrame, dropDownLocationFragment).commit()
+                                    .replace(R.id.sortFrame, dropDownLocationFragment!!).commit()
                             }
 
                             2 -> {
@@ -275,7 +287,14 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
 
     private fun createMenuFragment() {
         chooseRegionFragment = ChooseRegionFragment();
-        chooseRegionFragment?.setData(null, locations, null)
+        chooseRegionFragment?.setData(sortAndFilter!!.sortHeader[1].content, locations,  object : ChooseRegionFragment.ChooseRegion{
+            override fun clickRegion(content: Content?) {
+                drawerLayout.closeDrawer(GravityCompat.END)
+                sortAndFilter!!.sortHeader[1].content = content
+                dropDownLocationFragment?.setData(content!!)
+
+            }
+        })
         fragmentManager?.beginTransaction()
             ?.add(R.id.chooseRegionFrame, chooseRegionFragment!!)
             ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)?.addToBackStack(null)!!
