@@ -3,6 +3,7 @@ package com.namviet.vtvtravel.view.fragment.f2search
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.fragment.app.FragmentTransaction
+import com.baseapp.utils.KeyboardUtils
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.adapter.f2biglocation.SearchAllLocationAdapter
@@ -19,6 +20,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.f3_layout_search_destination.*
 import java.util.*
 import java.util.concurrent.TimeUnit
+import java.util.logging.Handler
 import kotlin.collections.ArrayList
 
 class ChooseRegionFragment : BaseFragment<F3LayoutSearchDestinationBinding?>(), Observer {
@@ -66,6 +68,10 @@ class ChooseRegionFragment : BaseFragment<F3LayoutSearchDestinationBinding?>(), 
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                 .remove(this@ChooseRegionFragment).commit()
         }
+
+        binding!!.btnMyLocation.setOnClickListener {
+            viewModel?.getLocation()
+        }
     }
 
     public fun setData(
@@ -112,10 +118,12 @@ class ChooseRegionFragment : BaseFragment<F3LayoutSearchDestinationBinding?>(), 
 
     override fun onDestroy() {
         super.onDestroy()
-//        try {
-//            KeyboardUtils.hideKeyboard(mActivity, binding!!.edtSearch)
-//        } catch (e: Exception) {
-//        }
+        try {
+            android.os.Handler().postDelayed(Runnable {
+                KeyboardUtils.hideKeyboard(mActivity, binding!!.edtSearch)
+            }, 100)
+        } catch (e: Exception) {
+        }
     }
 
     public fun deleteFragment() {
