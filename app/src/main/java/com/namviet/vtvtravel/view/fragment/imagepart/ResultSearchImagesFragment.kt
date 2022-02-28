@@ -215,7 +215,7 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultImagesBind
                                         binding!!.drawerLayout.openDrawer(GravityCompat.END)
                                     }
 
-                                    override fun onApply() {
+                                    override fun onApply(content: Content) {
 
                                     }
 

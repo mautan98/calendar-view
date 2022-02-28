@@ -216,7 +216,7 @@ class ResultSearchNewsFragment : BaseFragment<F3FragmentSearchResultNewsBinding?
                                         binding!!.drawerLayout.openDrawer(GravityCompat.END)
                                     }
 
-                                    override fun onApply() {
+                                    override fun onApply(content: Content) {
 
                                     }
 

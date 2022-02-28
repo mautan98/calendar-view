@@ -220,11 +220,14 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
                                         binding!!.drawerLayout.openDrawer(GravityCompat.END)
                                     }
 
-                                    override fun onApply() {
-
+                                    override fun onApply(content: Content) {
+                                        hideMenuAnim()
+                                        sortAndFilter!!.sortHeader[1].content = content
+                                        sortVideoAdapter?.notifyDataSetChanged()
                                     }
 
                                 })
+                                dropDownLocationFragment?.setData(sortAndFilter!!.sortHeader[1].content)
                                 fragmentManager!!.beginTransaction()
                                     .replace(R.id.sortFrame, dropDownLocationFragment!!).commit()
                             }

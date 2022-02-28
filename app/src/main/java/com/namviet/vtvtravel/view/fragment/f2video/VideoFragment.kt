@@ -22,6 +22,7 @@ import com.namviet.vtvtravel.adapter.vtvtabstyle.VTVTabStyleAdapter
 import com.namviet.vtvtravel.databinding.F2FragmentVideoBinding
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.f2search.Children
+import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse
@@ -222,7 +223,7 @@ class VideoFragment : MainFragment(), Observer {
                                         binding!!.drawerLayout.openDrawer(GravityCompat.END)
                                     }
 
-                                    override fun onApply() {
+                                    override fun onApply(content: Content) {
 
                                     }
 

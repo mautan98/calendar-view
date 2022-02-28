@@ -15,13 +15,24 @@ class DropDownLocationInVideoFragment : BaseFragment<F3FragmentDropDownLocationI
         return R.layout.f3_fragment_drop_down_location_in_video
     }
 
-    override fun initView() {}
+    override fun initView() {
+        if(!content?.cityId.isNullOrBlank()){
+            tvCity.text = content?.cityName
+        }
+    }
     override fun initData() {
     }
     override fun inject() {}
     override fun setClickListener() {
         btnChooseCity.setOnClickListener {
             callback?.onClickChooseLocation()
+        }
+
+        btnApply.setOnClickListener {
+            var content = Content()
+            content.cityName = this.content?.cityName
+            content.cityId = this.content?.cityId
+            callback?.onApply(content)
         }
     }
     override fun setObserver() {}
@@ -32,11 +43,16 @@ class DropDownLocationInVideoFragment : BaseFragment<F3FragmentDropDownLocationI
 
     public interface Callback{
         fun onClickChooseLocation()
-        fun onApply()
+        fun onApply(content : Content)
     }
 
+    private var content  :Content? = null
     public fun setData (content : Content){
-        tvCity.text = content.cityName
+        this.content = content
+        try {
+            tvCity.text = content.cityName
+        } catch (e: Exception) {
+        }
     }
 
 }

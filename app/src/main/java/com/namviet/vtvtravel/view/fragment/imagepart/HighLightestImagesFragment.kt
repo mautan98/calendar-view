@@ -236,7 +236,7 @@ class HighLightestImagesFragment : BaseFragment<F2FragmentHighLightestImagesBind
                                         binding!!.drawerLayout.openDrawer(GravityCompat.END)
                                     }
 
-                                    override fun onApply() {
+                                    override fun onApply(content: Content) {
 
                                     }
 
