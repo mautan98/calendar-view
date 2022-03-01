@@ -14,6 +14,9 @@ public class ErrorResponse {
         this.codeToSplitCase = codeToSplitCase;
     }
 
+    public ErrorResponse() {
+    }
+
     @Expose
     @SerializedName("success")
     private boolean success;

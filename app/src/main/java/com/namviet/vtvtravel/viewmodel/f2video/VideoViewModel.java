@@ -1,5 +1,7 @@
 package com.namviet.vtvtravel.viewmodel.f2video;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.namviet.vtvtravel.api.Param;
 import com.namviet.vtvtravel.api.TravelService;
@@ -49,18 +51,26 @@ public class VideoViewModel extends BaseViewModel {
         try {
             onLoadFail();
         } catch (Exception e) {
-
+            Log.e("xxx", "requestFailed: " );
         }
 
+//        try {
+//            HttpException error = (HttpException) throwable;
+//            String errorBody = error.response().errorBody().string();
+//            ErrorResponse errorResponse = new Gson().fromJson(errorBody, ErrorResponse.class);
+//            setChanged();
+//            notifyObservers(errorResponse);
+//        } catch (Exception e) {
+//            setChanged();
+//            notifyObservers();
+//        }
         try {
-            HttpException error = (HttpException) throwable;
-            String errorBody = error.response().errorBody().string();
-            ErrorResponse errorResponse = new Gson().fromJson(errorBody, ErrorResponse.class);
+            ErrorResponse errorResponse = new ErrorResponse();
             setChanged();
             notifyObservers(errorResponse);
-        } catch (Exception e) {
-            setChanged();
-            notifyObservers();
+        }
+        catch (Exception e){
+
         }
     }
 }

@@ -229,6 +229,47 @@
                     </LinearLayout>
 
                 </com.facebook.shimmer.ShimmerFrameLayout>
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/rll_no_data"
+                    android:layout_width="match_parent"
+                    android:background="#F6F6F6"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/img_empty"
+                        android:layout_marginTop="70dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/img_empty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_marginTop="35dp"
+                        android:id="@+id/tv_empty"
+                        android:layout_below="@+id/img_empty"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Trang bạn tìm không có dữ liệu"
+                        android:textSize="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <com.ornach.richtext.RichText
+                        android:textSize="14dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:layout_marginTop="25dp"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/btn_reload"
+                        app:rt_radius="4dp"
+                        android:gravity="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        app:rt_backgroundColor="#00918D"
+                        android:text="Tải lại"
+                        android:layout_below="@+id/tv_empty"
+                        android:layout_width="129dp"
+                        android:layout_height="42dp"/>
+
+
+                </RelativeLayout>
 
             </RelativeLayout>
 

@@ -21,6 +21,7 @@ import com.namviet.vtvtravel.adapter.f2video.SortVideoAdapter
 import com.namviet.vtvtravel.adapter.vtvtabstyle.VTVTabStyleAdapter
 import com.namviet.vtvtravel.databinding.F2FragmentVideoBinding
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
+import com.namviet.vtvtravel.model.f2event.UpdateAllListTicket
 import com.namviet.vtvtravel.model.f2search.Children
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
 import com.namviet.vtvtravel.model.travelnews.Location
@@ -40,6 +41,7 @@ import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.Sor
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import com.namviet.vtvtravel.viewmodel.f2video.VideoViewModel
 import kotlinx.android.synthetic.main.f2_fragment_search.*
+import org.greenrobot.eventbus.Subscribe
 import java.util.*
 
 class VideoFragment : MainFragment(), Observer {
@@ -82,6 +84,8 @@ class VideoFragment : MainFragment(), Observer {
         initViews(view)
     }
 
+
+
     override fun initViews(v: View) {
         super.initViews(v)
         binding!!.vpContent.offscreenPageLimit = 10
@@ -99,6 +103,13 @@ class VideoFragment : MainFragment(), Observer {
         }
         filterData
         initSlideMenu()
+        binding!!.btnReload.setOnClickListener {
+            binding!!.shimmerViewContainer.startShimmer()
+            binding!!.shimmerViewContainer.visibility = View.VISIBLE
+            binding!!.rllNoData.visibility = View.GONE
+            locationViewModel?.getAllLocation()
+            viewModel!!.getCategoryVideo()
+        }
     }
 
     private var mainAdapter: VTVTabStyleAdapter? = null
@@ -159,9 +170,13 @@ class VideoFragment : MainFragment(), Observer {
                 }
                 binding!!.tabLayout.addOnTabSelectedListener(OnTabSelectedListener)
             }
+            else if(o is ErrorResponse){
+                binding!!.rllNoData.visibility = View.VISIBLE
+            }
         } else if (o is ErrorResponse) {
             val responseError = o
             try {
+
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
             } catch (e: Exception) {
             }
