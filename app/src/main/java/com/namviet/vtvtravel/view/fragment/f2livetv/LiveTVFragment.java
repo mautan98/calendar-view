@@ -15,6 +15,7 @@ import com.namviet.vtvtravel.adapter.f2livetv.ChannelLiveTVAdapter;
 import com.namviet.vtvtravel.adapter.f2livetv.ScheduleLiveTVAdapter;
 import com.namviet.vtvtravel.databinding.F2FragmentDetailLivetvBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.response.CityResponse;
 import com.namviet.vtvtravel.response.WeatherResponse;
 import com.namviet.vtvtravel.response.f2livetv.LiveTvResponse;
@@ -30,7 +31,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> implements ChannelLiveTVAdapter.ClickButton, ListChannelDialog.ClickChannel, Observer , VideoPlayerEvents.OnFullscreenListener{
+public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> implements ChannelLiveTVAdapter.ClickButton, ListChannelDialog.ClickChannel, Observer, VideoPlayerEvents.OnFullscreenListener {
     private LiveTvResponse response;
 
     private ChannelLiveTVAdapter channelLiveTVAdapter;
@@ -68,6 +69,15 @@ public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> 
 
     @Override
     public void initView() {
+        getBinding().btnReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getBinding().cvChannel.setVisibility(View.VISIBLE);
+                getBinding().rllNoData.setVisibility(View.GONE);
+                getBinding().shimmerMain.setVisibility(View.VISIBLE);
+                liveTvViewModel.getLiveTvData(detailLink);
+            }
+        });
         if (response == null) {
             initViewModel();
         } else {
@@ -77,9 +87,9 @@ public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> 
     }
 
 
-
     private void setData() {
         try {
+
             getBinding().jwplayer.setFullscreen(false, false);
             channelList = response.getItems();
 
@@ -127,8 +137,7 @@ public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> 
         getBinding().viewMain.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction())
-                {
+                switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         x1 = event.getX();
                         break;
@@ -136,23 +145,18 @@ public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> 
                         x2 = event.getX();
                         float deltaX = x2 - x1;
 
-                        if (Math.abs(deltaX) > 150)
-                        {
+                        if (Math.abs(deltaX) > 150) {
                             // Left to Right swipe action
-                            if (x2 > x1)
-                            {
+                            if (x2 > x1) {
 //                                Toast.makeText(mActivity, "Left to Right swipe [Next]", Toast.LENGTH_SHORT).show ();
                             }
 
                             // Right to left swipe action
-                            else
-                            {
+                            else {
 //                                Toast.makeText(mActivity, "Right to Left swipe [Previous]", Toast.LENGTH_SHORT).show ();
                             }
 
-                        }
-                        else
-                        {
+                        } else {
                             // consider as something else - a screen tap for example
                         }
                         break;
@@ -167,6 +171,7 @@ public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> 
 
 
     }
+
     @Override
     public void setClickListener() {
         getBinding().btnChannel.setOnClickListener(new View.OnClickListener() {
@@ -283,6 +288,10 @@ public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> 
                 BaseResponseNewHome response = (BaseResponseNewHome) o;
                 LiveTVFragment.this.response = new Gson().fromJson(new Gson().toJson(response.getData()), LiveTvResponse.class);
                 setData();
+            } else if (o instanceof ErrorResponse) {
+                getBinding().cvChannel.setVisibility(View.GONE);
+                getBinding().rllNoData.setVisibility(View.VISIBLE);
+                getBinding().shimmerMain.setVisibility(View.GONE);
             }
         }
     }
