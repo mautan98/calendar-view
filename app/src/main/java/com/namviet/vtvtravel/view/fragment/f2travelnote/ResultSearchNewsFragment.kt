@@ -217,10 +217,13 @@ class ResultSearchNewsFragment : BaseFragment<F3FragmentSearchResultNewsBinding?
                                     }
 
                                     override fun onApply(content: Content) {
-
+                                        hideMenuAnim()
+                                        sortAndFilter!!.sortHeader[1].content = content
+                                        sortVideoAdapter?.notifyDataSetChanged()
                                     }
 
                                 })
+                                dropDownLocationFragment?.setData(sortAndFilter!!.sortHeader[1].content)
                                 fragmentManager!!.beginTransaction()
                                     .replace(R.id.sortFrame, dropDownLocationFragment!!).commit()
                             }
@@ -250,7 +253,7 @@ class ResultSearchNewsFragment : BaseFragment<F3FragmentSearchResultNewsBinding?
 
             categorySortedAdapter = CategorySortedAdapter(sortAndFilter!!.sortHeader[2].children, mActivity, object : CategorySortedAdapter.ClickItem{
                 override fun onClickItem() {
-//                    sortAdapter?.notifyDataSetChanged()
+                    sortVideoAdapter?.notifyDataSetChanged()
                 }
 
             });

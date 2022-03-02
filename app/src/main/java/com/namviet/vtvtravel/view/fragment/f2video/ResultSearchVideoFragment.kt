@@ -257,7 +257,7 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
 
             categorySortedAdapter = CategorySortedAdapter(sortAndFilter!!.sortHeader[2].children, mActivity, object : CategorySortedAdapter.ClickItem{
                 override fun onClickItem() {
-//                    sortAdapter?.notifyDataSetChanged()
+                    sortVideoAdapter?.notifyDataSetChanged()
                 }
 
             });

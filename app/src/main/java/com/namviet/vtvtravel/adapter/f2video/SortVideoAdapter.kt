@@ -115,6 +115,15 @@ class SortVideoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         return true
                     }
                 }
+
+                2 -> {
+                    items!![position].label = items!![position].name
+                    for (i in items!!.indices) {
+                        if (items!![position].children[i].isSelected) {
+                            return true
+                        }
+                    }
+                }
             }
 
             return false
