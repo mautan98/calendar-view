@@ -86,6 +86,19 @@ class TravelNewsFragment : BaseFragment<F2FragmentTravelNewsBinding?>, Observer 
 
         filterData
         initSlideMenu()
+        binding!!.btnReload.setOnClickListener {
+            binding!!.rllNoData.visibility = View.GONE
+            binding!!.btnScrollToTop.visibility = View.VISIBLE
+            if (isTravelNews) {
+                travelNewsViewModel!!.getNewsCategory()
+                binding!!.tvTitle.text = "Tin tức du lịch"
+                binding!!.layoutLearnMore.visibility = View.GONE
+            } else {
+                travelNewsViewModel!!.getNoteBook()
+                binding!!.tvTitle.text = "Sổ tay du lịch"
+                binding!!.layoutLearnMore.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun initData() {
@@ -214,6 +227,8 @@ class TravelNewsFragment : BaseFragment<F2FragmentTravelNewsBinding?>, Observer 
                 binding!!.rclHighLight.adapter = highLightTravelNoteAdapter
             } else if (o is ErrorResponse) {
                 val responseError = o
+                binding!!.rllNoData.visibility = View.VISIBLE
+                binding!!.btnScrollToTop.visibility = View.GONE
                 try {
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
                 } catch (e: Exception) {
