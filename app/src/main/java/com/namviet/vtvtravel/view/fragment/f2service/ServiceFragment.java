@@ -93,7 +93,14 @@ public class ServiceFragment extends MainFragment implements Observer {
 //        }, Constants.TimeDelay);
         serviceViewModel.getService("ANDROID");
         binding.btnBack.setOnClickListener(this);
-
+        binding.btnReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.rllNoData.setVisibility(View.GONE);
+                showDialogLoading();
+                serviceViewModel.getService("ANDROID");
+            }
+        });
     }
 
     @Override
@@ -149,13 +156,14 @@ public class ServiceFragment extends MainFragment implements Observer {
                     MyApplication.getInstance().setVipRegisted(true);
                 }
                 serviceViewModel.getService("ANDROID");
-            } else if (arg instanceof ResponseError) {
-                try {
-                    ErrorResponse responseError = (ErrorResponse) arg;
-                    showMessage(responseError.getMessage());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            } else if (arg instanceof ErrorResponse) {
+//                try {
+//                    ErrorResponse responseError = (ErrorResponse) arg;
+//                    showMessage(responseError.getMessage());
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+                binding.rllNoData.setVisibility(View.VISIBLE);
             }
         }
     }
