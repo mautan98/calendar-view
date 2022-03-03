@@ -6,7 +6,7 @@ import com.namviet.vtvtravel.databinding.F3FragmentDropDownLocationInVideoBindin
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.travelnews.Location
-import kotlinx.android.synthetic.main.f3_fragment_drop_down_location.*
+import kotlinx.android.synthetic.main.f3_fragment_drop_down_location_in_video.*
 
 class DropDownLocationInVideoFragment : BaseFragment<F3FragmentDropDownLocationInVideoBinding?>() {
     private var callback : Callback? = null
@@ -32,6 +32,11 @@ class DropDownLocationInVideoFragment : BaseFragment<F3FragmentDropDownLocationI
             var content = Content()
             content.cityName = this.content?.cityName
             content.cityId = this.content?.cityId
+            callback?.onApply(content)
+        }
+
+        btnClearFilter.setOnClickListener {
+            var content = Content()
             callback?.onApply(content)
         }
     }
