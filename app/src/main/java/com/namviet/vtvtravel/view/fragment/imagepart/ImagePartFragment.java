@@ -25,6 +25,7 @@ public class ImagePartFragment extends BaseFragment<F2FragmentImagePartBinding> 
     private ImagePartViewModel viewModel;
     private List<Travel> travels = new ArrayList<>();
     private String loadMoreLink;
+    private boolean isLoading = false;
 
     @Override
     public int getLayoutRes() {
@@ -37,6 +38,14 @@ public class ImagePartFragment extends BaseFragment<F2FragmentImagePartBinding> 
         getBinding().setImagePartViewModel(viewModel);
         viewModel.addObserver(this);
         viewModel.getGallery(false);
+        getBinding().btnReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showLoading();
+                getBinding().rllNoData.setVisibility(View.GONE);
+                viewModel.getGallery(false);
+            }
+        });
     }
 
     @Override
@@ -71,9 +80,9 @@ public class ImagePartFragment extends BaseFragment<F2FragmentImagePartBinding> 
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
-                if (!recyclerView.canScrollVertically(1)) {
+                if (!recyclerView.canScrollVertically(1) && !isLoading) {
                     viewModel.getGalleryMore(loadMoreLink, true);
-                    loadMoreLink = "";
+                    isLoading = true;
                 }
             }
         });
@@ -132,6 +141,9 @@ public class ImagePartFragment extends BaseFragment<F2FragmentImagePartBinding> 
 
                     }
                 }
+                else  {
+                    getBinding().rllNoData.setVisibility(View.VISIBLE);
+                }
 
                 if(response.isLoadMore()){
                     imageParts.clear();
@@ -140,11 +152,12 @@ public class ImagePartFragment extends BaseFragment<F2FragmentImagePartBinding> 
                     imageParts.clear();
                     imageParts.addAll(new ArrayList<>(imagePartLinkedHashMap.values()));
                 }
-
+                isLoading = false;
                 imagePartAdapter.notifyDataSetChanged();
 
 
             } else if (o instanceof ErrorResponse) {
+                getBinding().rllNoData.setVisibility(View.VISIBLE);
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());

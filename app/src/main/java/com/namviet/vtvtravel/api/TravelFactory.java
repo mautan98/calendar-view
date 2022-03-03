@@ -4,6 +4,8 @@ package com.namviet.vtvtravel.api;
 import android.annotation.SuppressLint;
 
 import com.baseapp.utils.L;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.encode.RSA;
 import com.namviet.vtvtravel.encode.RsaExample;
@@ -40,9 +42,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class TravelFactory {
     private static OkHttpClient okHttpClient = null;
     public byte[] encodeData = null;
+    static Gson gson = new GsonBuilder()
+            .setLenient()
+            .create();
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .baseUrl(WSConfig.HOST);
 
