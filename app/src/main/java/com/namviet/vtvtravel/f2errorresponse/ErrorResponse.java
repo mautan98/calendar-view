@@ -17,6 +17,11 @@ public class ErrorResponse {
     public ErrorResponse() {
     }
 
+    public ErrorResponse(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
+
     @Expose
     @SerializedName("success")
     private boolean success;

@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.namviet.vtvtravel.api.Param
 import com.namviet.vtvtravel.app.MyApplication
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
+import com.namviet.vtvtravel.view.fragment.f2search.SearchFragment
 import com.namviet.vtvtravel.viewmodel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import retrofit2.HttpException
@@ -38,7 +39,7 @@ class SearchViewModel @Inject constructor() : BaseViewModel() {
         val disposable = newsService.getBlockSearch(queryMap)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ videoResponse -> videoResponse?.let { requestSuccess(it) } }) { throwable -> requestFailed(throwable!!) }
+                .subscribe({ videoResponse -> videoResponse?.let { requestSuccess(it) } }) { throwable -> requestFailed(SearchFragment.ErrorCode.ERROR_MAIN_SEARCH_RESPONSE.name) }
         compositeDisposable.add(disposable)
     }
 
@@ -96,15 +97,35 @@ class SearchViewModel @Inject constructor() : BaseViewModel() {
             onLoadFail()
         } catch (e: Exception) {
         }
+//        try {
+//            val error = throwable as HttpException
+//            val errorBody = error.response().errorBody()!!.string()
+//            val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
+//            setChanged()
+//            notifyObservers(errorResponse)
+//        } catch (e: Exception) {
+//            setChanged()
+//            notifyObservers()
+//        }
+        setChanged()
+        notifyObservers(ErrorResponse())
+    }
+    private fun requestFailed(code : String ) {
         try {
-            val error = throwable as HttpException
-            val errorBody = error.response().errorBody()!!.string()
-            val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
-            setChanged()
-            notifyObservers(errorResponse)
+            onLoadFail()
         } catch (e: Exception) {
-            setChanged()
-            notifyObservers()
         }
+//        try {
+//            val error = throwable as HttpException
+//            val errorBody = error.response().errorBody()!!.string()
+//            val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
+//            setChanged()
+//            notifyObservers(errorResponse)
+//        } catch (e: Exception) {
+//            setChanged()
+//            notifyObservers()
+//        }
+        setChanged()
+        notifyObservers(ErrorResponse(code))
     }
 }

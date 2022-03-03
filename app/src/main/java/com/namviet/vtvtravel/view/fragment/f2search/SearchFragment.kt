@@ -67,7 +67,12 @@ import kotlin.collections.ArrayList
 class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, SearchSuggestionFragment.SearchSuggestionCallback {
     private var appVoucherResponse: AppVoucherResponse? = null
     private var itemAppExperienceResponse: ItemAppExperienceResponse? = null
-
+    companion object {
+        fun error_code() : String = "ERROR_MAIN_SEARCH_RESPONSE";
+    }
+    enum class ErrorCode {
+        ERROR_MAIN_SEARCH_RESPONSE
+    }
 
     //viewpager
 
@@ -312,7 +317,12 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
 
 
     override fun setClickListener() {
-
+        btn_reload.setOnClickListener {
+            rll_no_data.visibility = View.GONE
+            lnl_main_search.visibility = View.VISIBLE
+            searchViewModel?.getBlockSearch()
+            showLoading()
+        }
         btnDeleteHistory.setOnClickListener {
             clearRecentSearch()
             recentAdapter?.setData(getRecentSearch())
@@ -390,6 +400,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
     }
 
     override fun update(observable: Observable?, o: Any?) {
+        hideLoading()
         if (observable is SearchBigLocationViewModel && null != o) {
             when (o) {
                 is AllLocationResponse -> {
@@ -453,7 +464,10 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
 
 
                 is ErrorResponse -> {
-                    val responseError = o
+                    if(o.errorCode!= null && o.errorCode.equals(ErrorCode.ERROR_MAIN_SEARCH_RESPONSE.name)){
+                        rll_no_data.visibility = View.VISIBLE
+                        lnl_main_search.visibility = View.GONE
+                    }
                     try { //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
                     } catch (e: Exception) {
                     }
