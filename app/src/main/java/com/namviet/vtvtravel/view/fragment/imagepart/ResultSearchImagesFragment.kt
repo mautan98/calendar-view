@@ -112,7 +112,8 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultImagesBind
         }
 
         edtSearch.setOnClickListener {
-            SearchSuggestionForSpecificContentActivity.openScreen(mActivity, keyword, SearchSuggestionForSpecificContentActivity.Type.IMAGE, true)
+//            SearchSuggestionForSpecificContentActivity.openScreen(mActivity, keyword, SearchSuggestionForSpecificContentActivity.Type.IMAGE, true)
+            addFragment(SearchSuggestionForSpecificContentFragment( keyword, SearchSuggestionForSpecificContentActivity.Type.IMAGE, true))
         }
     }
     override fun setObserver() {}

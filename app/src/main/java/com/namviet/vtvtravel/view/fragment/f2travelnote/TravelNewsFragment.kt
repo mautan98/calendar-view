@@ -33,6 +33,7 @@ import com.namviet.vtvtravel.tracking.TrackingAnalytic
 import com.namviet.vtvtravel.ultils.F2Util
 import com.namviet.vtvtravel.view.f2.f2oldbase.SearchActivity
 import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentActivity
+import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentFragment
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.SortFollowFragment
 import com.namviet.vtvtravel.view.fragment.f2video.DropDownLocationInVideoFragment
@@ -104,7 +105,7 @@ class TravelNewsFragment : BaseFragment<F2FragmentTravelNewsBinding?>, Observer 
             }
         }
         binding!!.btnSearch.setOnClickListener {
-            SearchSuggestionForSpecificContentActivity.openScreen(mActivity, "", SearchSuggestionForSpecificContentActivity.Type.NEWS, false)
+            addFragment(SearchSuggestionForSpecificContentFragment("", SearchSuggestionForSpecificContentActivity.Type.NEWS, false))
         }
         binding!!.vpContent.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(

@@ -26,6 +26,7 @@ import com.namviet.vtvtravel.tracking.TrackingAnalytic
 import com.namviet.vtvtravel.ultils.F2Util
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew
 import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentActivity
+import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentFragment
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.DropDownLocationFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.SortFollowFragment
@@ -141,7 +142,9 @@ class HighLightestImagesFragment : BaseFragment<F2FragmentHighLightestImagesBind
         binding!!.btnBack.setOnClickListener { mActivity.onBackPressed() }
 
         btnSearch.setOnClickListener {
-            SearchSuggestionForSpecificContentActivity.openScreen(mActivity, "", SearchSuggestionForSpecificContentActivity.Type.IMAGE, false)
+//            SearchSuggestionForSpecificContentActivity.openScreen(mActivity, "", SearchSuggestionForSpecificContentActivity.Type.IMAGE, false)
+            addFragment(SearchSuggestionForSpecificContentFragment( "", SearchSuggestionForSpecificContentActivity.Type.IMAGE, false))
+
         }
     }
 
