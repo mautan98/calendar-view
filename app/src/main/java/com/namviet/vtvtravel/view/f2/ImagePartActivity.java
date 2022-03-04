@@ -2,7 +2,9 @@ package com.namviet.vtvtravel.view.f2;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.UrlQuerySanitizer;
+import android.view.View;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.config.Constants;
@@ -69,5 +71,13 @@ public class ImagePartActivity extends BaseActivityNew<F2ActivityImagePartBindin
         intent.putExtra(Constants.IntentKey.SCREEN_TYPE, type);
         intent.putExtra(Constants.IntentKey.DATA, galleryId);
         activity.startActivity(intent);
+    }
+
+    @Override
+    public void afterSetContentView() {
+        super.afterSetContentView();
+        getWindow().getDecorView().setSystemUiVisibility (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
     }
 }

@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.view.f2;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -227,6 +228,15 @@ public class TravelNewsActivity extends BaseActivityNew<F2ActivityTravelNewsBind
         int adWidth = (int) (adWidthPixels / density);
 
         return AdSize.getCurrentOrientationBannerAdSizeWithWidth(this, adWidth);
+    }
+
+
+    @Override
+    public void afterSetContentView() {
+        super.afterSetContentView();
+        getWindow().getDecorView().setSystemUiVisibility (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
     }
 
 }
