@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import androidx.fragment.app.FragmentTransaction
 import com.baseapp.utils.KeyboardUtils
 import com.github.nkzawa.socketio.client.On
 import com.google.gson.Gson
@@ -26,6 +27,7 @@ import com.namviet.vtvtravel.view.MainActivity
 import com.namviet.vtvtravel.view.f3.search.viewmodel.SearchSuggestionViewModel
 import com.namviet.vtvtravel.view.fragment.f2travelnote.ResultSearchNewsActivity
 import com.namviet.vtvtravel.view.fragment.f2video.ResultSearchVideoActivity
+import com.namviet.vtvtravel.view.fragment.f2video.ResultSearchVideoFragment
 import com.namviet.vtvtravel.view.fragment.imagepart.ResultSearchImagesActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.sentry.event.EventBuilder
@@ -192,7 +194,7 @@ class SearchSuggestionForSpecificContentFragment(
                             ResultSearchImagesActivity.openScreen(mContext, edtSearch.text.toString(), null, null)
                         }
                     }
-                    fragmentManager?.popBackStack()
+//                    fragmentManager?.popBackStack()
                 } else {
                     EventBus.getDefault().post(Done(keyword, contentType, null))
                     fragmentManager?.popBackStack()
