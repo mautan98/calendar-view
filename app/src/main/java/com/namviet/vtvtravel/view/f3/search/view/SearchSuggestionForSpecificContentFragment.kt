@@ -164,6 +164,7 @@ class SearchSuggestionForSpecificContentFragment(
         tvCancelSearch.setOnClickListener {
 //            searchSuggestionCallback?.onCancelSearch( keyword)
             KeyboardUtils.hideKeyboard(mContext, edtSearch)
+            EventBus.getDefault().post(Done(keyword, contentType, null))
             fragmentManager?.popBackStack()
         }
 
