@@ -3,7 +3,6 @@ package com.namviet.vtvtravel.view.fragment.f2video
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
-import android.transition.Transition
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,21 +25,16 @@ import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse
-import com.namviet.vtvtravel.response.f2biglocation.LocationResponse
 import com.namviet.vtvtravel.response.f2video.VideoResponse
 import com.namviet.vtvtravel.tracking.TrackingAnalytic
 import com.namviet.vtvtravel.ultils.F2Util
-import com.namviet.vtvtravel.view.f2.f2oldbase.SearchActivity
 import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentActivity
 import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentFragment
 import com.namviet.vtvtravel.view.fragment.MainFragment
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionFragment
-import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.SlideMenuSearchFragment
-import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.DropDownLocationFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.SortFollowFragment
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import com.namviet.vtvtravel.viewmodel.f2video.VideoViewModel
-import kotlinx.android.synthetic.main.f2_fragment_search.*
 import java.util.*
 
 class VideoFragment : MainFragment(), Observer {
@@ -104,7 +98,7 @@ class VideoFragment : MainFragment(), Observer {
     }
 
     private var mainAdapter: VTVTabStyleAdapter? = null
-    override fun update(observable: Observable, o: Any) {
+    override fun update(observable: Observable, any: Any) {
         Handler().postDelayed({
             try {
                 binding!!.shimmerViewContainer.stopShimmer()
@@ -114,10 +108,10 @@ class VideoFragment : MainFragment(), Observer {
                 e.printStackTrace()
             }
         }, 1000)
-        if (observable is SearchBigLocationViewModel && null != o) {
-            when (o) {
+        if (observable is SearchBigLocationViewModel && null != any) {
+            when (any) {
                 is AllLocationResponse -> {
-                    locationsMain = o.data as ArrayList<Location>;
+                    locationsMain = any.data as ArrayList<Location>;
                     locations?.addAll(0, locationsMain)
                 }
 //                is LocationResponse -> {
@@ -130,9 +124,9 @@ class VideoFragment : MainFragment(), Observer {
 //                    }
 //                }
             }
-        } else if (observable is VideoViewModel && null != o) {
-            if (o is VideoResponse) {
-                videoResponse = o
+        } else if (observable is VideoViewModel && null != any) {
+            if (any is VideoResponse) {
+                videoResponse = any
                 mainAdapter = VTVTabStyleAdapter(childFragmentManager)
                 for (i in videoResponse!!.data.indices) {
                     val subVideoFragment = SubVideoFragment()
@@ -161,8 +155,8 @@ class VideoFragment : MainFragment(), Observer {
                 }
                 binding!!.tabLayout.addOnTabSelectedListener(OnTabSelectedListener)
             }
-        } else if (o is ErrorResponse) {
-            val responseError = o
+        } else if (any is ErrorResponse) {
+            val responseError = any
             try {
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
             } catch (e: Exception) {
