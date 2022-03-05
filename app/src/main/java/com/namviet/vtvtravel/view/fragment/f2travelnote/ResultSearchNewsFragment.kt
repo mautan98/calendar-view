@@ -113,7 +113,8 @@ class ResultSearchNewsFragment : BaseFragment<F3FragmentSearchResultNewsBinding?
         }
 
         edtSearch.setOnClickListener {
-            SearchSuggestionForSpecificContentActivity.openScreen(mActivity, keyword, SearchSuggestionForSpecificContentActivity.Type.NEWS, true)
+            addFragment(SearchSuggestionForSpecificContentFragment(keyword, SearchSuggestionForSpecificContentActivity.Type.NEWS, true))
+//            SearchSuggestionForSpecificContentActivity.openScreen(mActivity, keyword, SearchSuggestionForSpecificContentActivity.Type.NEWS, true)
         }
     }
     override fun setObserver() {}

@@ -26,6 +26,7 @@ import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
 import com.namviet.vtvtravel.view.MainActivity
 import com.namviet.vtvtravel.view.f3.search.viewmodel.SearchSuggestionViewModel
 import com.namviet.vtvtravel.view.fragment.f2travelnote.ResultSearchNewsActivity
+import com.namviet.vtvtravel.view.fragment.f2travelnote.ResultSearchNewsFragment
 import com.namviet.vtvtravel.view.fragment.f2video.ResultSearchVideoActivity
 import com.namviet.vtvtravel.view.fragment.f2video.ResultSearchVideoFragment
 import com.namviet.vtvtravel.view.fragment.imagepart.ResultSearchImagesActivity
@@ -188,6 +189,7 @@ class SearchSuggestionForSpecificContentFragment(
                         }
 
                         SearchSuggestionForSpecificContentActivity.Type.NEWS -> {
+//                            addFragment(ResultSearchNewsFragment(edtSearch.text.toString(), null, null))
                             ResultSearchNewsActivity.openScreen(mContext, edtSearch.text.toString(), null, null)
                         }
 
