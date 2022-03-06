@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.view.fragment.f2search
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.util.Log
 import android.view.KeyboardShortcutInfo
 import android.view.LayoutInflater
 import android.view.View
@@ -218,6 +219,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                                     hideMenuAnim()
                                     categorySortedAdapter?.notifyDataSetChanged()
                                     sortAdapter?.notifyDataSetChanged()
+                                    getParamAndSearch()
                                 }
 
                             })
@@ -498,5 +500,45 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             override fun onAnimationRepeat(animation: Animation) {}
         })
         binding!!.layoutExpand.startAnimation(scaleDown)
+    }
+
+
+    private fun getParamAndSearch(){
+        var sortParam : String? = null
+        for (i in 0 until sortAndFilter!!.sortHeader[0].children.size){
+            if(sortAndFilter!!.sortHeader[0].children[i].isSelected){
+                sortParam = sortAndFilter!!.sortHeader[0].children[i].id
+                break
+            }
+        }
+
+        Log.e("sortParam", sortParam!!)
+
+        var districtID = sortAndFilter!!.sortHeader[1].content.district
+        var communeID = sortAndFilter!!.sortHeader[1].content.commune
+
+
+        Log.e("districtID", districtID)
+        Log.e("cityID", sortAndFilter!!.sortHeader[1].content.cityId)
+        Log.e("communeID", communeID)
+
+        var categoryParam = ""
+
+
+        for (i in 0 until sortAndFilter!!.sortHeader[2].children.size){
+            if(sortAndFilter!!.sortHeader[2].children[i].isSelected){
+                categoryParam = categoryParam + ","+sortAndFilter!!.sortHeader[2].children[i].id
+            }
+        }
+
+        Log.e("categoryParam", categoryParam!!)
+
+
+        var isOpen = sortAndFilter!!.sortHeader[3].content.isOpen
+
+
+
+        Log.e("isOpen", isOpen.toString())
+
     }
 }

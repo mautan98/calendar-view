@@ -13,17 +13,17 @@
         },
         {
           "name": "Đúng nhất",
-          "id": "Tất cả",
+          "id": "Đúng nhất",
           "isSelected": false
         },
         {
           "name": "Gần trung tâm nhất",
-          "id": "Tất cả",
+          "id": "Gần trung tâm nhất",
           "isSelected": false
         },
         {
           "name": "Yêu thích nhất",
-          "id": "Tất cả",
+          "id": "Yêu thích nhất",
           "isSelected": false
         }
       ]
@@ -52,22 +52,22 @@
       "children": [
         {
           "name": "Đi đâu",
-          "id": "Tất cả",
+          "id": "Đi đâu",
           "isSelected": false
         },
         {
           "name": "Ở đâu",
-          "id": "Tất cả",
+          "id": "Ở đâu",
           "isSelected": false
         },
         {
           "name": "Ăn gì",
-          "id": "Tất cả",
+          "id": "Ăn gì",
           "isSelected": false
         },
         {
           "name": "Chơi gì",
-          "id": "Tất cả",
+          "id": "Chơi gì",
           "isSelected": false
         }
       ]

@@ -123,7 +123,7 @@ class TravelNewsFragment : BaseFragment<F2FragmentTravelNewsBinding?>, Observer 
     }
 
     override fun setObserver() {}
-    override fun update(observable: Observable, any: Any) {
+    override fun update(observable: Observable, any: Any?) {
         hideLoading()
         if (observable is SearchBigLocationViewModel && null != any) {
             when (any) {

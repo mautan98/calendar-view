@@ -98,7 +98,7 @@ class VideoFragment : MainFragment(), Observer {
     }
 
     private var mainAdapter: VTVTabStyleAdapter? = null
-    override fun update(observable: Observable, any: Any) {
+    override fun update(observable: Observable, any: Any?) {
         Handler().postDelayed({
             try {
                 binding!!.shimmerViewContainer.stopShimmer()
