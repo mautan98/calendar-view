@@ -149,7 +149,7 @@ class HighLightestImagesFragment : BaseFragment<F2FragmentHighLightestImagesBind
     }
 
     override fun setObserver() {}
-    override fun update(observable: Observable, o: Any) {
+    override fun update(observable: Observable, o: Any?) {
         hideLoading()
         try {
             binding!!.shimmerViewContainer.stopShimmer()
