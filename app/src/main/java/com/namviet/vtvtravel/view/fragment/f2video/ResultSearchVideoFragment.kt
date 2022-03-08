@@ -145,7 +145,7 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
     }
 
     override fun setObserver() {}
-    override fun update(observable: Observable, o: Any) {
+    override fun update(observable: Observable, o: Any?) {
         if (observable is SearchBigLocationViewModel && null != o) {
             when (o) {
                 is AllLocationResponse -> {

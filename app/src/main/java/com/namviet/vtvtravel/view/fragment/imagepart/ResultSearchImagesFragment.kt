@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.view.fragment.imagepart
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -201,6 +202,7 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultImagesBind
                                             sortAndFilter!!.sortHeader[0].children = listChild
                                             hideMenuAnim()
                                             sortVideoAdapter?.notifyDataSetChanged()
+                                            getParamAndSearch()
                                         }
                                     })
 
@@ -220,6 +222,7 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultImagesBind
                                         hideMenuAnim()
                                         sortAndFilter!!.sortHeader[1].content = content
                                         sortVideoAdapter?.notifyDataSetChanged()
+                                        getParamAndSearch()
                                     }
 
                                 })
@@ -237,6 +240,7 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultImagesBind
                                         hideMenuAnim()
                                         categorySortedAdapter?.notifyDataSetChanged()
                                         sortVideoAdapter?.notifyDataSetChanged()
+                                        getParamAndSearch()
                                     }
 
                                 })
@@ -367,5 +371,31 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultImagesBind
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
+    }
+
+    private fun getParamAndSearch(){
+        var sortParam : String? = null
+        for (i in 0 until sortAndFilter!!.sortHeader[0].children.size){
+            if(sortAndFilter!!.sortHeader[0].children[i].isSelected){
+                sortParam = sortAndFilter!!.sortHeader[0].children[i].id
+                break
+            }
+        }
+
+        Log.e("sortParam", sortParam!!)
+
+        Log.e("cityID", sortAndFilter!!.sortHeader[1].content.cityId)
+
+        var categoryParam = ""
+
+
+        for (i in 0 until sortAndFilter!!.sortHeader[2].children.size){
+            if(sortAndFilter!!.sortHeader[2].children[i].isSelected){
+                categoryParam = categoryParam + ","+sortAndFilter!!.sortHeader[2].children[i].id
+            }
+        }
+
+        Log.e("categoryParam", categoryParam!!)
+
     }
 }

@@ -158,6 +158,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
                 sortAdapter?.notifyDataSetChanged()
                 binding!!.drawerLayout.closeDrawer(GravityCompat.END)
+                getParamAndSearch()
             }
 
             override fun onClose() {
@@ -189,6 +190,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                                         sortAndFilter!!.sortHeader[0].children = listChild
                                         hideMenuAnim()
                                         sortAdapter?.notifyDataSetChanged()
+                                        getParamAndSearch()
+
                                     }
 
                                 })
@@ -203,6 +206,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                                     hideMenuAnim()
                                     sortAndFilter!!.sortHeader[1].content = content
                                     sortAdapter?.notifyDataSetChanged()
+                                    getParamAndSearch()
+
                                 }
 
                             })
@@ -234,6 +239,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                                     sortAndFilter!!.sortHeader[3].content.isOpen = isOpen
                                     hideMenuAnim()
                                     sortAdapter?.notifyDataSetChanged()
+                                    getParamAndSearch()
+
                                 }
 
                             })
@@ -254,6 +261,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         categorySortedAdapter = CategorySortedAdapter(sortAndFilter!!.sortHeader[2].children, mActivity, object : CategorySortedAdapter.ClickItem{
             override fun onClickItem() {
                 sortAdapter?.notifyDataSetChanged()
+                getParamAndSearch()
             }
 
         });
@@ -504,7 +512,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
 
     private fun getParamAndSearch(){
-        var sortParam : String? = null
+        var sortParam = ""
         for (i in 0 until sortAndFilter!!.sortHeader[0].children.size){
             if(sortAndFilter!!.sortHeader[0].children[i].isSelected){
                 sortParam = sortAndFilter!!.sortHeader[0].children[i].id
@@ -512,7 +520,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             }
         }
 
-        Log.e("sortParam", sortParam!!)
+        Log.e("sortParam", sortParam)
 
         var districtID = sortAndFilter!!.sortHeader[1].content.district
         var communeID = sortAndFilter!!.sortHeader[1].content.commune
@@ -538,7 +546,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
 
 
-        Log.e("isOpen", isOpen.toString())
+        Log.e("isOpen", if(isOpen == null) "null" else isOpen.toString())
 
     }
 }
