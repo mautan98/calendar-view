@@ -3,6 +3,7 @@ package com.namviet.vtvtravel.view.f3.deal.view.dealhome
 import android.view.View
 import com.google.gson.Gson
 import com.namviet.vtvtravel.R
+import com.namviet.vtvtravel.api.WSConfig
 import com.namviet.vtvtravel.databinding.FragmentDealSubcribeBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
@@ -85,7 +86,7 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
         rclContent.adapter = dealSubscribeParentAdapter
 
         dealViewModel?.getDealFollow(
-            "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/follows",
+            WSConfig.HOST_DEAL_FOLLOW,
             filter
         )
     }
@@ -96,7 +97,7 @@ class DealSubcribeFragment : BaseFragment<FragmentDealSubcribeBinding?>(), Obser
         dealSubscribeParentAdapter?.notifyDataSetChanged()
         filter = listFilter[position].id
         dealViewModel?.getDealFollow(
-            "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/follows",
+            WSConfig.HOST_DEAL_FOLLOW,
             filter
         )
     }

@@ -43,6 +43,7 @@ import com.namviet.vtvtravel.adapter.newhome.subnewhome.SubVoucherNowAdapter;
 import com.namviet.vtvtravel.adapter.newhome.subnewhome.tab.TabDiscoverAdapter;
 import com.namviet.vtvtravel.adapter.newhome.subnewhome.tab.TabSuggestionLocationAdapter;
 import com.namviet.vtvtravel.adapter.newhome.subnewhome.tab.TabVoucherNowAdapter;
+import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.Account;
@@ -690,9 +691,9 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     rclContent.setAdapter(f3SubDealAdapter);
 
                     if (positionClick == 0) {
-                        dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/home?page=0&size=5");
+                        dealViewModel.getDeal(WSConfig.HOST_DEAL_CAMPAIGN_HOME);
                     } else {
-                        dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/home?size=5&page=0");
+                        dealViewModel.getDeal(WSConfig.HOST_DEAL_HOME);
                     }
 //                    try {
 //                        newHomeFragment.setmIOnClickTabReloadData(SuggestionLocationViewHolder.this);
@@ -714,7 +715,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             if (dealResponse == null) {
                 viewWhite.setVisibility(View.VISIBLE);
                 shimmer.setVisibility(View.VISIBLE);
-                dealViewModel.getDeal("https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/home?page=0&size=5");
+                dealViewModel.getDeal(WSConfig.HOST_DEAL_CAMPAIGN_HOME);
             }
 
             try {

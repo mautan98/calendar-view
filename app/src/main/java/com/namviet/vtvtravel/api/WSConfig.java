@@ -24,6 +24,12 @@ public class WSConfig {
     public static final String LINK_DEAL = "http://deal.vtvtravel.vn";
     public static final String HOST_ORDER = "https://booking-testing.vtvtravel.vn/order/dashboard";
 
+    //Deal
+    public static final String HOST_DEAL_CAMPAIGN_HOME = "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/home?page=0&size=5";
+    public static final String HOST_DEAL_HOME = "https://core-testing.vtvtravel.vn/api/v1/deals/home?size=5&page=0";
+    public static final String HOST_DEAL_FOLLOW = "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/follows";
+
+
 
     //Server product
 //    public static final String URL_SOCKET = "https://chat.vtvtravel.vn";
@@ -44,6 +50,12 @@ public class WSConfig {
 //    public static final String HOST_LANDING_PAGE = "https://m.vtvtravel.vn/LandingPage1039";
 //    public static final String LINK_DEAL = "http://deal.vtvtravel.vn";
 //    public static final String HOST_ORDER = "http://booking.vtvtravel.vn/order/dashboard/";
+
+
+    //Deal
+//    public static final String HOST_DEAL_CAMPAIGN_HOME = "https://core.vtvtravel.vn/api/v1/deals/campaigns/home?page=0&size=5";
+//    public static final String HOST_DEAL_HOME = "https://core.vtvtravel.vn/api/v1/deals/home?size=5&page=0";
+//    public static final String HOST_DEAL_FOLLOW = "https://core.vtvtravel.vn/api/v1/deals/campaigns/follows";
 
     public static final String URL_ENCODE = "http://api.travel.onex.vn/test/rsa/decrypt";
     public static final String URL_DEFAULT_CHANNEL = "http://113.185.19.133:8443/namvietvtv/smil:vtv1.smil/playlist.m3u8";
