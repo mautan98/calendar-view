@@ -65,7 +65,13 @@ class SearchSuggestionForSpecificContentFragment(
         return R.layout.f3_fragment_search_suggestion_for_specific_content
     }
 
-    override fun initView() {}
+    override fun initView() {
+        if(isFromResultPage){
+            viewFullScreen.visibility = View.GONE
+        }else{
+            viewFullScreen.visibility = View.VISIBLE
+        }
+    }
     override fun initData() {
         searchSuggestionViewModel = SearchSuggestionViewModel()
         searchSuggestionViewModel?.addObserver(this)

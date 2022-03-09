@@ -374,7 +374,7 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultImagesBind
     }
 
     private fun getParamAndSearch(){
-        var sortParam : String? = null
+        var sortParam = ""
         for (i in 0 until sortAndFilter!!.sortHeader[0].children.size){
             if(sortAndFilter!!.sortHeader[0].children[i].isSelected){
                 sortParam = sortAndFilter!!.sortHeader[0].children[i].id
@@ -382,7 +382,7 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultImagesBind
             }
         }
 
-        Log.e("sortParam", sortParam!!)
+        Log.e("sortParam", sortParam)
 
         Log.e("cityID", sortAndFilter!!.sortHeader[1].content.cityId)
 
@@ -395,7 +395,7 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultImagesBind
             }
         }
 
-        Log.e("categoryParam", categoryParam!!)
+        Log.e("categoryParam", categoryParam)
 
     }
 }
