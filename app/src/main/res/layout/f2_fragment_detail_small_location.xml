@@ -317,6 +317,13 @@
             </com.facebook.shimmer.ShimmerFrameLayout>
 
         </RelativeLayout>
+        <include
+            android:id="@+id/rll_no_data"
+            android:visibility="gone"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_marginTop="75dp"
+            layout="@layout/layout_no_data"/>
 
     </RelativeLayout>
 </layout>

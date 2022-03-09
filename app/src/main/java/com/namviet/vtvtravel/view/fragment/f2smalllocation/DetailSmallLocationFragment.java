@@ -126,6 +126,18 @@ public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSm
                 }
             }
         });
+        getBinding().rllNoData.findViewById(R.id.btn_reload).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    getBinding().rllNoData.setVisibility(View.GONE);
+                    getBinding().shimmerMain.setVisibility(View.VISIBLE);
+                    viewModel.getDetailSmallLocation(detailLink, false);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
@@ -490,6 +502,7 @@ public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSm
                     e.printStackTrace();
                 }
             } else if (o instanceof ErrorResponse) {
+                getBinding().rllNoData.setVisibility(View.VISIBLE);
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
