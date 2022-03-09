@@ -727,6 +727,10 @@
 
 
         </LinearLayout>
+        <include
+            android:visibility="gone"
+            android:id="@+id/rll_no_data"
+            layout="@layout/layout_no_data"/>
 
     </RelativeLayout>
 

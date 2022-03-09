@@ -153,15 +153,17 @@ public class SmallLocationViewModel extends BaseViewModel {
 
         }
 
-        try {
-            HttpException error = (HttpException) throwable;
-            String errorBody = error.response().errorBody().string();
-            ErrorResponse errorResponse = new Gson().fromJson(errorBody, ErrorResponse.class);
-            setChanged();
-            notifyObservers(errorResponse);
-        } catch (Exception e) {
-            setChanged();
-            notifyObservers();
-        }
+//        try {
+//            HttpException error = (HttpException) throwable;
+//            String errorBody = error.response().errorBody().string();
+//            ErrorResponse errorResponse = new Gson().fromJson(errorBody, ErrorResponse.class);
+//            setChanged();
+//            notifyObservers(errorResponse);
+//        } catch (Exception e) {
+//            setChanged();
+//            notifyObservers();
+//        }
+        setChanged();
+        notifyObservers(new ErrorResponse());
     }
 }

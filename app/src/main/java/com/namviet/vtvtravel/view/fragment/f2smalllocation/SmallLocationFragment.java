@@ -236,6 +236,15 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         } catch (Exception e) {
             e.printStackTrace();
         }
+        // handle error
+        getBinding().rllNoData.findViewById(R.id.btn_reload).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getBinding().rllNoData.setVisibility(View.GONE);
+                getBinding().shimmerViewContainer.setVisibility(View.VISIBLE);
+                viewModel.getSmallLocation(link + typeDestination + genLinkRegionId(), false);
+            }
+        });
 
     }
 
@@ -269,11 +278,17 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
     }
 
     public void onPageSelected(int position) {
-        for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
-            if (position == i) {
-                filterByCodeResponse.getData().getItems().get(position).setSelected(true);
-                Log.e("", "");
-            } else filterByCodeResponse.getData().getItems().get(i).setSelected(false);
+        try {
+            if(filterByCodeResponse != null){
+                for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
+                    if (position == i) {
+                        filterByCodeResponse.getData().getItems().get(position).setSelected(true);
+                        Log.e("", "");
+                    } else filterByCodeResponse.getData().getItems().get(i).setSelected(false);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -449,6 +464,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                 sortSmallLocationResponse = (SortSmallLocationResponse) o;
 
             } else if (o instanceof ErrorResponse) {
+                getBinding().rllNoData.setVisibility(View.VISIBLE);
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
