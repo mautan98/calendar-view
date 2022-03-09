@@ -52,6 +52,14 @@ public class SubTopExperienceFragment extends BaseFragment<F2FragmentSubTopExper
         viewModel.addObserver(this);
 
         viewModel.getSubTopExperience(link, false);
+        getBinding().rllNoData.findViewById(R.id.btn_reload).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getBinding().rllNoData.setVisibility(View.GONE);
+                getBinding().shimmerViewContainer.setVisibility(View.VISIBLE);
+                viewModel.getSubTopExperience(link, false);
+            }
+        });
     }
 
     @Override
@@ -122,6 +130,7 @@ public class SubTopExperienceFragment extends BaseFragment<F2FragmentSubTopExper
                 }
                 nearByInTravelDetailAdapter.notifyDataSetChanged();
             } else if (o instanceof ErrorResponse) {
+                getBinding().rllNoData.setVisibility(View.VISIBLE);
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
