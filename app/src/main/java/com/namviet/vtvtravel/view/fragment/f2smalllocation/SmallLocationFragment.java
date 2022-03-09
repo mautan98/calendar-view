@@ -243,6 +243,8 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                 getBinding().rllNoData.setVisibility(View.GONE);
                 getBinding().shimmerViewContainer.setVisibility(View.VISIBLE);
                 viewModel.getSmallLocation(link + typeDestination + genLinkRegionId(), false);
+                viewModel.getFilterByCode();
+                viewModel.sortSmallLocation();
             }
         });
 
