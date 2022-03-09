@@ -546,7 +546,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
 
 
-        Log.e("isOpen", if(isOpen == null) "null" else isOpen.toString())
+        Log.e("isOpen", isOpen?.toString() ?: "null")
 
     }
 }
