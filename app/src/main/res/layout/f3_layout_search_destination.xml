@@ -147,6 +147,7 @@
 
 
                 <com.ornach.richtext.RichText
+                    android:id="@+id/btnAction"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="54dp"
@@ -158,7 +159,7 @@
                     android:paddingTop="10dp"
                     android:paddingEnd="18dp"
                     android:paddingBottom="10dp"
-                    android:text="Chọn"
+                    android:text="Quay lại"
                     android:textColor="@color/white"
                     app:rt_backgroundColor="@color/colorPrimary"
                     app:rt_radius="21dp" />
