@@ -351,7 +351,6 @@
 
         <activity android:name=".view.f3.booking.view.BookingActivity" />
         <activity android:name=".view.f3.notification.view.NotificationActivity" />
-        <activity android:name=".view.f3.search.view.SearchSuggestionForSpecificContentActivity" android:screenOrientation="portrait" />
         <activity android:name=".view.fragment.f2video.ResultSearchVideoActivity" android:screenOrientation="portrait" />
         <activity android:name=".view.fragment.f2travelnote.ResultSearchNewsActivity" android:screenOrientation="portrait" />
         <activity android:name=".view.fragment.imagepart.ResultSearchImagesActivity" android:screenOrientation="portrait" />
