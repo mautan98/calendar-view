@@ -23,7 +23,7 @@ import retrofit2.http.Query;
 
 public class DealViewModel extends BaseViewModel {
 
-    String dataContent = "{\"data\":{\"content\":[{\"id\":4595,\"campaignId\":107,\"name\":\"Test1211\",\"code\":\"NGAY1211\",\"categoryId\":1,\"status\":1,\"description\":\"<p>222</p>\",\"rule\":\"<p>222</p>\",\"promptRank\":1,\"beginAt\":1634283184000,\"endAt\":1638171186000,\"created\":1636771018000,\"modified\":1636771740000,\"avatarUri\":\"https://cdn-testing.vtvtravel.vn/data_files/posts_files/image/202111/11/hinh-anh-dep-1-11112021143334.jpg\",\"galleryUri\":null,\"homeStick\":1,\"appHomeStick\":1,\"guide\":\"<p>333</p>\",\"price\":1000,\"promptUri\":\"data_files/posts_files/audio/202111/11/file-example-wav-1mg-11112021143349.wav\",\"warehouseId\":148,\"provinceId\":2,\"countryId\":1,\"districtId\":26,\"lat\":1.0,\"lng\":1.0,\"awarded\":1,\"needVerify\":0,\"priceBeforePromo\":1,\"priceAfterPromo\":1,\"valuePromotion\":1,\"displayType\":1,\"isHighlight\":1,\"totalHoldtime\":null,\"isUserHunting\":false,\"userHuntingCount\":0,\"ranking\":null,\"dealScores\":[],\"isParent\":false,\"expireDate\":null},{\"id\":1281,\"campaignId\":105,\"name\":\"CTKM Thang 10.3\",\"code\":\"CTKM2010\",\"categoryId\":1,\"status\":1,\"description\":\"deal thang 10 ngay 20\",\"rule\":null,\"promptRank\":null,\"beginAt\":1634805493000,\"endAt\":1638205193000,\"created\":null,\"modified\":1636770937000,\"avatarUri\":\"https://cdn-testing.vtvtravel.vn/null\",\"galleryUri\":null,\"homeStick\":null,\"appHomeStick\":null,\"guide\":null,\"price\":1000,\"promptUri\":null,\"warehouseId\":3,\"provinceId\":null,\"countryId\":null,\"districtId\":null,\"lat\":null,\"lng\":null,\"awarded\":null,\"needVerify\":1,\"priceBeforePromo\":500000,\"priceAfterPromo\":300000,\"valuePromotion\":20,\"displayType\":1,\"isHighlight\":1,\"totalHoldtime\":null,\"isUserHunting\":false,\"userHuntingCount\":0,\"ranking\":null,\"dealScores\":[],\"isParent\":false,\"expireDate\":1636701238000},{\"id\":4607,\"campaignId\":107,\"name\":\"LASTTEST1112\",\"code\":\"TESTDEAL1311\",\"categoryId\":3,\"status\":1,\"description\":\"<ol>\\n<li style=\\\"text-align: center;\\\"><strong><em>m&ocirc; tả</em></strong></li>\\n</ol>\",\"rule\":\"<ul>\\n<li style=\\\"text-align: center;\\\"><em><strong>thể lệ</strong></em></li>\\n</ul>\",\"promptRank\":2,\"beginAt\":1634462494000,\"endAt\":1640770021000,\"created\":1636771018000,\"modified\":1636774271000,\"avatarUri\":\"https://cdn-testing.vtvtravel.vn/data_files/posts_files/image/202111/12/hinh-anh-dep-1-12112021162855.jpg\",\"galleryUri\":null,\"homeStick\":0,\"appHomeStick\":0,\"guide\":\"<h1 style=\\\"text-align: center;\\\"><em><strong>hướng dẫn</strong></em></h1>\",\"price\":1000,\"promptUri\":\"data_files/posts_files/audio/202111/12/file-example-wav-1mg-12112021162208.wav\",\"warehouseId\":163,\"provinceId\":6,\"countryId\":1,\"districtId\":86,\"lat\":12.0,\"lng\":22.0,\"awarded\":1,\"needVerify\":0,\"priceBeforePromo\":null,\"priceAfterPromo\":null,\"valuePromotion\":20,\"displayType\":null,\"isHighlight\":0,\"totalHoldtime\":null,\"isUserHunting\":false,\"userHuntingCount\":2,\"ranking\":null,\"dealScores\":[{\"id\":12,\"campaignId\":107,\"mobile\":\"84982594965\",\"holdTime\":1635485757208,\"rewardStatus\":2,\"createdAt\":1637088475000,\"modifiedAt\":1637120340000},{\"id\":13,\"campaignId\":107,\"mobile\":\"84973124825\",\"holdTime\":1635485357340,\"rewardStatus\":2,\"createdAt\":1637088475000,\"modifiedAt\":1637120340000},{\"id\":14,\"campaignId\":107,\"mobile\":\"84973124825\",\"holdTime\":2250729864,\"rewardStatus\":3,\"createdAt\":1636442923000,\"modifiedAt\":1637091118000}],\"isParent\":false,\"expireDate\":null}],\"pageable\":{\"sort\":{\"sorted\":false,\"unsorted\":true,\"empty\":true},\"pageSize\":8,\"pageNumber\":0,\"offset\":0,\"unpaged\":false,\"paged\":true},\"last\":true,\"totalElements\":3,\"totalPages\":1,\"first\":true,\"sort\":{\"sorted\":false,\"unsorted\":true,\"empty\":true},\"numberOfElements\":3,\"size\":8,\"number\":0,\"empty\":false}";
+    String dataContent = "{\"data\":{\"content\":[{\"id\":4595,\"campaignId\":107,\"name\":\"Test1211\",\"code\":\"NGAY1211\",\"categoryId\":1,\"status\":1,\"description\":\"<p>222</p>\",\"rule\":\"<p>222</p>\",\"promptRank\":1,\"beginAt\":1634283184000,\"endAt\":1638171186000,\"created\":1636771018000,\"modified\":1636771740000,\"avatarUri\":\"https://cdn.vtvtravel.vn/data_files/posts_files/image/202111/11/hinh-anh-dep-1-11112021143334.jpg\",\"galleryUri\":null,\"homeStick\":1,\"appHomeStick\":1,\"guide\":\"<p>333</p>\",\"price\":1000,\"promptUri\":\"data_files/posts_files/audio/202111/11/file-example-wav-1mg-11112021143349.wav\",\"warehouseId\":148,\"provinceId\":2,\"countryId\":1,\"districtId\":26,\"lat\":1.0,\"lng\":1.0,\"awarded\":1,\"needVerify\":0,\"priceBeforePromo\":1,\"priceAfterPromo\":1,\"valuePromotion\":1,\"displayType\":1,\"isHighlight\":1,\"totalHoldtime\":null,\"isUserHunting\":false,\"userHuntingCount\":0,\"ranking\":null,\"dealScores\":[],\"isParent\":false,\"expireDate\":null},{\"id\":1281,\"campaignId\":105,\"name\":\"CTKM Thang 10.3\",\"code\":\"CTKM2010\",\"categoryId\":1,\"status\":1,\"description\":\"deal thang 10 ngay 20\",\"rule\":null,\"promptRank\":null,\"beginAt\":1634805493000,\"endAt\":1638205193000,\"created\":null,\"modified\":1636770937000,\"avatarUri\":\"https://cdn.vtvtravel.vn/null\",\"galleryUri\":null,\"homeStick\":null,\"appHomeStick\":null,\"guide\":null,\"price\":1000,\"promptUri\":null,\"warehouseId\":3,\"provinceId\":null,\"countryId\":null,\"districtId\":null,\"lat\":null,\"lng\":null,\"awarded\":null,\"needVerify\":1,\"priceBeforePromo\":500000,\"priceAfterPromo\":300000,\"valuePromotion\":20,\"displayType\":1,\"isHighlight\":1,\"totalHoldtime\":null,\"isUserHunting\":false,\"userHuntingCount\":0,\"ranking\":null,\"dealScores\":[],\"isParent\":false,\"expireDate\":1636701238000},{\"id\":4607,\"campaignId\":107,\"name\":\"LASTTEST1112\",\"code\":\"TESTDEAL1311\",\"categoryId\":3,\"status\":1,\"description\":\"<ol>\\n<li style=\\\"text-align: center;\\\"><strong><em>m&ocirc; tả</em></strong></li>\\n</ol>\",\"rule\":\"<ul>\\n<li style=\\\"text-align: center;\\\"><em><strong>thể lệ</strong></em></li>\\n</ul>\",\"promptRank\":2,\"beginAt\":1634462494000,\"endAt\":1640770021000,\"created\":1636771018000,\"modified\":1636774271000,\"avatarUri\":\"https://cdn.vtvtravel.vn/data_files/posts_files/image/202111/12/hinh-anh-dep-1-12112021162855.jpg\",\"galleryUri\":null,\"homeStick\":0,\"appHomeStick\":0,\"guide\":\"<h1 style=\\\"text-align: center;\\\"><em><strong>hướng dẫn</strong></em></h1>\",\"price\":1000,\"promptUri\":\"data_files/posts_files/audio/202111/12/file-example-wav-1mg-12112021162208.wav\",\"warehouseId\":163,\"provinceId\":6,\"countryId\":1,\"districtId\":86,\"lat\":12.0,\"lng\":22.0,\"awarded\":1,\"needVerify\":0,\"priceBeforePromo\":null,\"priceAfterPromo\":null,\"valuePromotion\":20,\"displayType\":null,\"isHighlight\":0,\"totalHoldtime\":null,\"isUserHunting\":false,\"userHuntingCount\":2,\"ranking\":null,\"dealScores\":[{\"id\":12,\"campaignId\":107,\"mobile\":\"84982594965\",\"holdTime\":1635485757208,\"rewardStatus\":2,\"createdAt\":1637088475000,\"modifiedAt\":1637120340000},{\"id\":13,\"campaignId\":107,\"mobile\":\"84973124825\",\"holdTime\":1635485357340,\"rewardStatus\":2,\"createdAt\":1637088475000,\"modifiedAt\":1637120340000},{\"id\":14,\"campaignId\":107,\"mobile\":\"84973124825\",\"holdTime\":2250729864,\"rewardStatus\":3,\"createdAt\":1636442923000,\"modifiedAt\":1637091118000}],\"isParent\":false,\"expireDate\":null}],\"pageable\":{\"sort\":{\"sorted\":false,\"unsorted\":true,\"empty\":true},\"pageSize\":8,\"pageNumber\":0,\"offset\":0,\"unpaged\":false,\"paged\":true},\"last\":true,\"totalElements\":3,\"totalPages\":1,\"first\":true,\"sort\":{\"sorted\":false,\"unsorted\":true,\"empty\":true},\"numberOfElements\":3,\"size\":8,\"number\":0,\"empty\":false}";
 
 
     String data = "{\n" +
@@ -40,7 +40,7 @@ public class DealViewModel extends BaseViewModel {
             "          \"name\": \"Tích lũy nhận quà\",\n" +
             "          \"icon_url\": null,\n" +
             "          \"icon_enable_url\": null,\n" +
-            "          \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "          \"link\": \"https://api.vtvtravel.vn\",\n" +
             "          \"category_id\": \"\",\n" +
             "          \"html_icon\": \"\",\n" +
             "          \"weight\": 0,\n" +
@@ -54,7 +54,7 @@ public class DealViewModel extends BaseViewModel {
             "              \"name\": \"Khối hot\",\n" +
             "              \"icon_url\": null,\n" +
             "              \"icon_enable_url\": null,\n" +
-            "              \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "              \"link\": \"https://api.vtvtravel.vn\",\n" +
             "              \"category_id\": \"\",\n" +
             "              \"html_icon\": \"\",\n" +
             "              \"weight\": 0,\n" +
@@ -68,7 +68,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Chơi gì\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                  \"link\": \"https://api.vtvtravel.vn\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -82,7 +82,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Sắp diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.4&isHighlight=1&isProcessing=2\",\n" +
+            "                      \"link\": \"https://core.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.4&isHighlight=1&isProcessing=2\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -97,7 +97,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Đang diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.4&isHighlight=1&isProcessing=1\",\n" +
+            "                      \"link\": \"https://core.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.4&isHighlight=1&isProcessing=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -112,7 +112,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Slide\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://api.vtvtravel.vn\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -129,7 +129,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Ăn gì\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                  \"link\": \"https://api.vtvtravel.vn\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -143,7 +143,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Sắp diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.3&isHighlight=1&isProcessing=2\",\n" +
+            "                      \"link\": \"https://core.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.3&isHighlight=1&isProcessing=2\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -158,7 +158,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Đang diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.3&isHighlight=1&isProcessing=1\",\n" +
+            "                      \"link\": \"https://core.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.3&isHighlight=1&isProcessing=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -173,7 +173,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Slide\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://api.vtvtravel.vn\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -190,7 +190,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Ở đâu\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                  \"link\": \"https://api.vtvtravel.vn\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -204,7 +204,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Sắp diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.2&isHighlight=1&isProcessing=2\",\n" +
+            "                      \"link\": \"https://core.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.2&isHighlight=1&isProcessing=2\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -219,7 +219,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Đang diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.2&isHighlight=1&isProcessing=1\",\n" +
+            "                      \"link\": \"https://core.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.2&isHighlight=1&isProcessing=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -234,7 +234,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Slide\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://api.vtvtravel.vn\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -251,7 +251,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Đi đâu\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                  \"link\": \"https://api.vtvtravel.vn\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -265,7 +265,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Sắp diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.1&isHighlight=1&isProcessing=2\",\n" +
+            "                      \"link\": \"https://core.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.1&isHighlight=1&isProcessing=2\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -280,7 +280,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Đang diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.1&isHighlight=1&isProcessing=1\",\n" +
+            "                      \"link\": \"https://core.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.1&isHighlight=1&isProcessing=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -295,7 +295,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Slide\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://api.vtvtravel.vn\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -312,7 +312,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Khác\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                  \"link\": \"https://api.vtvtravel.vn\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -326,7 +326,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Sắp diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.5&isHighlight=1&isProcessing=2\",\n" +
+            "                      \"link\": \"https://core.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.5&isHighlight=1&isProcessing=2\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -341,7 +341,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Đang diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.5&isHighlight=1&isProcessing=1\",\n" +
+            "                      \"link\": \"https://core.vtvtravel.vn/api/v1/deals/campaigns/categories?size=6&categoryCode=0.1.5&isHighlight=1&isProcessing=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -356,7 +356,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Slide\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://api.vtvtravel.vn\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -375,7 +375,7 @@ public class DealViewModel extends BaseViewModel {
             "              \"name\": \"Khối gợi ý\",\n" +
             "              \"icon_url\": null,\n" +
             "              \"icon_enable_url\": null,\n" +
-            "              \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "              \"link\": \"https://api.vtvtravel.vn\",\n" +
             "              \"category_id\": \"\",\n" +
             "              \"html_icon\": \"\",\n" +
             "              \"weight\": 1,\n" +
@@ -389,7 +389,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Ở đâu\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=10&categoryCode=0.1.2&isHighlight=0\",\n" +
+            "                  \"link\": \"https://core.vtvtravel.vn/api/v1/deals/campaigns/categories?size=10&categoryCode=0.1.2&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -404,7 +404,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Đi đâu\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=10&categoryCode=0.1.1&isHighlight=0\",\n" +
+            "                  \"link\": \"https://core.vtvtravel.vn/api/v1/deals/campaigns/categories?size=10&categoryCode=0.1.1&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -419,7 +419,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Chơi gì\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=10&categoryCode=0.1.4&isHighlight=0\",\n" +
+            "                  \"link\": \"https://core.vtvtravel.vn/api/v1/deals/campaigns/categories?size=10&categoryCode=0.1.4&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -434,7 +434,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Ăn gì\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=10&categoryCode=0.1.3&isHighlight=0\",\n" +
+            "                  \"link\": \"https://core.vtvtravel.vn/api/v1/deals/campaigns/categories?size=10&categoryCode=0.1.3&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -449,7 +449,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Khác\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/categories?size=10&categoryCode=0.1.5&isHighlight=0\",\n" +
+            "                  \"link\": \"https://core.vtvtravel.vn/api/v1/deals/campaigns/categories?size=10&categoryCode=0.1.5&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -468,7 +468,7 @@ public class DealViewModel extends BaseViewModel {
             "          \"name\": \"Săn quà\",\n" +
             "          \"icon_url\": null,\n" +
             "          \"icon_enable_url\": null,\n" +
-            "          \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "          \"link\": \"https://api.vtvtravel.vn\",\n" +
             "          \"category_id\": \"\",\n" +
             "          \"html_icon\": \"\",\n" +
             "          \"weight\": 1,\n" +
@@ -482,7 +482,7 @@ public class DealViewModel extends BaseViewModel {
             "              \"name\": \"Khối hot\",\n" +
             "              \"icon_url\": null,\n" +
             "              \"icon_enable_url\": null,\n" +
-            "              \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "              \"link\": \"https://api.vtvtravel.vn\",\n" +
             "              \"category_id\": \"\",\n" +
             "              \"html_icon\": \"\",\n" +
             "              \"weight\": 0,\n" +
@@ -496,7 +496,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Chơi gì\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                  \"link\": \"https://api.vtvtravel.vn\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -510,7 +510,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Slide\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://api.vtvtravel.vn\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -525,7 +525,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Đang diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=1&categoryCode=0.1.4&isHighlight=1\",\n" +
+            "                      \"link\": \"https://core.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=1&categoryCode=0.1.4&isHighlight=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -540,7 +540,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Sắp diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=2&categoryCode=0.1.4&isHighlight=1\",\n" +
+            "                      \"link\": \"https://core.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=2&categoryCode=0.1.4&isHighlight=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -557,7 +557,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Đi đâu\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                  \"link\": \"https://api.vtvtravel.vn\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -571,7 +571,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Sắp diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=2&categoryCode=0.1.1&isHighlight=1\",\n" +
+            "                      \"link\": \"https://core.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=2&categoryCode=0.1.1&isHighlight=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -586,7 +586,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Đang diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=1&categoryCode=0.1.1&isHighlight=1\",\n" +
+            "                      \"link\": \"https://core.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=1&categoryCode=0.1.1&isHighlight=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -601,7 +601,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Slide\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://api.vtvtravel.vn\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -618,7 +618,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Ở đâu\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                  \"link\": \"https://api.vtvtravel.vn\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -632,7 +632,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Slide\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://api.vtvtravel.vn\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -647,7 +647,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Đang diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=1&categoryCode=0.1.2&isHighlight=1\",\n" +
+            "                      \"link\": \"https://core.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=1&categoryCode=0.1.2&isHighlight=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -662,7 +662,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Sắp diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=2&categoryCode=0.1.2&isHighlight=1\",\n" +
+            "                      \"link\": \"https://core.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=2&categoryCode=0.1.2&isHighlight=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -679,7 +679,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Ăn gì\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                  \"link\": \"https://api.vtvtravel.vn\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -693,7 +693,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Sắp diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=2&categoryCode=0.1.3&isHighlight=1\",\n" +
+            "                      \"link\": \"https://core.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=2&categoryCode=0.1.3&isHighlight=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -708,7 +708,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Đang diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=1&categoryCode=0.1.3&isHighlight=1\",\n" +
+            "                      \"link\": \"https://core.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=1&categoryCode=0.1.3&isHighlight=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -723,7 +723,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Slide\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://api.vtvtravel.vn\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -740,7 +740,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Khác\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                  \"link\": \"https://api.vtvtravel.vn\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -754,7 +754,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Sắp diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=2&categoryCode=0.1.5&isHighlight=1\",\n" +
+            "                      \"link\": \"https://core.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=2&categoryCode=0.1.5&isHighlight=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -769,7 +769,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Đang diễn ra\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=1&categoryCode=0.1.5&isHighlight=1\",\n" +
+            "                      \"link\": \"https://core.vtvtravel.vn/api/v1/deals/categories?size=6&isProcessing=1&categoryCode=0.1.5&isHighlight=1\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -784,7 +784,7 @@ public class DealViewModel extends BaseViewModel {
             "                      \"name\": \"Slide\",\n" +
             "                      \"icon_url\": null,\n" +
             "                      \"icon_enable_url\": null,\n" +
-            "                      \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "                      \"link\": \"https://api.vtvtravel.vn\",\n" +
             "                      \"category_id\": \"\",\n" +
             "                      \"html_icon\": \"\",\n" +
             "                      \"weight\": 0,\n" +
@@ -803,7 +803,7 @@ public class DealViewModel extends BaseViewModel {
             "              \"name\": \"Khối gợi ý\",\n" +
             "              \"icon_url\": null,\n" +
             "              \"icon_enable_url\": null,\n" +
-            "              \"link\": \"https://api-testing.vtvtravel.vn\",\n" +
+            "              \"link\": \"https://api.vtvtravel.vn\",\n" +
             "              \"category_id\": \"\",\n" +
             "              \"html_icon\": \"\",\n" +
             "              \"weight\": 1,\n" +
@@ -817,7 +817,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Ăn gì\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=10&categoryCode=0.1.3&isHighlight=0\",\n" +
+            "                  \"link\": \"https://core.vtvtravel.vn/api/v1/deals/categories?size=10&categoryCode=0.1.3&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -832,7 +832,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Chơi gì\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=10&categoryCode=0.1.4&isHighlight=0\",\n" +
+            "                  \"link\": \"https://core.vtvtravel.vn/api/v1/deals/categories?size=10&categoryCode=0.1.4&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -847,7 +847,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Đi đâu\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=10&categoryCode=0.1.1&isHighlight=0\",\n" +
+            "                  \"link\": \"https://core.vtvtravel.vn/api/v1/deals/categories?size=10&categoryCode=0.1.1&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -862,7 +862,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Ở đâu\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=10&categoryCode=0.1.2&isHighlight=0\",\n" +
+            "                  \"link\": \"https://core.vtvtravel.vn/api/v1/deals/categories?size=10&categoryCode=0.1.2&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
@@ -877,7 +877,7 @@ public class DealViewModel extends BaseViewModel {
             "                  \"name\": \"Khác\",\n" +
             "                  \"icon_url\": null,\n" +
             "                  \"icon_enable_url\": null,\n" +
-            "                  \"link\": \"https://core-testing.vtvtravel.vn/api/v1/deals/categories?size=10&categoryCode=0.1.5&isHighlight=0\",\n" +
+            "                  \"link\": \"https://core.vtvtravel.vn/api/v1/deals/categories?size=10&categoryCode=0.1.5&isHighlight=0\",\n" +
             "                  \"category_id\": \"\",\n" +
             "                  \"html_icon\": \"\",\n" +
             "                  \"weight\": 0,\n" +
