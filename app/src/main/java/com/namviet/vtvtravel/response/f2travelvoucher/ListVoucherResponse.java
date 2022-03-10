@@ -22,7 +22,7 @@ public class ListVoucherResponse extends BaseResponse {
 
     public class Data {
         @Expose
-        @SerializedName("items")
+        @SerializedName("content")
         private List<Voucher> vouchers;
 
         public List<Voucher> getVouchers() {

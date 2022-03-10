@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tool="http://schemas.android.com/tools"
     android:background="#EEEEEE"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     
@@ -52,7 +53,7 @@
                 android:fontFamily="@font/roboto_medium"
                 android:textColor="#686868"
                 android:layout_marginTop="6dp"
-                android:text="HSD : 31.07.2020"
+                tool:text="HSD : 31.07.2020"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             
