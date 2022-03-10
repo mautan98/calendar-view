@@ -15,6 +15,7 @@ import com.namviet.vtvtravel.adapter.f2search.CategorySortedAdapter
 import com.namviet.vtvtravel.adapter.f2video.SortVideoAdapter
 import com.namviet.vtvtravel.adapter.imagepart.HighLightestImagesAdapter
 import com.namviet.vtvtravel.databinding.F3FragmentSearchResultImagesBinding
+import com.namviet.vtvtravel.databinding.F3FragmentSearchResultNewsBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.f2search.Children
@@ -27,6 +28,7 @@ import com.namviet.vtvtravel.response.imagepart.ItemImagePartResponse
 import com.namviet.vtvtravel.ultils.F2Util
 import com.namviet.vtvtravel.ultils.highlight.HighLightController
 import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
+import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentActivity
 import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentFragment
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.DropDownCategoryFragment

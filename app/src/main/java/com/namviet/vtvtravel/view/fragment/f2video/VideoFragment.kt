@@ -28,6 +28,7 @@ import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse
 import com.namviet.vtvtravel.response.f2video.VideoResponse
 import com.namviet.vtvtravel.tracking.TrackingAnalytic
 import com.namviet.vtvtravel.ultils.F2Util
+import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentActivity
 import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentFragment
 import com.namviet.vtvtravel.view.fragment.MainFragment
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionFragment
