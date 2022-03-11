@@ -7,6 +7,7 @@ import com.baseapp.utils.KeyboardUtils
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.adapter.f2biglocation.SearchAllLocationAdapter
+import com.namviet.vtvtravel.adapter.f2biglocation.sub.SearchAllLocationAdapter2
 import com.namviet.vtvtravel.databinding.F3LayoutSearchDestinationBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
@@ -28,9 +29,10 @@ class ChooseRegionFragment : BaseFragment<F3LayoutSearchDestinationBinding?>(), 
     private var locationsMain: ArrayList<Location>? = null
     private val locations: ArrayList<Location> = ArrayList()
     private var chooseRegion: ChooseRegion? = null
-    private var searchAllLocationAdapter: SearchAllLocationAdapter? = null
+    private var searchAllLocationAdapter: SearchAllLocationAdapter2? = null
     private var mContext: Context? = null
     private var content: Content? = null
+    private var location: Location? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
@@ -45,15 +47,12 @@ class ChooseRegionFragment : BaseFragment<F3LayoutSearchDestinationBinding?>(), 
         viewModel = SearchBigLocationViewModel()
         viewModel!!.addObserver(this)
         locations.addAll(locationsMain!!)
-        searchAllLocationAdapter = SearchAllLocationAdapter(
+        searchAllLocationAdapter = SearchAllLocationAdapter2(
             mContext,
             locations,
-            SearchAllLocationAdapter.ClickItem { location ->
-                mActivity.onBackPressed()
-                content?.cityId = location?.id
-                content?.cityName = location?.name
-                chooseRegion?.clickRegion(content)
-
+            SearchAllLocationAdapter2.ClickItem { location ->
+                this@ChooseRegionFragment.location = location
+                btnAction.text = "Chọn"
 
             })
         rclCity.adapter = searchAllLocationAdapter
@@ -72,6 +71,20 @@ class ChooseRegionFragment : BaseFragment<F3LayoutSearchDestinationBinding?>(), 
         binding!!.btnMyLocation.setOnClickListener {
             viewModel?.getLocation()
         }
+
+        binding!!.btnAction.setOnClickListener {
+            if (location != null) {
+                mActivity.onBackPressed()
+                content?.cityId = location?.id
+                content?.cityName = location?.name
+                chooseRegion?.clickRegion(content)
+            }else {
+                assert(fragmentManager != null)
+                fragmentManager!!.beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                    .remove(this@ChooseRegionFragment).commit()
+            }
+        }
     }
 
     public fun setData(
@@ -82,6 +95,13 @@ class ChooseRegionFragment : BaseFragment<F3LayoutSearchDestinationBinding?>(), 
         this.locationsMain = locationsMain
         this.chooseRegion = chooseRegion
         this.content = content
+
+        try {
+            for (i in 0 until locationsMain!!.size){
+                locationsMain[i].isSelected = false
+            }
+        } catch (e: Exception) {
+        }
     }
 
     public interface ChooseRegion {
@@ -139,7 +159,7 @@ class ChooseRegionFragment : BaseFragment<F3LayoutSearchDestinationBinding?>(), 
 //                locations.addAll(locationsMain)
 //                searchAllLocationAdapter!!.notifyDataSetChanged()
 //            } else
-                if (o is LocationResponse) {
+            if (o is LocationResponse) {
                 edtSearch.setText(o.data.name)
             } else if (o is ErrorResponse) {
                 val responseError = o
