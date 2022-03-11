@@ -9,6 +9,11 @@ import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionMainFragment
 import kotlinx.android.synthetic.main.f3_fragment_drop_down_location.*
+import kotlinx.android.synthetic.main.f3_fragment_drop_down_location.btnApply
+import kotlinx.android.synthetic.main.f3_fragment_drop_down_location.btnChooseCity
+import kotlinx.android.synthetic.main.f3_fragment_drop_down_location.btnClearFilter
+import kotlinx.android.synthetic.main.f3_fragment_drop_down_location.tvCity
+import kotlinx.android.synthetic.main.f3_fragment_drop_down_location_in_video.*
 
 class DropDownLocationFragment : BaseFragment<F3FragmentDropDownLocationBinding?>() {
     private var locationsMain: ArrayList<Location>? = null
@@ -40,6 +45,11 @@ class DropDownLocationFragment : BaseFragment<F3FragmentDropDownLocationBinding?
         }
 
         btnApply.setOnClickListener {
+            callback?.onApply(content)
+        }
+
+        btnClearFilter.setOnClickListener {
+            var content = Content()
             callback?.onApply(content)
         }
     }

@@ -522,12 +522,12 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
         Log.e("sortParam", sortParam)
 
-        var districtID = sortAndFilter!!.sortHeader[1].content.district
-        var communeID = sortAndFilter!!.sortHeader[1].content.commune
+        var districtID =  if(sortAndFilter!!.sortHeader[1].content.district != null) sortAndFilter!!.sortHeader[1].content.district else "null"
+        var communeID =  if(sortAndFilter!!.sortHeader[1].content.commune != null) sortAndFilter!!.sortHeader[1].content.commune else "null"
 
 
         Log.e("districtID", districtID)
-        Log.e("cityID", sortAndFilter!!.sortHeader[1].content.cityId)
+        Log.e("cityID", if(sortAndFilter!!.sortHeader[1].content.cityId != null) sortAndFilter!!.sortHeader[1].content.cityId else "null")
         Log.e("communeID", communeID)
 
         var categoryParam = ""

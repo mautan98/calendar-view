@@ -423,7 +423,7 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
 
         Log.e("sortParam", sortParam)
 
-        Log.e("cityID", sortAndFilter!!.sortHeader[1].content.cityId)
+        Log.e("cityID", if(sortAndFilter!!.sortHeader[1].content.cityId != null) sortAndFilter!!.sortHeader[1].content.cityId else "null")
 
         var categoryParam = ""
 

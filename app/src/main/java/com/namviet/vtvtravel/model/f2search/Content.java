@@ -2,13 +2,13 @@ package com.namviet.vtvtravel.model.f2search;
 
 
 public class Content {
-    private String commune;
-    private String district;
-    private String cityId;
+    private String commune = "";
+    private String district = "";
+    private String cityId = "";
     private Boolean isOpen;
-    private String cityName;
-    private String districtName;
-    private String communeName;
+    private String cityName = "";
+    private String districtName= "";
+    private String communeName = "";
 
     public String getCommune() {
         return commune;
