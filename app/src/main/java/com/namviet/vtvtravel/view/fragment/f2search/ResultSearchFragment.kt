@@ -125,6 +125,9 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
             override fun onDrawerOpened(drawerView: View) {
                 createMenuFragment()
+                if(layoutExpand.visibility == View.VISIBLE) {
+                    hideMenuAnim()
+                }
             }
 
             override fun onDrawerClosed(drawerView: View) {
