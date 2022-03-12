@@ -1,5 +1,6 @@
 package com.namviet.vtvtravel.view.fragment.home;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,7 +16,9 @@ import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
 
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -87,6 +90,10 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
     private HomeViewModel homeViewModel;
     private HomeMenuAdapter adapter;
 
+
+    float x = 0f;
+    float y = 0f;
+
     private boolean isShowBottomMenu = false;
 
     private Fragment mFragment = null;
@@ -129,8 +136,8 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 //        binding.menuFooter.setLogin(true);
 //        binding.menuFooter.setHomeBarBottomOnClick(this);
 
-        binding.ivCall.setOnClickListener(this);
-        binding.ivChat.setOnClickListener(this);
+//        binding.ivCall.setOnClickListener(this);
+//        binding.ivChat.setOnClickListener(this);
         binding.ivCallFake.setOnClickListener(this);
         binding.layoutMenuFloat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -289,9 +296,130 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             }
         });
 
+        binding.layoutButton.post(new Runnable() {
+            @Override
+            public void run() {
+                x = binding.layoutButton.getX();
+                y = binding.layoutButton.getY();
+            }
+        });
+
+
+
+        gestureDetector = new GestureDetector(mActivity, new SingleTapConfirm());
+        binding.layoutButton.setOnTouchListener(new View.OnTouchListener() {
+            float dX, dY;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                Log.e("event", event.getX() + "");
+                Log.e("event", event.getY() + "");
+
+
+                if (gestureDetector.onTouchEvent(event)) {
+                    // single tap
+
+                    if(event.getX() > 0 && event.getX() < 217 ){
+                        if(event.getY() > 0 && event.getY() < 120){
+//                            Toast.makeText(mActivity, "Call click", Toast.LENGTH_SHORT).show();
+//
+                            binding.layoutButton.animate().x(x).y(y).setDuration(500L).setListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    binding.layoutMenuFloat.setVisibility(View.VISIBLE);
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animation) {
+
+                                }
+                            }).start();
+                        }else {
+                            binding.layoutButton.animate().x(x).y(y).setDuration(500L).setListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    ChatActivity.startScreen(mActivity);
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animation) {
+
+                                }
+                            }).start();
+//                            Toast.makeText(mActivity, "Chat click", Toast.LENGTH_SHORT).show();
+//
+                        }
+                    }
+//                    if (layout.getVisibility() == View.INVISIBLE) {
+////                        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+////                        mWindowManager.updateViewLayout(mChatHeadView, params);
+//                        layout.setVisibility(View.VISIBLE);
+//                    } else {
+////                        params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+////                        mWindowManager.updateViewLayout(mChatHeadView, params);
+//                        layout.setVisibility(View.INVISIBLE);
+//                    }
+                    return true;
+                } else {
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                        dX = binding.layoutButton.getX() - event.getRawX();
+                        dY = binding.layoutButton.getY() - event.getRawY();
+                        return true;
+                    }
+
+//                    binding.layoutButton.animate()
+//                            .x(event.getRawX() + dX)
+//                            .y(event.getRawY() + dY)
+//                            .setDuration(0)
+//                            .start();
+                    binding.layoutButton.setX(event.getRawX()+ dX);
+                    binding.layoutButton.setY(event.getRawY() + dY);
+
+//                    trashView.setVisibility(View.VISIBLE);
+
+//                    if(event.getAction() == MotionEvent.ACTION_UP){
+//                        trashView.setVisibility(View.GONE);
+//                    }
+                    return true;
+                }
+            }
+        });
+
 
         updateViews();
     }
+
+    private GestureDetector gestureDetector;
+
+    private class SingleTapConfirm extends GestureDetector.SimpleOnGestureListener {
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent event) {
+            return true;
+        }
+    }
+
     private void showMenuAnim(){
         Animation scaleDown = AnimationUtils.loadAnimation(mActivity, R.anim.scale_up1);
         scaleDown.setAnimationListener(new Animation.AnimationListener() {

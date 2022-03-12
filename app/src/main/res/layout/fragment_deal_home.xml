@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#F89C1C">
+
+
+            <TextView
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Săn CTKM"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:id="@+id/btnMenu"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_option_menu_deal" />
+
+
+        </RelativeLayout>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.appbar.AppBarLayout
+                app:elevation="0dp"
+                android:id="@+id/appBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:toolbarId="@+id/toolbar">
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fitsSystemWindows="true"
+                    app:contentScrim="@color/my_statusbar_color"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:titleEnabled="false">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#F89C1C"
+                        android:paddingBottom="13dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/layoutTab1"
+                            android:layout_marginStart="-5dp"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1">
+
+                            <com.ornach.richtext.RichView
+                                android:layout_marginStart="-10dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:id="@+id/viewBorder1"
+                                app:rt_backgroundColor="#20ffffff"
+                                app:rt_radius="5dp"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"/>
+
+                            <LinearLayout
+                                android:paddingTop="6dp"
+                                android:paddingBottom="6dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvTitleTab1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/roboto_black"
+                                    android:text="Tích lũy nhận quà"
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/white" />
+
+                                <TextView
+                                    android:id="@+id/tvSecondTitleTab1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:text="Tích lũy ngay"
+                                    android:textColor="@color/white"
+                                    android:textSize="11dp" />
+
+                            </LinearLayout>
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/layoutTab2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="-5dp"
+                            android:layout_weight="1">
+
+                            <com.ornach.richtext.RichView
+                                android:visibility="gone"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:id="@+id/viewBorder2"
+                                app:rt_backgroundColor="#20ffffff"
+                                app:rt_radius="5dp"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"/>
+
+                            <LinearLayout
+                                android:paddingTop="6dp"
+                                android:paddingBottom="6dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvTitleTab2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/roboto_black"
+                                    android:text="Săn quà"
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/white" />
+
+                                <TextView
+                                    android:id="@+id/tvSecondTitleTab2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:text="Săn quà ngay"
+                                    android:textColor="@color/white"
+                                    android:textSize="11dp" />
+
+                            </LinearLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    </LinearLayout>
+
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/vpContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </LinearLayout>
+</layout>

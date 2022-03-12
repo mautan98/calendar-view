@@ -334,6 +334,7 @@
     <color name="text_virtual_call_sub">#757575</color>
     <color name="white_press">#CCCCCC</color>
     <color name="color_border">#CFCFCF</color>
+    <color name="my_statusbar_color">#F89C1C</color>
 
 
 </resources>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <LinearLayout
+                        android:id="@+id/btnBack"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center">
+
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/f2_ic_back"
+                            app:tint="#707070" />
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/roboto_medium"
+                        android:gravity="center"
+                        android:text="Chi tiết voucher"
+                        android:textColor="#000000"
+                        android:textSize="18dp" />
+
+
+                </RelativeLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imgAvatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintDimensionRatio="375:234"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/img_deal_exp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="12dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="#393939"
+                        android:textSize="14dp"
+                        tools:text="Text title" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:id="@+id/tvOriginPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_regular"
+                                android:textColor="#999999"
+                                android:textSize="10dp"
+                                tools:text="1000.000 d" />
+
+                            <TextView
+                                android:id="@+id/tvDisplayPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="-5dp"
+                                android:fontFamily="@font/roboto_bold"
+                                android:textColor="#000000"
+                                android:textSize="12dp"
+                                tools:text="500.000d " />
+                        </LinearLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/layoutDiscount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp">
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:src="@drawable/ic_tooltip"
+                                app:layout_constraintDimensionRatio="43:24"
+                                app:layout_constraintEnd_toEndOf="@id/tvPercent"
+                                app:layout_constraintStart_toStartOf="@+id/tvPercent"
+                                app:layout_constraintTop_toTopOf="@id/tvPercent" />
+
+
+                            <TextView
+                                android:id="@+id/tvPercent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_bold"
+                                android:paddingStart="10dp"
+                                android:paddingTop="3dp"
+                                android:paddingEnd="5dp"
+                                android:paddingBottom="3dp"
+                                android:textColor="@color/white"
+                                android:textSize="12dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:text="-0%" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="9dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/f2_ic_time_left" />
+
+
+                        <TextView
+                            android:id="@+id/tvTimeLeft"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:textColor="#858585"
+                            android:textSize="12dp"
+                            tools:text="Hạn sử dụng đến ngày" />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#ececec" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="ÁP DỤNG MÃ KHUYẾN MÃI"
+                            android:textColor="#000000"
+                            android:textSize="16dp" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="24dp"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:id="@+id/tvCode"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/f2_bg_dash_voucher"
+                                    android:gravity="center"
+                                    android:src="@drawable/f2_ic_time_left" />
+
+
+                                <ImageView
+                                    android:id="@+id/btnCopy"
+                                    android:layout_width="99dp"
+                                    android:layout_height="39dp"
+                                    android:layout_marginStart="7dp"
+                                    android:src="@drawable/f2_ic_copy_voucher_code" />
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="21dp"
+                    android:background="#ececec" />
+
+                <WebView
+                    android:id="@+id/webViewContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="19dp" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/lnl_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ececec"
+            android:fontFamily="@font/roboto_regular"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="8dp"
+            android:text="Để nhận quà của chương trình tích lũy, bạn hãy săn các chương trình sau và tích lũy thời gian giữ chương trình khuyến mại"
+            android:textColor="#515151"
+            android:textSize="13dp" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_deal_time"
+                app:layout_constraintDimensionRatio="1125:132"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/tv_total_hold_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="start"
+                android:singleLine="true"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/layoutTime"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Danh sách tích lũy (30)" />
+
+
+            <LinearLayout
+                android:id="@+id/layoutTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <com.ornach.richtext.RichText
+                    android:id="@+id/tv_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_black"
+                    android:paddingStart="5dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="2dp"
+                    android:text="3 Ngày"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    app:rt_backgroundColor="#FC3434"
+                    app:rt_radius="2dp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:fontFamily="@font/roboto_black"
+                    android:text=":"
+                    android:textColor="#000000"
+                    android:textSize="14dp" />
+
+                <com.ornach.richtext.RichText
+                    android:id="@+id/tv_hour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_black"
+                    android:paddingStart="5dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="2dp"
+                    android:text="12"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    app:rt_backgroundColor="#FC3434"
+                    app:rt_radius="2dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:fontFamily="@font/roboto_black"
+                    android:text=":"
+                    android:textColor="#000000"
+                    android:textSize="14dp" />
+
+                <com.ornach.richtext.RichText
+                    android:id="@+id/tv_minutes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_black"
+                    android:paddingStart="5dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="2dp"
+                    android:text="50"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    app:rt_backgroundColor="#FC3434"
+                    app:rt_radius="2dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:fontFamily="@font/roboto_black"
+                    android:text=":"
+                    android:textColor="#000000"
+                    android:textSize="14dp" />
+
+                <com.ornach.richtext.RichText
+                    android:id="@+id/tv_second"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_black"
+                    android:paddingStart="5dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="2dp"
+                    android:text="08"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    app:rt_backgroundColor="#FC3434"
+                    app:rt_radius="2dp" />
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <include layout="@layout/layout_header_2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingStart="14dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/ic_filter" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Lọc theo: "
+                    android:textColor="#757575"
+                    android:textSize="14dp" />
+
+
+            </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rclFilterDeal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingStart="11dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_filter_deal" />
+
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="280dp">
+
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:visibility="visible"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/layoutNoData"
+                android:alpha="0.5"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/img_no_deal_data"
+                android:layout_width="200dp"
+                android:layout_height="200dp"/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rclContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <View
+                android:layout_centerHorizontal="true"
+                android:layout_alignTop="@+id/rclContent"
+                android:layout_alignBottom="@+id/rclContent"
+                android:background="#ECECEC"
+                android:layout_width="1dp"
+                android:layout_height="0dp"/>
+
+            <View
+                android:background="@color/white"
+                android:id="@+id/viewWhite"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"/>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_view_container"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:layout_gravity="top"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/data_placeholder_layout" />
+
+                    <include layout="@layout/data_placeholder_layout" />
+
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_hunt"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/f3_btn_agree"
+        android:text="Săn ngay"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:visibility="gone" />
+
+</LinearLayout>

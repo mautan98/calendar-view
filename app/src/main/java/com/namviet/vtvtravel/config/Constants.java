@@ -108,6 +108,8 @@ public class Constants {
         public static final String TYPE_OTP_RESET_PASS = "TYPE_OTP_RESET_PASS";
         public static final String KEY_MOBILE = "mobile";
         public static final String DATA = "data";
+        public static final String IS_CAMPAIGN = "is_campaign";
+        public static final String POSITION = "position";
         public static final String URL_DEAL = "url_deal";
         public static final String VOUCHER = "VOUCHER";
         public static final String DATA_VIDEO = "DATA_VIDEO";
@@ -241,6 +243,7 @@ public class Constants {
         public static final String DATE_FORMAT_15 = "EEEE dd/MM";
         public static final String DATE_FORMAT_16 = "dd MMMM yyyy";
         public static final String DATE_FORMAT_17 = "EEEE, dd/MM/yyyy";
+        public static final String DATE_FORMAT_18 = "dd.MM.yyyy";
     }
 
     public static class KeyJSON {

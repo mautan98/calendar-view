@@ -22,7 +22,6 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
 
-
     <!--    <uses-permission android:name="android.permission.SEND_SMS"/>-->
 
     <uses-feature
@@ -351,6 +350,12 @@
 
         <activity android:name=".view.f3.booking.view.BookingActivity" />
         <activity android:name=".view.f3.notification.view.NotificationActivity" />
+        <activity android:name=".view.f3.deal.view.dealhome.DealHomeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".view.f3.deal.view.dealdetail.DetailDealActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".view.f3.deal.view.listdeal.ListDealActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".view.f3.deal.view.listhotdeal.ListHotDealActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".view.f3.deal.view.dealdetail.PopupBannerDealActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".view.f3.deal.view.dealrule.DealRuleActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

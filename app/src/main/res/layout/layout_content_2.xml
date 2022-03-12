@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingTop="13dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="13dp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/check"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:background="@drawable/f3_checkbox_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:text="Sắp diễn ra"
+            android:textColor="#1A94FF"
+            android:textSize="14sp"
+            android:textStyle="italic" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <TextView
+                android:foreground="@drawable/ripple_effect_click"
+                android:gravity="center"
+                android:id="@+id/lnl_view_more"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="7dp"
+                android:text="Xem tiếp"
+                android:textColor="#707070"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="4dp"
+                android:src="@drawable/f3_view_more" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutNote"
+        android:layout_width="match_parent"
+        android:background="#C9F3F3"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgNote"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintDimensionRatio="710:66"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_banner_deal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+
+
+        <View
+            android:id="@+id/btnClose"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:minHeight="220dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:visibility="visible"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/layoutNoData"
+            android:alpha="0.5"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/img_no_deal_data"
+            android:layout_width="200dp"
+            android:layout_height="200dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/rclContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_centerHorizontal="true"
+            app:layout_constraintTop_toTopOf="@+id/rclContent"
+            app:layout_constraintBottom_toBottomOf="@+id/rclContent"
+            android:background="#ECECEC"
+            android:layout_width="1dp"
+            android:layout_height="0dp"/>
+
+        <View
+            android:id="@+id/layoutWhite"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/shimmer_view_container"
+            app:layout_constraintTop_toTopOf="@+id/shimmer_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/shimmer_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="top"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <include layout="@layout/data_placeholder_layout" />
+
+                <include layout="@layout/data_placeholder_layout" />
+
+                <include layout="@layout/data_placeholder_layout" />
+
+                <include layout="@layout/data_placeholder_layout" />
+
+                <include layout="@layout/data_placeholder_layout" />
+
+                <include layout="@layout/data_placeholder_layout" />
+
+                <include layout="@layout/data_placeholder_layout" />
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:maxHeight="563dp"
     android:orientation="vertical"
     android:paddingTop="12dp">
 
     <LinearLayout
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp">
 
         <TextView
-            android:text="Giải thưởng dành cho bạn"
             android:id="@+id/tvTitle"
-            android:layout_weight="1"
-            android:textColor="@color/md_black_1000"
-            android:textSize="20dp"
-            android:fontFamily="@font/roboto_medium"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Giải thưởng dành cho bạn"
+            android:textColor="@color/md_black_1000"
+            android:textSize="20dp" />
 
         <TextView
-            android:foreground="@drawable/ripple_effect_click"
             android:id="@+id/btnSeeMore"
-            android:gravity="center"
-            android:textColor="#00918D"
-            android:layout_marginEnd="14dp"
-            android:textSize="14dp"
-            android:fontFamily="@font/roboto_regular"
-            android:text="Xem thêm"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
-
+            android:layout_height="match_parent"
+            android:layout_marginEnd="14dp"
+            android:fontFamily="@font/roboto_regular"
+            android:foreground="@drawable/ripple_effect_click"
+            android:gravity="center"
+            android:text="Xem thêm"
+            android:textColor="#00918D"
+            android:textSize="14dp" />
 
 
     </LinearLayout>
 
     <TextView
-        android:text="Nhận nhiều ưu đãi cực lớn dành cho quý hội viên"
         android:id="@+id/tvDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,17 +47,98 @@
         android:fontFamily="@font/roboto_regular"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
+        android:text="Nhận nhiều ưu đãi cực lớn dành cho quý hội viên"
         android:textColor="#9F9F9F"
         android:textSize="14dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:minHeight="255dp"
         android:id="@+id/recyclerNearPlace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:minHeight="255dp"
         android:orientation="horizontal"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rclTab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/f3_item_tab_deal_home" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp">
+
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:visibility="visible"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/layoutNoData"
+            android:alpha="0.5"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/img_no_deal_data"
+            android:layout_width="200dp"
+            android:layout_height="200dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rclContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:minHeight="280dp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/f3_item_deal" />
+
+        <View
+            android:visibility="gone"
+            android:background="@color/white"
+            android:id="@+id/viewWhite"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"/>
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_gravity="top"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <include layout="@layout/data_placeholder_layout" />
+
+                <include layout="@layout/data_placeholder_layout" />
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </FrameLayout>
+
 
     <View
         android:layout_width="match_parent"

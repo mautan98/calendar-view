@@ -2,8 +2,8 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/background">
         <shape>
-            <corners android:radius="4dp"/>
-            <solid android:color="#DEDEDE"/>
+            <corners android:radius="100dp"/>
+            <solid android:color="#66FF2929"/>
         </shape>
     </item>
 
@@ -15,8 +15,8 @@
 
         <scale android:scaleWidth="100%">
             <shape>
-                <corners android:radius="4dp"/>
-                <solid android:color="#C51100"/>
+                <corners android:radius="100dp"/>
+                <solid android:color="#FF2929"/>
             </shape>
         </scale>
     </item>
