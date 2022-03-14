@@ -135,6 +135,12 @@
                 android:text="Đang diễn ra"
                 android:textColor="#25C400"
                 android:textSize="10dp" />
+            <ImageView
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_win_deal"
+                android:id="@+id/imgWin"
+                android:layout_width="17dp"
+                android:layout_height="17dp"/>
 
         </LinearLayout>
 

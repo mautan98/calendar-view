@@ -86,7 +86,7 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
         private ImageView btnShowHide;
 
 
-
+        private ImageView imgWin;
         private ImageView imgAvatar;
         private ImageView imgClock;
         private TextView tvName;
@@ -106,6 +106,7 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
             tvRank = itemView.findViewById(R.id.tvRank);
             tvStatus = itemView.findViewById(R.id.tvStatus);
             viewVertical = itemView.findViewById(R.id.viewVertical);
+            imgWin = itemView.findViewById(R.id.imgWin);
         }
 
         public void bindItem(int position) {
@@ -240,6 +241,16 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
                     }
                 }
             });
+
+            try {
+                if (Integer.parseInt(dealFollows.get(position).getRanking()) == 1 && dealFollows.get(position).getIsProcessing().equals(IsProcessingType.KET_THUC_TYPE)) {
+                    imgWin.setVisibility(View.VISIBLE);
+                } else {
+                    imgWin.setVisibility(View.GONE);
+                }
+            } catch (Exception e) {
+                imgWin.setVisibility(View.GONE);
+            }
 
 
         }
