@@ -408,6 +408,12 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
                 }
+                //nếu đang săn 1 trương chình khuyến mãi,ẩn btn săn ngay
+                if (data != null){
+                    if (data.getIsUserHunting() != null && data.getIsUserHunting())
+                    btnHunt.setVisibility(View.GONE);
+                    else btnHunt.setVisibility(View.VISIBLE);
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -796,6 +802,10 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static void setTime(long s, TextView tv, String isProcessing, boolean isHoldTime) {
         try {
+            if (s < 0 ){
+                tv.setText("0 ngày, 00 : 00 : 00");
+                return;
+            }
             String days = (int) (s / 86400) + " ngày ";
             String hours = String.valueOf((int) ((s % 86400) / 3600));
             String minutes = String.valueOf((int) ((s % 3600) / 60));
