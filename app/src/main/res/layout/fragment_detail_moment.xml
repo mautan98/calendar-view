@@ -33,377 +33,386 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/toolBar"
             android:fitsSystemWindows="true">
-
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <com.daimajia.slider.library.RobotoTextView
-                    android:id="@+id/tvTitleNews"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/_10sdp"
-                    android:textColor="@color/gray_33"
-                    android:textSize="@dimen/_13sdp"
-                    app:typeface="roboto_bold" />
-
+                android:layout_height="match_parent">
                 <LinearLayout
-                    android:id="@+id/llVisibleTop"
+                    android:id="@+id/lnl_data"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/_10sdp"
-                    android:paddingRight="@dimen/_10sdp">
-
-
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <com.daimajia.slider.library.RobotoTextView
-                        android:id="@+id/tvTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/vt_time_create"
-                        android:drawablePadding="@dimen/_5sdp"
-                        android:text="10/12/2018 9:47"
-                        android:textColor="@color/gray_66"
-                        android:textSize="@dimen/_12sdp"
-                        app:typeface="roboto_regular" />
-
-                    <com.daimajia.slider.library.RobotoTextView
-                        android:id="@+id/tvView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_20sdp"
-                        android:drawableLeft="@drawable/vt_author"
-                        android:drawablePadding="@dimen/_5sdp"
-                        android:textColor="@color/gray_66"
-                        android:textSize="@dimen/_12sdp"
-                        app:typeface="roboto_regular" />
-                </LinearLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp">
-
-                    <RelativeLayout
-                        android:id="@+id/rlVideoPlayer"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_180sdp">
-
-                        <include
-                            android:id="@+id/videoPlayer"
-                            layout="@layout/layout_float_video"
-                            android:visibility="gone" />
-
-                        <ImageView
-                            android:id="@+id/ivBannerVideo"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop" />
-
-                        <ImageView
-                            android:id="@+id/ivIconPlay"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:alpha="0.6"
-                            app:srcCompat="@drawable/vt_play" />
-                    </RelativeLayout>
-
-                    <androidx.viewpager.widget.ViewPager
-                        android:id="@+id/vpSlideShow"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_350sdp"
-                        android:clipToPadding="false"
-                        android:paddingStart="@dimen/_30sdp"
-                        android:paddingEnd="@dimen/_30sdp"
-                        android:visibility="gone" />
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:id="@+id/llVisible"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                <TextView
-                    android:id="@+id/tvShortDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:textStyle="bold" />
-
-                <WebView
-                    android:id="@+id/webContent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_5sdp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Tags: " />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvTag"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-                </LinearLayout>
-
-                <com.daimajia.slider.library.RobotoTextView
-                    android:visibility="gone"
-                    android:id="@+id/tvTitleComment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:drawablePadding="@dimen/_5sdp"
-                    android:text="Bình luận (0)"
-                    android:textColor="@color/gray_33"
-                    android:textSize="@dimen/_13sdp"
-                    app:typeface="roboto_bold" />
-
-                <LinearLayout
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/_10sdp"
-                    android:paddingRight="@dimen/_10sdp">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/avatar"
-                        android:layout_width="@dimen/_35sdp"
-                        android:layout_height="@dimen/_35sdp"
-                        android:src="@mipmap/user"
-                        app:civ_border_color="@color/colorPrimary"
-                        app:civ_border_width="1dp" />
-
-                    <com.daimajia.slider.library.RobotoTextView
-                        android:id="@+id/tvComment"
+                        android:id="@+id/tvTitleNews"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:hint="@string/write_comment"
-                        android:paddingTop="@dimen/_5sdp"
-                        android:paddingBottom="@dimen/_5sdp"
+                        android:padding="@dimen/_10sdp"
                         android:textColor="@color/gray_33"
-                        android:textColorHint="@color/gray_66"
                         android:textSize="@dimen/_13sdp"
-                        app:typeface="roboto_regular" />
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvComment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_8sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginRight="@dimen/_8sdp" />
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp"
-                        android:background="#E8E8E8" />
-
+                        app:typeface="roboto_bold" />
 
                     <LinearLayout
+                        android:id="@+id/llVisibleTop"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingRight="@dimen/_10sdp">
 
-                        <TextView
+
+
+                        <com.daimajia.slider.library.RobotoTextView
+                            android:id="@+id/tvTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginTop="15dp"
-                            android:fontFamily="@font/roboto_bold"
-                            android:text="Bình luận"
-                            android:textColor="@color/md_black_1000"
-                            android:textSize="18dp" />
+                            android:drawableLeft="@drawable/vt_time_create"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:text="10/12/2018 9:47"
+                            android:textColor="@color/gray_66"
+                            android:textSize="@dimen/_12sdp"
+                            app:typeface="roboto_regular" />
+
+                        <com.daimajia.slider.library.RobotoTextView
+                            android:id="@+id/tvView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:drawableLeft="@drawable/vt_author"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:textColor="@color/gray_66"
+                            android:textSize="@dimen/_12sdp"
+                            app:typeface="roboto_regular" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp">
+
+                        <RelativeLayout
+                            android:id="@+id/rlVideoPlayer"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_180sdp">
+
+                            <include
+                                android:id="@+id/videoPlayer"
+                                layout="@layout/layout_float_video"
+                                android:visibility="gone" />
+
+                            <ImageView
+                                android:id="@+id/ivBannerVideo"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
+                                android:id="@+id/ivIconPlay"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:alpha="0.6"
+                                app:srcCompat="@drawable/vt_play" />
+                        </RelativeLayout>
+
+                        <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/vpSlideShow"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_350sdp"
+                            android:clipToPadding="false"
+                            android:paddingStart="@dimen/_30sdp"
+                            android:paddingEnd="@dimen/_30sdp"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llVisible"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rclComment"
+                        <TextView
+                            android:id="@+id/tvShortDescription"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:textStyle="bold" />
+
+                        <WebView
+                            android:id="@+id/webContent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_5sdp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Tags: " />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rvTag"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                        </LinearLayout>
+
+                        <com.daimajia.slider.library.RobotoTextView
+                            android:visibility="gone"
+                            android:id="@+id/tvTitleComment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:text="Bình luận (0)"
+                            android:textColor="@color/gray_33"
+                            android:textSize="@dimen/_13sdp"
+                            app:typeface="roboto_bold" />
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:paddingRight="@dimen/_10sdp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/avatar"
+                                android:layout_width="@dimen/_35sdp"
+                                android:layout_height="@dimen/_35sdp"
+                                android:src="@mipmap/user"
+                                app:civ_border_color="@color/colorPrimary"
+                                app:civ_border_width="1dp" />
+
+                            <com.daimajia.slider.library.RobotoTextView
+                                android:id="@+id/tvComment"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/_10sdp"
+                                android:hint="@string/write_comment"
+                                android:paddingTop="@dimen/_5sdp"
+                                android:paddingBottom="@dimen/_5sdp"
+                                android:textColor="@color/gray_33"
+                                android:textColorHint="@color/gray_66"
+                                android:textSize="@dimen/_13sdp"
+                                app:typeface="roboto_regular" />
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvComment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_8sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginRight="@dimen/_8sdp" />
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="#E8E8E8" />
 
 
                         <LinearLayout
-                            android:id="@+id/layoutViewAllComment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginEnd="12dp"
-                            android:orientation="vertical"
-                            android:visibility="gone">
+                            android:orientation="vertical">
 
-                            <View
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="15dp"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="Bình luận"
+                                android:textColor="@color/md_black_1000"
+                                android:textSize="18dp" />
+
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rclComment"
                                 android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
-                                android:background="@color/colorPrimary" />
+                                android:layout_height="wrap_content"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
                             <LinearLayout
-                                android:id="@+id/btnViewMoreComment"
+                                android:id="@+id/layoutViewAllComment"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center_vertical"
-                                android:paddingTop="19dp"
-                                android:paddingBottom="19dp">
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginEnd="12dp"
+                                android:orientation="vertical"
+                                android:visibility="gone">
 
-                                <TextView
-                                    android:id="@+id/tvCommentLeft"
+                                <View
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:fontFamily="@font/roboto_regular"
-                                    android:text="Xem tất cả 9 bình luận"
-                                    android:textAllCaps="true"
-                                    android:textSize="14dp" />
+                                    android:layout_height="0.5dp"
+                                    android:background="@color/colorPrimary" />
 
-                                <ImageView
-                                    android:layout_width="6dp"
-                                    android:layout_height="11dp"
-                                    android:rotation="180"
-                                    android:src="@drawable/f2_ic_back" />
+
+                                <LinearLayout
+                                    android:id="@+id/btnViewMoreComment"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center_vertical"
+                                    android:paddingTop="19dp"
+                                    android:paddingBottom="19dp">
+
+                                    <TextView
+                                        android:id="@+id/tvCommentLeft"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:text="Xem tất cả 9 bình luận"
+                                        android:textAllCaps="true"
+                                        android:textSize="14dp" />
+
+                                    <ImageView
+                                        android:layout_width="6dp"
+                                        android:layout_height="11dp"
+                                        android:rotation="180"
+                                        android:src="@drawable/f2_ic_back" />
+
+
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0.5dp"
+                                    android:background="@color/colorPrimary" />
 
 
                             </LinearLayout>
 
-                            <View
+
+                            <RelativeLayout
+                                android:id="@+id/layoutWriteComment"
                                 android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
-                                android:background="@color/colorPrimary" />
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="33dp"
+                                android:layout_marginEnd="12dp"
+                                android:background="@drawable/f2_bg_write_comment"
+                                android:gravity="center_vertical"
+                                android:paddingTop="12dp"
+                                android:paddingBottom="12dp">
+
+                                <ImageView
+                                    android:layout_width="9dp"
+                                    android:layout_height="13dp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_toStartOf="@+id/tvWriteComment"
+                                    android:src="@drawable/f2_ic_green_type" />
+
+                                <TextView
+                                    android:id="@+id/tvWriteComment"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:text="Viết bình luận " />
+
+                            </RelativeLayout>
 
 
                         </LinearLayout>
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:layout_marginTop="34dp"
+                            android:background="#E8E8E8" />
 
-                        <RelativeLayout
-                            android:id="@+id/layoutWriteComment"
+                        <com.daimajia.slider.library.RobotoTextView
+                            android:id="@+id/tvTitleNewsRelated"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:text="@string/title_news_same_category2"
+                            android:textColor="@color/gray_33"
+                            android:textSize="@dimen/_13sdp"
+                            app:typeface="roboto_bold" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvNewsRelated"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginTop="33dp"
-                            android:layout_marginEnd="12dp"
-                            android:background="@drawable/f2_bg_write_comment"
-                            android:gravity="center_vertical"
-                            android:paddingTop="12dp"
-                            android:paddingBottom="12dp">
+                            android:layout_marginTop="@dimen/_5sdp" />
 
-                            <ImageView
-                                android:layout_width="9dp"
-                                android:layout_height="13dp"
-                                android:layout_centerVertical="true"
-                                android:layout_marginEnd="10dp"
-                                android:layout_toStartOf="@+id/tvWriteComment"
-                                android:src="@drawable/f2_ic_green_type" />
-
-                            <TextView
-                                android:id="@+id/tvWriteComment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="Viết bình luận " />
-
-                        </RelativeLayout>
+                        <com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
+                            android:id="@+id/rvNewsRelated_pager_indicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/vpSlide"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="2dp"
+                            app:dotColor="@color/md_grey_400"
+                            app:dotRadius="3dp"
+                            app:selectedDotColor="@color/md_cyan_700"
+                            app:selectedDotRadius="4dp" />
 
 
+                        <com.daimajia.slider.library.RobotoTextView
+                            android:id="@+id/tvTitleNewsSameCategory"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:text="@string/title_news_relate2"
+                            android:textColor="@color/gray_33"
+                            android:textSize="@dimen/_13sdp"
+                            app:typeface="roboto_bold" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvNewsSameCategory"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp" />
+
+                        <com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
+                            android:id="@+id/rvNewsSameCategory_pager_indicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/vpSlide"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="2dp"
+                            app:dotColor="@color/md_grey_400"
+                            app:dotRadius="3dp"
+                            app:selectedDotColor="@color/md_cyan_700"
+                            app:selectedDotRadius="4dp" />
                     </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp"
-                        android:layout_marginTop="34dp"
-                        android:background="#E8E8E8" />
-
-                <com.daimajia.slider.library.RobotoTextView
-                    android:id="@+id/tvTitleNewsRelated"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:drawablePadding="@dimen/_5sdp"
-                    android:text="@string/title_news_same_category2"
-                    android:textColor="@color/gray_33"
-                    android:textSize="@dimen/_13sdp"
-                    app:typeface="roboto_bold" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvNewsRelated"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp" />
-
-                <com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
-                    android:id="@+id/rvNewsRelated_pager_indicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/vpSlide"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="2dp"
-                    app:dotColor="@color/md_grey_400"
-                    app:dotRadius="3dp"
-                    app:selectedDotColor="@color/md_cyan_700"
-                    app:selectedDotRadius="4dp" />
-
-
-                <com.daimajia.slider.library.RobotoTextView
-                    android:id="@+id/tvTitleNewsSameCategory"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:drawablePadding="@dimen/_5sdp"
-                    android:text="@string/title_news_relate2"
-                    android:textColor="@color/gray_33"
-                    android:textSize="@dimen/_13sdp"
-                    app:typeface="roboto_bold" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvNewsSameCategory"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp" />
-
-                <com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
-                    android:id="@+id/rvNewsSameCategory_pager_indicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/vpSlide"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="2dp"
-                    app:dotColor="@color/md_grey_400"
-                    app:dotRadius="3dp"
-                    app:selectedDotColor="@color/md_cyan_700"
-                    app:selectedDotRadius="4dp" />
                 </LinearLayout>
-            </LinearLayout>
+                <include
+                    android:visibility="gone"
+                    android:id="@+id/rll_no_data"
+                    layout="@layout/layout_no_data"/>
+            </RelativeLayout>
+
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
