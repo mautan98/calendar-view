@@ -145,9 +145,17 @@ public class DealSubscribeParentAdapter extends RecyclerView.Adapter<RecyclerVie
 
             try {
                 if(dealFollows.get(position).getRewardStatus().equals("2")){
-                    tvStatus.setText("Đang diễn ra");
-                    tvStatus.setTextColor(Color.parseColor("#25C400"));
-                    Glide.with(context).load(R.drawable.ic_clock).into(imgClock);
+                    if(dealFollows.get(position).getIsProcessing().equals(IsProcessingType.KET_THUC_TYPE)){
+                        tvStatus.setText("Hết thời gian");
+                        tvStatus.setTextColor(Color.parseColor("#C2C2C2"));
+                        Glide.with(context).load(R.drawable.ic_clock_2).into(imgClock);
+                    }
+                    else {
+                        tvStatus.setText("Đang diễn ra");
+                        tvStatus.setTextColor(Color.parseColor("#25C400"));
+                        Glide.with(context).load(R.drawable.ic_clock).into(imgClock);
+                    }
+
                 }else if (dealFollows.get(position).getRewardStatus().equals("4")){
 //                    tvStatus.setText("Đã chiến thắng");
                     tvStatus.setText("Hết thời gian");
