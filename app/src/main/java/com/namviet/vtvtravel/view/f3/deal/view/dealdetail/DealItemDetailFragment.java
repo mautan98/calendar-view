@@ -1,10 +1,12 @@
 package com.namviet.vtvtravel.view.f3.deal.view.dealdetail;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.PagerSnapHelper;
 
 import com.google.android.material.appbar.AppBarLayout;
@@ -14,6 +16,7 @@ import com.namviet.vtvtravel.databinding.FragmentDealItemDetailBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.f2booking.DataHelpCenter;
+import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndUpdateUserView;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.view.f2.MyGiftActivity;
@@ -32,6 +35,7 @@ import com.namviet.vtvtravel.viewmodel.f2travelnews.DetailNewsTravelViewModel;
 import com.ornach.richtext.RichText;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +67,20 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
         this.idDetail = id;
         this.isCampaign = isCampaign;
     }
+
+    @Override
+    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+
+    }
+
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_deal_item_detail;
@@ -182,6 +200,7 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
 
     @Override
     public void update(Observable observable, Object o) {
+        hideLoading();
         if(o instanceof DealCampaignDetail){
             dealCampaignDetail = (DealCampaignDetail) o;
             mDealAdapter = new DealAdapter(dealCampaignDetail,mActivity,this,DealItemDetailFragment.this);
@@ -243,5 +262,16 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
     @Override
     public void onTabSubDealClick(int position) {
 
+    }
+
+    @Subscribe
+    public void onLoginSuccess(OnLoginSuccessAndUpdateUserView onLoginSuccessAndUpdateUserView){
+        showLoading();
+        if(isCampaign){
+            mDealViewModel.getDealCampaignDetail(idDetail);
+        }
+        else {
+            mDealViewModel.getDealDetail(idDetail);
+        }
     }
 }
