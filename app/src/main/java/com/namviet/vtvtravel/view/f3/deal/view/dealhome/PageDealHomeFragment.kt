@@ -8,6 +8,7 @@ import com.namviet.vtvtravel.databinding.FragmentPageDealHomeBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew
 import com.namviet.vtvtravel.view.f3.deal.adapter.TabAdapter
+import com.namviet.vtvtravel.view.f3.deal.event.BackToDeal
 import com.namviet.vtvtravel.view.f3.deal.event.ChangeToCenterTab
 import com.namviet.vtvtravel.view.f3.deal.event.FinishDeal
 import com.namviet.vtvtravel.view.f3.deal.view.mygift.MyGiftFragment
@@ -144,5 +145,10 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
     @Subscribe
     public fun onFinish(changeToCenterTab: FinishDeal) {
         mActivity.finish()
+    }
+
+    @Subscribe
+    public fun onFinish(changeToCenterTab: BackToDeal) {
+        vpContent.currentItem = 1
     }
 }

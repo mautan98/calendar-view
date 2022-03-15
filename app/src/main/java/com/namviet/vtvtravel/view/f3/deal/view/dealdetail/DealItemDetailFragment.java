@@ -21,9 +21,11 @@ import com.namviet.vtvtravel.view.f3.deal.adapter.RecyclerAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealdetail.DealAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.dealdetail.SubDealHeaderItemAdapter;
 
+import com.namviet.vtvtravel.view.f3.deal.event.BackToDeal;
 import com.namviet.vtvtravel.view.f3.deal.event.FinishDeal;
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
+import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealHomeActivity;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealMenuDialog;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealSubcribeFragment;
 import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel;
@@ -45,6 +47,7 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
     private ArrayList<String> dataBanner;
     private String idDetail;
     private boolean isCampaign;
+    private boolean isFromHome;
     private DealViewModel mDealViewModel;
     private DealCampaignDetail dealCampaignDetail;
     private RichText tvMyGif;
@@ -59,9 +62,10 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
     }
     private DetailNewsTravelViewModel viewModel;
     @SuppressLint("ValidFragment")
-    public DealItemDetailFragment(String id,boolean isCampaign) {
+    public DealItemDetailFragment(String id,boolean isCampaign,boolean isFromHome) {
         this.idDetail = id;
         this.isCampaign = isCampaign;
+        this.isFromHome = isFromHome;
     }
     @Override
     public int getLayoutRes() {
@@ -147,7 +151,18 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
 
                     @Override
                     public void onClickGoDealHome() {
-                        mActivity.onBackPressed();
+                        if(isFromHome){
+                            try {
+                                //  DetailDealWebviewActivity.startScreen(context, homeServiceResponse.getData().get(position).getLink_home_deal());
+                                DealHomeActivity.Companion.startScreen(mActivity);
+                                mActivity.onBackPressed();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }else {
+                            mActivity.onBackPressed();
+                            EventBus.getDefault().post(new BackToDeal());
+                        }
                     }
 
                     @Override

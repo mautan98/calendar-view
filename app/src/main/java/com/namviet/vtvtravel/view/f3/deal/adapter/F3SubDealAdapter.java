@@ -32,6 +32,7 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private Context context;
     private DealResponse dealResponse;
     private BaseViewModel viewModel;
+    private boolean isFromHome;
 
 
     public interface ILoadDataBlock {
@@ -42,7 +43,11 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.context = context;
         this.dealResponse = dealResponse;
         this.viewModel = viewModel;
-
+    }
+    public F3SubDealAdapter(Context context, DealResponse dealResponse, BaseViewModel viewModel, boolean isFromHome) {
+        this.context = context;
+        this.dealResponse = dealResponse;
+        this.isFromHome = isFromHome;
     }
 
     @Override
@@ -129,7 +134,7 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    DetailDealActivity.startScreen(context, content.getId().toString(), content.isCampaign());
+                    DetailDealActivity.startScreen(context, content.getId().toString(), content.isCampaign(),isFromHome);
                 }
             });
             if (content.getIsProcessing() != null) {

@@ -18,6 +18,7 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment;
 public class DetailDealActivity extends BaseActivityNew<ActivityDetailDealBinding> {
     private String idCampaignDetail;
     private boolean isCampaign;
+    private boolean isFromHome;
     @Override
     public int getLayoutRes() {
         return R.layout.activity_item_detail_deal;
@@ -40,6 +41,7 @@ public class DetailDealActivity extends BaseActivityNew<ActivityDetailDealBindin
     public void getDataFromIntent() {
         idCampaignDetail = getIntent().getStringExtra(Constants.IntentKey.DATA);
         isCampaign = getIntent().getBooleanExtra(Constants.IntentKey.IS_CAMPAIGN,true);
+        isFromHome = getIntent().getBooleanExtra(Constants.IntentKey.IS_FROM_HOME,false);
     }
 
     @Override
@@ -54,13 +56,21 @@ public class DetailDealActivity extends BaseActivityNew<ActivityDetailDealBindin
 
     @Override
     public BaseFragment initFragment() {
-        DealItemDetailFragment dealItemDetailFragment  = new DealItemDetailFragment(idCampaignDetail,isCampaign);
+        DealItemDetailFragment dealItemDetailFragment  = new DealItemDetailFragment(idCampaignDetail,isCampaign,isFromHome);
         return dealItemDetailFragment;
     }
     public static void startScreen(Context activity, String id,boolean isCampaign) {
         Intent intent = new Intent(activity, DetailDealActivity.class);
         intent.putExtra(Constants.IntentKey.DATA, id);
         intent.putExtra(Constants.IntentKey.IS_CAMPAIGN, isCampaign);
+        intent.putExtra(Constants.IntentKey.IS_FROM_HOME, false);
+        activity.startActivity(intent);
+    }
+    public static void startScreen(Context activity, String id,boolean isCampaign, boolean isFromHome) {
+        Intent intent = new Intent(activity, DetailDealActivity.class);
+        intent.putExtra(Constants.IntentKey.DATA, id);
+        intent.putExtra(Constants.IntentKey.IS_CAMPAIGN, isCampaign);
+        intent.putExtra(Constants.IntentKey.IS_FROM_HOME, isFromHome);
         activity.startActivity(intent);
     }
 }

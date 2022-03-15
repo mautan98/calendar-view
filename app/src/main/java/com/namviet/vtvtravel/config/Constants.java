@@ -109,6 +109,7 @@ public class Constants {
         public static final String KEY_MOBILE = "mobile";
         public static final String DATA = "data";
         public static final String IS_CAMPAIGN = "is_campaign";
+        public static final String IS_FROM_HOME = "is_from_home";
         public static final String POSITION = "position";
         public static final String URL_DEAL = "url_deal";
         public static final String VOUCHER = "VOUCHER";

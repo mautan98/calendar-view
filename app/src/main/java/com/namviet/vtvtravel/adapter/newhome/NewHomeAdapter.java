@@ -687,7 +687,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     viewWhite.setVisibility(View.VISIBLE);
                     shimmer.setVisibility(View.VISIBLE);
                     dealResponse = null;
-                    f3SubDealAdapter = new F3SubDealAdapter(context, dealResponse, viewModel);
+                    f3SubDealAdapter = new F3SubDealAdapter(context, dealResponse, viewModel,true);
                     rclContent.setAdapter(f3SubDealAdapter);
 
                     if (positionClick == 0) {
@@ -735,7 +735,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 if (o instanceof DealResponse) {
                     try {
                         dealResponse = (DealResponse) o;
-                        f3SubDealAdapter = new F3SubDealAdapter(context, dealResponse, viewModel);
+                        f3SubDealAdapter = new F3SubDealAdapter(context, dealResponse, viewModel,true);
                         rclContent.setAdapter(f3SubDealAdapter);
 
                         try {
