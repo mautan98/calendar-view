@@ -8,11 +8,15 @@ import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.adapter.f2biglocation.SearchAllLocationAdapter
 import com.namviet.vtvtravel.databinding.F3FragmentSearchRegionMainBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.travelnews.Location
+import com.namviet.vtvtravel.response.f2biglocation.LocationResponse
 import com.namviet.vtvtravel.ultils.F2Util
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.f3_fragment_search_region_main.*
+import kotlinx.android.synthetic.main.f3_fragment_search_region_main.edtSearch
+import kotlinx.android.synthetic.main.f3_layout_search_destination.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
@@ -48,6 +52,10 @@ class ChooseRegionMainFragment : BaseFragment<F3FragmentSearchRegionMainBinding?
     override fun inject() {}
     override fun setClickListener() {
         binding!!.btnClose.setOnClickListener { mActivity.onBackPressed() }
+
+        binding!!.btnMyLocation.setOnClickListener {
+            viewModel?.getLocation()
+        }
     }
 
     override fun setObserver() {}
@@ -55,14 +63,20 @@ class ChooseRegionMainFragment : BaseFragment<F3FragmentSearchRegionMainBinding?
     public fun setData(locationsMain: ArrayList<Location>?, chooseRegion: ChooseRegion?) {
         this.locationsMain = locationsMain
         this.chooseRegion = chooseRegion
+        try {
+            if (locationsMain!![0].id != "all") {
+                var location = Location()
+                location.id = "all"
+                location.name = "Tất cả"
+                this.locationsMain?.add(0, location)
+            }
+        } catch (e: Exception) {
+        }
+
     }
 
     public interface ChooseRegion {
         fun clickRegion(location: Location?)
-    }
-
-    override fun update(o: Observable?, arg: Any?) {
-
     }
 
 
@@ -97,6 +111,24 @@ class ChooseRegionMainFragment : BaseFragment<F3FragmentSearchRegionMainBinding?
         try {
             KeyboardUtils.hideKeyboard(mActivity, binding!!.edtSearch)
         } catch (e: Exception) {
+        }
+    }
+
+    override fun update(observable: Observable?, o: Any?) {
+        if (observable is SearchBigLocationViewModel && null != o) {
+//            if (o is AllLocationResponse) {
+//                locationsMain = o.data
+//                locations.addAll(locationsMain)
+//                searchAllLocationAdapter!!.notifyDataSetChanged()
+//            } else
+            if (o is LocationResponse) {
+                edtSearch.setText(o.data.name)
+            } else if (o is ErrorResponse) {
+                val responseError = o
+                try {
+                } catch (e: Exception) {
+                }
+            }
         }
     }
 }

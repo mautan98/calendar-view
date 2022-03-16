@@ -86,4 +86,12 @@ public class Location {
     public void setSelected(boolean selected) {
         isSelected = selected;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
