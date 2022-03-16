@@ -380,13 +380,14 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //                        btnHunt.setText("Đã hết hạn");
 //                        btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.bg_btn_hunt_disable));
                     } else if (status.equals(IsProcessingType.DANG_DIEN_RA_TYPE)) {
-                        if(dealCampaignDetail.getData().getIsUserHunting()){
-                            btnHunt.setVisibility(View.GONE);
-                        }else {
-                            btnHunt.setVisibility(View.VISIBLE);
-                        }
-                        btnHunt.setText("Săn ngay");
-                        btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.f3_btn_agree));
+//                        if(dealCampaignDetail.getData().getIsUserHunting()){
+//                            btnHunt.setVisibility(View.GONE);
+//                        }else {
+//                            btnHunt.setVisibility(View.VISIBLE);
+//                        }
+//                        btnHunt.setText("Săn ngay");
+//                        btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.f3_btn_agree));
+                        btnHunt.setVisibility(View.GONE);
                     } else if (status.equals(IsProcessingType.SAP_DIEN_RA_TYPE)) {
                         btnHunt.setText(Utils.CalendarUtils.getDayStart(dealCampaignDetail.getData().getEndAt()));
                         long timeStamp = data.getBeginAt();
