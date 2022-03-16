@@ -172,8 +172,8 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
                         if(isFromHome){
                             try {
                                 //  DetailDealWebviewActivity.startScreen(context, homeServiceResponse.getData().get(position).getLink_home_deal());
-                                DealHomeActivity.Companion.startScreen(mActivity);
                                 mActivity.onBackPressed();
+                                DealHomeActivity.Companion.startScreen(mActivity);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

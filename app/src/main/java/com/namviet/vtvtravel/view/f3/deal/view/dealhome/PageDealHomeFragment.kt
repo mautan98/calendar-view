@@ -150,5 +150,9 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
     @Subscribe
     public fun onFinish(changeToCenterTab: BackToDeal) {
         vpContent.currentItem = 1
+        imgMyGift.setImageResource(R.drawable.ic_my_gift_unselected)
+        tvMyGift.setTextColor(Color.parseColor("#707070"))
+        imgDealSubscribe.setImageResource(R.drawable.ic_my_subcribe_unselected)
+        tvDealSubscribe.setTextColor(Color.parseColor("#707070"))
     }
 }
