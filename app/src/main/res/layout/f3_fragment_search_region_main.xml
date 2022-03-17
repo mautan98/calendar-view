@@ -71,6 +71,7 @@
 
 
                     <EditText
+                        android:imeOptions="actionDone"
                         android:id="@+id/edtSearch"
                         android:singleLine="true"
                         android:layout_width="match_parent"

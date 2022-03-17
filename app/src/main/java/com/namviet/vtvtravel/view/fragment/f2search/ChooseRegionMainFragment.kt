@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.view.fragment.f2search
 
 import android.annotation.SuppressLint
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import com.baseapp.utils.KeyboardUtils
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.namviet.vtvtravel.R
@@ -16,6 +17,7 @@ import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.f3_fragment_search_region_main.*
 import kotlinx.android.synthetic.main.f3_fragment_search_region_main.edtSearch
+import kotlinx.android.synthetic.main.f3_fragment_search_suggestion_for_specific_content.*
 import kotlinx.android.synthetic.main.f3_layout_search_destination.*
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -55,6 +57,15 @@ class ChooseRegionMainFragment : BaseFragment<F3FragmentSearchRegionMainBinding?
 
         binding!!.btnMyLocation.setOnClickListener {
             viewModel?.getLocation()
+        }
+
+        edtSearch.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
+                    KeyboardUtils.hideKeyboard(mActivity, edtSearch)
+                true
+            } else {
+                false
+            }
         }
     }
 
