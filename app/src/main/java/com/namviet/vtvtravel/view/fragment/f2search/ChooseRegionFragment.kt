@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.FragmentTransaction
 import com.baseapp.utils.KeyboardUtils
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -21,7 +22,9 @@ import com.namviet.vtvtravel.response.f2biglocation.LocationResponse
 import com.namviet.vtvtravel.ultils.F2Util
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.f3_fragment_search_region_main.*
 import kotlinx.android.synthetic.main.f3_layout_search_destination.*
+import kotlinx.android.synthetic.main.f3_layout_search_destination.edtSearch
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -97,6 +100,15 @@ class ChooseRegionFragment : BaseFragment<F3LayoutSearchDestinationBinding?>(), 
                 fragmentManager!!.beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                     .remove(this@ChooseRegionFragment).commit()
+            }
+        }
+
+        binding!!.edtSearch.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
+                KeyboardUtils.hideKeyboard(mActivity, binding!!.edtSearch)
+                true
+            } else {
+                false
             }
         }
     }
