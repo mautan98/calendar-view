@@ -339,6 +339,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
             homeServiceResponse.getData().get(1).setTipUser("Bạn đang là Hội viên của #VTVTravel, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:");
             homeServiceResponse.getData().get(1).setShowBtnRegisterNow(false);
             newHomeAdapter.notifyItemChanged(1);
+            newHomeAdapter.notifyItemChanged(2);
 
         } else {
             phoneNumberDetectedFrom3G = null;
@@ -359,6 +360,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
             homeServiceResponse.getData().get(1).setTipUser("Hãy đăng ký Hội viên của #VTVTravel để được nhận ưu đãi tốt nhất");
             homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
             newHomeAdapter.notifyItemChanged(1);
+
 
 
         }

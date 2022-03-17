@@ -56,9 +56,9 @@ public class WSConfig {
     public static final String API_VQMM_HISTORY = "https://core.vtvtravel.vn/api/v1/wheel/history";
 
     //Deal
-    public static final String HOST_DEAL_CAMPAIGN_HOME = "https://core.vtvtravel.vn/api/v1/deals/campaigns/home?page=0&size=5";
-    public static final String HOST_DEAL_HOME = "https://core.vtvtravel.vn/api/v1/deals/home?size=5&page=0";
-    public static final String HOST_DEAL_FOLLOW = "https://core.vtvtravel.vn/api/v1/deals/campaigns/follows";
+    public static final String HOST_DEAL_CAMPAIGN_HOME = HOST_ACC+"deals/campaigns/home?page=0&size=5";
+    public static final String HOST_DEAL_HOME = HOST_ACC+"deals/home?size=5&page=0";
+    public static final String HOST_DEAL_FOLLOW = HOST_ACC+"deals/campaigns/follows";
 
     public static final String URL_ENCODE = "http://api.travel.onex.vn/test/rsa/decrypt";
     public static final String URL_DEFAULT_CHANNEL = "http://113.185.19.133:8443/namvietvtv/smil:vtv1.smil/playlist.m3u8";

@@ -74,6 +74,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private DealItemDetailFragment dealItemDetailFragment;
     private ILoadDataDeal mILoadDataDeal;
     private DealResponse dealResponse;
+    private long myCurrentTimeMillis;
 
     public void setILoadDataDeal(ILoadDataDeal mILoadDataDeal) {
         this.mILoadDataDeal = mILoadDataDeal;
@@ -84,6 +85,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.mContext = mContext;
         this.loadData = loadData;
         this.dealItemDetailFragment = dealItemDetailFragment;
+        myCurrentTimeMillis = System.currentTimeMillis();
     }
 
     @NonNull
@@ -378,12 +380,17 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //                        btnHunt.setText("Đã hết hạn");
 //                        btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.bg_btn_hunt_disable));
                     } else if (status.equals(IsProcessingType.DANG_DIEN_RA_TYPE)) {
-                        btnHunt.setText("Săn ngay");
-                        btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.f3_btn_agree));
+//                        if(dealCampaignDetail.getData().getIsUserHunting()){
+//                            btnHunt.setVisibility(View.GONE);
+//                        }else {
+//                            btnHunt.setVisibility(View.VISIBLE);
+//                        }
+//                        btnHunt.setText("Săn ngay");
+//                        btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.f3_btn_agree));
+                        btnHunt.setVisibility(View.GONE);
                     } else if (status.equals(IsProcessingType.SAP_DIEN_RA_TYPE)) {
                         btnHunt.setText(Utils.CalendarUtils.getDayStart(dealCampaignDetail.getData().getEndAt()));
                         long timeStamp = data.getBeginAt();
-                        long myCurrentTimeMillis = System.currentTimeMillis();
                         if (myCurrentTimeMillis > timeStamp) {
                             btnHunt.setText("Bắt đầu sau 0 ngày");
                         } else {
@@ -763,7 +770,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 mHuntingCount.setText(F3SubDealAdapter.getHuntingUserCount(dealCampaignDetail.getData().getUserHuntingCount()));
                 String status = dealCampaignDetail.getData().getIsProcessing();
                 if (dealCampaignDetail.getData().getRanking() == 0) {
-                    mTvRank.setText("Bạn chưa tích lũy");
+                    mTvRank.setText(mContext.getString(R.string.ban_chua_san_text));
                 } else if (dealCampaignDetail.getData().getRanking() == 1) {
                     mTvRank.setVisibility(View.GONE);
                     imgNo1.setVisibility(View.VISIBLE);
@@ -776,7 +783,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     return;
                 }
                 if (!dealCampaignDetail.getData().getIsUserHunting()) {
-                    mTvTimeKeepDeal.setText("Bạn chưa tích lũy");
+                    mTvTimeKeepDeal.setText(mContext.getString(R.string.ban_chua_san_text));
                 } else {
                     try {
                         long distance = dealCampaignDetail.getData().getTotalHoldTime() / 1000;
@@ -788,14 +795,18 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                mTvTimeKeepDeal.setText("Bạn chưa tích lũy");
-                mTvRank.setText("Bạn chưa tích lũy");
+                mTvTimeKeepDeal.setText(mContext.getString(R.string.ban_chua_san_text));
+                mTvRank.setText(mContext.getString(R.string.ban_chua_san_text));
             }
         }
     }
 
     public static void setTime(long s, TextView tv, String isProcessing, boolean isHoldTime) {
         try {
+            if (s < 0 ){
+                tv.setText("0 ngày, 00 : 00 : 00");
+                return;
+            }
             String days = (int) (s / 86400) + " ngày ";
             String hours = String.valueOf((int) ((s % 86400) / 3600));
             String minutes = String.valueOf((int) ((s % 3600) / 60));
@@ -961,7 +972,6 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         rllStatusDeal.setBackgroundColor(Color.parseColor("#01B819"));
                         tvStatusDeal.setText("Chương trình đang diễn ra!");
                         long timeStamp = data.getEndAt();
-                        long myCurrentTimeMillis = System.currentTimeMillis();
                         if (myCurrentTimeMillis > timeStamp) {
                             mTvTimeCountDown.setText("Còn lại 0 ngày");
                         } else {
@@ -973,7 +983,6 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         rllStatusDeal.setBackgroundColor(Color.parseColor("#E9BB00"));
                         tvStatusDeal.setText("Chưa bắt đầu");
                         long timeStamp = data.getBeginAt();
-                        long myCurrentTimeMillis = System.currentTimeMillis();
                         if (myCurrentTimeMillis > timeStamp) {
                             mTvTimeCountDown.setText("Bắt đầu sau 0 ngày");
                         } else {
