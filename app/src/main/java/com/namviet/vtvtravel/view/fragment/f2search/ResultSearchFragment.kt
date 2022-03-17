@@ -4,11 +4,13 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.KeyboardShortcutInfo
 import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -273,6 +275,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
         });
         binding!!.rclCategorySorted.adapter = categorySortedAdapter
+
+
 
     }
 

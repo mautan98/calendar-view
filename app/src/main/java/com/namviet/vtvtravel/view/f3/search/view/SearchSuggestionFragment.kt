@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.view.f3.search.view
 
 import android.annotation.SuppressLint
+import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
@@ -88,14 +89,16 @@ class SearchSuggestionFragment(private var keyword: String? = null, private var 
         handleSearch()
 
         edtSearch.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
                 if (edtSearch.text.isNotEmpty()) {
 //                    addRecentSearch(edtKeyword.text.toString())
 //                    recentAdapter?.setData(getRecentSearch())
 //                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, ""))
 //                    KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
 //                    edtKeyword.clearFocus()
-                    KeyboardUtils.hideKeyboard(mActivity, edtSearch)
+//                    KeyboardUtils.hideKeyboard(mActivity, edtSearch)
+                    mActivity.onBackPressed()
+                    searchSuggestionCallback?.onClickRegion(location, keyword)
                 }
                 true
             } else {
@@ -200,6 +203,18 @@ class SearchSuggestionFragment(private var keyword: String? = null, private var 
             searchSuggestionCallback?.onCancelSearch(location, keyword)
             mActivity.onBackPressed()
         }
+
+//        binding!!.edtSearch.setOnEditorActionListener(object : TextView.OnEditorActionListener{
+//            override fun onEditorAction(p0: TextView?, p1: Int, p2: KeyEvent?): Boolean {
+//                if (p1 == EditorInfo.IME_ACTION_SEARCH) {
+//                    mActivity.onBackPressed()
+//                    searchSuggestionCallback?.onClickRegion(location, keyword)
+//                    return true;
+//                }
+//                return false;
+//            }
+//
+//        })
     }
 
     override fun setObserver() {}
