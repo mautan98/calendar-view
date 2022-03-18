@@ -5,9 +5,9 @@ import android.content.Context;
 import android.os.Handler;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.viewpager.widget.ViewPager;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
@@ -21,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -44,10 +43,10 @@ import com.namviet.vtvtravel.adapter.newhome.subnewhome.SubVoucherNowAdapter;
 import com.namviet.vtvtravel.adapter.newhome.subnewhome.tab.TabDiscoverAdapter;
 import com.namviet.vtvtravel.adapter.newhome.subnewhome.tab.TabSuggestionLocationAdapter;
 import com.namviet.vtvtravel.adapter.newhome.subnewhome.tab.TabVoucherNowAdapter;
+import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.Account;
-import com.namviet.vtvtravel.model.Schedule;
 import com.namviet.vtvtravel.model.f2event.OnClickVideoInMenu;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.response.f2livetv.LiveTvResponse;
@@ -75,23 +74,36 @@ import com.namviet.vtvtravel.view.f2.NearbyExperienceActivity;
 import com.namviet.vtvtravel.view.f2.TopExperienceActivity;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
+import com.namviet.vtvtravel.view.f3.deal.adapter.F3SubDealAdapter;
+import com.namviet.vtvtravel.view.f3.deal.adapter.F3TabDealAdapter;
+import com.namviet.vtvtravel.view.f3.deal.adapter.F3TabDealInHomeAdapter;
+import com.namviet.vtvtravel.view.f3.deal.adapter.RecyclerAdapter;
+import com.namviet.vtvtravel.view.f3.deal.model.Block;
+import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
+import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealHomeActivity;
+import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
+import com.namviet.vtvtravel.view.f3.deal.view.dealhome.ItemGenerator;
+import com.namviet.vtvtravel.view.f3.deal.viewmodel.DealViewModel;
 import com.namviet.vtvtravel.view.fragment.newhome.NewHomeFragment;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
 import com.zhpan.indicator.IndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.Callable;
+import java.util.ListIterator;
+import java.util.Observable;
+import java.util.Observer;
 
-import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import me.crosswall.lib.coverflow.CoverFlow;
 import me.crosswall.lib.coverflow.core.PageItemClickListener;
 import me.crosswall.lib.coverflow.core.PagerContainer;
@@ -311,7 +323,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             rclHeader = itemView.findViewById(R.id.rclHeader);
             layoutSearch = itemView.findViewById(R.id.layoutSearch);
             vpPromotion = itemView.findViewById(R.id.vpPromotionSlide);
-            indicatorView = (IndicatorView)  itemView.findViewById(R.id.indicator_view);
+            indicatorView = (IndicatorView) itemView.findViewById(R.id.indicator_view);
             layoutSearch.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -519,6 +531,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private TextView btnRegisterNow;
         private IndefinitePagerIndicator vpIndicator;
         private CircleIndicator indicator;
+
         public VoucherViewHolder(View itemView) {
             super(itemView);
             container = itemView.findViewById(R.id.pager_container);
@@ -598,20 +611,35 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
 
-    public class DealViewHolder extends RecyclerView.ViewHolder {
+    public class DealViewHolder extends RecyclerView.ViewHolder implements Observer {
         private RecyclerView recyclerNearPlace;
+        private ShimmerFrameLayout shimmer;
         private SubDealAdapter subDealAdapter;
         private TextView btnSeeMore;
         private TextView tvTitle;
         private TextView tvDescription;
+        private F3SubDealAdapter f3SubDealAdapter;
+        private F3TabDealInHomeAdapter f3TabDealAdapter;
+        private RecyclerView rclContent;
+        private RecyclerView rclTab;
+        private DealViewModel dealViewModel;
+        private DealResponse dealResponse;
+        private View layoutNoData;
+        private View viewWhite;
 
         public DealViewHolder(View itemView) {
             super(itemView);
-
+            dealViewModel = new DealViewModel();
+            dealViewModel.addObserver(this);
+            rclContent = itemView.findViewById(R.id.rclContent);
+            rclTab = itemView.findViewById(R.id.rclTab);
             recyclerNearPlace = itemView.findViewById(R.id.recyclerNearPlace);
             btnSeeMore = itemView.findViewById(R.id.btnSeeMore);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+            shimmer = itemView.findViewById(R.id.shimmer_view_container);
+            layoutNoData = itemView.findViewById(R.id.layoutNoData);
+            viewWhite = itemView.findViewById(R.id.viewWhite);
 
             try {
                 SnapHelper helper = new LinearSnapHelper();
@@ -627,34 +655,102 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 loadData.onLoadData(homeServiceResponse.getData().get(position).getContent_link(), TypeString.APP_DEAL);
             }
 
-            subDealAdapter = new SubDealAdapter(context, appDealResponse.getData(), new SubDealAdapter.ClickItem() {
-                @Override
-                public void onClickItem(AppDealResponse.Data data) {
-                    try {
-                        DetailDealWebviewActivity.startScreen(context, data.getDetailLink());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            recyclerNearPlace.setAdapter(subDealAdapter);
+//            subDealAdapter = new SubDealAdapter(context, appDealResponse.getData(), new SubDealAdapter.ClickItem() {
+//                @Override
+//                public void onClickItem(AppDealResponse.Data data) {
+//                    try {
+//                        DetailDealWebviewActivity.startScreen(context, data.getDetailLink());
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
+//            recyclerNearPlace.setAdapter(subDealAdapter);
 
             btnSeeMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     try {
-                        DetailDealWebviewActivity.startScreen(context, homeServiceResponse.getData().get(position).getLink_home_deal());
+                        //  DetailDealWebviewActivity.startScreen(context, homeServiceResponse.getData().get(position).getLink_home_deal());
+                        DealHomeActivity.Companion.startScreen(context);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
                 }
             });
+
+
+            f3TabDealAdapter = new F3TabDealInHomeAdapter(0,  (ArrayList<Item>) ItemGenerator.demoTabDealList(), context, new F3TabDealInHomeAdapter.ClickTab() {
+                @Override
+                public void onClickTab(int positionClick) {
+                    viewWhite.setVisibility(View.VISIBLE);
+                    shimmer.setVisibility(View.VISIBLE);
+                    dealResponse = null;
+                    f3SubDealAdapter = new F3SubDealAdapter(context, dealResponse, viewModel,true);
+                    rclContent.setAdapter(f3SubDealAdapter);
+
+                    if (positionClick == 0) {
+                        dealViewModel.getDeal(WSConfig.HOST_DEAL_CAMPAIGN_HOME);
+                    } else {
+                        dealViewModel.getDeal(WSConfig.HOST_DEAL_HOME);
+                    }
+//                    try {
+//                        newHomeFragment.setmIOnClickTabReloadData(SuggestionLocationViewHolder.this);
+//                        homeServiceResponse.getData().get(position).setPositionClick(positionClick);
+//                        List<ItemHomeService.Item> items = homeServiceResponse.getData().get(position).getItems();
+//                        loadData.onLoadDataFloorSecond(items.get(positionClick).getContent_link(), TypeString.APP_EXPERIENCES_NEARBY, true);
+//                        mShimmerFrameLayout.setVisibility(View.VISIBLE);
+//                        rclContent.setVisibility(View.INVISIBLE);
+//                        mShimmerFrameLayout.startShimmer();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+
+                }
+            });
+
+            rclTab.setAdapter(f3TabDealAdapter);
+
+            if (dealResponse == null) {
+                viewWhite.setVisibility(View.VISIBLE);
+                shimmer.setVisibility(View.VISIBLE);
+                dealViewModel.getDeal(WSConfig.HOST_DEAL_CAMPAIGN_HOME);
+            }
 
             try {
                 tvTitle.setText(homeServiceResponse.getData().get(position).getName());
                 tvDescription.setText(homeServiceResponse.getData().get(position).getDescription());
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void update(Observable observable, Object o) {
+            viewWhite.setVisibility(View.GONE);
+            shimmer.setVisibility(View.GONE);
+            layoutNoData.setVisibility(View.VISIBLE);
+            if (observable instanceof DealViewModel) {
+                if (o instanceof DealResponse) {
+                    try {
+                        dealResponse = (DealResponse) o;
+                        f3SubDealAdapter = new F3SubDealAdapter(context, dealResponse, viewModel,true);
+                        rclContent.setAdapter(f3SubDealAdapter);
+
+                        try {
+                            if(dealResponse.getData().getContent().size() > 0){
+                                layoutNoData.setVisibility(View.GONE);
+                            }else {
+                                layoutNoData.setVisibility(View.VISIBLE);
+                            }
+                        } catch (Exception e) {
+                            layoutNoData.setVisibility(View.VISIBLE);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }
@@ -664,6 +760,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private SubPromotionPartnerAdapter subPromotionPartnerAdapter;
         private IndefinitePagerIndicator vpIndicator;
         private CircleIndicator2 indicator;
+
         public PromotionPartner(View itemView) {
             super(itemView);
             recyclerPartnerLink = itemView.findViewById(R.id.recyclerPartnerLink);
@@ -909,6 +1006,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private IndefinitePagerIndicator vpIndicator;
         private TextView tvSeeMore;
         private CircleIndicator2 indicator;
+
         public VideoViewHolder(View itemView) {
             super(itemView);
             recyclerAppVideo = itemView.findViewById(R.id.recyclerAppVideo);
@@ -936,7 +1034,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             recyclerAppVideo.setAdapter(subVideoAdapter);
 
             try {
-                PagerSnapHelper  helper = new PagerSnapHelper ();
+                PagerSnapHelper helper = new PagerSnapHelper();
                 helper.attachToRecyclerView(recyclerAppVideo);
                 indicator.attachToRecyclerView(recyclerAppVideo, helper);
                 vpIndicator.attachToRecyclerView(recyclerAppVideo);

@@ -163,6 +163,12 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.16'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.16'
 
+    implementation project(':stickyheaders')
+
+    implementation 'com.github.devlight:infinitecycleviewpager:1.0.2'
+
+
+
 }
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'

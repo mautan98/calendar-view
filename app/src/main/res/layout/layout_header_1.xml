@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/my_statusbar_color"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/f3_bg_roud_top"
+        android:orientation="horizontal">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:paddingTop="5dp"
+            android:id="@+id/rcv_tab_header1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/f3_item_header1" />
+
+        <ImageView
+            android:id="@+id/btnSeeMore"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="21.5dp"
+            android:padding="4dp"
+            android:src="@drawable/f3_ic_list_grid" />
+    </LinearLayout>
+
+</LinearLayout>

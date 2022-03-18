@@ -111,6 +111,10 @@ import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
 import com.namviet.vtvtravel.response.travelnews.NewsCategoryResponse;
 import com.namviet.vtvtravel.response.travelnews.NotebookResponse;
 import com.namviet.vtvtravel.response.travelnews.PlaceNearByResponse;
+import com.namviet.vtvtravel.view.f3.deal.model.BlockResponse;
+import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
+import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
+import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollowResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.GetInfoResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ResentOtpServiceResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceOtpResponse;
@@ -709,5 +713,32 @@ public interface TravelService {
 
     @GET
     Observable<WheelChartResponse> getVQMMHistories(@Url String url);
+
+    @GET(WSConfig.Api.CTKM_BLOCK)
+    Observable<BlockResponse> getBlockDeal(@QueryMap Map<String, Object> queryMap);
+
+    @GET
+    Observable<DealResponse> getDeal(@Url String url);
+
+    @GET
+    Observable<DealResponse> getDealWithParam(@Url String url, @Query("isProcessing") String isProcessing, @Query("page") int page);
+
+    @GET
+    Observable<DealResponse> getHotDealWithParam(@Url String url, @Query("page") int page);
+
+    @GET(WSConfig.Api.DEAL_CAMPAIGN_DETAIL)
+    Observable<DealCampaignDetail> getDealCampaignDetail(@Query("id") String id);
+
+    @GET(WSConfig.Api.DEAL_CHILD_DETAIL)
+    Observable<DealCampaignDetail> getDealDetail(@Query("id") String id);
+
+    @GET
+    Observable<DealFollowResponse> getDealFollow(@Url String url, @Query("rewardStatus") String rewardStatus);
+
+
+    @GET(WSConfig.Api.DEAL_BY_CAMPAIGN)
+    Observable<DealResponse> getDealByCampaign(@Query("isProcessing") String isProcessing, @Query("campaignId") String campaignId, @Query("rewardStatus") String rewardStatus);
+
+
 
 }

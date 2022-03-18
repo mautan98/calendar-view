@@ -63,6 +63,19 @@ public class DateUtltils {
 
     }
 
+    public static String timeToString18(Long dateTime) {
+        if (dateTime != null) {
+            Date date = new Date(dateTime);
+            DateFormat formatter = new SimpleDateFormat(Constants.DateFormat.DATE_FORMAT_18);
+            formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+            String dateFormatted = formatter.format(date);
+            return dateFormatted;
+        } else {
+            return null;
+        }
+
+    }
+
     public static String timeToString3(Long dateTime) {
         if (dateTime != null) {
             Date date = new Date(dateTime * 1000);
