@@ -19,6 +19,7 @@ import com.namviet.vtvtravel.databinding.F3FragmentSearchResultVideoBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.Video
+import com.namviet.vtvtravel.model.f2event.OnCloseDrawerLayout
 import com.namviet.vtvtravel.model.f2search.Children
 import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
@@ -399,6 +400,14 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
                 if (onDone.searchKeywordSuggestion == null) null else onDone!!.searchKeywordSuggestion!!.categoryCode
             edtSearch.text = keyword
             searchAllVideo(SearchType.VIDEO)
+        }
+    }
+
+    @Subscribe
+    public fun onCloseDrawer(onDone: OnCloseDrawerLayout) {
+        try {
+            drawerLayout.closeDrawer(GravityCompat.END, true)
+        } catch (e: Exception) {
         }
     }
 

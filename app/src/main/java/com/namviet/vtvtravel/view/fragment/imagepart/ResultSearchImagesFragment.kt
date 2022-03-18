@@ -18,6 +18,7 @@ import com.namviet.vtvtravel.databinding.F3FragmentSearchResultImagesBinding
 import com.namviet.vtvtravel.databinding.F3FragmentSearchResultNewsBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
+import com.namviet.vtvtravel.model.f2event.OnCloseDrawerLayout
 import com.namviet.vtvtravel.model.f2search.Children
 import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
@@ -40,8 +41,12 @@ import kotlinx.android.synthetic.main.f2_fragment_high_lightest_images.*
 import kotlinx.android.synthetic.main.f3_fragment_search_result_images.*
 import kotlinx.android.synthetic.main.f3_fragment_search_result_images.btnBack
 import kotlinx.android.synthetic.main.f3_fragment_search_result_images.drawerLayout
+import kotlinx.android.synthetic.main.f3_fragment_search_result_images.edtSearch
+import kotlinx.android.synthetic.main.f3_fragment_search_result_images.imgCloseSearch
 import kotlinx.android.synthetic.main.f3_fragment_search_result_images.layoutExpand
 import kotlinx.android.synthetic.main.f3_fragment_search_result_images.rclContent
+import kotlinx.android.synthetic.main.f3_fragment_search_result_images.tvCountResult
+import kotlinx.android.synthetic.main.f3_fragment_search_result_video.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.util.*
@@ -289,8 +294,8 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultImagesBind
     private var chooseRegionFragment : ChooseRegionFragment? = null
 
     private fun createMenuFragment() {
-        var chooseRegionFragment = ChooseRegionFragment();
-        chooseRegionFragment.setData(sortAndFilter!!.sortHeader[1].content, locations, object : ChooseRegionFragment.ChooseRegion{
+        chooseRegionFragment = ChooseRegionFragment();
+        chooseRegionFragment?.setData(sortAndFilter!!.sortHeader[1].content, locations, object : ChooseRegionFragment.ChooseRegion{
             override fun clickRegion(content: Content?) {
                 drawerLayout.closeDrawer(GravityCompat.END)
                 sortAndFilter!!.sortHeader[1].content = content
@@ -360,6 +365,14 @@ class ResultSearchImagesFragment : BaseFragment<F3FragmentSearchResultImagesBind
             categoryId = if (onDone.searchKeywordSuggestion == null)  null else onDone!!.searchKeywordSuggestion!!.categoryCode
             edtSearch.text = keyword
             searchAll(SearchType.IMAGE)
+        }
+    }
+
+    @Subscribe
+    public fun onCloseDrawer(onDone: OnCloseDrawerLayout) {
+        try {
+            drawerLayout.closeDrawer(GravityCompat.END, true)
+        } catch (e: Exception) {
         }
     }
 

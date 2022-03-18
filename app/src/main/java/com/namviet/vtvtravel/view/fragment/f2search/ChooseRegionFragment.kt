@@ -14,6 +14,7 @@ import com.namviet.vtvtravel.adapter.f2biglocation.sub.SearchAllLocationAdapter2
 import com.namviet.vtvtravel.databinding.F3LayoutSearchDestinationBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
+import com.namviet.vtvtravel.model.f2event.OnCloseDrawerLayout
 import com.namviet.vtvtravel.model.f2event.OnTouchRCLLocation
 import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.travelnews.Location
@@ -83,6 +84,8 @@ class ChooseRegionFragment : BaseFragment<F3LayoutSearchDestinationBinding?>(), 
             fragmentManager!!.beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                 .remove(this@ChooseRegionFragment).commit()
+            KeyboardUtils.hideKeyboard(mActivity, binding!!.btnAction)
+            EventBus.getDefault().post(OnCloseDrawerLayout())
         }
 
         binding!!.btnMyLocation.setOnClickListener {
@@ -101,6 +104,8 @@ class ChooseRegionFragment : BaseFragment<F3LayoutSearchDestinationBinding?>(), 
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                     .remove(this@ChooseRegionFragment).commit()
             }
+            KeyboardUtils.hideKeyboard(mActivity, binding!!.btnAction)
+            EventBus.getDefault().post(OnCloseDrawerLayout())
         }
 
         binding!!.edtSearch.setOnEditorActionListener { _, actionId, _ ->
@@ -164,12 +169,13 @@ class ChooseRegionFragment : BaseFragment<F3LayoutSearchDestinationBinding?>(), 
 
     override fun onDestroy() {
         super.onDestroy()
-        try {
-            android.os.Handler().postDelayed(Runnable {
-                KeyboardUtils.hideKeyboard(mActivity, binding!!.edtSearch)
-            }, 100)
-        } catch (e: Exception) {
-        }
+//        try {
+//            android.os.Handler().postDelayed(Runnable {
+//                KeyboardUtils.hideKeyboard(mActivity, binding!!.edtSearch)
+//                EventBus.getDefault().post(OnCloseDrawerLayout())
+//            }, 100)
+//        } catch (e: Exception) {
+//        }
     }
 
     public fun deleteFragment() {
