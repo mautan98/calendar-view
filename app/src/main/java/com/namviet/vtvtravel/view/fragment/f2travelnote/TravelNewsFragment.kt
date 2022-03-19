@@ -23,6 +23,7 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.f2event.OnScrollTravelNews
 import com.namviet.vtvtravel.model.f2search.Children
+import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse
@@ -30,8 +31,8 @@ import com.namviet.vtvtravel.response.travelnews.NewsCategoryResponse
 import com.namviet.vtvtravel.response.travelnews.NotebookResponse
 import com.namviet.vtvtravel.tracking.TrackingAnalytic
 import com.namviet.vtvtravel.ultils.F2Util
-import com.namviet.vtvtravel.view.f2.f2oldbase.SearchActivity
 import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentActivity
+import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentFragment
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.SortFollowFragment
 import com.namviet.vtvtravel.view.fragment.f2video.DropDownLocationInVideoFragment
@@ -116,7 +117,7 @@ class TravelNewsFragment : BaseFragment<F2FragmentTravelNewsBinding?>, Observer 
             }
         }
         binding!!.btnSearch.setOnClickListener {
-            SearchSuggestionForSpecificContentActivity.openScreen(mActivity, "", SearchSuggestionForSpecificContentActivity.Type.NEWS, false)
+            addFragment(SearchSuggestionForSpecificContentFragment("", SearchSuggestionForSpecificContentActivity.Type.NEWS, false))
         }
         binding!!.vpContent.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
@@ -135,12 +136,12 @@ class TravelNewsFragment : BaseFragment<F2FragmentTravelNewsBinding?>, Observer 
     }
 
     override fun setObserver() {}
-    override fun update(observable: Observable, o: Any) {
+    override fun update(observable: Observable, any: Any?) {
         hideLoading()
-        if (observable is SearchBigLocationViewModel && null != o) {
-            when (o) {
+        if (observable is SearchBigLocationViewModel && null != any) {
+            when (any) {
                 is AllLocationResponse -> {
-                    locationsMain = o.data as ArrayList<Location>;
+                    locationsMain = any.data as ArrayList<Location>;
                     locations?.addAll(0, locationsMain)
                 }
 //                is LocationResponse -> {
@@ -153,9 +154,9 @@ class TravelNewsFragment : BaseFragment<F2FragmentTravelNewsBinding?>, Observer 
 //                    }
 //                }
             }
-        } else if (observable is TravelNewsViewModel && null != o) {
-            if (o is NewsCategoryResponse) {
-                val newsCategoryResponse = o
+        } else if (observable is TravelNewsViewModel && null != any) {
+            if (any is NewsCategoryResponse) {
+                val newsCategoryResponse = any
                 vtvTabStyleAdapter = VTVTabStyleAdapter(childFragmentManager)
                 listSubTravelNewsFragment!!.clear()
                 for (i in newsCategoryResponse.data.indices) {
@@ -186,8 +187,8 @@ class TravelNewsFragment : BaseFragment<F2FragmentTravelNewsBinding?>, Observer 
                     binding!!.tabLayout.getTabAt(i)!!.customView = tabHome
                 }
                 binding!!.tabLayout.addOnTabSelectedListener(OnTabSelectedListener)
-            } else if (o is NotebookResponse) {
-                val response = o
+            } else if (any is NotebookResponse) {
+                val response = any
                 vtvTabStyleAdapter = VTVTabStyleAdapter(childFragmentManager)
                 listSubTravelNewsFragment!!.clear()
                 for (i in response.data.category_notebook.indices) {
@@ -225,10 +226,15 @@ class TravelNewsFragment : BaseFragment<F2FragmentTravelNewsBinding?>, Observer 
                         addFragment(detailNewsTravelFragment)
                     }
                 binding!!.rclHighLight.adapter = highLightTravelNoteAdapter
-            } else if (o is ErrorResponse) {
-                val responseError = o
-                binding!!.rllNoData.visibility = View.VISIBLE
-                binding!!.btnScrollToTop.visibility = View.GONE
+//<<<<<<< HEAD
+//            } else if (o is ErrorResponse) {
+//                val responseError = o
+//                binding!!.rllNoData.visibility = View.VISIBLE
+//                binding!!.btnScrollToTop.visibility = View.GONE
+//=======
+            } else if (any is ErrorResponse) {
+                val responseError = any
+//>>>>>>> New_Search_170122
                 try {
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
                 } catch (e: Exception) {
@@ -316,7 +322,7 @@ class TravelNewsFragment : BaseFragment<F2FragmentTravelNewsBinding?>, Observer 
                                         binding!!.drawerLayout.openDrawer(GravityCompat.END)
                                     }
 
-                                    override fun onApply() {
+                                    override fun onApply(content: Content) {
 
                                     }
 
@@ -353,6 +359,7 @@ class TravelNewsFragment : BaseFragment<F2FragmentTravelNewsBinding?>, Observer 
 
         })
     }
+
 
     private fun createMenuFragment(){
         fragmentManager?.beginTransaction()

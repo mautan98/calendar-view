@@ -37,12 +37,13 @@
 
 
                 <TextView
+                    android:textColorHint="@color/black"
                     android:id="@+id/tvCity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="--- Chọn tỉnh/thành phố ---"
+                    android:hint="--- Chọn tỉnh/thành phố ---"
                     android:textColor="@color/black" />
 
 
@@ -67,6 +68,7 @@
             android:layout_marginBottom="24dp">
 
             <com.ornach.richtext.RichText
+                android:id="@+id/btnClearFilter"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="26dp"
@@ -86,6 +88,7 @@
 
 
             <com.ornach.richtext.RichText
+                android:id="@+id/btnApply"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

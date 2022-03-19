@@ -104,15 +104,24 @@ class SortVideoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                 1 -> {
                     items!![position].label = "Địa điểm"
-                    if (!items!![position].content.cityId.isNullOrBlank()) {
-                        items!![position].label = items!![position].content.cityId
+                    if (!items!![position].content.commune.isNullOrBlank()) {
+                        items!![position].label = items!![position].content.communeName
                         return true
                     } else if (!items!![position].content.district.isNullOrBlank()) {
-                        items!![position].label = items!![position].content.cityId
+                        items!![position].label = items!![position].content.districtName
                         return true
-                    } else if (!items!![position].content.commune.isNullOrBlank()) {
-                        items!![position].label = items!![position].content.cityId
+                    } else if (!items!![position].content.cityId.isNullOrBlank()) {
+                        items!![position].label = items!![position].content.cityName
                         return true
+                    }
+                }
+
+                2 -> {
+                    items!![position].label = items!![position].name
+                    for (i in items!!.indices) {
+                        if (items!![position].children[i].isSelected) {
+                            return true
+                        }
                     }
                 }
             }

@@ -66,6 +66,7 @@
 
 
                     <EditText
+                        android:id="@+id/edtSearch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="7dp"
@@ -81,6 +82,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/btnMyLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
@@ -126,6 +128,8 @@
 
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginBottom="80dp"
+                    android:layout_marginStart="14.5dp"
                     android:id="@+id/rclCity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -143,6 +147,7 @@
 
 
                 <com.ornach.richtext.RichText
+                    android:id="@+id/btnAction"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="54dp"
@@ -154,7 +159,7 @@
                     android:paddingTop="10dp"
                     android:paddingEnd="18dp"
                     android:paddingBottom="10dp"
-                    android:text="Chọn"
+                    android:text="Quay lại"
                     android:textColor="@color/white"
                     app:rt_backgroundColor="@color/colorPrimary"
                     app:rt_radius="21dp" />

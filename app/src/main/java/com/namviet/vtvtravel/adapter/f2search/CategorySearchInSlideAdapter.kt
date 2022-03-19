@@ -1,10 +1,15 @@
 package com.namviet.vtvtravel.adapter.f2search
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
+import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.model.f2search.Children
@@ -79,9 +84,23 @@ class CategorySearchInSlideAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
             if (!items!![position].isSelected) {
                 itemView.layoutBackground.backgroundColor = context!!.resources.getColor(R.color.white)
                 itemView.tvTitle.setTextColor(context!!.resources.getColor(R.color.black))
+                when (position){
+                    0-> itemView.imgAvatar.setTint(R.color.color_cat_0)
+                    1-> itemView.imgAvatar.setTint(R.color.color_cat_1)
+                    2-> itemView.imgAvatar.setTint(R.color.color_cat_2)
+                    3-> itemView.imgAvatar.setTint(R.color.color_cat_3)
+                }
             } else {
                 itemView.layoutBackground.backgroundColor = Color.parseColor("#ECB14A")
                 itemView.tvTitle.setTextColor(context!!.resources.getColor(R.color.white))
+                itemView.imgAvatar.setTint(R.color.white)
+            }
+
+            when (position){
+                0-> itemView.imgAvatar.setImageResource(R.drawable.f3_ic_go)
+                1-> itemView.imgAvatar.setImageResource(R.drawable.f3_ic_stay)
+                2-> itemView.imgAvatar.setImageResource(R.drawable.f3_ic_eating)
+                3-> itemView.imgAvatar.setImageResource(R.drawable.f3_ic_play)
             }
         }
 
@@ -89,6 +108,14 @@ class CategorySearchInSlideAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
 
     interface ClickItem{
         fun onClickItem()
+    }
+
+
+    fun ImageView.setTint(@ColorRes colorRes: Int) {
+        ImageViewCompat.setImageTintList(
+            this,
+            ColorStateList.valueOf(ContextCompat.getColor(context, colorRes))
+        )
     }
 
 

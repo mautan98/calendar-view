@@ -45,9 +45,7 @@ public class ResultSearchVideoActivity extends BaseActivityNew<ActivitySearchRes
 
     @Override
     public BaseFragment initFragment() {
-        ResultSearchVideoFragment resultSearchVideoFragment = new ResultSearchVideoFragment();
-        resultSearchVideoFragment.setData(keyword, regionID, item == null? null : item.getCategoryCode());
-        return resultSearchVideoFragment;
+        return new ResultSearchVideoFragment(keyword, regionID, item == null? null : item.getCategoryCode());
     }
 
     public static void openScreen(Context context, String keyword, String regionID, SearchSuggestionResponse.Data.Item item){

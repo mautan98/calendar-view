@@ -1,9 +1,11 @@
 package com.namviet.vtvtravel.view.f3.search.view
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import androidx.fragment.app.FragmentTransaction
 import com.baseapp.utils.KeyboardUtils
 import com.github.nkzawa.socketio.client.On
 import com.google.gson.Gson
@@ -21,9 +23,12 @@ import com.namviet.vtvtravel.response.f2searchmain.SearchSuggestionResponse
 import com.namviet.vtvtravel.ultils.PreferenceUtil
 import com.namviet.vtvtravel.ultils.highlight.HighLightController
 import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
+import com.namviet.vtvtravel.view.MainActivity
 import com.namviet.vtvtravel.view.f3.search.viewmodel.SearchSuggestionViewModel
 import com.namviet.vtvtravel.view.fragment.f2travelnote.ResultSearchNewsActivity
+import com.namviet.vtvtravel.view.fragment.f2travelnote.ResultSearchNewsFragment
 import com.namviet.vtvtravel.view.fragment.f2video.ResultSearchVideoActivity
+import com.namviet.vtvtravel.view.fragment.f2video.ResultSearchVideoFragment
 import com.namviet.vtvtravel.view.fragment.imagepart.ResultSearchImagesActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.sentry.event.EventBuilder
@@ -47,52 +52,65 @@ class SearchSuggestionForSpecificContentFragment(
 
     private var searchSuggestions: ArrayList<SearchSuggestionResponse.Data.Item>? = ArrayList()
 
-    @Inject
-    lateinit var searchSuggestionViewModel: SearchSuggestionViewModel
+    private var searchSuggestionViewModel: SearchSuggestionViewModel? = null
+
+    private var mContext : Context ? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context;
+    }
 
     override fun getLayoutRes(): Int {
         return R.layout.f3_fragment_search_suggestion_for_specific_content
     }
 
-    override fun initView() {}
+    override fun initView() {
+        if(isFromResultPage){
+            viewFullScreen.visibility = View.GONE
+        }else{
+            viewFullScreen.visibility = View.VISIBLE
+        }
+    }
     override fun initData() {
-        searchSuggestionViewModel.addObserver(this)
+        searchSuggestionViewModel = SearchSuggestionViewModel()
+        searchSuggestionViewModel?.addObserver(this)
 
         searchSuggestionKeyWordAdapter = SearchSuggestionKeyWordAdapter(
             searchSuggestions,
-            mActivity,
+            mContext!!,
             object : SearchSuggestionKeyWordAdapter.ClickItem {
                 override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
                     try {
                         when (contentType){
                             SearchSuggestionForSpecificContentActivity.Type.VIDEO -> {
                                 if (!isFromResultPage) {
-                                    ResultSearchVideoActivity.openScreen(mActivity, searchKeywordSuggestion?.title, null, searchKeywordSuggestion)
-                                    mActivity.finish()
+                                    ResultSearchVideoActivity.openScreen(mContext, searchKeywordSuggestion?.title, null, searchKeywordSuggestion)
+                                    fragmentManager?.popBackStack()
                                 } else {
                                     EventBus.getDefault().post(Done(searchKeywordSuggestion?.title, contentType, searchKeywordSuggestion))
-                                    mActivity.finish()
+                                    fragmentManager?.popBackStack()
                                 }
                             }
 
                             SearchSuggestionForSpecificContentActivity.Type.NEWS -> {
                                 if (!isFromResultPage) {
-                                    ResultSearchNewsActivity.openScreen(mActivity, searchKeywordSuggestion?.title, null, searchKeywordSuggestion)
-                                    mActivity.finish()
+                                    ResultSearchNewsActivity.openScreen(mContext, searchKeywordSuggestion?.title, null, searchKeywordSuggestion)
+                                    fragmentManager?.popBackStack()
                                 } else {
                                     EventBus.getDefault().post(Done(searchKeywordSuggestion?.title, contentType, searchKeywordSuggestion))
-                                    mActivity.finish()
+                                    fragmentManager?.popBackStack()
                                 }
                             }
 
 
                             SearchSuggestionForSpecificContentActivity.Type.IMAGE -> {
                                 if (!isFromResultPage) {
-                                    ResultSearchImagesActivity.openScreen(mActivity, searchKeywordSuggestion?.title, null, searchKeywordSuggestion)
-                                    mActivity.finish()
+                                    ResultSearchImagesActivity.openScreen(mContext, searchKeywordSuggestion?.title, null, searchKeywordSuggestion)
+                                    fragmentManager?.popBackStack()
                                 } else {
                                     EventBus.getDefault().post(Done(searchKeywordSuggestion?.title, contentType, searchKeywordSuggestion))
-                                    mActivity.finish()
+                                    fragmentManager?.popBackStack()
                                 }
                             }
                         }
@@ -111,7 +129,7 @@ class SearchSuggestionForSpecificContentFragment(
         edtSearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 if (edtSearch.text.isNotEmpty()) {
-                    KeyboardUtils.hideKeyboard(mActivity, edtSearch)
+                    KeyboardUtils.hideKeyboard(mContext, edtSearch)
                 }
                 true
             } else {
@@ -121,7 +139,7 @@ class SearchSuggestionForSpecificContentFragment(
 
         edtSearch.requestFocus()
         android.os.Handler().postDelayed(Runnable {
-            KeyboardUtils.showKeyboard(mActivity, edtSearch)
+            KeyboardUtils.showKeyboard(mContext, edtSearch)
         }, 500)
 
     }
@@ -132,7 +150,7 @@ class SearchSuggestionForSpecificContentFragment(
 
     private fun focusSearch() {
         edtSearch.requestFocus()
-        KeyboardUtils.showKeyboard(mActivity, edtSearch)
+        KeyboardUtils.showKeyboard(mContext, edtSearch)
     }
 
     private fun checkKeyword() {
@@ -147,14 +165,14 @@ class SearchSuggestionForSpecificContentFragment(
 
 
     override fun inject() {
-        (mActivity.application as MyApplication).viewModelComponent.inject(this)
     }
 
     override fun setClickListener() {
         tvCancelSearch.setOnClickListener {
 //            searchSuggestionCallback?.onCancelSearch( keyword)
-            KeyboardUtils.hideKeyboard(mActivity, edtSearch)
-            mActivity.onBackPressed()
+            KeyboardUtils.hideKeyboard(mContext, edtSearch)
+            EventBus.getDefault().post(Done(keyword, contentType, null))
+            fragmentManager?.popBackStack()
         }
 
 
@@ -173,32 +191,33 @@ class SearchSuggestionForSpecificContentFragment(
                 if (!isFromResultPage) {
                     when (contentType){
                         SearchSuggestionForSpecificContentActivity.Type.VIDEO -> {
-                            ResultSearchVideoActivity.openScreen(mActivity, edtSearch.text.toString(), null, null)
+                            ResultSearchVideoActivity.openScreen(mContext, edtSearch.text.toString(), null, null)
                         }
 
                         SearchSuggestionForSpecificContentActivity.Type.NEWS -> {
-                            ResultSearchNewsActivity.openScreen(mActivity, edtSearch.text.toString(), null, null)
+//                            addFragment(ResultSearchNewsFragment(edtSearch.text.toString(), null, null))
+                            ResultSearchNewsActivity.openScreen(mContext, edtSearch.text.toString(), null, null)
                         }
 
                         SearchSuggestionForSpecificContentActivity.Type.IMAGE -> {
-                            ResultSearchImagesActivity.openScreen(mActivity, edtSearch.text.toString(), null, null)
+                            ResultSearchImagesActivity.openScreen(mContext, edtSearch.text.toString(), null, null)
                         }
                     }
-                    mActivity.finish()
+//                    fragmentManager?.popBackStack()
                 } else {
                     EventBus.getDefault().post(Done(keyword, contentType, null))
-                    mActivity.finish()
+                    fragmentManager?.popBackStack()
                 }
             } catch (e: Exception) {
             }
         }
 
         imgCloseSearch.setOnClickListener {
-            KeyboardUtils.hideKeyboard(mActivity, edtSearch)
+            KeyboardUtils.hideKeyboard(mContext, edtSearch)
             edtSearch.setText("")
             keyword = ""
 //            searchSuggestionCallback?.onCancelSearch( keyword)
-            mActivity.onBackPressed()
+            fragmentManager?.popBackStack()
         }
     }
 
@@ -226,7 +245,7 @@ class SearchSuggestionForSpecificContentFragment(
 
     private fun getSearchSuggestion() {
         //searchSuggestionViewModel?.getSearchSuggestion(edtSearch.text.toString(), regionId)
-        searchSuggestionViewModel.getSearchSuggestionForSpecificContent(
+        searchSuggestionViewModel?.getSearchSuggestionForSpecificContent(
             edtSearch.text.toString(),
             "",
             contentType
@@ -239,7 +258,7 @@ class SearchSuggestionForSpecificContentFragment(
     public fun setHighLightedText(tv: TextView, textToHighlight: String) {
         val iHighLightText = SearchHighLightText()
         val highLightController = HighLightController(iHighLightText)
-        highLightController.highLight(mActivity, tv, textToHighlight)
+        highLightController.highLight(mContext!!, tv, textToHighlight)
     }
 
     private fun getSuggestionInRecentSearch(): ArrayList<SearchSuggestionResponse.Data.Item> {

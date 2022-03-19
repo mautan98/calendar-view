@@ -153,7 +153,7 @@ public class F2Util {
         }
     }
 
-    public static String loadJSONFromAsset(Activity activity, String name) {
+    public static String loadJSONFromAsset(Context activity, String name) {
         String json = null;
         try {
             InputStream is = activity.getAssets().open(name+".json");

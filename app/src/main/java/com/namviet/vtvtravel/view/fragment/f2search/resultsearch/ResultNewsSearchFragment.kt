@@ -77,4 +77,5 @@ class ResultNewsSearchFragment(private var resultSearchFragment: ResultSearchFra
     override fun setObserver() {
     }
 
+
 }

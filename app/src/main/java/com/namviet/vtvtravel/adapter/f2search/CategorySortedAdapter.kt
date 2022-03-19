@@ -15,12 +15,14 @@ class CategorySortedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private val TYPE_ITEM = 0
     private var context: Context? = null
     private var items: ArrayList<Children>? = null
+    private var clickItem : ClickItem? = null
 
     constructor()
 
-    constructor(items: ArrayList<Children>?, context: Context?) {
+    constructor(items: ArrayList<Children>?, context: Context?, clickItem : ClickItem?) {
         this.context = context
         this.items = items
+        this.clickItem = clickItem
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -62,6 +64,7 @@ class CategorySortedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
             itemView?.setOnClickListener {
                 items!![position!!].isSelected = !items!![position!!].isSelected
                 notifyDataSetChanged()
+                clickItem?.onClickItem()
             }
 
 
@@ -82,6 +85,10 @@ class CategorySortedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
             itemView.tvTitle.text = items!![position].name
         }
 
+    }
+
+    interface ClickItem{
+        fun onClickItem();
     }
 
 

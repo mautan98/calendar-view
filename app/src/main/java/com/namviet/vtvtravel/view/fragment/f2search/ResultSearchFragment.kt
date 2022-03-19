@@ -2,6 +2,9 @@ package com.namviet.vtvtravel.view.fragment.f2search
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.os.Bundle
+import android.util.Log
+import android.view.KeyboardShortcutInfo
 import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.Animation
@@ -10,6 +13,7 @@ import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
+import com.baseapp.utils.KeyboardUtils
 import com.google.android.material.tabs.TabLayout
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -19,7 +23,9 @@ import com.namviet.vtvtravel.databinding.F2FragmentResultSearchBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.Video
+import com.namviet.vtvtravel.model.f2event.OnTouchRCLLocation
 import com.namviet.vtvtravel.model.f2search.Children
+import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.model.travelnews.Travel
@@ -40,6 +46,8 @@ import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.Dro
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.SortFollowFragment
 import com.namviet.vtvtravel.viewmodel.f2search.SearchResultViewModel
 import kotlinx.android.synthetic.main.f2_fragment_result_search.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -107,21 +115,6 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     }
 
-    private fun createFragment(){
-        slideMenuSearchFragment = SlideMenuSearchFragment();
-        slideMenuSearchFragment?.setData(sortAndFilter, object : SlideMenuSearchFragment.Listener{
-            override fun onApply(sortAndFilter : SortAndFilter?) {
-                this@ResultSearchFragment.sortAndFilter!!.sortHeader[2].children.clear()
-                this@ResultSearchFragment.sortAndFilter!!.sortHeader[2].children.addAll(sortAndFilter!!.sortHeader[2].children)
-                categorySortedAdapter!!.notifyDataSetChanged()
-                binding!!.drawerLayout.closeDrawer(GravityCompat.END)
-            }
-
-        })
-
-
-        fragmentManager!!.beginTransaction().replace(R.id.chooseRegionFrame, slideMenuSearchFragment!!).commit()
-    }
 
     override fun inject() {
 
@@ -136,10 +129,14 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
             override fun onDrawerOpened(drawerView: View) {
                 createMenuFragment()
+                if(layoutExpand.visibility == View.VISIBLE) {
+                    hideMenuAnim()
+                }
             }
 
             override fun onDrawerClosed(drawerView: View) {
                 slideMenuSearchFragment?.deleteFragment()
+                KeyboardUtils.hideKeyboard1(mActivity)
             }
 
             override fun onDrawerStateChanged(newState: Int) {
@@ -161,11 +158,21 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
                 this@ResultSearchFragment.sortAndFilter!!.sortHeader[3].content.isOpen = sortAndFilter.sortHeader[3].content.isOpen
 
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[1].content = sortAndFilter.sortHeader[1].content
+
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[0].children.clear()
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[0].children.addAll(sortAndFilter!!.sortHeader[0].children)
+
                 sortAdapter?.notifyDataSetChanged()
+                binding!!.drawerLayout.closeDrawer(GravityCompat.END)
+                getParamAndSearch()
+            }
+
+            override fun onClose() {
                 binding!!.drawerLayout.closeDrawer(GravityCompat.END)
             }
 
-        })
+        }, locationMain!!)
 
 
         fragmentManager!!.beginTransaction().replace(R.id.chooseRegionFrame, slideMenuSearchFragment!!).commit()
@@ -190,6 +197,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                                         sortAndFilter!!.sortHeader[0].children = listChild
                                         hideMenuAnim()
                                         sortAdapter?.notifyDataSetChanged()
+                                        getParamAndSearch()
+
                                     }
 
                                 })
@@ -199,8 +208,12 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
                         1 -> {
                             var dropDownLocationFragment = DropDownLocationFragment()
-                            dropDownLocationFragment.setData(locationMain, object : DropDownLocationFragment.Callback{
-                                override fun onApply() {
+                            dropDownLocationFragment.setData(sortAndFilter!!.sortHeader[1].content, locationMain, object : DropDownLocationFragment.Callback{
+                                override fun onApply(content : Content?) {
+                                    hideMenuAnim()
+                                    sortAndFilter!!.sortHeader[1].content = content
+                                    sortAdapter?.notifyDataSetChanged()
+                                    getParamAndSearch()
 
                                 }
 
@@ -218,6 +231,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                                     hideMenuAnim()
                                     categorySortedAdapter?.notifyDataSetChanged()
                                     sortAdapter?.notifyDataSetChanged()
+                                    getParamAndSearch()
                                 }
 
                             })
@@ -232,6 +246,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                                     sortAndFilter!!.sortHeader[3].content.isOpen = isOpen
                                     hideMenuAnim()
                                     sortAdapter?.notifyDataSetChanged()
+                                    getParamAndSearch()
+
                                 }
 
                             })
@@ -249,7 +265,13 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             });
         binding!!.rclSort.adapter = sortAdapter
 
-        categorySortedAdapter = CategorySortedAdapter(sortAndFilter!!.sortHeader[2].children, mActivity);
+        categorySortedAdapter = CategorySortedAdapter(sortAndFilter!!.sortHeader[2].children, mActivity, object : CategorySortedAdapter.ClickItem{
+            override fun onClickItem() {
+                sortAdapter?.notifyDataSetChanged()
+                getParamAndSearch()
+            }
+
+        });
         binding!!.rclCategorySorted.adapter = categorySortedAdapter
 
     }
@@ -493,5 +515,60 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             override fun onAnimationRepeat(animation: Animation) {}
         })
         binding!!.layoutExpand.startAnimation(scaleDown)
+    }
+
+
+    private fun getParamAndSearch(){
+        var sortParam = ""
+        for (i in 0 until sortAndFilter!!.sortHeader[0].children.size){
+            if(sortAndFilter!!.sortHeader[0].children[i].isSelected){
+                sortParam = sortAndFilter!!.sortHeader[0].children[i].id
+                break
+            }
+        }
+
+        Log.e("sortParam", sortParam)
+
+        var districtID =  if(sortAndFilter!!.sortHeader[1].content.district != null) sortAndFilter!!.sortHeader[1].content.district else "null"
+        var communeID =  if(sortAndFilter!!.sortHeader[1].content.commune != null) sortAndFilter!!.sortHeader[1].content.commune else "null"
+
+
+        Log.e("districtID", districtID)
+        Log.e("cityID", if(sortAndFilter!!.sortHeader[1].content.cityId != null) sortAndFilter!!.sortHeader[1].content.cityId else "null")
+        Log.e("communeID", communeID)
+
+        var categoryParam = ""
+
+
+        for (i in 0 until sortAndFilter!!.sortHeader[2].children.size){
+            if(sortAndFilter!!.sortHeader[2].children[i].isSelected){
+                categoryParam = categoryParam + ","+sortAndFilter!!.sortHeader[2].children[i].id
+            }
+        }
+
+        Log.e("categoryParam", categoryParam!!)
+
+
+        var isOpen = sortAndFilter!!.sortHeader[3].content.isOpen
+
+
+
+        Log.e("isOpen", isOpen?.toString() ?: "null")
+
+    }
+
+    @Subscribe
+    fun onTouchRCLLocation(onTouchRCLLocation: OnTouchRCLLocation){
+        drawerLayout.requestDisallowInterceptTouchEvent(true)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 }

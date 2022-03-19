@@ -6,6 +6,10 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Location {
+    //
+    private boolean isSelected;
+    //
+
     private String id;
     private String name;
     private String name_ascii;
@@ -77,5 +81,21 @@ public class Location {
 
     public String getSelected() {
         return selected;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
