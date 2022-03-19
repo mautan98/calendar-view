@@ -234,7 +234,7 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
                 @Override
                 public void onClick(View view) {
                     try {
-                        MapActivity.startScreen(context, items.get(position).getLoc().getCoordinates().get(1), items.get(position).getLoc().getCoordinates().get(0), items.get(position).getAddress());
+                        MapActivity.startScreen(context, items.get(position).getLoc().getCoordinates().get(1), items.get(position).getLoc().getCoordinates().get(0), items.get(position).getAddress(), items.get(position).getContent_type());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

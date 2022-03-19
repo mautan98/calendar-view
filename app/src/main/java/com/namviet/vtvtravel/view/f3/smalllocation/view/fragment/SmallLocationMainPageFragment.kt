@@ -35,6 +35,7 @@ import com.namviet.vtvtravel.view.fragment.f2smalllocation.SearchResultFragment
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.SmallLocationFragment
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import com.namviet.vtvtravel.viewmodel.f2search.SearchViewModel
+import com.namviet.vtvtravel.model.f2event.OnChooseRegionSmallLocation
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.f2_fragment_main_page_small_location.*
 import kotlinx.android.synthetic.main.f2_fragment_main_page_small_location.btnBack
@@ -226,6 +227,7 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
                     tvRegionName.text = location?.name
                     this@SmallLocationMainPageFragment.location = location
                     this@SmallLocationMainPageFragment.regionId = location?.id
+                    EventBus.getDefault().post(OnChooseRegionSmallLocation(location?.id))
                 }
             }, true)
             addFragment(chooseRegionMainFragment)

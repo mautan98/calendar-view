@@ -374,7 +374,7 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
                                 @Override
                                 public void onMapClick(LatLng latLng) {
                                     try {
-                                        MapActivity.startScreen(context, tab.getLat(), tab.getLng(), tab.getAddress());
+                                        MapActivity.startScreen(context, tab.getLat(), tab.getLng(), tab.getAddress(), "");
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }

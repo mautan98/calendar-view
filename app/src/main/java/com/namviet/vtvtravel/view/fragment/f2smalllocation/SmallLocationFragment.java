@@ -40,6 +40,7 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.MyLocation;
+import com.namviet.vtvtravel.model.f2event.OnChooseRegionSmallLocation;
 import com.namviet.vtvtravel.model.f2event.OnDoneFilterOption;
 import com.namviet.vtvtravel.model.f2event.OnReOpenChatScreen;
 import com.namviet.vtvtravel.model.f2smalllocation.Travel;
@@ -386,6 +387,13 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         });
     }
 
+    @Subscribe
+    public void loadDataOnChooseRegion(OnChooseRegionSmallLocation onChooseRegionSmallLocation){
+        this.regionId = onChooseRegionSmallLocation.regionId;
+        clearRclData();
+        viewModel.getSmallLocation(genLinkToFilter(), false);
+    }
+
     private void clearRclData() {
         travelList.clear();
         smallLocationAdapter.notifyDataSetChanged();
@@ -466,10 +474,9 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                 sortSmallLocationResponse = (SortSmallLocationResponse) o;
 
             } else if (o instanceof ErrorResponse) {
-                getBinding().rllNoData.setVisibility(View.VISIBLE);
+//                getBinding().rllNoData.setVisibility(View.VISIBLE);
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
-//                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
                 } catch (Exception e) {
 
                 }
