@@ -397,11 +397,13 @@
                         android:gravity="right|center"
                         android:orientation="horizontal">
 
-                        <View
+                        <com.ornach.richtext.RichText
+                            app:rt_radius="100dp"
+                            app:rt_backgroundColor="#0FB403"
+                            android:id="@+id/viewStatus"
+                            android:layout_marginEnd="6dp"
                             android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/green_radius" />
+                            android:layout_height="10dp"/>
 
                         <TextView
                             android:id="@+id/tvOpenState"

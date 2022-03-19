@@ -28,6 +28,7 @@ import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2smalllocation.Travel;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.MapActivity;
+import com.ornach.richtext.RichText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,6 +109,7 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
         private RecyclerView rcvItemImg;
         private CircleIndicator2 indicator;
         private int position;
+        private RichText viewStatus;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -131,6 +133,7 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
             layoutPrice = itemView.findViewById(R.id.layoutPrice);
             tvCountImg = itemView.findViewById(R.id.tv_count_img);
             tv_open_map = itemView.findViewById(R.id.tv_open_map);
+            viewStatus = itemView.findViewById(R.id.viewStatus);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -246,11 +249,11 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
                 }
             });
 
-            if (Constants.TypeDestination.RESTAURANTS.equals(travel.getContent_type()) || Constants.TypeDestination.HOTELS.equals(travel.getContent_type())) {
-                layoutPrice.setVisibility(View.VISIBLE);
-                layoutOpen.setVisibility(View.GONE);
-                tvPrice.setText(travel.getPrice_from() + " đ" + " - " + travel.getPrice_to() + " đ");
-            } else {
+//            if (Constants.TypeDestination.RESTAURANTS.equals(travel.getContent_type()) || Constants.TypeDestination.HOTELS.equals(travel.getContent_type())) {
+//                layoutPrice.setVisibility(View.VISIBLE);
+//                layoutOpen.setVisibility(View.GONE);
+//                tvPrice.setText(travel.getPrice_from() + " đ" + " - " + travel.getPrice_to() + " đ");
+//            } else {
                 layoutPrice.setVisibility(View.GONE);
                 layoutOpen.setVisibility(View.VISIBLE);
                 tvOpenDate.setText(travel.getOpen_week());
@@ -258,15 +261,16 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
 
                 try {
                     tvOpenState.setTextColor(Color.parseColor(travel.getTypeOpenColor()));
+                    viewStatus.setBackgroundColor(Color.parseColor(travel.getTypeOpenColor()));
                 } catch (Exception e) {
                     try {
                         tvOpenState.setTextColor(Color.parseColor("#FF0000"));
+                        viewStatus.setBackgroundColor(Color.parseColor("#FF0000"));
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
                     e.printStackTrace();
                 }
-
 
                 try {
                     if (travel.getRange_time().isEmpty()) {
@@ -282,7 +286,7 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
                  //   viewTime.setVisibility(View.GONE);
                     tvOpenTime.setVisibility(View.GONE);
                 }
-            }
+//            }
 
             try {
                 if (travel.isHas_location()) {
