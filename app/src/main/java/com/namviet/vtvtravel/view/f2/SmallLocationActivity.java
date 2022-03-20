@@ -123,10 +123,11 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
 
     @Override
     public void onBackPressed() {
-        if(smallLocationMainPageFragment != null && smallLocationMainPageFragment.getStateMapView() == View.VISIBLE){
-            smallLocationMainPageFragment.hideMapView();
-            return;
-        }
-        else super.onBackPressed();
+//        if(smallLocationMainPageFragment != null && smallLocationMainPageFragment.getStateMapView() == View.VISIBLE){
+//            smallLocationMainPageFragment.hideMapView();
+//            return;
+//        }
+//        else
+            super.onBackPressed();
     }
 }

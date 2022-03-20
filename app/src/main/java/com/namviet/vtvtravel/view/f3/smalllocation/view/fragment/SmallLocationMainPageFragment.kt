@@ -225,6 +225,7 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
             chooseRegionMainFragment.setData(locationsMain, object : ChooseRegionMainFragment.ChooseRegion{
                 override fun clickRegion(location: Location?) {
                     tvRegionName.text = location?.name
+                    tvRegionName2.text = location?.name
                     this@SmallLocationMainPageFragment.location = location
                     this@SmallLocationMainPageFragment.regionId = location?.id
                     EventBus.getDefault().post(OnChooseRegionSmallLocation(location?.id))
@@ -236,6 +237,20 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
 
         edtSearch.setOnClickListener {
             addFragment(SearchSuggestionSmallLocationFragment( edtSearch.text.toString(), location, locationsMain, false, this))
+        }
+
+        btnChooseRegion2.setOnClickListener {
+            var chooseRegionMainFragment = ChooseRegionMainFragment();
+            chooseRegionMainFragment.setData(locationsMain, object : ChooseRegionMainFragment.ChooseRegion{
+                override fun clickRegion(location: Location?) {
+                    tvRegionName.text = location?.name
+                    tvRegionName2.text = location?.name
+                    this@SmallLocationMainPageFragment.location = location
+                    this@SmallLocationMainPageFragment.regionId = location?.id
+                    EventBus.getDefault().post(OnChooseRegionSmallLocation(location?.id))
+                }
+            }, true)
+            addFragment(chooseRegionMainFragment)
         }
 
     }
