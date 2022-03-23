@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
+import com.baseapp.menu.SlideMenu;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.material.tabs.TabLayout;
@@ -37,6 +38,7 @@ import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.ultils.F2Util;
+import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f3.deal.Utils;
 import com.namviet.vtvtravel.view.f3.deal.adapter.F3SubDealAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.GridDealAdapter;
@@ -380,19 +382,20 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //                        btnHunt.setText("Đã hết hạn");
 //                        btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.bg_btn_hunt_disable));
                     } else if (status.equals(IsProcessingType.DANG_DIEN_RA_TYPE)) {
-//                        if(dealCampaignDetail.getData().getIsUserHunting()){
-//                            btnHunt.setVisibility(View.GONE);
-//                        }else {
-//                            btnHunt.setVisibility(View.VISIBLE);
-//                        }
-//                        btnHunt.setText("Săn ngay");
-//                        btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.f3_btn_agree));
-                        btnHunt.setVisibility(View.GONE);
+                        if(dealCampaignDetail.getData().getIsUserHunting()){
+                            btnHunt.setVisibility(View.VISIBLE);
+                        }else {
+                            btnHunt.setVisibility(View.VISIBLE);
+                        }
+                        btnHunt.setText("Săn ngay");
+                        btnHunt.setBackground(mContext.getResources().getDrawable(R.drawable.f3_btn_agree));
+
+//                        btnHunt.setVisibility(View.GONE);
                     } else if (status.equals(IsProcessingType.SAP_DIEN_RA_TYPE)) {
                         btnHunt.setText(Utils.CalendarUtils.getDayStart(dealCampaignDetail.getData().getEndAt()));
                         long timeStamp = data.getBeginAt();
                         if (myCurrentTimeMillis > timeStamp) {
-                            btnHunt.setText("Bắt đầu sau 0 ngày");
+                            btnHunt.setText("Bắt đầu sau 0 ngày 00:00:00");
                         } else {
                             long distance = (timeStamp - myCurrentTimeMillis) / 1000;
                             setTime(distance, btnHunt, IsProcessingType.SAP_DIEN_RA_TYPE, false);
@@ -403,13 +406,19 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     btnHunt.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (status.equals(IsProcessingType.DANG_DIEN_RA_TYPE)) {
-                                F2Util.startSendMessIntent(mContext, "1039", "D " + dealCampaignDetail.getData().getCode());
-                            }else if(status.equals(IsProcessingType.KET_THUC_TYPE)){
-                                if (data.getRanking() == 1) {
-                                    F2Util.startSendMessIntent(mContext, "1039", "YD " + dealCampaignDetail.getData().getCode());
+                            Account account = MyApplication.getInstance().getAccount();
+                            if (null != account && account.isLogin()) {
+                                if (status.equals(IsProcessingType.DANG_DIEN_RA_TYPE)) {
+                                    F2Util.startSendMessIntent(mContext, "1039", "D " + dealCampaignDetail.getData().getCode());
+                                }else if(status.equals(IsProcessingType.KET_THUC_TYPE)){
+                                    if (data.getRanking() == 1) {
+                                        F2Util.startSendMessIntent(mContext, "1039", "YD " + dealCampaignDetail.getData().getCode());
+                                    }
                                 }
+                            } else {
+                                LoginAndRegisterActivityNew.startScreen(mContext, 0, false);
                             }
+
                         }
                     });
 
@@ -984,7 +993,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         tvStatusDeal.setText("Chưa bắt đầu");
                         long timeStamp = data.getBeginAt();
                         if (myCurrentTimeMillis > timeStamp) {
-                            mTvTimeCountDown.setText("Bắt đầu sau 0 ngày");
+                            mTvTimeCountDown.setText("Bắt đầu sau 0 ngày 00:00:00");
                         } else {
                             long distance = (timeStamp - myCurrentTimeMillis) / 1000;
                             setTime(distance, mTvTimeCountDown, IsProcessingType.SAP_DIEN_RA_TYPE, false);

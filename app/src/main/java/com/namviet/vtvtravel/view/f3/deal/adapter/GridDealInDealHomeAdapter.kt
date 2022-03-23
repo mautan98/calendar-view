@@ -165,7 +165,7 @@ class GridDealInDealHomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     val timeStamp = content.beginAt
                     val myCurrentTimeMillis = System.currentTimeMillis()
                     if (myCurrentTimeMillis > timeStamp) {
-                        itemView.tvDayLeft.text = "Bắt đầu sau 0 ngày"
+                        itemView.tvDayLeft.text = "Bắt đầu sau 0 ngày 00:00:00"
                     } else {
                         val distance = (timeStamp - myCurrentTimeMillis) / 1000
                         var days: String = ((distance / 86400).toInt()).toString() + " ngày "

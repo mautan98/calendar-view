@@ -903,31 +903,31 @@ public class DealViewModel extends BaseViewModel {
 
 
     public void getDealBlock() {
-        BlockResponse blockResponse = new Gson().fromJson(data, BlockResponse.class);
-        requestSuccess(blockResponse);
-//        MyApplication myApplication = MyApplication.getInstance();
-//        TravelService newsService = myApplication.getTravelService();
-//        Map<String, Object> queryMap = Param.getDefault();
-//        Disposable disposable = newsService.getBlockDeal(queryMap)
-//                .subscribeOn(myApplication.subscribeScheduler())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<BlockResponse>() {
-//                    @Override
-//                    public void accept(BlockResponse blockResponse) throws Exception {
-//                        if (blockResponse != null) {
-//                            requestSuccess(blockResponse);
-//                        } else {
-//                            requestSuccess(null);
-//                        }
-//                    }
-//                }, new Consumer<Throwable>() {
-//                    @Override
-//                    public void accept(Throwable throwable) throws Exception {
-//                        requestFailed(throwable);
-//                    }
-//                });
-//
-//        compositeDisposable.add(disposable);
+//        BlockResponse blockResponse = new Gson().fromJson(data, BlockResponse.class);
+//        requestSuccess(blockResponse);
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelService();
+        Map<String, Object> queryMap = Param.getDefault();
+        Disposable disposable = newsService.getBlockDeal(queryMap)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<BlockResponse>() {
+                    @Override
+                    public void accept(BlockResponse blockResponse) throws Exception {
+                        if (blockResponse != null) {
+                            requestSuccess(blockResponse);
+                        } else {
+                            requestSuccess(null);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable);
+                    }
+                });
+
+        compositeDisposable.add(disposable);
     }
     public void getDeal(String url) {
         MyApplication myApplication = MyApplication.getInstance();

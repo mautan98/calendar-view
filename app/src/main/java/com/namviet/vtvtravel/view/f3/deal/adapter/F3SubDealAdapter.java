@@ -175,7 +175,7 @@ public class F3SubDealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     long timeStamp = content.getBeginAt();
                     long myCurrentTimeMillis = System.currentTimeMillis();
                     if (myCurrentTimeMillis > timeStamp) {
-                        tvDayLeft.setText("Bắt đầu sau 0 ngày");
+                        tvDayLeft.setText("Bắt đầu sau 0 ngày 00:00:00");
                     } else {
                         long distance = (timeStamp - myCurrentTimeMillis) / 1000;
 
