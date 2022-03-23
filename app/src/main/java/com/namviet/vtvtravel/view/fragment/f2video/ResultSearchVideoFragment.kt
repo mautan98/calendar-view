@@ -65,6 +65,11 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
     private var keyword: String? = ""
     private var regionId: String? = null
     private var categoryId: String? = null
+    private var district_id: String? = ""
+    private var ward_id: String? = ""
+    private var open: Boolean? = null
+    private var sort: String? = ""
+    private var content_type: String? = ""
 
     private var subTravelNewsAdapter: SubVideoAdapter? = null
     private var travels: ArrayList<Video> = ArrayList()
@@ -202,7 +207,7 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
     }
 
     public fun searchAllVideo(type: String?) {
-        searchViewModel?.searchAllVideo(type, keyword, regionId, type, categoryId)
+        searchViewModel?.searchAllVideo(type, keyword, regionId, type, categoryId, district_id, ward_id, open, sort, content_type)
     }
 
     public fun searchAllVideoWithLink(link: String?, type: String?) {

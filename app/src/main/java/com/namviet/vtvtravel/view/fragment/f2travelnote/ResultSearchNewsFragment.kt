@@ -173,7 +173,7 @@ class ResultSearchNewsFragment : BaseFragment<F3FragmentSearchResultNewsBinding?
     }
 
     public fun searchAll(type: String?) {
-        searchViewModel?.searchAll(type, keyword, regionId, type, categoryId)
+        searchViewModel?.searchAll(type, keyword, regionId, type, categoryId , district_id = "", ward_id = "", open = null, sort = "", content_type = "")
     }
 
     public fun searchAllWithLink(link: String?, type: String?) {

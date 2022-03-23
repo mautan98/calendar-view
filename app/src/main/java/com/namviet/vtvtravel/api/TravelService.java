@@ -316,13 +316,15 @@ public interface TravelService {
 
 
     @GET(WSConfig.Api.SEARCH_ALL)
-    Observable<ResultSearch> searchAll(@Path ("path") String path, @QueryMap Map<String, Object> queryMap,@Query("keyword") String keyword, @Query("region_id") String regionId, @Query("category_code") String categoryCode );
+    Observable<ResultSearch> searchAll(@Path ("path") String path, @QueryMap Map<String, Object> queryMap,@Query("keyword") String keyword, @Query("region_id") String regionId, @Query("category_code") String categoryCode
+    , @Query("district_id") String district_id, @Query("ward_id") String ward_id,  @Query("open") Boolean open, @Query("sort") String sort, @Query("content_type") String content_typ );
 
     @GET
     Observable<ResultSearch> searchAllWithFullLink( @Url String url, @QueryMap Map<String, Object> param);
 
     @GET(WSConfig.Api.SEARCH_ALL)
-    Observable<ResultVideoSearch> searchAllVideo(@Path ("path") String path, @QueryMap Map<String, Object> queryMap, @Query("keyword") String keyword, @Query("region_id") String regionId, @Query("category_code") String categoryCode);
+    Observable<ResultVideoSearch> searchAllVideo(@Path ("path") String path, @QueryMap Map<String, Object> queryMap, @Query("keyword") String keyword, @Query("region_id") String regionId, @Query("category_code") String categoryCode
+            , @Query("district_id") String district_id, @Query("ward_id") String ward_id,  @Query("open") Boolean open, @Query("sort") String sort, @Query("content_type") String content_typ );
 
     @GET
     Observable<ResultVideoSearch> searchAllVideoWithFullLink(@Url String url, @QueryMap Map<String, Object> param);

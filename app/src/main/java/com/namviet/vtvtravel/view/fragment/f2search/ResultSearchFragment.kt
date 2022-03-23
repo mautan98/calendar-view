@@ -73,6 +73,11 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     private var keyword: String? = null
     private var regionId: String? = null
     private var categoryId: String? = null
+    private var district_id: String? = ""
+    private var ward_id: String? = ""
+    private var open: Boolean? = null
+    private var sort: String? = ""
+    private var content_type: String? = ""
 
     private var loadMoreLink: String? = ""
 
@@ -310,7 +315,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     }
 
     public fun searchAll(type: String?) {
-        searchViewModel?.searchAll(type, keyword, regionId, type, categoryId)
+        searchViewModel?.searchAll(type, keyword, regionId, type, categoryId, district_id, ward_id, open, sort, content_type)
     }
 
     public fun searchAllWithLink(link: String?, type: String?) {
@@ -318,7 +323,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     }
 
     public fun searchAllVideo(type: String?) {
-        searchViewModel?.searchAllVideo(type, keyword, regionId, type, categoryId)
+        searchViewModel?.searchAllVideo(type, keyword, regionId, type, categoryId, district_id, ward_id, open, sort, content_type)
     }
 
     public fun searchAllVideoWithLink(link: String?, type: String?) {
@@ -436,7 +441,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     }
 
     public fun searchVideo(type: String?) {
-        searchViewModel?.searchAllVideo(type, keyword, regionId, type, categoryId)
+//        searchViewModel?.searchAllVideo(type, keyword, regionId, type, categoryId)
     }
 
     public fun searchVideoWithLink(link: String?, type: String?) {
@@ -531,15 +536,17 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             }
         }
 
-        Log.e("sortParam", sortParam)
+        sort = sortParam
+//        Log.e("sortParam", sortParam)
 
-        var districtID =  if(sortAndFilter!!.sortHeader[1].content.district != null) sortAndFilter!!.sortHeader[1].content.district else "null"
-        var communeID =  if(sortAndFilter!!.sortHeader[1].content.commune != null) sortAndFilter!!.sortHeader[1].content.commune else "null"
+        var districtID =  if(sortAndFilter!!.sortHeader[1].content.district != null) sortAndFilter!!.sortHeader[1].content.district else ""
+        var communeID =  if(sortAndFilter!!.sortHeader[1].content.commune != null) sortAndFilter!!.sortHeader[1].content.commune else ""
 
 
-        Log.e("districtID", districtID)
-        Log.e("cityID", if(sortAndFilter!!.sortHeader[1].content.cityId != null) sortAndFilter!!.sortHeader[1].content.cityId else "null")
-        Log.e("communeID", communeID)
+        district_id = districtID
+        regionId = if(sortAndFilter!!.sortHeader[1].content.cityId != null) sortAndFilter!!.sortHeader[1].content.cityId else ""
+
+        ward_id = communeID
 
         var categoryParam = ""
 
@@ -550,14 +557,21 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             }
         }
 
-        Log.e("categoryParam", categoryParam!!)
+//        Log.e("categoryParam", categoryParam!!)
+
+        content_type = categoryParam
 
 
         var isOpen = sortAndFilter!!.sortHeader[3].content.isOpen
 
 
+        open = isOpen
 
-        Log.e("isOpen", isOpen?.toString() ?: "null")
+//        Log.e("isOpen", isOpen?.toString() ?: "null")
+
+        searchAll(SearchType.DESTINATION)
+        searchAll(SearchType.NEWS)
+        searchAllVideo(SearchType.VIDEO)
 
     }
 

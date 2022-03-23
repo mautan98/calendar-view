@@ -81,11 +81,12 @@ class SearchResultViewModel : BaseViewModel() {
     }
 
 
-    fun searchAll(path: String?, keyword: String?, regionId: String?, type:String?, categoryCode: String?) {
+    fun searchAll(path: String?, keyword: String?, regionId: String?, type:String?, categoryCode: String?,
+                  district_id : String?, ward_id : String?, open : Boolean?, sort : String?, content_type : String?) {
         val myApplication = MyApplication.getInstance()
         val newsService = myApplication.travelService
         val queryMap = Param.getDefault()
-        val disposable = newsService.searchAll(path, queryMap,  keyword, regionId, categoryCode)
+        val disposable = newsService.searchAll(path, queryMap,  keyword, regionId, categoryCode, district_id, ward_id, open, sort, content_type)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -121,11 +122,12 @@ class SearchResultViewModel : BaseViewModel() {
     }
 
 
-    fun searchAllVideo(path: String?, keyword: String?, regionId: String?, type:String?, categoryCode : String?) {
+    fun searchAllVideo(path: String?, keyword: String?, regionId: String?, type:String?, categoryCode : String?,
+                       district_id : String?, ward_id : String?, open : Boolean?, sort : String?, content_type : String?) {
         val myApplication = MyApplication.getInstance()
         val newsService = myApplication.travelService
         val queryMap = Param.getDefault()
-        val disposable = newsService.searchAllVideo(path, queryMap,  keyword, regionId, categoryCode)
+        val disposable = newsService.searchAllVideo(path, queryMap,  keyword, regionId, categoryCode, district_id, ward_id, open, sort, content_type)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
