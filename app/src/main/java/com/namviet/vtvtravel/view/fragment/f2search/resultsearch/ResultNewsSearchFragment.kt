@@ -56,7 +56,7 @@ class ResultNewsSearchFragment(private var resultSearchFragment: ResultSearchFra
         })
         rclContent.adapter = subTravelNewsAdapter
 
-        resultSearchFragment?.searchAll(SearchType.NEWS)
+        resultSearchFragment?.searchAll(SearchType.NEWS, false)
     }
 
     override fun inject() {
@@ -67,7 +67,7 @@ class ResultNewsSearchFragment(private var resultSearchFragment: ResultSearchFra
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
-                    resultSearchFragment?.searchAllWithLink(moreLink, SearchType.NEWS)
+                    resultSearchFragment?.searchAllWithLink(moreLink, SearchType.NEWS, true)
                 }
             }
         })

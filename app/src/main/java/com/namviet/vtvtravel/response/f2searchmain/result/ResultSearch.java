@@ -6,6 +6,16 @@ import com.namviet.vtvtravel.response.BaseResponse;
 import java.util.List;
 
 public class ResultSearch extends BaseResponse {
+    private boolean isLoadMore;
+
+    public boolean isLoadMore() {
+        return isLoadMore;
+    }
+
+    public void setLoadMore(boolean loadMore) {
+        isLoadMore = loadMore;
+    }
+
     private String type;
 
     private Data data;

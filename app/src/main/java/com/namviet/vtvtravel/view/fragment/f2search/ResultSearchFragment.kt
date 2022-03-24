@@ -314,20 +314,20 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     }
 
-    public fun searchAll(type: String?) {
-        searchViewModel?.searchAll(type, keyword, regionId, type, categoryId, district_id, ward_id, open, sort, content_type)
+    public fun searchAll(type: String?, isLoadMore : Boolean) {
+        searchViewModel?.searchAll(type, keyword, regionId, type, categoryId, district_id, ward_id, open, sort, content_type, isLoadMore)
     }
 
-    public fun searchAllWithLink(link: String?, type: String?) {
-        searchViewModel?.searchAllWithFullLink(link, type)
+    public fun searchAllWithLink(link: String?, type: String?, isLoadMore : Boolean) {
+        searchViewModel?.searchAllWithFullLink(link, type, isLoadMore)
     }
 
-    public fun searchAllVideo(type: String?) {
-        searchViewModel?.searchAllVideo(type, keyword, regionId, type, categoryId, district_id, ward_id, open, sort, content_type)
+    public fun searchAllVideo(type: String?, isLoadMore : Boolean) {
+        searchViewModel?.searchAllVideo(type, keyword, regionId, type, categoryId, district_id, ward_id, open, sort, content_type, isLoadMore)
     }
 
-    public fun searchAllVideoWithLink(link: String?, type: String?) {
-        searchViewModel?.searchAllVideoWithFullLink(link, type)
+    public fun searchAllVideoWithLink(link: String?, type: String?, isLoadMore : Boolean) {
+        searchViewModel?.searchAllVideoWithFullLink(link, type, isLoadMore)
     }
 
     public fun getMoreData() {
@@ -569,9 +569,9 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
 //        Log.e("isOpen", isOpen?.toString() ?: "null")
 
-        searchAll(SearchType.DESTINATION)
-        searchAll(SearchType.NEWS)
-        searchAllVideo(SearchType.VIDEO)
+        searchAll(SearchType.DESTINATION, false)
+        searchAll(SearchType.NEWS, false)
+        searchAllVideo(SearchType.VIDEO, false)
 
     }
 

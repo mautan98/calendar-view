@@ -51,7 +51,7 @@ class ResultVideosSearchFragment : BaseFragment<F2FragmentSearchDestinationResul
         subTravelNewsAdapter = SubVideoAdapter(mActivity, travels, null)
         rclContent.adapter = subTravelNewsAdapter
 
-        resultSearchFragment?.searchAllVideo(SearchType.VIDEO)
+        resultSearchFragment?.searchAllVideo(SearchType.VIDEO, false)
     }
 
     override fun inject() {
@@ -62,7 +62,7 @@ class ResultVideosSearchFragment : BaseFragment<F2FragmentSearchDestinationResul
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
-                    resultSearchFragment?.searchAllVideoWithLink(moreLink, SearchType.VIDEO)
+                    resultSearchFragment?.searchAllVideoWithLink(moreLink, SearchType.VIDEO, true)
                 }
             }
         })
