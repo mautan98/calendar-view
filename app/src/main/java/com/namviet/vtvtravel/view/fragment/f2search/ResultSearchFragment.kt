@@ -436,18 +436,6 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         }
     }
 
-    public fun searchWithLink(link: String?, type: String?) {
-        searchViewModel?.searchAllWithFullLink(link, type)
-    }
-
-    public fun searchVideo(type: String?) {
-//        searchViewModel?.searchAllVideo(type, keyword, regionId, type, categoryId)
-    }
-
-    public fun searchVideoWithLink(link: String?, type: String?) {
-        searchViewModel?.searchAllVideoWithFullLink(link, type)
-    }
-
     private val onTabSelectedListener: TabLayout.OnTabSelectedListener =
         object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
