@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.app.MyApplication
+import com.namviet.vtvtravel.config.Constants
 import com.namviet.vtvtravel.databinding.FragmentPageDealHomeBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew
@@ -12,6 +13,7 @@ import com.namviet.vtvtravel.view.f3.deal.event.BackToDeal
 import com.namviet.vtvtravel.view.f3.deal.event.ChangeToCenterTab
 import com.namviet.vtvtravel.view.f3.deal.event.FinishDeal
 import com.namviet.vtvtravel.view.f3.deal.view.mygift.MyGiftFragment
+import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog
 import kotlinx.android.synthetic.main.fragment_page_deal_home.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -51,12 +53,19 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
     override fun inject() {}
     override fun setClickListener() {
         btnMyGift.setOnClickListener {
-            vpContent.currentItem = 0
-            imgMyGift.setImageResource(R.drawable.ic_my_gift_selected)
-            tvMyGift.setTextColor(Color.parseColor("#F92418"))
+//            vpContent.currentItem = 0
+//            imgMyGift.setImageResource(R.drawable.ic_my_gift_selected)
+//            tvMyGift.setTextColor(Color.parseColor("#F92418"))
+//
+//            imgDealSubscribe.setImageResource(R.drawable.ic_my_subcribe_unselected)
+//            tvDealSubscribe.setTextColor(Color.parseColor("#707070"))
 
-            imgDealSubscribe.setImageResource(R.drawable.ic_my_subcribe_unselected)
-            tvDealSubscribe.setTextColor(Color.parseColor("#707070"))
+            try {
+                var oneButtonTitleImageDialog = OneButtonTitleImageDialog();
+                oneButtonTitleImageDialog.show(mActivity.supportFragmentManager, Constants.TAG_DIALOG);
+            } catch (e: Exception) {
+
+            }
         }
         btnDealSubcribe.setOnClickListener {
             val account = MyApplication.getInstance().account

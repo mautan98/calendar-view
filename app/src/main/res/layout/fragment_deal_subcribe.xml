@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:fontFamily="@font/roboto_bold"
-                android:text="Theo dõi ctkm"
+                android:text="Theo dõi CTKM"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
 

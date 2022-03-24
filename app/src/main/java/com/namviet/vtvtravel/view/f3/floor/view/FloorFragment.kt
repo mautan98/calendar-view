@@ -51,10 +51,11 @@ class FloorFragment : BaseFragment<F2FragmentFloorBinding>() {
         }
 
         view2.setOnClickListener {
-            try {
-                openActivity(mActivity)
-            } catch (e: Exception) {
-            }
+            showComingSoon()
+//            try {
+//                openActivity(mActivity)
+//            } catch (e: Exception) {
+//            }
         }
 
         view3.setOnClickListener {
