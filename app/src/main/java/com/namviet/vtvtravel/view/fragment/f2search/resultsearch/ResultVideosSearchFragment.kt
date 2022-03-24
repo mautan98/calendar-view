@@ -34,8 +34,15 @@ class ResultVideosSearchFragment : BaseFragment<F2FragmentSearchDestinationResul
     override fun initView() {
     }
 
-    public fun setList(travels: ArrayList<Video>?, moreLink: String?,  count: String, keyword: String, isApproximately: Boolean) {
-        travels?.let { this.travels?.addAll(travels) }
+    public fun setList(travels: ArrayList<Video>?, moreLink: String?,  count: String, keyword: String, isApproximately: Boolean, isLoadMore : Boolean) {
+        travels?.let {
+            if (isLoadMore) {
+                this.travels?.addAll(it)
+            } else {
+                this.travels?.clear()
+                this.travels?.addAll(it)
+            }
+        }
         this.moreLink = moreLink
         subTravelNewsAdapter?.notifyDataSetChanged()
         if(!isApproximately) {

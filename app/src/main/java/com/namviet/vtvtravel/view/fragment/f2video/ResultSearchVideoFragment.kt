@@ -207,11 +207,11 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
     }
 
     public fun searchAllVideo(type: String?) {
-        searchViewModel?.searchAllVideo(type, keyword, regionId, type, categoryId, district_id, ward_id, open, sort, content_type)
+        searchViewModel?.searchAllVideo(type, keyword, regionId, type, categoryId, district_id, ward_id, open, sort, content_type, false)
     }
 
-    public fun searchAllVideoWithLink(link: String?, type: String?) {
-        searchViewModel?.searchAllVideoWithFullLink(link, type)
+    public fun searchAllVideoWithLink(link: String?, type: String?, isLoadMore : Boolean) {
+        searchViewModel?.searchAllVideoWithFullLink(link, type, isLoadMore)
     }
 
 

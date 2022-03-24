@@ -32,8 +32,15 @@ class ResultNewsSearchFragment(private var resultSearchFragment: ResultSearchFra
 
     }
 
-    public fun setList(travels: ArrayList<Travel>?, moreLink: String, count: String, keyword: String, isApproximately: Boolean) {
-        travels?.let { this.travels?.addAll(it) }
+    public fun setList(travels: ArrayList<Travel>?, moreLink: String, count: String, keyword: String, isApproximately: Boolean, isLoadMore : Boolean) {
+        travels?.let {
+            if (isLoadMore) {
+                this.travels?.addAll(it)
+            } else {
+                this.travels?.clear()
+                this.travels?.addAll(it)
+            }
+        }
         this.moreLink = moreLink
         subTravelNewsAdapter?.notifyDataSetChanged()
         if(!isApproximately) {

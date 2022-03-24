@@ -395,7 +395,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                                     o.data.more_link,
                                     o.data.total,
                                     keyword!!,
-                                    o.data.approximately
+                                    o.data.approximately,
+                                    o.isLoadMore
                                 )
                             }
 
@@ -405,7 +406,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                                     o.data.more_link,
                                     o.data.total,
                                     keyword!!,
-                                    o.data.approximately
+                                    o.data.approximately,
+                                    o.isLoadMore
                                 )
                             }
 
@@ -420,7 +422,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                             o.data.more_link,
                             o.data.total,
                             keyword!!,
-                            o.data.approximately
+                            o.data.approximately,
+                            o.isLoadMore
                         )
                     }
 
@@ -533,6 +536,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
         district_id = districtID
         regionId = if(sortAndFilter!!.sortHeader[1].content.cityId != null) sortAndFilter!!.sortHeader[1].content.cityId else ""
+        if (regionId == "all") regionId = ""
 
         ward_id = communeID
 
