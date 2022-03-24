@@ -15,6 +15,9 @@ import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity
 import com.namviet.vtvtravel.view.fragment.f2search.ResultSearchFragment
 import kotlinx.android.synthetic.main.f2_fragment_search_destination_result.*
+import kotlinx.android.synthetic.main.f2_fragment_search_destination_result.rclContent
+import kotlinx.android.synthetic.main.f2_fragment_search_destination_result.tvCountResult
+import kotlinx.android.synthetic.main.f2_fragment_search_news_result.*
 import kotlin.collections.ArrayList
 
 @SuppressLint("ValidFragment")
@@ -47,6 +50,13 @@ class ResultDestinationSearchFragment(private var resultSearchFragment: ResultSe
             tvCountResult.text = "Có $count kết quả tìm kiếm điểm đến gần đúng khớp với \"$keyword\""
             resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
         }
+    }
+
+    public fun clearData(){
+        tvCountResult.text = "Đang tìm các kết quả..."
+        this.travels?.clear()
+        subTravelNewsAdapter?.notifyDataSetChanged()
+
     }
 
     override fun initData() {

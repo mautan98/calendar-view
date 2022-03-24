@@ -53,6 +53,13 @@ class ResultNewsSearchFragment(private var resultSearchFragment: ResultSearchFra
 
     }
 
+    public fun clearData(){
+        tvCountResult.text = "Đang tìm các kết quả..."
+        this.travels?.clear()
+        subTravelNewsAdapter?.notifyDataSetChanged()
+
+    }
+
     override fun initData() {
         subTravelNewsAdapter = SubTravelNewsAdapter(mActivity, travels, SubTravelNewsAdapter.ClickItem { travel ->
             try {

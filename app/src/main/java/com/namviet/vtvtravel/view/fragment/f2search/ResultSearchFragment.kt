@@ -561,6 +561,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
 //        Log.e("isOpen", isOpen?.toString() ?: "null")
 
+        destinationSearchFragment?.clearData()
         searchAll(SearchType.DESTINATION, false)
         searchAll(SearchType.NEWS, false)
         searchAllVideo(SearchType.VIDEO, false)
