@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -94,7 +95,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/roboto_bold"
-                                    android:text="Hà Nội, Việt Nam"
+                                    tools:text="Hà Nội, Việt Nam"
                                     android:textColor="@color/white"
                                     android:textSize="14dp" />
 
@@ -104,7 +105,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/roboto_medium"
-                                    android:text="Trời nắng 39 C"
+                                    tools:text="Trời nắng 39 C"
                                     android:textColor="@color/white"
                                     android:textSize="14dp" />
 
