@@ -3,8 +3,10 @@ package com.namviet.vtvtravel.adapter.f2video;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,7 @@ import com.namviet.vtvtravel.view.f2.DetailVideoActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.ShareActivity;
 import com.namviet.vtvtravel.view.f2.TagVideoActivity;
+import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
 import com.namviet.vtvtravel.view.fragment.share.ContactShareFragment;
 import com.namviet.vtvtravel.view.fragment.share.ShareBottomDialog;
 
@@ -118,7 +121,7 @@ public class SubVideoAdapter extends RecyclerView.Adapter<SubVideoAdapter.Header
             try {
                 tvDate.setText(DateUtltils.timeToString(videos.get(position).getCreated()));
                 tvTitle.setText(videos.get(position).getName());
-                if(videos.get(position).getCategory() != null){
+                if (videos.get(position).getCategory() != null) {
                     tvType.setText(videos.get(position).getCategory().getName());
                 }
                 tvType.setText(videos.get(position).getCategory_tree_name());
@@ -149,23 +152,43 @@ public class SubVideoAdapter extends RecyclerView.Adapter<SubVideoAdapter.Header
             btnShare.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+//                    try {
+//                        ShareBottomDialog shareBottomDialog = new ShareBottomDialog(new ShareBottomDialog.DoneClickShare() {
+//                            @Override
+//                            public void onDoneClickShare(boolean isVTVApp) {
+//                                if (isVTVApp) {
+//                                    ShareActivity.startScreen(context, videos.get(position).getName(), videos.get(position).getDetail_link(), videos.get(position).getLogo_url(), "videos");
+//                                }else {
+////                                    String linkShare = WSConfig.HOST_LANDING+F2Util.genEndPointShareLink(Constants.ShareLinkType.VIDEO, videos.get(position).getDetail_link());
+////                                    F2Util.startSenDataText((Activity) context, linkShare);
+//                                    F2Util.startSenDataText((Activity) context, videos.get(position).getLink_share());
+//                                }
+//                            }
+//                        });
+//                        if(context instanceof BaseActivity) {
+//                            shareBottomDialog.show(((BaseActivity) context).getSupportFragmentManager(), null);
+//                        }else {
+//                            shareBottomDialog.show(((BaseActivityNew) context).getSupportFragmentManager(), null);
+//                        }
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+
                     try {
-                        ShareBottomDialog shareBottomDialog = new ShareBottomDialog(new ShareBottomDialog.DoneClickShare() {
-                            @Override
-                            public void onDoneClickShare(boolean isVTVApp) {
-                                if (isVTVApp) {
-                                    ShareActivity.startScreen(context, videos.get(position).getName(), videos.get(position).getDetail_link(), videos.get(position).getLogo_url(), "videos");
-                                }else {
-//                                    String linkShare = WSConfig.HOST_LANDING+F2Util.genEndPointShareLink(Constants.ShareLinkType.VIDEO, videos.get(position).getDetail_link());
-//                                    F2Util.startSenDataText((Activity) context, linkShare);
-                                    F2Util.startSenDataText((Activity) context, videos.get(position).getLink_share());
-                                }
+                        if (context instanceof BaseActivity) {
+                            try {
+                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+                                oneButtonTitleImageDialog.show(((BaseActivity)context).getSupportFragmentManager(), Constants.TAG_DIALOG);
+                            } catch (Exception exception) {
+
                             }
-                        });
-                        if(context instanceof BaseActivity) {
-                            shareBottomDialog.show(((BaseActivity) context).getSupportFragmentManager(), null);
-                        }else {
-                            shareBottomDialog.show(((BaseActivityNew) context).getSupportFragmentManager(), null);
+                        } else {
+                            try {
+                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+                                oneButtonTitleImageDialog.show(((BaseActivityNew) context).getSupportFragmentManager(), Constants.TAG_DIALOG);
+                            } catch (Exception exception) {
+
+                            }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -236,7 +259,7 @@ public class SubVideoAdapter extends RecyclerView.Adapter<SubVideoAdapter.Header
 
         }
 
-        private void clickHeart(int position){
+        private void clickHeart(int position) {
             try {
                 Account account = MyApplication.getInstance().getAccount();
                 if (null != account && account.isLogin()) {

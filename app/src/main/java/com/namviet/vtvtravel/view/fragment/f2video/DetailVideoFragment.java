@@ -38,6 +38,7 @@ import com.namviet.vtvtravel.ultils.ViewMoreUtils;
 import com.namviet.vtvtravel.view.f2.CommentActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.ShareActivity;
+import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
 import com.namviet.vtvtravel.view.fragment.share.ShareBottomDialog;
 import com.namviet.vtvtravel.viewmodel.f2video.DetailVideoViewModel;
 
@@ -252,25 +253,32 @@ public class DetailVideoFragment extends BaseFragment<F2FragmentDetailVideoBindi
         getBinding().btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                try {
+//
+//                    ShareBottomDialog shareBottomDialog = new ShareBottomDialog(new ShareBottomDialog.DoneClickShare() {
+//                        @Override
+//                        public void onDoneClickShare(boolean isVTVApp) {
+//                            if (isVTVApp) {
+//                                ShareActivity.startScreen(mActivity, video.getName(), video.getDetail_link(), video.getLogo_url(), "videos");
+//                            } else {
+////                                String linkShare = WSConfig.HOST_LANDING+F2Util.genEndPointShareLink(Constants.ShareLinkType.VIDEO, detailLink);
+////                                F2Util.startSenDataText(mActivity, linkShare);
+//                                F2Util.startSenDataText(mActivity, video.getLink_share());
+//
+//                            }
+//                        }
+//                    });
+//
+//                    shareBottomDialog.show(mActivity.getSupportFragmentManager(), null);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+
                 try {
+                    OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+                    oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+                } catch (Exception exception) {
 
-                    ShareBottomDialog shareBottomDialog = new ShareBottomDialog(new ShareBottomDialog.DoneClickShare() {
-                        @Override
-                        public void onDoneClickShare(boolean isVTVApp) {
-                            if (isVTVApp) {
-                                ShareActivity.startScreen(mActivity, video.getName(), video.getDetail_link(), video.getLogo_url(), "videos");
-                            } else {
-//                                String linkShare = WSConfig.HOST_LANDING+F2Util.genEndPointShareLink(Constants.ShareLinkType.VIDEO, detailLink);
-//                                F2Util.startSenDataText(mActivity, linkShare);
-                                F2Util.startSenDataText(mActivity, video.getLink_share());
-
-                            }
-                        }
-                    });
-
-                    shareBottomDialog.show(mActivity.getSupportFragmentManager(), null);
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
 
                 try {

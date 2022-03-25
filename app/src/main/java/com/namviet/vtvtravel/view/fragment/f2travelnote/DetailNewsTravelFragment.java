@@ -30,6 +30,7 @@ import com.namviet.vtvtravel.adapter.travelnews.RelationNewInTravelNewsAdapter;
 import com.namviet.vtvtravel.adapter.travelnews.RelationNewsInTravelDetailAdapter;
 import com.namviet.vtvtravel.adapter.vtvtabstyle.VTVTabStyleAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
+import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2FragmentDetailNewsTravelBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
@@ -50,6 +51,7 @@ import com.namviet.vtvtravel.view.f2.ShareActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.f2.TopExperienceActivity;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
+import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
 import com.namviet.vtvtravel.view.fragment.share.ShareBottomDialog;
 import com.namviet.vtvtravel.view.fragment.topexperience.SubTopExperienceFragment;
 import com.namviet.vtvtravel.viewmodel.f2topexperience.SubTopExperienceViewModel;
@@ -253,25 +255,32 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
         getBinding().btnShareLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                try {
+//
+//                    ShareBottomDialog shareBottomDialog = new ShareBottomDialog(new ShareBottomDialog.DoneClickShare() {
+//                        @Override
+//                        public void onDoneClickShare(boolean isVTVApp) {
+//                            if (isVTVApp) {
+//                                ShareActivity.startScreen(mActivity, detailTravelNewsResponse.getData().getTitle(), detailLink, detailTravelNewsResponse.getData().getLogo_url(), detailTravelNewsResponse.getData().getContent_type());
+//                            } else {
+////                                String linkShare = WSConfig.HOST_LANDING + F2Util.genEndPointShareLink(Constants.ShareLinkType.NEWS, detailLink);
+////                                F2Util.startSenDataText(mActivity, linkShare);
+//                                F2Util.startSenDataText(mActivity, detailTravelNewsResponse.getData().getLink_share());
+//                            }
+//                        }
+//                    });
+//
+//                    shareBottomDialog.show(mActivity.getSupportFragmentManager(), null);
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+
                 try {
+                    OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+                    oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+                } catch (Exception exception) {
 
-                    ShareBottomDialog shareBottomDialog = new ShareBottomDialog(new ShareBottomDialog.DoneClickShare() {
-                        @Override
-                        public void onDoneClickShare(boolean isVTVApp) {
-                            if (isVTVApp) {
-                                ShareActivity.startScreen(mActivity, detailTravelNewsResponse.getData().getTitle(), detailLink, detailTravelNewsResponse.getData().getLogo_url(), detailTravelNewsResponse.getData().getContent_type());
-                            } else {
-//                                String linkShare = WSConfig.HOST_LANDING + F2Util.genEndPointShareLink(Constants.ShareLinkType.NEWS, detailLink);
-//                                F2Util.startSenDataText(mActivity, linkShare);
-                                F2Util.startSenDataText(mActivity, detailTravelNewsResponse.getData().getLink_share());
-                            }
-                        }
-                    });
-
-                    shareBottomDialog.show(mActivity.getSupportFragmentManager(), null);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
 
                 try {
