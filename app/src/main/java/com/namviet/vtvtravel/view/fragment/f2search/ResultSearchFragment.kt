@@ -53,7 +53,6 @@ import kotlinx.android.synthetic.main.f2_fragment_result_search.*
 import kotlinx.android.synthetic.main.f2_fragment_result_search.btnBack
 import kotlinx.android.synthetic.main.f2_fragment_result_search.tabLayout
 import kotlinx.android.synthetic.main.f2_fragment_result_search.vpContent
-import kotlinx.android.synthetic.main.f2_fragment_search.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.util.*
@@ -572,11 +571,17 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
 //        Log.e("isOpen", isOpen?.toString() ?: "null")
 
+        loadOtherData()
+
+    }
+
+    private fun loadOtherData(){
         destinationSearchFragment?.clearData()
+        newsSearchFragment?.clearData()
+        resultVideosSearchFragment?.clearData()
         searchAll(SearchType.DESTINATION, false)
         searchAll(SearchType.NEWS, false)
         searchAllVideo(SearchType.VIDEO, false)
-
     }
 
     @Subscribe
@@ -596,29 +601,28 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
 
     override fun onClickSuggestion(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?, mLocation: Location?) {
-//        handleLocation(mLocation)
-////        edtKeyword.text = searchKeywordSuggestion?.title
-//        if(searchKeywordSuggestion?.type.equals("category")){
-//            edtKeyword.text = searchKeywordSuggestion?.title
-//        }else{
-//            edtKeyword.text = searchKeywordSuggestion?.title
-//        }
-//        addRecentSearch(edtKeyword.text.toString())
-//        recentAdapter?.setData(getRecentSearch())
-//        addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, searchKeywordSuggestion?.categoryCode, locationsMain))
-//        KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
+        this.keyword = keyword
+        this.location = location
+        edtSearch.text = keyword
+        loadOtherData()
     }
 
     override fun onCancelSearch(location: Location?, keyword: String?) {
-//        handleLocation(location)
 //        edtKeyword.text = keyword
     }
 
     override fun onClickRegion(location: Location?, keyword: String?) {
-//        goToSearchResult(location, keyword)
+        this.keyword = keyword
+        this.location = location
+        edtSearch.text = keyword
+        loadOtherData()
     }
 
     override fun onClickLayoutKeyword(location: Location?, keyword: String?) {
-//        goToSearchResult(location, keyword)
+        this.keyword = keyword
+        this.location = location
+        edtSearch.text = keyword
+        loadOtherData()
     }
+
 }
