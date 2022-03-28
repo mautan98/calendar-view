@@ -71,6 +71,7 @@ class SearchSuggestionFragment(private var keyword: String? = null, private var 
 //                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, searchKeywordSuggestion?.categoryCode))
 //                    KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
 //                    edtKeyword.clearFocus()
+                    KeyboardUtils.hideKeyboard(mActivity, edtSearch)
                     mActivity.onBackPressed()
                     searchSuggestionCallback?.onClickSuggestion(searchKeywordSuggestion, location)
 
@@ -97,6 +98,7 @@ class SearchSuggestionFragment(private var keyword: String? = null, private var 
 //                    KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
 //                    edtKeyword.clearFocus()
 //                    KeyboardUtils.hideKeyboard(mActivity, edtSearch)
+                    KeyboardUtils.hideKeyboard(mActivity, edtSearch)
                     mActivity.onBackPressed()
                     searchSuggestionCallback?.onClickRegion(location, keyword)
                 }
@@ -192,6 +194,7 @@ class SearchSuggestionFragment(private var keyword: String? = null, private var 
         }
 
         layoutKeyword.setOnClickListener {
+            KeyboardUtils.hideKeyboard(mActivity, edtSearch)
             mActivity.onBackPressed()
             searchSuggestionCallback?.onClickRegion(location, keyword)
         }
@@ -324,6 +327,7 @@ class SearchSuggestionFragment(private var keyword: String? = null, private var 
 
     override fun onDestroy() {
         super.onDestroy()
+
     }
 
     interface ClickSuggestion {

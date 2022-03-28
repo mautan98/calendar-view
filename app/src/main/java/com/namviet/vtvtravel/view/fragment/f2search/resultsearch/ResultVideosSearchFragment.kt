@@ -54,6 +54,13 @@ class ResultVideosSearchFragment : BaseFragment<F2FragmentSearchDestinationResul
         }
     }
 
+    public fun clearData(){
+        tvCountResult.text = "Đang tìm các kết quả..."
+        this.travels?.clear()
+        subTravelNewsAdapter?.notifyDataSetChanged()
+
+    }
+
     override fun initData() {
         subTravelNewsAdapter = SubVideoAdapter(mActivity, travels, null)
         rclContent.adapter = subTravelNewsAdapter

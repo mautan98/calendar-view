@@ -31,6 +31,7 @@ import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.model.travelnews.Travel
+import com.namviet.vtvtravel.response.f2searchmain.SearchSuggestionResponse
 import com.namviet.vtvtravel.response.f2searchmain.result.ResultSearch
 import com.namviet.vtvtravel.response.f2searchmain.result.ResultVideoSearch
 import com.namviet.vtvtravel.response.f2searchmain.result.SearchType
@@ -38,6 +39,7 @@ import com.namviet.vtvtravel.tracking.TrackingAnalytic
 import com.namviet.vtvtravel.ultils.F2Util
 import com.namviet.vtvtravel.ultils.highlight.HighLightController
 import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
+import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultDestinationSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultNewsSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.ResultVideosSearchFragment
@@ -48,13 +50,16 @@ import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.Dro
 import com.namviet.vtvtravel.view.fragment.f2search.resultsearch.contentsort.SortFollowFragment
 import com.namviet.vtvtravel.viewmodel.f2search.SearchResultViewModel
 import kotlinx.android.synthetic.main.f2_fragment_result_search.*
+import kotlinx.android.synthetic.main.f2_fragment_result_search.btnBack
+import kotlinx.android.synthetic.main.f2_fragment_result_search.tabLayout
+import kotlinx.android.synthetic.main.f2_fragment_result_search.vpContent
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.util.*
 import kotlin.collections.ArrayList
 
 @SuppressLint("ValidFragment")
-class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observer {
+class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observer , SearchSuggestionFragment.SearchSuggestionCallback {
 
 
     //viewpager
@@ -72,6 +77,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     private var keyword: String? = null
     private var regionId: String? = null
+    private var location: Location? = null;
     private var categoryId: String? = null
     private var district_id: String? = ""
     private var ward_id: String? = ""
@@ -89,11 +95,12 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     private var locationMain : ArrayList<Location>? = null
 
 
-    constructor(keyword: String?, regionId: String?, categoryId: String?, locationMain : ArrayList<Location>?) {
+    constructor(keyword: String?, regionId: String?, location: Location?,  categoryId: String?, locationMain : ArrayList<Location>?) {
         this.keyword = keyword
         this.regionId = regionId
         this.categoryId = categoryId
         this.locationMain = locationMain
+        this.location = location
     }
 
     constructor()
@@ -297,6 +304,9 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 //
 //                }
 //            }, keyword))
+
+            addFragment(SearchSuggestionFragment( edtSearch.text.toString(), location, locationMain, false, this))
+
         }
 
         btnFilter.setOnClickListener {
@@ -561,11 +571,17 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
 //        Log.e("isOpen", isOpen?.toString() ?: "null")
 
+        loadOtherData()
+
+    }
+
+    private fun loadOtherData(){
         destinationSearchFragment?.clearData()
+        newsSearchFragment?.clearData()
+        resultVideosSearchFragment?.clearData()
         searchAll(SearchType.DESTINATION, false)
         searchAll(SearchType.NEWS, false)
         searchAllVideo(SearchType.VIDEO, false)
-
     }
 
     @Subscribe
@@ -582,4 +598,31 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         super.onDestroy()
         EventBus.getDefault().unregister(this)
     }
+
+
+    override fun onClickSuggestion(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?, mLocation: Location?) {
+        this.keyword = keyword
+        this.location = location
+        edtSearch.text = keyword
+        loadOtherData()
+    }
+
+    override fun onCancelSearch(location: Location?, keyword: String?) {
+//        edtKeyword.text = keyword
+    }
+
+    override fun onClickRegion(location: Location?, keyword: String?) {
+        this.keyword = keyword
+        this.location = location
+        edtSearch.text = keyword
+        loadOtherData()
+    }
+
+    override fun onClickLayoutKeyword(location: Location?, keyword: String?) {
+        this.keyword = keyword
+        this.location = location
+        edtSearch.text = keyword
+        loadOtherData()
+    }
+
 }
