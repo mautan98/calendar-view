@@ -10,6 +10,7 @@ import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.baseapp.activity.BaseActivity;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 
@@ -193,25 +194,33 @@ public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSm
         getBinding().btnShareLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                try {
+//
+//                    ShareBottomDialog shareBottomDialog = new ShareBottomDialog(new ShareBottomDialog.DoneClickShare() {
+//                        @Override
+//                        public void onDoneClickShare(boolean isVTVApp) {
+//                            if (isVTVApp) {
+//                                ShareActivity.startScreen(mActivity, response.getData().getTabs().get(0).getName(), detailLink, response.getData().getBanner_url(), response.getData().getContent_type());
+//                            } else {
+////                                String linkShare = WSConfig.HOST_LANDING + F2Util.genEndPointShareLink(Constants.ShareLinkType.PLACE, detailLink);
+////                                F2Util.startSenDataText(mActivity, linkShare);
+//                                F2Util.startSenDataText(mActivity, response.getData().getLink_share());
+//                            }
+//                        }
+//                    });
+//                    shareBottomDialog.show(mActivity.getSupportFragmentManager(), null);
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+
                 try {
+                    OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+                    oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+                } catch (Exception exception) {
 
-                    ShareBottomDialog shareBottomDialog = new ShareBottomDialog(new ShareBottomDialog.DoneClickShare() {
-                        @Override
-                        public void onDoneClickShare(boolean isVTVApp) {
-                            if (isVTVApp) {
-                                ShareActivity.startScreen(mActivity, response.getData().getTabs().get(0).getName(), detailLink, response.getData().getBanner_url(), response.getData().getContent_type());
-                            } else {
-//                                String linkShare = WSConfig.HOST_LANDING + F2Util.genEndPointShareLink(Constants.ShareLinkType.PLACE, detailLink);
-//                                F2Util.startSenDataText(mActivity, linkShare);
-                                F2Util.startSenDataText(mActivity, response.getData().getLink_share());
-                            }
-                        }
-                    });
-                    shareBottomDialog.show(mActivity.getSupportFragmentManager(), null);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
+
 
                 try {
                     TrackingAnalytic.postEvent(TrackingAnalytic.SHARE, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SMALL_LOCATION_DETAIL, TrackingAnalytic.ScreenTitle.SMALL_LOCATION_DETAIL)
@@ -408,7 +417,7 @@ public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSm
     @Override
     public void onClickImage(int position, List<String> listImage) {
         try {
-            SlideImageActivity.startScreen( mActivity, (ArrayList<String>) listImage, position);
+            SlideImageActivity.startScreen(mActivity, (ArrayList<String>) listImage, position);
         } catch (Exception e) {
             e.printStackTrace();
         }

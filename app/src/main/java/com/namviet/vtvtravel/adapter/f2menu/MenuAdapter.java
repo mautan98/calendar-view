@@ -18,13 +18,13 @@ import com.namviet.vtvtravel.model.f2event.OnClickVideoInMenu;
 import com.namviet.vtvtravel.response.f2menu.MenuItem;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.MainActivity;
-import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
 import com.namviet.vtvtravel.view.f2.ImagePartActivity;
 import com.namviet.vtvtravel.view.f2.LiveTVActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
+import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealHomeActivity;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -181,25 +181,21 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             break;
                         case "APP_MAIN_DEAL":
 
-                            try {
-                                DetailDealWebviewActivity.startScreen(context, itemMenu.getLink());
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
 //                            try {
+//                                DetailDealWebviewActivity.startScreen(context, itemMenu.getLink());
+
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//                            try {
+
 //                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_DEAL_HUNT, TrackingAnalytic.getDefault("Menu", "Menu"));
 //                            } catch (Exception e) {
 //                                e.printStackTrace();
 //                            }
-//                            try {
-//                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-//                                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
-//                            } catch (Exception e) {
-//                                e.printStackTrace();
-//                            }
-//                            OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-//                            oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
-                            //  DealHomeActivity.Companion.startScreen(context);
+
+                            DealHomeActivity.Companion.startScreen(context);
+
                             break;
 
                     }

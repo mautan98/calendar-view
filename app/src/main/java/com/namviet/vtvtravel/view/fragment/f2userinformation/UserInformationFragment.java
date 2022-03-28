@@ -99,16 +99,16 @@ public class UserInformationFragment extends BaseFragment<F2FragmentPersonalInfo
             } else {
                 switch (account.getGender()) {
                     case 0:
-                        getBinding().tvGender.setText("Nam");
+                        getBinding().tvGender.setText("Nữ");
                         break;
                     case 1:
-                        getBinding().tvGender.setText("Nữ");
+                        getBinding().tvGender.setText("Nam");
                         break;
                     case 2:
                         getBinding().tvGender.setText("Khác");
                         break;
                     default:
-                        getBinding().tvGender.setText("Nam");
+                        getBinding().tvGender.setText("Nữ");
                         break;
                 }
             }

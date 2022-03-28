@@ -343,6 +343,7 @@
     <color name="color_cat_1">#EC0C75</color>
     <color name="color_cat_2">#EEC912</color>
     <color name="color_cat_3">#0DD148</color>
+    <color name="my_statusbar_color">#F89C1C</color>
 
 
 </resources>

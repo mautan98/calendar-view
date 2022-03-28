@@ -68,7 +68,7 @@ public class UserGuildSlideAdapter extends RecyclerView.Adapter<UserGuildSlideAd
                 @Override
                 public void onClick(View v) {
                     if (item.getCode() != null && !"".equals(item.getCode())) {
-                        clickItem.clickDealButton(item.getCode());
+                        clickItem.clickDealButton(item.getId());
                     }
                 }
             });

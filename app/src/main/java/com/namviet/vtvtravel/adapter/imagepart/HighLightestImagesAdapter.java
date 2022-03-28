@@ -19,6 +19,7 @@ import com.devs.readmoreoption.ReadMoreOption;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.response.imagepart.ItemImagePartResponse;
 import com.namviet.vtvtravel.response.travelnews.DetailTravelNewsResponse;
@@ -28,6 +29,7 @@ import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.ultils.TextJustification;
 import com.namviet.vtvtravel.view.f2.CommentActivity;
 import com.namviet.vtvtravel.view.f2.ShareActivity;
+import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
 import com.namviet.vtvtravel.view.fragment.share.ShareBottomDialog;
 import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
 
@@ -222,21 +224,41 @@ public class HighLightestImagesAdapter extends RecyclerView.Adapter<RecyclerView
                 @Override
                 public void onClick(View view) {
 
+//                    try {
+//                        ShareBottomDialog shareBottomDialog = new ShareBottomDialog(new ShareBottomDialog.DoneClickShare() {
+//                            @Override
+//                            public void onDoneClickShare(boolean isVTVApp) {
+//                                if (isVTVApp) {
+//                                    ShareActivity.startScreen(context, item.getName(), "http://domain.vtv?gallery_id="+item.getId(), item.getLogo_url(), "galleries");
+//                                }else {
+//                                    F2Util.startSenDataText((Activity) context, item.getLink_share());
+//                                }
+//                            }
+//                        });
+//                        if(context instanceof BaseActivity) {
+//                            shareBottomDialog.show(((BaseActivity) context).getSupportFragmentManager(), null);
+//                        }else {
+//                            shareBottomDialog.show(((BaseActivityNew) context).getSupportFragmentManager(), null);
+//                        }
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+
                     try {
-                        ShareBottomDialog shareBottomDialog = new ShareBottomDialog(new ShareBottomDialog.DoneClickShare() {
-                            @Override
-                            public void onDoneClickShare(boolean isVTVApp) {
-                                if (isVTVApp) {
-                                    ShareActivity.startScreen(context, item.getName(), "http://domain.vtv?gallery_id="+item.getId(), item.getLogo_url(), "galleries");
-                                }else {
-                                    F2Util.startSenDataText((Activity) context, item.getLink_share());
-                                }
+                        if (context instanceof BaseActivity) {
+                            try {
+                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+                                oneButtonTitleImageDialog.show(((BaseActivity)context).getSupportFragmentManager(), Constants.TAG_DIALOG);
+                            } catch (Exception exception) {
+
                             }
-                        });
-                        if(context instanceof BaseActivity) {
-                            shareBottomDialog.show(((BaseActivity) context).getSupportFragmentManager(), null);
-                        }else {
-                            shareBottomDialog.show(((BaseActivityNew) context).getSupportFragmentManager(), null);
+                        } else {
+                            try {
+                                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+                                oneButtonTitleImageDialog.show(((BaseActivityNew) context).getSupportFragmentManager(), Constants.TAG_DIALOG);
+                            } catch (Exception exception) {
+
+                            }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

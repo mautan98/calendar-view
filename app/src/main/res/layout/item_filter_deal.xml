@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingEnd="11dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.ornach.richtext.RichText
+        android:id="@+id/tvTitle"
+        app:rt_radius="5dp"
+        app:rt_backgroundColor="#F6F5FB"
+        android:paddingEnd="22dp"
+        android:paddingStart="22dp"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp"
+        android:textSize="13dp"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="#707070"
+        android:text="Đang săn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/imgMark"
+        android:layout_alignEnd="@+id/tvTitle"
+        android:src="@drawable/ic_mark"
+        android:layout_width="19dp"
+        android:layout_height="17dp"/>
+
+</RelativeLayout>

@@ -32,7 +32,7 @@ public class F2Util {
         activity.startActivity(intent);
     }
 
-    public static void startSendMessIntent(AppCompatActivity activity, String phone, String mess) {
+    public static void startSendMessIntent(Context activity, String phone, String mess) {
         try {
 
             Intent I = new Intent(Intent.ACTION_VIEW);
@@ -56,6 +56,7 @@ public class F2Util {
                 }
             }
         }
+
     }
 
     public static String genEndPointShareLink(String cateId, String link){

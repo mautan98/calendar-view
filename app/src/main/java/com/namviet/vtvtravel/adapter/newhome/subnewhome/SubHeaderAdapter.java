@@ -1,6 +1,12 @@
 package com.namviet.vtvtravel.adapter.newhome.subnewhome;
 
 import android.content.Context;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +28,16 @@ import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2event.OnClickBookingTopMenu;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.view.MainActivity;
+import com.namviet.vtvtravel.model.Account;
+import com.namviet.vtvtravel.model.f2event.OnClickBookingTopMenu;
+import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.view.f2.CreateTripActivity;
 import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
 import com.namviet.vtvtravel.view.f2.LiveTVActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
 import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
+import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealHomeActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -117,7 +127,8 @@ public class SubHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                                 break;
                             case "CTKM":
                                 try {
-                                    DetailDealWebviewActivity.startScreen(context,link);
+//                                    DetailDealWebviewActivity.startScreen(context,link);
+                                    DealHomeActivity.Companion.startScreen(context);
                                 } catch ( java.lang.Exception e) {
                                 e.printStackTrace();
                             }
