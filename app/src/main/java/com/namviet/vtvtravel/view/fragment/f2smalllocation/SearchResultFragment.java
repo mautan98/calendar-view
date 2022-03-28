@@ -118,12 +118,13 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
     private ArrayList<Location> locationsMain = new ArrayList<>();
     private ArrayList<Location> locations = new ArrayList<>();
     @SuppressLint("ValidFragment")
-    public SearchResultFragment(String link, String code, String regionId, String keyWordSearch,int positionTabSelected) {
+    public SearchResultFragment(String link, String code, String regionId, String keyWordSearch,int positionTabSelected, Location location) {
         this.link = link;
         this.code = code;
         this.regionId = regionId;
         this.keyWordSearch = keyWordSearch;
         this.positionTabSelected = positionTabSelected;
+        this.location = location;
     }
 
     public SearchResultFragment() {
@@ -295,7 +296,8 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
         getBinding().edtSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addFragment(new SearchSuggestionSmallLocationFragment( "", location, locationsMain, false, SearchResultFragment.this));
+                addFragment(new SearchSuggestionSmallLocationFragment( getBinding().edtSearch.getText().toString(), location, locationsMain, false, SearchResultFragment.this));
+
             }
         });
 
@@ -1168,12 +1170,13 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
 
     @Override
     public void onCancelSearch(@Nullable Location location, @Nullable String keyword) {
+        getBinding().edtSearch.setText(keyword);
 
     }
 
     @Override
     public void onClickRegion(@Nullable Location location, @Nullable String keyword) {
-
+        this.location = location;
     }
 
     @Override
