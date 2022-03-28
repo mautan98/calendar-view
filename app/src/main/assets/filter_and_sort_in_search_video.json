@@ -12,17 +12,17 @@
           "isSelected": false
         },
         {
-          "name": "Đúng nhất",
+          "name": "Gần nhất",
           "id": "mostCorrect",
           "isSelected": false
         },
         {
-          "name": "Gần trung tâm nhất",
+          "name": "Mới nhất",
           "id": "closest",
           "isSelected": false
         },
         {
-          "name": "Yêu thích nhất",
+          "name": "Xem nhiều nhất",
           "id": "favourite",
           "isSelected": false
         }
@@ -52,22 +52,22 @@
       "children": [
         {
           "name": "Đi đâu",
-          "id": "diDau",
+          "id": "places",
           "isSelected": false
         },
         {
           "name": "Ở đâu",
-          "id": "oDau",
+          "id": "hotels",
           "isSelected": false
         },
         {
           "name": "Ăn gì",
-          "id": "anGi",
+          "id": "restaurants",
           "isSelected": false
         },
         {
           "name": "Chơi gì",
-          "id": "choiGi",
+          "id": "centers",
           "isSelected": false
         }
       ]
