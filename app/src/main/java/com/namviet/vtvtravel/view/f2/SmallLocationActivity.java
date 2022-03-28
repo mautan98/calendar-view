@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
-import androidx.core.app.ActivityCompat;
-
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2ActivityBigLocationBinding;
@@ -14,7 +12,6 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.view.f3.smalllocation.view.fragment.SmallLocationMainPageFragment;
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.DetailSmallLocationFragment;
-import com.namviet.vtvtravel.view.fragment.f2smalllocation.SmallLocationFragment;
 
 import java.util.ArrayList;
 
@@ -54,7 +51,7 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
             linkToLoadSmallLocation = getIntent().getStringExtra(Constants.IntentKey.LINK);
             codeToLoadSmallLocation = getIntent().getStringExtra(Constants.IntentKey.CODE);
             regionIdToLoadSmallLocation = getIntent().getStringExtra(Constants.IntentKey.REGION_ID);
-            position = getIntent().getIntExtra(Constants.IntentKey.POSITION,0);
+            position = getIntent().getIntExtra(Constants.IntentKey.POSITION_2,0);
         }else {
             detailLink = getIntent().getStringExtra(Constants.IntentKey.DATA);
         }
@@ -109,7 +106,7 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
         Intent intent = new Intent(activity, SmallLocationActivity.class);
         intent.putExtra(Constants.IntentKey.DATA, items);
         intent.putExtra(Constants.IntentKey.CODE, code);
-        intent.putExtra(Constants.IntentKey.POSITION, position);
+        intent.putExtra(Constants.IntentKey.POSITION_2, position);
         intent.putExtra(Constants.IntentKey.SCREEN_TYPE, screenType);
         activity.startActivity(intent);
     }
