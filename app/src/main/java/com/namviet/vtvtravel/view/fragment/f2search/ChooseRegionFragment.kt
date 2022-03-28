@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.FragmentTransaction
 import com.baseapp.utils.KeyboardUtils
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -13,6 +14,7 @@ import com.namviet.vtvtravel.adapter.f2biglocation.sub.SearchAllLocationAdapter2
 import com.namviet.vtvtravel.databinding.F3LayoutSearchDestinationBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
+import com.namviet.vtvtravel.model.f2event.OnCloseDrawerLayout
 import com.namviet.vtvtravel.model.f2event.OnTouchRCLLocation
 import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.travelnews.Location
@@ -21,7 +23,9 @@ import com.namviet.vtvtravel.response.f2biglocation.LocationResponse
 import com.namviet.vtvtravel.ultils.F2Util
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.f3_fragment_search_region_main.*
 import kotlinx.android.synthetic.main.f3_layout_search_destination.*
+import kotlinx.android.synthetic.main.f3_layout_search_destination.edtSearch
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -80,6 +84,8 @@ class ChooseRegionFragment : BaseFragment<F3LayoutSearchDestinationBinding?>(), 
             fragmentManager!!.beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                 .remove(this@ChooseRegionFragment).commit()
+            KeyboardUtils.hideKeyboard(mActivity, binding!!.btnAction)
+            EventBus.getDefault().post(OnCloseDrawerLayout())
         }
 
         binding!!.btnMyLocation.setOnClickListener {
@@ -97,6 +103,17 @@ class ChooseRegionFragment : BaseFragment<F3LayoutSearchDestinationBinding?>(), 
                 fragmentManager!!.beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                     .remove(this@ChooseRegionFragment).commit()
+            }
+            KeyboardUtils.hideKeyboard(mActivity, binding!!.btnAction)
+            EventBus.getDefault().post(OnCloseDrawerLayout())
+        }
+
+        binding!!.edtSearch.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
+                KeyboardUtils.hideKeyboard(mActivity, binding!!.edtSearch)
+                true
+            } else {
+                false
             }
         }
     }
@@ -152,12 +169,13 @@ class ChooseRegionFragment : BaseFragment<F3LayoutSearchDestinationBinding?>(), 
 
     override fun onDestroy() {
         super.onDestroy()
-        try {
-            android.os.Handler().postDelayed(Runnable {
-                KeyboardUtils.hideKeyboard(mActivity, binding!!.edtSearch)
-            }, 100)
-        } catch (e: Exception) {
-        }
+//        try {
+//            android.os.Handler().postDelayed(Runnable {
+//                KeyboardUtils.hideKeyboard(mActivity, binding!!.edtSearch)
+//                EventBus.getDefault().post(OnCloseDrawerLayout())
+//            }, 100)
+//        } catch (e: Exception) {
+//        }
     }
 
     public fun deleteFragment() {

@@ -15,6 +15,9 @@ import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity
 import com.namviet.vtvtravel.view.fragment.f2search.ResultSearchFragment
 import kotlinx.android.synthetic.main.f2_fragment_search_destination_result.*
+import kotlinx.android.synthetic.main.f2_fragment_search_destination_result.rclContent
+import kotlinx.android.synthetic.main.f2_fragment_search_destination_result.tvCountResult
+import kotlinx.android.synthetic.main.f2_fragment_search_news_result.*
 import kotlin.collections.ArrayList
 
 @SuppressLint("ValidFragment")
@@ -29,8 +32,15 @@ class ResultDestinationSearchFragment(private var resultSearchFragment: ResultSe
     override fun initView() {
     }
 
-    public fun setList(travels: ArrayList<Travel>?, moreLink: String?, count: String, keyword: String,isApproximately: Boolean) {
-        travels?.let { this.travels?.addAll(it) }
+    public fun setList(travels: ArrayList<Travel>?, moreLink: String?, count: String, keyword: String,isApproximately: Boolean, isLoadMore : Boolean) {
+        travels?.let {
+            if (isLoadMore) {
+                this.travels?.addAll(it)
+            } else {
+                this.travels?.clear()
+                this.travels?.addAll(it)
+            }
+        }
         this.moreLink = moreLink
         subTravelNewsAdapter?.notifyDataSetChanged()
         if(!isApproximately) {
@@ -40,6 +50,13 @@ class ResultDestinationSearchFragment(private var resultSearchFragment: ResultSe
             tvCountResult.text = "Có $count kết quả tìm kiếm điểm đến gần đúng khớp với \"$keyword\""
             resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
         }
+    }
+
+    public fun clearData(){
+        tvCountResult.text = "Đang tìm các kết quả..."
+        this.travels?.clear()
+        subTravelNewsAdapter?.notifyDataSetChanged()
+
     }
 
     override fun initData() {
@@ -57,7 +74,7 @@ class ResultDestinationSearchFragment(private var resultSearchFragment: ResultSe
         })
         rclContent.adapter = subTravelNewsAdapter
 
-        resultSearchFragment?.searchAll(SearchType.DESTINATION)
+        resultSearchFragment?.searchAll(SearchType.DESTINATION, false)
     }
 
     override fun inject() {
@@ -68,7 +85,7 @@ class ResultDestinationSearchFragment(private var resultSearchFragment: ResultSe
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
-                    resultSearchFragment?.searchAllWithLink(moreLink, SearchType.DESTINATION)
+                    resultSearchFragment?.searchAllWithLink(moreLink, SearchType.DESTINATION, true)
                 }
             }
         })

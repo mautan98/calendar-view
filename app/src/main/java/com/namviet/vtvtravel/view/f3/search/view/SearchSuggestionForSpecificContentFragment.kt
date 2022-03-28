@@ -127,9 +127,10 @@ class SearchSuggestionForSpecificContentFragment(
         handleSearch()
 
         edtSearch.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
                 if (edtSearch.text.isNotEmpty()) {
-                    KeyboardUtils.hideKeyboard(mContext, edtSearch)
+//                    KeyboardUtils.hideKeyboard(mContext, edtSearch)
+                    clickLayoutKeyword()
                 }
                 true
             } else {
@@ -187,29 +188,7 @@ class SearchSuggestionForSpecificContentFragment(
         }
 
         layoutKeyword.setOnClickListener {
-            try {
-                if (!isFromResultPage) {
-                    when (contentType){
-                        SearchSuggestionForSpecificContentActivity.Type.VIDEO -> {
-                            ResultSearchVideoActivity.openScreen(mContext, edtSearch.text.toString(), null, null)
-                        }
-
-                        SearchSuggestionForSpecificContentActivity.Type.NEWS -> {
-//                            addFragment(ResultSearchNewsFragment(edtSearch.text.toString(), null, null))
-                            ResultSearchNewsActivity.openScreen(mContext, edtSearch.text.toString(), null, null)
-                        }
-
-                        SearchSuggestionForSpecificContentActivity.Type.IMAGE -> {
-                            ResultSearchImagesActivity.openScreen(mContext, edtSearch.text.toString(), null, null)
-                        }
-                    }
-//                    fragmentManager?.popBackStack()
-                } else {
-                    EventBus.getDefault().post(Done(keyword, contentType, null))
-                    fragmentManager?.popBackStack()
-                }
-            } catch (e: Exception) {
-            }
+            clickLayoutKeyword()
         }
 
         imgCloseSearch.setOnClickListener {
@@ -218,6 +197,32 @@ class SearchSuggestionForSpecificContentFragment(
             keyword = ""
 //            searchSuggestionCallback?.onCancelSearch( keyword)
             fragmentManager?.popBackStack()
+        }
+    }
+
+    private fun clickLayoutKeyword(){
+        try {
+            if (!isFromResultPage) {
+                when (contentType){
+                    SearchSuggestionForSpecificContentActivity.Type.VIDEO -> {
+                        ResultSearchVideoActivity.openScreen(mContext, edtSearch.text.toString(), null, null)
+                    }
+
+                    SearchSuggestionForSpecificContentActivity.Type.NEWS -> {
+//                            addFragment(ResultSearchNewsFragment(edtSearch.text.toString(), null, null))
+                        ResultSearchNewsActivity.openScreen(mContext, edtSearch.text.toString(), null, null)
+                    }
+
+                    SearchSuggestionForSpecificContentActivity.Type.IMAGE -> {
+                        ResultSearchImagesActivity.openScreen(mContext, edtSearch.text.toString(), null, null)
+                    }
+                }
+//                    fragmentManager?.popBackStack()
+            } else {
+                EventBus.getDefault().post(Done(keyword, contentType, null))
+                fragmentManager?.popBackStack()
+            }
+        } catch (e: Exception) {
         }
     }
 

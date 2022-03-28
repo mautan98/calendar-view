@@ -19,6 +19,7 @@ import com.namviet.vtvtravel.databinding.F3FragmentSearchResultVideoBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.Video
+import com.namviet.vtvtravel.model.f2event.OnCloseDrawerLayout
 import com.namviet.vtvtravel.model.f2search.Children
 import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
@@ -64,6 +65,11 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
     private var keyword: String? = ""
     private var regionId: String? = null
     private var categoryId: String? = null
+    private var district_id: String? = ""
+    private var ward_id: String? = ""
+    private var open: Boolean? = null
+    private var sort: String? = ""
+    private var content_type: String? = ""
 
     private var subTravelNewsAdapter: SubVideoAdapter? = null
     private var travels: ArrayList<Video> = ArrayList()
@@ -201,11 +207,11 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
     }
 
     public fun searchAllVideo(type: String?) {
-        searchViewModel?.searchAllVideo(type, keyword, regionId, type, categoryId)
+        searchViewModel?.searchAllVideo(type, keyword, regionId, type, categoryId, district_id, ward_id, open, sort, content_type, false)
     }
 
-    public fun searchAllVideoWithLink(link: String?, type: String?) {
-        searchViewModel?.searchAllVideoWithFullLink(link, type)
+    public fun searchAllVideoWithLink(link: String?, type: String?, isLoadMore : Boolean) {
+        searchViewModel?.searchAllVideoWithFullLink(link, type, isLoadMore)
     }
 
 
@@ -399,6 +405,14 @@ class ResultSearchVideoFragment : BaseFragment<F3FragmentSearchResultVideoBindin
                 if (onDone.searchKeywordSuggestion == null) null else onDone!!.searchKeywordSuggestion!!.categoryCode
             edtSearch.text = keyword
             searchAllVideo(SearchType.VIDEO)
+        }
+    }
+
+    @Subscribe
+    public fun onCloseDrawer(onDone: OnCloseDrawerLayout) {
+        try {
+            drawerLayout.closeDrawer(GravityCompat.END, true)
+        } catch (e: Exception) {
         }
     }
 

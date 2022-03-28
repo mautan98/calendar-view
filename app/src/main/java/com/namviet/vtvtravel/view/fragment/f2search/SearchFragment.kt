@@ -119,7 +119,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
 
         recentAdapter = RecentAdapter(getRecentSearch(), mActivity, object : RecentAdapter.ClickItem {
             override fun onClickItem(string: String?) {
-                addFragment(ResultSearchFragment(string, regionId, "", locationsMain))
+                addFragment(ResultSearchFragment(string, regionId, location, "", locationsMain))
                 KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
             }
         }, object : NoItem {
@@ -159,7 +159,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
                     edtKeyword.setText(searchKeywordSuggestion?.title)
                     addRecentSearch(edtKeyword.text.toString())
                     recentAdapter?.setData(getRecentSearch())
-                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, searchKeywordSuggestion?.categoryCode, locationsMain))
+                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, location, searchKeywordSuggestion?.categoryCode, locationsMain))
                     KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
                     edtKeyword.clearFocus()
                 } catch (e: Exception) {
@@ -339,7 +339,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
                 if (edtKeyword.text.isNotEmpty()) {
                     addRecentSearch(edtKeyword.text.toString())
                     recentAdapter?.setData(getRecentSearch())
-                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, "", locationsMain))
+                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, location, "", locationsMain))
                     KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
                     edtKeyword.clearFocus()
                 }
@@ -370,7 +370,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
         layoutKeyword.setOnClickListener {
             addRecentSearch(edtKeyword.text.toString())
             recentAdapter?.setData(getRecentSearch())
-            addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, "", locationsMain))
+            addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, location, "", locationsMain))
             KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
             edtKeyword.clearFocus()
         }
@@ -590,7 +590,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
         edtKeyword.text = keyword
         addRecentSearch(edtKeyword.text.toString())
         recentAdapter?.setData(getRecentSearch())
-        addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, "", locationsMain))
+        addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, location, "", locationsMain))
         KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
     }
 
@@ -604,7 +604,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
         }
         addRecentSearch(edtKeyword.text.toString())
         recentAdapter?.setData(getRecentSearch())
-        addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, searchKeywordSuggestion?.categoryCode, locationsMain))
+        addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, location, searchKeywordSuggestion?.categoryCode, locationsMain))
         KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
     }
 

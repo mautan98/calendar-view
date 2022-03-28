@@ -19,6 +19,7 @@ import com.namviet.vtvtravel.databinding.F3FragmentSearchResultNewsBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.Video
+import com.namviet.vtvtravel.model.f2event.OnCloseDrawerLayout
 import com.namviet.vtvtravel.model.f2search.Children
 import com.namviet.vtvtravel.model.f2search.Content
 import com.namviet.vtvtravel.model.f2search.SortAndFilter
@@ -172,11 +173,11 @@ class ResultSearchNewsFragment : BaseFragment<F3FragmentSearchResultNewsBinding?
     }
 
     public fun searchAll(type: String?) {
-        searchViewModel?.searchAll(type, keyword, regionId, type, categoryId)
+        searchViewModel?.searchAll(type, keyword, regionId, type, categoryId , district_id = "", ward_id = "", open = null, sort = "", content_type = "", false)
     }
 
-    public fun searchAllWithLink(link: String?, type: String?) {
-        searchViewModel?.searchAllWithFullLink(link, type)
+    public fun searchAllWithLink(link: String?, type: String?, isLoadMore : Boolean) {
+        searchViewModel?.searchAllWithFullLink(link, type, isLoadMore)
     }
 
 
@@ -361,6 +362,14 @@ class ResultSearchNewsFragment : BaseFragment<F3FragmentSearchResultNewsBinding?
             categoryId = if (onDone.searchKeywordSuggestion == null)  null else onDone!!.searchKeywordSuggestion!!.categoryCode
             edtSearch.text = keyword
             searchAll(SearchType.NEWS)
+        }
+    }
+
+    @Subscribe
+    public fun onCloseDrawer(onDone: OnCloseDrawerLayout) {
+        try {
+            drawerLayout.closeDrawer(GravityCompat.END, true)
+        } catch (e: Exception) {
         }
     }
 

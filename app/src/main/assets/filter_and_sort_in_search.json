@@ -8,22 +8,22 @@
       "children": [
         {
           "name": "Tất cả",
-          "id": "Tất cả",
+          "id": "all",
           "isSelected": false
         },
         {
-          "name": "Đúng nhất",
-          "id": "Đúng nhất",
+          "name": "Gần nhất",
+          "id": "mostCorrect",
           "isSelected": false
         },
         {
-          "name": "Gần trung tâm nhất",
-          "id": "Gần trung tâm nhất",
+          "name": "Mới nhất",
+          "id": "closest",
           "isSelected": false
         },
         {
-          "name": "Yêu thích nhất",
-          "id": "Yêu thích nhất",
+          "name": "Xem nhiều nhất",
+          "id": "favourite",
           "isSelected": false
         }
       ]
@@ -52,22 +52,22 @@
       "children": [
         {
           "name": "Đi đâu",
-          "id": "Đi đâu",
+          "id": "places",
           "isSelected": false
         },
         {
           "name": "Ở đâu",
-          "id": "Ở đâu",
+          "id": "hotels",
           "isSelected": false
         },
         {
           "name": "Ăn gì",
-          "id": "Ăn gì",
+          "id": "restaurants",
           "isSelected": false
         },
         {
           "name": "Chơi gì",
-          "id": "Chơi gì",
+          "id": "centers",
           "isSelected": false
         }
       ]
