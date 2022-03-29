@@ -84,7 +84,9 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     private var district_id: String? = ""
     private var ward_id: String? = ""
     private var open: Boolean? = null
-    private var sort: String? = ""
+    private var sortPlace: String? = ""
+    private var sortNews: String? = ""
+    private var sortVideo: String? = ""
     private var content_type: String? = ""
 
     private var loadMoreLink: String? = ""
@@ -391,7 +393,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             district_id,
             ward_id,
             open,
-            sort,
+            if(type == SearchType.DESTINATION) sortPlace else sortNews,
             content_type,
             isLoadMore
         )
@@ -411,7 +413,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             district_id,
             ward_id,
             open,
-            sort,
+            sortVideo,
             content_type,
             isLoadMore
         )
@@ -636,52 +638,74 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
 
     private fun getParamAndSearch() {
-//        var sortParam = ""
-//        for (i in 0 until sortAndFilter!!.sortHeader[0].children.size) {
-//            if (sortAndFilter!!.sortHeader[0].children[i].isSelected) {
-//                sortParam = sortAndFilter!!.sortHeader[0].children[i].id
-//                break
-//            }
-//        }
-//
-//        sort = sortParam
-////        Log.e("sortParam", sortParam)
-//
-//        var districtID =
-//            if (sortAndFilter!!.sortHeader[1].content.district != null) sortAndFilter!!.sortHeader[1].content.district else ""
-//        var communeID =
-//            if (sortAndFilter!!.sortHeader[1].content.commune != null) sortAndFilter!!.sortHeader[1].content.commune else ""
-//
-//
-//        district_id = districtID
-//        regionId =
-//            if (sortAndFilter!!.sortHeader[1].content.cityId != null) sortAndFilter!!.sortHeader[1].content.cityId else ""
-//        if (regionId == "all") regionId = ""
-//
-//        ward_id = communeID
-//
-//        var categoryParam = ""
-//
-//
-//        for (i in 0 until sortAndFilter!!.sortHeader[2].children.size){
-//            if(sortAndFilter!!.sortHeader[2].children[i].isSelected){
-//                categoryParam = categoryParam + " "+sortAndFilter!!.sortHeader[2].children[i].id
-//            }
-//        }
-//
-////        Log.e("categoryParam", categoryParam!!)
-//
-//        content_type = categoryParam.trim()
-//
-//
-//        var isOpen = sortAndFilter!!.sortHeader[3].content.isOpen
-//
-//
-//        open = isOpen
-//
-////        Log.e("isOpen", isOpen?.toString() ?: "null")
-//
-//        loadOtherData()
+        var sortParamPlace = ""
+        for (i in 0 until sortAndFilter!!.sortHeader[0].childrenPlace.size) {
+            if (sortAndFilter!!.sortHeader[0].childrenPlace[i].isSelected) {
+                sortParamPlace = sortAndFilter!!.sortHeader[0].childrenPlace[i].id
+                break
+            }
+        }
+
+        sortPlace = sortParamPlace
+
+
+        var sortParamNews = ""
+        for (i in 0 until sortAndFilter!!.sortHeader[0].childrenNews.size) {
+            if (sortAndFilter!!.sortHeader[0].childrenNews[i].isSelected) {
+                sortParamNews = sortAndFilter!!.sortHeader[0].childrenNews[i].id
+                break
+            }
+        }
+
+        sortNews = sortParamNews
+
+        var sortParamVideo = ""
+        for (i in 0 until sortAndFilter!!.sortHeader[0].childrenVideo.size) {
+            if (sortAndFilter!!.sortHeader[0].childrenVideo[i].isSelected) {
+                sortParamVideo = sortAndFilter!!.sortHeader[0].childrenVideo[i].id
+                break
+            }
+        }
+
+        sortVideo = sortParamVideo
+
+//        Log.e("sortParam", sortParam)
+
+        var districtID =
+            if (sortAndFilter!!.sortHeader[1].content.district != null) sortAndFilter!!.sortHeader[1].content.district else ""
+        var communeID =
+            if (sortAndFilter!!.sortHeader[1].content.commune != null) sortAndFilter!!.sortHeader[1].content.commune else ""
+
+
+        district_id = districtID
+        regionId =
+            if (sortAndFilter!!.sortHeader[1].content.cityId != null) sortAndFilter!!.sortHeader[1].content.cityId else ""
+        if (regionId == "all") regionId = ""
+
+        ward_id = communeID
+
+        var categoryParam = ""
+
+
+        for (i in 0 until sortAndFilter!!.sortHeader[2].children.size){
+            if(sortAndFilter!!.sortHeader[2].children[i].isSelected){
+                categoryParam = categoryParam + " "+sortAndFilter!!.sortHeader[2].children[i].id
+            }
+        }
+
+//        Log.e("categoryParam", categoryParam!!)
+
+        content_type = categoryParam.trim()
+
+
+        var isOpen = sortAndFilter!!.sortHeader[3].content.isOpen
+
+
+        open = isOpen
+
+//        Log.e("isOpen", isOpen?.toString() ?: "null")
+
+        loadOtherData()
 
     }
 
