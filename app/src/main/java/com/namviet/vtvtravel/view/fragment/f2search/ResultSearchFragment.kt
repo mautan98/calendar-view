@@ -555,13 +555,13 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
         for (i in 0 until sortAndFilter!!.sortHeader[2].children.size){
             if(sortAndFilter!!.sortHeader[2].children[i].isSelected){
-                categoryParam = categoryParam + ","+sortAndFilter!!.sortHeader[2].children[i].id
+                categoryParam = categoryParam + " "+sortAndFilter!!.sortHeader[2].children[i].id
             }
         }
 
 //        Log.e("categoryParam", categoryParam!!)
 
-        content_type = categoryParam
+        content_type = categoryParam.trim()
 
 
         var isOpen = sortAndFilter!!.sortHeader[3].content.isOpen
