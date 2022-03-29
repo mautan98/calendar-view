@@ -44,7 +44,7 @@
                     android:layout_height="50dp"
                     android:layout_alignParentEnd="true"
                     android:gravity="center"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="21dp"
