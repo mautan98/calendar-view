@@ -488,6 +488,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                 } else {
                     type[0] = "video"
                 }
+                sortAdapter?.notifyDataSetChanged()
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -635,52 +636,52 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
 
     private fun getParamAndSearch() {
-        var sortParam = ""
-        for (i in 0 until sortAndFilter!!.sortHeader[0].children.size) {
-            if (sortAndFilter!!.sortHeader[0].children[i].isSelected) {
-                sortParam = sortAndFilter!!.sortHeader[0].children[i].id
-                break
-            }
-        }
-
-        sort = sortParam
-//        Log.e("sortParam", sortParam)
-
-        var districtID =
-            if (sortAndFilter!!.sortHeader[1].content.district != null) sortAndFilter!!.sortHeader[1].content.district else ""
-        var communeID =
-            if (sortAndFilter!!.sortHeader[1].content.commune != null) sortAndFilter!!.sortHeader[1].content.commune else ""
-
-
-        district_id = districtID
-        regionId =
-            if (sortAndFilter!!.sortHeader[1].content.cityId != null) sortAndFilter!!.sortHeader[1].content.cityId else ""
-        if (regionId == "all") regionId = ""
-
-        ward_id = communeID
-
-        var categoryParam = ""
-
-
-        for (i in 0 until sortAndFilter!!.sortHeader[2].children.size){
-            if(sortAndFilter!!.sortHeader[2].children[i].isSelected){
-                categoryParam = categoryParam + " "+sortAndFilter!!.sortHeader[2].children[i].id
-            }
-        }
-
-//        Log.e("categoryParam", categoryParam!!)
-
-        content_type = categoryParam.trim()
-
-
-        var isOpen = sortAndFilter!!.sortHeader[3].content.isOpen
-
-
-        open = isOpen
-
-//        Log.e("isOpen", isOpen?.toString() ?: "null")
-
-        loadOtherData()
+//        var sortParam = ""
+//        for (i in 0 until sortAndFilter!!.sortHeader[0].children.size) {
+//            if (sortAndFilter!!.sortHeader[0].children[i].isSelected) {
+//                sortParam = sortAndFilter!!.sortHeader[0].children[i].id
+//                break
+//            }
+//        }
+//
+//        sort = sortParam
+////        Log.e("sortParam", sortParam)
+//
+//        var districtID =
+//            if (sortAndFilter!!.sortHeader[1].content.district != null) sortAndFilter!!.sortHeader[1].content.district else ""
+//        var communeID =
+//            if (sortAndFilter!!.sortHeader[1].content.commune != null) sortAndFilter!!.sortHeader[1].content.commune else ""
+//
+//
+//        district_id = districtID
+//        regionId =
+//            if (sortAndFilter!!.sortHeader[1].content.cityId != null) sortAndFilter!!.sortHeader[1].content.cityId else ""
+//        if (regionId == "all") regionId = ""
+//
+//        ward_id = communeID
+//
+//        var categoryParam = ""
+//
+//
+//        for (i in 0 until sortAndFilter!!.sortHeader[2].children.size){
+//            if(sortAndFilter!!.sortHeader[2].children[i].isSelected){
+//                categoryParam = categoryParam + " "+sortAndFilter!!.sortHeader[2].children[i].id
+//            }
+//        }
+//
+////        Log.e("categoryParam", categoryParam!!)
+//
+//        content_type = categoryParam.trim()
+//
+//
+//        var isOpen = sortAndFilter!!.sortHeader[3].content.isOpen
+//
+//
+//        open = isOpen
+//
+////        Log.e("isOpen", isOpen?.toString() ?: "null")
+//
+//        loadOtherData()
 
     }
 

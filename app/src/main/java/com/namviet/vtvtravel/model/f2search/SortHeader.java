@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 public class SortHeader {
     private String name;
+    private String namePlace;
+    private String nameNews;
+    private String nameVideo;
     private String label;
     private String id;
     private boolean isSelected = false;
@@ -15,6 +18,30 @@ public class SortHeader {
 
     public String getName() {
         return name;
+    }
+
+    public String getNamePlace() {
+        return namePlace;
+    }
+
+    public void setNamePlace(String namePlace) {
+        this.namePlace = namePlace;
+    }
+
+    public String getNameNews() {
+        return nameNews;
+    }
+
+    public void setNameNews(String nameNews) {
+        this.nameNews = nameNews;
+    }
+
+    public String getNameVideo() {
+        return nameVideo;
+    }
+
+    public void setNameVideo(String nameVideo) {
+        this.nameVideo = nameVideo;
     }
 
     public void setName(String name) {

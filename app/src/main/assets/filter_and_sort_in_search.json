@@ -2,6 +2,9 @@
   "sortHeader": [
     {
       "name": "Sắp xếp theo",
+      "namePlace": "Sắp xếp theo",
+      "nameNews": "Sắp xếp theo",
+      "nameVideo": "Sắp xếp theo",
       "label" : "Sắp xếp theo",
       "id": "Sắp xếp theo",
       "isSelected": false,

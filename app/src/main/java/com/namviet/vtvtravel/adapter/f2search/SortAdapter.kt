@@ -96,24 +96,24 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
             when (position) {
                 0 -> {
                     if(type!![0] == "place") {
-                        items!![position].label = items!![position].name
-                        for (i in items!!.indices) {
+                        items!![position].label = items!![position].namePlace
+                        for (i in items!![position].childrenPlace.indices) {
                             if (items!![position].childrenPlace[i].isSelected) {
                                 items!![position].label = items!![position].childrenPlace[i].name
                                 return true
                             }
                         }
                     }else if (type!![0] == "news"){
-                        items!![position].label = items!![position].name
-                        for (i in items!!.indices) {
+                        items!![position].label = items!![position].nameNews
+                        for (i in items!![position].childrenNews.indices) {
                             if (items!![position].childrenNews[i].isSelected) {
                                 items!![position].label = items!![position].childrenNews[i].name
                                 return true
                             }
                         }
                     }else{
-                        items!![position].label = items!![position].name
-                        for (i in items!!.indices) {
+                        items!![position].label = items!![position].nameVideo
+                        for (i in items!![position].childrenVideo.indices) {
                             if (items!![position].childrenVideo[i].isSelected) {
                                 items!![position].label = items!![position].childrenVideo[i].name
                                 return true
