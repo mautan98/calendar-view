@@ -163,7 +163,7 @@ public class HighLightSeeMoreVideoFragment extends BaseFragment<F2FragmentHighLi
                 subVideoAdapter.notifyDataSetChanged();
 
             } else if (o instanceof ErrorResponse) {
-                getBinding().rllNoData.setVisibility(View.VISIBLE);
+//                getBinding().rllNoData.setVisibility(View.VISIBLE);
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
 //                    ((BaseActivityNew) mActivity).showWarning(responseError.getMessage());

@@ -511,7 +511,7 @@ public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSm
                     e.printStackTrace();
                 }
             } else if (o instanceof ErrorResponse) {
-                getBinding().rllNoData.setVisibility(View.VISIBLE);
+//                getBinding().rllNoData.setVisibility(View.VISIBLE);
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());

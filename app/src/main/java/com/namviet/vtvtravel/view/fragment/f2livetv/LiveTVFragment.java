@@ -289,9 +289,9 @@ public class LiveTVFragment extends BaseFragment<F2FragmentDetailLivetvBinding> 
                 LiveTVFragment.this.response = new Gson().fromJson(new Gson().toJson(response.getData()), LiveTvResponse.class);
                 setData();
             } else if (o instanceof ErrorResponse) {
-                getBinding().cvChannel.setVisibility(View.GONE);
-                getBinding().rllNoData.setVisibility(View.VISIBLE);
-                getBinding().shimmerMain.setVisibility(View.GONE);
+//                getBinding().cvChannel.setVisibility(View.GONE);
+//                getBinding().rllNoData.setVisibility(View.VISIBLE);
+//                getBinding().shimmerMain.setVisibility(View.GONE);
             }
         }
     }

@@ -130,7 +130,7 @@ public class SubTopExperienceFragment extends BaseFragment<F2FragmentSubTopExper
                 }
                 nearByInTravelDetailAdapter.notifyDataSetChanged();
             } else if (o instanceof ErrorResponse) {
-                getBinding().rllNoData.setVisibility(View.VISIBLE);
+//                getBinding().rllNoData.setVisibility(View.VISIBLE);
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
