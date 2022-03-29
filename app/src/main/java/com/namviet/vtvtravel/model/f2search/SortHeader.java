@@ -8,6 +8,9 @@ public class SortHeader {
     private String id;
     private boolean isSelected = false;
     private ArrayList<Children> children;
+    private ArrayList<Children> childrenPlace;
+    private ArrayList<Children> childrenNews;
+    private ArrayList<Children> childrenVideo;
     private Content content;
 
     public String getName() {
@@ -56,5 +59,29 @@ public class SortHeader {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public ArrayList<Children> getChildrenPlace() {
+        return childrenPlace;
+    }
+
+    public void setChildrenPlace(ArrayList<Children> childrenPlace) {
+        this.childrenPlace = childrenPlace;
+    }
+
+    public ArrayList<Children> getChildrenNews() {
+        return childrenNews;
+    }
+
+    public void setChildrenNews(ArrayList<Children> childrenNews) {
+        this.childrenNews = childrenNews;
+    }
+
+    public ArrayList<Children> getChildrenVideo() {
+        return childrenVideo;
+    }
+
+    public void setChildrenVideo(ArrayList<Children> childrenVideo) {
+        this.childrenVideo = childrenVideo;
     }
 }

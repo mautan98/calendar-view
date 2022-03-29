@@ -22,13 +22,15 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private var context: Context? = null
     private var items: List<SortHeader>? = null
     private var clickItem: ClickItem? = null;
+    private var type : ArrayList<String>? = null
 
     constructor()
 
-    constructor(context: Context?, items: List<SortHeader>?, clickItem: ClickItem?) {
+    constructor(context: Context?, items: List<SortHeader>?, clickItem: ClickItem?, type : ArrayList<String>) {
         this.context = context
         this.items = items
         this.clickItem = clickItem
+        this.type = type
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -93,11 +95,29 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             when (position) {
                 0 -> {
-                    items!![position].label = items!![position].name
-                    for (i in items!!.indices) {
-                        if (items!![position].children[i].isSelected) {
-                            items!![position].label = items!![position].children[i].name
-                            return true
+                    if(type!![0] == "place") {
+                        items!![position].label = items!![position].name
+                        for (i in items!!.indices) {
+                            if (items!![position].childrenPlace[i].isSelected) {
+                                items!![position].label = items!![position].childrenPlace[i].name
+                                return true
+                            }
+                        }
+                    }else if (type!![0] == "news"){
+                        items!![position].label = items!![position].name
+                        for (i in items!!.indices) {
+                            if (items!![position].childrenNews[i].isSelected) {
+                                items!![position].label = items!![position].childrenNews[i].name
+                                return true
+                            }
+                        }
+                    }else{
+                        items!![position].label = items!![position].name
+                        for (i in items!!.indices) {
+                            if (items!![position].childrenVideo[i].isSelected) {
+                                items!![position].label = items!![position].childrenVideo[i].name
+                                return true
+                            }
                         }
                     }
                 }
