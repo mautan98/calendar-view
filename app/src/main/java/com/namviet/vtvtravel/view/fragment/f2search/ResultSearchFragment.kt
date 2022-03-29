@@ -15,6 +15,7 @@ import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
+import androidx.viewpager.widget.ViewPager
 import com.baseapp.utils.KeyboardUtils
 import com.google.android.material.tabs.TabLayout
 import com.google.gson.Gson
@@ -59,7 +60,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @SuppressLint("ValidFragment")
-class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observer , SearchSuggestionFragment.SearchSuggestionCallback {
+class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observer,
+    SearchSuggestionFragment.SearchSuggestionCallback {
 
 
     //viewpager
@@ -82,7 +84,9 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     private var district_id: String? = ""
     private var ward_id: String? = ""
     private var open: Boolean? = null
-    private var sort: String? = ""
+    private var sortPlace: String? = ""
+    private var sortNews: String? = ""
+    private var sortVideo: String? = ""
     private var content_type: String? = ""
 
     private var loadMoreLink: String? = ""
@@ -90,12 +94,18 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     private var searchViewModel: SearchResultViewModel? = null
 
-    private var sortAndFilter : SortAndFilter? = null
+    private var sortAndFilter: SortAndFilter? = null
 
-    private var locationMain : ArrayList<Location>? = null
+    private var locationMain: ArrayList<Location>? = null
+    private var type = ArrayList<String>()
 
-
-    constructor(keyword: String?, regionId: String?, location: Location?,  categoryId: String?, locationMain : ArrayList<Location>?) {
+    constructor(
+        keyword: String?,
+        regionId: String?,
+        location: Location?,
+        categoryId: String?,
+        locationMain: ArrayList<Location>?
+    ) {
         this.keyword = keyword
         this.regionId = regionId
         this.categoryId = categoryId
@@ -112,6 +122,9 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     override fun initView() {
         searchViewModel = SearchResultViewModel()
         searchViewModel?.addObserver(this)
+
+        type.clear()
+        type.add("place")
     }
 
     override fun initData() {
@@ -134,16 +147,16 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     }
 
-    private fun initSlideMenu(){
+    private fun initSlideMenu() {
 
-        binding!!.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener{
+        binding!!.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
 
             }
 
             override fun onDrawerOpened(drawerView: View) {
                 createMenuFragment()
-                if(layoutExpand.visibility == View.VISIBLE) {
+                if (layoutExpand.visibility == View.VISIBLE) {
                     hideMenuAnim()
                 }
             }
@@ -160,22 +173,38 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         })
     }
 
-    private var slideMenuSearchFragment : SlideMenuSearchFragment? = null
+    private var slideMenuSearchFragment: SlideMenuSearchFragment? = null
 
-    private fun createMenuFragment(){
+    private fun createMenuFragment() {
         slideMenuSearchFragment = SlideMenuSearchFragment();
-        slideMenuSearchFragment?.setData(sortAndFilter, object : SlideMenuSearchFragment.Listener{
-            override fun onApply(sortAndFilter : SortAndFilter?) {
+        slideMenuSearchFragment?.setData(sortAndFilter, object : SlideMenuSearchFragment.Listener {
+            override fun onApply(sortAndFilter: SortAndFilter?) {
                 this@ResultSearchFragment.sortAndFilter!!.sortHeader[2].children.clear()
-                this@ResultSearchFragment.sortAndFilter!!.sortHeader[2].children.addAll(sortAndFilter!!.sortHeader[2].children)
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[2].children.addAll(
+                    sortAndFilter!!.sortHeader[2].children
+                )
                 categorySortedAdapter!!.notifyDataSetChanged()
 
-                this@ResultSearchFragment.sortAndFilter!!.sortHeader[3].content.isOpen = sortAndFilter.sortHeader[3].content.isOpen
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[3].content.isOpen =
+                    sortAndFilter.sortHeader[3].content.isOpen
 
-                this@ResultSearchFragment.sortAndFilter!!.sortHeader[1].content = sortAndFilter.sortHeader[1].content
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[1].content =
+                    sortAndFilter.sortHeader[1].content
 
-                this@ResultSearchFragment.sortAndFilter!!.sortHeader[0].children.clear()
-                this@ResultSearchFragment.sortAndFilter!!.sortHeader[0].children.addAll(sortAndFilter!!.sortHeader[0].children)
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[0].childrenPlace.clear()
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[0].childrenPlace.addAll(
+                    sortAndFilter!!.sortHeader[0].childrenPlace
+                )
+
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[0].childrenNews.clear()
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[0].childrenNews.addAll(
+                    sortAndFilter!!.sortHeader[0].childrenNews
+                )
+
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[0].childrenVideo.clear()
+                this@ResultSearchFragment.sortAndFilter!!.sortHeader[0].childrenVideo.addAll(
+                    sortAndFilter!!.sortHeader[0].childrenVideo
+                )
 
                 sortAdapter?.notifyDataSetChanged()
                 binding!!.drawerLayout.closeDrawer(GravityCompat.END)
@@ -189,7 +218,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         }, locationMain!!)
 
 
-        fragmentManager!!.beginTransaction().replace(R.id.chooseRegionFrame, slideMenuSearchFragment!!).commit()
+        fragmentManager!!.beginTransaction()
+            .replace(R.id.chooseRegionFrame, slideMenuSearchFragment!!).commit()
     }
 
     private fun createSortData() {
@@ -205,13 +235,25 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                         0 -> {
                             var sortFollowFragment = SortFollowFragment()
                             sortFollowFragment.setData(
-                                sortAndFilter!!.sortHeader[0].children,
+                                if(type[0] == "place") sortAndFilter!!.sortHeader[0].childrenPlace else if(type[0] == "news") sortAndFilter!!.sortHeader[0].childrenNews else  sortAndFilter!!.sortHeader[0].childrenVideo,
                                 object : SortFollowFragment.Listener {
                                     override fun onApply(listChild: ArrayList<Children>?) {
-                                        sortAndFilter!!.sortHeader[0].children = listChild
-                                        hideMenuAnim()
-                                        sortAdapter?.notifyDataSetChanged()
-                                        getParamAndSearch()
+                                        if(type[0] == "place") {
+                                            sortAndFilter!!.sortHeader[0].childrenPlace = listChild
+                                            hideMenuAnim()
+                                            sortAdapter?.notifyDataSetChanged()
+                                            getParamAndSearch()
+                                        }else if (type[0] == "news"){
+                                            sortAndFilter!!.sortHeader[0].childrenNews = listChild
+                                            hideMenuAnim()
+                                            sortAdapter?.notifyDataSetChanged()
+                                            getParamAndSearch()
+                                        }else{
+                                            sortAndFilter!!.sortHeader[0].childrenVideo = listChild
+                                            hideMenuAnim()
+                                            sortAdapter?.notifyDataSetChanged()
+                                            getParamAndSearch()
+                                        }
 
                                     }
 
@@ -222,49 +264,56 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
                         1 -> {
                             var dropDownLocationFragment = DropDownLocationFragment()
-                            dropDownLocationFragment.setData(sortAndFilter!!.sortHeader[1].content, locationMain, object : DropDownLocationFragment.Callback{
-                                override fun onApply(content : Content?) {
-                                    hideMenuAnim()
-                                    sortAndFilter!!.sortHeader[1].content = content
-                                    sortAdapter?.notifyDataSetChanged()
-                                    getParamAndSearch()
+                            dropDownLocationFragment.setData(
+                                sortAndFilter!!.sortHeader[1].content,
+                                locationMain,
+                                object : DropDownLocationFragment.Callback {
+                                    override fun onApply(content: Content?) {
+                                        hideMenuAnim()
+                                        sortAndFilter!!.sortHeader[1].content = content
+                                        sortAdapter?.notifyDataSetChanged()
+                                        getParamAndSearch()
 
-                                }
+                                    }
 
-                            })
+                                })
                             fragmentManager!!.beginTransaction()
                                 .replace(R.id.sortFrame, dropDownLocationFragment).commit()
                         }
 
                         2 -> {
                             var dropDownCategoryFragment = DropDownCategoryFragment()
-                            dropDownCategoryFragment.setData(sortAndFilter!!.sortHeader[2].children, object : DropDownCategoryFragment.Listener{
-                                override fun onApply(listChild: ArrayList<Children>?) {
-                                    sortAndFilter!!.sortHeader[2].children.clear()
-                                    sortAndFilter!!.sortHeader[2].children.addAll(listChild!!)
-                                    hideMenuAnim()
-                                    categorySortedAdapter?.notifyDataSetChanged()
-                                    sortAdapter?.notifyDataSetChanged()
-                                    getParamAndSearch()
-                                }
+                            dropDownCategoryFragment.setData(
+                                sortAndFilter!!.sortHeader[2].children,
+                                object : DropDownCategoryFragment.Listener {
+                                    override fun onApply(listChild: ArrayList<Children>?) {
+                                        sortAndFilter!!.sortHeader[2].children.clear()
+                                        sortAndFilter!!.sortHeader[2].children.addAll(listChild!!)
+                                        hideMenuAnim()
+                                        categorySortedAdapter?.notifyDataSetChanged()
+                                        sortAdapter?.notifyDataSetChanged()
+                                        getParamAndSearch()
+                                    }
 
-                            })
+                                })
                             fragmentManager!!.beginTransaction()
                                 .replace(R.id.sortFrame, dropDownCategoryFragment).commit()
                         }
 
                         3 -> {
                             var dropDownStatusFragment = DropDownStatusFragment()
-                            dropDownStatusFragment.setData(sortAndFilter!!.sortHeader[3].content.isOpen, object : DropDownStatusFragment.Listener{
-                                override fun onApply(isOpen : Boolean?) {
-                                    sortAndFilter!!.sortHeader[3].content.isOpen = isOpen
-                                    hideMenuAnim()
-                                    sortAdapter?.notifyDataSetChanged()
-                                    getParamAndSearch()
+                            dropDownStatusFragment.setData(
+                                sortAndFilter!!.sortHeader[3].content.isOpen,
+                                object : DropDownStatusFragment.Listener {
+                                    override fun onApply(isOpen: Boolean?) {
+                                        sortAndFilter!!.sortHeader[3].content.isOpen = isOpen
+                                        hideMenuAnim()
+                                        sortAdapter?.notifyDataSetChanged()
+                                        getParamAndSearch()
 
-                                }
+                                    }
 
-                            })
+                                })
                             fragmentManager!!.beginTransaction()
                                 .replace(R.id.sortFrame, dropDownStatusFragment).commit()
                         }
@@ -276,18 +325,20 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                     }
                 }
 
-            });
+            }, type);
         binding!!.rclSort.adapter = sortAdapter
 
-        categorySortedAdapter = CategorySortedAdapter(sortAndFilter!!.sortHeader[2].children, mActivity, object : CategorySortedAdapter.ClickItem{
-            override fun onClickItem() {
-                sortAdapter?.notifyDataSetChanged()
-                getParamAndSearch()
-            }
+        categorySortedAdapter = CategorySortedAdapter(
+            sortAndFilter!!.sortHeader[2].children,
+            mActivity,
+            object : CategorySortedAdapter.ClickItem {
+                override fun onClickItem() {
+                    sortAdapter?.notifyDataSetChanged()
+                    getParamAndSearch()
+                }
 
-        });
+            });
         binding!!.rclCategorySorted.adapter = categorySortedAdapter
-
 
 
     }
@@ -305,7 +356,15 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 //                }
 //            }, keyword))
 
-            addFragment(SearchSuggestionFragment( edtSearch.text.toString(), location, locationMain, false, this))
+            addFragment(
+                SearchSuggestionFragment(
+                    edtSearch.text.toString(),
+                    location,
+                    locationMain,
+                    false,
+                    this
+                )
+            )
 
         }
 
@@ -324,19 +383,43 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     }
 
-    public fun searchAll(type: String?, isLoadMore : Boolean) {
-        searchViewModel?.searchAll(type, keyword, regionId, type, categoryId, district_id, ward_id, open, sort, content_type, isLoadMore)
+    public fun searchAll(type: String?, isLoadMore: Boolean) {
+        searchViewModel?.searchAll(
+            type,
+            keyword,
+            regionId,
+            type,
+            categoryId,
+            district_id,
+            ward_id,
+            open,
+            if(type == SearchType.DESTINATION) sortPlace else sortNews,
+            content_type,
+            isLoadMore
+        )
     }
 
-    public fun searchAllWithLink(link: String?, type: String?, isLoadMore : Boolean) {
+    public fun searchAllWithLink(link: String?, type: String?, isLoadMore: Boolean) {
         searchViewModel?.searchAllWithFullLink(link, type, isLoadMore)
     }
 
-    public fun searchAllVideo(type: String?, isLoadMore : Boolean) {
-        searchViewModel?.searchAllVideo(type, keyword, regionId, type, categoryId, district_id, ward_id, open, sort, content_type, isLoadMore)
+    public fun searchAllVideo(type: String?, isLoadMore: Boolean) {
+        searchViewModel?.searchAllVideo(
+            type,
+            keyword,
+            regionId,
+            type,
+            categoryId,
+            district_id,
+            ward_id,
+            open,
+            sortVideo,
+            content_type,
+            isLoadMore
+        )
     }
 
-    public fun searchAllVideoWithLink(link: String?, type: String?, isLoadMore : Boolean) {
+    public fun searchAllVideoWithLink(link: String?, type: String?, isLoadMore: Boolean) {
         searchViewModel?.searchAllVideoWithFullLink(link, type, isLoadMore)
     }
 
@@ -389,6 +472,32 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         tabLayout.getTabAt(2)?.customView = tabVideos
 
         tabLayout.addOnTabSelectedListener(onTabSelectedListener)
+
+        vpContent.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+
+            }
+
+            override fun onPageSelected(position: Int) {
+                if (position == 0) {
+                    type[0] = "place"
+                } else if (position == 1) {
+                    type[0] = "news"
+                } else {
+                    type[0] = "video"
+                }
+                sortAdapter?.notifyDataSetChanged()
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+
+            }
+
+        })
 
     }
 
@@ -528,24 +637,49 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     }
 
 
-    private fun getParamAndSearch(){
-        var sortParam = ""
-        for (i in 0 until sortAndFilter!!.sortHeader[0].children.size){
-            if(sortAndFilter!!.sortHeader[0].children[i].isSelected){
-                sortParam = sortAndFilter!!.sortHeader[0].children[i].id
+    private fun getParamAndSearch() {
+        var sortParamPlace = ""
+        for (i in 0 until sortAndFilter!!.sortHeader[0].childrenPlace.size) {
+            if (sortAndFilter!!.sortHeader[0].childrenPlace[i].isSelected) {
+                sortParamPlace = sortAndFilter!!.sortHeader[0].childrenPlace[i].id
                 break
             }
         }
 
-        sort = sortParam
+        sortPlace = sortParamPlace
+
+
+        var sortParamNews = ""
+        for (i in 0 until sortAndFilter!!.sortHeader[0].childrenNews.size) {
+            if (sortAndFilter!!.sortHeader[0].childrenNews[i].isSelected) {
+                sortParamNews = sortAndFilter!!.sortHeader[0].childrenNews[i].id
+                break
+            }
+        }
+
+        sortNews = sortParamNews
+
+        var sortParamVideo = ""
+        for (i in 0 until sortAndFilter!!.sortHeader[0].childrenVideo.size) {
+            if (sortAndFilter!!.sortHeader[0].childrenVideo[i].isSelected) {
+                sortParamVideo = sortAndFilter!!.sortHeader[0].childrenVideo[i].id
+                break
+            }
+        }
+
+        sortVideo = sortParamVideo
+
 //        Log.e("sortParam", sortParam)
 
-        var districtID =  if(sortAndFilter!!.sortHeader[1].content.district != null) sortAndFilter!!.sortHeader[1].content.district else ""
-        var communeID =  if(sortAndFilter!!.sortHeader[1].content.commune != null) sortAndFilter!!.sortHeader[1].content.commune else ""
+        var districtID =
+            if (sortAndFilter!!.sortHeader[1].content.district != null) sortAndFilter!!.sortHeader[1].content.district else ""
+        var communeID =
+            if (sortAndFilter!!.sortHeader[1].content.commune != null) sortAndFilter!!.sortHeader[1].content.commune else ""
 
 
         district_id = districtID
-        regionId = if(sortAndFilter!!.sortHeader[1].content.cityId != null) sortAndFilter!!.sortHeader[1].content.cityId else ""
+        regionId =
+            if (sortAndFilter!!.sortHeader[1].content.cityId != null) sortAndFilter!!.sortHeader[1].content.cityId else ""
         if (regionId == "all") regionId = ""
 
         ward_id = communeID
@@ -555,13 +689,13 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
         for (i in 0 until sortAndFilter!!.sortHeader[2].children.size){
             if(sortAndFilter!!.sortHeader[2].children[i].isSelected){
-                categoryParam = categoryParam + ","+sortAndFilter!!.sortHeader[2].children[i].id
+                categoryParam = categoryParam + " "+sortAndFilter!!.sortHeader[2].children[i].id
             }
         }
 
 //        Log.e("categoryParam", categoryParam!!)
 
-        content_type = categoryParam
+        content_type = categoryParam.trim()
 
 
         var isOpen = sortAndFilter!!.sortHeader[3].content.isOpen
@@ -575,7 +709,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
     }
 
-    private fun loadOtherData(){
+    private fun loadOtherData() {
         destinationSearchFragment?.clearData()
         newsSearchFragment?.clearData()
         resultVideosSearchFragment?.clearData()
@@ -585,7 +719,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     }
 
     @Subscribe
-    fun onTouchRCLLocation(onTouchRCLLocation: OnTouchRCLLocation){
+    fun onTouchRCLLocation(onTouchRCLLocation: OnTouchRCLLocation) {
         drawerLayout.requestDisallowInterceptTouchEvent(true)
     }
 
@@ -600,7 +734,10 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     }
 
 
-    override fun onClickSuggestion(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?, mLocation: Location?) {
+    override fun onClickSuggestion(
+        searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?,
+        mLocation: Location?
+    ) {
         this.keyword = keyword
         this.location = location
         edtSearch.text = keyword

@@ -2,13 +2,16 @@
   "sortHeader": [
     {
       "name": "Sắp xếp theo",
+      "namePlace": "Sắp xếp theo",
+      "nameNews": "Sắp xếp theo",
+      "nameVideo": "Sắp xếp theo",
       "label" : "Sắp xếp theo",
       "id": "Sắp xếp theo",
       "isSelected": false,
-      "children": [
+      "childrenPlace": [
         {
           "name": "Tất cả",
-          "id": "all",
+          "id": "",
           "isSelected": false
         },
         {
@@ -24,6 +27,35 @@
         {
           "name": "Xem nhiều nhất",
           "id": "favourite",
+          "isSelected": false
+        }
+      ],
+      "childrenNews": [
+        {
+          "name": "Tất cả",
+          "id": "all",
+          "isSelected": false
+        },
+        {
+          "name": "Mới nhất",
+          "id": "closest",
+          "isSelected": false
+        },
+        {
+          "name": "Xem nhiều nhất",
+          "id": "favourite",
+          "isSelected": false
+        }
+      ],
+      "childrenVideo": [
+        {
+          "name": "Tất cả",
+          "id": "all",
+          "isSelected": false
+        },
+        {
+          "name": "Mới nhất",
+          "id": "closest",
           "isSelected": false
         }
       ]
