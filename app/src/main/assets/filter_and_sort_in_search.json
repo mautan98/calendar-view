@@ -16,17 +16,17 @@
         },
         {
           "name": "Gần nhất",
-          "id": "mostCorrect",
+          "id": "distance",
           "isSelected": false
         },
         {
           "name": "Mới nhất",
-          "id": "closest",
+          "id": "screated",
           "isSelected": false
         },
         {
           "name": "Xem nhiều nhất",
-          "id": "favourite",
+          "id": "view_count",
           "isSelected": false
         }
       ],
@@ -38,12 +38,12 @@
         },
         {
           "name": "Mới nhất",
-          "id": "closest",
+          "id": "publish_date",
           "isSelected": false
         },
         {
           "name": "Xem nhiều nhất",
-          "id": "favourite",
+          "id": "view_count",
           "isSelected": false
         }
       ],
@@ -55,9 +55,15 @@
         },
         {
           "name": "Mới nhất",
-          "id": "closest",
+          "id": "publish_date",
+          "isSelected": false
+        },
+        {
+          "name": "Xem nhiều nhất",
+          "id": "view_count",
           "isSelected": false
         }
+
       ]
     },
     {
