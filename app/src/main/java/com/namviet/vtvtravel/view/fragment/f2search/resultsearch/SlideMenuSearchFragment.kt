@@ -1,5 +1,6 @@
 package com.namviet.vtvtravel.view.fragment.f2search.resultsearch
 
+import android.view.View
 import androidx.fragment.app.FragmentTransaction
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -29,6 +30,8 @@ class SlideMenuSearchFragment : BaseFragment<F3FragmentSlideSearchBinding?>() {
 
     private var listCategory = ArrayList<Children>()
     private var locations = ArrayList<Location>()
+    private var type =  ArrayList<String>()
+
 
     override fun getLayoutRes(): Int {
         return R.layout.f3_fragment_slide_search
@@ -65,6 +68,12 @@ class SlideMenuSearchFragment : BaseFragment<F3FragmentSlideSearchBinding?>() {
             switchStatus.isChecked = p1
             sortAndFilter!!.sortHeader[3].content.isOpen = p1
             switchStatus.alpha = 1f
+        }
+
+        if(type!![0] == "place"){
+            layoutOpen.visibility = View.VISIBLE
+        }else{
+            layoutOpen.visibility = View.GONE
         }
 
 //        btnApply.setOnClickListener {
@@ -113,11 +122,12 @@ class SlideMenuSearchFragment : BaseFragment<F3FragmentSlideSearchBinding?>() {
     override fun setObserver() {}
 
 
-    public fun setData(sortAndFilter : SortAndFilter?, listener: Listener, locations: ArrayList<Location>){
+    public fun setData(sortAndFilter : SortAndFilter?, listener: Listener, locations: ArrayList<Location>, type : ArrayList<String>){
         this.sortAndFilter = Gson().fromJson(Gson().toJson(sortAndFilter), SortAndFilter::class.java)
         this.listCategory.addAll(sortAndFilter!!.sortHeader[2].children)
         this.listener = listener
         this.locations = locations
+        this.type = type
     }
 
     public interface Listener{

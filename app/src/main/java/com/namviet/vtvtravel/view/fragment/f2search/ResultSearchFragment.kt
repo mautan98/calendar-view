@@ -215,7 +215,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                 binding!!.drawerLayout.closeDrawer(GravityCompat.END)
             }
 
-        }, locationMain!!)
+        }, locationMain!!, type)
 
 
         fragmentManager!!.beginTransaction()
