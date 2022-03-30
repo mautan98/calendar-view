@@ -43,7 +43,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class SearchSuggestionSmallLocationFragment(private var keyword: String? = null, private var location: Location? = null, private var locationsMain: ArrayList<Location>? = null, private var clickRegion: Boolean = false, private var searchSuggestionCallback: SearchSuggestionCallback? = null) : BaseFragment<F3FragmentSearchSuggestionSmallLocationBinding?>(), Observer {
+class SearchSuggestionSmallLocationFragment(private var keyword: String? = null, private var location: Location? = null, private var locationsMain: ArrayList<Location>? = null, private var clickRegion: Boolean = false, private var searchSuggestionCallback: SearchSuggestionCallback? = null, private var contentType : String? = null) : BaseFragment<F3FragmentSearchSuggestionSmallLocationBinding?>(), Observer {
 
     private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
 
@@ -228,7 +228,7 @@ class SearchSuggestionSmallLocationFragment(private var keyword: String? = null,
 
     private fun getSearchSuggestion() {
         //searchSuggestionViewModel?.getSearchSuggestion(edtSearch.text.toString(), regionId)
-        searchSuggestionViewModel.getSearchSuggestionForSpecificContent(edtSearch.text.toString(), "", SearchType.PLACE)
+        searchSuggestionViewModel.getSearchSuggestionForSpecificContent(edtSearch.text.toString(), "", contentType)
         layoutKeyword.tvSearchFollow.text = "Tìm kiếm theo \"" + edtSearch.text.toString() + "\"";
         setHighLightedText(layoutKeyword.tvSearchFollow, "\"" + edtSearch.text.toString() + "\"")
         layoutSearchSuggestion.visibility = View.VISIBLE

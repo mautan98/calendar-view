@@ -13,10 +13,12 @@ import com.namviet.vtvtravel.adapter.f2offline.MainAdapter
 import com.namviet.vtvtravel.adapter.f2search.SearchSuggestionKeyWordAdapter
 import com.namviet.vtvtravel.api.WSConfig
 import com.namviet.vtvtravel.app.MyApplication
+import com.namviet.vtvtravel.config.Constants
 import com.namviet.vtvtravel.database.StorageManager
 import com.namviet.vtvtravel.databinding.F2FragmentMainPageSmallLocationBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
+import com.namviet.vtvtravel.model.f2event.OnChooseRegionSmallLocation
 import com.namviet.vtvtravel.model.newhome.ItemHomeService
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse
@@ -27,15 +29,12 @@ import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
 import com.namviet.vtvtravel.view.f3.model.ClickHideMapView
 import com.namviet.vtvtravel.view.f3.model.HideMapView
 import com.namviet.vtvtravel.view.f3.model.ShowMapView
-import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionFragment
 import com.namviet.vtvtravel.view.f3.smalllocation.viewmodel.SmallLocationMainViewModel
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionMainFragment
-import com.namviet.vtvtravel.view.fragment.f2search.ResultSearchFragment
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.SearchResultFragment
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.SmallLocationFragment
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import com.namviet.vtvtravel.viewmodel.f2search.SearchViewModel
-import com.namviet.vtvtravel.model.f2event.OnChooseRegionSmallLocation
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.f2_fragment_main_page_small_location.*
 import kotlinx.android.synthetic.main.f2_fragment_main_page_small_location.btnBack
@@ -236,7 +235,7 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
 
 
         edtSearch.setOnClickListener {
-            addFragment(SearchSuggestionSmallLocationFragment( edtSearch.text.toString(), location, locationsMain, false, this))
+            addFragment(SearchSuggestionSmallLocationFragment( edtSearch.text.toString(), location, locationsMain, false, this, getContentType(dataMenu!![tabSelectedPosition].code)))
         }
 
         btnChooseRegion2.setOnClickListener {
@@ -254,6 +253,26 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
         }
 
     }
+
+    private fun getContentType(code : String) : String{
+        when (code) {
+            "APP_WHERE_GO" -> {
+                return  Constants.TypeDestination.PLACES
+            }
+            "APP_WHAT_EAT" -> {
+                return Constants.TypeDestination.RESTAURANTS
+            }
+            "APP_WHAT_PLAY" -> {
+                return Constants.TypeDestination.CENTERS
+            }
+            "APP_WHERE_STAY" -> {
+                return Constants.TypeDestination.HOTELS
+            }
+        }
+        return Constants.TypeDestination.PLACES
+    }
+
+
     override fun setObserver() {}
 
 

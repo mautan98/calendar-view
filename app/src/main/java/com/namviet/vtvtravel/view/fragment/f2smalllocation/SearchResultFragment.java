@@ -296,7 +296,7 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
         getBinding().edtSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addFragment(new SearchSuggestionSmallLocationFragment( getBinding().edtSearch.getText().toString(), location, locationsMain, false, SearchResultFragment.this));
+                addFragment(new SearchSuggestionSmallLocationFragment( getBinding().edtSearch.getText().toString(), location, locationsMain, false, SearchResultFragment.this, typeDestination));
 
             }
         });
