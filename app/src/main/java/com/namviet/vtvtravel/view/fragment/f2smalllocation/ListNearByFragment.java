@@ -156,12 +156,7 @@ public class ListNearByFragment extends BaseFragment<F3FragmentNearExperienceSma
                 mActivity.onBackPressed();
             }
         });
-        subNearbyExperienceInSmallLocationDetailAdapter = new SubNearbyExperienceInSmallLocationDetailAdapter(travelList, mActivity, new SubNearbyExperienceInSmallLocationDetailAdapter.ClickItem() {
-            @Override
-            public void onClickItem(com.namviet.vtvtravel.model.f2smalllocation.Travel travel) {
-
-            }
-        });
+        subNearbyExperienceInSmallLocationDetailAdapter = new SubNearbyExperienceInSmallLocationDetailAdapter(travelList, mActivity, null);
 
         getBinding().rclContent.setAdapter(subNearbyExperienceInSmallLocationDetailAdapter);
         getBinding().rclContent.addOnScrollListener(new RecyclerView.OnScrollListener() {
