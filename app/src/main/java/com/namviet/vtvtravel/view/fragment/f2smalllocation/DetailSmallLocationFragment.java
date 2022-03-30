@@ -157,34 +157,34 @@ public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSm
 
     private void setDataForSomeView(DetailSmallLocationResponse response) {
         F2Util.loadImageToImageView(mActivity, response.getData().getBanner_url(), getBinding().imgBanner);
-        List<String> urlsImg = new ArrayList<>();
-        urlsImg.add(response.getData().getBanner_url());
-        urlsImg.add(response.getData().getBanner_url());
-        urlsImg.add(response.getData().getBanner_url());
-        getBinding().tvCountImg.setText(1+"/"+urlsImg.size());
+//        List<String> urlsImg = new ArrayList<>();
+//        urlsImg.add(response.getData().getBanner_url());
+//        urlsImg.add(response.getData().getBanner_url());
+//        urlsImg.add(response.getData().getBanner_url());
+//        getBinding().tvCountImg.setText(1+"/"+urlsImg.size());
 
-        SubSmallLocationAdapter subSmallLocationAdapter = new SubSmallLocationAdapter(mActivity, urlsImg, new SubSmallLocationAdapter.IOnSubItemClick() {
-            @Override
-            public void onSubitemClick() {
-//                clickItem.onClickItem(items.get(position));
-            }
-        });
-        getBinding().rcvItemImg.setAdapter(subSmallLocationAdapter);
-        getBinding().rcvItemImg.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                int current = ((LinearLayoutManager)getBinding().rcvItemImg.getLayoutManager())
-                        .findFirstVisibleItemPosition();
-                getBinding().tvCountImg.setText((current + 1) +"/"+urlsImg.size());
-            }
-        });
-        try {
-            SnapHelper pagerSnapHelper = new PagerSnapHelper();
-            pagerSnapHelper.attachToRecyclerView(getBinding().rcvItemImg);
-            getBinding().indicator.attachToRecyclerView(getBinding().rcvItemImg, pagerSnapHelper);
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        }
+//        SubSmallLocationAdapter subSmallLocationAdapter = new SubSmallLocationAdapter(mActivity, urlsImg, new SubSmallLocationAdapter.IOnSubItemClick() {
+//            @Override
+//            public void onSubitemClick() {
+////                clickItem.onClickItem(items.get(position));
+//            }
+//        });
+//        getBinding().rcvItemImg.setAdapter(subSmallLocationAdapter);
+//        getBinding().rcvItemImg.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                int current = ((LinearLayoutManager)getBinding().rcvItemImg.getLayoutManager())
+//                        .findFirstVisibleItemPosition();
+//                getBinding().tvCountImg.setText((current + 1) +"/"+urlsImg.size());
+//            }
+//        });
+//        try {
+//            SnapHelper pagerSnapHelper = new PagerSnapHelper();
+//            pagerSnapHelper.attachToRecyclerView(getBinding().rcvItemImg);
+//            getBinding().indicator.attachToRecyclerView(getBinding().rcvItemImg, pagerSnapHelper);
+//        } catch (IllegalStateException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private boolean canScroll = false;
