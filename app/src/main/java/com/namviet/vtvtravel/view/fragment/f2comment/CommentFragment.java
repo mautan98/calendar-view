@@ -292,7 +292,7 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
 
 
                     if (typeComment == TYPE_COMMENT_EDIT) {
-                        if (getBinding().edtComment.getText().toString().length()>5) {
+                        if (getBinding().edtComment.getText().toString().trim().length()>5) {
                             viewModel.updateComment(idCommentForEdit, getBinding().edtComment.getText().toString());
                             getBinding().edtComment.setText("");
 
@@ -301,7 +301,7 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                             Toast.makeText(mActivity, "Độ dài comment phải lớn hơn 5 ký tự", Toast.LENGTH_SHORT).show();
                         }
                     } else if (typeComment == TYPE_COMMENT_REPLY) {
-                        if (getBinding().edtComment.getText().toString().length() > 5) {
+                        if (getBinding().edtComment.getText().toString().trim().length() > 5) {
                             checkComment(parentId, getBinding().edtComment.getText().toString(), contentId, contentType);
 //                            getBinding().edtComment.setText("");
 
@@ -310,7 +310,7 @@ public class CommentFragment extends BaseFragment<F2FragmentCommentBinding> impl
                             Toast.makeText(mActivity, "Độ dài comment phải lớn hơn 5 ký tự", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        if (getBinding().edtComment.getText().toString().length() > 5) {
+                        if (getBinding().edtComment.getText().toString().trim().length() > 5) {
                             checkComment(null, getBinding().edtComment.getText().toString(), contentId, contentType);
 //                            getBinding().edtComment.setText("");
 
