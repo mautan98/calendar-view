@@ -687,7 +687,6 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
         private int position;
         private RecyclerView rclContent;
         private SubNearbyExperienceInSmallLocationDetailAdapter subNearbyExperienceInSmallLocationDetailAdapter;
-        private NearByInTravelDetailAdapter nearByInTravelDetailAdapter;
         private TabLayout tabs;
         private ArrayList<String> tabsList = new ArrayList<>();
         private ShimmerFrameLayout shimmerFrameLayout;
@@ -730,14 +729,7 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
                 public void onTabReselected(TabLayout.Tab tab) {
                 }
             });
-            subNearbyExperienceInSmallLocationDetailAdapter = new SubNearbyExperienceInSmallLocationDetailAdapter(travelList, context, new SubNearbyExperienceInSmallLocationDetailAdapter.ClickItem() {
-                @Override
-                public void onClickItem(com.namviet.vtvtravel.model.f2smalllocation.Travel travel) {
-
-                }
-            });
-
-            nearByInTravelDetailAdapter = new NearByInTravelDetailAdapter(context, travelList, false, null);
+            subNearbyExperienceInSmallLocationDetailAdapter = new SubNearbyExperienceInSmallLocationDetailAdapter(travelList, context, null);
 
             rclContent.setAdapter(subNearbyExperienceInSmallLocationDetailAdapter);
         }

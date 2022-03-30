@@ -23,6 +23,7 @@ import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.f2smalllocation.Travel;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
+import com.ornach.richtext.RichText;
 
 import java.util.List;
 
@@ -100,6 +101,7 @@ public class SubNearbyExperienceInSmallLocationDetailAdapter extends RecyclerVie
         private int position;
         private View viewTime;
         private LikeButton imgHeart;
+        private RichText viewStatus;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -123,6 +125,7 @@ public class SubNearbyExperienceInSmallLocationDetailAdapter extends RecyclerVie
             tvTime = itemView.findViewById(R.id.tvTime);
             tvViewCount = itemView.findViewById(R.id.tvViewCount);
             imgHeart = itemView.findViewById(R.id.imgHeart);
+            viewStatus = itemView.findViewById(R.id.viewStatus);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -266,9 +269,11 @@ public class SubNearbyExperienceInSmallLocationDetailAdapter extends RecyclerVie
 
             try {
                 tvStatus.setTextColor(Color.parseColor(travel.getTypeOpenColor()));
+                viewStatus.setBackgroundColor(Color.parseColor(travel.getTypeOpenColor()));
             } catch (Exception e) {
                 try {
                     tvStatus.setTextColor(Color.parseColor("#FF0000"));
+                    viewStatus.setBackgroundColor(Color.parseColor("#FF0000"));
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -280,7 +285,7 @@ public class SubNearbyExperienceInSmallLocationDetailAdapter extends RecyclerVie
                     viewTime.setVisibility(View.GONE);
                     tvOpenTime.setVisibility(View.GONE);
                 }else {
-                    viewTime.setVisibility(View.VISIBLE);
+                    viewTime.setVisibility(View.INVISIBLE);
                     tvOpenTime.setText(travel.getRange_time());
                     tvOpenTime.setVisibility(View.VISIBLE);
                 }
