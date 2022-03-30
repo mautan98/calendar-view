@@ -338,7 +338,7 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
     }
 
     override fun onCancelSearch(location: Location?, keyword: String?) {
-        handleLocation(location)
+//        handleLocation(location)
         edtSearch.text = keyword
     }
 
