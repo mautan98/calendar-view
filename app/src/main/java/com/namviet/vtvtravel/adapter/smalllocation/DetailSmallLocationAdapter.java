@@ -34,6 +34,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.tabs.TabLayout;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.adapter.travelnews.NearByInTravelDetailAdapter;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
@@ -686,6 +687,7 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
         private int position;
         private RecyclerView rclContent;
         private SubNearbyExperienceInSmallLocationDetailAdapter subNearbyExperienceInSmallLocationDetailAdapter;
+        private NearByInTravelDetailAdapter nearByInTravelDetailAdapter;
         private TabLayout tabs;
         private ArrayList<String> tabsList = new ArrayList<>();
         private ShimmerFrameLayout shimmerFrameLayout;
@@ -734,6 +736,8 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
 
                 }
             });
+
+            nearByInTravelDetailAdapter = new NearByInTravelDetailAdapter(context, travelList, false, null);
 
             rclContent.setAdapter(subNearbyExperienceInSmallLocationDetailAdapter);
         }
