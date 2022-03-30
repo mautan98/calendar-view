@@ -38,6 +38,7 @@
                         tools:listitem="@layout/item_img_small_location" />
 
                     <me.relex.circleindicator.CircleIndicator2
+                        android:visibility="gone"
                         android:id="@id/indicator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -53,6 +54,7 @@
                         app:ci_width="8dp" />
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/tv_count_img"
                         android:layout_width="42dp"
                         android:layout_height="24dp"

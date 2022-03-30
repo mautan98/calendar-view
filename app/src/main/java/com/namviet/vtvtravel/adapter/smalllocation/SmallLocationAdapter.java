@@ -219,9 +219,9 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
             tvRateText.setText(travel.getEvaluate_text());
             List<String> urlsImg = new ArrayList<>();
             urlsImg.add(travel.getLogo_url());
-            urlsImg.add(travel.getLogo_url());
-            urlsImg.add(travel.getLogo_url());
-            tvCountImg.setText(1+"/"+urlsImg.size());
+//            urlsImg.add(travel.getLogo_url());
+//            urlsImg.add(travel.getLogo_url());
+//            tvCountImg.setText(1+"/"+urlsImg.size());
 
             SubSmallLocationAdapter subSmallLocationAdapter = new SubSmallLocationAdapter(context, urlsImg, new SubSmallLocationAdapter.IOnSubItemClick() {
                 @Override
@@ -240,14 +240,14 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
                     }
                 }
             });
-            rcvItemImg.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                    int current = ((LinearLayoutManager)rcvItemImg.getLayoutManager())
-                            .findFirstVisibleItemPosition();
-                    tvCountImg.setText((current + 1) +"/"+urlsImg.size());
-                }
-            });
+//            rcvItemImg.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//                @Override
+//                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                    int current = ((LinearLayoutManager)rcvItemImg.getLayoutManager())
+//                            .findFirstVisibleItemPosition();
+//                    tvCountImg.setText((current + 1) +"/"+urlsImg.size());
+//                }
+//            });
 
 //            if (Constants.TypeDestination.RESTAURANTS.equals(travel.getContent_type()) || Constants.TypeDestination.HOTELS.equals(travel.getContent_type())) {
 //                layoutPrice.setVisibility(View.VISIBLE);
@@ -303,13 +303,13 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
                 e.printStackTrace();
             }
             // nếu để trên thì postion bị sai
-            try {
-                SnapHelper pagerSnapHelper = new PagerSnapHelper();
-                pagerSnapHelper.attachToRecyclerView(rcvItemImg);
-                indicator.attachToRecyclerView(rcvItemImg, pagerSnapHelper);
-            } catch (IllegalStateException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                SnapHelper pagerSnapHelper = new PagerSnapHelper();
+//                pagerSnapHelper.attachToRecyclerView(rcvItemImg);
+//                indicator.attachToRecyclerView(rcvItemImg, pagerSnapHelper);
+//            } catch (IllegalStateException e) {
+//                e.printStackTrace();
+//            }
         }
     }
     public interface ClickItem {
