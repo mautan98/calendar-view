@@ -49,7 +49,11 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     override fun getItemCount(): Int {
         return try {
-            items!!.size;
+            if(type!![0] == "place"){
+                return 4
+            }else{
+                return 3
+            }
         } catch (e: Exception) {
             0;
         }
