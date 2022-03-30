@@ -490,7 +490,13 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                 } else {
                     type[0] = "video"
                 }
-                sortAdapter?.notifyDataSetChanged()
+                try {
+                    sortAdapter?.notifyDataSetChanged()
+                    if (layoutExpand.visibility == View.VISIBLE) {
+                        hideMenuAnim()
+                    }
+                } catch (e: Exception) {
+                }
             }
 
             override fun onPageScrollStateChanged(state: Int) {
