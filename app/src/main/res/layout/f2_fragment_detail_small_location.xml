@@ -35,7 +35,7 @@
                     app:titleEnabled="false">
 
                     <ImageView
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:id="@+id/imgBanner"
                         android:layout_width="match_parent"
                         android:layout_height="235dp"
@@ -44,6 +44,7 @@
                         app:layout_collapseMode="parallax" />
 
                     <RelativeLayout
+                        android:visibility="gone"
                         app:layout_collapseMode="parallax"
                         android:layout_width="match_parent"
                         android:layout_height="197dp">
@@ -57,6 +58,7 @@
                             tools:listitem="@layout/item_img_small_location" />
 
                         <me.relex.circleindicator.CircleIndicator2
+                            android:visibility="gone"
                             android:id="@id/indicator"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -72,6 +74,7 @@
                             app:ci_width="8dp" />
 
                         <TextView
+                            android:visibility="gone"
                             android:id="@+id/tv_count_img"
                             android:layout_width="42dp"
                             android:layout_height="24dp"
