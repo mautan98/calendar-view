@@ -163,7 +163,7 @@ public class ServiceFragment extends MainFragment implements Observer {
 //                } catch (Exception e) {
 //                    e.printStackTrace();
 //                }
-                binding.rllNoData.setVisibility(View.VISIBLE);
+//                binding.rllNoData.setVisibility(View.VISIBLE);
             }
         }
     }

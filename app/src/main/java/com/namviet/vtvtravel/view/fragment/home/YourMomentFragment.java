@@ -174,8 +174,8 @@ public class YourMomentFragment extends MainFragment implements Observer, Travel
                             videoMomentAdapter.setTravelSelectListener(YourMomentFragment.this);
                         }
                         else if(o instanceof ErrorResponse){
-                            binding.nestedScrollView.setVisibility(View.GONE);
-                            binding.rllNoData.setVisibility(View.VISIBLE);
+//                            binding.nestedScrollView.setVisibility(View.GONE);
+//                            binding.rllNoData.setVisibility(View.VISIBLE);
                         }
                     } else {
 

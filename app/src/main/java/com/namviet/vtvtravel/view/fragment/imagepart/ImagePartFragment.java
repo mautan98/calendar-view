@@ -142,7 +142,7 @@ public class ImagePartFragment extends BaseFragment<F2FragmentImagePartBinding> 
                     }
                 }
                 else  {
-                    getBinding().rllNoData.setVisibility(View.VISIBLE);
+//                    getBinding().rllNoData.setVisibility(View.VISIBLE);
                 }
 
                 if(response.isLoadMore()){

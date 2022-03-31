@@ -244,10 +244,10 @@ public class DetailMomentFrangment extends MainFragment implements Observer, New
                         @Override
                         public void run() {
                             DetailNewsResponse response = (DetailNewsResponse) o;
-                            if(response.getStatus().equals("error")){
-                                binding.rllNoData.setVisibility(View.VISIBLE);
-                                binding.lnlData.setVisibility(View.GONE);
-                            }
+//                            if(response.getStatus().equals("error")){
+//                                binding.rllNoData.setVisibility(View.VISIBLE);
+//                                binding.lnlData.setVisibility(View.GONE);
+//                            }
 
                             updateUI(response.getData());
                             getComment(response.getData().getId());
@@ -303,10 +303,10 @@ public class DetailMomentFrangment extends MainFragment implements Observer, New
                     binding.rclComment.setAdapter(commentInDetailTravelNewsAdapter);
                 } else if (o instanceof ErrorResponse) {
                     ErrorResponse responseError = (ErrorResponse) o;
-                    if(responseError.getErrorCode().equals(ERROR_CODE.ERROR_NEWS.toString())){
-                        binding.rllNoData.setVisibility(View.VISIBLE);
-                        binding.lnlData.setVisibility(View.GONE);
-                    }
+//                    if(responseError.getErrorCode().equals(ERROR_CODE.ERROR_NEWS.toString())){
+//                        binding.rllNoData.setVisibility(View.VISIBLE);
+//                        binding.lnlData.setVisibility(View.GONE);
+//                    }
 //                    showMessage(responseError.getMessage());
 
                 }
