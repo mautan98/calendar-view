@@ -234,6 +234,7 @@ public class DetailMomentFrangment extends MainFragment implements Observer, New
                             DetailTravelNewsResponse.Data data = new DetailTravelNewsResponse(). new Data();
                             data.setId(response.getData().getId());
                             data.setContent_type(response.getData().getContent_type());
+                            data.setName(response.getData().getName());
                             detailTravelNewsResponse.setData(data);
                         }
                     });
