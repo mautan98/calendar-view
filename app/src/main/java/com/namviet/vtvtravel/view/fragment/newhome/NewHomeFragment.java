@@ -816,7 +816,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 
     @Override
     public void onClickItemSmallLocation(ItemHomeService.Item item) {
-        SmallLocationActivity.startScreen(mActivity, item.getLink(), item.getCode(), SmallLocationActivity.OpenType.LIST);
+//        SmallLocationActivity.startScreen(mActivity, item.getLink(), item.getCode(), SmallLocationActivity.OpenType.LIST);
     }
 
     private void inAlpha() {
