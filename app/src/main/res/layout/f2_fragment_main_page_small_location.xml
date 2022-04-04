@@ -85,7 +85,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="14dp"
                                 android:fontFamily="@font/roboto_regular"
-                                android:text="Hà Nội"
+                                android:text="Địa điểm"
                                 android:textColor="@color/md_black_1000"
                                 android:textSize="14dp" />
 

@@ -41,6 +41,7 @@ import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.MyLocation;
 import com.namviet.vtvtravel.model.f2event.OnChooseRegionSmallLocation;
+import com.namviet.vtvtravel.model.f2event.OnDetectLocation;
 import com.namviet.vtvtravel.model.f2event.OnDoneFilterOption;
 import com.namviet.vtvtravel.model.f2event.OnReOpenChatScreen;
 import com.namviet.vtvtravel.model.f2smalllocation.Travel;
@@ -434,6 +435,11 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                 }
                 smallLocationAdapter.notifyDataSetChanged();
                 getBinding().tvRegionName.setText(response.getData().getNameRegion());
+                try {
+                    EventBus.getDefault().post(new OnDetectLocation(response.getData().getNameRegion()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 try {
                     if (travelList == null || (travelList != null && travelList.size() == 0)) {

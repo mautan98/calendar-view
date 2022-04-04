@@ -94,13 +94,6 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
         activity.startActivity(intent);
     }
 
-    public static void startScreen(Context activity, String link, String code, int screenType) {
-        Intent intent = new Intent(activity, SmallLocationActivity.class);
-        intent.putExtra(Constants.IntentKey.LINK, link);
-        intent.putExtra(Constants.IntentKey.CODE, code);
-        intent.putExtra(Constants.IntentKey.SCREEN_TYPE, screenType);
-        activity.startActivity(intent);
-    }
 
     public static void startScreen(Context activity, int screenType, ArrayList<ItemHomeService.Item> items, String code, int position){
         Intent intent = new Intent(activity, SmallLocationActivity.class);

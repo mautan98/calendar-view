@@ -19,6 +19,7 @@ import com.namviet.vtvtravel.databinding.F2FragmentMainPageSmallLocationBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.f2event.OnChooseRegionSmallLocation
+import com.namviet.vtvtravel.model.f2event.OnDetectLocation
 import com.namviet.vtvtravel.model.newhome.ItemHomeService
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse
@@ -35,6 +36,7 @@ import com.namviet.vtvtravel.view.fragment.f2smalllocation.SearchResultFragment
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.SmallLocationFragment
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import com.namviet.vtvtravel.viewmodel.f2search.SearchViewModel
+import com.namviet.vtvtravel.viewmodel.f2smalllocation.SmallLocationViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.f2_fragment_main_page_small_location.*
 import kotlinx.android.synthetic.main.f2_fragment_main_page_small_location.btnBack
@@ -52,6 +54,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
+
 class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeService<*>.Item>? = null, private var position : Int) : BaseFragment<F2FragmentMainPageSmallLocationBinding?>(), Observer, SearchSuggestionSmallLocationFragment.SearchSuggestionCallback {
     private var mainAdapter : MainAdapter? = null
     private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
@@ -66,7 +69,7 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
     lateinit var searchViewModel: SearchViewModel
 
 
-    private var viewModel: SearchBigLocationViewModel? = null
+    private var searchBigLocationViewModel: SearchBigLocationViewModel? = null
     private var locationsMain: ArrayList<Location> = ArrayList()
     private val locations: ArrayList<Location>? = ArrayList()
 
@@ -82,9 +85,9 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
         binding?.smallLocationMainViewModel = smallLocationMainViewModel
         searchViewModel.addObserver(this)
 
-        viewModel = SearchBigLocationViewModel()
-        viewModel?.addObserver(this)
-        viewModel?.getAllLocation()
+        searchBigLocationViewModel = SearchBigLocationViewModel()
+        searchBigLocationViewModel?.addObserver(this)
+        searchBigLocationViewModel?.getAllLocation()
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -370,6 +373,11 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
         }else {
             tvRegionName.text = "Tất cả"
         }
+    }
+
+    @Subscribe
+    public fun onDetectLocation(onDetectLocation: OnDetectLocation){
+        tvRegionName.text = onDetectLocation.regionName
     }
 
 
