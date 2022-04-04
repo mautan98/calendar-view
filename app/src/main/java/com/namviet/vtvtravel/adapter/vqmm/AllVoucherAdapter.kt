@@ -103,7 +103,7 @@ class AllVoucherAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         fun bindItem(position: Int?) {
             this.position = position
             val travel = vouchers!![position!!]
-            Glide.with(context!!).load("https://cdn.vtvtravel.vn/"+travel.avatarUri).into(itemView.imgAvatar)
+            Glide.with(context!!).load(travel.avatarUri).into(itemView.imgAvatar)
             itemView.tvTitle.text = travel.name
             try {
                 itemView.tvOutDate.text = "Hạn đến " + DateUtltils.timeToString(java.lang.Long.valueOf(travel.endAt) / 1000)
