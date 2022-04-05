@@ -285,8 +285,8 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         try {
             if(filterByCodeResponse != null){
                 for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
-                    if (position == i) {
-                        filterByCodeResponse.getData().getItems().get(position).setSelected(true);
+                    if (filterByCodeResponse.getData().getItems().get(i).getCode().equals(code)) {
+                        filterByCodeResponse.getData().getItems().get(i).setSelected(true);
                         Log.e("", "");
                     } else filterByCodeResponse.getData().getItems().get(i).setSelected(false);
                 }
