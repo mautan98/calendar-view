@@ -60,6 +60,12 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
     var targetPosition: Int = -1
 
 
+    public fun setVoucherId(id : String){
+        listIds.clear()
+        listIds.add(id)
+    }
+
+
     override fun getLayoutRes(): Int {
         return R.layout.f2_fragment_detail_deal_webview
     }
@@ -67,7 +73,7 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
     override fun initView() {
         viewModel = LuckyWheelViewModel()
         viewModel?.addObserver(this)
-        viewModel?.wheelAreas("VTVTRAVEL", ArrayList<String>())
+        viewModel?.wheelAreas("VTVTRAVEL", listIds)
         viewModel?.wheelResult("VTVTRAVEL", "ANDROID", "app")
     }
 

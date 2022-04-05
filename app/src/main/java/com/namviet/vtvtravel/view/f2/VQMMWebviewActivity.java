@@ -54,6 +54,7 @@ public class VQMMWebviewActivity extends BaseActivityNew<F2ActivityDealWebviewBi
 //        OldVQMMWebviewFragment vqmmWebviewFragment = new OldVQMMWebviewFragment(voucherId);
 //        VQMMWebviewFragment vqmmWebviewFragment = new VQMMWebviewFragment(voucherId);
         VQMMWebviewFragment vqmmWebviewFragment = new VQMMWebviewFragment();
+        vqmmWebviewFragment.setVoucherId(voucherId);
         return vqmmWebviewFragment;
     }
 
