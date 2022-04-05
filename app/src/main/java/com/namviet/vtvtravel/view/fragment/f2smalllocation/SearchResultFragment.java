@@ -411,15 +411,6 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
         getBinding().btnChooseRegion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                addFragment(new SearchLocationFragment(new SearchLocationFragment.DoneSearch() {
-//                    @Override
-//                    public void onDoneSearch(Location location) {
-//                        getBinding().tvRegionName.setText(location.getName());
-//                        regionId = location.getId();
-//                        clearRclData();
-//                        viewModel.getSmallLocation(genLinkToFilter(), false);
-//                    }
-//                }));
                 showMenu();
             }
         });

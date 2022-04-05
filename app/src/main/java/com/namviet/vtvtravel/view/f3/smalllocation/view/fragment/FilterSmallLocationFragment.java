@@ -2,43 +2,27 @@ package com.namviet.vtvtravel.view.f3.smalllocation.view.fragment;
 
 import android.annotation.SuppressLint;
 import android.view.View;
-import android.widget.CompoundButton;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.android.flexbox.FlexboxLayoutManager;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.adapter.filter.DistanceAdapter;
-import com.namviet.vtvtravel.adapter.filter.MainFilterTabAdapter;
-import com.namviet.vtvtravel.adapter.filter.StarAdapter;
-import com.namviet.vtvtravel.databinding.F2FragmentFilterHomeBinding;
 import com.namviet.vtvtravel.databinding.F3FragmentFilterHomeBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.f2event.OnDoneFilterOption;
-import com.namviet.vtvtravel.model.filter.ItemTab;
 import com.namviet.vtvtravel.model.travelnews.Location;
-import com.namviet.vtvtravel.response.f2filter.DistanceClass;
 import com.namviet.vtvtravel.response.f2filter.FilterByCodeResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByPageResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f3.smalllocation.adapter.FilterAdapter;
 import com.namviet.vtvtravel.view.f3.smalllocation.adapter.FilterTest;
-import com.namviet.vtvtravel.view.fragment.f2filter.BaseFilterFragment;
-import com.namviet.vtvtravel.view.fragment.f2filter.FilterHomeFragment;
-import com.namviet.vtvtravel.view.fragment.f2filter.TypeFilterFragment;
-import com.namviet.vtvtravel.view.fragment.nearbyexperience.SearchLocationFragment;
 import com.namviet.vtvtravel.viewmodel.f2filter.FilterHomeViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Set;
 
 public class FilterSmallLocationFragment extends BaseFragment<F3FragmentFilterHomeBinding> implements Observer {
     private FilterHomeViewModel filterHomeViewModel;

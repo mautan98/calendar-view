@@ -281,7 +281,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
     }
 
-    public void onPageSelected(int position) {
+    public void onPageSelected() {
         try {
             if(filterByCodeResponse != null){
                 for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
@@ -308,7 +308,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         getBinding().btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onPageSelected(positionTabSelected);
+                onPageSelected();
                 FilterActivity.startScreen(mActivity, filterByCodeResponse, positionTabSelected);
             }
         });
@@ -316,7 +316,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         getBinding().btnFilter2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onPageSelected(positionTabSelected);
+                onPageSelected();
                 FilterActivity.startScreen(mActivity, filterByCodeResponse, positionTabSelected);
             }
         });
@@ -473,8 +473,6 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
             } else if (o instanceof FilterByCodeResponse) {
                 filterByCodeResponse = (FilterByCodeResponse) o;
-//                getDefaultSelectedFilterTab();
-//                setDefaultSelectedFilterTab(positionTabSelected);
                 setDistance();
             } else if (o instanceof SortSmallLocationResponse) {
                 sortSmallLocationResponse = (SortSmallLocationResponse) o;
@@ -491,9 +489,6 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         }
     }
 
-    public void setTabSelected() {
-        setDefaultSelectedFilterTab(positionTabSelected);
-    }
 
 
     @Subscribe
@@ -507,28 +502,6 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         }
 
     }
-
-    private int getTabSelectedAndCodeSelected() {
-        for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
-            if (filterByCodeResponse.getData().getItems().get(i).isSelected()) {
-                return i;
-            }
-        }
-        return 0;
-    }
-
-    private void setDefaultSelectedFilterTab(int position) {
-        filterByCodeResponse.getData().getItems().get(position).setSelected(true);
-    }
-
-//    private void getDefaultSelectedFilterTab() {
-//        for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
-//            if (filterByCodeResponse.getData().getItems().get(i).getCode().equals(code)) {
-//                positionTabSelected = i;
-//                return;
-//            }
-//        }
-//    }
 
     public void setDistance() {
         DistanceClass distanceClass = new Gson().fromJson(loadJSONFromAsset(), DistanceClass.class);

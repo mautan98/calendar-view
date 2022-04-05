@@ -359,7 +359,7 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
         edtSearch.text = keyword
         for(i in 0 until dataMenu!!.size){
             if(i == tabSelectedPosition){
-                addFragment(SearchResultFragment(WSConfig.HOST+"nearby?content_type=", dataMenu?.get(i)?.code,location?.id,keyword,i, this@SmallLocationMainPageFragment.location))
+                addFragment(SearchResultFragment(WSConfig.HOST+"nearby?content_type=", dataMenu?.get(i)?.code, location?.id, keyword, i, this@SmallLocationMainPageFragment.location))
             }
         }
         KeyboardUtils.hideKeyboard(mActivity, edtSearch)
