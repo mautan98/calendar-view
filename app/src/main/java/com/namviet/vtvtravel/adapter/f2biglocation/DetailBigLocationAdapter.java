@@ -14,12 +14,15 @@ import android.widget.Toast;
 
 import com.brucetoo.videoplayer.utils.Utils;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2biglocation.sub.FooterBigLocationAdapter;
 import com.namviet.vtvtravel.adapter.f2biglocation.sub.HeaderBigLocation2Adapter;
 import com.namviet.vtvtravel.adapter.f2biglocation.sub.HeaderBigLocationAdapter;
 import com.namviet.vtvtravel.adapter.f2biglocation.sub.TravelTipBigLocationAdapter;
 import com.namviet.vtvtravel.adapter.f2biglocation.sub.VideoBigLocationAdapter;
+import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.WeatherResponse;
 import com.namviet.vtvtravel.response.f2biglocation.BigLocationResponse;
@@ -29,6 +32,8 @@ import com.namviet.vtvtravel.view.f2.HighLightSeeMoreVideoActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -328,16 +333,22 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
                     try {
                         switch (items.get(position).getCode_type()) {
                             case "HOTEL":
-                                SmallLocationActivity.startScreen(context, items.get(position).getLink(), "APP_WHERE_STAY", SmallLocationActivity.OpenType.LIST, region.getId());
-                                break;
                             case "RESTAURANT":
-                                SmallLocationActivity.startScreen(context, items.get(position).getLink(), "APP_WHAT_EAT", SmallLocationActivity.OpenType.LIST, region.getId());
-                                break;
                             case "CENTER":
-                                SmallLocationActivity.startScreen(context, items.get(position).getLink(), "APP_WHAT_PLAY", SmallLocationActivity.OpenType.LIST, region.getId());
-                                break;
                             case "PLACE":
-                                SmallLocationActivity.startScreen(context, items.get(position).getLink(), "APP_WHERE_GO", SmallLocationActivity.OpenType.LIST, region.getId());
+                                int mPosition = 0;
+                                for (int i = 0; i < region.getItems().size(); i++) {
+                                    if(region.getItems().get(i).getCode().equals(items.get(position).getCode())){
+                                        mPosition = i;
+                                    }
+                                }
+
+                                String json = new Gson().toJson(region.getItems());
+                                Type listType = new TypeToken<ArrayList<ItemHomeService.Item>>() {}.getType();
+                                ArrayList<ItemHomeService.Item> yourList = new Gson().fromJson(json, listType);
+                                SmallLocationActivity.startScreen(context, SmallLocationActivity.OpenType.LIST, yourList, items.get(position).getCode(),mPosition);
+
+//                                SmallLocationActivity.startScreen(context, items.get(position).getLink(), "APP_WHERE_STAY", SmallLocationActivity.OpenType.LIST, region.getId());
                                 break;
                         }
                     } catch (Exception e) {
