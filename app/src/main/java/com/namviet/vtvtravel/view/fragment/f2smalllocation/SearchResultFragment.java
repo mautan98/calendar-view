@@ -193,18 +193,22 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
             case R.id.menuItem_where_go:
                 typeDestination = Constants.TypeDestination.PLACES;
                 positionTabSelected = 0;
+                code = "APP_WHERE_GO";
                 break;
             case R.id.menuItem_where_stay:
                 typeDestination = Constants.TypeDestination.HOTELS;
                 positionTabSelected = 1;
+                code = "APP_WHERE_STAY";
                 break;
             case R.id.menuItem_what_eat:
                 typeDestination = Constants.TypeDestination.RESTAURANTS;
                 positionTabSelected = 2;
+                code = "APP_WHAT_EAT";
                 break;
             case R.id.menuItem_what_play:
                 typeDestination = Constants.TypeDestination.CENTERS;
                 positionTabSelected = 3;
+                code = "APP_WHAT_PLAY";
                 break;
         }
     }
@@ -344,7 +348,7 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
         getBinding().btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onPageSelected(positionTabSelected);
+                onPageSelected();
                 FilterActivity.startScreen(mActivity, filterByCodeResponse,positionTabSelected);
             }
         });
@@ -352,7 +356,7 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
         getBinding().btnFilter2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onPageSelected(positionTabSelected);
+                onPageSelected();
                 FilterActivity.startScreen(mActivity, filterByCodeResponse,positionTabSelected);
             }
         });
@@ -425,11 +429,10 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
             }
         });
     }
-    public void onPageSelected(int position) {
+    public void onPageSelected() {
         for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
-            if (position == i) {
-                filterByCodeResponse.getData().getItems().get(position).setSelected(true);
-                Log.e("", "");
+            if (filterByCodeResponse.getData().getItems().get(i).getCode().equals(code)) {
+                filterByCodeResponse.getData().getItems().get(i).setSelected(true);
             } else filterByCodeResponse.getData().getItems().get(i).setSelected(false);
         }
     }
