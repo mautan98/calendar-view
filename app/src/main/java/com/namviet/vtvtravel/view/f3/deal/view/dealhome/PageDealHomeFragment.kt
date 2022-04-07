@@ -53,19 +53,27 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
     override fun inject() {}
     override fun setClickListener() {
         btnMyGift.setOnClickListener {
-//            vpContent.currentItem = 0
-//            imgMyGift.setImageResource(R.drawable.ic_my_gift_selected)
-//            tvMyGift.setTextColor(Color.parseColor("#F92418"))
-//
-//            imgDealSubscribe.setImageResource(R.drawable.ic_my_subcribe_unselected)
-//            tvDealSubscribe.setTextColor(Color.parseColor("#707070"))
 
-            try {
-                var oneButtonTitleImageDialog = OneButtonTitleImageDialog();
-                oneButtonTitleImageDialog.show(mActivity.supportFragmentManager, Constants.TAG_DIALOG);
-            } catch (e: Exception) {
+            val account = MyApplication.getInstance().account
+            if (null != account && account.isLogin) {
+                vpContent.currentItem = 0
+                imgMyGift.setImageResource(R.drawable.ic_my_gift_selected)
+                tvMyGift.setTextColor(Color.parseColor("#F92418"))
 
+                imgDealSubscribe.setImageResource(R.drawable.ic_my_subcribe_unselected)
+                tvDealSubscribe.setTextColor(Color.parseColor("#707070"))
+
+            } else {
+                LoginAndRegisterActivityNew.startScreen(mActivity, 0, false)
             }
+
+
+//            try {
+//                var oneButtonTitleImageDialog = OneButtonTitleImageDialog();
+//                oneButtonTitleImageDialog.show(mActivity.supportFragmentManager, Constants.TAG_DIALOG);
+//            } catch (e: Exception) {
+//
+//            }
         }
         btnDealSubcribe.setOnClickListener {
             val account = MyApplication.getInstance().account

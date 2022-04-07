@@ -1,13 +1,10 @@
 package com.namviet.vtvtravel.view.f3.deal.adapter.dealsubscribe;
 
 import android.content.Context;
-import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,27 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
-import com.namviet.vtvtravel.ultils.DateUtltils;
-import com.namviet.vtvtravel.view.f3.deal.constant.DiscountDisplayType;
-import com.namviet.vtvtravel.view.f3.deal.constant.IsProcessingType;
-import com.namviet.vtvtravel.view.f3.deal.model.deal.Content;
-import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
-import com.namviet.vtvtravel.view.f3.deal.view.dealdetail.DetailDealActivity;
-import com.namviet.vtvtravel.viewmodel.BaseViewModel;
+import com.namviet.vtvtravel.view.f3.deal.model.mygift.MyGift;
 
-import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class F3MyGiftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
     private Context context;
-    private DealResponse dealResponse;
-    private BaseViewModel viewModel;
+    private ArrayList<MyGift> myGifts;
 
 
-    public F3MyGiftAdapter(Context context, DealResponse dealResponse, BaseViewModel viewModel) {
+    public F3MyGiftAdapter(Context context, ArrayList<MyGift> myGifts) {
         this.context = context;
-        this.dealResponse = dealResponse;
-        this.viewModel = viewModel;
+        this.myGifts = myGifts;
 
     }
 
@@ -70,54 +59,32 @@ public class F3MyGiftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemCount() {
         try {
-            return dealResponse.getData().getContent().size();
+            return myGifts.size();
         } catch (Exception e) {
-            return 10;
+            return 0;
         }
     }
 
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
-
-
+        private TextView tvName;
+        private TextView tvType;
+        private ImageView imgAvatar;
 
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
+            tvName = itemView.findViewById(R.id.tvName);
+            tvType = itemView.findViewById(R.id.tvType);
+            imgAvatar = itemView.findViewById(R.id.imgAvatar);
 
         }
 
         public void bindItem(int position) {
-
+            tvName.setText(myGifts.get(position).getName());
+            tvType.setText(myGifts.get(position).getType());
+            Glide.with(context).load(myGifts.get(position).getAvatarUri()).error(R.drawable.img_placeholder).into(imgAvatar);
         }
     }
 
-    public static String convertPrice(String string) {
-        try {
-            DecimalFormat df = new DecimalFormat("###,###,###");
-            return df.format(Double.parseDouble(string));
-        } catch (Exception e) {
-            return string;
-        }
-    }
-
-    public static String getHuntingUserCount(Integer input){
-        if(input == null || input < 10){
-            return "0";
-        } else {
-            if(input < 100){
-                return "10";
-            }else if(input < 1000){
-                return "100";
-            }else if(input < 10000){
-                return "1000";
-            }else if(input < 100000){
-                return "10000";
-            }else if(input < 1000000){
-                return "100000";
-            }else {
-                return "1000000";
-            }
-        }
-    }
 }

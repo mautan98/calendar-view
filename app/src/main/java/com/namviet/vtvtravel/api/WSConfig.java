@@ -224,6 +224,7 @@ public class WSConfig {
         public static final String DEAL_CAMPAIGN_DETAIL = "deals/campaigns/details";
         public static final String DEAL_CHILD_DETAIL = "deals/details";
         public static final String DEAL_BY_CAMPAIGN = "deals/byCampaigns";
+        public static final String MY_GIFT = "myGifts";
     }
 
     public class KeyParam {
