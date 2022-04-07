@@ -260,6 +260,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                                 })
                             fragmentManager!!.beginTransaction()
                                 .replace(R.id.sortFrame, sortFollowFragment).commit()
+                            sortAndFilter!!.sortHeader[0].isOpen = true
+                            sortAdapter?.notifyDataSetChanged()
                         }
 
                         1 -> {
@@ -279,6 +281,9 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                                 })
                             fragmentManager!!.beginTransaction()
                                 .replace(R.id.sortFrame, dropDownLocationFragment).commit()
+
+                            sortAndFilter!!.sortHeader[1].isOpen = true
+                            sortAdapter?.notifyDataSetChanged()
                         }
 
                         2 -> {
@@ -298,6 +303,9 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                                 })
                             fragmentManager!!.beginTransaction()
                                 .replace(R.id.sortFrame, dropDownCategoryFragment).commit()
+
+                            sortAndFilter!!.sortHeader[2].isOpen = true
+                            sortAdapter?.notifyDataSetChanged()
                         }
 
                         3 -> {
@@ -316,6 +324,9 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                                 })
                             fragmentManager!!.beginTransaction()
                                 .replace(R.id.sortFrame, dropDownStatusFragment).commit()
+
+                            sortAndFilter!!.sortHeader[3].isOpen = true
+                            sortAdapter?.notifyDataSetChanged()
                         }
 
                     }
@@ -375,6 +386,17 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
         layoutExpand.setOnClickListener {
             hideMenuAnim()
+        }
+    }
+
+
+    private fun resetArrows(){
+        try {
+            for (i in 0 until sortAndFilter!!.sortHeader.size){
+                sortAndFilter!!.sortHeader!![i].isOpen = false
+            }
+            sortAdapter?.notifyDataSetChanged()
+        } catch (e: Exception) {
         }
     }
 
@@ -635,6 +657,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                 } catch (e: java.lang.Exception) {
                     e.printStackTrace()
                 }
+
+                resetArrows()
             }
 
             override fun onAnimationRepeat(animation: Animation) {}

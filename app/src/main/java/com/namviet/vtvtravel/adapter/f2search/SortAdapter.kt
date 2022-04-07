@@ -93,6 +93,12 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 itemView.imgDown.setTint(R.color.black)
             }
             itemView.tvTitle.text = items!![position].label
+
+            if(items!![position].isOpen){
+                itemView.imgDown.rotation = 180f
+            }else{
+                itemView.imgDown.rotation = 0f
+            }
         }
 
         fun getStatus(position: Int): Boolean {

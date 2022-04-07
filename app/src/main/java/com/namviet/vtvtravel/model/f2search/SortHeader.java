@@ -3,6 +3,7 @@ package com.namviet.vtvtravel.model.f2search;
 import java.util.ArrayList;
 
 public class SortHeader {
+    private boolean isOpen = false;
     private String name;
     private String namePlace;
     private String nameNews;
@@ -110,5 +111,13 @@ public class SortHeader {
 
     public void setChildrenVideo(ArrayList<Children> childrenVideo) {
         this.childrenVideo = childrenVideo;
+    }
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    public void setOpen(boolean open) {
+        isOpen = open;
     }
 }

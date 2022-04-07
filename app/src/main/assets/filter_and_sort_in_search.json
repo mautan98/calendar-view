@@ -1,6 +1,7 @@
 {
   "sortHeader": [
     {
+      "isOpen": false,
       "name": "Sắp xếp theo",
       "namePlace": "Sắp xếp theo",
       "nameNews": "Sắp xếp theo",
@@ -15,7 +16,7 @@
           "isSelected": false
         },
         {
-          "name": "Gần nhất",
+          "name": "Gần trung tâm nhất",
           "id": "distance",
           "isSelected": false
         },
@@ -67,6 +68,7 @@
       ]
     },
     {
+      "isOpen": false,
       "label" : "Địa điểm",
       "name": "Địa điểm",
       "id": "Sắp xếp theo",
@@ -83,6 +85,7 @@
       }
     },
     {
+      "isOpen": false,
       "label" : "Danh mục",
       "name": "Danh mục",
       "id": "Sắp xếp theo",
@@ -111,6 +114,7 @@
       ]
     },
     {
+      "isOpen": false,
       "label" : "Đang mở",
       "name": "Đang mở",
       "id": "Sắp xếp theo",

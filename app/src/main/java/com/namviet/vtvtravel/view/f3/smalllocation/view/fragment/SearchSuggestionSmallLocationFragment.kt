@@ -90,14 +90,14 @@ class SearchSuggestionSmallLocationFragment(private var keyword: String? = null,
         handleSearch()
 
         edtSearch.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
                 if (edtSearch.text.isNotEmpty()) {
 //                    addRecentSearch(edtKeyword.text.toString())
 //                    recentAdapter?.setData(getRecentSearch())
 //                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, ""))
 //                    KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
 //                    edtKeyword.clearFocus()
-                    KeyboardUtils.hideKeyboard(mActivity, edtSearch)
+                    layoutKeyword.performClick()
                 }
                 true
             } else {

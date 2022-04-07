@@ -157,21 +157,21 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
 
 
 
-        searchSuggestionKeyWordAdapter = SearchSuggestionKeyWordAdapter(searchSuggestions, mActivity, object : SearchSuggestionKeyWordAdapter.ClickItem{
-            override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
-                try {
-                    edtSearch.setText(searchKeywordSuggestion?.title)
-//                    addRecentSearch(edtSearch.text.toString())
-//                    recentAdapter?.setData(getRecentSearch())
-          //          addFragment(SearchResultFragment("http://api.vtvtravel.vn/nearby?content_type=","APP_WHERE_GO",""))
-                    KeyboardUtils.hideKeyboard(mActivity, edtSearch)
-                    //edtSearch.clearFocus()
-                } catch (e: Exception) {
-                }
-            }
-
-        })
-        rclSearchSuggestion.adapter = searchSuggestionKeyWordAdapter
+//        searchSuggestionKeyWordAdapter = SearchSuggestionKeyWordAdapter(searchSuggestions, mActivity, object : SearchSuggestionKeyWordAdapter.ClickItem{
+//            override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
+//                try {
+//                    edtSearch.setText(searchKeywordSuggestion?.title)
+////                    addRecentSearch(edtSearch.text.toString())
+////                    recentAdapter?.setData(getRecentSearch())
+//          //          addFragment(SearchResultFragment("http://api.vtvtravel.vn/nearby?content_type=","APP_WHERE_GO",""))
+//                    KeyboardUtils.hideKeyboard(mActivity, edtSearch)
+//                    //edtSearch.clearFocus()
+//                } catch (e: Exception) {
+//                }
+//            }
+//
+//        })
+//        rclSearchSuggestion.adapter = searchSuggestionKeyWordAdapter
 
     }
     override fun inject() {
@@ -183,42 +183,42 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
             mActivity.onBackPressed()
         }
 
-        RxTextView.afterTextChangeEvents(edtSearch)
-                .skipInitialValue()
-                .debounce(790, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    try {
-//                        storeManager.setStringValue(Constants.IntentKey.RECENT_SEARCH_SMALLOCATION, edtSearch.text.toString())
-//                        Log.e("hihihihi", storeManager.getStringValue(Constants.IntentKey.RECENT_SEARCH_SMALLOCATION))
+//        RxTextView.afterTextChangeEvents(edtSearch)
+//                .skipInitialValue()
+//                .debounce(790, TimeUnit.MILLISECONDS)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe {
+//                    try {
+////                        storeManager.setStringValue(Constants.IntentKey.RECENT_SEARCH_SMALLOCATION, edtSearch.text.toString())
+////                        Log.e("hihihihi", storeManager.getStringValue(Constants.IntentKey.RECENT_SEARCH_SMALLOCATION))
+//
+////                        searchViewModel.getSearchSuggestion(edtSearch.text.toString(), regionId)
+//                        searchViewModel.getSearchSuggestion(edtSearch.text.toString(), "")
+//                        layoutKeyword.tvSearchFollow.text = "Tìm kiếm theo \""+ edtSearch.text.toString()+"\"";
+//                        setHighLightedText(layoutKeyword.tvSearchFollow, "\""+ edtSearch.text.toString()+"\"")
+//
+////                        try {
+////                            TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtSearch.text.toString()).setScreen_class(this.javaClass.name))
+////                        } catch (e: Exception) {
+////                            e.printStackTrace()
+////                        }
+//                    } catch (e: Exception) {
+//                    }
+//                }
 
-//                        searchViewModel.getSearchSuggestion(edtSearch.text.toString(), regionId)
-                        searchViewModel.getSearchSuggestion(edtSearch.text.toString(), "")
-                        layoutKeyword.tvSearchFollow.text = "Tìm kiếm theo \""+ edtSearch.text.toString()+"\"";
-                        setHighLightedText(layoutKeyword.tvSearchFollow, "\""+ edtSearch.text.toString()+"\"")
+//        edtSearch.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+//            if (hasFocus){
+//                smallLocationMainViewModel.setStateSecond()
+//            }else{
+//                smallLocationMainViewModel.setStateFirst()
+//            }
+//         }
 
-//                        try {
-//                            TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtSearch.text.toString()).setScreen_class(this.javaClass.name))
-//                        } catch (e: Exception) {
-//                            e.printStackTrace()
-//                        }
-                    } catch (e: Exception) {
-                    }
-                }
-
-        edtSearch.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
-            if (hasFocus){
-                smallLocationMainViewModel.setStateSecond()
-            }else{
-                smallLocationMainViewModel.setStateFirst()
-            }
-         }
-
-        tvCancelSearch.setOnClickListener {
-            smallLocationMainViewModel.setStateFirst()
-            edtSearch.clearFocus()
-            KeyboardUtils.hideKeyboard(mActivity, edtSearch)
-        }
+//        tvCancelSearch.setOnClickListener {
+//            smallLocationMainViewModel.setStateFirst()
+//            edtSearch.clearFocus()
+//            KeyboardUtils.hideKeyboard(mActivity, edtSearch)
+//        }
 
 
 
@@ -238,7 +238,7 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
 
 
         edtSearch.setOnClickListener {
-            addFragment(SearchSuggestionSmallLocationFragment( edtSearch.text.toString(), location, locationsMain, false, this, getContentType(dataMenu!![tabSelectedPosition].code)))
+            addFragment(SearchSuggestionSmallLocationFragment( "", location, locationsMain, false, this, getContentType(dataMenu!![tabSelectedPosition].code)))
         }
 
         btnChooseRegion2.setOnClickListener {
@@ -342,7 +342,7 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
 
     override fun onCancelSearch(location: Location?, keyword: String?) {
 //        handleLocation(location)
-        edtSearch.text = keyword
+//        edtSearch.text = keyword
     }
 
     override fun onClickRegion(location: Location?, keyword: String?) {
@@ -356,7 +356,7 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
 
     private fun goToSearchResult(location: Location?, keyword: String?){
         handleLocation(location)
-        edtSearch.text = keyword
+//        edtSearch.text = keyword
         for(i in 0 until dataMenu!!.size){
             if(i == tabSelectedPosition){
                 addFragment(SearchResultFragment(WSConfig.HOST+"nearby?content_type=", dataMenu?.get(i)?.code, location?.id, keyword, i, this@SmallLocationMainPageFragment.location))
@@ -378,6 +378,14 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
     @Subscribe
     public fun onDetectLocation(onDetectLocation: OnDetectLocation){
         tvRegionName.text = onDetectLocation.regionName
+
+        for (i in 0 until locationsMain.size){
+            if(onDetectLocation.regionName == locationsMain!![i].name){
+                location = locationsMain!![i]
+                regionId = locationsMain!![i].id
+                break
+            }
+        }
     }
 
 
