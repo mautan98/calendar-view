@@ -23,14 +23,14 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
     private var tabAdapter: TabAdapter? = null
     private var dealHomeFragment: DealHomeFragment? = null
     private var dealSubcribeFragment: DealSubcribeFragment? = null
+    private var myGiftFragment : MyGiftFragment? = null
     override fun getLayoutRes(): Int {
         return R.layout.fragment_page_deal_home
     }
 
     override fun initView() {
         tabAdapter = TabAdapter(childFragmentManager, mActivity)
-        var myGiftFragment =
-            MyGiftFragment()
+        myGiftFragment = MyGiftFragment()
         tabAdapter?.addFragment(myGiftFragment, "")
 
         dealHomeFragment = DealHomeFragment()
@@ -63,6 +63,15 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
                 imgDealSubscribe.setImageResource(R.drawable.ic_my_subcribe_unselected)
                 tvDealSubscribe.setTextColor(Color.parseColor("#707070"))
 
+
+                if(!isLogin){
+                    isLogin = true
+                    dealSubcribeFragment?.getData(0)
+                    myGiftFragment?.getData()
+                }
+
+                (mActivity as DealHomeActivity).setStatusBarColorMyGift()
+
             } else {
                 LoginAndRegisterActivityNew.startScreen(mActivity, 0, false)
             }
@@ -89,7 +98,10 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
                 if(!isLogin){
                     isLogin = true
                     dealSubcribeFragment?.getData(0)
+                    myGiftFragment?.getData()
                 }
+
+                (mActivity as DealHomeActivity).setStatusBarColorDefault()
             } else {
                 LoginAndRegisterActivityNew.startScreen(mActivity, 0, false)
             }
@@ -108,6 +120,8 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
                 imgDealSubscribe.setImageResource(R.drawable.ic_my_subcribe_unselected)
                 tvDealSubscribe.setTextColor(Color.parseColor("#707070"))
             }
+
+            (mActivity as DealHomeActivity).setStatusBarColorDefault()
         }
 
 //        vpContent.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {

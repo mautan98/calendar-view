@@ -81,6 +81,7 @@
                     android:textSize="12dp" />
 
                 <LinearLayout
+                    android:id="@+id/layoutPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
@@ -97,14 +98,7 @@
                             android:orientation="vertical"
                             android:visibility="visible">
 
-                            <TextView
-                                android:id="@+id/tvDisplayPrice"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/roboto_bold"
-                                android:text="N/A"
-                                android:textColor="#000"
-                                android:textSize="12dp" />
+
 
                             <androidx.appcompat.widget.LinearLayoutCompat
                                 android:layout_width="wrap_content"
@@ -121,6 +115,15 @@
                                     android:textSize="10dp" />
 
                             </androidx.appcompat.widget.LinearLayoutCompat>
+
+                            <TextView
+                                android:id="@+id/tvDisplayPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="N/A"
+                                android:textColor="#000"
+                                android:textSize="12dp" />
                         </LinearLayout>
 
                         <TextView
@@ -146,11 +149,11 @@
                     android:gravity="bottom"
                     android:layout_weight="1"
                     android:layout_gravity="bottom"
-                    android:id="@+id/expiry_date"
+                    android:id="@+id/tvExpiryDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="HSD: 20.10.2021"
+                    tools:text="HSD: 20.10.2021"
                     android:textColor="#FF0000"
                     android:textSize="9dp" />
 

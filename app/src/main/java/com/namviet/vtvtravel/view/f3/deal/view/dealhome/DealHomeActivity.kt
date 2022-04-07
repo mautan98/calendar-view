@@ -21,10 +21,7 @@ class DealHomeActivity : BaseActivityNew<ActivityDealHomeBinding?>() {
 
     override fun getDataFromIntent() {}
     override fun doAfterOnCreate() {
-        val window: Window = window
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = ContextCompat.getColor(this, R.color.my_statusbar_color)
+        setStatusBarColorDefault()
     }
     override fun setClick() {}
     override fun initFragment(): BaseFragment<*> {
@@ -37,5 +34,25 @@ class DealHomeActivity : BaseActivityNew<ActivityDealHomeBinding?>() {
             context.startActivity(Intent(intent))
         }
 
+    }
+
+    public fun setStatusBarColorDefault(){
+        try {
+            val window: Window = window
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = ContextCompat.getColor(this, R.color.my_statusbar_color)
+        } catch (e: Exception) {
+        }
+    }
+
+    public fun setStatusBarColorMyGift(){
+        try {
+            val window: Window = window
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
+        } catch (e: Exception) {
+        }
     }
 }

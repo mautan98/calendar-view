@@ -39,6 +39,10 @@ public class MyGiftFragment extends BaseFragment<FragmentMyGiftBinding> implemen
         showShimmerLoading();
     }
 
+    public void getData(){
+        dealViewModel.getAllMyGift();
+    }
+
     @Override
     public void initData() {
         f3MyGiftAdapter = new F3MyGiftAdapter(mActivity, myGifts);
