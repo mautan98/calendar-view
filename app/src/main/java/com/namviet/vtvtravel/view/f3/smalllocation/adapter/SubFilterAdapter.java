@@ -141,13 +141,13 @@ public class SubFilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
             if (data.getCode().equals("HOTEL_STANDARD_RATE")) {
                 if (data.getInputs().get(position).getLabel().equals("1")) {
-                    tv_filter.setText(String.format("Kém: Dưới %s điểm", data.getInputs().get(position).getLabel()));
+                    tv_filter.setText(String.format("%s sao", data.getInputs().get(position).getLabel()));
                 } else if (data.getInputs().get(position).getLabel().equals("2")) {
-                    tv_filter.setText(String.format("Trung bình: Dưới %s điểm", data.getInputs().get(position).getLabel()));
+                    tv_filter.setText(String.format("%s sao", data.getInputs().get(position).getLabel()));
                 } else if (data.getInputs().get(position).getLabel().equals("3")) {
-                    tv_filter.setText(String.format("Tốt: %s điểm trở lên", data.getInputs().get(position).getLabel()));
+                    tv_filter.setText(String.format("%s sao", data.getInputs().get(position).getLabel()));
                 } else
-                    tv_filter.setText(String.format("Trung bình: %s điểm trở lên", data.getInputs().get(position).getLabel()));
+                    tv_filter.setText(String.format("%s sao", data.getInputs().get(position).getLabel()));
             } else tv_filter.setText(data.getInputs().get(position).getLabel());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

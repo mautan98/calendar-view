@@ -45,7 +45,16 @@ public class MyGiftFragment extends BaseFragment<FragmentMyGiftBinding> implemen
 
     @Override
     public void initData() {
-        f3MyGiftAdapter = new F3MyGiftAdapter(mActivity, myGifts);
+        f3MyGiftAdapter = new F3MyGiftAdapter(mActivity, myGifts, new F3MyGiftAdapter.Data() {
+            @Override
+            public void onData(boolean isShow) {
+                if(isShow){
+                    getBinding().rllNoData.setVisibility(View.VISIBLE);
+                }else {
+                    getBinding().rllNoData.setVisibility(View.GONE);
+                }
+            }
+        });
         getBinding().rcvMyGift.setAdapter(f3MyGiftAdapter);
     }
 
@@ -68,10 +77,11 @@ public class MyGiftFragment extends BaseFragment<FragmentMyGiftBinding> implemen
                 Toast.makeText(mActivity, "Search!", Toast.LENGTH_SHORT).show();
             }
         });
-        getBinding().btnReload.setOnClickListener(new View.OnClickListener() {
+        getBinding().rllNoData.findViewById(R.id.btn_reload).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                initData();
+                dealViewModel.getAllMyGift();
+                showShimmerLoading();
             }
         });
     }

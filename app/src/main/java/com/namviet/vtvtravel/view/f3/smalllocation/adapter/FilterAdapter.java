@@ -145,7 +145,7 @@ public class FilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             tvHeader.setText(mData.getData().get(position).getLabel());
             switch (mData.getData().get(position).getCode()) {
                 case "HOTEL_STANDARD_RATE":
-                    rcvItemFilter.setLayoutManager(new LinearLayoutManager(context));
+                    rcvItemFilter.setLayoutManager(new FlexboxLayoutManager(context));
                     break;
                 default:
                     rcvItemFilter.setLayoutManager(new FlexboxLayoutManager(context));

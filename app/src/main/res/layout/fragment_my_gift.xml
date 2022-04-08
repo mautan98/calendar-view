@@ -97,49 +97,10 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/f3_item_my_gift" />
 
-            <RelativeLayout
-                android:id="@+id/rll_empty"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/lnl_reload"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="36dp"
-                    android:src="@drawable/img_gift_empty" />
-
-                <LinearLayout
-                    android:id="@+id/lnl_reload"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_medium"
-                        android:text="Trang bạn tìm không có dữ liệu"
-                        android:textColor="#959595"
-                        android:textSize="16dp" />
-
-                    <com.ornach.richtext.RichText
-                        android:id="@+id/btn_reload"
-                        android:layout_width="129dp"
-                        android:layout_height="42dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="23dp"
-                        android:gravity="center"
-                        android:text="TẢI LẠI"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        app:rt_backgroundColor="#00918D"
-                        app:rt_radius="4dp" />
-                </LinearLayout>
-            </RelativeLayout>
+            <include
+                android:visibility="gone"
+                android:id="@+id/rll_no_data"
+                layout="@layout/layout_no_data"/>
 
 
         </RelativeLayout>

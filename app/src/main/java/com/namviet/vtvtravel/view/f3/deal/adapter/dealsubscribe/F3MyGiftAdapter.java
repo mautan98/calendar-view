@@ -23,11 +23,13 @@ public class F3MyGiftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int TYPE_ITEM = 0;
     private Context context;
     private ArrayList<MyGift> myGifts;
+    private Data noData;
 
 
-    public F3MyGiftAdapter(Context context, ArrayList<MyGift> myGifts) {
+    public F3MyGiftAdapter(Context context, ArrayList<MyGift> myGifts, Data noData) {
         this.context = context;
         this.myGifts = myGifts;
+        this.noData = noData;
 
     }
 
@@ -62,8 +64,14 @@ public class F3MyGiftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemCount() {
         try {
+            if(myGifts.size() == 0){
+                noData.onData(true);
+            }else {
+                noData.onData(false);
+            }
             return myGifts.size();
         } catch (Exception e) {
+            noData.onData(true);
             return 0;
         }
     }
@@ -183,6 +191,10 @@ public class F3MyGiftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             }
         }
+    }
+
+    public interface Data{
+        public void onData(boolean isShow);
     }
 
 }
