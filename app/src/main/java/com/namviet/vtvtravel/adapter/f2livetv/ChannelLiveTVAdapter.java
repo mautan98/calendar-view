@@ -19,12 +19,14 @@ public class ChannelLiveTVAdapter extends RecyclerView.Adapter<ChannelLiveTVAdap
     private List<LiveTvResponse.Channel> channelList;
     private ClickButton clickButton;
     private int positionSelected = 0;
+    private int type = 0;
 
-    public ChannelLiveTVAdapter(Context context, List<LiveTvResponse.Channel> channelList, ClickButton clickButton, int positionSelected) {
+    public ChannelLiveTVAdapter(Context context, List<LiveTvResponse.Channel> channelList, ClickButton clickButton, int positionSelected, int type) {
         this.context = context;
         this.channelList = channelList;
         this.clickButton = clickButton;
         this.positionSelected = positionSelected;
+        this.type = type;
     }
 
     public void setPositionSelected(int positionSelected){
@@ -38,12 +40,16 @@ public class ChannelLiveTVAdapter extends RecyclerView.Adapter<ChannelLiveTVAdap
 
     @NonNull
     @Override
-    public ChannelLiveTVAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ChannelLiveTVAdapter.MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_item_channel, parent, false));
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (type == 0) {
+            return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_item_channel, parent, false));
+        }else {
+            return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_item_live_tv_channel, parent, false));
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChannelLiveTVAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.onBind(position);
     }
 
