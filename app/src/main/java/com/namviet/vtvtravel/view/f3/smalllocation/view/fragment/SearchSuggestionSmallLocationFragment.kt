@@ -177,7 +177,7 @@ class SearchSuggestionSmallLocationFragment(private var keyword: String? = null,
                         searchSuggestionCallback?.onClickRegion(location, keyword)
                     }
                 }
-            })
+            }, true)
             addFragment(chooseRegionMainFragment)
         }
 

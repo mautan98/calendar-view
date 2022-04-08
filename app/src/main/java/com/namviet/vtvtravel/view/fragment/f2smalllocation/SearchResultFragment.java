@@ -117,6 +117,8 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
     private Location location;
     private ArrayList<Location> locationsMain = new ArrayList<>();
     private ArrayList<Location> locations = new ArrayList<>();
+
+
     @SuppressLint("ValidFragment")
     public SearchResultFragment(String link, String code, String regionId, String keyWordSearch,int positionTabSelected, Location location) {
         this.link = link;
@@ -542,7 +544,6 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
         clearRclData();
         getMainCategory();
         viewModel.getSmallLocation(genLinkToFilter(), false);
-        getAndSetPlaceHolder();
     }
 
     private void setDefaultSelectedFilterTab(int position) {
@@ -815,14 +816,14 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
 
     @SuppressLint("CheckResult")
     private void handleSearch() {
-        RxTextView.afterTextChangeEvents(getBinding().edtSearch)
-                .skipInitialValue()
-                .debounce(500, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(textViewAfterTextChangeEvent -> {
-                    clearRclData();
-                    viewModel.getSmallLocation(genLinkToFilter(), false);
-                });
+//        RxTextView.afterTextChangeEvents(getBinding().edtSearch)
+//                .skipInitialValue()
+//                .debounce(500, TimeUnit.MILLISECONDS)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(textViewAfterTextChangeEvent -> {
+//                    clearRclData();
+//                    viewModel.getSmallLocation(genLinkToFilter(), false);
+//                });
     }
 
     private void resetFilter() {
