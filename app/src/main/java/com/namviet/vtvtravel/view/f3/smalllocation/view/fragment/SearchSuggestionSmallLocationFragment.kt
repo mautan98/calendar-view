@@ -9,20 +9,16 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.namviet.vtvtravel.R
-import com.namviet.vtvtravel.adapter.f2biglocation.SearchAllLocationAdapter
 import com.namviet.vtvtravel.adapter.f2search.SearchSuggestionKeyWordAdapter
 import com.namviet.vtvtravel.app.MyApplication
 import com.namviet.vtvtravel.config.Constants
-import com.namviet.vtvtravel.databinding.F3FragmentSearchSuggestionBinding
 import com.namviet.vtvtravel.databinding.F3FragmentSearchSuggestionSmallLocationBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
-import com.namviet.vtvtravel.model.f2event.OnBackSearchSuggestion
 import com.namviet.vtvtravel.model.travelnews.Location
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse
 import com.namviet.vtvtravel.response.f2biglocation.LocationResponse
 import com.namviet.vtvtravel.response.f2searchmain.SearchSuggestionResponse
-import com.namviet.vtvtravel.response.f2searchmain.result.SearchType
 import com.namviet.vtvtravel.ultils.PreferenceUtil
 import com.namviet.vtvtravel.ultils.highlight.HighLightController
 import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
@@ -33,11 +29,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.f2_layout_keyword.*
 import kotlinx.android.synthetic.main.f2_layout_keyword.view.*
 import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.*
-import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.imgCloseSearch
-import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.layoutRegion
-import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.rclSearchSuggestion
-import kotlinx.android.synthetic.main.f3_fragment_search_suggestion.tvRegion
-import org.greenrobot.eventbus.EventBus
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -66,12 +57,6 @@ class SearchSuggestionSmallLocationFragment(private var keyword: String? = null,
         searchSuggestionKeyWordAdapter = SearchSuggestionKeyWordAdapter(searchSuggestions, mActivity, object : SearchSuggestionKeyWordAdapter.ClickItem {
             override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
                 try {
-//                    edtKeyword.setText(searchKeywordSuggestion?.title)
-//                    addRecentSearch(edtKeyword.text.toString())
-//                    recentAdapter?.setData(getRecentSearch())
-//                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, searchKeywordSuggestion?.categoryCode))
-//                    KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
-//                    edtKeyword.clearFocus()
                     mActivity.onBackPressed()
                     searchSuggestionCallback?.onClickSuggestion(searchKeywordSuggestion, location)
 
@@ -92,11 +77,6 @@ class SearchSuggestionSmallLocationFragment(private var keyword: String? = null,
         edtSearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
                 if (edtSearch.text.isNotEmpty()) {
-//                    addRecentSearch(edtKeyword.text.toString())
-//                    recentAdapter?.setData(getRecentSearch())
-//                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, ""))
-//                    KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
-//                    edtKeyword.clearFocus()
                     layoutKeyword.performClick()
                 }
                 true
@@ -164,8 +144,6 @@ class SearchSuggestionSmallLocationFragment(private var keyword: String? = null,
         layoutRegion.setOnClickListener {
             KeyboardUtils.hideKeyboard(mActivity, edtSearch)
             edtSearch.clearFocus()
-//            layoutSearchRegion.visibility = View.VISIBLE
-//            layoutSearchSuggestion.visibility = View.GONE
             var chooseRegionMainFragment = ChooseRegionMainFragment();
             chooseRegionMainFragment.setData(locationsMain, object : ChooseRegionMainFragment.ChooseRegion{
                 override fun clickRegion(location: Location?) {
