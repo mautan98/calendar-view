@@ -37,14 +37,12 @@ import kotlin.collections.ArrayList
 class SearchSuggestionSmallLocationFragment(private var keyword: String? = null, private var location: Location? = null, private var locationsMain: ArrayList<Location>? = null, private var clickRegion: Boolean = false, private var searchSuggestionCallback: SearchSuggestionCallback? = null, private var contentType : String? = null) : BaseFragment<F3FragmentSearchSuggestionSmallLocationBinding?>(), Observer {
 
     private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
-
     private var searchSuggestions: ArrayList<SearchSuggestionResponse.Data.Item>? = ArrayList()
-
     @Inject
     lateinit var searchSuggestionViewModel: SearchSuggestionViewModel
-
     @Inject
     lateinit var viewModel: SearchBigLocationViewModel
+
     override fun getLayoutRes(): Int {
         return R.layout.f3_fragment_search_suggestion_small_location
     }
