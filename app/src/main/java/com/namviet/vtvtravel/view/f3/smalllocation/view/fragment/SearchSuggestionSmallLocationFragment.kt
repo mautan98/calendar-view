@@ -172,6 +172,7 @@ class SearchSuggestionSmallLocationFragment(private var keyword: String? = null,
                     tvRegion.text = location?.name
                     this@SearchSuggestionSmallLocationFragment.location = location
                     if(edtSearch.text.isNotEmpty()) {
+                        KeyboardUtils.hideKeyboard(mActivity, edtSearch)
                         mActivity.onBackPressed()
                         searchSuggestionCallback?.onClickRegion(location, keyword)
                     }
@@ -191,6 +192,7 @@ class SearchSuggestionSmallLocationFragment(private var keyword: String? = null,
         }
 
         layoutKeyword.setOnClickListener {
+            KeyboardUtils.hideKeyboard(mActivity, edtSearch)
             mActivity.onBackPressed()
             searchSuggestionCallback?.onClickRegion(location, keyword)
         }

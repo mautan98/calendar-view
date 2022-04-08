@@ -17,7 +17,6 @@ import com.namviet.vtvtravel.view.fragment.f2search.ResultSearchFragment
 import kotlinx.android.synthetic.main.f2_fragment_search_destination_result.*
 import kotlinx.android.synthetic.main.f2_fragment_search_destination_result.rclContent
 import kotlinx.android.synthetic.main.f2_fragment_search_destination_result.tvCountResult
-import kotlinx.android.synthetic.main.f2_fragment_search_news_result.*
 import kotlin.collections.ArrayList
 
 @SuppressLint("ValidFragment")
@@ -89,6 +88,13 @@ class ResultDestinationSearchFragment(private var resultSearchFragment: ResultSe
                 }
             }
         })
+
+        btnScrollToTop.setOnClickListener {
+            try {
+                rclContent.smoothScrollToPosition(0)
+            } catch (e: Exception) {
+            }
+        }
     }
 
     override fun setObserver() {

@@ -80,6 +80,13 @@ class ResultVideosSearchFragment : BaseFragment<F2FragmentSearchDestinationResul
                 }
             }
         })
+
+        btnScrollToTop.setOnClickListener {
+            try {
+                rclContent.smoothScrollToPosition(0)
+            } catch (e: Exception) {
+            }
+        }
     }
 
     override fun setObserver() {

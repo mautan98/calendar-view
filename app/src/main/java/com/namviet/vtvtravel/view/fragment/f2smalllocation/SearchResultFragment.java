@@ -424,8 +424,10 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
         getBinding().imgClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getBinding().edtSearch.setText("Bạn muốn tìm gì?");
+                getBinding().edtSearch.setText("");
                 keyWordSearch = "";
+                clearRclData();
+                viewModel.getSmallLocation(genLinkToFilter(), false);
             }
         });
     }
@@ -1164,17 +1166,27 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
 
     @Override
     public void onCancelSearch(@Nullable Location location, @Nullable String keyword) {
-        getBinding().edtSearch.setText(keyword);
+//        getBinding().edtSearch.setText(keyword);
 
     }
 
     @Override
     public void onClickRegion(@Nullable Location location, @Nullable String keyword) {
         this.location = location;
+        this.keyWordSearch = keyword;
+        this.regionId = location.getId();
+        getBinding().edtSearch.setText(keyWordSearch);
+        clearRclData();
+        viewModel.getSmallLocation(genLinkToFilter(), false);
     }
 
     @Override
     public void onClickLayoutKeyword(@Nullable Location location, @Nullable String keyword) {
-
+        this.location = location;
+        this.keyWordSearch = keyword;
+        this.regionId = location.getId();
+        getBinding().edtSearch.setText(keyWordSearch);
+        clearRclData();
+        viewModel.getSmallLocation(genLinkToFilter(), false);
     }
 }

@@ -86,6 +86,13 @@ class ResultNewsSearchFragment(private var resultSearchFragment: ResultSearchFra
             }
         })
 
+        btnScrollToTop.setOnClickListener {
+            try {
+                rclContent.smoothScrollToPosition(0)
+            } catch (e: Exception) {
+            }
+        }
+
     }
 
     override fun setObserver() {
