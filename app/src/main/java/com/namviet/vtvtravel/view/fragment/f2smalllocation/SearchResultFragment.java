@@ -830,29 +830,29 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
     }
 
     private void getAndSetPlaceHolder() {
-        try {
-            for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
-                if (filterByCodeResponse.getData().getItems().get(i).isSelected()) {
-                    String code = filterByCodeResponse.getData().getItems().get(i).getCode();
-                    switch (code) {
-                        case "APP_WHERE_GO":
-                            getBinding().edtSearch.setHint("Bạn muốn đi đâu");
-                            break;
-                        case "APP_WHAT_EAT":
-                            getBinding().edtSearch.setHint("Bạn muốn ăn gì");
-                            break;
-                        case "APP_WHAT_PLAY":
-                            getBinding().edtSearch.setHint("Bạn muốn chơi gì");
-                            break;
-                        case "APP_WHERE_STAY":
-                            getBinding().edtSearch.setHint("Bạn muốn ở đâu");
-                            break;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
+//                if (filterByCodeResponse.getData().getItems().get(i).isSelected()) {
+//                    String code = filterByCodeResponse.getData().getItems().get(i).getCode();
+//                    switch (code) {
+//                        case "APP_WHERE_GO":
+//                            getBinding().edtSearch.setHint("Bạn muốn đi đâu");
+//                            break;
+//                        case "APP_WHAT_EAT":
+//                            getBinding().edtSearch.setHint("Bạn muốn ăn gì");
+//                            break;
+//                        case "APP_WHAT_PLAY":
+//                            getBinding().edtSearch.setHint("Bạn muốn chơi gì");
+//                            break;
+//                        case "APP_WHERE_STAY":
+//                            getBinding().edtSearch.setHint("Bạn muốn ở đâu");
+//                            break;
+//                    }
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
