@@ -101,7 +101,7 @@ public class F3MyGiftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             try {
                 if (myGifts.get(position).getExpireDate() != null) {
-                    tvExpiryDate.setText("HSD: " + DateUtltils.timeToString18(Long.parseLong(myGifts.get(position).getExpireDate())));
+                    tvExpiryDate.setText("HSD: " + DateUtltils.timeToString5(Long.parseLong(myGifts.get(position).getExpireDate())));
                 } else {
                     tvExpiryDate.setText("");
                 }
@@ -172,6 +172,7 @@ public class F3MyGiftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                     if(myGifts.get(position).getDisplayType().equals("2")){
                         tvDisCount.setVisibility(View.VISIBLE);
+                        tvDisCount.setText(myGifts.get(position).getValuePromotion() + "%");
                     }else {
                         tvDisCount.setVisibility(View.GONE);
                     }
