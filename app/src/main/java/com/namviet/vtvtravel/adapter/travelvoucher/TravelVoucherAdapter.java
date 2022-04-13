@@ -1,13 +1,14 @@
 package com.namviet.vtvtravel.adapter.travelvoucher;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
@@ -18,9 +19,9 @@ import java.util.List;
 
 public class TravelVoucherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
-    private Context context;
-    private ClickItem clickItem;
-    private List<ListVoucherResponse.Data.Voucher> vouchers;
+    private final Context context;
+    private final ClickItem clickItem;
+    private final List<ListVoucherResponse.Data.Voucher> vouchers;
 
     public TravelVoucherAdapter(List<ListVoucherResponse.Data.Voucher> vouchers, Context context, ClickItem clickItem) {
         this.context = context;
@@ -68,9 +69,9 @@ public class TravelVoucherAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         private int position;
-        private ImageView imgAvatar;
-        private TextView tvName;
-        private TextView tvTimeLeft;
+        private final ImageView imgAvatar;
+        private final TextView tvName;
+        private final TextView tvTimeLeft;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -96,6 +97,9 @@ public class TravelVoucherAdapter extends RecyclerView.Adapter<RecyclerView.View
                 tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(Long.valueOf(travel.getEndAt()) / 1000));
             } catch (Exception e) {
                 e.printStackTrace();
+                if (travel.getEndAt() == null && travel.getExpireDate() != null) {
+                    tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(travel.getExpireDate() / 1000));
+                }
             }
 
 

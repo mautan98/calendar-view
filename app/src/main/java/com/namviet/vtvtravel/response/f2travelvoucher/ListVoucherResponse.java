@@ -118,6 +118,18 @@ public class ListVoucherResponse extends BaseResponse {
             @SerializedName("id")
             private String id;
 
+            @Expose
+            @SerializedName("expireDate")
+            private Long expireDate;
+
+            public Long getExpireDate() {
+                return expireDate;
+            }
+
+            public void setExpireDate(Long expireDate) {
+                this.expireDate = expireDate;
+            }
+
             public String getRemainCoupon() {
                 return remainCoupon;
             }

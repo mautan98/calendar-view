@@ -13,14 +13,12 @@ import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.response.BaseResponse;
 import com.namviet.vtvtravel.response.f2travelvoucher.ListVoucherResponse;
-import com.namviet.vtvtravel.tracking.Tracking;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
 import com.namviet.vtvtravel.view.fragment.f2offline.CopyVoucherDialog;
-import com.namviet.vtvtravel.tracking.TrackingViewModel;
 import com.namviet.vtvtravel.viewmodel.f2travelvoucher.TravelVoucherViewModel;
 
 import java.util.Observable;
@@ -73,6 +71,9 @@ public class TravelVoucherDetailFragment extends BaseFragment<F2FragmentTravelVo
             getBinding().tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(Long.valueOf(voucher.getEndAt()) / 1000));
         } catch (Exception e) {
             e.printStackTrace();
+            if (voucher.getEndAt() == null && voucher.getExpireDate() != null) {
+                getBinding().tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(voucher.getExpireDate() / 1000));
+            }
         }
     }
 
