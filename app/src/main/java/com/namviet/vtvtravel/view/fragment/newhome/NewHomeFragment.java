@@ -276,6 +276,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                     mContext.unregisterReceiver(receiver);
                 }
             }
+            newHomeAdapter.getTimer().cancel();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -336,7 +337,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 //            newHomeAdapter.notifyItemChanged(0);
 
 
-            homeServiceResponse.getData().get(1).setTipUser("Bạn đang là Hội viên của #VTVTravel, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:");
+            homeServiceResponse.getData().get(1).setTipUser(getString(R.string.tip_user_vip));
             homeServiceResponse.getData().get(1).setShowBtnRegisterNow(false);
             newHomeAdapter.notifyItemChanged(1);
             newHomeAdapter.notifyItemChanged(2);
@@ -738,7 +739,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 //                Bundle bundle = new Bundle();
 //                mActivity.setBundle(bundle);
 //                mActivity.switchFragment(SlideMenu.MenuType.LOGIN_SCREEN);
-                LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+                LoginAndRegisterActivityNew.startScreen(mActivity, 1, false);
             }
         }
     }
@@ -752,7 +753,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 //                homeServiceResponse.getData().get(0).setDescriptionUser("Đăng kí hội viên ngay");
 //                homeServiceResponse.getData().get(0).setAvatar(account.getImageProfile());
 
-                homeServiceResponse.getData().get(1).setTipUser("Bạn đang là Hội viên của #VTVTravel, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:");
+                homeServiceResponse.getData().get(1).setTipUser(getString(R.string.tip_user_vip));
                 homeServiceResponse.getData().get(1).setShowBtnRegisterNow(false);
 
                 binding.tvName.setText("Chào, " + s);
@@ -852,6 +853,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
         if (pauseVideo != null) {
             pauseVideo.pauseVideoListener();
         }
+        newHomeAdapter.getTimer().cancel();
     }
 
     public interface PauseVideo {
