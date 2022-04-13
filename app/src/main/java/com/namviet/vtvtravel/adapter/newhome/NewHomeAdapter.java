@@ -3,15 +3,7 @@ package com.namviet.vtvtravel.adapter.newhome;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.PagerSnapHelper;
-import androidx.viewpager.widget.ViewPager;
-import androidx.recyclerview.widget.LinearSnapHelper;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
-
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
+import androidx.viewpager.widget.ViewPager;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
@@ -52,21 +50,19 @@ import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.response.f2livetv.LiveTvResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
 import com.namviet.vtvtravel.response.f2travelvoucher.ListVoucherResponse;
-import com.namviet.vtvtravel.response.newhome.AppDealResponse;
 import com.namviet.vtvtravel.response.newhome.AppFavoriteDestinationResponse;
 import com.namviet.vtvtravel.response.newhome.AppPromotionPartnerResponse;
 import com.namviet.vtvtravel.response.newhome.AppVideoResponse;
 import com.namviet.vtvtravel.response.newhome.AppVoucherResponse;
 import com.namviet.vtvtravel.response.newhome.BaseResponseSpecialNewHome;
 import com.namviet.vtvtravel.response.newhome.HomeServiceResponse;
-import com.namviet.vtvtravel.response.newhome.ItemAppExperienceResponse;
 import com.namviet.vtvtravel.response.newhome.ItemAppDiscoverResponse;
+import com.namviet.vtvtravel.response.newhome.ItemAppExperienceResponse;
 import com.namviet.vtvtravel.response.newhome.ItemAppVoucherNowResponse;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
 import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f2.BigLocationActivity;
 import com.namviet.vtvtravel.view.f2.CreateTripActivity;
-import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
 import com.namviet.vtvtravel.view.f2.FullVideoActivity;
 import com.namviet.vtvtravel.view.f2.LiveTVActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
@@ -76,10 +72,7 @@ import com.namviet.vtvtravel.view.f2.TopExperienceActivity;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.f3.deal.adapter.F3SubDealAdapter;
-import com.namviet.vtvtravel.view.f3.deal.adapter.F3TabDealAdapter;
 import com.namviet.vtvtravel.view.f3.deal.adapter.F3TabDealInHomeAdapter;
-import com.namviet.vtvtravel.view.f3.deal.adapter.RecyclerAdapter;
-import com.namviet.vtvtravel.view.f3.deal.model.Block;
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealHomeActivity;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.Item;
@@ -91,19 +84,17 @@ import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
 import com.zhpan.indicator.IndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import me.crosswall.lib.coverflow.CoverFlow;
 import me.crosswall.lib.coverflow.core.PageItemClickListener;
@@ -129,14 +120,28 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static final int APP_TV = 14;
     private static final int APP_RECENTLY_VIEWED = 15;
 
-    private Context context;
-    private HomeServiceResponse homeServiceResponse;
-    private LoadData loadData;
-    private ClickUserView clickUserView;
-    private ClickItemSmallLocation clickItemSmallLocation;
-    private ClickSearch clickSearch;
-    private NewHomeFragment newHomeFragment;
-    private BaseViewModel viewModel;
+    private final Context context;
+    private final HomeServiceResponse homeServiceResponse;
+    private final LoadData loadData;
+    private final ClickUserView clickUserView;
+    private final ClickItemSmallLocation clickItemSmallLocation;
+    private final ClickSearch clickSearch;
+    private final NewHomeFragment newHomeFragment;
+    private final BaseViewModel viewModel;
+    private Timer timer;
+    private int pageNumber;
+
+    public Timer getTimer() {
+        return timer;
+    }
+
+    public int getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(int pageNumber) {
+        this.pageNumber = pageNumber;
+    }
 
     public class TypeString {
         public static final String APP_SEARCH_BOX = "APP_SEARCH_BOX";
@@ -310,21 +315,20 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         private SubHeaderAdapter subHeaderAdapter;
-        private RecyclerView rclHeader;
-        private ViewPager vpPromotion;
-        private LinearLayout layoutSearch;
+        private final RecyclerView rclHeader;
+        private final ViewPager vpPromotion;
+        private final LinearLayout layoutSearch;
         private SubSlideImageInHeaderAdapter subSlideImageInHeaderAdapter;
-        private IndicatorView indicatorView;
+        private final IndicatorView indicatorView;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
             rclHeader = itemView.findViewById(R.id.rclHeader);
             layoutSearch = itemView.findViewById(R.id.layoutSearch);
             vpPromotion = itemView.findViewById(R.id.vpPromotionSlide);
-            indicatorView = (IndicatorView) itemView.findViewById(R.id.indicator_view);
+            indicatorView = itemView.findViewById(R.id.indicator_view);
             layoutSearch.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -378,9 +382,9 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public class TopExperienceViewHolder extends RecyclerView.ViewHolder {
         private SubSuggestionLocationAdapter subSuggestionLocationAdapter;
-        private RecyclerView rclContent;
-        private TextView btnSeeMore;
-        private TextView tvTitle;
+        private final RecyclerView rclContent;
+        private final TextView btnSeeMore;
+        private final TextView tvTitle;
 
         public TopExperienceViewHolder(View itemView) {
             super(itemView);
@@ -425,11 +429,11 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public class SuggestionLocationViewHolder extends RecyclerView.ViewHolder implements NewHomeFragment.IOnClickTabReloadData {
         private SubSuggestionLocationAdapter subSuggestionLocationAdapter;
         private TabSuggestionLocationAdapter tabSuggestionLocationAdapter;
-        private RecyclerView rclContent;
-        private RecyclerView rclTab;
-        private TextView tvTitle;
-        private TextView btnSeeMore;
-        private ShimmerFrameLayout mShimmerFrameLayout;
+        private final RecyclerView rclContent;
+        private final RecyclerView rclTab;
+        private final TextView tvTitle;
+        private final TextView btnSeeMore;
+        private final ShimmerFrameLayout mShimmerFrameLayout;
         private int mPosition;
 
         public SuggestionLocationViewHolder(View itemView) {
@@ -526,12 +530,14 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public class VoucherViewHolder extends RecyclerView.ViewHolder {
-        private PagerContainer container;
+        private final PagerContainer container;
         private ViewPager pager;
-        private TextView tvTipUser;
-        private TextView btnRegisterNow;
-        private IndefinitePagerIndicator vpIndicator;
-        private CircleIndicator indicator;
+        private final TextView tvTipUser;
+        private final TextView btnRegisterNow;
+        private final IndefinitePagerIndicator vpIndicator;
+        private final CircleIndicator indicator;
+
+        private int pageIndex = 0;
 
         public VoucherViewHolder(View itemView) {
             super(itemView);
@@ -539,7 +545,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             tvTipUser = itemView.findViewById(R.id.tvTipUser);
             btnRegisterNow = itemView.findViewById(R.id.btnRegisterNow);
             vpIndicator = itemView.findViewById(R.id.vpIndicator);
-            indicator = (CircleIndicator) itemView.findViewById(R.id.indicator);
+            indicator = itemView.findViewById(R.id.indicator);
         }
 
         public void bindItem(int position) {
@@ -562,6 +568,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     }
                 }
             }));
+            setPageNumber(appVoucherResponse.getItems().size());
             pager.setClipChildren(false);
             pager.setOffscreenPageLimit(15);
             container.setPageItemClickListener(new PageItemClickListener() {
@@ -574,6 +581,9 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
             tvTipUser.setText(homeServiceResponse.getData().get(position).getTipUser());
+            if (context.getString(R.string.tip_user_vip).equals(homeServiceResponse.getData().get(position).getTipUser())) {
+                tvTipUser.setText(context.getString(R.string.tip_user_vip));
+            }
             if (homeServiceResponse.getData().get(position).isShowBtnRegisterNow()) {
                 btnRegisterNow.setVisibility(View.VISIBLE);
             } else {
@@ -607,26 +617,69 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     }
                 }
             }, 500);
+            pageSwitcher(3000);
+            listenerOnpageChange();
 
+        }
+
+        public void pageSwitcher(long milseconds) {
+            if (timer == null)
+                timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    Log.d("NewHomeAdapter", "runing timer: ");
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (pageIndex == pageNumber - 1) {
+                                pageIndex = 0;
+                            } else {
+                                pageIndex++;
+                            }
+                            pager.setCurrentItem(pageIndex, true);
+                        }
+                    });
+                }
+            }, 10000, milseconds);
+        }
+
+        public void listenerOnpageChange() {
+            pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    pageIndex = position;
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
         }
     }
 
 
     public class DealViewHolder extends RecyclerView.ViewHolder implements Observer {
-        private RecyclerView recyclerNearPlace;
-        private ShimmerFrameLayout shimmer;
+        private final RecyclerView recyclerNearPlace;
+        private final ShimmerFrameLayout shimmer;
         private SubDealAdapter subDealAdapter;
-        private TextView btnSeeMore;
-        private TextView tvTitle;
-        private TextView tvDescription;
+        private final TextView btnSeeMore;
+        private final TextView tvTitle;
+        private final TextView tvDescription;
         private F3SubDealAdapter f3SubDealAdapter;
         private F3TabDealInHomeAdapter f3TabDealAdapter;
-        private RecyclerView rclContent;
-        private RecyclerView rclTab;
-        private DealViewModel dealViewModel;
+        private final RecyclerView rclContent;
+        private final RecyclerView rclTab;
+        private final DealViewModel dealViewModel;
         private DealResponse dealResponse;
-        private View layoutNoData;
-        private View viewWhite;
+        private final View layoutNoData;
+        private final View viewWhite;
 
         public DealViewHolder(View itemView) {
             super(itemView);
@@ -757,10 +810,10 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public class PromotionPartner extends RecyclerView.ViewHolder {
-        private RecyclerView recyclerPartnerLink;
+        private final RecyclerView recyclerPartnerLink;
         private SubPromotionPartnerAdapter subPromotionPartnerAdapter;
-        private IndefinitePagerIndicator vpIndicator;
-        private CircleIndicator2 indicator;
+        private final IndefinitePagerIndicator vpIndicator;
+        private final CircleIndicator2 indicator;
 
         public PromotionPartner(View itemView) {
             super(itemView);
@@ -799,10 +852,10 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public class FavoriteDestination extends RecyclerView.ViewHolder {
         private SubFavoriteDestinationAdapter subFavoriteDestinationAdapter;
-        private RecyclerView recyclerFavorPlace;
+        private final RecyclerView recyclerFavorPlace;
 
-        private TextView tvTitle;
-        private TextView tvDescription;
+        private final TextView tvTitle;
+        private final TextView tvDescription;
 
 
         public FavoriteDestination(View itemView) {
@@ -853,9 +906,9 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public class CreateTourViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtTitle;
-        private TextView txtDescription;
-        private TextView btnStart;
+        private final TextView txtTitle;
+        private final TextView txtDescription;
+        private final TextView btnStart;
 
         public CreateTourViewHolder(View itemView) {
             super(itemView);
@@ -884,11 +937,11 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public class NearByViewHolder extends RecyclerView.ViewHolder {
-        private RecyclerView recyclerNearPlace;
+        private final RecyclerView recyclerNearPlace;
         private SubNearByAdapter subNearByAdapter;
 
-        private TextView tvTitle;
-        private TextView tvDescription;
+        private final TextView tvTitle;
+        private final TextView tvDescription;
 
         public NearByViewHolder(View itemView) {
             super(itemView);
@@ -917,11 +970,11 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public class DiscoverViewHolder extends RecyclerView.ViewHolder implements NewHomeFragment.IOnClickTabReloadData {
 
         private TabDiscoverAdapter tabDiscoverAdapter;
-        private RecyclerView rclTab;
+        private final RecyclerView rclTab;
         private SubDiscoverAdapter subDiscoverAdapter;
-        private RecyclerView rclDiscover;
-        private LinearLayout btnReadMore;
-        private ShimmerFrameLayout mShimmerFrameLayout;
+        private final RecyclerView rclDiscover;
+        private final LinearLayout btnReadMore;
+        private final ShimmerFrameLayout mShimmerFrameLayout;
         private int mPosition;
 
         public DiscoverViewHolder(View itemView) {
@@ -1003,11 +1056,11 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public class VideoViewHolder extends RecyclerView.ViewHolder {
-        private RecyclerView recyclerAppVideo;
+        private final RecyclerView recyclerAppVideo;
         private SubVideoAdapter subVideoAdapter;
-        private IndefinitePagerIndicator vpIndicator;
-        private TextView tvSeeMore;
-        private CircleIndicator2 indicator;
+        private final IndefinitePagerIndicator vpIndicator;
+        private final TextView tvSeeMore;
+        private final CircleIndicator2 indicator;
 
         public VideoViewHolder(View itemView) {
             super(itemView);
@@ -1067,16 +1120,16 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public class VoucherNowViewHolder extends RecyclerView.ViewHolder implements NewHomeFragment.IOnClickTabReloadData {
-        private RecyclerView rclContent;
+        private final RecyclerView rclContent;
         private SubVoucherNowAdapter subVideoAdapter;
 
-        private RecyclerView rclTab;
+        private final RecyclerView rclTab;
         private TabVoucherNowAdapter tabVoucherNowAdapter;
 
-        private TextView tvTitle;
-        private TextView btnSeeMore;
+        private final TextView tvTitle;
+        private final TextView btnSeeMore;
         private int mPosition;
-        private ShimmerFrameLayout mShimmerFrameLayout;
+        private final ShimmerFrameLayout mShimmerFrameLayout;
 
         public VoucherNowViewHolder(View itemView) {
             super(itemView);
@@ -1161,13 +1214,13 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public class LiveTVViewHolder extends RecyclerView.ViewHolder implements SubLiveTvAdapter.ButtonClick, NewHomeFragment.PauseVideo {
         private SubLiveTvAdapter subLiveTvAdapter;
-        private RecyclerView recycleLiveTv;
-        private JWPlayerView jwplayer;
-        private TextView tvScheduleLiveTv;
+        private final RecyclerView recycleLiveTv;
+        private final JWPlayerView jwplayer;
+        private final TextView tvScheduleLiveTv;
         private LiveTvResponse liveTvResponse;
-        private ImageView imgFullScreen;
-        private TextView tvDescription;
-        private TextView tvTitle;
+        private final ImageView imgFullScreen;
+        private final TextView tvDescription;
+        private final TextView tvTitle;
 
         private int currentPosition = 0;
 
@@ -1259,7 +1312,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 byte[] buffer = new byte[size];
                 is.read(buffer);
                 is.close();
-                json = new String(buffer, "UTF-8");
+                json = new String(buffer, StandardCharsets.UTF_8);
             } catch (IOException ex) {
                 ex.printStackTrace();
                 return null;
@@ -1290,8 +1343,8 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public class RecentViewViewHolder extends RecyclerView.ViewHolder {
         private SubRecentViewAdapter subRecentViewAdapter;
-        private RecyclerView rclContent;
-        private LinearLayout layoutRoot;
+        private final RecyclerView rclContent;
+        private final LinearLayout layoutRoot;
         private TextView tvTitle;
         private int position;
 
