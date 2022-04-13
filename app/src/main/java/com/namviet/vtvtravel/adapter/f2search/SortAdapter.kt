@@ -74,14 +74,13 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private var position: Int? = 0;
 
         constructor(itemView: View?) : super(itemView!!) {
-            itemView.setOnClickListener {
-                clickItem?.onClickItem(position!!)
-            }
+
 
 
         }
 
         fun bindItem(position: Int) {
+            var isShow = false
             this.position = position
             if (getStatus(position)) {
                 itemView.viewBackground.backgroundColor = Color.parseColor("#00918D")
@@ -98,6 +97,10 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 itemView.imgDown.rotation = 180f
             }else{
                 itemView.imgDown.rotation = 0f
+            }
+            itemView.setOnClickListener {
+                isShow = !isShow
+                clickItem?.onClickItem(position,isShow)
             }
         }
 
@@ -179,7 +182,7 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     interface ClickItem {
-        fun onClickItem(position: Int)
+        fun onClickItem(position: Int, isShowDropdown:Boolean)
     }
 
 

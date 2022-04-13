@@ -230,7 +230,9 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
         sortAdapter =
             SortAdapter(mActivity, sortAndFilter!!.sortHeader, object : SortAdapter.ClickItem {
-                override fun onClickItem(position: Int) {
+                override fun onClickItem(position: Int,isShow:Boolean) {
+                    if (isShow)
+                        hideMenuAnim()
                     when (position) {
                         0 -> {
                             var sortFollowFragment = SortFollowFragment()
