@@ -55,7 +55,7 @@ import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 
-class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeService<*>.Item>? = null, private var position : Int, private var regionIdToLoadSmallLocation : String) : BaseFragment<F2FragmentMainPageSmallLocationBinding?>(), Observer, SearchSuggestionSmallLocationFragment.SearchSuggestionCallback {
+class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeService<*>.Item>? = null, private var position : Int, private var regionIdToLoadSmallLocation : String?) : BaseFragment<F2FragmentMainPageSmallLocationBinding?>(), Observer, SearchSuggestionSmallLocationFragment.SearchSuggestionCallback {
     private var mainAdapter : MainAdapter? = null
     private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
     private var searchSuggestions: ArrayList<SearchSuggestionResponse.Data.Item>? = ArrayList()
@@ -122,7 +122,7 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
         vpContent.offscreenPageLimit = 10
 
         for(i in 0 until dataMenu!!.size){
-            if(regionIdToLoadSmallLocation == null || (regionIdToLoadSmallLocation != null && regionIdToLoadSmallLocation.isEmpty())) {
+            if(regionIdToLoadSmallLocation == null || (regionIdToLoadSmallLocation != null && regionIdToLoadSmallLocation!!.isEmpty())) {
                 var smallLocationFragment = SmallLocationFragment(dataMenu?.get(i)?.link, dataMenu?.get(i)?.code, "",i);
                 mainAdapter?.addFragment(smallLocationFragment, "")
             }else{
@@ -227,7 +227,7 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
                 is AllLocationResponse -> {
                     locationsMain = o.data as ArrayList<Location>;
                     locations?.addAll(0, locationsMain)
-                    if(regionIdToLoadSmallLocation == null || (regionIdToLoadSmallLocation != null && regionIdToLoadSmallLocation.isEmpty())) {
+                    if(regionIdToLoadSmallLocation == null || (regionIdToLoadSmallLocation != null && regionIdToLoadSmallLocation!!.isEmpty())) {
 
                     }else {
                         getLocationFromPreviousScreen()
@@ -324,7 +324,7 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
 
     @Subscribe
     public fun onDetectLocation(onDetectLocation: OnDetectLocation){
-        if(regionIdToLoadSmallLocation == null || (regionIdToLoadSmallLocation != null && regionIdToLoadSmallLocation.isEmpty())) {
+        if(regionIdToLoadSmallLocation == null || (regionIdToLoadSmallLocation != null && regionIdToLoadSmallLocation!!.isEmpty())) {
             tvRegionName.text = onDetectLocation.regionName
 
             for (i in 0 until locationsMain.size) {
