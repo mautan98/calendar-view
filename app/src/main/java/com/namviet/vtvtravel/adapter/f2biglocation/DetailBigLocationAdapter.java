@@ -346,7 +346,7 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
                                 String json = new Gson().toJson(region.getItems());
                                 Type listType = new TypeToken<ArrayList<ItemHomeService.Item>>() {}.getType();
                                 ArrayList<ItemHomeService.Item> yourList = new Gson().fromJson(json, listType);
-                                SmallLocationActivity.startScreen(context, SmallLocationActivity.OpenType.LIST, yourList, items.get(position).getCode(),mPosition);
+                                SmallLocationActivity.startScreen(context, SmallLocationActivity.OpenType.LIST, yourList, items.get(position).getCode(),mPosition, region.getId());
 
 //                                SmallLocationActivity.startScreen(context, items.get(position).getLink(), "APP_WHERE_STAY", SmallLocationActivity.OpenType.LIST, region.getId());
                                 break;

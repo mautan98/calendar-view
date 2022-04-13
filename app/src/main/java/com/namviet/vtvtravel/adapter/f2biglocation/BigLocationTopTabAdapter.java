@@ -92,7 +92,7 @@ public class BigLocationTopTabAdapter extends RecyclerView.Adapter<RecyclerView.
                         String json = new Gson().toJson(items);
                         Type listType = new TypeToken<ArrayList<ItemHomeService.Item>>() {}.getType();
                         ArrayList<ItemHomeService.Item> yourList = new Gson().fromJson(json, listType);
-                        SmallLocationActivity.startScreen(context, SmallLocationActivity.OpenType.LIST, yourList, items.get(position).getCode(),position);
+                        SmallLocationActivity.startScreen(context, SmallLocationActivity.OpenType.LIST, yourList, items.get(position).getCode(),position, regionId);
 //                        SmallLocationActivity.startScreen(context, items.get(position).getLink(), items.get(position).getCode(), SmallLocationActivity.OpenType.LIST, regionId);
                     } catch (Exception e) {
                         e.printStackTrace();

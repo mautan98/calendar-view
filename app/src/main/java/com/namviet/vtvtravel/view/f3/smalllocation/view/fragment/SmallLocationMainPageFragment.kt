@@ -55,7 +55,7 @@ import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 
-class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeService<*>.Item>? = null, private var position : Int) : BaseFragment<F2FragmentMainPageSmallLocationBinding?>(), Observer, SearchSuggestionSmallLocationFragment.SearchSuggestionCallback {
+class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeService<*>.Item>? = null, private var position : Int, private var regionIdToLoadSmallLocation : String) : BaseFragment<F2FragmentMainPageSmallLocationBinding?>(), Observer, SearchSuggestionSmallLocationFragment.SearchSuggestionCallback {
     private var mainAdapter : MainAdapter? = null
     private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
     private var searchSuggestions: ArrayList<SearchSuggestionResponse.Data.Item>? = ArrayList()
@@ -109,14 +109,7 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
         tabLayout.visibility = View.VISIBLE
         rll_header_map.visibility = View.GONE
     }
-    public fun getStateMapView() : Int {
-        return rll_header_map.visibility
-    }
-    public fun hideMapView() {
-        tabLayout.visibility = View.VISIBLE
-        rll_header_map.visibility = View.GONE
-        EventBus.getDefault().post(ClickHideMapView())
-    }
+
     override fun initData() {
         smallLocationMainViewModel.setStateFirst()
 
@@ -129,8 +122,14 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
         vpContent.offscreenPageLimit = 10
 
         for(i in 0 until dataMenu!!.size){
-            var smallLocationFragment = SmallLocationFragment(dataMenu?.get(i)?.link, dataMenu?.get(i)?.code, "",i);
-            mainAdapter?.addFragment(smallLocationFragment, "")
+            if(regionIdToLoadSmallLocation == null || (regionIdToLoadSmallLocation != null && regionIdToLoadSmallLocation.isEmpty())) {
+                var smallLocationFragment = SmallLocationFragment(dataMenu?.get(i)?.link, dataMenu?.get(i)?.code, "",i);
+                mainAdapter?.addFragment(smallLocationFragment, "")
+            }else{
+                var smallLocationFragment = SmallLocationFragment(dataMenu?.get(i)?.link, dataMenu?.get(i)?.code, regionIdToLoadSmallLocation,i);
+                mainAdapter?.addFragment(smallLocationFragment, "")
+            }
+
         }
         vpContent.adapter = mainAdapter
         vpContent?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -155,24 +154,6 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
         }
 
 
-
-
-//        searchSuggestionKeyWordAdapter = SearchSuggestionKeyWordAdapter(searchSuggestions, mActivity, object : SearchSuggestionKeyWordAdapter.ClickItem{
-//            override fun onClickItem(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?) {
-//                try {
-//                    edtSearch.setText(searchKeywordSuggestion?.title)
-////                    addRecentSearch(edtSearch.text.toString())
-////                    recentAdapter?.setData(getRecentSearch())
-//          //          addFragment(SearchResultFragment("http://api.vtvtravel.vn/nearby?content_type=","APP_WHERE_GO",""))
-//                    KeyboardUtils.hideKeyboard(mActivity, edtSearch)
-//                    //edtSearch.clearFocus()
-//                } catch (e: Exception) {
-//                }
-//            }
-//
-//        })
-//        rclSearchSuggestion.adapter = searchSuggestionKeyWordAdapter
-
     }
     override fun inject() {
         (mActivity.application as MyApplication).viewModelComponent.inject(this)
@@ -182,45 +163,6 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
         btnBack.setOnClickListener {
             mActivity.onBackPressed()
         }
-
-//        RxTextView.afterTextChangeEvents(edtSearch)
-//                .skipInitialValue()
-//                .debounce(790, TimeUnit.MILLISECONDS)
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe {
-//                    try {
-////                        storeManager.setStringValue(Constants.IntentKey.RECENT_SEARCH_SMALLOCATION, edtSearch.text.toString())
-////                        Log.e("hihihihi", storeManager.getStringValue(Constants.IntentKey.RECENT_SEARCH_SMALLOCATION))
-//
-////                        searchViewModel.getSearchSuggestion(edtSearch.text.toString(), regionId)
-//                        searchViewModel.getSearchSuggestion(edtSearch.text.toString(), "")
-//                        layoutKeyword.tvSearchFollow.text = "Tìm kiếm theo \""+ edtSearch.text.toString()+"\"";
-//                        setHighLightedText(layoutKeyword.tvSearchFollow, "\""+ edtSearch.text.toString()+"\"")
-//
-////                        try {
-////                            TrackingAnalytic.postEvent(TrackingAnalytic.SEARCH, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SEARCH, TrackingAnalytic.ScreenTitle.SEARCH).setTerm(edtSearch.text.toString()).setScreen_class(this.javaClass.name))
-////                        } catch (e: Exception) {
-////                            e.printStackTrace()
-////                        }
-//                    } catch (e: Exception) {
-//                    }
-//                }
-
-//        edtSearch.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
-//            if (hasFocus){
-//                smallLocationMainViewModel.setStateSecond()
-//            }else{
-//                smallLocationMainViewModel.setStateFirst()
-//            }
-//         }
-
-//        tvCancelSearch.setOnClickListener {
-//            smallLocationMainViewModel.setStateFirst()
-//            edtSearch.clearFocus()
-//            KeyboardUtils.hideKeyboard(mActivity, edtSearch)
-//        }
-
-
 
         layoutRegion.setOnClickListener {
             var chooseRegionMainFragment = ChooseRegionMainFragment();
@@ -285,6 +227,11 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
                 is AllLocationResponse -> {
                     locationsMain = o.data as ArrayList<Location>;
                     locations?.addAll(0, locationsMain)
+                    if(regionIdToLoadSmallLocation == null || (regionIdToLoadSmallLocation != null && regionIdToLoadSmallLocation.isEmpty())) {
+
+                    }else {
+                        getLocationFromPreviousScreen()
+                    }
                 }
                 is LocationResponse -> {
 //                    tvRegion.text = o.data.name
@@ -377,15 +324,31 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
 
     @Subscribe
     public fun onDetectLocation(onDetectLocation: OnDetectLocation){
-        tvRegionName.text = onDetectLocation.regionName
+        if(regionIdToLoadSmallLocation == null || (regionIdToLoadSmallLocation != null && regionIdToLoadSmallLocation.isEmpty())) {
+            tvRegionName.text = onDetectLocation.regionName
 
-        for (i in 0 until locationsMain.size){
-            if(onDetectLocation.regionName == locationsMain!![i].name){
+            for (i in 0 until locationsMain.size) {
+                if (onDetectLocation.regionName == locationsMain!![i].name) {
+                    location = locationsMain!![i]
+                    regionId = locationsMain!![i].id
+                    break
+                }
+            }
+        }
+    }
+
+
+    private fun getLocationFromPreviousScreen(){
+        for (i in 0 until locationsMain.size) {
+            if (regionIdToLoadSmallLocation == locationsMain!![i].id) {
                 location = locationsMain!![i]
                 regionId = locationsMain!![i].id
+                tvRegionName.text = location?.name
                 break
             }
         }
+
+
     }
 
 

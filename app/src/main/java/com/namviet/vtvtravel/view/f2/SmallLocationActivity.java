@@ -79,21 +79,31 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
     public BaseFragment initFragment() {
         if (screenType == OpenType.LIST) {
 //            return new SmallLocationFragment(linkToLoadSmallLocation, codeToLoadSmallLocation, regionIdToLoadSmallLocation);
-            return smallLocationMainPageFragment = new SmallLocationMainPageFragment(itemsMenu,position);
+            return smallLocationMainPageFragment = new SmallLocationMainPageFragment(itemsMenu,position, regionIdToLoadSmallLocation);
         }else {
             return new DetailSmallLocationFragment(detailLink);
         }
     }
 
-    public static void startScreen(Context activity, String link, String code, int screenType, String regionIdToLoadSmallLocation) {
+//    public static void startScreen(Context activity, String link, String code, int screenType, String regionIdToLoadSmallLocation) {
+//        Intent intent = new Intent(activity, SmallLocationActivity.class);
+//        intent.putExtra(Constants.IntentKey.LINK, link);
+//        intent.putExtra(Constants.IntentKey.CODE, code);
+//        intent.putExtra(Constants.IntentKey.REGION_ID, regionIdToLoadSmallLocation);
+//        intent.putExtra(Constants.IntentKey.SCREEN_TYPE, screenType);
+//        activity.startActivity(intent);
+//    }
+
+
+    public static void startScreen(Context activity, int screenType, ArrayList<ItemHomeService.Item> items, String code, int position, String regionIdToLoadSmallLocation){
         Intent intent = new Intent(activity, SmallLocationActivity.class);
-        intent.putExtra(Constants.IntentKey.LINK, link);
+        intent.putExtra(Constants.IntentKey.DATA, items);
         intent.putExtra(Constants.IntentKey.CODE, code);
-        intent.putExtra(Constants.IntentKey.REGION_ID, regionIdToLoadSmallLocation);
+        intent.putExtra(Constants.IntentKey.POSITION_2, position);
         intent.putExtra(Constants.IntentKey.SCREEN_TYPE, screenType);
+        intent.putExtra(Constants.IntentKey.REGION_ID, regionIdToLoadSmallLocation);
         activity.startActivity(intent);
     }
-
 
     public static void startScreen(Context activity, int screenType, ArrayList<ItemHomeService.Item> items, String code, int position){
         Intent intent = new Intent(activity, SmallLocationActivity.class);
