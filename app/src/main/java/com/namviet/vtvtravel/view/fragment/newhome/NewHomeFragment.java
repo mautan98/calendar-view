@@ -276,7 +276,8 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                     mContext.unregisterReceiver(receiver);
                 }
             }
-            newHomeAdapter.getTimer().cancel();
+            if (newHomeAdapter.getTimer() != null)
+                newHomeAdapter.getTimer().cancel();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -853,6 +854,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
         if (pauseVideo != null) {
             pauseVideo.pauseVideoListener();
         }
+        if (newHomeAdapter.getTimer() != null)
         newHomeAdapter.getTimer().cancel();
     }
 

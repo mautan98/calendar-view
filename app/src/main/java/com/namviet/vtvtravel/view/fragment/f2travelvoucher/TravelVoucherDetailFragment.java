@@ -69,6 +69,9 @@ public class TravelVoucherDetailFragment extends BaseFragment<F2FragmentTravelVo
         getBinding().tvName.setText(voucher.getName());
         try {
             getBinding().tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(Long.valueOf(voucher.getEndAt()) / 1000));
+            if ("HANG_VAT_LY".equals(voucher.getProductTypeCode()) && voucher.getExpireDate() != null){
+                getBinding().tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(voucher.getExpireDate() / 1000));
+            }
         } catch (Exception e) {
             e.printStackTrace();
             if (voucher.getEndAt() == null && voucher.getExpireDate() != null) {

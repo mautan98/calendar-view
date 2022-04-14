@@ -95,6 +95,9 @@ public class TravelVoucherAdapter extends RecyclerView.Adapter<RecyclerView.View
             tvName.setText(travel.getName());
             try {
                 tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(Long.valueOf(travel.getEndAt()) / 1000));
+                if ("HANG_VAT_LY".equals(travel.getProductTypeCode()) && travel.getExpireDate() != null){
+                    tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(travel.getExpireDate() / 1000));
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 if (travel.getEndAt() == null && travel.getExpireDate() != null) {
