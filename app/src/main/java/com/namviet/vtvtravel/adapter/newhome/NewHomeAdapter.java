@@ -1130,6 +1130,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private final TextView btnSeeMore;
         private int mPosition;
         private final ShimmerFrameLayout mShimmerFrameLayout;
+        private String tabVoucherPosition = "";
 
         public VoucherNowViewHolder(View itemView) {
             super(itemView);
@@ -1157,6 +1158,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             tabVoucherNowAdapter = new TabVoucherNowAdapter(homeServiceResponse.getData().get(position).getPositionClick(), homeServiceResponse.getData().get(position).getItems(), context, new TabVoucherNowAdapter.ClickTab() {
                 @Override
                 public void onClickTab(int positionClick) {
+                    tabVoucherPosition = String.valueOf(positionClick);
                     homeServiceResponse.getData().get(position).setPositionClick(positionClick);
                     List<ItemHomeService.Item> items = homeServiceResponse.getData().get(position).getItems();
                     loadData.onLoadDataFloorSecond(items.get(positionClick).getContent_link(), TypeString.APP_VOUCHER_NOW, true);
@@ -1176,7 +1178,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     @Override
                     public void onClick(View view) {
                         try {
-                            TravelVoucherActivity.openScreen(context, true, TravelVoucherActivity.OpenType.LIST, false);
+                            TravelVoucherActivity.openScreenWithTabPosition(context, true, TravelVoucherActivity.OpenType.LIST, false, tabVoucherPosition);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

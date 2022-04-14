@@ -1,9 +1,10 @@
 package com.namviet.vtvtravel.view.fragment.f2travelvoucher;
 
 import android.annotation.SuppressLint;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
@@ -23,6 +24,7 @@ import com.namviet.vtvtravel.viewmodel.f2travelvoucher.TravelVoucherViewModel;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -38,7 +40,7 @@ public class TravelVoucherFragment extends BaseFragment<F2FragmentTravelVoucherB
     private TravelVoucherViewModel viewModel;
     private SortClass sortClass;
     private int page = 0;
-    private List<ListVoucherResponse.Data.Voucher> vouchers = new ArrayList<>();
+    private final List<ListVoucherResponse.Data.Voucher> vouchers = new ArrayList<>();
     private String regionId = "";
     private String categoryId = "";
     private String sortId = "0";
@@ -46,6 +48,12 @@ public class TravelVoucherFragment extends BaseFragment<F2FragmentTravelVoucherB
 
     private boolean isStore;
     private boolean isFromRegVip;
+    private CategoryDialog categoryDialog;
+    private String positionIdCategory;
+
+    public void setPositionIdCategory(String positionCategory) {
+        this.positionIdCategory = positionCategory;
+    }
 
     @SuppressLint("ValidFragment")
     public TravelVoucherFragment(boolean isStore, boolean isFromRegVip) {
@@ -92,10 +100,48 @@ public class TravelVoucherFragment extends BaseFragment<F2FragmentTravelVoucherB
             viewModel.checkCanReceiver();
         }
         Log.e("Travelllllllllllllllll", "0");
-        getVoucher("VTVTRAVEL", sortId, regionId, memberRankId, categoryId, page, isFromRegVip);
+        if ("0".equals(positionIdCategory))
+            getVoucher("VTVTRAVEL", sortId, regionId, memberRankId, categoryId, page, isFromRegVip);
         viewModel.getCategoryVoucher();
         viewModel.getRegionVoucher();
         viewModel.getRank();
+    }
+
+    private void initCategoriesDialog() {
+        categoryDialog = new CategoryDialog(categoryVoucherResponse, new CategoryDialog.DoneSort() {
+            @Override
+            public void onDoneSort(CategoryVoucherResponse.Category category) {
+                getBinding().tvCategoryFilterName.setText(category.getName());
+                categoryId = category.getId();
+                clearDataRCL();
+                getVoucher("VTVTRAVEL", sortId, regionId, memberRankId, categoryId, page, isFromRegVip);
+            }
+        }, "Danh mục", CategoryDialog.Type.VOUCHER_TYPE);
+        categoryId = positionIdCategory;
+        CategoryVoucherResponse.Category category;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            category = categoryVoucherResponse.getData().stream()
+                    .filter(category1 -> positionIdCategory.equals(category1.getId()))
+                    .findAny()
+                    .orElse(null);
+        } else {
+            category = getCategoryFromList(positionIdCategory, categoryVoucherResponse.getData());
+        }
+        if (!positionIdCategory.isEmpty()) {
+            categoryVoucherResponse.getData().get(0).setChecked(false);
+            categoryVoucherResponse.getData().get(Integer.parseInt(positionIdCategory)).setChecked(true);
+            categoryDialog.getCategoryFilterAdapter().notifyDataSetChanged();
+        }
+        categoryDialog.getCategoryFilterAdapter().getClickItem().onClickItem(category);
+    }
+
+    private CategoryVoucherResponse.Category getCategoryFromList(String id, List<CategoryVoucherResponse.Category> categoryList) {
+        for (CategoryVoucherResponse.Category category : categoryList) {
+            if (category.getId().equals(id)) {
+                return category;
+            }
+        }
+        return null;
     }
 
     private void setTitle() {
@@ -173,21 +219,23 @@ public class TravelVoucherFragment extends BaseFragment<F2FragmentTravelVoucherB
         getBinding().btnCategoryFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    CategoryDialog categoryDialog = new CategoryDialog(categoryVoucherResponse, new CategoryDialog.DoneSort() {
-                        @Override
-                        public void onDoneSort(CategoryVoucherResponse.Category category) {
-                            getBinding().tvCategoryFilterName.setText(category.getName());
-                            categoryId = category.getId();
-                            clearDataRCL();
-                            Log.e("Travelllllllllllllllll", "2");
-                            getVoucher("VTVTRAVEL", sortId, regionId, memberRankId, categoryId, page, isFromRegVip);
-                        }
-                    }, "Danh mục", CategoryDialog.Type.VOUCHER_TYPE);
+//                try {
+//                    CategoryDialog categoryDialog = new CategoryDialog(categoryVoucherResponse, new CategoryDialog.DoneSort() {
+//                        @Override
+//                        public void onDoneSort(CategoryVoucherResponse.Category category) {
+//                            getBinding().tvCategoryFilterName.setText(category.getName());
+//                            categoryId = category.getId();
+//                            clearDataRCL();
+//                            Log.e("Travelllllllllllllllll", "2");
+//                            getVoucher("VTVTRAVEL", sortId, regionId, memberRankId, categoryId, page, isFromRegVip);
+//                        }
+//                    }, "Danh mục", CategoryDialog.Type.VOUCHER_TYPE);
+//                    categoryDialog.show(mActivity.getSupportFragmentManager(), null);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+                if (categoryDialog != null)
                     categoryDialog.show(mActivity.getSupportFragmentManager(), null);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }
         });
 
@@ -295,6 +343,7 @@ public class TravelVoucherFragment extends BaseFragment<F2FragmentTravelVoucherB
                 category.setName("Tất cả");
                 category.setId("");
                 categoryVoucherResponse.getData().add(0, category);
+                initCategoriesDialog();
             } else if (o instanceof RankVoucherResponse) {
                 rankVoucherResponse = (RankVoucherResponse) o;
                 RankVoucherResponse.Rank rank = new RankVoucherResponse().new Rank();
@@ -320,12 +369,12 @@ public class TravelVoucherFragment extends BaseFragment<F2FragmentTravelVoucherB
             } else if (o instanceof ListVoucherResponse) {
 
                 ListVoucherResponse listVoucherResponse = (ListVoucherResponse) o;
-
+                vouchers.clear();
                 if (listVoucherResponse.getData().getVouchers() != null && listVoucherResponse.getData().getVouchers().size() > 0) {
                     page = page + 1;
                     vouchers.addAll(listVoucherResponse.getData().getVouchers());
-                    travelVoucherAdapter.notifyDataSetChanged();
                 }
+                travelVoucherAdapter.notifyDataSetChanged();
 
                 try {
                     if(vouchers.size() > 0){
@@ -387,7 +436,7 @@ public class TravelVoucherFragment extends BaseFragment<F2FragmentTravelVoucherB
             byte[] buffer = new byte[size];
             is.read(buffer);
             is.close();
-            json = new String(buffer, "UTF-8");
+            json = new String(buffer, StandardCharsets.UTF_8);
         } catch (IOException ex) {
             ex.printStackTrace();
             return null;
