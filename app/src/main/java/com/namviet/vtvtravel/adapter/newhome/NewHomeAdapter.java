@@ -126,6 +126,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final HomeServiceResponse homeServiceResponse;
     private final LoadData loadData;
     private final ClickUserView clickUserView;
+    private final ClickButtonRegisterNow clickButtonRegisterNow;
     private final ClickItemSmallLocation clickItemSmallLocation;
     private final ClickSearch clickSearch;
     private final NewHomeFragment newHomeFragment;
@@ -163,12 +164,13 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public static final String APP_HOME = "APP_HOME";
     }
 
-    public NewHomeAdapter(Context context, HomeServiceResponse homeServiceResponse, LoadData loadData, ClickUserView clickUserView,
+    public NewHomeAdapter(Context context, HomeServiceResponse homeServiceResponse, LoadData loadData, ClickUserView clickUserView, ClickButtonRegisterNow clickButtonRegisterNow,
                           ClickItemSmallLocation clickItemSmallLocation, ClickSearch clickSearch, NewHomeFragment newHomeFragment, BaseViewModel viewModel) {
         this.context = context;
         this.homeServiceResponse = homeServiceResponse;
         this.loadData = loadData;
         this.clickUserView = clickUserView;
+        this.clickButtonRegisterNow = clickButtonRegisterNow;
         this.clickItemSmallLocation = clickItemSmallLocation;
         this.clickSearch = clickSearch;
         this.newHomeFragment = newHomeFragment;
@@ -598,7 +600,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             btnRegisterNow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    clickUserView.onClickUserView();
+                    clickButtonRegisterNow.onClickButtonRegisterNow();
                 }
             });
 
@@ -1424,6 +1426,10 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public interface ClickUserView {
         void onClickUserView();
+    }
+
+    public interface ClickButtonRegisterNow {
+        void onClickButtonRegisterNow();
     }
 
     public interface ClickItemSmallLocation {

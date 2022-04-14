@@ -72,6 +72,7 @@ import com.namviet.vtvtravel.view.f2.SystemInboxActivity;
 
 import com.namviet.vtvtravel.view.f2.UserInformationActivity;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
+import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
 import com.namviet.vtvtravel.view.fragment.f2webview.HomeSpeedyLinearLayoutManager;
 import com.namviet.vtvtravel.viewmodel.newhome.ChangeRegionDialog;
 import com.namviet.vtvtravel.viewmodel.newhome.NewHomeViewModel;
@@ -85,7 +86,7 @@ import java.util.Observer;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
-public class NewHomeFragment extends MainFragment implements Observer, NewHomeAdapter.LoadData, NewHomeAdapter.ClickUserView, NewHomeAdapter.ClickItemSmallLocation, NewHomeAdapter.ClickSearch {
+public class NewHomeFragment extends MainFragment implements Observer, NewHomeAdapter.LoadData, NewHomeAdapter.ClickUserView, NewHomeAdapter.ClickButtonRegisterNow, NewHomeAdapter.ClickItemSmallLocation, NewHomeAdapter.ClickSearch {
     private F2FragmentHomeBinding binding;
     private NewHomeAdapter newHomeAdapter;
     private float heightTopbar = -400;
@@ -107,6 +108,8 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 
     };
     private boolean isLoadFail = false;
+
+
 
     public interface IOnClickTabReloadData {
         void onTabClick(String code);
@@ -462,7 +465,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
         try {
             String json = PreferenceUtil.getInstance(mActivity).getValue(Constants.PrefKey.HOME_DATA, new Gson().toJson(homeServiceResponse));
             homeServiceResponse = new Gson().fromJson(json, HomeServiceResponse.class);
-            newHomeAdapter = new NewHomeAdapter(mActivity, homeServiceResponse, this, this, this, this, this, newHomeViewModel);
+            newHomeAdapter = new NewHomeAdapter(mActivity, homeServiceResponse, this, this, this,this, this, this, newHomeViewModel);
             binding.rclHome.setAdapter(newHomeAdapter);
         } catch (Exception e) {
             e.printStackTrace();
@@ -490,7 +493,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                         e.printStackTrace();
                     }
 
-                    newHomeAdapter = new NewHomeAdapter(mActivity, homeServiceResponse, this, this, this, this, this, newHomeViewModel);
+                    newHomeAdapter = new NewHomeAdapter(mActivity, homeServiceResponse, this, this, this,this, this, this, newHomeViewModel);
                     binding.rclHome.setAdapter(newHomeAdapter);
 
                     subSmallHeaderAdapter = new SubSmallHeaderAdapter(homeServiceResponse.getData().get(0).getMenus(), mActivity);
@@ -740,7 +743,23 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
             UserInformationActivity.openScreen(mActivity);
         } else {
             if (phoneNumberDetectedFrom3G != null && !phoneNumberDetectedFrom3G.isEmpty()) {
+                LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+            } else {
                 LoginAndRegisterActivityNew.startScreen(mActivity, 1, false);
+            }
+        }
+    }
+
+    @Override
+    public void onClickButtonRegisterNow() {
+        Account account = MyApplication.getInstance().getAccount();
+        if (null != account && account.isLogin()) {
+            if(account.getPackageCode() == null){
+                ServiceActivity.startScreen(mActivity);
+            }
+        } else {
+            if (phoneNumberDetectedFrom3G != null && !phoneNumberDetectedFrom3G.isEmpty()) {
+                LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
             } else {
                 LoginAndRegisterActivityNew.startScreen(mActivity, 1, false);
             }
