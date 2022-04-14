@@ -337,10 +337,19 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 //            newHomeAdapter.notifyItemChanged(0);
 
 
-            homeServiceResponse.getData().get(1).setTipUser(getString(R.string.tip_user_vip));
-            homeServiceResponse.getData().get(1).setShowBtnRegisterNow(false);
-            newHomeAdapter.notifyItemChanged(1);
-            newHomeAdapter.notifyItemChanged(2);
+            if(account.getPackageCode() == null){
+                homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký Hội viên của #VTVTravel");
+                homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
+                newHomeAdapter.notifyItemChanged(1);
+                newHomeAdapter.notifyItemChanged(2);
+
+            }else {
+                homeServiceResponse.getData().get(1).setTipUser("Bạn đang là <b>Hội viên</b> của <b>#VTVTravel</b>, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:");
+                homeServiceResponse.getData().get(1).setShowBtnRegisterNow(false);
+                newHomeAdapter.notifyItemChanged(1);
+                newHomeAdapter.notifyItemChanged(2);
+            }
+
 
         } else {
             phoneNumberDetectedFrom3G = null;
@@ -358,7 +367,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 //            newHomeAdapter.notifyItemChanged(0);
 
 
-            homeServiceResponse.getData().get(1).setTipUser("Hãy đăng ký Hội viên của #VTVTravel để được nhận ưu đãi tốt nhất");
+            homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký Hội viên của #VTVTravel");
             homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
             newHomeAdapter.notifyItemChanged(1);
 
@@ -728,17 +737,11 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
     public void onClickUserView() {
         Account account = MyApplication.getInstance().getAccount();
         if (null != account && account.isLogin()) {
-//            mActivity.switchFragment(SlideMenu.MenuType.MAIN_CALL_NOW_SCREEN);
-//            binding.layoutMenuFloat.setVisibility(View.GONE);
             UserInformationActivity.openScreen(mActivity);
         } else {
             if (phoneNumberDetectedFrom3G != null && !phoneNumberDetectedFrom3G.isEmpty()) {
-//                mActivity.switchFragment(SlideMenu.MenuType.REGISTER_SCREEN);
                 LoginAndRegisterActivityNew.startScreen(mActivity, 1, false);
             } else {
-//                Bundle bundle = new Bundle();
-//                mActivity.setBundle(bundle);
-//                mActivity.switchFragment(SlideMenu.MenuType.LOGIN_SCREEN);
                 LoginAndRegisterActivityNew.startScreen(mActivity, 1, false);
             }
         }
@@ -753,8 +756,15 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 //                homeServiceResponse.getData().get(0).setDescriptionUser("Đăng kí hội viên ngay");
 //                homeServiceResponse.getData().get(0).setAvatar(account.getImageProfile());
 
-                homeServiceResponse.getData().get(1).setTipUser(getString(R.string.tip_user_vip));
-                homeServiceResponse.getData().get(1).setShowBtnRegisterNow(false);
+
+                if(account.getPackageCode() == null){
+                    homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký Hội viên của #VTVTravel");
+                    homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
+                }else {
+                    homeServiceResponse.getData().get(1).setTipUser("Bạn đang là <b>Hội viên</b> của <b>#VTVTravel</b>, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:");
+                    homeServiceResponse.getData().get(1).setShowBtnRegisterNow(false);
+                }
+
 
                 binding.tvName.setText("Chào, " + s);
                 binding.tvLoginRightNow.setText("Đăng kí hội viên ngay");
@@ -791,7 +801,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 //                    homeServiceResponse.getData().get(0).setDescriptionUser("Đăng nhập ngay");
                 }
 
-                homeServiceResponse.getData().get(1).setTipUser("Hãy đăng ký Hội viên của #VTVTravel để được nhận ưu đãi tốt nhất");
+                homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký Hội viên của #VTVTravel");
                 homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
             }
 

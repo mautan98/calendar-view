@@ -2,8 +2,10 @@ package com.namviet.vtvtravel.adapter.newhome;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -579,8 +581,11 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             });
             new CoverFlow.Builder().with(pager).scale(0.3f).pagerMargin(-50f).spaceSize(0f).build();
 
-
-            tvTipUser.setText(homeServiceResponse.getData().get(position).getTipUser());
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                tvTipUser.setText(Html.fromHtml(homeServiceResponse.getData().get(position).getTipUser(), Html.FROM_HTML_MODE_COMPACT));
+            }else {
+                tvTipUser.setText(Html.fromHtml(homeServiceResponse.getData().get(position).getTipUser()));
+            }
             if (context.getString(R.string.tip_user_vip).equals(homeServiceResponse.getData().get(position).getTipUser())) {
                 tvTipUser.setText(context.getString(R.string.tip_user_vip));
             }
@@ -619,6 +624,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }, 500);
             pageSwitcher(10000);
             listenerOnpageChange();
+
 
         }
 
