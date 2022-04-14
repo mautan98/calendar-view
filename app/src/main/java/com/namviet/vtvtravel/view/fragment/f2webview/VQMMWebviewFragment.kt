@@ -85,7 +85,7 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
             } catch (e: Exception) {
             }
             scrollAdapter = VQMMAdapter(context, datas)
-            rclScroll.layoutManager = LinearLayoutManager(mActivity, SpeedyLinearLayoutManager.VERTICAL, false)
+            rclScroll.layoutManager = SpeedyLinearLayoutManager(mActivity, SpeedyLinearLayoutManager.VERTICAL, false)
             rclScroll.adapter = scrollAdapter
 
             setSound()
