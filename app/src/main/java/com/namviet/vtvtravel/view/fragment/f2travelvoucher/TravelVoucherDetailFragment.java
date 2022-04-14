@@ -68,10 +68,7 @@ public class TravelVoucherDetailFragment extends BaseFragment<F2FragmentTravelVo
         Glide.with(mActivity).load(voucher.getAvatarUri()).into(getBinding().imgAvatar);
         getBinding().tvName.setText(voucher.getName());
         try {
-            getBinding().tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(Long.valueOf(voucher.getEndAt()) / 1000));
-            if ("HANG_VAT_LY".equals(voucher.getProductTypeCode()) && voucher.getExpireDate() != null){
-                getBinding().tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(voucher.getExpireDate() / 1000));
-            }
+            getBinding().tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(Long.valueOf(voucher.getExpireDate()) / 1000));
         } catch (Exception e) {
             getBinding().imgTime.setVisibility(View.INVISIBLE);
             e.printStackTrace();
