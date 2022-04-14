@@ -427,9 +427,12 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
 //                                    wheelLogId = null;
 //                                    viewModel?.wheelResult("VTVTRAVEL", "ANDROID", "app")
                                 }, 10)
-                                break
+                                return
                             }
                         }
+
+                        Toast.makeText(mActivity, "Có lỗi đã xảy ra, mời bạn thử lại sau", Toast.LENGTH_SHORT).show()
+
                     }
 
 //                    Handler().postDelayed({ rclScroll.smoothScrollToPosition(50) }, 10)

@@ -36,9 +36,6 @@ public class MyGift {
     @SerializedName("isDisplayPromo")
     private String isDisplayPromo;
     @Expose
-    @SerializedName("galleryUri")
-    private String galleryUri;
-    @Expose
     @SerializedName("bannerUri")
     private String bannerUri;
     @Expose
@@ -144,14 +141,6 @@ public class MyGift {
 
     public void setIsDisplayPromo(String isDisplayPromo) {
         this.isDisplayPromo = isDisplayPromo;
-    }
-
-    public String getGalleryUri() {
-        return galleryUri;
-    }
-
-    public void setGalleryUri(String galleryUri) {
-        this.galleryUri = galleryUri;
     }
 
     public String getBannerUri() {

@@ -59,6 +59,7 @@
                 
                 
                 <ImageView
+                    android:id="@+id/imgTime"
                     android:src="@drawable/f2_ic_time_left"
                     android:layout_width="17dp"
                     android:layout_height="26dp"/>

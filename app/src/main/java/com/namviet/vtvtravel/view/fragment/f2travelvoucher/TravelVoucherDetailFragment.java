@@ -73,10 +73,8 @@ public class TravelVoucherDetailFragment extends BaseFragment<F2FragmentTravelVo
                 getBinding().tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(voucher.getExpireDate() / 1000));
             }
         } catch (Exception e) {
+            getBinding().imgTime.setVisibility(View.INVISIBLE);
             e.printStackTrace();
-            if (voucher.getEndAt() == null && voucher.getExpireDate() != null) {
-                getBinding().tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(voucher.getExpireDate() / 1000));
-            }
         }
     }
 

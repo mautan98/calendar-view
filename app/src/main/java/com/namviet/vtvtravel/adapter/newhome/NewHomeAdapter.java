@@ -2,8 +2,10 @@ package com.namviet.vtvtravel.adapter.newhome;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -124,6 +126,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final HomeServiceResponse homeServiceResponse;
     private final LoadData loadData;
     private final ClickUserView clickUserView;
+    private final ClickButtonRegisterNow clickButtonRegisterNow;
     private final ClickItemSmallLocation clickItemSmallLocation;
     private final ClickSearch clickSearch;
     private final NewHomeFragment newHomeFragment;
@@ -161,12 +164,13 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public static final String APP_HOME = "APP_HOME";
     }
 
-    public NewHomeAdapter(Context context, HomeServiceResponse homeServiceResponse, LoadData loadData, ClickUserView clickUserView,
+    public NewHomeAdapter(Context context, HomeServiceResponse homeServiceResponse, LoadData loadData, ClickUserView clickUserView, ClickButtonRegisterNow clickButtonRegisterNow,
                           ClickItemSmallLocation clickItemSmallLocation, ClickSearch clickSearch, NewHomeFragment newHomeFragment, BaseViewModel viewModel) {
         this.context = context;
         this.homeServiceResponse = homeServiceResponse;
         this.loadData = loadData;
         this.clickUserView = clickUserView;
+        this.clickButtonRegisterNow = clickButtonRegisterNow;
         this.clickItemSmallLocation = clickItemSmallLocation;
         this.clickSearch = clickSearch;
         this.newHomeFragment = newHomeFragment;
@@ -579,8 +583,11 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             });
             new CoverFlow.Builder().with(pager).scale(0.3f).pagerMargin(-50f).spaceSize(0f).build();
 
-
-            tvTipUser.setText(homeServiceResponse.getData().get(position).getTipUser());
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                tvTipUser.setText(Html.fromHtml(homeServiceResponse.getData().get(position).getTipUser(), Html.FROM_HTML_MODE_COMPACT));
+            }else {
+                tvTipUser.setText(Html.fromHtml(homeServiceResponse.getData().get(position).getTipUser()));
+            }
             if (context.getString(R.string.tip_user_vip).equals(homeServiceResponse.getData().get(position).getTipUser())) {
                 tvTipUser.setText(context.getString(R.string.tip_user_vip));
             }
@@ -593,7 +600,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             btnRegisterNow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    clickUserView.onClickUserView();
+                    clickButtonRegisterNow.onClickButtonRegisterNow();
                 }
             });
 
@@ -617,8 +624,9 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     }
                 }
             }, 500);
-            pageSwitcher(3000);
+            pageSwitcher(10000);
             listenerOnpageChange();
+
 
         }
 
@@ -1420,6 +1428,10 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public interface ClickUserView {
         void onClickUserView();
+    }
+
+    public interface ClickButtonRegisterNow {
+        void onClickButtonRegisterNow();
     }
 
     public interface ClickItemSmallLocation {

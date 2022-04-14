@@ -80,15 +80,17 @@ public class TravelVoucherFragment extends BaseFragment<F2FragmentTravelVoucherB
             getBinding().btnSort.setVisibility(View.GONE);
             getBinding().layoutRankFilter.setVisibility(View.VISIBLE);
 
-            getBinding().imgOutDateVoucherHaveButton.setVisibility(View.VISIBLE);
-            getBinding().imgOutDateVoucher.setVisibility(View.GONE);
+//            getBinding().imgOutDateVoucherHaveButton.setVisibility(View.VISIBLE);
+//            getBinding().imgOutDateVoucher.setVisibility(View.GONE);
+            getBinding().layoutNoData.setVisibility(View.VISIBLE);
         } else {
             getBinding().btnFilterBottom.setVisibility(View.GONE);
             getBinding().layoutRankFilter.setVisibility(View.GONE);
             getBinding().btnSort.setVisibility(View.VISIBLE);
 
-            getBinding().imgOutDateVoucherHaveButton.setVisibility(View.GONE);
-            getBinding().imgOutDateVoucher.setVisibility(View.VISIBLE);
+//            getBinding().imgOutDateVoucherHaveButton.setVisibility(View.GONE);
+//            getBinding().imgOutDateVoucher.setVisibility(View.VISIBLE);
+            getBinding().layoutNoData.setVisibility(View.VISIBLE);
         }
 
         setTitle();
@@ -378,20 +380,23 @@ public class TravelVoucherFragment extends BaseFragment<F2FragmentTravelVoucherB
 
                 try {
                     if(vouchers.size() > 0){
-                        getBinding().imgOutDateVoucherHaveButton.setVisibility(View.GONE);
-                        getBinding().imgOutDateVoucher.setVisibility(View.GONE);
+//                        getBinding().imgOutDateVoucherHaveButton.setVisibility(View.GONE);
+//                        getBinding().imgOutDateVoucher.setVisibility(View.GONE);
+                        getBinding().layoutNoData.setVisibility(View.GONE);
                     }else {
-                        if(isStore){
-                            getBinding().imgOutDateVoucherHaveButton.setVisibility(View.VISIBLE);
-                            getBinding().imgOutDateVoucher.setVisibility(View.GONE);
-                        }else {
-                            getBinding().imgOutDateVoucherHaveButton.setVisibility(View.GONE);
-                            getBinding().imgOutDateVoucher.setVisibility(View.VISIBLE);
-                        }
+//                        if(isStore){
+//                            getBinding().imgOutDateVoucherHaveButton.setVisibility(View.VISIBLE);
+//                            getBinding().imgOutDateVoucher.setVisibility(View.GONE);
+//                        }else {
+//                            getBinding().imgOutDateVoucherHaveButton.setVisibility(View.GONE);
+//                            getBinding().imgOutDateVoucher.setVisibility(View.VISIBLE);
+//                        }
+                        getBinding().layoutNoData.setVisibility(View.VISIBLE);
                     }
                 } catch (Exception e) {
-                    getBinding().imgOutDateVoucherHaveButton.setVisibility(View.GONE);
-                    getBinding().imgOutDateVoucher.setVisibility(View.GONE);
+//                    getBinding().imgOutDateVoucherHaveButton.setVisibility(View.GONE);
+//                    getBinding().imgOutDateVoucher.setVisibility(View.GONE);
+                    getBinding().layoutNoData.setVisibility(View.GONE);
                 }
 
             } else if (o instanceof RegionVoucherResponse) {
