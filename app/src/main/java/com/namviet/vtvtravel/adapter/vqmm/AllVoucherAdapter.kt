@@ -106,8 +106,10 @@ class AllVoucherAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
             Glide.with(context!!).load(travel.avatarUri).into(itemView.imgAvatar)
             itemView.tvTitle.text = travel.name
             try {
-                itemView.tvOutDate.text = "Hạn đến " + DateUtltils.timeToString(java.lang.Long.valueOf(travel.endAt) / 1000)
+                itemView.tvOutDate.text = "Hạn đến " + DateUtltils.timeToString(java.lang.Long.valueOf(travel.expireDate) / 1000)
+                itemView.tvOutDate.visibility = View.VISIBLE
             } catch (e: Exception) {
+                itemView.tvOutDate.visibility = View.INVISIBLE
                 e.printStackTrace()
             }
 
