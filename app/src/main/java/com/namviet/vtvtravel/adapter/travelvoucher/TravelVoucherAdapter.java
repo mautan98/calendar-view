@@ -72,12 +72,14 @@ public class TravelVoucherAdapter extends RecyclerView.Adapter<RecyclerView.View
         private final ImageView imgAvatar;
         private final TextView tvName;
         private final TextView tvTimeLeft;
+        private final View imgTime;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
             imgAvatar = itemView.findViewById(R.id.imgAvatar);
             tvName = itemView.findViewById(R.id.tvName);
             tvTimeLeft = itemView.findViewById(R.id.tvTimeLeft);
+            imgTime = itemView.findViewById(R.id.imgTime);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -93,13 +95,13 @@ public class TravelVoucherAdapter extends RecyclerView.Adapter<RecyclerView.View
             ListVoucherResponse.Data.Voucher travel = vouchers.get(position);
             Glide.with(context).load(travel.getAvatarUri()).into(imgAvatar);
             tvName.setText(travel.getName());
+
             try {
-                tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(Long.valueOf(travel.getEndAt()) / 1000));
+                tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(travel.getExpireDate() / 1000));
+                imgTime.setVisibility(View.VISIBLE);
             } catch (Exception e) {
+                imgTime.setVisibility(View.INVISIBLE);
                 e.printStackTrace();
-                if (travel.getEndAt() == null && travel.getExpireDate() != null) {
-                    tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(travel.getExpireDate() / 1000));
-                }
             }
 
 
