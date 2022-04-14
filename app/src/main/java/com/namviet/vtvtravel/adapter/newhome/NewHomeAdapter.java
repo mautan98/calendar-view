@@ -617,7 +617,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     }
                 }
             }, 500);
-            pageSwitcher(3000);
+            pageSwitcher(10000);
             listenerOnpageChange();
 
         }
