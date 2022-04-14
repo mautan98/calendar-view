@@ -307,6 +307,16 @@
                     android:src="@drawable/f2_img_out_date_voucher_1" />
 
 
+                <LinearLayout
+                    android:id="@+id/layoutNoData"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <include layout="@layout/layout_no_data"/>
+
+                </LinearLayout>
+
+
 
 
             </RelativeLayout>
