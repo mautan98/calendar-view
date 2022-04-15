@@ -228,6 +228,11 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             SortAndFilter::class.java
         )
 
+        if(regionId != null && regionId!!.isNotEmpty()){
+            sortAndFilter!!.sortHeader[1].content.cityId = location?.id
+            sortAndFilter!!.sortHeader[1].content.cityName = location?.name
+        }
+
         sortAdapter =
             SortAdapter(mActivity, sortAndFilter!!.sortHeader, object : SortAdapter.ClickItem {
                 override fun onClickItem(position: Int,isShow:Boolean) {
