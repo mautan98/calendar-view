@@ -134,6 +134,12 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private Timer timer;
     private int pageNumber;
 
+    public ViewPager getViewPagerVoucher() {
+        return pager;
+    }
+
+    private ViewPager pager;
+
     public Timer getTimer() {
         return timer;
     }
@@ -535,7 +541,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public class VoucherViewHolder extends RecyclerView.ViewHolder {
         private final PagerContainer container;
-        private ViewPager pager;
+
         private final TextView tvTipUser;
         private final TextView btnRegisterNow;
         private final IndefinitePagerIndicator vpIndicator;
@@ -633,6 +639,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public void pageSwitcher(long milseconds) {
             if (timer == null)
                 timer = new Timer();
+            if (pageNumber > 1)
             timer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
