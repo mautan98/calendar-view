@@ -777,6 +777,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     ) {
         this.keyword = keyword
         this.location = location
+        this.regionId = location?.id
+        resetLocationInFilter(location)
         edtSearch.text = keyword
         loadOtherData()
     }
@@ -788,6 +790,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     override fun onClickRegion(location: Location?, keyword: String?) {
         this.keyword = keyword
         this.location = location
+        this.regionId = location?.id
+        resetLocationInFilter(location)
         edtSearch.text = keyword
         loadOtherData()
     }
@@ -795,8 +799,16 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     override fun onClickLayoutKeyword(location: Location?, keyword: String?) {
         this.keyword = keyword
         this.location = location
+        this.regionId = location?.id
+        resetLocationInFilter(location)
         edtSearch.text = keyword
         loadOtherData()
+    }
+
+    private fun resetLocationInFilter(location: Location?){
+        sortAndFilter!!.sortHeader[1].content.cityId = location?.id
+        sortAndFilter!!.sortHeader[1].content.cityName = location?.name
+        sortAdapter?.notifyDataSetChanged()
     }
 
 }
