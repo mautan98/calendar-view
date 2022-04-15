@@ -168,6 +168,7 @@ class SearchSuggestionSmallLocationFragment(private var keyword: String? = null,
         }
 
         layoutKeyword.setOnClickListener {
+            var keyword = edtSearch.text.toString()
             KeyboardUtils.hideKeyboard(mActivity, edtSearch)
             mActivity.onBackPressed()
             searchSuggestionCallback?.onClickRegion(location, keyword)
@@ -188,7 +189,7 @@ class SearchSuggestionSmallLocationFragment(private var keyword: String? = null,
     private fun handleSearch() {
         RxTextView.afterTextChangeEvents(edtSearch)
                 .skipInitialValue()
-                .debounce(790, TimeUnit.MILLISECONDS)
+                .debounce(390, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     try {
