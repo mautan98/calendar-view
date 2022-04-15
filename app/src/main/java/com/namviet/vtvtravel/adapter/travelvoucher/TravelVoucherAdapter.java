@@ -95,7 +95,6 @@ public class TravelVoucherAdapter extends RecyclerView.Adapter<RecyclerView.View
             ListVoucherResponse.Data.Voucher travel = vouchers.get(position);
             Glide.with(context).load(travel.getAvatarUri()).into(imgAvatar);
             tvName.setText(travel.getName());
-
             try {
                 tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(travel.getExpireDate() / 1000));
                 imgTime.setVisibility(View.VISIBLE);

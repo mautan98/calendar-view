@@ -1,14 +1,15 @@
 package com.namviet.vtvtravel.adapter.f2travelvoucher;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.namviet.vtvtravel.R;
@@ -18,10 +19,14 @@ import java.util.List;
 
 public class CategoryFilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
-    private Context context;
-    private ClickItem clickItem;
-    private int oldSelected = 1000;
-    private List<CategoryVoucherResponse.Category> categories;
+    private final Context context;
+    private final int oldSelected = 1000;
+    private final List<CategoryVoucherResponse.Category> categories;
+    public ClickItem clickItem;
+
+    public ClickItem getClickItem() {
+        return clickItem;
+    }
 
     public CategoryFilterAdapter(List<CategoryVoucherResponse.Category> categories, Context context, ClickItem clickItem) {
         this.context = context;
@@ -66,15 +71,14 @@ public class CategoryFilterAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
     }
 
-
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
 
         private int position;
-        private TextView tvName;
-        private ImageView imgCheck;
-        private LinearLayout linearSort;
+        private final TextView tvName;
+        private final ImageView imgCheck;
+        private final LinearLayout linearSort;
 
-        private ImageView imgAvatar;
+        private final ImageView imgAvatar;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);

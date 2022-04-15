@@ -143,6 +143,7 @@ public class Constants {
         public static final String PART_NAME = "part_name";
         public static final String IS_VIDEO_CALL = "is_video_call";
         public static final String NOTI_DATA = "noti_data";
+        public static final String POSITION_TAB_VOUCHER_NOW = "position_voucher_now";
     }
 
     public static class PrefKey {

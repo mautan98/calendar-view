@@ -1,17 +1,18 @@
 package com.namviet.vtvtravel.view.fragment.f2travelvoucher;
 
 import android.annotation.SuppressLint;
-import androidx.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2travelvoucher.CategoryFilterAdapter;
@@ -23,7 +24,29 @@ import java.util.Objects;
 
 public class CategoryDialog extends BaseDialogBottom {
     private F2DialogSortVoucherBinding binding;
+
+    @SuppressLint("ValidFragment")
+    public CategoryDialog(CategoryVoucherResponse categoryVoucherResponse, DoneSort doneSort, String title, int type) {
+        this.categoryVoucherResponse = categoryVoucherResponse;
+        this.doneSort = doneSort;
+        this.title = title;
+        this.type = type;
+        categoryFilterAdapter = new CategoryFilterAdapter(categoryVoucherResponse.getData(), getBaseActivity(), new CategoryFilterAdapter.ClickItem() {
+            @Override
+            public void onClickItem(CategoryVoucherResponse.Category category) {
+                doneSort.onDoneSort(category);
+                dismiss();
+            }
+        });
+
+    }
+
     private CategoryFilterAdapter categoryFilterAdapter;
+
+    public CategoryFilterAdapter getCategoryFilterAdapter() {
+        return categoryFilterAdapter;
+    }
+
     private DoneSort doneSort;
     private CategoryVoucherResponse categoryVoucherResponse;
     private String title;
@@ -34,12 +57,8 @@ public class CategoryDialog extends BaseDialogBottom {
         public static final int LUCKY_WHEEL_TYPE = 1;
     }
 
-    @SuppressLint("ValidFragment")
-    public CategoryDialog(CategoryVoucherResponse categoryVoucherResponse, DoneSort doneSort, String title, int type) {
-        this.categoryVoucherResponse = categoryVoucherResponse;
+    public void setDoneSort(DoneSort doneSort) {
         this.doneSort = doneSort;
-        this.title = title;
-        this.type = type;
     }
 
     public CategoryDialog() {
@@ -81,13 +100,6 @@ public class CategoryDialog extends BaseDialogBottom {
     @Override
     protected void setUp(View view) {
         binding.tvTitle.setText(title);
-        categoryFilterAdapter = new CategoryFilterAdapter(categoryVoucherResponse.getData(), getBaseActivity(), new CategoryFilterAdapter.ClickItem() {
-            @Override
-            public void onClickItem(CategoryVoucherResponse.Category category) {
-                doneSort.onDoneSort(category);
-                dismiss();
-            }
-        });
         binding.recycleSort.setAdapter(categoryFilterAdapter);
 
         if(type == Type.LUCKY_WHEEL_TYPE) {

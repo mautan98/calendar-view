@@ -122,6 +122,18 @@ public class ListVoucherResponse extends BaseResponse {
             @SerializedName("expireDate")
             private Long expireDate;
 
+            public String getProductTypeCode() {
+                return productTypeCode;
+            }
+
+            public void setProductTypeCode(String productTypeCode) {
+                this.productTypeCode = productTypeCode;
+            }
+
+            @Expose
+            @SerializedName("productTypeCode")
+            private String productTypeCode;
+
             public Long getExpireDate() {
                 return expireDate;
             }

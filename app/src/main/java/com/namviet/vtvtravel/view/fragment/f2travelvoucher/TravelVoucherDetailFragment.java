@@ -67,10 +67,8 @@ public class TravelVoucherDetailFragment extends BaseFragment<F2FragmentTravelVo
     public void initData() {
         Glide.with(mActivity).load(voucher.getAvatarUri()).into(getBinding().imgAvatar);
         getBinding().tvName.setText(voucher.getName());
-
         try {
-            getBinding().tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(voucher.getExpireDate() / 1000));
-            getBinding().imgTime.setVisibility(View.VISIBLE);
+            getBinding().tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(Long.valueOf(voucher.getExpireDate()) / 1000));
         } catch (Exception e) {
             getBinding().imgTime.setVisibility(View.INVISIBLE);
             e.printStackTrace();
