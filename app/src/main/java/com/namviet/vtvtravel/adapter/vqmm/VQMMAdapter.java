@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.response.f2comment.CommentResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelAreasResponse;
@@ -95,7 +96,7 @@ public class VQMMAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public void bindItem(int position) {
 
-            Glide.with(context).load(items.get(position).getLogo()).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder) .into(imgAvatar);
+            Glide.with(context).load(items.get(position).getLogo()).apply(new RequestOptions().override(200, 150)).into(imgAvatar);
             tvTitle.setText(items.get(position).getName());
 
             if (position == highLightPosition) {

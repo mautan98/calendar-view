@@ -26,7 +26,9 @@ import com.namviet.vtvtravel.response.f2wheel.WheelAreasResponse
 import com.namviet.vtvtravel.response.f2wheel.WheelResultResponse
 import com.namviet.vtvtravel.response.f2wheel.WheelRotateResponse
 import com.namviet.vtvtravel.view.f2.HistoryLuckyWheelActivity
+import com.namviet.vtvtravel.view.f2.MyGiftActivity
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity
+import com.namviet.vtvtravel.view.f3.deal.view.mygift.NewMyGiftActivity
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity
 import com.namviet.vtvtravel.viewmodel.f2luckywheel.LuckyWheelViewModel
 import kotlinx.android.synthetic.main.f2_fragment_detail_deal_webview.*
@@ -297,7 +299,8 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
 
                         "VOUCHER" -> {
                             var receiverVoucherLuckyWheelDialog = ReceiverVoucherLuckyWheelDialog.newInstance(ReceiverVoucherLuckyWheelDialog.ClickButton {
-                                TravelVoucherActivity.openScreen(mActivity, false, TravelVoucherActivity.OpenType.LIST, false)
+//                                TravelVoucherActivity.openScreen(mActivity, false, TravelVoucherActivity.OpenType.LIST, false)
+                                NewMyGiftActivity.startScreen(mActivity)
                             }, wheelResultResponse?.data?.wheelAward?.name)
                             receiverVoucherLuckyWheelDialog.show(mActivity.supportFragmentManager, null)
                         }

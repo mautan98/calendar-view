@@ -48,6 +48,7 @@
                     android:layout_weight="1.7">
 
                     <com.makeramen.roundedimageview.RoundedImageView
+                        android:background="@drawable/bg_image_vqmm"
                         app:riv_corner_radius="10dp"
                         android:id="@+id/imgAvatar"
                         android:layout_width="match_parent"

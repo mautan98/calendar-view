@@ -92,14 +92,10 @@ class SearchSuggestionFragment(private var keyword: String? = null, private var 
         edtSearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
                 if (edtSearch.text.isNotEmpty()) {
-//                    addRecentSearch(edtKeyword.text.toString())
-//                    recentAdapter?.setData(getRecentSearch())
-//                    addFragment(ResultSearchFragment(edtKeyword.text.toString(), regionId, ""))
-//                    KeyboardUtils.hideKeyboard(mActivity, edtKeyword)
-//                    edtKeyword.clearFocus()
-//                    KeyboardUtils.hideKeyboard(mActivity, edtSearch)
+                    var keyword = edtSearch.text.toString()
                     KeyboardUtils.hideKeyboard(mActivity, edtSearch)
                     mActivity.onBackPressed()
+//                    searchSuggestionCallback?.onClickRegion(location, keyword)  comment dòng này và thay bằng dòng dưới bởi vì khi user nhấn tìm kiếm tại bàn phím quá nhanh thì keyword chưa kip tạo vì có delay
                     searchSuggestionCallback?.onClickRegion(location, keyword)
                 }
                 true
@@ -226,7 +222,7 @@ class SearchSuggestionFragment(private var keyword: String? = null, private var 
     private fun handleSearch() {
         RxTextView.afterTextChangeEvents(edtSearch)
                 .skipInitialValue()
-                .debounce(790, TimeUnit.MILLISECONDS)
+                .debounce(390, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     try {
