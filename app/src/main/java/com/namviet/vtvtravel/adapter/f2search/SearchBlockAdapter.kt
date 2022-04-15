@@ -117,6 +117,21 @@ class SearchBlockAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 } catch (e: Exception) {
                 }
             }
+
+            itemView.imgDown.setOnClickListener {
+                try {
+                    if(itemView.rclContent.visibility == View.GONE){
+                        itemView.rclContent.visibility = View.VISIBLE
+                        itemView.rclContent2.visibility = View.VISIBLE
+                        itemView.imgDown.rotation = 0f
+                    }else{
+                        itemView.rclContent.visibility = View.GONE
+                        itemView.rclContent2.visibility = View.GONE
+                        itemView.imgDown.rotation = 180f
+                    }
+                } catch (e: Exception) {
+                }
+            }
         }
 
     }
