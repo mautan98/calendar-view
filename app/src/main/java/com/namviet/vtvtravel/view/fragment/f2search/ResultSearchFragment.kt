@@ -283,6 +283,16 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                                         sortAdapter?.notifyDataSetChanged()
                                         getParamAndSearch()
 
+                                        //
+                                        var location = Location()
+                                        if(content?.cityId == ""){
+                                        }else{
+                                            location.id = content?.cityId
+                                            location.name = content?.cityName
+                                        }
+                                        this@ResultSearchFragment.location = location
+
+
                                     }
 
                                 })
