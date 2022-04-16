@@ -52,7 +52,7 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if(type!![0] == "place"){
                 return 4
             }else{
-                return 3
+                return 2
             }
         } catch (e: Exception) {
             0;

@@ -433,7 +433,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             ward_id,
             open,
             if(type == SearchType.DESTINATION) sortPlace else sortNews,
-            content_type,
+//            content_type,
+            if(type == SearchType.DESTINATION) content_type else "",
             isLoadMore
         )
     }
@@ -453,7 +454,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             ward_id,
             open,
             sortVideo,
-            content_type,
+//            content_type,
+            if(type == SearchType.DESTINATION) content_type else "",
             isLoadMore
         )
     }
