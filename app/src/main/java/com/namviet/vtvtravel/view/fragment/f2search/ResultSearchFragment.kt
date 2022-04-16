@@ -228,6 +228,11 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             SortAndFilter::class.java
         )
 
+        if(regionId != null && regionId!!.isNotEmpty()){
+            sortAndFilter!!.sortHeader[1].content.cityId = location?.id
+            sortAndFilter!!.sortHeader[1].content.cityName = location?.name
+        }
+
         sortAdapter =
             SortAdapter(mActivity, sortAndFilter!!.sortHeader, object : SortAdapter.ClickItem {
                 override fun onClickItem(position: Int,isShow:Boolean) {
@@ -277,6 +282,16 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                                         sortAndFilter!!.sortHeader[1].content = content
                                         sortAdapter?.notifyDataSetChanged()
                                         getParamAndSearch()
+
+                                        //
+                                        var location = Location()
+                                        if(content?.cityId == ""){
+                                        }else{
+                                            location.id = content?.cityId
+                                            location.name = content?.cityName
+                                        }
+                                        this@ResultSearchFragment.location = location
+
 
                                     }
 
@@ -772,6 +787,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     ) {
         this.keyword = keyword
         this.location = location
+        this.regionId = location?.id
+        resetLocationInFilter(location)
         edtSearch.text = keyword
         loadOtherData()
     }
@@ -783,6 +800,8 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     override fun onClickRegion(location: Location?, keyword: String?) {
         this.keyword = keyword
         this.location = location
+        this.regionId = location?.id
+        resetLocationInFilter(location)
         edtSearch.text = keyword
         loadOtherData()
     }
@@ -790,8 +809,16 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     override fun onClickLayoutKeyword(location: Location?, keyword: String?) {
         this.keyword = keyword
         this.location = location
+        this.regionId = location?.id
+        resetLocationInFilter(location)
         edtSearch.text = keyword
         loadOtherData()
+    }
+
+    private fun resetLocationInFilter(location: Location?){
+        sortAndFilter!!.sortHeader[1].content.cityId = location?.id
+        sortAndFilter!!.sortHeader[1].content.cityName = location?.name
+        sortAdapter?.notifyDataSetChanged()
     }
 
 }
