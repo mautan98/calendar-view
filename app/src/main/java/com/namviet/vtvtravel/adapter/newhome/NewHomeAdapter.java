@@ -1462,18 +1462,22 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     private <T> void setupNodataVoucher(List<T> itemList,List<View> listViewGone ,ImageView imvNodata){
-        if (itemList != null){
-            if (itemList.size() == 0){
-                imvNodata.setVisibility(View.VISIBLE);
-                for (View view:listViewGone) {
-                    view.setVisibility(View.GONE);
+        try {
+            if (itemList != null){
+                if (itemList.size() == 0){
+                    imvNodata.setVisibility(View.VISIBLE);
+                    for (View view:listViewGone) {
+                        view.setVisibility(View.GONE);
+                    }
+                } else {
+                    for (View view:listViewGone) {
+                        view.setVisibility(View.VISIBLE);
+                    }
+                    imvNodata.setVisibility(View.GONE);
                 }
-            } else {
-                for (View view:listViewGone) {
-                    view.setVisibility(View.VISIBLE);
-                }
-                imvNodata.setVisibility(View.GONE);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
