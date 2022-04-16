@@ -191,6 +191,18 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
                 this@ResultSearchFragment.sortAndFilter!!.sortHeader[1].content =
                     sortAndFilter.sortHeader[1].content
 
+                //
+                var location = Location()
+                if (sortAndFilter.sortHeader[1].content.cityId == "") {
+                } else {
+                    location.id = sortAndFilter.sortHeader[1].content?.cityId
+                    location.name = sortAndFilter.sortHeader[1].content?.cityName
+                }
+                this@ResultSearchFragment.location = location
+                this@ResultSearchFragment.regionId = location.id
+
+                //
+
                 this@ResultSearchFragment.sortAndFilter!!.sortHeader[0].childrenPlace.clear()
                 this@ResultSearchFragment.sortAndFilter!!.sortHeader[0].childrenPlace.addAll(
                     sortAndFilter!!.sortHeader[0].childrenPlace
@@ -228,34 +240,34 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             SortAndFilter::class.java
         )
 
-        if(regionId != null && regionId!!.isNotEmpty()){
+        if (regionId != null && regionId!!.isNotEmpty()) {
             sortAndFilter!!.sortHeader[1].content.cityId = location?.id
             sortAndFilter!!.sortHeader[1].content.cityName = location?.name
         }
 
         sortAdapter =
             SortAdapter(mActivity, sortAndFilter!!.sortHeader, object : SortAdapter.ClickItem {
-                override fun onClickItem(position: Int,isShow:Boolean) {
+                override fun onClickItem(position: Int, isShow: Boolean) {
                     if (isShow)
                         hideMenuAnim()
                     when (position) {
                         0 -> {
                             var sortFollowFragment = SortFollowFragment()
                             sortFollowFragment.setData(
-                                if(type[0] == "place") sortAndFilter!!.sortHeader[0].childrenPlace else if(type[0] == "news") sortAndFilter!!.sortHeader[0].childrenNews else  sortAndFilter!!.sortHeader[0].childrenVideo,
+                                if (type[0] == "place") sortAndFilter!!.sortHeader[0].childrenPlace else if (type[0] == "news") sortAndFilter!!.sortHeader[0].childrenNews else sortAndFilter!!.sortHeader[0].childrenVideo,
                                 object : SortFollowFragment.Listener {
                                     override fun onApply(listChild: ArrayList<Children>?) {
-                                        if(type[0] == "place") {
+                                        if (type[0] == "place") {
                                             sortAndFilter!!.sortHeader[0].childrenPlace = listChild
                                             hideMenuAnim()
                                             sortAdapter?.notifyDataSetChanged()
                                             getParamAndSearch()
-                                        }else if (type[0] == "news"){
+                                        } else if (type[0] == "news") {
                                             sortAndFilter!!.sortHeader[0].childrenNews = listChild
                                             hideMenuAnim()
                                             sortAdapter?.notifyDataSetChanged()
                                             getParamAndSearch()
-                                        }else{
+                                        } else {
                                             sortAndFilter!!.sortHeader[0].childrenVideo = listChild
                                             hideMenuAnim()
                                             sortAdapter?.notifyDataSetChanged()
@@ -285,12 +297,13 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
 
                                         //
                                         var location = Location()
-                                        if(content?.cityId == ""){
-                                        }else{
+                                        if (content?.cityId == "") {
+                                        } else {
                                             location.id = content?.cityId
                                             location.name = content?.cityName
                                         }
                                         this@ResultSearchFragment.location = location
+                                        this@ResultSearchFragment.regionId = location.id
 
 
                                     }
@@ -407,9 +420,9 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
     }
 
 
-    private fun resetArrows(){
+    private fun resetArrows() {
         try {
-            for (i in 0 until sortAndFilter!!.sortHeader.size){
+            for (i in 0 until sortAndFilter!!.sortHeader.size) {
                 sortAndFilter!!.sortHeader!![i].isOpen = false
             }
             sortAdapter?.notifyDataSetChanged()
@@ -432,9 +445,9 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             district_id,
             ward_id,
             open,
-            if(type == SearchType.DESTINATION) sortPlace else sortNews,
+            if (type == SearchType.DESTINATION) sortPlace else sortNews,
 //            content_type,
-            if(type == SearchType.DESTINATION) content_type else "",
+            if (type == SearchType.DESTINATION) content_type else "",
             isLoadMore
         )
     }
@@ -455,7 +468,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             open,
             sortVideo,
 //            content_type,
-            if(type == SearchType.DESTINATION) content_type else "",
+            if (type == SearchType.DESTINATION) content_type else "",
             isLoadMore
         )
     }
@@ -736,9 +749,9 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         var categoryParam = ""
 
 
-        for (i in 0 until sortAndFilter!!.sortHeader[2].children.size){
-            if(sortAndFilter!!.sortHeader[2].children[i].isSelected){
-                categoryParam = categoryParam + " "+sortAndFilter!!.sortHeader[2].children[i].id
+        for (i in 0 until sortAndFilter!!.sortHeader[2].children.size) {
+            if (sortAndFilter!!.sortHeader[2].children[i].isSelected) {
+                categoryParam = categoryParam + " " + sortAndFilter!!.sortHeader[2].children[i].id
             }
         }
 
@@ -817,7 +830,7 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         loadOtherData()
     }
 
-    private fun resetLocationInFilter(location: Location?){
+    private fun resetLocationInFilter(location: Location?) {
         sortAndFilter!!.sortHeader[1].content.cityId = location?.id
         sortAndFilter!!.sortHeader[1].content.cityName = location?.name
         sortAdapter?.notifyDataSetChanged()

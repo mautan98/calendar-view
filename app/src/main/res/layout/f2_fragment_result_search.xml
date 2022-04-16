@@ -56,7 +56,7 @@
                             android:id="@+id/edtSearch"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginStart="14dp"
                             android:layout_marginEnd="19dp"
                             android:background="#f6f6f6"
                             android:fontFamily="@font/roboto_regular"

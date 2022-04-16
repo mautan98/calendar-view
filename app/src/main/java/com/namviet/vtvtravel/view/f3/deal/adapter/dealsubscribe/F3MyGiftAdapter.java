@@ -86,6 +86,7 @@ public class F3MyGiftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private TextView tvOriginPrice;
         private TextView tvDisplayPrice;
         private TextView tvDisCount;
+        private TextView tvDisCount2;
 
 
         public HeaderViewHolder(View itemView) {
@@ -98,6 +99,7 @@ public class F3MyGiftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             tvOriginPrice = itemView.findViewById(R.id.tvOriginPrice);
             tvDisplayPrice = itemView.findViewById(R.id.tvDisplayPrice);
             tvDisCount = itemView.findViewById(R.id.tv_dis_count);
+            tvDisCount2 = itemView.findViewById(R.id.tv_dis_count_2);
 
         }
 
@@ -180,9 +182,12 @@ public class F3MyGiftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                     if(myGifts.get(position).getDisplayType().equals("2")){
                         tvDisCount.setVisibility(View.VISIBLE);
+                        tvDisCount2.setVisibility(View.GONE);
                         tvDisCount.setText(myGifts.get(position).getValuePromotion() + "%");
                     }else {
-                        tvDisCount.setVisibility(View.GONE);
+                        tvDisCount.setVisibility(View.VISIBLE);
+                        tvDisCount2.setVisibility(View.VISIBLE);
+                        tvDisCount2.setText(F3SubDealAdapter.convertPrice(myGifts.get(position).getValuePromotion()) + " đ");
                     }
 
                     break;

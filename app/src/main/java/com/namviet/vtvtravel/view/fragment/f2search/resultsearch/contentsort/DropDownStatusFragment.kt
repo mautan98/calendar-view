@@ -19,7 +19,7 @@ class DropDownStatusFragment : BaseFragment<F3FragmentDropDownStatusBinding?>() 
     override fun initView() {}
     override fun initData() {
         if(isOpen == null){
-            switchStatus.alpha = 0.5f
+            switchStatus.alpha = 0.2f
         }else{
             switchStatus.alpha = 1f
             switchStatus.isChecked = isOpen!!

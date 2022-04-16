@@ -141,6 +141,23 @@
                             android:textColor="@color/white"
                             android:textSize="12dp"
                             android:textStyle="bold" />
+
+                        <com.ornach.richtext.RichText
+                            android:id="@+id/tv_dis_count_2"
+                            android:paddingRight="5dp"
+                            app:rt_radius="3dp"
+                            android:layout_toRightOf="@+id/lnl_price"
+                            android:layout_marginLeft="15dp"
+                            android:paddingLeft="5dp"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:text="1000 đ"
+                            android:textColor="@color/white"
+                            android:textSize="12dp"
+                            android:textStyle="bold"
+                            app:rt_backgroundColor="#FF0000"
+                            android:layout_width="wrap_content"
+                            android:layout_height="21dp"/>
                     </RelativeLayout>
 
                 </LinearLayout>
