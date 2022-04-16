@@ -20,12 +20,14 @@ public class CanReceiverGiftDialog extends BaseDialogFragment2 {
     private F2DialogCanReceiverBinding binding;
     private ClickButton clickButton;
     private boolean isCheck;
+    private String message;
 
 
-    public static CanReceiverGiftDialog newInstance(boolean isCheck, ClickButton clickButton) {
+    public static CanReceiverGiftDialog newInstance(boolean isCheck, ClickButton clickButton, String message) {
         CanReceiverGiftDialog oneButtonTitleDialog = new CanReceiverGiftDialog();
         oneButtonTitleDialog.isCheck = isCheck;
         oneButtonTitleDialog.clickButton = clickButton;
+        oneButtonTitleDialog.message = message;
         return oneButtonTitleDialog;
     }
 
@@ -75,7 +77,7 @@ public class CanReceiverGiftDialog extends BaseDialogFragment2 {
             binding.tvTitle.setText("VTVTravel tặng bạn \nmột lượt chọn quà\n mời bạn chọn voucher ưng ý");
             binding.tvReceiverNow.setText("Nhận ngay");
         }else {
-            binding.tvTitle.setText("VTVTravel tặng bạn \n3 lượt quay trúng thưởng");
+            binding.tvTitle.setText(message);
             binding.tvReceiverNow.setText("Quay ngay");
         }
     }

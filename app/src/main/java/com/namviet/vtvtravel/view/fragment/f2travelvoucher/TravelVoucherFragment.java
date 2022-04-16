@@ -365,7 +365,7 @@ public class TravelVoucherFragment extends BaseFragment<F2FragmentTravelVoucherB
                             VQMMWebviewActivity.startScreen(mActivity, "");
                         }
                     }
-                });
+                }, checkCanReceiver.getMessage());
                 canReceiverGiftDialog.show(mActivity.getSupportFragmentManager(), null);
                 canReceiverGiftDialog.setCancelable(false);
             } else if (o instanceof ListVoucherResponse) {
