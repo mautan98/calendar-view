@@ -548,6 +548,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private final CircleIndicator indicator;
 
         private int pageIndex = 0;
+        private ImageView imvNodata;
 
         public VoucherViewHolder(View itemView) {
             super(itemView);
@@ -556,6 +557,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             btnRegisterNow = itemView.findViewById(R.id.btnRegisterNow);
             vpIndicator = itemView.findViewById(R.id.vpIndicator);
             indicator = itemView.findViewById(R.id.indicator);
+            imvNodata = itemView.findViewById(R.id.imv_no_voucher);
         }
 
         public void bindItem(int position) {
@@ -632,7 +634,9 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }, 500);
             pageSwitcher(10000);
             listenerOnpageChange();
-
+            List<View> listViewGone = new ArrayList<>();
+            listViewGone.add(container);
+            setupNodataVoucher(appVoucherResponse.getItems(),listViewGone,imvNodata);
 
         }
 
@@ -1146,6 +1150,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private int mPosition;
         private final ShimmerFrameLayout mShimmerFrameLayout;
         private String tabVoucherPosition = "";
+        private ImageView imvNoVoucherData;
 
         public VoucherNowViewHolder(View itemView) {
             super(itemView);
@@ -1156,6 +1161,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             mShimmerFrameLayout = itemView.findViewById(R.id.shimmer_view_container);
             mShimmerFrameLayout.setVisibility(View.VISIBLE);
             mShimmerFrameLayout.startShimmer();
+            imvNoVoucherData = itemView.findViewById(R.id.imv_no_voucher_now);
         }
 
         public void bindItem(int position) {
@@ -1178,7 +1184,6 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     List<ItemHomeService.Item> items = homeServiceResponse.getData().get(position).getItems();
                     loadData.onLoadDataFloorSecond(items.get(positionClick).getContent_link(), TypeString.APP_VOUCHER_NOW, true);
                     mShimmerFrameLayout.setVisibility(View.VISIBLE);
-                    rclContent.setVisibility(View.INVISIBLE);
                     mShimmerFrameLayout.startShimmer();
                     newHomeFragment.setmIOnClickTabReloadData(VoucherNowViewHolder.this);
 
@@ -1205,6 +1210,9 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             mShimmerFrameLayout.stopShimmer();
             mShimmerFrameLayout.setVisibility(View.GONE);
             rclContent.setVisibility(View.VISIBLE);
+            List<View> viewList = new ArrayList<>();
+            viewList.add(rclContent);
+            setupNodataVoucher(itemAppVoucherNowResponse.getItems(),viewList,imvNoVoucherData);
         }
 
         @Override
@@ -1221,6 +1229,10 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     mShimmerFrameLayout.stopShimmer();
                     mShimmerFrameLayout.setVisibility(View.GONE);
                     rclContent.setVisibility(View.VISIBLE);
+                    List<View> viewList = new ArrayList<>();
+                    viewList.add(rclContent);
+                    setupNodataVoucher(itemAppVoucherNowResponse.getItems(),viewList,imvNoVoucherData);
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1447,6 +1459,22 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public interface ClickSearch {
         void onClickSearch();
+    }
+
+    private <T> void setupNodataVoucher(List<T> itemList,List<View> listViewGone ,ImageView imvNodata){
+        if (itemList != null){
+            if (itemList.size() == 0){
+                imvNodata.setVisibility(View.VISIBLE);
+                for (View view:listViewGone) {
+                    view.setVisibility(View.GONE);
+                }
+            } else {
+                for (View view:listViewGone) {
+                    view.setVisibility(View.VISIBLE);
+                }
+                imvNodata.setVisibility(View.GONE);
+            }
+        }
     }
 
 }

@@ -101,8 +101,15 @@
 
             </com.facebook.shimmer.ShimmerFrameLayout>
         </FrameLayout>
+        <ImageView
+            android:id="@+id/imv_no_voucher_now"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            android:src="@drawable/img_no_deal_data" />
 
-        
+
         <View
             android:layout_marginTop="20dp"
             android:background="#ECECEC"
