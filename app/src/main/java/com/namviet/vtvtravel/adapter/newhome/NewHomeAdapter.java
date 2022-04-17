@@ -579,6 +579,15 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         e.printStackTrace();
                     }
                 }
+            }, new SubAppVoucherAdapter.DataListener() {
+                @Override
+                public void onHaveData(boolean isShowNoDataView) {
+                    if(isShowNoDataView){
+                        imvNodata.setVisibility(View.VISIBLE);
+                    }else {
+                        imvNodata.setVisibility(View.GONE);
+                    }
+                }
             }));
             setPageNumber(appVoucherResponse.getItems().size());
             pager.setClipChildren(false);
@@ -634,9 +643,6 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }, 500);
             pageSwitcher(10000);
             listenerOnpageChange();
-            List<View> listViewGone = new ArrayList<>();
-            listViewGone.add(container);
-            setupNodataVoucher(appVoucherResponse.getItems(),listViewGone,imvNodata);
 
         }
 

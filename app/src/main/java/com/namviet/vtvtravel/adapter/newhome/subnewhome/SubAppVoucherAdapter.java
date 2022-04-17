@@ -21,11 +21,13 @@ public class SubAppVoucherAdapter extends PagerAdapter {
     private Context context;
     private AppVoucherResponse appVoucherResponse;
     private ClickItem clickItem;
+    private DataListener dataListener;
 
-    public SubAppVoucherAdapter(Context context, AppVoucherResponse appVoucherResponse, ClickItem clickItem) {
+    public SubAppVoucherAdapter(Context context, AppVoucherResponse appVoucherResponse, ClickItem clickItem, DataListener dataListener) {
         this.context = context;
         this.appVoucherResponse = appVoucherResponse;
         this.clickItem = clickItem;
+        this.dataListener = dataListener;
     }
 
     @Override
@@ -62,8 +64,14 @@ public class SubAppVoucherAdapter extends PagerAdapter {
     @Override
     public int getCount() {
         try {
+            if(appVoucherResponse.getItems().size() > 0){
+                dataListener.onHaveData(false);
+            }else {
+                dataListener.onHaveData(true);
+            }
             return appVoucherResponse.getItems().size();
         } catch (Exception e) {
+            dataListener.onHaveData(true);
             return 0;
         }
     }
@@ -75,5 +83,9 @@ public class SubAppVoucherAdapter extends PagerAdapter {
 
     public interface ClickItem{
         void onClickItem(AppVoucherResponse.Item item);
+    }
+
+    public interface DataListener{
+        public void onHaveData(boolean isShowNoDataView);
     }
 }

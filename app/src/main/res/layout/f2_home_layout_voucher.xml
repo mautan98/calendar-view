@@ -1,101 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:attrs="http://schemas.android.com/tools"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:lineSpacingExtra="10dp"
-        android:id="@+id/tvTipUser"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
         android:gravity="center_horizontal"
-        android:text="@string/register_to_discount_member"
-        android:textColor="#000000"
-        android:textSize="14dp" />
+        android:orientation="vertical">
 
 
-    <TextView
-        android:layout_marginTop="10dp"
-        android:id="@+id/btnRegisterNow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/f2_bg_button_yellow"
-        android:fontFamily="@font/roboto_regular"
-        android:paddingStart="16dp"
-        android:paddingTop="4dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="4dp"
-        android:text="Đăng ký ngay"
-        android:textColor="@color/white"
-        android:textSize="14dp" />
-
-    <me.crosswall.lib.coverflow.core.PagerContainer
-        android:id="@+id/pager_container"
-        android:layout_width="match_parent"
-        android:layout_height="200dp">
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/vpSlideShow"
-            android:layout_width="280dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center" />
+        <TextView
+            android:id="@+id/tvTipUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="10dp"
+            android:text="@string/register_to_discount_member"
+            android:textColor="#000000"
+            android:textSize="14dp" />
 
 
-    </me.crosswall.lib.coverflow.core.PagerContainer>
+        <TextView
+            android:id="@+id/btnRegisterNow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/f2_bg_button_yellow"
+            android:fontFamily="@font/roboto_regular"
+            android:paddingStart="16dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="4dp"
+            android:text="Đăng ký ngay"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+        <me.crosswall.lib.coverflow.core.PagerContainer
+            android:id="@+id/pager_container"
+            android:layout_width="match_parent"
+            android:layout_height="220dp">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/vpSlideShow"
+                android:layout_width="280dp"
+                android:layout_height="220dp"
+                android:layout_gravity="center" />
+
+
+        </me.crosswall.lib.coverflow.core.PagerContainer>
+
+
+
+        <com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
+            android:id="@+id/vpIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="2dp"
+            android:visibility="gone"
+            app:dotColor="@color/gray_99"
+            app:dotRadius="5dp"
+            app:selectedDotColor="@color/colorPrimary"
+            app:selectedDotRadius="5dp" />
+
+        <me.relex.circleindicator.CircleIndicator
+            android:id="@id/indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            app:ci_animator="@animator/indicator_no_animator"
+            app:ci_drawable="@drawable/blue_radius"
+            app:ci_drawable_unselected="@drawable/blue_radius_alpha"
+            app:ci_height="8dp"
+            app:ci_margin="5dp"
+            app:ci_orientation="horizontal"
+            app:ci_width="8dp" />
+
+        <!--    <android.support.v4.view.ViewPager-->
+        <!--        android:id="@+id/vpSlideShow"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_below="@+id/tvAddMoment"-->
+        <!--        android:clipToPadding="false"-->
+        <!--        android:paddingStart="30dp"-->
+        <!--        android:paddingEnd="30dp" />-->
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="20dp"
+            android:background="#ECECEC" />
+
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/imv_no_voucher"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_gravity="center_horizontal"
-        android:visibility="gone"
-        android:src="@drawable/img_no_deal_data" />
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        android:alpha="0.5"
+        android:src="@drawable/img_no_voucher"
+        android:layout_width="150dp"
+        android:layout_height="150dp"/>
 
-
-    <com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
-        android:visibility="gone"
-        android:id="@+id/vpIndicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="2dp"
-        app:dotColor="@color/gray_99"
-        app:dotRadius="5dp"
-        app:selectedDotColor="@color/colorPrimary"
-        app:selectedDotRadius="5dp" />
-    <me.relex.circleindicator.CircleIndicator
-        android:layout_marginBottom="2dp"
-        android:id="@id/indicator"
-        app:ci_width="8dp"
-        app:ci_height="8dp"
-        app:ci_margin="5dp"
-        app:ci_orientation="horizontal"
-        app:ci_animator="@animator/indicator_no_animator"
-        app:ci_drawable="@drawable/blue_radius"
-        app:ci_drawable_unselected="@drawable/blue_radius_alpha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-<!--    <android.support.v4.view.ViewPager-->
-<!--        android:id="@+id/vpSlideShow"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@+id/tvAddMoment"-->
-<!--        android:clipToPadding="false"-->
-<!--        android:paddingStart="30dp"-->
-<!--        android:paddingEnd="30dp" />-->
-
-
-    <View
-        android:layout_marginTop="20dp"
-        android:background="#ECECEC"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"/>
-
-</LinearLayout>
+</RelativeLayout>
