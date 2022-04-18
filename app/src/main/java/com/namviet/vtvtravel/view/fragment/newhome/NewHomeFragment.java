@@ -279,8 +279,12 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                     mContext.unregisterReceiver(receiver);
                 }
             }
-            if (newHomeAdapter.getTimer() != null)
-                newHomeAdapter.getTimer().cancel();
+            try {
+                if (newHomeAdapter.getTimer() != null)
+                    newHomeAdapter.getTimer().cancel();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -746,7 +750,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
             if (phoneNumberDetectedFrom3G != null && !phoneNumberDetectedFrom3G.isEmpty()) {
                 LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
             } else {
-                LoginAndRegisterActivityNew.startScreen(mActivity, 1, false);
+                LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
             }
         }
     }
@@ -883,8 +887,12 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
         if (pauseVideo != null) {
             pauseVideo.pauseVideoListener();
         }
-        if (newHomeAdapter.getTimer() != null)
-        newHomeAdapter.getTimer().cancel();
+        try {
+            if (newHomeAdapter.getTimer() != null)
+            newHomeAdapter.getTimer().cancel();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public interface PauseVideo {
