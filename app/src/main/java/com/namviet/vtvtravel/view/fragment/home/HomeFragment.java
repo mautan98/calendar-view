@@ -234,17 +234,21 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
         binding.imgSan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            hideBottomMenu();
-                            FloorActivity.Companion.openActivity(mActivity);
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                try {
+                    hideBottomMenu();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                FloorActivity.Companion.openActivity(mActivity);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                }, 400);
+                    }, 200);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }
         });
@@ -253,11 +257,11 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             @Override
             public void onClick(View view) {
                 try {
+                    hideBottomMenu();
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             try {
-                                hideBottomMenu();
                                 Account account = MyApplication.getInstance().getAccount();
                                 if (null != account && account.isLogin()) {
                                     CreateTripActivity.startScreen(mActivity);
@@ -268,7 +272,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
                                 e.printStackTrace();
                             }
                         }
-                    }, 400);
+                    }, 200);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -280,17 +284,17 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             @Override
             public void onClick(View view) {
                 try {
+                    hideBottomMenu();
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             try {
-                                hideBottomMenu();
                                 DealHomeActivity.Companion.startScreen(mActivity);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
-                    }, 400);
+                    }, 200);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -315,7 +319,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
                             } catch (Exception e) {
                             }
                         }
-                    }, 400);
+                    }, 200);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

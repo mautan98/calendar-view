@@ -23,6 +23,7 @@ import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
 import com.namviet.vtvtravel.view.f2.LiveTVActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
+import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealHomeActivity;
 import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -105,7 +106,7 @@ public class SubSmallHeaderAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                                     break;
                                 case "CTKM":
                                     try {
-                                        DetailDealWebviewActivity.startScreen(context,link);
+                                        DealHomeActivity.Companion.startScreen(context);
                                     } catch ( java.lang.Exception e) {
                                         e.printStackTrace();
                                     }
