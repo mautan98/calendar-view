@@ -267,7 +267,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
                     String clientMessageId = "android" + uuid;
                     emitMessage(roomId, mess, clientMessageId);
                 } else {
-                    Toast.makeText(mActivity, "Create room error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, "Có lỗi đã xảy ra, mời bạn thử lại sau!", Toast.LENGTH_SHORT).show();
                 }
                 getBinding().edtTypeMessage.setText("");
 
