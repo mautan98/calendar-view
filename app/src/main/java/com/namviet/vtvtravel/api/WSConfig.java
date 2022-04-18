@@ -4,7 +4,7 @@ public class WSConfig {
 
 
     //Server test
-    public static final String URL_SOCKET = "http://103.21.148.54:8079";
+    public static final String URL_SOCKET = "https://chat-testing.vtvtravel.vn";
     public static final String HOST = "https://api-testing.vtvtravel.vn/";
     public static final String HOST_ACC = "https://core-testing.vtvtravel.vn/api/v1/";
     public static final String HOST_ACC_2 = "https://core1.travel.onex.vn/";
