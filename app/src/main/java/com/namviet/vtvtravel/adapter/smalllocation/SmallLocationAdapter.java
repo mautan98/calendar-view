@@ -97,6 +97,7 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
         private TextView tvAddress;
         private TextView tvOpenDate;
         private TextView tvOpenTime;
+        private TextView tvOpenTime2;
         private TextView tvOpenState;
         private TextView tvPrice;
         private TextView tvCountImg;
@@ -125,6 +126,7 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
             tvAddress = itemView.findViewById(R.id.tvAddress);
             tvOpenDate = itemView.findViewById(R.id.tvOpenDate);
             tvOpenTime = itemView.findViewById(R.id.tvOpenTime);
+            tvOpenTime2 = itemView.findViewById(R.id.tvOpenTime2);
             tvOpenState = itemView.findViewById(R.id.tvOpenState);
             tvPrice = itemView.findViewById(R.id.tvPrice);
             imgHeart = itemView.findViewById(R.id.imgHeart);
@@ -276,15 +278,27 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
                     if (travel.getRange_time().isEmpty()) {
                     //    viewTime.setVisibility(View.GONE);
                         tvOpenTime.setVisibility(View.GONE);
+                        tvOpenTime2.setVisibility(View.GONE);
                     } else {
                     //    viewTime.setVisibility(View.VISIBLE);
-                        tvOpenTime.setText(travel.getRange_time());
-                        tvOpenTime.setVisibility(View.VISIBLE);
+                        if(travel.getRange_time().contains("và")){
+                            String[] strings = travel.getRange_time().split("và");
+                            tvOpenTime.setText(strings[0]);
+                            tvOpenTime2.setText(strings[1]);
+                            tvOpenTime.setVisibility(View.VISIBLE);
+                            tvOpenTime2.setVisibility(View.VISIBLE);
+                        }else {
+                            tvOpenTime.setText(travel.getRange_time());
+                            tvOpenTime.setVisibility(View.VISIBLE);
+                            tvOpenTime2.setVisibility(View.GONE);
+                        }
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                  //   viewTime.setVisibility(View.GONE);
                     tvOpenTime.setVisibility(View.GONE);
+                    tvOpenTime2.setVisibility(View.GONE);
                 }
 //            }
 

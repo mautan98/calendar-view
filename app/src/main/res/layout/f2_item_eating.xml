@@ -38,13 +38,13 @@
                         tools:listitem="@layout/item_img_small_location" />
 
                     <me.relex.circleindicator.CircleIndicator2
-                        android:visibility="gone"
                         android:id="@id/indicator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="11dp"
+                        android:visibility="gone"
                         app:ci_animator="@animator/indicator_no_animator"
                         app:ci_drawable="@drawable/white_radius"
                         app:ci_drawable_unselected="@drawable/white_radius_alpha"
@@ -54,7 +54,6 @@
                         app:ci_width="8dp" />
 
                     <TextView
-                        android:visibility="gone"
                         android:id="@+id/tv_count_img"
                         android:layout_width="42dp"
                         android:layout_height="24dp"
@@ -66,6 +65,7 @@
                         android:gravity="center"
                         android:textColor="@color/white"
                         android:textSize="14dp"
+                        android:visibility="gone"
                         tools:text="1/2" />
 
                     <TextView
@@ -280,10 +280,10 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:paddingStart="25dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingStart="25dp">
 
                         <View
                             android:layout_width="8dp"
@@ -305,10 +305,10 @@
 
 
                 <View
-                    android:layout_marginTop="14dp"
-                    android:background="#E8E8E8"
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"/>
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="14dp"
+                    android:background="#E8E8E8" />
 
                 <LinearLayout
                     android:id="@+id/layoutOpen"
@@ -327,7 +327,6 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -337,7 +336,6 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
                                 android:fontFamily="@font/roboto_regular"
                                 android:textColor="#5E5E5E"
                                 android:textSize="12dp"
@@ -345,11 +343,10 @@
 
 
                             <TextView
-                                android:layout_marginStart="5dp"
                                 android:id="@+id/tvOpenDate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
+                                android:layout_marginStart="5dp"
                                 android:fontFamily="@font/roboto_medium"
                                 android:textColor="#5E5E5E"
                                 android:textSize="12dp"
@@ -357,20 +354,44 @@
 
                         </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/tvOpenTime"
+                        <LinearLayout
+                            android:layout_marginStart="6dp"
+                            android:orientation="horizontal"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/bg_otp_inactive"
-                            android:fontFamily="@font/roboto_regular"
-                            android:paddingLeft="5dp"
-                            android:paddingTop="2dp"
-                            android:paddingRight="5dp"
-                            android:paddingBottom="2dp"
-                            android:textColor="#5E5E5E"
-                            android:textSize="12dp"
-                            tools:text="06:30 - 21:30" />
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tvOpenTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/bg_otp_inactive"
+                                android:fontFamily="@font/roboto_regular"
+                                android:paddingLeft="5dp"
+                                android:paddingTop="2dp"
+                                android:paddingRight="5dp"
+                                android:paddingBottom="2dp"
+                                android:textColor="#5E5E5E"
+                                android:textSize="12dp"
+                                tools:text="06:30 - 21:30" />
+
+                            <TextView
+                                android:visibility="visible"
+                                android:layout_marginStart="8dp"
+                                android:id="@+id/tvOpenTime2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/bg_otp_inactive"
+                                android:fontFamily="@font/roboto_regular"
+                                android:paddingLeft="5dp"
+                                android:paddingTop="2dp"
+                                android:paddingRight="5dp"
+                                android:paddingBottom="2dp"
+                                android:textColor="#5E5E5E"
+                                android:textSize="12dp"
+                                tools:text="06:30 - 21:30" />
+                        </LinearLayout>
                     </LinearLayout>
 
                     <View
@@ -400,12 +421,12 @@
                         android:orientation="horizontal">
 
                         <com.ornach.richtext.RichText
-                            app:rt_radius="100dp"
-                            app:rt_backgroundColor="#0FB403"
                             android:id="@+id/viewStatus"
-                            android:layout_marginEnd="6dp"
                             android:layout_width="10dp"
-                            android:layout_height="10dp"/>
+                            android:layout_height="10dp"
+                            android:layout_marginEnd="6dp"
+                            app:rt_backgroundColor="#0FB403"
+                            app:rt_radius="100dp" />
 
                         <TextView
                             android:id="@+id/tvOpenState"
