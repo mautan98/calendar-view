@@ -117,14 +117,15 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     Log.e("xxx", "onClick: " +items.get(position).getCode_type());
                     switch (items.get(position).getCode_type()) {
                         case "APP_MAIN_HEADER_MY_GIFT":
-                            try {
-                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_MY_PROMOTION, TrackingAnalytic.getDefault("Menu", "Menu"));
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        case "APP_MAIN_FOOTER_SUPPORT":
-//                            MyGiftActivity.startScreen(context, (ArrayList<MenuItem>) items.get(position).getMenuChildren(), items.get(position).getName());
+//                            try {
+//                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_MY_PROMOTION, TrackingAnalytic.getDefault("Menu", "Menu"));
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
                             NewMyGiftActivity.startScreen(context);
+                            break;
+                        case "APP_MAIN_FOOTER_SUPPORT":
+                            MyGiftActivity.startScreen(context, (ArrayList<MenuItem>) items.get(position).getMenuChildren(), items.get(position).getName());
                             break;
                         case "APP_MAIN_FOOTER_SETTING":
                             SettingActivity.startScreen(context);
