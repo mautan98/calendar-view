@@ -346,7 +346,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 
 
             if(account.getPackageCode() == null){
-                homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký Hội viên của #VTVTravel");
+                homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <b>Hội viên</b> của <b>#VTVTravel</b>");
                 homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
                 newHomeAdapter.notifyItemChanged(1);
                 newHomeAdapter.notifyItemChanged(2);
@@ -375,7 +375,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 //            newHomeAdapter.notifyItemChanged(0);
 
 
-            homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký Hội viên của #VTVTravel");
+            homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <b>Hội viên</b> của <b>#VTVTravel</b>");
             homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
             newHomeAdapter.notifyItemChanged(1);
 
