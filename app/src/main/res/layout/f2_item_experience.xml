@@ -218,6 +218,7 @@
                                     tools:text="06:30 - 21:30" />
 
                                 <TextView
+                                    android:visibility="gone"
                                     android:layout_marginStart="8dp"
                                     android:id="@+id/tvOpenTime2"
                                     android:layout_width="wrap_content"
