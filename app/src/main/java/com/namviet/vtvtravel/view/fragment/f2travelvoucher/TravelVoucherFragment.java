@@ -102,8 +102,12 @@ public class TravelVoucherFragment extends BaseFragment<F2FragmentTravelVoucherB
             viewModel.checkCanReceiver();
         }
         Log.e("Travelllllllllllllllll", "0");
-        if ("0".equals(positionIdCategory))
+        if (positionIdCategory != null) {
+            if ("0".equals(positionIdCategory) || "".equals(positionIdCategory))
+                getVoucher("VTVTRAVEL", sortId, regionId, memberRankId, categoryId, page, isFromRegVip);
+        } else {
             getVoucher("VTVTRAVEL", sortId, regionId, memberRankId, categoryId, page, isFromRegVip);
+        }
         viewModel.getCategoryVoucher();
         viewModel.getRegionVoucher();
         viewModel.getRank();
