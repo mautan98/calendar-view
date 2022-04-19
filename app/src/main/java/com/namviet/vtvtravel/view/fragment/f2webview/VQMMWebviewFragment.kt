@@ -281,6 +281,16 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
         rclScroll.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
+                try {
+                    if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                        imgStart.alpha = 1.0f
+                        imgStart.isEnabled = true
+                    }else{
+                        imgStart.alpha = 0.5f
+                        imgStart.isEnabled = false
+                    }
+                } catch (e: Exception) {
+                }
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && !canSwipe) {
 
                     scrollAdapter?.highLight(targetPosition)
