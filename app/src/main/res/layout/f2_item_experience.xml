@@ -186,11 +186,11 @@
 
 
                                 <TextView
-                                    android:layout_marginStart="5dp"
                                     android:id="@+id/tvOpenDate"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
+                                    android:layout_marginStart="5dp"
                                     android:fontFamily="@font/roboto_medium"
                                     android:textColor="#5E5E5E"
                                     android:textSize="12dp"
@@ -198,20 +198,42 @@
 
                             </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/tvOpenTime"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:background="@drawable/bg_otp_inactive"
-                                android:fontFamily="@font/roboto_regular"
-                                android:paddingLeft="5dp"
-                                android:paddingTop="2dp"
-                                android:paddingRight="5dp"
-                                android:paddingBottom="2dp"
-                                android:textColor="#5E5E5E"
-                                android:textSize="12dp"
-                                tools:text="06:30 - 21:30" />
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tvOpenTime"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/bg_otp_inactive"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:paddingLeft="5dp"
+                                    android:paddingTop="2dp"
+                                    android:paddingRight="5dp"
+                                    android:paddingBottom="2dp"
+                                    android:textColor="#5E5E5E"
+                                    android:textSize="12dp"
+                                    tools:text="06:30 - 21:30" />
+
+                                <TextView
+                                    android:layout_marginStart="8dp"
+                                    android:id="@+id/tvOpenTime2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/bg_otp_inactive"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:paddingLeft="5dp"
+                                    android:paddingTop="2dp"
+                                    android:paddingRight="5dp"
+                                    android:paddingBottom="2dp"
+                                    android:textColor="#5E5E5E"
+                                    android:textSize="12dp"
+                                    tools:text="06:30 - 21:30" />
+
+                            </LinearLayout>
                         </LinearLayout>
 
                         <View
@@ -336,17 +358,17 @@
 
 
                         <LinearLayout
-                            android:gravity="center_vertical"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical">
 
                             <com.ornach.richtext.RichText
-                                app:rt_radius="100dp"
-                                app:rt_backgroundColor="#0FB403"
                                 android:id="@+id/viewStatus"
-                                android:layout_marginEnd="6dp"
                                 android:layout_width="10dp"
-                                android:layout_height="10dp"/>
+                                android:layout_height="10dp"
+                                android:layout_marginEnd="6dp"
+                                app:rt_backgroundColor="#0FB403"
+                                app:rt_radius="100dp" />
 
                             <TextView
                                 android:id="@+id/tvStatus"
