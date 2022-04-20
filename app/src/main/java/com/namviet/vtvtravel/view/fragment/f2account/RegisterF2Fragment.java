@@ -4,10 +4,13 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
@@ -146,6 +149,7 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
                 AccountResponse accountResponse = (AccountResponse) o;
                 if (accountResponse.isSuccess()) {
                     MyApplication.getInstance().setAccount(accountResponse.getData());
+                    Log.e("Debuggg"+"RegisterF2Frm", new Gson().toJson(accountResponse.getData()));
                     OtpF2Fragment otpF2Fragment = new OtpF2Fragment();
                     otpF2Fragment.setTypeOTP(Constants.IntentKey.TYPE_OTP_REGISTER);
                     otpF2Fragment.setMobile(phone);

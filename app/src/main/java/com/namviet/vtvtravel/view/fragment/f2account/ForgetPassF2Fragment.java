@@ -4,10 +4,13 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
@@ -132,6 +135,7 @@ public class ForgetPassF2Fragment extends BaseFragment<F2FragmentForgetPassBindi
                     AccountResponse accountResponse = (AccountResponse) o;
                     if (accountResponse.isSuccess()) {
                         MyApplication.getInstance().setAccount(accountResponse.getData());
+                        Log.e("Debuggg"+"ForgetPassF2", new Gson().toJson(accountResponse.getData()));
 //                        Bundle bundle = new Bundle();
 //                        bundle.putInt(Constants.IntentKey.KEY_TYPE, Constants.TypeScreen.OTP_RESET_PASS);
 //                        bundle.putString(OtpFragment.KEY_MOBILE, mobile);

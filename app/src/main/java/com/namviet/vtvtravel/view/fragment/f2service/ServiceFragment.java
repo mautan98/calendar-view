@@ -7,12 +7,15 @@ import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
@@ -148,6 +151,7 @@ public class ServiceFragment extends MainFragment implements Observer {
             } else if (arg instanceof AccountResponse) {
                 AccountResponse accountResponse = (AccountResponse) arg;
                 MyApplication.getInstance().setAccount(accountResponse.getData());
+                Log.e("Debuggg"+"ServiceFrm", new Gson().toJson(accountResponse.getData()));
                 mActivity.updateLogin();
             } else if (arg instanceof GetInfoResponse) {
                 MyApplication.getInstance().setVipRegisted(false);

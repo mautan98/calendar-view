@@ -163,6 +163,7 @@ public class MyApplication extends Application implements Observer {
         try {
             Account account = new Gson().fromJson(PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.ACCOUNT, ""), Account.class);
             MyApplication.getInstance().setAccount(account);
+            Log.e("Debuggggg"+"MyApplication", new Gson().toJson(account));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -325,6 +326,7 @@ public class MyApplication extends Application implements Observer {
                         PreferenceUtil.getInstance(getBaseContext()).setValue(Constants.PrefKey.IS_LOGIN, true);
                         PreferenceUtil.getInstance(getBaseContext()).setValue(Constants.PrefKey.ACCOUNT, new Gson().toJson(accountResponse.getData()));
                         MyApplication.getInstance().setAccount(accountResponse.getData());
+                        Log.e("Debuggggg"+"MyApplication2", new Gson().toJson(accountResponse.getData()));
                         Intent intent = new Intent(Constants.KeyBroadcast.KEY_SAVE_LOGIN_SCREEN);
                         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
                     }

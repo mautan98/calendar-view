@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -154,6 +155,7 @@ public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implem
                 if (accountResponse.isSuccess()) {
                     PreferenceUtil.getInstance(getContext()).setValue(Constants.PrefKey.IS_LOGIN, true);
                     MyApplication.getInstance().setAccount(accountResponse.getData());
+                    Log.e("Debuggg"+"LoginF2Frm", new Gson().toJson(accountResponse.getData()));
                     /*                mActivity.updateLogin();*/
                     EventBus.getDefault().post(new OnUpdateLogin());
 
