@@ -280,8 +280,9 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                 }
             }
             try {
-                if (newHomeAdapter.getTimer() != null)
+                if (newHomeAdapter != null && newHomeAdapter.getTimer() != null) {
                     newHomeAdapter.getTimer().cancel();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -888,8 +889,9 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
             pauseVideo.pauseVideoListener();
         }
         try {
-            if (newHomeAdapter.getTimer() != null)
-            newHomeAdapter.getTimer().cancel();
+            if (newHomeAdapter != null && newHomeAdapter.getTimer() != null) {
+                newHomeAdapter.getTimer().cancel();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

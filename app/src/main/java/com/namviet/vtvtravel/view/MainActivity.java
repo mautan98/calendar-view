@@ -31,6 +31,7 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.provider.ContactsContract;
 
+import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -281,6 +282,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
     private boolean fromNotification = false;
     private boolean fromVIPNoti = false;
+    private AlertDialog permissionDialog;
 
 
     //for Linphone
@@ -537,7 +539,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
         try {
             if (ActivityCompat.checkSelfPermission(this, mPermission) != MockPackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{mPermission, Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_PERMISSION);
+                ActivityCompat.requestPermissions(this, new String[]{mPermission, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE_PERMISSION);
             } else {
                 getLocation();
             }
@@ -943,14 +945,45 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
     }
 
 
+    private void displayNeverAskAgainDialog() {
+        if (permissionDialog == null){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Chúng tôi cần sử dụng quyền truy cập vị trí để truy cập các tính năng");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Đi đến cài đặt", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent();
+                    intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", getPackageName(), null);
+                    intent.setData(uri);
+                    startActivity(intent);
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton(android.R.string.cancel, null);
+            permissionDialog = builder.create();
+        }
+        permissionDialog.show();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case REQUEST_CODE_PERMISSION:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    getLocation();
-                } else {
-                    searchViewModel.loadSearchTrend();
+                for (int i = 0; i < permissions.length; i++) {
+                    String permission = permissions[i];
+                    int grantResult = grantResults[i];
+                    if (grantResult == PackageManager.PERMISSION_DENIED){
+                        searchViewModel.loadSearchTrend();
+                        boolean showRationale = shouldShowRequestPermissionRationale( permission );
+                        if (!showRationale) {
+                            displayNeverAskAgainDialog();
+                        } else if (Manifest.permission.ACCESS_FINE_LOCATION.equals(permission) || Manifest.permission.ACCESS_COARSE_LOCATION.equals(permission)) {
+                            getLocation();
+                        }
+                    }
                 }
                 break;
 
