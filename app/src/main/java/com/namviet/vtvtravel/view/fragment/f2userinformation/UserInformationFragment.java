@@ -457,7 +457,6 @@ public class UserInformationFragment extends BaseFragment<F2FragmentPersonalInfo
                     Account account = accountResponse.getData();
                     account.setToken(mAccount.getToken());
                     MyApplication.getInstance().setAccount(account);
-                    Log.e("Debuggg"+"UserInformation", new Gson().toJson(account));
 //                        mActivity.updateLogin();
                     setView();
                     Toast.makeText(mActivity, "Cập nhật thành công!", Toast.LENGTH_SHORT).show();

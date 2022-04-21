@@ -946,25 +946,33 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
 
     private void displayNeverAskAgainDialog() {
-        if (permissionDialog == null){
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Chúng tôi cần sử dụng quyền truy cập vị trí để truy cập các tính năng");
-            builder.setCancelable(false);
-            builder.setPositiveButton("Đi đến cài đặt", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent();
-                    intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                    Uri uri = Uri.fromParts("package", getPackageName(), null);
-                    intent.setData(uri);
-                    startActivity(intent);
-                    dialog.dismiss();
-                }
-            });
-            builder.setNegativeButton(android.R.string.cancel, null);
-            permissionDialog = builder.create();
+        try {
+            if (permissionDialog == null){
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Ứng dụng cần quyền truy cập vào vị trí để các tính năng có thể hoạt động một cách đúng nhất.");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Đi đến cài đặt", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            Intent intent = new Intent();
+                            intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            Uri uri = Uri.fromParts("package", getPackageName(), null);
+                            intent.setData(uri);
+                            startActivity(intent);
+                            dialog.dismiss();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                builder.setNegativeButton(android.R.string.cancel, null);
+                permissionDialog = builder.create();
+            }
+            permissionDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        permissionDialog.show();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
