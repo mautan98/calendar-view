@@ -100,6 +100,7 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
         private TextView tvType;
         private TextView tvStatus;
         private TextView tvOpenTime;
+        private TextView tvOpenTime2;
         private TextView tvOpenDate;
         private TextView tvPriceRange;
         private TextView tvTime;
@@ -117,6 +118,7 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
             tvLocationName = itemView.findViewById(R.id.tvLocationName);
             tvPriceRange = itemView.findViewById(R.id.tvPriceRange);
             tvOpenTime = itemView.findViewById(R.id.tvOpenTime);
+            tvOpenTime2 = itemView.findViewById(R.id.tvOpenTime2);
             tvOpenDate = itemView.findViewById(R.id.tvOpenDate);
             layoutForRestaurant = itemView.findViewById(R.id.layoutForRestaurant);
             linearPriceType = itemView.findViewById(R.id.linearPriceType);
@@ -279,15 +281,26 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
                     if(travel.getRange_time().isEmpty()){
                         viewTime.setVisibility(View.GONE);
                         tvOpenTime.setVisibility(View.GONE);
+                        tvOpenTime2.setVisibility(View.GONE);
                     }else {
+                        if(travel.getRange_time().contains("và")){
+                            String[] strings = travel.getRange_time().split("và");
+                            tvOpenTime.setText(strings[0]);
+                            tvOpenTime2.setText(strings[1]);
+                            tvOpenTime.setVisibility(View.VISIBLE);
+                            tvOpenTime2.setVisibility(View.VISIBLE);
+                        }else {
+                            tvOpenTime.setText(travel.getRange_time());
+                            tvOpenTime.setVisibility(View.VISIBLE);
+                            tvOpenTime2.setVisibility(View.GONE);
+                        }
                         viewTime.setVisibility(View.INVISIBLE);
-                        tvOpenTime.setText(travel.getRange_time());
-                        tvOpenTime.setVisibility(View.VISIBLE);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                     viewTime.setVisibility(View.GONE);
                     tvOpenTime.setVisibility(View.GONE);
+                    tvOpenTime2.setVisibility(View.GONE);
                 }
 //            }
         }

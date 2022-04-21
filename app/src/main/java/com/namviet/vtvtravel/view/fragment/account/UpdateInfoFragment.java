@@ -31,6 +31,7 @@ import com.android.datetimepicker.date.DatePickerDialog;
 import com.baseapp.utils.KeyboardUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
@@ -241,6 +242,7 @@ public class UpdateInfoFragment extends MainFragment implements Observer {
                         Account account = accountResponse.getData();
                         account.setToken(mAccount.getToken());
                         MyApplication.getInstance().setAccount(account);
+                        Log.e("Debuggg"+"UpdateInfoFrm", new Gson().toJson(account));
                         mActivity.updateLogin();
                         updateViews();
                         Toast.makeText(mActivity, "Cập nhật thành công!", Toast.LENGTH_SHORT).show();

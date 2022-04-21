@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.gson.Gson;
 import com.klinker.android.link_builder.Link;
 import com.klinker.android.link_builder.LinkBuilder;
 import com.namviet.vtvtravel.R;
@@ -188,6 +190,7 @@ public class LoginFragment extends MainFragment implements Observer {
                     if (accountResponse.isSuccess()) {
                         PreferenceUtil.getInstance(getContext()).setValue(Constants.PrefKey.IS_LOGIN, true);
                         MyApplication.getInstance().setAccount(accountResponse.getData());
+                        Log.e("Debuggg"+"LoginFrm", new Gson().toJson(accountResponse.getData()));
                         mActivity.updateLogin();
                         mActivity.onBackPressed();
                         mActivity.switchFragment(SlideMenu.MenuType.HOME_SCREEN);
