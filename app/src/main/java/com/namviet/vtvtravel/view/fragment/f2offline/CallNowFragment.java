@@ -19,6 +19,7 @@ import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.offline.Items;
 import com.namviet.vtvtravel.model.offline.OfflineDynamic;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
+import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 
 import java.io.File;
@@ -93,7 +94,8 @@ public class CallNowFragment  extends MainFragment {
                     if (null != account && account.isLogin()) {
                         mActivity.switchFragment(SlideMenu.MenuType.MAIN_CALL_NOW_SCREEN);
                     } else {
-                        mActivity.switchFragment(SlideMenu.MenuType.LOGIN_SCREEN);
+//                        mActivity.switchFragment(SlideMenu.MenuType.LOGIN_SCREEN);
+                        LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
                     }
                 }
             }
