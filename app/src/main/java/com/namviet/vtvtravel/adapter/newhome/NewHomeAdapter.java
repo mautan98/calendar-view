@@ -1426,7 +1426,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
 
             try {
-                tvTitle.setText(homeServiceResponse.getData().get(position).getDescription());
+                tvTitle.setText(homeServiceResponse.getData().get(position).getName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
