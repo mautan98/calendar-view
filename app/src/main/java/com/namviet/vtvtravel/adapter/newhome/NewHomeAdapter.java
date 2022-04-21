@@ -589,7 +589,9 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     }
                 }
             }));
-            setPageNumber(appVoucherResponse.getItems().size());
+            if (appVoucherResponse != null) {
+                setPageNumber(appVoucherResponse.getItems().size());
+            }
             pager.setClipChildren(false);
             pager.setOffscreenPageLimit(15);
             container.setPageItemClickListener(new PageItemClickListener() {
@@ -1480,6 +1482,11 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         view.setVisibility(View.VISIBLE);
                     }
                     imvNodata.setVisibility(View.GONE);
+                }
+            } else {
+                imvNodata.setVisibility(View.VISIBLE);
+                for (View view:listViewGone) {
+                    view.setVisibility(View.GONE);
                 }
             }
         } catch (Exception e) {
