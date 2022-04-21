@@ -580,6 +580,7 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
     }
 
     override fun onClickSuggestion(searchKeywordSuggestion: SearchSuggestionResponse.Data.Item?, mLocation: Location?) {
+        regionId = location?.id
         handleLocation(mLocation)
 //        edtKeyword.text = searchKeywordSuggestion?.title
         if(searchKeywordSuggestion?.type.equals("category")){
@@ -599,10 +600,14 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
     }
 
     override fun onClickRegion(location: Location?, keyword: String?) {
+        regionId = location?.id
+        this.location = location
         goToSearchResult(location, keyword)
     }
 
     override fun onClickLayoutKeyword(location: Location?, keyword: String?) {
+        this.location = location
+        regionId = location?.id
         goToSearchResult(location, keyword)
     }
 }
