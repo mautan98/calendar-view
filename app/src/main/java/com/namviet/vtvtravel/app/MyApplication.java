@@ -163,6 +163,7 @@ public class MyApplication extends Application implements Observer {
         try {
             Account account = new Gson().fromJson(PreferenceUtil.getInstance(this).getValue(Constants.PrefKey.ACCOUNT, ""), Account.class);
             MyApplication.getInstance().setAccount(account);
+            Log.e("Debuggg"+"MyApplication", new Gson().toJson(account));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -300,7 +301,6 @@ public class MyApplication extends Application implements Observer {
 
     public void setAccount(Account mAccount) {
         this.mAccount = mAccount;
-        Log.e("debug", "debug");
     }
 
     public int getCountNotify() {
@@ -327,6 +327,7 @@ public class MyApplication extends Application implements Observer {
                             PreferenceUtil.getInstance(getBaseContext()).setValue(Constants.PrefKey.IS_LOGIN, true);
                             PreferenceUtil.getInstance(getBaseContext()).setValue(Constants.PrefKey.ACCOUNT, new Gson().toJson(accountResponse.getData()));
                             MyApplication.getInstance().setAccount(accountResponse.getData());
+                            Log.e("Debuggg"+"MyApplication2", new Gson().toJson(accountResponse.getData()));
                             Intent intent = new Intent(Constants.KeyBroadcast.KEY_SAVE_LOGIN_SCREEN);
                             LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
                         }

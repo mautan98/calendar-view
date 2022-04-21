@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.baseapp.menu.SlideMenu;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.AccountPageAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
@@ -210,6 +211,7 @@ public class AccountFragment extends MainFragment implements Observer {
         if (observable instanceof AccountViewModel) {
             if (loginViewModel.getAccount() != null) {
                 MyApplication.getInstance().setAccount(loginViewModel.getAccount());
+                Log.e("Debuggg"+"AccountFragment", new Gson().toJson(loginViewModel.getAccount()));
                 // mActivity.onBackPressed();
                 mActivity.updateLogin();
             }
@@ -220,6 +222,7 @@ public class AccountFragment extends MainFragment implements Observer {
                         Account account = accountResponse.getData();
                         account.setToken(mAccount.getToken());
                         MyApplication.getInstance().setAccount(account);
+                        Log.e("Debuggg"+"AccountFragment2", new Gson().toJson(account));
                         mActivity.updateLogin();
                         Toast.makeText(mActivity, "Cập nhật thành công!", Toast.LENGTH_SHORT).show();
                     } else {
