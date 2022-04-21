@@ -1,8 +1,11 @@
 package com.namviet.vtvtravel.adapter.newhome.subnewhome;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +38,7 @@ public class SubAppVoucherAdapter extends PagerAdapter {
 
         View view = LayoutInflater.from(context).inflate(R.layout.f2_item_home_voucher,null);
         ImageView imageView =  view.findViewById(R.id.image_cover);
-        Glide.with(context).load(appVoucherResponse.getItems().get(position).getHomeUri()).error(R.drawable.test_banner).listener(new RequestListener<Drawable>() {
+        Glide.with(context).load(appVoucherResponse.getItems().get(position).getHomeUri()).placeholder(new ColorDrawable(ContextCompat.getColor(context, R.color.colorPrimary))).error(new ColorDrawable(ContextCompat.getColor(context, R.color.colorPrimary))).listener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                 return false;
