@@ -127,6 +127,7 @@
                         </LinearLayout>
 
                         <TextView
+                            android:visibility="gone"
                             android:id="@+id/tv_dis_count"
                             android:layout_width="38dp"
                             android:layout_height="21dp"
@@ -136,13 +137,14 @@
                             android:background="@drawable/ic_tooltip"
                             android:gravity="center"
                             android:paddingLeft="5dp"
-                            android:text="-35%"
+                            tools:text="-35%"
                             android:textAllCaps="true"
                             android:textColor="@color/white"
                             android:textSize="12dp"
                             android:textStyle="bold" />
 
                         <com.ornach.richtext.RichText
+                            android:visibility="gone"
                             android:id="@+id/tv_dis_count_2"
                             android:paddingRight="5dp"
                             app:rt_radius="3dp"

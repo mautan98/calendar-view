@@ -779,7 +779,12 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 mHuntingCount.setText(F3SubDealAdapter.getHuntingUserCount(dealCampaignDetail.getData().getUserHuntingCount()));
                 String status = dealCampaignDetail.getData().getIsProcessing();
                 if (dealCampaignDetail.getData().getRanking() == 0) {
-                    mTvRank.setText(mContext.getString(R.string.ban_chua_san_text));
+                    if(dealCampaignDetail.getData().isCampaign()){
+                        mTvRank.setText("Bạn chưa tích luỹ");
+                    }else {
+                        mTvRank.setText(mContext.getString(R.string.ban_chua_san_text));
+                    }
+
                 } else if (dealCampaignDetail.getData().getRanking() == 1) {
                     mTvRank.setVisibility(View.GONE);
                     imgNo1.setVisibility(View.VISIBLE);
@@ -792,7 +797,12 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     return;
                 }
                 if (!dealCampaignDetail.getData().getIsUserHunting()) {
-                    mTvTimeKeepDeal.setText(mContext.getString(R.string.ban_chua_san_text));
+                    if(dealCampaignDetail.getData().isCampaign()){
+                        mTvTimeKeepDeal.setText("Bạn chưa tích luỹ");
+                    }else {
+                        mTvTimeKeepDeal.setText(mContext.getString(R.string.ban_chua_san_text));
+                    }
+
                 } else {
                     try {
                         long distance = dealCampaignDetail.getData().getTotalHoldTime() / 1000;
@@ -804,8 +814,8 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                mTvTimeKeepDeal.setText(mContext.getString(R.string.ban_chua_san_text));
-                mTvRank.setText(mContext.getString(R.string.ban_chua_san_text));
+                mTvTimeKeepDeal.setText("Bạn chưa tích luỹ");
+                mTvRank.setText("Bạn chưa tích luỹ");
             }
         }
     }
