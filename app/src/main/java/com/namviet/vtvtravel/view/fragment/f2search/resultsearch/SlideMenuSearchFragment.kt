@@ -72,8 +72,10 @@ class SlideMenuSearchFragment : BaseFragment<F3FragmentSlideSearchBinding?>() {
 
         if(type!![0] == "place"){
             layoutOpen.visibility = View.VISIBLE
+            layoutCategory.visibility = View.VISIBLE
         }else{
             layoutOpen.visibility = View.GONE
+            layoutCategory.visibility = View.GONE
         }
 
 //        btnApply.setOnClickListener {
