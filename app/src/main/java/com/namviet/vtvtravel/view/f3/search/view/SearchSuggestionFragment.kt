@@ -261,6 +261,10 @@ class SearchSuggestionFragment(private var keyword: String? = null, private var 
                 suggestion.setTitle(recent[i])
                 suggestion.setType("recent")
                 result.add(suggestion)
+
+                if(result.size >= 3){
+                    break
+                }
             }
         }
         return result
