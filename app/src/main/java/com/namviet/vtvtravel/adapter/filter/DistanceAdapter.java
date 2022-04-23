@@ -81,10 +81,16 @@ public class DistanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    for (int i = 0; i < distances.size(); i++) {
-                        distances.get(i).setSelected(false);
+                    if(distances.get(position).isSelected()){
+                        for (int i = 0; i < distances.size(); i++) {
+                            distances.get(i).setSelected(false);
+                        }
+                    }else {
+                        for (int i = 0; i < distances.size(); i++) {
+                            distances.get(i).setSelected(false);
+                        }
+                        distances.get(position).setSelected(true);
                     }
-                    distances.get(position).setSelected(true);
                     notifyDataSetChanged();
                     clickItem.onClickItemDistance(distances.get(position));
                 }

@@ -162,7 +162,7 @@ class SortAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         if(items!![position].content.isOpen){
                             items!![position].label = "Đang mở"
                         }else{
-                            items!![position].label = "Đang đóng"
+                            items!![position].label = "Tất cả"
                         }
                         return true
                     }

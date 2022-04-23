@@ -43,7 +43,7 @@
     {
       "label": "40 km",
       "value": "40000",
-      "isSelected": true
+      "isSelected": false
     }
   ]
 }

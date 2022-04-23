@@ -766,7 +766,17 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         var isOpen = sortAndFilter!!.sortHeader[3].content.isOpen
 
 
-        open = isOpen
+        if(isOpen == null){
+            open = null;
+        }else{
+            if(isOpen){
+                open = isOpen
+            }else{
+                open = null;
+            }
+        }
+
+
 
 //        Log.e("isOpen", isOpen?.toString() ?: "null")
 
