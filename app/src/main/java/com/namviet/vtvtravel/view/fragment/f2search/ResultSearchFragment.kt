@@ -491,8 +491,10 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
         mainAdapter!!.addFragment(newsSearchFragment, "newsSearchFragment")
         resultVideosSearchFragment = ResultVideosSearchFragment(this)
         mainAdapter!!.addFragment(resultVideosSearchFragment, "resultVideosSearchFragment")
-        vpContent.adapter = mainAdapter
-        vpContent.offscreenPageLimit = 3
+        vpContent.apply {
+            adapter = mainAdapter
+            offscreenPageLimit = 3
+        }
         tabLayout.setupWithViewPager(vpContent)
 
 
