@@ -539,10 +539,13 @@ class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observ
             override fun onPageSelected(position: Int) {
                 if (position == 0) {
                     type[0] = "place"
+                    rclCategorySorted.visibility = View.VISIBLE
                 } else if (position == 1) {
                     type[0] = "news"
+                    rclCategorySorted.visibility = View.GONE
                 } else {
                     type[0] = "video"
+                    rclCategorySorted.visibility = View.GONE
                 }
                 try {
                     sortAdapter?.notifyDataSetChanged()
