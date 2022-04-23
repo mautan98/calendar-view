@@ -1,8 +1,11 @@
 package com.namviet.vtvtravel.view.f3.deal.view.mygift;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.databinding.FragmentMyGiftBinding;
@@ -24,6 +27,7 @@ public class MyGiftFragment extends BaseFragment<FragmentMyGiftBinding> implemen
     private ArrayList<MyGift> myGifts = new ArrayList<>();
     private F3MyGiftAdapter f3MyGiftAdapter;
     private DealViewModel dealViewModel;
+    private int page = 0;
 
     @Override
     public int getLayoutRes() {
@@ -35,12 +39,12 @@ public class MyGiftFragment extends BaseFragment<FragmentMyGiftBinding> implemen
     public void initView() {
         dealViewModel =  new DealViewModel();
         dealViewModel.addObserver(this);
-        dealViewModel.getAllMyGift();
+        dealViewModel.getAllMyGift(page);
         showShimmerLoading();
     }
 
     public void getData(){
-        dealViewModel.getAllMyGift();
+        dealViewModel.getAllMyGift(page);
     }
 
     @Override
@@ -56,6 +60,18 @@ public class MyGiftFragment extends BaseFragment<FragmentMyGiftBinding> implemen
             }
         });
         getBinding().rcvMyGift.setAdapter(f3MyGiftAdapter);
+
+        getBinding().rcvMyGift.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                Log.e("newState", newState+"");
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && !recyclerView.canScrollVertically(1)) {
+                    dealViewModel.getAllMyGift(page);
+                }
+            }
+        });
     }
 
     @Override
@@ -80,7 +96,7 @@ public class MyGiftFragment extends BaseFragment<FragmentMyGiftBinding> implemen
         getBinding().rllNoData.findViewById(R.id.btn_reload).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dealViewModel.getAllMyGift();
+                dealViewModel.getAllMyGift(page);
                 showShimmerLoading();
             }
         });
@@ -112,8 +128,11 @@ public class MyGiftFragment extends BaseFragment<FragmentMyGiftBinding> implemen
         try {
             if(observable instanceof DealViewModel){
                 MyGiftResponse myGiftResponse = (MyGiftResponse) o;
-                myGifts.clear();
-                myGifts.addAll(myGiftResponse.getData().getMyGifts());
+//                myGifts.clear();
+                if(myGiftResponse.getData().getMyGifts().size() > 0){
+                    page = page + 1;
+                    myGifts.addAll(myGiftResponse.getData().getMyGifts());
+                }
                 f3MyGiftAdapter.notifyDataSetChanged();
             }
         } catch (Exception e) {

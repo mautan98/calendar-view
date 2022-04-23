@@ -754,7 +754,7 @@ public interface TravelService {
 
 
     @GET(WSConfig.Api.MY_GIFT)
-    Observable<MyGiftResponse> getAllMyGift();
+    Observable<MyGiftResponse> getAllMyGift(@Query("page") int page);
 
 
 

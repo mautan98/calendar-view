@@ -1109,10 +1109,10 @@ public class DealViewModel extends BaseViewModel {
     }
 
 
-    public void getAllMyGift() {
+    public void getAllMyGift(int page) {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
-        Disposable disposable = newsService.getAllMyGift()
+        Disposable disposable = newsService.getAllMyGift(page)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<MyGiftResponse>() {
