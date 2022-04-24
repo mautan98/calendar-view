@@ -400,8 +400,9 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                LinearLayoutManager layoutManager = ((LinearLayoutManager) binding.rclHome.getLayoutManager());
-                int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
+                try {
+                    LinearLayoutManager layoutManager = ((LinearLayoutManager) binding.rclHome.getLayoutManager());
+                    int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
 
 //                int last = layoutManager.findLastCompletelyVisibleItemPosition();
 //                try {
@@ -413,47 +414,50 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 //                    e.printStackTrace();
 //                }
 
-                mTotalScrolled += dy;
+                    mTotalScrolled += dy;
 
-                Log.e("dy", mTotalScrolled + "");
+                    Log.e("dy", mTotalScrolled + "");
 
-                if (mTotalScrolled <= 0) {
-                    binding.layoutToolbar.setVisibility(View.GONE);
-                    binding.ivSearch.setVisibility(View.GONE);
-                    binding.viewColor.setAlpha(0);
-                } else {
-                    if (firstVisiblePosition == 0) {
-                        float alpha = (((float) mTotalScrolled / 100) / 10) * 2;
-                        Log.e("dy", alpha + "");
-                        binding.viewColor.setAlpha(alpha);
-                        if (binding.layoutToolbar.getVisibility() == View.VISIBLE) {
-                            outAlpha();
-                        }
-
+                    if (mTotalScrolled <= 0) {
+                        binding.layoutToolbar.setVisibility(View.GONE);
                         binding.ivSearch.setVisibility(View.GONE);
-                    }
+                        binding.viewColor.setAlpha(0);
+                    } else {
+                        if (firstVisiblePosition == 0) {
+                            float alpha = (((float) mTotalScrolled / 100) / 10) * 2;
+                            Log.e("dy", alpha + "");
+                            binding.viewColor.setAlpha(alpha);
+                            if (binding.layoutToolbar.getVisibility() == View.VISIBLE) {
+                                outAlpha();
+                            }
+
+                            binding.ivSearch.setVisibility(View.GONE);
+                        }
 
 
-                    if (firstVisiblePosition > 0) {
-                        if(binding.ivSearch.getVisibility() == View.GONE) {
-                            binding.viewColor.setAlpha(1.0f);
-                            inAlpha();
-                            binding.ivSearch.setVisibility(View.VISIBLE);
+                        if (firstVisiblePosition > 0) {
+                            if(binding.ivSearch.getVisibility() == View.GONE) {
+                                binding.viewColor.setAlpha(1.0f);
+                                inAlpha();
+                                binding.ivSearch.setVisibility(View.VISIBLE);
+                            }
                         }
                     }
-                }
 
-                try {
-                    if (pauseVideo != null) {
-                        pauseVideo.pauseVideoListener();
+                    try {
+                        if (pauseVideo != null) {
+                            pauseVideo.pauseVideoListener();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                try {
-                    if (isScroll) {
-                        isScroll = false;
-                        TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_SCROLL, TrackingAnalytic.getDefault("Home", "Home").setScreen_class(this.getClass().getName()));
+                    try {
+                        if (isScroll) {
+                            isScroll = false;
+                            TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_SCROLL, TrackingAnalytic.getDefault("Home", "Home").setScreen_class(this.getClass().getName()));
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

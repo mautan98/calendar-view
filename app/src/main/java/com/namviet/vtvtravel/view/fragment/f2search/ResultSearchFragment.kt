@@ -60,8 +60,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @SuppressLint("ValidFragment")
-class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observer,
-    SearchSuggestionFragment.SearchSuggestionCallback {
+class ResultSearchFragment : BaseFragment<F2FragmentResultSearchBinding>, Observer, SearchSuggestionFragment.SearchSuggestionCallback {
 
 
     //viewpager

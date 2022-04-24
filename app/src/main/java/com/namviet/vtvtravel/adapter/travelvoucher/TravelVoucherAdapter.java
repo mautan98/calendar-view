@@ -62,7 +62,7 @@ public class TravelVoucherAdapter extends RecyclerView.Adapter<RecyclerView.View
         try {
             return vouchers.size();
         } catch (Exception e) {
-            return 10;
+            return 0;
         }
     }
 

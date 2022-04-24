@@ -75,14 +75,20 @@ public class MainOfflineFragment extends MainFragment {
     }
 
     private int getPositionViewpager(int id){
-        int position = 0;
-        for (int i = 0; i < offlineDynamic.getListScreens().size(); i++) {
-            if(String.valueOf(id).equals( offlineDynamic.getListScreens().get(i).getId())){
-                position = i;
-                break;
+        try {
+            int position = 0;
+            for (int i = 0; i < offlineDynamic.getListScreens().size(); i++) {
+                if(String.valueOf(id).equals( offlineDynamic.getListScreens().get(i).getId())){
+                    position = i;
+                    break;
+                }
             }
+            return position;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(mActivity, "Có lỗi, hoặc chưa lấy được dữ  liệu offline", Toast.LENGTH_SHORT).show();
+            return 0;
         }
-        return position;
     }
 
     private void setClick() {
