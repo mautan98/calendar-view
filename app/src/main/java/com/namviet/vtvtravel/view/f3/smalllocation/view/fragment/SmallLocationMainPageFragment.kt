@@ -56,7 +56,7 @@ import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 
-class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeService<*>.Item>? = null, private var position : Int, private var regionIdToLoadSmallLocation : String?) : BaseFragment<F2FragmentMainPageSmallLocationBinding?>(), Observer, SearchSuggestionSmallLocationFragment.SearchSuggestionCallback {
+class SmallLocationMainPageFragment : BaseFragment<F2FragmentMainPageSmallLocationBinding?>, Observer, SearchSuggestionSmallLocationFragment.SearchSuggestionCallback {
     private var mainAdapter : MainAdapter? = null
     private var searchSuggestionKeyWordAdapter: SearchSuggestionKeyWordAdapter? = null
     private var searchSuggestions: ArrayList<SearchSuggestionResponse.Data.Item>? = ArrayList()
@@ -80,6 +80,22 @@ class SmallLocationMainPageFragment(private var dataMenu: ArrayList<ItemHomeServ
     override fun getLayoutRes(): Int {
         return R.layout.f2_fragment_main_page_small_location
     }
+
+    private var dataMenu: ArrayList<ItemHomeService<*>.Item>? = null;
+    private var position : Int = 0;
+    private var regionIdToLoadSmallLocation : String? = null
+
+    constructor(
+        dataMenu: ArrayList<ItemHomeService<*>.Item>?,
+        position : Int,
+        regionIdToLoadSmallLocation : String?
+    ){
+        this.dataMenu = dataMenu
+        this.position = position
+        this.regionIdToLoadSmallLocation = regionIdToLoadSmallLocation
+    }
+
+    constructor()
 
 
     override fun initView() {
