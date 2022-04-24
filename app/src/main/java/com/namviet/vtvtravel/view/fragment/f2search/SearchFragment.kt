@@ -454,10 +454,10 @@ class SearchFragment : BaseFragment<F2FragmentSearchBinding?>(), Observer, Searc
 
 
                 is ErrorResponse -> {
-                    if(o.errorCode!= null && o.errorCode.equals(ErrorCode.ERROR_MAIN_SEARCH_RESPONSE.name)){
-                        rll_no_data.visibility = View.VISIBLE
-                        lnl_main_search.visibility = View.GONE
-                    }
+//                    if(o.errorCode!= null && o.errorCode.equals(ErrorCode.ERROR_MAIN_SEARCH_RESPONSE.name)){
+//                        rll_no_data.visibility = View.VISIBLE
+//                        lnl_main_search.visibility = View.GONE
+//                    }
                     try { //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
                     } catch (e: Exception) {
                     }

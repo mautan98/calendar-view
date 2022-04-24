@@ -312,76 +312,80 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 
     @Subscribe
     public void onReloadUserView(OnLoginSuccessAndUpdateUserView onLoginSuccessAndUpdateUserView) {
-        Account account = MyApplication.getInstance().getAccount();
-        if (null != account && account.isLogin()) {
-//            animate(binding.rootView).setDuration(200).translationY(heightTopbar);
+        try {
+            Account account = MyApplication.getInstance().getAccount();
+            if (null != account && account.isLogin()) {
+    //            animate(binding.rootView).setDuration(200).translationY(heightTopbar);
 
-            String s = account.getFullname() != null ? account.getFullname() : "Bạn";
+                String s = account.getFullname() != null ? account.getFullname() : "Bạn";
 
-//            homeServiceResponse.getData().get(0).setUsername("Xin chào, " + s);
-//            homeServiceResponse.getData().get(0).setDescriptionUser("Đăng kí hội viên ngay");
-//            homeServiceResponse.getData().get(0).setAvatar(account.getImageProfile());
+    //            homeServiceResponse.getData().get(0).setUsername("Xin chào, " + s);
+    //            homeServiceResponse.getData().get(0).setDescriptionUser("Đăng kí hội viên ngay");
+    //            homeServiceResponse.getData().get(0).setAvatar(account.getImageProfile());
 
-            binding.tvName.setText("Chào, " + s);
-            binding.tvLoginRightNow.setText("Đăng kí hội viên ngay");
-            binding.tvLoginRightNow.setVisibility(View.GONE);
-            try {
-                String cut = account.getMobile().substring(7, 11);
-                String mobile = account.getMobile().replace(cut, "xxxxx");
-                binding.tvLoginRightNow.setText(mobile);
-                binding.tvLoginRightNow.setVisibility(View.VISIBLE);
-            } catch (Exception e) {
-                e.printStackTrace();
+                binding.tvName.setText("Chào, " + s);
+                binding.tvLoginRightNow.setText("Đăng kí hội viên ngay");
+                binding.tvLoginRightNow.setVisibility(View.GONE);
                 try {
-                    binding.tvLoginRightNow.setVisibility(View.GONE);
-                } catch (Exception exception) {
-                    exception.printStackTrace();
+                    String cut = account.getMobile().substring(7, 11);
+                    String mobile = account.getMobile().replace(cut, "xxxxx");
+                    binding.tvLoginRightNow.setText(mobile);
+                    binding.tvLoginRightNow.setVisibility(View.VISIBLE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    try {
+                        binding.tvLoginRightNow.setVisibility(View.GONE);
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                    }
                 }
-            }
-            binding.tvLevel.setVisibility(View.VISIBLE);
-            if (!"".equals(account.getImageProfile()) && account.getImageProfile() != null) {
-                Glide.with(mActivity).load(account.getImageProfile()).error(R.drawable.f2_defaut_user).into(binding.imgAvatar);
-            }
+                binding.tvLevel.setVisibility(View.VISIBLE);
+                if (!"".equals(account.getImageProfile()) && account.getImageProfile() != null) {
+                    Glide.with(mActivity).load(account.getImageProfile()).error(R.drawable.f2_defaut_user).into(binding.imgAvatar);
+                }
 
-//            newHomeAdapter.notifyItemChanged(0);
+    //            newHomeAdapter.notifyItemChanged(0);
 
 
-            if(account.getPackageCode() == null){
+                if(account.getPackageCode() == null){
+                    homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <b>Hội viên</b> của <b>#VTVTravel</b>");
+                    homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
+                    newHomeAdapter.notifyItemChanged(1);
+                    newHomeAdapter.notifyItemChanged(2);
+
+                }else {
+                    homeServiceResponse.getData().get(1).setTipUser("Bạn đang là <b>Hội viên</b> của <b>#VTVTravel</b>, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:");
+                    homeServiceResponse.getData().get(1).setShowBtnRegisterNow(false);
+                    newHomeAdapter.notifyItemChanged(1);
+                    newHomeAdapter.notifyItemChanged(2);
+                }
+
+
+            } else {
+                phoneNumberDetectedFrom3G = null;
+    //            homeServiceResponse.getData().get(0).setUsername("Xin chào!");
+    //            homeServiceResponse.getData().get(0).setDescriptionUser("Đăng nhập ngay");
+    //            homeServiceResponse.getData().get(0).setAvatar("0");
+
+                binding.tvName.setText("Xin chào!");
+                binding.tvLoginRightNow.setText("Đăng nhập ngay");
+                binding.tvLoginRightNow.setVisibility(View.VISIBLE);
+                binding.tvLevel.setVisibility(View.GONE);
+    //            Glide.with(mActivity).load("0").into(binding.imgAvatar);
+                binding.imgAvatar.setImageResource(R.drawable.f2_defaut_user);
+
+    //            newHomeAdapter.notifyItemChanged(0);
+
+
                 homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <b>Hội viên</b> của <b>#VTVTravel</b>");
                 homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
                 newHomeAdapter.notifyItemChanged(1);
-                newHomeAdapter.notifyItemChanged(2);
 
-            }else {
-                homeServiceResponse.getData().get(1).setTipUser("Bạn đang là <b>Hội viên</b> của <b>#VTVTravel</b>, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:");
-                homeServiceResponse.getData().get(1).setShowBtnRegisterNow(false);
-                newHomeAdapter.notifyItemChanged(1);
-                newHomeAdapter.notifyItemChanged(2);
+
+
             }
-
-
-        } else {
-            phoneNumberDetectedFrom3G = null;
-//            homeServiceResponse.getData().get(0).setUsername("Xin chào!");
-//            homeServiceResponse.getData().get(0).setDescriptionUser("Đăng nhập ngay");
-//            homeServiceResponse.getData().get(0).setAvatar("0");
-
-            binding.tvName.setText("Xin chào!");
-            binding.tvLoginRightNow.setText("Đăng nhập ngay");
-            binding.tvLoginRightNow.setVisibility(View.VISIBLE);
-            binding.tvLevel.setVisibility(View.GONE);
-//            Glide.with(mActivity).load("0").into(binding.imgAvatar);
-            binding.imgAvatar.setImageResource(R.drawable.f2_defaut_user);
-
-//            newHomeAdapter.notifyItemChanged(0);
-
-
-            homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <b>Hội viên</b> của <b>#VTVTravel</b>");
-            homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
-            newHomeAdapter.notifyItemChanged(1);
-
-
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
