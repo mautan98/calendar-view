@@ -77,8 +77,8 @@ public class CanReceiverGiftDialog extends BaseDialogFragment2 {
             binding.tvTitle.setText("VTVTravel tặng bạn \nmột lượt chọn quà\n mời bạn chọn voucher ưng ý");
             binding.tvReceiverNow.setText("Nhận ngay");
         }else {
-            binding.tvTitle.setText("VTVTravel tặng bạn \n3 lượt quay trúng thưởng");
-//            binding.tvTitle.setText(message);
+//            binding.tvTitle.setText("VTVTravel tặng bạn \n3 lượt quay trúng thưởng");
+            binding.tvTitle.setText(message);
             binding.tvReceiverNow.setText("Quay ngay");
         }
     }
