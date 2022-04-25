@@ -144,26 +144,30 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
     @Override
     public void update(Observable observable, Object o) {
         hideLoading();
-        if (observable instanceof AccountViewModel && null != o) {
-            if (o instanceof AccountResponse) {
-                AccountResponse accountResponse = (AccountResponse) o;
-                if (accountResponse.isSuccess()) {
-                    MyApplication.getInstance().setAccount(accountResponse.getData());
-                    Log.e("Debuggg"+"RegisterF2Frm", new Gson().toJson(accountResponse.getData()));
-                    OtpF2Fragment otpF2Fragment = new OtpF2Fragment();
-                    otpF2Fragment.setTypeOTP(Constants.IntentKey.TYPE_OTP_REGISTER);
-                    otpF2Fragment.setMobile(phone);
-                    addFragment(otpF2Fragment);
-                }
-            } else if (o instanceof ErrorResponse) {
-                ErrorResponse responseError = (ErrorResponse) o;
-                try {
-                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
-                } catch (Exception e) {
+        try {
+            if (observable instanceof AccountViewModel && null != o) {
+                if (o instanceof AccountResponse) {
+                    AccountResponse accountResponse = (AccountResponse) o;
+                    if (accountResponse.isSuccess()) {
+                        MyApplication.getInstance().setAccount(accountResponse.getData());
+                        Log.e("Debuggg"+"RegisterF2Frm", new Gson().toJson(accountResponse.getData()));
+                        OtpF2Fragment otpF2Fragment = new OtpF2Fragment();
+                        otpF2Fragment.setTypeOTP(Constants.IntentKey.TYPE_OTP_REGISTER);
+                        otpF2Fragment.setMobile(phone);
+                        addFragment(otpF2Fragment);
+                    }
+                } else if (o instanceof ErrorResponse) {
+                    ErrorResponse responseError = (ErrorResponse) o;
+                    try {
+                        ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
+                    } catch (Exception e) {
 
+                    }
                 }
+
             }
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

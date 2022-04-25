@@ -63,12 +63,16 @@ public class LoginAndRegisterActivityNew extends BaseActivityNew<F2ActivityLogin
     }
 
     public void showWarning(String message){
-        if(message == null || (message != null && message.isEmpty())){
-            getBinding().tvWarningMessage.setText("Đã xảy ra lỗi, xin quý khách hãy kiểm tra lại thông tin và thử lại sau!");
-        }else {
-            getBinding().tvWarningMessage.setText(message);
+        try {
+            if(message == null || (message != null && message.isEmpty())){
+                getBinding().tvWarningMessage.setText("Đã xảy ra lỗi, xin quý khách hãy kiểm tra lại thông tin và thử lại sau!");
+            }else {
+                getBinding().tvWarningMessage.setText(message);
+            }
+            getBinding().layoutWarning.setVisibility(View.VISIBLE);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        getBinding().layoutWarning.setVisibility(View.VISIBLE);
     }
 
     public static void startScreen(Context activity, int position, boolean isFromButtonCallNow){

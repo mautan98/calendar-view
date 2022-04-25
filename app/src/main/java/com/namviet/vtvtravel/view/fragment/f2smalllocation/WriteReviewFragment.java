@@ -368,27 +368,32 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
     }
 
     public void getPhotoFromCamera() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        ContentValues values = new ContentValues(1);
-        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
-//        fileUri = mActivity.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-        File photoFile = null;
         try {
-            photoFile = createImageFile();
-        } catch (IOException ex) {
-            // Error occurred while creating the File
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            ContentValues values = new ContentValues(1);
+            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
+            fileUri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+//        File photoFile = null;
+//        try {
+//            photoFile = createImageFile();
+//        } catch (IOException ex) {
+//            // Error occurred while creating the File
+//        }
+//        fileUri = FileProvider.getUriForFile(mActivity,
+//                BuildConfig.APPLICATION_ID + ".provider",
+//                photoFile);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            startActivityForResult(intent, REQUEST_CAMERA);
+        } catch (Exception e) {
+            Toast.makeText(mActivity, "Đã có lỗi xảy ra, mời bạn thử chọn ảnh từ thư viện!", Toast.LENGTH_SHORT).show();
         }
-        fileUri = FileProvider.getUriForFile(mActivity,
-                BuildConfig.APPLICATION_ID + ".provider",
-                photoFile);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        startActivityForResult(intent, REQUEST_CAMERA);
     }
+    public static final String IMAGE_NAME = "VTVTravelImg";
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "VTVTravelImg";
+        String imageFileName = IMAGE_NAME;
         File storageDir = mActivity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
@@ -434,7 +439,8 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
             } else if (requestCode == REQUEST_CAMERA) {
                 Uri selectedUri = fileUri;
                 if (null != selectedUri) {
-                    startCropActivity(selectedUri);
+//                    startCropActivity(selectedUri);
+                    handleConvertURIToBitmap(selectedUri);
                 } else {
                     Toast.makeText(mActivity, R.string.toast_cannot_retrieve_selected_image, Toast.LENGTH_SHORT).show();
                 }
@@ -539,23 +545,40 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
         }
     }
 
+//    private File saveBitmap(Bitmap bm) {
+//
+//        String fileName = "android" + System.currentTimeMillis();
+//        File sdCard = mActivity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+//        File dir = new File(sdCard.getAbsolutePath() + "/VTVTravelFileUploaded/");
+//        dir.mkdirs();
+//        File file = new File(dir, fileName + ".jpg");
+//
+//        try {
+//            FileOutputStream fOut = new FileOutputStream(file, false);
+//            bm.compress(Bitmap.CompressFormat.JPEG, 90, fOut);
+//            fOut.flush();
+//            fOut.close();
+//        } catch (Exception e) {
+//
+//        }
+//        return file;
+//    }
+
     private File saveBitmap(Bitmap bm) {
-
         String fileName = "android" + System.currentTimeMillis();
-        File sdCard = mActivity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File dir = new File(sdCard.getAbsolutePath() + "/VTVTravelFileUploaded/");
-        dir.mkdirs();
-        File file = new File(dir, fileName + ".jpg");
-
+        File sd = mActivity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File dest = new File(sd, fileName);
+        Log.e("path", "" + dest.getPath());
+        Bitmap result = Bitmap.createScaledBitmap(bm, 200, 200, false);
         try {
-            FileOutputStream fOut = new FileOutputStream(file, false);
-            bm.compress(Bitmap.CompressFormat.JPEG, 90, fOut);
-            fOut.flush();
-            fOut.close();
+            FileOutputStream out = new FileOutputStream(dest);
+            result.compress(Bitmap.CompressFormat.PNG, 70, out);
+            out.flush();
+            out.close();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
-        return file;
+        return dest;
     }
 
     private void genDialogSendReviewSuccess() {
