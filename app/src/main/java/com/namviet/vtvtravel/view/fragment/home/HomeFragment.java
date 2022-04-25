@@ -14,6 +14,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.baseapp.activity.BaseActivity;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.fragment.app.Fragment;
@@ -757,7 +758,13 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 
     @Subscribe
     public void onClickBookingFromTopMenu(OnClickBookingTopMenu onLoginSuccessAndUpdateUserView) {
-        BookingActivity.Companion.openActivity(mActivity);
+//        BookingActivity.Companion.openActivity(mActivity);
+        try {
+            OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+            oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+        } catch (Exception exception) {
+
+        }
     }
 
 
