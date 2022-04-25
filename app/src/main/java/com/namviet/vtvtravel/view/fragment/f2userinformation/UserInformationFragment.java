@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.content.FileProvider;
 
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.android.datetimepicker.date.DatePickerDialog;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.namviet.vtvtravel.BuildConfig;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
@@ -42,7 +44,10 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -373,10 +378,35 @@ public class UserInformationFragment extends BaseFragment<F2FragmentPersonalInfo
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         ContentValues values = new ContentValues(1);
         values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
-        fileUri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+//        fileUri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        File photoFile = null;
+        try {
+            photoFile = createImageFile();
+        } catch (IOException ex) {
+            // Error occurred while creating the File
+        }
+        fileUri = FileProvider.getUriForFile(mActivity,
+                BuildConfig.APPLICATION_ID + ".provider",
+                photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         startActivityForResult(intent, REQUEST_CAMERA);
+    }
+
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = IMAGE_NAME;
+        File storageDir = mActivity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        return image;
     }
 
     private void uploadFile(Bitmap bitmap) {
@@ -384,7 +414,7 @@ public class UserInformationFragment extends BaseFragment<F2FragmentPersonalInfo
     }
 
     private File saveBitmap(Bitmap bm) {
-        File sd = Environment.getExternalStorageDirectory();
+        File sd = mActivity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File dest = new File(sd, IMAGE_NAME);
         Log.e("path", "" + dest.getPath());
         Bitmap result = Bitmap.createScaledBitmap(bm, 200, 200, false);
