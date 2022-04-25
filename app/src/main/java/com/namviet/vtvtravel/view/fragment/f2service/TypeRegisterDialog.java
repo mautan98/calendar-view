@@ -103,7 +103,11 @@ public class TypeRegisterDialog extends BaseDialogFragment implements Observer {
             } else if (arg instanceof ErrorResponse) {
                 ErrorResponse responseError = (ErrorResponse) arg;
 //                showMessage(responseError.getMessage());
-                Toast.makeText(mActivity, responseError.getMessage(), Toast.LENGTH_SHORT).show();
+                try {
+                    Toast.makeText(mActivity, responseError.getMessage(), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+
+                }
             }
         }
     }
