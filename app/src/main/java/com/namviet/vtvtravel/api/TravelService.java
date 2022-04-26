@@ -681,6 +681,9 @@ public interface TravelService {
     @GET(WSConfig.Api.WHEEL_CHARTS)
     Observable<WheelChartResponse> getWheelChartResponse();
 
+    @GET(WSConfig.Api.WHEEL_CHARTS_2)
+    Observable<WheelChartResponse> getWheelChart();
+
     @GET
     Observable<VideoDetailResponse> viewVideo(@Url String url);
 

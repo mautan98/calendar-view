@@ -190,6 +190,7 @@ public class WSConfig {
         public static final String WHEEL_RESULT = "wheel/result";
         public static final String WHEEL_AREAS = "wheel/wheelAreas";
         public static final String WHEEL_CHARTS = "wheel/charts?page=0&size=100";
+        public static final String WHEEL_CHARTS_2 = "wheel/charts?page=0&size=10";
         public static final String USER_REVIEW = "user/review";
         public static final String USER_REVIEW_SYS = "user/reviewSys";
         public static final String USER_SUPPORTER = "user/travel/supporter";

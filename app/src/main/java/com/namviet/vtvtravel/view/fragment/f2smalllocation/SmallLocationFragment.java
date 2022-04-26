@@ -807,6 +807,16 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
     }
 
     private void initItemMarker(Travel travel) {
+        getBinding().layoutItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    addFragment(new DetailSmallLocationFragment(travel.getDetail_link()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         getBinding().layoutItem.setVisibility(View.VISIBLE);
         Glide.with(mActivity).load(travel.getLogo_url()).into(getBinding().imgAvatar);
         getBinding().tvName.setText(travel.getName());

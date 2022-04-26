@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.namviet.vtvtravel.R
+import com.namviet.vtvtravel.adapter.vqmm.LeaderBoardAdapter
 import com.namviet.vtvtravel.adapter.vqmm.VQMMAdapter
 import com.namviet.vtvtravel.databinding.F2FragmentDetailDealWebviewBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
@@ -23,6 +24,7 @@ import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.f2event.OnChooseVoucherToRoll
 import com.namviet.vtvtravel.model.f2event.OnRegisterVipSuccess
 import com.namviet.vtvtravel.response.f2wheel.WheelAreasResponse
+import com.namviet.vtvtravel.response.f2wheel.WheelChartResponse
 import com.namviet.vtvtravel.response.f2wheel.WheelResultResponse
 import com.namviet.vtvtravel.response.f2wheel.WheelRotateResponse
 import com.namviet.vtvtravel.view.f2.HistoryLuckyWheelActivity
@@ -32,6 +34,8 @@ import com.namviet.vtvtravel.view.f3.deal.view.mygift.NewMyGiftActivity
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity
 import com.namviet.vtvtravel.viewmodel.f2luckywheel.LuckyWheelViewModel
 import kotlinx.android.synthetic.main.f2_fragment_detail_deal_webview.*
+import kotlinx.android.synthetic.main.f2_fragment_detail_deal_webview.btnBack
+import kotlinx.android.synthetic.main.f2_fragment_leader_board_lucky_wheel.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.util.*
@@ -62,6 +66,7 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
     var targetPosition: Int = -1
 
 
+
     public fun setVoucherId(id : String){
         listIds.clear()
         listIds.add(id)
@@ -77,6 +82,8 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
         viewModel?.addObserver(this)
         viewModel?.wheelAreas("VTVTRAVEL", listIds)
         viewModel?.wheelResult("VTVTRAVEL", "ANDROID", "app")
+
+        viewModel?.getWheelChart()
     }
 
     override fun initData() {
@@ -450,6 +457,17 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
 
 //                    Handler().postDelayed({ rclScroll.smoothScrollToPosition(50) }, 10)
 
+                }
+
+                is WheelChartResponse -> {
+                    try {
+                        var listLucky = ""
+                        for (i in 0 until o.data.items.size){
+                            listLucky = listLucky +"    Xin chúc mừng thue bao "+o.data.items!![i].mobile.substring(0, 8)+"xxx " +"đã trúng giải "+o.data.items!![i].areasWinning+"..."
+                        }
+                        tvScroll.text = listLucky
+                    } catch (e: Exception) {
+                    }
                 }
                 is ErrorResponse -> {
                     try {

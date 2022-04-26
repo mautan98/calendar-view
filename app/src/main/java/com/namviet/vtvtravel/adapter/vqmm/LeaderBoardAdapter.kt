@@ -71,7 +71,7 @@ class LeaderBoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 itemView.tvSTT.text = ""
             }
 //            itemView.tvTime.text = comments?.get(position!!)?.createdAt
-            itemView.tvPhone.text = comments?.get(position!!)?.mobile
+            itemView.tvPhone.text = comments?.get(position!!)?.mobile?.substring(0, 8)+"xxx"
             itemView.tvGift.text = comments?.get(position!!)?.areasWinning
             itemView.tvStatus.text = "Thành công"
 
