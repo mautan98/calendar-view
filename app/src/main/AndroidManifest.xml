@@ -288,6 +288,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.f2.f2oldbase.FormChatActivity"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.f2.f2oldbase.LiveTVActivityOld"
