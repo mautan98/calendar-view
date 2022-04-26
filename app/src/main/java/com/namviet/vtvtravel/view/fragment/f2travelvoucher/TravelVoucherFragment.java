@@ -52,7 +52,7 @@ public class TravelVoucherFragment extends BaseFragment<F2FragmentTravelVoucherB
     private String positionIdCategory;
 
     public void setPositionIdCategory(String positionCategory) {
-        this.positionIdCategory = positionCategory;
+        this.positionIdCategory = positionCategory != null ? positionCategory : "";
     }
 
     @SuppressLint("ValidFragment")
