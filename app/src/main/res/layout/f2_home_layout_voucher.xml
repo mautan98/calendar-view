@@ -47,7 +47,7 @@
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/vpSlideShow"
                 android:layout_width="280dp"
-                android:layout_height="220dp"
+                android:layout_height="190dp"
                 android:layout_gravity="center" />
 
 

@@ -281,7 +281,11 @@
 
     </LinearLayout>
 
-    <Button
+    <TextView
+        android:gravity="center"
+        android:focusable="true"
+        android:clickable="true"
+        android:foreground="@drawable/ripple_effect_click"
         android:id="@+id/btn_hunt"
         android:layout_width="match_parent"
         android:layout_height="42dp"
