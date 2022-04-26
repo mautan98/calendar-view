@@ -594,6 +594,9 @@ public interface TravelService {
     @GET(WSConfig.Api.USAGE_RULES)
     Observable<HtmlResponse> getUsageRule();
 
+    @GET(WSConfig.Api.CTKM_RULES)
+    Observable<HtmlResponse> getCTKMRule();
+
     @GET(WSConfig.Api.DEAL_DETAIL)
     Observable<HtmlResponse> getDealDetail();
 

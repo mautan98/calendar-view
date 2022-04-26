@@ -201,6 +201,7 @@ public class WSConfig {
         public static final String SEARCH_SUGGESTION = "keyup/search/suggestions";
 
         public static final String USAGE_RULES = "page/dieu-khoan-su-dung";
+        public static final String CTKM_RULES = "page/the-le-ctkm";
         public static final String DEAL_DETAIL = "page/chi-tiet-uu-dai-goi-travel-vip";
 
         public static final String SEARCH_VIDEO = "v3/search/video";

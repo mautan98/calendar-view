@@ -1,5 +1,6 @@
 package com.namviet.vtvtravel.di;
 
+import com.namviet.vtvtravel.view.f3.deal.view.dealrule.DealRuleFragment;
 import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionForSpecificContentFragment;
 import com.namviet.vtvtravel.view.f3.search.view.SearchSuggestionFragment;
 import com.namviet.vtvtravel.di.module.StorageModule;
@@ -19,4 +20,5 @@ public interface ViewModelComponent {
     void inject(SmallLocationMainPageFragment smallLocationMainPageFragment);
     void inject(SearchSuggestionForSpecificContentFragment searchSuggestionFragment);
     void inject(SearchSuggestionSmallLocationFragment searchSuggestionFragment);
+    void inject(DealRuleFragment searchSuggestionFragment);
 }
