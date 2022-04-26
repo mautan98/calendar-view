@@ -26,6 +26,32 @@ public class AccountViewModel extends BaseViewModel {
     public AccountViewModel() {
     }
 
+
+
+    public void getCTKMRule() {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelService();
+        Disposable disposable = newsService.getCTKMRule()
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<HtmlResponse>() {
+                    @Override
+                    public void accept(HtmlResponse response) throws Exception {
+                        if (response != null) {
+                            requestSuccess(response);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable);
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+
     public void getUsageRule() {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelService();
