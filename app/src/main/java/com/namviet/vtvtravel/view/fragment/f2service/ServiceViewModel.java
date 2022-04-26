@@ -168,19 +168,17 @@ public class ServiceViewModel extends BaseViewModel {
 
         }
 
-//        try {
-//            HttpException error = (HttpException) throwable;
-//            String errorBody = error.response().errorBody().string();
-//            ErrorResponse errorResponse = new Gson().fromJson(errorBody, ErrorResponse.class);
-//            errorResponse.setCodeToSplitCase("");
-//            setChanged();
-//            notifyObservers(errorResponse);
-//        } catch (Exception e) {
-//            setChanged();
-//            notifyObservers();
-//        }
-        setChanged();
-        notifyObservers(new ErrorResponse());
+        try {
+            HttpException error = (HttpException) throwable;
+            String errorBody = error.response().errorBody().string();
+            ErrorResponse errorResponse = new Gson().fromJson(errorBody, ErrorResponse.class);
+            errorResponse.setCodeToSplitCase("");
+            setChanged();
+            notifyObservers(errorResponse);
+        } catch (Exception e) {
+            setChanged();
+            notifyObservers();
+        }
 
 
     }
