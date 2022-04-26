@@ -373,15 +373,15 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
             ContentValues values = new ContentValues(1);
             values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
             fileUri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-//        File photoFile = null;
-//        try {
-//            photoFile = createImageFile();
-//        } catch (IOException ex) {
-//            // Error occurred while creating the File
-//        }
-//        fileUri = FileProvider.getUriForFile(mActivity,
-//                BuildConfig.APPLICATION_ID + ".provider",
-//                photoFile);
+        File photoFile = null;
+        try {
+            photoFile = createImageFile();
+        } catch (IOException ex) {
+            // Error occurred while creating the File
+        }
+        fileUri = FileProvider.getUriForFile(mActivity,
+                BuildConfig.APPLICATION_ID + ".provider",
+                photoFile);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             startActivityForResult(intent, REQUEST_CAMERA);
@@ -439,8 +439,8 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
             } else if (requestCode == REQUEST_CAMERA) {
                 Uri selectedUri = fileUri;
                 if (null != selectedUri) {
-//                    startCropActivity(selectedUri);
-                    handleConvertURIToBitmap(selectedUri);
+                    startCropActivity(selectedUri);
+//                    handleConvertURIToBitmap(selectedUri);
                 } else {
                     Toast.makeText(mActivity, R.string.toast_cannot_retrieve_selected_image, Toast.LENGTH_SHORT).show();
                 }

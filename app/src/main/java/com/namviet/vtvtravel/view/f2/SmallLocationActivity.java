@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
+import androidx.fragment.app.Fragment;
+
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2ActivityBigLocationBinding;
@@ -14,6 +16,7 @@ import com.namviet.vtvtravel.view.f3.smalllocation.view.fragment.SmallLocationMa
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.DetailSmallLocationFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocationBinding> {
     private ArrayList<ItemHomeService<?>.Item> itemsMenu;
@@ -129,5 +132,18 @@ public class SmallLocationActivity extends BaseActivityNew<F2ActivityBigLocation
 //        }
 //        else
             super.onBackPressed();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            List<Fragment> fragments = getSupportFragmentManager().getFragments();
+            for (Fragment fragment : fragments) {
+                fragment.onActivityResult(requestCode, resultCode, data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
