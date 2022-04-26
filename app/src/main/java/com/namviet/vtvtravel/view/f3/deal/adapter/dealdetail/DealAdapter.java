@@ -180,7 +180,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private ArrayList<String> tabs = new ArrayList<>();
         private ShimmerFrameLayout mShimmerFrameLayout;
         private LinearLayout lnlParent;
-        private Button btnHunt;
+        private TextView btnHunt;
         private String status = IsProcessingType.DANG_DIEN_RA_TYPE;
         private String filter = "";
 
@@ -406,6 +406,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     btnHunt.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            Log.e("ClickHunt", "ok");
                             Account account = MyApplication.getInstance().getAccount();
                             if (null != account && account.isLogin()) {
                                 if (status.equals(IsProcessingType.DANG_DIEN_RA_TYPE)) {
@@ -716,7 +717,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         ClipboardManager clipboard = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
                         ClipData clip = ClipData.newPlainText("Copy", tvCode.getText().toString().trim());
                         clipboard.setPrimaryClip(clip);
-                        Toast.makeText(mContext, "Đã coppy vào Clipboard", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Đã copy vào Clipboard", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
