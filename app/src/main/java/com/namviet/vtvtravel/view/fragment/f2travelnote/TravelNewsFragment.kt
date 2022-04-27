@@ -226,15 +226,8 @@ class TravelNewsFragment : BaseFragment<F2FragmentTravelNewsBinding?>, Observer 
                         addFragment(detailNewsTravelFragment)
                     }
                 binding!!.rclHighLight.adapter = highLightTravelNoteAdapter
-//<<<<<<< HEAD
-//            } else if (o is ErrorResponse) {
-//                val responseError = o
-//                binding!!.rllNoData.visibility = View.VISIBLE
-//                binding!!.btnScrollToTop.visibility = View.GONE
-//=======
             } else if (any is ErrorResponse) {
                 val responseError = any
-//>>>>>>> New_Search_170122
                 try {
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
                 } catch (e: Exception) {
