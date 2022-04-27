@@ -360,9 +360,17 @@ public class UserInformationFragment extends BaseFragment<F2FragmentPersonalInfo
     private void handleCropError(@NonNull Intent result) {
         final Throwable cropError = UCrop.getError(result);
         if (cropError != null) {
-            Toast.makeText(getActivity(), cropError.getMessage(), Toast.LENGTH_LONG).show();
+            try {
+                Toast.makeText(getActivity(), cropError.getMessage(), Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+
+            }
         } else {
-            Toast.makeText(getActivity(), R.string.toast_unexpected_error, Toast.LENGTH_SHORT).show();
+            try {
+                Toast.makeText(getActivity(), R.string.toast_unexpected_error, Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+
+            }
         }
     }
 
@@ -492,7 +500,10 @@ public class UserInformationFragment extends BaseFragment<F2FragmentPersonalInfo
                     Toast.makeText(mActivity, "Cập nhật thành công!", Toast.LENGTH_SHORT).show();
                     EventBus.getDefault().post(new OnUpdateAccount());
                 } else {
-                    Toast.makeText(mActivity, accountResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    try {
+                        Toast.makeText(mActivity, accountResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                    }
                 }
             }
         }

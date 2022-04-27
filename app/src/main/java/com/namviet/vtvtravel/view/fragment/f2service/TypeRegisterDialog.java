@@ -97,7 +97,11 @@ public class TypeRegisterDialog extends BaseDialogFragment implements Observer {
                     typeRegisterDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
                     typeRegisterDialog.setCancelable(true);
                 } else {
-                    Toast.makeText(mActivity, serviceOtpResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    try {
+                        Toast.makeText(mActivity, serviceOtpResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
                 }
 
             } else if (arg instanceof ErrorResponse) {

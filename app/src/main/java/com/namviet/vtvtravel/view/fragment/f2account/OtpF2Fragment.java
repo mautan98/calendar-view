@@ -169,7 +169,11 @@ public class OtpF2Fragment extends BaseFragment<F2FragmentOtpBinding> implements
                     }
                 } else {
 //                    showMessage(accountResponse.getMessage());
-                    Toast.makeText(mActivity, accountResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    try {
+                        Toast.makeText(mActivity, accountResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             } else if (o instanceof ErrorResponse) {
                 ErrorResponse responseError = (ErrorResponse) o;

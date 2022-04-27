@@ -368,7 +368,6 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 
                     if (event.getX() > 0 && event.getX() < 217) {
                         if (event.getY() > 0 && event.getY() < 120) {
-//                            Toast.makeText(mActivity, "Call click", Toast.LENGTH_SHORT).show();
 //
                             binding.layoutButton.animate().x(x).y(y).setDuration(500L).setListener(new Animator.AnimatorListener() {
                                 @Override
@@ -413,7 +412,6 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 
                                 }
                             }).start();
-//                            Toast.makeText(mActivity, "Chat click", Toast.LENGTH_SHORT).show();
 //
                         }
                     }
@@ -560,7 +558,6 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             if (o instanceof ErrorResponse) {
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
-//                    Toast.makeText(mActivity, responseError.getMessage(), Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                 }
             } else if (o instanceof MenuResponse) {

@@ -144,7 +144,10 @@ public class F2Util {
 
     public static void showToast(Context context, String mess){
         if(mess != null){
-            Toast.makeText(context, mess, Toast.LENGTH_SHORT).show();
+            try {
+                Toast.makeText(context, mess, Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+            }
         }
     }
 

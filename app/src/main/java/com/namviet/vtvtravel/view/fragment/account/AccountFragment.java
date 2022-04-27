@@ -5,6 +5,8 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import androidx.databinding.DataBindingUtil;
+
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -243,14 +245,22 @@ public class AccountFragment extends MainFragment implements Observer {
                     startCropActivity(data.getData());
 //                    upLoadImage(selectedUri);
                 } else {
-                    Toast.makeText(getActivity(), R.string.toast_cannot_retrieve_selected_image, Toast.LENGTH_SHORT).show();
+                    try {
+                        Toast.makeText(getActivity(), R.string.toast_cannot_retrieve_selected_image, Toast.LENGTH_SHORT).show();
+                    } catch (Resources.NotFoundException e) {
+
+                    }
                 }
             } else if (requestCode == REQUEST_CAMERA) {
                 Uri selectedUri = fileUri;
                 if (null != selectedUri) {
                     startCropActivity(selectedUri);
                 } else {
-                    Toast.makeText(getActivity(), R.string.toast_cannot_retrieve_selected_image, Toast.LENGTH_SHORT).show();
+                    try {
+                        Toast.makeText(getActivity(), R.string.toast_cannot_retrieve_selected_image, Toast.LENGTH_SHORT).show();
+                    } catch (Resources.NotFoundException e) {
+
+                    }
                 }
             } else if (requestCode == UCrop.REQUEST_CROP) {
                 handleCropResult(data);
@@ -292,7 +302,11 @@ public class AccountFragment extends MainFragment implements Observer {
                     });
 
         } else {
-            Toast.makeText(getActivity(), R.string.toast_cannot_retrieve_cropped_image, Toast.LENGTH_SHORT).show();
+            try {
+                Toast.makeText(getActivity(), R.string.toast_cannot_retrieve_cropped_image, Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+
+            }
         }
     }
 
@@ -320,9 +334,17 @@ public class AccountFragment extends MainFragment implements Observer {
     private void handleCropError(@NonNull Intent result) {
         final Throwable cropError = UCrop.getError(result);
         if (cropError != null) {
-            Toast.makeText(getActivity(), cropError.getMessage(), Toast.LENGTH_LONG).show();
+            try {
+                Toast.makeText(getActivity(), cropError.getMessage(), Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+
+            }
         } else {
-            Toast.makeText(getActivity(), R.string.toast_unexpected_error, Toast.LENGTH_SHORT).show();
+            try {
+                Toast.makeText(getActivity(), R.string.toast_unexpected_error, Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+
+            }
         }
     }
 

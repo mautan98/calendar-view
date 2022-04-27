@@ -172,7 +172,11 @@ public class ShareMomentFragment extends MainFragment implements Observer {
                     startActivityForResult(intent, REQUEST_SELECT_FILE);
                 } catch (ActivityNotFoundException e) {
                     uploadMessage = null;
-                    Toast.makeText(getActivity().getApplicationContext(), "Cannot Open File Chooser", Toast.LENGTH_LONG).show();
+                    try {
+                        Toast.makeText(getActivity().getApplicationContext(), "Cannot Open File Chooser", Toast.LENGTH_LONG).show();
+                    } catch (Exception exception) {
+
+                    }
                     return false;
                 }
                 return true;
