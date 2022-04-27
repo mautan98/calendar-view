@@ -196,11 +196,11 @@ class SearchSuggestionFragment(private var keyword: String? = null, private var 
         }
 
         imgCloseSearch.setOnClickListener {
-            KeyboardUtils.hideKeyboard(mActivity, edtSearch)
+//            KeyboardUtils.hideKeyboard(mActivity, edtSearch)
             edtSearch.setText("")
             keyword = ""
-            searchSuggestionCallback?.onCancelSearch(location, keyword)
-            mActivity.onBackPressed()
+//            searchSuggestionCallback?.onCancelSearch(location, keyword)
+//            mActivity.onBackPressed()
         }
 
 //        binding!!.edtSearch.setOnEditorActionListener(object : TextView.OnEditorActionListener{
@@ -229,9 +229,12 @@ class SearchSuggestionFragment(private var keyword: String? = null, private var 
                         keyword = edtSearch.text.toString()
                         if (edtSearch.text.toString().isEmpty()) {
                             layoutSearchSuggestion.visibility = View.GONE
+
+                            binding!!.imgClose.visibility = View.GONE
                         } else {
                             getSearchSuggestion()
 
+                            binding!!.imgClose.visibility = View.VISIBLE
                         }
                     } catch (e: Exception) {
                     }

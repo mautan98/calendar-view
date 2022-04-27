@@ -22,6 +22,8 @@ import com.namviet.vtvtravel.response.f2searchmain.SearchSuggestionResponse
 import com.namviet.vtvtravel.ultils.PreferenceUtil
 import com.namviet.vtvtravel.ultils.highlight.HighLightController
 import com.namviet.vtvtravel.ultils.highlight.SearchHighLightText
+import com.namviet.vtvtravel.ultils.toGone
+import com.namviet.vtvtravel.ultils.toVisible
 import com.namviet.vtvtravel.view.f3.search.viewmodel.SearchSuggestionViewModel
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionMainFragment
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
@@ -175,11 +177,11 @@ class SearchSuggestionSmallLocationFragment(private var keyword: String? = null,
         }
 
         imgCloseSearch.setOnClickListener {
-            KeyboardUtils.hideKeyboard(mActivity, edtSearch)
+//            KeyboardUtils.hideKeyboard(mActivity, edtSearch)
             edtSearch.setText("")
             keyword = ""
-            searchSuggestionCallback?.onCancelSearch(location, keyword)
-            mActivity.onBackPressed()
+//            searchSuggestionCallback?.onCancelSearch(location, keyword)
+//            mActivity.onBackPressed()
         }
     }
 
@@ -196,8 +198,12 @@ class SearchSuggestionSmallLocationFragment(private var keyword: String? = null,
                         keyword = edtSearch.text.toString()
                         if (edtSearch.text.toString().isEmpty()) {
                             layoutSearchSuggestion.visibility = View.GONE
+
+                            imgClose.toGone()
                         } else {
                             getSearchSuggestion()
+
+                            imgClose.toVisible()
 
                         }
                     } catch (e: Exception) {
