@@ -190,6 +190,7 @@ import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 import com.namviet.vtvtravel.viewmodel.HomeViewModel;
 import com.namviet.vtvtravel.viewmodel.PlaceViewModel;
 import com.namviet.vtvtravel.viewmodel.SearchViewModel;
+import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel;
 import com.namviet.vtvtravel.viewmodel.f2systeminbox.SystemInboxViewModel;
 import com.namviet.vtvtravel.widget.RobotoTextView;
 
@@ -283,6 +284,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
     private boolean fromNotification = false;
     private boolean fromVIPNoti = false;
     private AlertDialog permissionDialog;
+    private SearchBigLocationViewModel searchBigLocationViewModel;
 
 
     //for Linphone
@@ -565,6 +567,12 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
 //        Intent serviceIntent = new Intent(this, ForegroundService.class);
 //        ContextCompat.startForegroundService(this, serviceIntent);
+        try {
+            searchBigLocationViewModel = new SearchBigLocationViewModel();
+            searchBigLocationViewModel.getAllLocation();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void pushEvent(String key) {
