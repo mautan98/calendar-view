@@ -62,8 +62,12 @@ public class CanReceiverGiftDialog extends BaseDialogFragment2 {
         binding.btnReceiverNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dismiss();
-                clickButton.onClickButton(isCheck);
+                try {
+                    dismiss();
+                    clickButton.onClickButton(isCheck);
+                } catch (Exception e) {
+
+                }
             }
         });
     }
