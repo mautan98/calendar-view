@@ -48,6 +48,15 @@ import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
 
 public class MyApplication extends Application implements Observer {
+    public String getAllLocation() {
+        return allLocation;
+    }
+
+    public void setAllLocation(String allLocation) {
+        this.allLocation = allLocation;
+    }
+
+    private String allLocation = "";
     private ViewModelComponent viewModelComponent;
 
     private boolean isVipRegisted;
@@ -185,7 +194,7 @@ public class MyApplication extends Application implements Observer {
 //                        accountViewModel.refreshToken();
 //                    }
 
-                        if((currentTime - cacheTime) > 240){
+                        if((currentTime - cacheTime) > 24){
                             accountViewModel.refreshToken();
                         }
                         Log.e("rangetimeeeee", (currentTime - cacheTime)+"");

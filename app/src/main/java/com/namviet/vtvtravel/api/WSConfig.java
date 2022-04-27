@@ -4,6 +4,7 @@ public class WSConfig {
 
 
     //Server test
+//    public static final String ENVIRONMENT = "TEST";
 //    public static final String URL_SOCKET = "https://chat-testing.vtvtravel.vn";
 //    public static final String HOST = "https://api-testing.vtvtravel.vn/";
 //    public static final String HOST_ACC = "https://core-testing.vtvtravel.vn/api/v1/";
@@ -33,6 +34,7 @@ public class WSConfig {
 
 
     //Server product
+    public static final String ENVIRONMENT = "PRODUCT";
     public static final String URL_SOCKET = "https://chat.vtvtravel.vn";
     public static final String HOST = "https://api.vtvtravel.vn/";
     public static final String HOST_ACC = "https://core.vtvtravel.vn/api/v1/";
