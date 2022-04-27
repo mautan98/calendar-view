@@ -65,13 +65,19 @@ public class TravelVoucherDetailFragment extends BaseFragment<F2FragmentTravelVo
 
     @Override
     public void initData() {
-        Glide.with(mActivity).load(voucher.getAvatarUri()).into(getBinding().imgAvatar);
+        try {
+            if(voucher.getBannerUri() == null || (voucher.getBannerUri() != null && voucher.getBannerUri().isEmpty())){
+                Glide.with(mActivity).load(voucher.getHomeUri()).into(getBinding().imgAvatar);
+            }else {
+                Glide.with(mActivity).load(voucher.getBannerUri()).into(getBinding().imgAvatar);
+            }
+        } catch (Exception e) {
+        }
         getBinding().tvName.setText(voucher.getName());
         try {
-            getBinding().tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(Long.valueOf(voucher.getExpireDate()) / 1000));
+            getBinding().tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(voucher.getExpireDate() / 1000));
         } catch (Exception e) {
             getBinding().imgTime.setVisibility(View.INVISIBLE);
-            e.printStackTrace();
         }
     }
 
