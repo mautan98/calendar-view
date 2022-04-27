@@ -119,68 +119,61 @@ class VideoFragment : MainFragment(), Observer {
                 e.printStackTrace()
             }
         }, 1000)
-        if (observable is SearchBigLocationViewModel && null != any) {
-            when (any) {
-                is AllLocationResponse -> {
-                    locationsMain = any.data as ArrayList<Location>;
-                    locations?.addAll(0, locationsMain)
-                }
-//                is LocationResponse -> {
-//                    tvRegion.text = o.data.name
-//                }
-//                is ErrorResponse -> {
-//                    val responseError = o
-//                    try { //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
-//                    } catch (e: Exception) {
-//                    }
-//                }
-            }
-        } else if (observable is VideoViewModel && null != any) {
-            if (any is VideoResponse) {
-                videoResponse = any
-                mainAdapter = VTVTabStyleAdapter(childFragmentManager)
-                for (i in videoResponse!!.data.indices) {
-                    val subVideoFragment = SubVideoFragment()
-                    subVideoFragment.setContentLink(videoResponse!!.data[i].link)
-                    mainAdapter!!.addFragment(subVideoFragment, "")
-                }
-                binding!!.vpContent.adapter = mainAdapter
-                binding!!.tabLayout.setupWithViewPager(binding!!.vpContent)
-                for (i in videoResponse!!.data.indices) {
-                    val tabHome = LayoutInflater.from(mActivity)
-                        .inflate(R.layout.f2_custom_tab_vtv_style, null)
-                    val tvHome = tabHome.findViewById<TextView>(R.id.tvTitle)
-                    tvHome.text = videoResponse!!.data[i].name
-                    if (i == 0) {
-                        tvHome.setTextColor(Color.parseColor("#00918D"))
-                    } else {
-                        tvHome.setTextColor(Color.parseColor("#101010"))
+        try {
+            if (observable is SearchBigLocationViewModel && null != any) {
+                when (any) {
+                    is AllLocationResponse -> {
+                        locationsMain = any.data as ArrayList<Location>;
+                        locations?.addAll(0, locationsMain)
                     }
-                    val view = tabHome.findViewById<View>(R.id.indicator)
-                    if (i == 0) {
-                        view.visibility = View.VISIBLE
-                    } else {
-                        view.visibility = View.INVISIBLE
-                    }
-                    binding!!.tabLayout.getTabAt(i)!!.customView = tabHome
+    //                is LocationResponse -> {
+    //                    tvRegion.text = o.data.name
+    //                }
+    //                is ErrorResponse -> {
+    //                    val responseError = o
+    //                    try { //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
+    //                    } catch (e: Exception) {
+    //                    }
+    //                }
                 }
-                binding!!.tabLayout.addOnTabSelectedListener(OnTabSelectedListener)
+            } else if (observable is VideoViewModel && null != any) {
+                if (any is VideoResponse) {
+                    videoResponse = any
+                    mainAdapter = VTVTabStyleAdapter(childFragmentManager)
+                    for (i in videoResponse!!.data.indices) {
+                        val subVideoFragment = SubVideoFragment()
+                        subVideoFragment.setContentLink(videoResponse!!.data[i].link)
+                        mainAdapter!!.addFragment(subVideoFragment, "")
+                    }
+                    binding!!.vpContent.adapter = mainAdapter
+                    binding!!.tabLayout.setupWithViewPager(binding!!.vpContent)
+                    for (i in videoResponse!!.data.indices) {
+                        val tabHome = LayoutInflater.from(mActivity)
+                            .inflate(R.layout.f2_custom_tab_vtv_style, null)
+                        val tvHome = tabHome.findViewById<TextView>(R.id.tvTitle)
+                        tvHome.text = videoResponse!!.data[i].name
+                        if (i == 0) {
+                            tvHome.setTextColor(Color.parseColor("#00918D"))
+                        } else {
+                            tvHome.setTextColor(Color.parseColor("#101010"))
+                        }
+                        val view = tabHome.findViewById<View>(R.id.indicator)
+                        if (i == 0) {
+                            view.visibility = View.VISIBLE
+                        } else {
+                            view.visibility = View.INVISIBLE
+                        }
+                        binding!!.tabLayout.getTabAt(i)!!.customView = tabHome
+                    }
+                    binding!!.tabLayout.addOnTabSelectedListener(OnTabSelectedListener)
+                }
+            } else if (any is ErrorResponse) {
+                val responseError = any
+                try {
+                } catch (e: Exception) {
+                }
             }
-//<<<<<<< HEAD
-//            else if(o is ErrorResponse){
-//                binding!!.rllNoData.visibility = View.VISIBLE
-//            }
-//        } else if (o is ErrorResponse) {
-//            val responseError = o
-//=======
-        } else if (any is ErrorResponse) {
-            val responseError = any
-//>>>>>>> New_Search_170122
-            try {
-
-//                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
-            } catch (e: Exception) {
-            }
+        } catch (e: Exception) {
         }
     }
 
