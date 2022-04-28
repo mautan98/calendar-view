@@ -51,8 +51,6 @@ public class SearchLocationFragment extends BaseFragment<F2FragmentSearchLocatio
         viewModel = new SearchBigLocationViewModel();
         getBinding().setSearchBigLocationViewModel(viewModel);
         viewModel.addObserver(this);
-
-        viewModel.getAllLocation();
     }
 
     @Override
@@ -83,6 +81,7 @@ public class SearchLocationFragment extends BaseFragment<F2FragmentSearchLocatio
                 }
             }
         });
+        viewModel.getAllLocation();
     }
 
 
