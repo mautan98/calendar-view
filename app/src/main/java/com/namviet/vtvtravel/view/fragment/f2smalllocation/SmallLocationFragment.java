@@ -197,6 +197,15 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                     e.printStackTrace();
                 }
             }
+        }, new SmallLocationAdapter.DataListener() {
+            @Override
+            public void onHaveData(boolean isShowNoDataView) {
+                if(isShowNoDataView){
+                    getBinding().rllNoData.setVisibility(View.VISIBLE);
+                }else {
+                    getBinding().rllNoData.setVisibility(View.GONE);
+                }
+            }
         });
         getBinding().rclContent.setAdapter(smallLocationAdapter);
 
@@ -442,9 +451,9 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                 }
 
                 try {
-                    if (travelList == null || (travelList != null && travelList.size() == 0)) {
-                        showToast("Không tìm thấy địa điểm");
-                    }
+//                    if (travelList == null || (travelList != null && travelList.size() == 0)) {
+//                        showToast("Không tìm thấy địa điểm");
+//                    }
                     getBinding().layoutItem.setVisibility(View.GONE);
                     mGoogleMap.clear();
                     lastMarker = null;

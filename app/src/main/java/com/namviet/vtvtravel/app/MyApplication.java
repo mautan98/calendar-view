@@ -194,7 +194,7 @@ public class MyApplication extends Application implements Observer {
 //                        accountViewModel.refreshToken();
 //                    }
 
-                        if((currentTime - cacheTime) > 24){
+                        if((currentTime - cacheTime) > 240){
                             accountViewModel.refreshToken();
                         }
                         Log.e("rangetimeeeee", (currentTime - cacheTime)+"");

@@ -41,11 +41,13 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
     private ClickItem clickItem;
 
     private List<Travel> items;
+    private DataListener dataListener;
 
-    public SmallLocationAdapter(List<Travel> items, Context context, ClickItem clickItem) {
+    public SmallLocationAdapter(List<Travel> items, Context context, ClickItem clickItem, DataListener dataListener) {
         this.context = context;
         this.clickItem = clickItem;
         this.items = items;
+        this.dataListener = dataListener;
     }
 
     @Override
@@ -79,8 +81,16 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public int getItemCount() {
         try {
-            return items.size();
+            if(items.size() > 0){
+                dataListener.onHaveData(false);
+                return items.size();
+            }else {
+                dataListener.onHaveData(true);
+                return items.size();
+            }
+
         } catch (Exception e) {
+            dataListener.onHaveData(true);
             return 0;
         }
     }
@@ -330,6 +340,11 @@ public class SmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.View
         void onClickItem(Travel travel);
 
         void likeEvent(int position);
+    }
+
+
+    public interface DataListener{
+        public void onHaveData(boolean isShowNoDataView);
     }
 
 }

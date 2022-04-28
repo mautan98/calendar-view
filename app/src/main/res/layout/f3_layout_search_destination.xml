@@ -95,8 +95,7 @@
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_marginEnd="11dp"
-                        android:src="@drawable/f2_ic_current_location"
-                        app:tint="#2884EC" />
+                        android:src="@drawable/f2_ic_current_location" />
 
 
                     <TextView
@@ -104,7 +103,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"
                         android:text="Vị trí hiện tại"
-                        android:textColor="#2884EC"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="14dp" />
 
 

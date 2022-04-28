@@ -235,6 +235,13 @@
                         android:layout_weight="1"
                         android:visibility="visible"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+                    <include
+                        android:visibility="gone"
+                        android:id="@+id/rll_no_data"
+                        layout="@layout/layout_no_data"/>
+
                     <com.facebook.shimmer.ShimmerFrameLayout
                         android:id="@+id/shimmer_view_container"
                         android:layout_width="match_parent"

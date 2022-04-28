@@ -257,6 +257,15 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
                     e.printStackTrace();
                 }
             }
+        }, new SmallLocationAdapter.DataListener() {
+            @Override
+            public void onHaveData(boolean isShowNoDataView) {
+                if(isShowNoDataView){
+                    getBinding().rllNoData.setVisibility(View.VISIBLE);
+                }else {
+                    getBinding().rllNoData.setVisibility(View.GONE);
+                }
+            }
         });
         getBinding().rclContent.setAdapter(smallLocationAdapter);
 
@@ -482,9 +491,9 @@ public class SearchResultFragment extends BaseFragment<F3FragmentSearchResultBin
 //                getBinding().tvRegionName.setText(response.getData().getNameRegion());
 
                 try {
-                    if (travelList == null || (travelList != null && travelList.size() == 0)) {
-                        showToast("Không tìm thấy địa điểm");
-                    }
+//                    if (travelList == null || (travelList != null && travelList.size() == 0)) {
+//                        showToast("Không tìm thấy địa điểm");
+//                    }
                     getBinding().layoutItem.setVisibility(View.GONE);
                     mGoogleMap.clear();
                     lastMarker = null;
