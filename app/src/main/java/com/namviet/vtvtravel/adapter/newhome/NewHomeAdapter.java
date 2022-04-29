@@ -1159,6 +1159,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private final ShimmerFrameLayout mShimmerFrameLayout;
         private String tabVoucherPosition = "";
         private ImageView imvNoVoucherData;
+        private List<View> viewList ;
 
         public VoucherNowViewHolder(View itemView) {
             super(itemView);
@@ -1170,6 +1171,9 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             mShimmerFrameLayout.setVisibility(View.VISIBLE);
             mShimmerFrameLayout.startShimmer();
             imvNoVoucherData = itemView.findViewById(R.id.imv_no_voucher_now);
+            viewList = new ArrayList<>();
+            viewList.add(rclContent);
+            viewList.add(mShimmerFrameLayout);
         }
 
         public void bindItem(int position) {
@@ -1193,6 +1197,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     loadData.onLoadDataFloorSecond(items.get(positionClick).getContent_link(), TypeString.APP_VOUCHER_NOW, true);
                     mShimmerFrameLayout.setVisibility(View.VISIBLE);
                     mShimmerFrameLayout.startShimmer();
+                    setNodata(false);
                     newHomeFragment.setmIOnClickTabReloadData(VoucherNowViewHolder.this);
 
                 }
@@ -1215,12 +1220,26 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            mShimmerFrameLayout.stopShimmer();
-            mShimmerFrameLayout.setVisibility(View.GONE);
-            rclContent.setVisibility(View.VISIBLE);
-            List<View> viewList = new ArrayList<>();
-            viewList.add(rclContent);
-            setupNodataVoucher(itemAppVoucherNowResponse.getItems(),viewList,imvNoVoucherData);
+            boolean isNodata = subVideoAdapter.getItemCount() == 0;
+            setNodata(isNodata);
+        }
+
+        private void setNodata(boolean isNodata){
+            try {
+                if (isNodata) {
+                    imvNoVoucherData.setVisibility(View.VISIBLE);
+                    for (View view : viewList) {
+                        view.setVisibility(View.GONE);
+                    }
+                } else {
+                    for (View view : viewList) {
+                        view.setVisibility(View.VISIBLE);
+                    }
+                    imvNoVoucherData.setVisibility(View.GONE);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
@@ -1234,13 +1253,8 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     }
                     subVideoAdapter = new SubVoucherNowAdapter(itemAppVoucherNowResponse, context);
                     rclContent.setAdapter(subVideoAdapter);
-                    mShimmerFrameLayout.stopShimmer();
-                    mShimmerFrameLayout.setVisibility(View.GONE);
-                    rclContent.setVisibility(View.VISIBLE);
-                    List<View> viewList = new ArrayList<>();
-                    viewList.add(rclContent);
-                    setupNodataVoucher(itemAppVoucherNowResponse.getItems(),viewList,imvNoVoucherData);
-
+                    boolean isNodata = subVideoAdapter.getItemCount() == 0;
+                    setNodata(isNodata);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
