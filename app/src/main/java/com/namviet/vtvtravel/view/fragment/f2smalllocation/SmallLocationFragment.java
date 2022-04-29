@@ -853,20 +853,20 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         }
 
 
-        if (Constants.TypeDestination.RESTAURANTS.equals(travel.getContent_type()) || Constants.TypeDestination.HOTELS.equals(travel.getContent_type())) {
-            getBinding().linearPriceType.setVisibility(View.VISIBLE);
-            getBinding().linearOpenType.setVisibility(View.GONE);
-            getBinding().tvPriceRange.setText(travel.getPrice_from() + " đ" + " - " + travel.getPrice_to() + " đ");
-        } else {
+//        if (Constants.TypeDestination.RESTAURANTS.equals(travel.getContent_type()) || Constants.TypeDestination.HOTELS.equals(travel.getContent_type())) {
+//            getBinding().linearPriceType.setVisibility(View.VISIBLE);
+//            getBinding().linearOpenType.setVisibility(View.GONE);
+//            getBinding().tvPriceRange.setText(travel.getPrice_from() + " đ" + " - " + travel.getPrice_to() + " đ");
+//        } else {
             getBinding().linearPriceType.setVisibility(View.GONE);
             getBinding().linearOpenType.setVisibility(View.VISIBLE);
 
             try {
                 if (travel.getRange_time().isEmpty()) {
-                    getBinding().viewTime.setVisibility(View.GONE);
+//                    getBinding().viewTime.setVisibility(View.GONE);
                     getBinding().tvOpenTime.setVisibility(View.GONE);
                 } else {
-                    getBinding().viewTime.setVisibility(View.VISIBLE);
+//                    getBinding().viewTime.setVisibility(View.VISIBLE);
                     getBinding().tvOpenTime.setText(travel.getRange_time());
                     getBinding().tvOpenTime.setVisibility(View.VISIBLE);
                     getBinding().tvOpenDate.setText(travel.getOpen_week());
@@ -885,23 +885,23 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                getBinding().viewTime.setVisibility(View.GONE);
+//                getBinding().viewTime.setVisibility(View.GONE);
                 getBinding().tvOpenTime.setVisibility(View.GONE);
             }
-        }
+//        }
 
         try {
             if (travel.getRange_time().isEmpty()) {
-                getBinding().viewTime.setVisibility(View.GONE);
+//                getBinding().viewTime.setVisibility(View.GONE);
                 getBinding().tvOpenTime.setVisibility(View.GONE);
             } else {
-                getBinding().viewTime.setVisibility(View.VISIBLE);
+//                getBinding().viewTime.setVisibility(View.VISIBLE);
                 getBinding().tvOpenTime.setText(travel.getRange_time());
                 getBinding().tvOpenTime.setVisibility(View.VISIBLE);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            getBinding().viewTime.setVisibility(View.GONE);
+//            getBinding().viewTime.setVisibility(View.GONE);
             getBinding().tvOpenTime.setVisibility(View.GONE);
         }
     }
