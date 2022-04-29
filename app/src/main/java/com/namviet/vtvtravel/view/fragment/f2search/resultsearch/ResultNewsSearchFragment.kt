@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.f2_fragment_search_news_result.*
 import java.util.*
 
 @SuppressLint("ValidFragment")
-class ResultNewsSearchFragment(private var resultSearchFragment: ResultSearchFragment?) : BaseFragment<F2FragmentSearchNewsResultBinding>() {
+class ResultNewsSearchFragment : BaseFragment<F2FragmentSearchNewsResultBinding> {
 
     private var subTravelNewsAdapter: SubTravelNewsAdapter? = null
 
@@ -23,6 +23,14 @@ class ResultNewsSearchFragment(private var resultSearchFragment: ResultSearchFra
 
     private var moreLink: String? = null
 
+    private var resultSearchFragment: ResultSearchFragment? = null
+
+
+    constructor()
+
+    constructor(resultSearchFragment: ResultSearchFragment?){
+        this.resultSearchFragment = resultSearchFragment
+    }
 
     override fun getLayoutRes(): Int {
         return R.layout.f2_fragment_search_news_result

@@ -20,12 +20,19 @@ import kotlinx.android.synthetic.main.f2_fragment_search_destination_result.tvCo
 import kotlin.collections.ArrayList
 
 @SuppressLint("ValidFragment")
-class ResultDestinationSearchFragment(private var resultSearchFragment: ResultSearchFragment?) : BaseFragment<F2FragmentSearchDestinationResultBinding>() {
+class ResultDestinationSearchFragment : BaseFragment<F2FragmentSearchDestinationResultBinding> {
     private var subTravelNewsAdapter: NearByInTravelDetailAdapter? = null
     private var travels: ArrayList<Travel>? = ArrayList()
     private var moreLink: String? = null
+    private var resultSearchFragment: ResultSearchFragment?  =null
     override fun getLayoutRes(): Int {
         return R.layout.f2_fragment_search_destination_result
+    }
+
+    constructor()
+
+    constructor(resultSearchFragment: ResultSearchFragment?){
+        this.resultSearchFragment = resultSearchFragment
     }
 
     override fun initView() {
