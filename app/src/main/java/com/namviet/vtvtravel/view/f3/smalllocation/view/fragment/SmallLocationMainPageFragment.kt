@@ -335,8 +335,10 @@ class SmallLocationMainPageFragment : BaseFragment<F2FragmentMainPageSmallLocati
         this.location = location
         if(location != null) {
             tvRegionName.text = location.name
+            tvRegionName2.text = location.name
         }else {
             tvRegionName.text = "Tất cả"
+            tvRegionName2.text = "Tất cả"
         }
     }
 
@@ -344,6 +346,7 @@ class SmallLocationMainPageFragment : BaseFragment<F2FragmentMainPageSmallLocati
     public fun onDetectLocation(onDetectLocation: OnDetectLocation){
         if(regionIdToLoadSmallLocation == null || (regionIdToLoadSmallLocation != null && regionIdToLoadSmallLocation!!.isEmpty())) {
             tvRegionName.text = onDetectLocation.regionName
+            tvRegionName2.text = onDetectLocation.regionName
 
             for (i in 0 until locationsMain.size) {
                 if (onDetectLocation.regionName == locationsMain!![i].name) {
@@ -362,6 +365,7 @@ class SmallLocationMainPageFragment : BaseFragment<F2FragmentMainPageSmallLocati
                 location = locationsMain!![i]
                 regionId = locationsMain!![i].id
                 tvRegionName.text = location?.name
+                tvRegionName2.text = location?.name
                 break
             }
         }
