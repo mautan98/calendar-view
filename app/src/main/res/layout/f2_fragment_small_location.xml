@@ -111,7 +111,7 @@
             android:visibility="visible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
         <com.facebook.shimmer.ShimmerFrameLayout
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_below="@id/layoutToolbar"
             android:id="@+id/shimmer_view_container"
             android:layout_width="match_parent"
@@ -174,7 +174,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
 
             <androidx.cardview.widget.CardView
@@ -459,19 +459,43 @@
                                         tools:text="Mở cửa T2 - CN"
                                         android:textColor="#5E5E5E"
                                         android:textSize="12dp" />
-                                    <TextView
-                                        android:paddingTop="2dp"
-                                        android:paddingBottom="2dp"
-                                        android:paddingRight="5dp"
-                                        android:paddingLeft="5dp"
-                                        android:background="@drawable/bg_time_open"
-                                        tools:text="06:30 - 21:30"
-                                        android:id="@+id/tvOpenTime"
+                                    <LinearLayout
+                                        android:orientation="horizontal"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/roboto_regular"
-                                        android:textColor="#5E5E5E"
-                                        android:textSize="12dp" />
+                                        android:layout_height="wrap_content">
+
+                                        <TextView
+                                            android:id="@+id/tvOpenTime"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background="@drawable/bg_otp_inactive"
+                                            android:fontFamily="@font/roboto_regular"
+                                            android:paddingLeft="5dp"
+                                            android:paddingTop="2dp"
+                                            android:paddingRight="5dp"
+                                            android:paddingBottom="2dp"
+                                            android:textColor="#5E5E5E"
+                                            android:textSize="12dp"
+                                            tools:text="06:30 - 21:30" />
+
+                                        <TextView
+                                            android:visibility="visible"
+                                            android:layout_marginStart="8dp"
+                                            android:id="@+id/tvOpenTime2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:background="@drawable/bg_otp_inactive"
+                                            android:fontFamily="@font/roboto_regular"
+                                            android:paddingLeft="5dp"
+                                            android:paddingTop="2dp"
+                                            android:paddingRight="5dp"
+                                            android:paddingBottom="2dp"
+                                            android:textColor="#5E5E5E"
+                                            android:textSize="12dp"
+                                            tools:text="06:30 - 21:30" />
+                                    </LinearLayout>
 
                                 </LinearLayout>
 
@@ -487,17 +511,19 @@
                                 android:gravity="right|center"
                                 android:orientation="horizontal">
 
-                                <ImageView
+                                <com.ornach.richtext.RichText
+                                    android:id="@+id/viewStatus"
                                     android:layout_width="10dp"
                                     android:layout_height="10dp"
-                                    android:src="@drawable/bg_circle_green_small_location" />
+                                    android:layout_marginEnd="6dp"
+                                    app:rt_backgroundColor="#0FB403"
+                                    app:rt_radius="100dp" />
 
                                 <TextView
                                     android:id="@+id/tvStatus"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:layout_marginStart="6dp"
                                     android:fontFamily="@font/roboto_medium"
                                     android:singleLine="true"
                                     android:text="Đang mở"

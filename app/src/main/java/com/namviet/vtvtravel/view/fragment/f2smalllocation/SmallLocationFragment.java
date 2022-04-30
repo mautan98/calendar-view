@@ -862,13 +862,40 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
             getBinding().linearOpenType.setVisibility(View.VISIBLE);
 
             try {
-                if (travel.getRange_time().isEmpty()) {
+                if (travel.getOpen_week().isEmpty()) {
+                    getBinding().linearOpenType.setVisibility(View.GONE);
 //                    getBinding().viewTime.setVisibility(View.GONE);
                     getBinding().tvOpenTime.setVisibility(View.GONE);
                 } else {
+                    getBinding().viewStatus.setBackgroundColor(Color.parseColor(travel.getTypeOpenColor()));
+                    getBinding().linearOpenType.setVisibility(View.VISIBLE);
 //                    getBinding().viewTime.setVisibility(View.VISIBLE);
-                    getBinding().tvOpenTime.setText(travel.getRange_time());
-                    getBinding().tvOpenTime.setVisibility(View.VISIBLE);
+                    try {
+                        if (travel.getRange_time().isEmpty()) {
+                            //    viewTime.setVisibility(View.GONE);
+                            getBinding().tvOpenTime.setVisibility(View.GONE);
+                            getBinding().tvOpenTime2.setVisibility(View.GONE);
+                        } else {
+                            //    viewTime.setVisibility(View.VISIBLE);
+                            if(travel.getRange_time().contains("và")){
+                                String[] strings = travel.getRange_time().split("và");
+                                getBinding().tvOpenTime.setText(strings[0]);
+                                getBinding().tvOpenTime2.setText(strings[1]);
+                                getBinding().tvOpenTime.setVisibility(View.VISIBLE);
+                                getBinding().tvOpenTime2.setVisibility(View.VISIBLE);
+                            }else {
+                                getBinding().tvOpenTime.setText(travel.getRange_time());
+                                getBinding().tvOpenTime.setVisibility(View.VISIBLE);
+                                getBinding().tvOpenTime2.setVisibility(View.GONE);
+                            }
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        //   viewTime.setVisibility(View.GONE);
+                        getBinding().tvOpenTime.setVisibility(View.GONE);
+                        getBinding().tvOpenTime2.setVisibility(View.GONE);
+                    }
                     getBinding().tvOpenDate.setText(travel.getOpen_week());
                     getBinding().tvStatus.setText(travel.getType_open());
 

@@ -334,6 +334,7 @@
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/roboto_regular"
@@ -346,7 +347,7 @@
                                 android:id="@+id/tvOpenDate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="5dp"
+                                android:layout_marginStart="6dp"
                                 android:fontFamily="@font/roboto_medium"
                                 android:textColor="#5E5E5E"
                                 android:textSize="12dp"
