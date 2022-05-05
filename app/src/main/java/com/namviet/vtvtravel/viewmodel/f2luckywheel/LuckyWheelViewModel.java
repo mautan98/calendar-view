@@ -10,6 +10,7 @@ import com.namviet.vtvtravel.response.f2review.CreateReviewResponse;
 import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
 import com.namviet.vtvtravel.response.f2topexperience.SubTopExperienceResponse;
 import com.namviet.vtvtravel.response.f2wheel.RuleLuckyWheel;
+import com.namviet.vtvtravel.response.f2wheel.WheelActionResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelAreasResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelChartResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelResultResponse;
@@ -144,6 +145,34 @@ public class LuckyWheelViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
+    public void wheelAction(String service, String os, String channel) {
+        RequestBody jsonBodyObject = RequestBody.create(
+                okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                Param.getParams2(Param.wheelResult(service, os, channel)).toString());
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+
+        Disposable disposable = newsService.wheelAction(jsonBodyObject)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<WheelActionResponse>() {
+                    @Override
+                    public void accept(WheelActionResponse response) throws Exception {
+                        if (response != null && response.isSuccess()) {
+                            requestSuccess(response);
+                        } else {
+                            requestSuccess(null);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable, "wheelAction");
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
 
     public void getRuleOrPlayRuleLuckyWheel(String link) {
         MyApplication myApplication = MyApplication.getInstance();

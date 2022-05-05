@@ -92,6 +92,7 @@ import com.namviet.vtvtravel.response.f2comment.UpdateCommentResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SmallLocationResponse;
 import com.namviet.vtvtravel.response.f2video.DetailVideoResponse;
 import com.namviet.vtvtravel.response.f2wheel.RuleLuckyWheel;
+import com.namviet.vtvtravel.response.f2wheel.WheelActionResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelAreasResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelChartResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelResultResponse;
@@ -674,6 +675,9 @@ public interface TravelService {
 
     @POST(WSConfig.Api.WHEEL_RESULT)
     Observable<WheelResultResponse> wheelResult(@Body RequestBody body);
+
+    @POST(WSConfig.Api.WHEEL_ACTION)
+    Observable<WheelActionResponse> wheelAction(@Body RequestBody body);
 
     @POST(WSConfig.Api.WHEEL_AREAS)
     Observable<WheelAreasResponse> wheelAreas(@Body RequestBody body);
