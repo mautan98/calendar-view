@@ -649,26 +649,38 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         public void pageSwitcher(long milseconds) {
-            if (timer == null)
-                timer = new Timer();
-            if (pageNumber > 1)
-            timer.scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    Log.d("NewHomeAdapter", "runing timer: ");
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+            try {
+                if (timer == null)
+                    timer = new Timer();
+                if (pageNumber > 1)
+                    timer.scheduleAtFixedRate(new TimerTask() {
                         @Override
                         public void run() {
-                            if (pageIndex == pageNumber - 1) {
-                                pageIndex = 0;
-                            } else {
-                                pageIndex++;
+                            try {
+                                Log.d("NewHomeAdapter", "runing timer: ");
+                                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            if (pageIndex == pageNumber - 1) {
+                                                pageIndex = 0;
+                                            } else {
+                                                pageIndex++;
+                                            }
+                                            pager.setCurrentItem(pageIndex, true);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                            pager.setCurrentItem(pageIndex, true);
                         }
-                    });
-                }
-            }, 10000, milseconds);
+                    }, 10000, milseconds);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         public void listenerOnpageChange() {
@@ -1159,7 +1171,6 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private final ShimmerFrameLayout mShimmerFrameLayout;
         private String tabVoucherPosition = "";
         private ImageView imvNoVoucherData;
-        private List<View> viewList ;
 
         public VoucherNowViewHolder(View itemView) {
             super(itemView);
@@ -1171,9 +1182,6 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             mShimmerFrameLayout.setVisibility(View.VISIBLE);
             mShimmerFrameLayout.startShimmer();
             imvNoVoucherData = itemView.findViewById(R.id.imv_no_voucher_now);
-            viewList = new ArrayList<>();
-            viewList.add(rclContent);
-            viewList.add(mShimmerFrameLayout);
         }
 
         public void bindItem(int position) {
@@ -1197,7 +1205,6 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     loadData.onLoadDataFloorSecond(items.get(positionClick).getContent_link(), TypeString.APP_VOUCHER_NOW, true);
                     mShimmerFrameLayout.setVisibility(View.VISIBLE);
                     mShimmerFrameLayout.startShimmer();
-                    setNodata(false);
                     newHomeFragment.setmIOnClickTabReloadData(VoucherNowViewHolder.this);
 
                 }
@@ -1220,26 +1227,12 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            boolean isNodata = subVideoAdapter.getItemCount() == 0;
-            setNodata(isNodata);
-        }
-
-        private void setNodata(boolean isNodata){
-            try {
-                if (isNodata) {
-                    imvNoVoucherData.setVisibility(View.VISIBLE);
-                    for (View view : viewList) {
-                        view.setVisibility(View.GONE);
-                    }
-                } else {
-                    for (View view : viewList) {
-                        view.setVisibility(View.VISIBLE);
-                    }
-                    imvNoVoucherData.setVisibility(View.GONE);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            mShimmerFrameLayout.stopShimmer();
+            mShimmerFrameLayout.setVisibility(View.GONE);
+            rclContent.setVisibility(View.VISIBLE);
+            List<View> viewList = new ArrayList<>();
+            viewList.add(rclContent);
+            setupNodataVoucher(itemAppVoucherNowResponse.getItems(),viewList,imvNoVoucherData);
         }
 
         @Override
@@ -1253,8 +1246,13 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     }
                     subVideoAdapter = new SubVoucherNowAdapter(itemAppVoucherNowResponse, context);
                     rclContent.setAdapter(subVideoAdapter);
-                    boolean isNodata = subVideoAdapter.getItemCount() == 0;
-                    setNodata(isNodata);
+                    mShimmerFrameLayout.stopShimmer();
+                    mShimmerFrameLayout.setVisibility(View.GONE);
+                    rclContent.setVisibility(View.VISIBLE);
+                    List<View> viewList = new ArrayList<>();
+                    viewList.add(rclContent);
+                    setupNodataVoucher(itemAppVoucherNowResponse.getItems(),viewList,imvNoVoucherData);
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();
