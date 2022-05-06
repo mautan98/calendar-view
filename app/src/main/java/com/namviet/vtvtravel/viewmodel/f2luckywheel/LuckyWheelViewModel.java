@@ -160,7 +160,11 @@ public class LuckyWheelViewModel extends BaseViewModel {
                     public void accept(WheelActionResponse response) throws Exception {
                         if (response != null && response.isSuccess()) {
                             requestSuccess(response);
-                        } else {
+                        } else if(response != null && !response.isSuccess()&& response.getErrorCode().equals("USER_PACKAGE_NOT_VIP")){
+                            requestSuccess(response);
+                        }else if(response != null && !response.isSuccess()&& response.getErrorCode().equals("NO_TURN")){
+                            requestSuccess(response);
+                        }else {
                             requestSuccess(null);
                         }
                     }

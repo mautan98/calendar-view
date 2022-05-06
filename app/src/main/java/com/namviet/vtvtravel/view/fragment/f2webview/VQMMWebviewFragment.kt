@@ -56,7 +56,7 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
     private var isSoundOn: Boolean? = true
 
     var positionVoucherAward: Int = -1
-    var wheelLogId: String? = null
+//    var wheelLogId: String? = null
     var wheelActionResponse: WheelActionResponse? = null
     var wheelAreasResponse: WheelAreasResponse? = null
 
@@ -78,7 +78,7 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
         viewModel = LuckyWheelViewModel()
         viewModel?.addObserver(this)
         viewModel?.wheelAreas("VTVTRAVEL", listIds)
-        viewModel?.wheelResult("VTVTRAVEL", "ANDROID", "app")
+//        viewModel?.wheelResult("VTVTRAVEL", "ANDROID", "app")
 
         viewModel?.getWheelChart()
     }
@@ -189,10 +189,10 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
                         canSwipe = false
                         imgFrame.isClickable = true
                         if (canRoll) {
-                            if (!isScroll!! && wheelLogId != null) {
+                            if (!isScroll!!) {
                                 canRoll = false
-                                viewModel?.wheelRotate(wheelLogId, "VTVTRAVEL", "1");
-                                viewModel?.wheelAction(wheelLogId, "VTVTRAVEL", "1");
+//                                viewModel?.wheelRotate(wheelLogId, "VTVTRAVEL", "1");
+                                viewModel?.wheelAction("VTVTRAVEL", "ANDROID", "app");
 
                             } else {
                                 Toast.makeText(mActivity, "Vòng quay chưa sẵn sàng", Toast.LENGTH_SHORT).show()
@@ -343,8 +343,8 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
 
 
                     //Lấy giải thưởng tiếp theo
-                    wheelLogId = null;
-                    viewModel?.wheelResult("VTVTRAVEL", "ANDROID", "app")
+//                    wheelLogId = null;
+//                    viewModel?.wheelResult("VTVTRAVEL", "ANDROID", "app")
                 }
 
 
@@ -461,6 +461,7 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
 
                 is WheelActionResponse -> {
                     val response = o as WheelActionResponse;
+                    wheelActionResponse = response
                     if (response.errorCode == "USER_PACKAGE_NOT_VIP") {
                         canRoll = true
 //                        val notifiDialog = NotifiDialog.newInstance("Thông báo", "Mời đăng ký gói VIP \nĐể tận hưởng ưu đãi từ VTV Travel", "Đồng ý") { ServiceActivity.startScreen(mActivity) }
@@ -471,6 +472,8 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
                         canRoll = true
                         showDialog(LuckyWheelDialog.Type.NOT_ENOUGH_TYPE, "Rất tiếc, bạn đã hết lượt quay")
                     } else {
+                        tvTurnLeft.text = "(Còn " + response.data.turn + " lượt quay)"
+
                         scrollAdapter?.resetHighLight()
 
 
@@ -493,6 +496,8 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
                                 return
                             }
                         }
+
+
 
                         Toast.makeText(mActivity, "Có lỗi đã xảy ra, mời bạn thử lại sau", Toast.LENGTH_SHORT).show()
 
@@ -542,10 +547,10 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
 
         listIds = onChooseVoucherToRoll.stringArrayList
 
-        wheelLogId = null;
+//        wheelLogId = null;
 
         viewModel?.wheelAreas("VTVTRAVEL", onChooseVoucherToRoll.stringArrayList)
-        viewModel?.wheelResult("VTVTRAVEL", "ANDROID", "app")
+//        viewModel?.wheelResult("VTVTRAVEL", "ANDROID", "app")
     }
 
 
