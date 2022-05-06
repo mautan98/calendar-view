@@ -158,14 +158,17 @@ public class LuckyWheelViewModel extends BaseViewModel {
                 .subscribe(new Consumer<WheelActionResponse>() {
                     @Override
                     public void accept(WheelActionResponse response) throws Exception {
-                        if (response != null && response.isSuccess()) {
-                            requestSuccess(response);
-                        } else if(response != null && !response.isSuccess()&& response.getErrorCode().equals("USER_PACKAGE_NOT_VIP")){
-                            requestSuccess(response);
-                        }else if(response != null && !response.isSuccess()&& response.getErrorCode().equals("NO_TURN")){
-                            requestSuccess(response);
-                        }else {
-                            requestSuccess(null);
+                        try {
+                            if (response != null && response.isSuccess()) {
+                                requestSuccess(response);
+                            } else if(response != null && !response.isSuccess()&& response.getErrorCode().equals("USER_PACKAGE_NOT_VIP")){
+                                requestSuccess(response);
+                            }else if(response != null && !response.isSuccess()&& response.getErrorCode().equals("NO_TURN")){
+                                requestSuccess(response);
+                            }else {
+                                requestSuccess(null);
+                            }
+                        } catch (Exception e) {
                         }
                     }
                 }, new Consumer<Throwable>() {
