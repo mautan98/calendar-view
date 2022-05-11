@@ -477,11 +477,17 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseItemChat> 
             try {
                 MyApplication.getInstance().setAdminChated(true);
                 ChatData chatData = mListChat.get(position);
-                if (null != chatData.getSender().getFull_name()) {
+                if (chatData.getSender() != null && null != chatData.getSender().getFull_name()) {
                     mChatNameTv.setText(chatData.getSender().getFull_name() + ", ");
+                }else {
+                    mChatNameTv.setText("Tổng đài viên" + ", ");
                 }
                 mChatTextTv.setText(chatData.getContent());
-                setImageUrl(chatData.getSender().getAvatarUrl(), mChatTextImv);
+                if (chatData.getSender() != null && null != chatData.getSender().getAvatarUrl()) {
+                    setImageUrl(chatData.getSender().getAvatarUrl(), mChatTextImv);
+                }else {
+                    Glide.with(mContext).load(R.drawable.f2_ic_chat6).into(mChatTextImv);
+                }
                 String time = DateUtltils.timeToString4((long) chatData.getCreated());
                 mChatTimeTv.setText(chatData.getCurrent_time());
             } catch (Exception e) {

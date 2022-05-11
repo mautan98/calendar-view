@@ -130,7 +130,6 @@ import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.f2.SystemInboxActivity;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
-import com.namviet.vtvtravel.view.fragment.ChatFragment;
 import com.namviet.vtvtravel.view.fragment.DetailsFragment;
 import com.namviet.vtvtravel.view.fragment.EncodeDemoFragment;
 import com.namviet.vtvtravel.view.fragment.FormChatFragment;
@@ -724,7 +723,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
             case CHAT_SCREEN:
                 setDrawerEnabled(false);
                 // MyFragment.openFragment(this, getContentFrame(), ChatFragment.class, getBundle(), true);
-                MyFragment.openFragment(this, getContentFrame(), ChatFragment.class, getBundle(), true);
+//                MyFragment.openFragment(this, getContentFrame(), ChatFragment.class, getBundle(), true);
                 break;
             case LOGIN_SCREEN:
                 setDrawerEnabled(false);

@@ -60,10 +60,10 @@ public class ChatViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
-    public void createRoom(String mobile) {
+    public void createRoom(String mobile, String fullname) {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceChat();
-        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.createRoom(mobile).toString());
+        RequestBody jsonBodyObject = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), Param.createRoom(mobile, fullname).toString());
         Disposable disposable = newsService.createRoomChat(jsonBodyObject)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
