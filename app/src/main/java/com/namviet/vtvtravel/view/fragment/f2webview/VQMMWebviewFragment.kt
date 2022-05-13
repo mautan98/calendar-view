@@ -1,10 +1,8 @@
 package com.namviet.vtvtravel.view.fragment.f2webview
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.PorterDuff
 import android.media.AudioManager
-import android.media.MediaPlayer
 import android.media.SoundPool
 import android.os.Bundle
 import android.os.Handler
@@ -16,17 +14,16 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.namviet.vtvtravel.R
-import com.namviet.vtvtravel.adapter.vqmm.LeaderBoardAdapter
 import com.namviet.vtvtravel.adapter.vqmm.VQMMAdapter
+import com.namviet.vtvtravel.api.WSConfig
+import com.namviet.vtvtravel.config.Constants
 import com.namviet.vtvtravel.databinding.F2FragmentDetailDealWebviewBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.f2event.OnChooseVoucherToRoll
 import com.namviet.vtvtravel.model.f2event.OnRegisterVipSuccess
 import com.namviet.vtvtravel.response.f2wheel.*
-import com.namviet.vtvtravel.view.f2.HistoryLuckyWheelActivity
-import com.namviet.vtvtravel.view.f2.MyGiftActivity
-import com.namviet.vtvtravel.view.f2.TravelVoucherActivity
+import com.namviet.vtvtravel.ultils.PreferenceUtil
 import com.namviet.vtvtravel.view.f3.deal.view.mygift.NewMyGiftActivity
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity
 import com.namviet.vtvtravel.viewmodel.f2luckywheel.LuckyWheelViewModel
@@ -77,7 +74,8 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
     override fun initView() {
         viewModel = LuckyWheelViewModel()
         viewModel?.addObserver(this)
-        viewModel?.wheelAreas("VTVTRAVEL", listIds)
+        var accessKey = PreferenceUtil.getInstance(mActivity).getValue(Constants.PrefKey.ACCESS_KEY, WSConfig.ENDPOINT_KEY)
+        viewModel?.wheelAreas("VTVTRAVEL", listIds, accessKey)
 //        viewModel?.wheelResult("VTVTRAVEL", "ANDROID", "app")
 
         viewModel?.getWheelChart()
@@ -192,7 +190,8 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
                             if (!isScroll!!) {
                                 canRoll = false
 //                                viewModel?.wheelRotate(wheelLogId, "VTVTRAVEL", "1");
-                                viewModel?.wheelAction("VTVTRAVEL", "ANDROID", "app");
+                                var accessKey = PreferenceUtil.getInstance(mActivity).getValue(Constants.PrefKey.ACCESS_KEY, WSConfig.ENDPOINT_KEY)
+                                viewModel?.wheelAction("VTVTRAVEL", "ANDROID", "app", accessKey);
 
                             } else {
                                 Toast.makeText(mActivity, "Vòng quay chưa sẵn sàng", Toast.LENGTH_SHORT).show()
@@ -549,7 +548,8 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
 
 //        wheelLogId = null;
 
-        viewModel?.wheelAreas("VTVTRAVEL", onChooseVoucherToRoll.stringArrayList)
+        var accessKey = PreferenceUtil.getInstance(mActivity).getValue(Constants.PrefKey.ACCESS_KEY, WSConfig.ENDPOINT_KEY)
+        viewModel?.wheelAreas("VTVTRAVEL", onChooseVoucherToRoll.stringArrayList, accessKey)
 //        viewModel?.wheelResult("VTVTRAVEL", "ANDROID", "app")
     }
 

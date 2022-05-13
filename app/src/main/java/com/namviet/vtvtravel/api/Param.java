@@ -57,6 +57,22 @@ public class Param {
         return map;
     }
 
+
+    public static JSONObject getParamWithAccessKey(JSONObject param, String accessKey) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.SERVICE_ENDPOINT_NAME, WSConfig.ENDPOINT_NAME);
+            map.putOpt(WSConfig.KeyParam.DATA, param);
+            map.put(WSConfig.KeyParam.CHECK_SUM, StringUtils.md5(param.toString().replace("\\", "") + WSConfig.REQUEST_ID + WSConfig.ENDPOINT_KEY));
+//            map.put(WSConfig.KeyParam.CHECK_SUM, "4b1beb638e2dafa1c41a1f00e94e5cda");
+            map.put(WSConfig.KeyParam.REQUEST_ID, WSConfig.REQUEST_ID);
+            map.put(WSConfig.KeyParam.LANG_CODE2, "vi");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
     public static Map<String, Object> getDefault() {
         Map<String, Object> map = new HashMap<>();
         map.put(WSConfig.KeyParam.LANG_CODE, "vi");

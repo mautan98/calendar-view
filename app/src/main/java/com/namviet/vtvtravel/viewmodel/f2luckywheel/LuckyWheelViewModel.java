@@ -116,7 +116,7 @@ public class LuckyWheelViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
-    public void wheelAreas(String service, List<String> listIdVoucher) {
+    public void wheelAreas(String service, List<String> listIdVoucher, String accessKey) {
         RequestBody jsonBodyObject = RequestBody.create(
                 okhttp3.MediaType.parse("application/json; charset=utf-8"),
                 Param.getParams2(Param.wheelAreas(service, listIdVoucher)).toString());
@@ -145,7 +145,7 @@ public class LuckyWheelViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
-    public void wheelAction(String service, String os, String channel) {
+    public void wheelAction(String service, String os, String channel, String accessKey) {
         RequestBody jsonBodyObject = RequestBody.create(
                 okhttp3.MediaType.parse("application/json; charset=utf-8"),
                 Param.getParams2(Param.wheelResult(service, os, channel)).toString());
