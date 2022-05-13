@@ -119,7 +119,7 @@ public class LuckyWheelViewModel extends BaseViewModel {
     public void wheelAreas(String service, List<String> listIdVoucher, String accessKey) {
         RequestBody jsonBodyObject = RequestBody.create(
                 okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                Param.getParams2(Param.wheelAreas(service, listIdVoucher)).toString());
+                Param.getParamWithAccessKey(Param.wheelAreas(service, listIdVoucher), accessKey).toString());
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
 
@@ -148,7 +148,7 @@ public class LuckyWheelViewModel extends BaseViewModel {
     public void wheelAction(String service, String os, String channel, String accessKey) {
         RequestBody jsonBodyObject = RequestBody.create(
                 okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                Param.getParams2(Param.wheelResult(service, os, channel)).toString());
+                Param.getParamWithAccessKey(Param.wheelResult(service, os, channel), accessKey).toString());
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
 
