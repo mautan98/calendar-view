@@ -335,6 +335,7 @@ public class MyApplication extends Application implements Observer {
                             setCurrentTimeStampToCache();
                             PreferenceUtil.getInstance(getBaseContext()).setValue(Constants.PrefKey.IS_LOGIN, true);
                             PreferenceUtil.getInstance(getBaseContext()).setValue(Constants.PrefKey.ACCOUNT, new Gson().toJson(accountResponse.getData()));
+                            PreferenceUtil.getInstance(getBaseContext()).setValue(Constants.PrefKey.ACCESS_KEY, accountResponse.getData().getAccessKey());
                             MyApplication.getInstance().setAccount(accountResponse.getData());
                             Log.e("Debuggg"+"MyApplication2", new Gson().toJson(accountResponse.getData()));
                             Intent intent = new Intent(Constants.KeyBroadcast.KEY_SAVE_LOGIN_SCREEN);
