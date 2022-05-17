@@ -1,13 +1,12 @@
 package com.namviet.vtvtravel.view.fragment.f2webview
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.PorterDuff
 import android.media.AudioManager
-import android.media.MediaPlayer
 import android.media.SoundPool
 import android.os.Bundle
 import android.os.Handler
+import android.os.SystemClock
 import android.util.Log
 import android.util.SparseArray
 import android.view.MotionEvent
@@ -16,7 +15,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.namviet.vtvtravel.R
-import com.namviet.vtvtravel.adapter.vqmm.LeaderBoardAdapter
 import com.namviet.vtvtravel.adapter.vqmm.VQMMAdapter
 import com.namviet.vtvtravel.databinding.F2FragmentDetailDealWebviewBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
@@ -27,15 +25,10 @@ import com.namviet.vtvtravel.response.f2wheel.WheelAreasResponse
 import com.namviet.vtvtravel.response.f2wheel.WheelChartResponse
 import com.namviet.vtvtravel.response.f2wheel.WheelResultResponse
 import com.namviet.vtvtravel.response.f2wheel.WheelRotateResponse
-import com.namviet.vtvtravel.view.f2.HistoryLuckyWheelActivity
-import com.namviet.vtvtravel.view.f2.MyGiftActivity
-import com.namviet.vtvtravel.view.f2.TravelVoucherActivity
 import com.namviet.vtvtravel.view.f3.deal.view.mygift.NewMyGiftActivity
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity
 import com.namviet.vtvtravel.viewmodel.f2luckywheel.LuckyWheelViewModel
 import kotlinx.android.synthetic.main.f2_fragment_detail_deal_webview.*
-import kotlinx.android.synthetic.main.f2_fragment_detail_deal_webview.btnBack
-import kotlinx.android.synthetic.main.f2_fragment_leader_board_lucky_wheel.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.util.*
@@ -152,6 +145,8 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
 
     override fun inject() {}
 
+    private var mLastClickTime: Long = 0
+
     @SuppressLint("ClickableViewAccessibility")
     override fun setClickListener() {
 
@@ -187,6 +182,11 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
                         }
                     }
                     MotionEvent.ACTION_UP -> {
+                        run { unHighLight(v) }
+                        if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                            return true;
+                        }
+                        mLastClickTime = SystemClock.elapsedRealtime();
                         canSwipe = false
                         imgFrame.isClickable = true
                         if (canRoll) {
@@ -201,7 +201,6 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
                             Toast.makeText(mActivity, "Vòng quay chưa sẵn sàng", Toast.LENGTH_SHORT).show()
                         }
 
-                        run { unHighLight(v) }
                     }
                     MotionEvent.ACTION_CANCEL -> {
                         if (!isScroll!!) {
