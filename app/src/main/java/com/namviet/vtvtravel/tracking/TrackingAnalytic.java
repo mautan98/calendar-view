@@ -8,6 +8,8 @@ import com.namviet.vtvtravel.model.MyLocation;
 
 public class TrackingAnalytic {
     public static final String SCREEN_VIEW = "screen_view";
+    public static final String CLICK_PARTNER_BANNER_AD = "click_partner_banner_ad";
+    public static final String VIEW_PARTNER_BANNER_AD = "view_partner_banner_ad";
     public static final String SCREEN_EXIT = "screen_exit";
     public static final String SCREEN_SCROLL = "screen_scroll";
     public static final String SIGN_UP = "sign_up";

@@ -11,6 +11,7 @@ import com.namviet.vtvtravel.model.MyLocation;
 
 public class Tracking {
     private String screen_class;
+    private String partner_banner_ad_id ;
     private String screen_title;
     private String screen_code_referrer;
     private String screen_resolution;
