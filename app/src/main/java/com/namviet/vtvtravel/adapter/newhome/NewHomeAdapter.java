@@ -61,6 +61,7 @@ import com.namviet.vtvtravel.response.newhome.HomeServiceResponse;
 import com.namviet.vtvtravel.response.newhome.ItemAppDiscoverResponse;
 import com.namviet.vtvtravel.response.newhome.ItemAppExperienceResponse;
 import com.namviet.vtvtravel.response.newhome.ItemAppVoucherNowResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
 import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f2.BigLocationActivity;
@@ -86,6 +87,7 @@ import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
 import com.zhpan.indicator.IndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -882,6 +884,28 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
                 pagerSnapHelper.attachToRecyclerView(recyclerPartnerLink);
                 indicator.attachToRecyclerView(recyclerPartnerLink, pagerSnapHelper);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                recyclerPartnerLink.addOnScrollListener(new RecyclerView.OnScrollListener(){
+                    @Override
+                    public void onScrollStateChanged(@NonNull @NotNull RecyclerView recyclerView, int newState) {
+                        super.onScrollStateChanged(recyclerView, newState);
+                        try {
+                            if(newState == 0){
+                                try {
+                                    TrackingAnalytic.postEvent(TrackingAnalytic.VIEW_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id("mess").setScreen_class(this.getClass().getName()));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             } catch (Exception e) {
                 e.printStackTrace();
             }

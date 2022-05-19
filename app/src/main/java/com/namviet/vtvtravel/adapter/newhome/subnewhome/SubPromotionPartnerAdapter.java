@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.response.newhome.AppPromotionPartnerResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 
 import java.util.List;
 
@@ -66,6 +67,20 @@ public class SubPromotionPartnerAdapter extends RecyclerView.Adapter<RecyclerVie
         public HeaderViewHolder(View itemView) {
             super(itemView);
             imvBanner = itemView.findViewById(R.id.imvBanner);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        try {
+                            TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id("mess").setScreen_class(this.getClass().getName()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
 
         public void bindItem(int position) {
@@ -77,6 +92,7 @@ public class SubPromotionPartnerAdapter extends RecyclerView.Adapter<RecyclerVie
             requestOptions.placeholder(com.daimajia.slider.library.R.drawable.img_placeholder);
             requestOptions.error(com.daimajia.slider.library.R.drawable.img_placeholder);
             Glide.with(context).setDefaultRequestOptions(requestOptions).load(url).thumbnail(0.2f).into(image);
+
         }
     }
 
