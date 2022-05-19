@@ -12,7 +12,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg_moment"
+        android:background="#F6F6F6"
         android:clickable="true"
         android:fitsSystemWindows="true">
 
@@ -32,90 +32,140 @@
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:statusBarScrim="@android:color/transparent">
-
                 <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
                     android:layout_marginTop="?attr/actionBarSize"
-                    android:background="@mipmap/bg_header_moment">
-
-                    <LinearLayout
-                        android:id="@+id/llTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <com.daimajia.slider.library.RobotoTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/moment"
-                            android:textColor="@color/gray_66"
-                            android:textSize="@dimen/_18sdp"
-                            app:typeface="roboto_bold" />
-
-                        <com.daimajia.slider.library.RobotoTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_10sdp"
-                            android:background="@mipmap/bg_tv_moment"
-                            android:paddingLeft="@dimen/_10sdp"
-                            android:paddingTop="@dimen/_2sdp"
-                            android:paddingRight="@dimen/_10sdp"
-                            android:paddingBottom="@dimen/_2sdp"
-                            android:text="@string/travel"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_18sdp"
-                            app:typeface="roboto_bold" />
-                    </LinearLayout>
-
-                    <com.daimajia.slider.library.RobotoTextView
-                        android:id="@+id/tvShortTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/llTitle"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginLeft="@dimen/_20sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_20sdp"
-                        android:gravity="center"
-                        android:text="@string/short_title_moment"
-                        android:textColor="@color/gray_66"
-                        android:textSize="@dimen/_13sdp"
-                        app:typeface="roboto_regular" />
-
-                    <com.daimajia.slider.library.RobotoTextView
-                        android:visibility="gone"
-                        android:id="@+id/tvAddMoment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tvShortTitle"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginLeft="@dimen/_20sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_20sdp"
-                        android:background="#6acc76"
-                        android:gravity="center"
-                        android:paddingLeft="@dimen/_10sdp"
-                        android:paddingTop="@dimen/_5sdp"
-                        android:paddingRight="@dimen/_10sdp"
-                        android:paddingBottom="@dimen/_5sdp"
-                        android:text="@string/add_moment"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_13sdp"
-                        app:typeface="roboto_bold" />
-
-                    <androidx.viewpager.widget.ViewPager
-                        android:id="@+id/vpSlideShow"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_below="@+id/tvAddMoment"
-                        android:clipToPadding="false"
-                        android:paddingStart="@dimen/_30sdp"
-                        android:paddingEnd="@dimen/_30sdp" />
+                        android:background="@mipmap/bg_header_moment">
+
+                        <LinearLayout
+                            android:id="@+id/llTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <com.daimajia.slider.library.RobotoTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/moment"
+                                android:textColor="@color/gray_66"
+                                android:textSize="@dimen/_18sdp"
+                                app:typeface="roboto_bold" />
+
+                            <com.daimajia.slider.library.RobotoTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_10sdp"
+                                android:background="@mipmap/bg_tv_moment"
+                                android:paddingLeft="@dimen/_10sdp"
+                                android:paddingTop="@dimen/_2sdp"
+                                android:paddingRight="@dimen/_10sdp"
+                                android:paddingBottom="@dimen/_2sdp"
+                                android:text="@string/travel"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_18sdp"
+                                app:typeface="roboto_bold" />
+                        </LinearLayout>
+
+                        <com.daimajia.slider.library.RobotoTextView
+                            android:id="@+id/tvShortTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/llTitle"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:gravity="center"
+                            android:text="@string/short_title_moment"
+                            android:textColor="@color/gray_66"
+                            android:textSize="@dimen/_13sdp"
+                            app:typeface="roboto_regular" />
+
+                        <com.daimajia.slider.library.RobotoTextView
+                            android:id="@+id/tvAddMoment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvShortTitle"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:background="#6acc76"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:paddingTop="@dimen/_5sdp"
+                            android:paddingRight="@dimen/_10sdp"
+                            android:paddingBottom="@dimen/_5sdp"
+                            android:text="@string/add_moment"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_13sdp"
+                            android:visibility="gone"
+                            app:typeface="roboto_bold" />
+
+                        <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/vpSlideShow"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_below="@+id/tvAddMoment"
+                            android:clipToPadding="false"
+                            android:paddingStart="@dimen/_30sdp"
+                            android:paddingEnd="@dimen/_30sdp" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rll_no_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#F6F6F6"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/img_empty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="70dp"
+                            android:src="@drawable/img_empty" />
+
+                        <TextView
+                            android:textColor="#454545"
+                            android:id="@+id/tv_empty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/img_empty"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="35dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="Trang bạn tìm không có dữ liệu"
+                            android:textSize="16dp" />
+
+                        <com.ornach.richtext.RichText
+                            android:id="@+id/btn_reload"
+                            android:layout_width="129dp"
+                            android:layout_height="42dp"
+                            android:layout_below="@+id/tv_empty"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="25dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center"
+                            android:text="Tải lại"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="14dp"
+                            app:rt_backgroundColor="#00918D"
+                            app:rt_radius="4dp" />
+
+
+                    </RelativeLayout>
                 </RelativeLayout>
+
+
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/myToolbar"
@@ -129,37 +179,37 @@
                         android:layout_height="match_parent">
 
                         <ImageView
-                            android:visibility="invisible"
                             android:id="@+id/ivMenu"
                             android:layout_width="@dimen/_30sdp"
                             android:layout_height="@dimen/_30sdp"
                             android:padding="@dimen/_3sdp"
-                            android:src="@mipmap/ic_menu" />
+                            android:src="@mipmap/ic_menu"
+                            android:visibility="invisible" />
 
                         <ImageView
-                            android:layout_marginBottom="10dp"
-                            android:layout_alignParentBottom="true"
                             android:id="@+id/ivLogoHome"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
                             android:layout_centerInParent="true"
+                            android:layout_marginBottom="10dp"
                             android:src="@mipmap/logo_home" />
 
                         <RelativeLayout
-                            android:visibility="invisible"
                             android:id="@+id/llNotify"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:layout_marginEnd="@dimen/_10sdp">
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:visibility="invisible">
 
                             <ImageView
-                                android:visibility="invisible"
                                 android:id="@+id/notify"
                                 android:layout_width="@dimen/_30sdp"
                                 android:layout_height="@dimen/_30sdp"
                                 android:padding="@dimen/_3sdp"
-                                android:src="@mipmap/ic_notify" />
+                                android:src="@mipmap/ic_notify"
+                                android:visibility="invisible" />
 
                             <com.namviet.vtvtravel.widget.RobotoTextView
                                 android:id="@+id/tv_notification"
@@ -180,80 +230,85 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvYourMoment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <Button
-                    android:id="@+id/btMore"
-                    android:layout_width="@dimen/_100sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:background="@drawable/bg_button_suggest"
-                    android:text="@string/view_more"
-                    android:textColor="@color/white" />
-
+                android:layout_height="wrap_content">
                 <LinearLayout
-                    android:paddingBottom="70dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@color/colorPrimary"
-                    android:orientation="vertical"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="10dp"
-                    android:visibility="visible">
-
-                    <com.daimajia.slider.library.RobotoTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="@string/video_clip"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_15sdp"
-                        app:typeface="roboto_bold" />
-
-                    <View
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="@dimen/_3sdp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginBottom="@dimen/_4sdp"
-                        android:background="@color/white" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvVideo"
+                        android:id="@+id/rvYourMoment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <Button
+                        android:id="@+id/btMore"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:background="@drawable/bg_button_suggest"
+                        android:text="@string/view_more"
+                        android:textColor="@color/white" />
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp" />
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@color/colorPrimary"
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="70dp"
+                        android:visibility="visible">
 
-                    <com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
-                        android:id="@+id/vpIndicator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="2dp"
-                        app:dotColor="@color/gray_99"
-                        app:dotRadius="3dp"
-                        app:selectedDotColor="@color/white"
-                        app:selectedDotRadius="4dp" />
+                        <com.daimajia.slider.library.RobotoTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/video_clip"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_15sdp"
+                            app:typeface="roboto_bold" />
+
+                        <View
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_3sdp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginBottom="@dimen/_4sdp"
+                            android:background="@color/white" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvVideo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp" />
+
+                        <com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
+                            android:id="@+id/vpIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="2dp"
+                            app:dotColor="@color/gray_99"
+                            app:dotRadius="3dp"
+                            app:selectedDotColor="@color/white"
+                            app:selectedDotRadius="4dp" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
+            </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

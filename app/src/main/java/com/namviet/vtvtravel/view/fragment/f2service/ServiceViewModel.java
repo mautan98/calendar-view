@@ -179,5 +179,7 @@ public class ServiceViewModel extends BaseViewModel {
             setChanged();
             notifyObservers();
         }
+
+
     }
 }

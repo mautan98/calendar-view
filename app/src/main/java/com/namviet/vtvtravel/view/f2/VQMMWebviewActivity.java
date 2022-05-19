@@ -54,6 +54,11 @@ public class VQMMWebviewActivity extends BaseActivityNew<F2ActivityDealWebviewBi
 //        OldVQMMWebviewFragment vqmmWebviewFragment = new OldVQMMWebviewFragment(voucherId);
 //        VQMMWebviewFragment vqmmWebviewFragment = new VQMMWebviewFragment(voucherId);
         VQMMWebviewFragment vqmmWebviewFragment = new VQMMWebviewFragment();
+        if (voucherId == null || (voucherId != null && voucherId.isEmpty())) {
+
+        } else {
+            vqmmWebviewFragment.setVoucherId(voucherId);
+        }
         return vqmmWebviewFragment;
     }
 
@@ -66,7 +71,7 @@ public class VQMMWebviewActivity extends BaseActivityNew<F2ActivityDealWebviewBi
     @Override
     public void afterSetContentView() {
         super.afterSetContentView();
-        getWindow().getDecorView().setSystemUiVisibility (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
     }

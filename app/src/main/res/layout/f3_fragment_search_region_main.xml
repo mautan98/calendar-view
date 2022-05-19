@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@color/white"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/viewFull"
+                    android:layout_width="match_parent"
+                    android:layout_height="26dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/btnClose"
+                        android:layout_width="37dp"
+                        android:layout_height="40dp"
+                        android:padding="12dp"
+                        android:src="@drawable/f2_ic_close"
+                        app:tint="@color/black" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Điểm đến"
+                        android:textColor="@color/black"
+                        android:textSize="14dp" />
+
+                </RelativeLayout>
+
+
+                <View
+                    android:background="#ececec"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+
+
+                <com.ornach.richtext.RichView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="13dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="12dp"
+                    android:paddingTop="9dp"
+                    android:paddingEnd="18dp"
+                    android:paddingBottom="11dp"
+                    app:rt_backgroundColor="#F6F6F6"
+                    app:rt_borderColor="@color/colorPrimary"
+                    app:rt_borderWidth="0.5dp"
+                    app:rt_radius="4dp">
+
+                    <ImageView
+                        android:layout_width="11dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/f2_ic_gray_location2"
+                        app:tint="#878787" />
+
+
+                    <EditText
+                        android:imeOptions="actionDone"
+                        android:id="@+id/edtSearch"
+                        android:singleLine="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:fontFamily="@font/roboto_regular"
+                        android:hint="Tìm kiếm Tỉnh/Thành phố"
+                        android:textColor="@color/black"
+                        android:textSize="14dp" />
+
+
+                </com.ornach.richtext.RichView>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp">
+
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_marginEnd="11dp"
+                        android:src="@drawable/f2_ic_current_location" />
+
+
+                    <TextView
+                        android:id="@+id/btnMyLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Vị trí hiện tại"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16dp" />
+
+
+                </LinearLayout>
+
+
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="19dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Chọn khu vực"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:overScrollMode="never"
+                    android:paddingStart="20dp"
+                    android:id="@+id/rclLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,13 +1,12 @@
 package com.namviet.vtvtravel.view.fragment.f2webview
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.PorterDuff
 import android.media.AudioManager
-import android.media.MediaPlayer
 import android.media.SoundPool
 import android.os.Bundle
 import android.os.Handler
+import android.os.SystemClock
 import android.util.Log
 import android.util.SparseArray
 import android.view.MotionEvent
@@ -23,10 +22,10 @@ import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.model.f2event.OnChooseVoucherToRoll
 import com.namviet.vtvtravel.model.f2event.OnRegisterVipSuccess
 import com.namviet.vtvtravel.response.f2wheel.WheelAreasResponse
+import com.namviet.vtvtravel.response.f2wheel.WheelChartResponse
 import com.namviet.vtvtravel.response.f2wheel.WheelResultResponse
 import com.namviet.vtvtravel.response.f2wheel.WheelRotateResponse
-import com.namviet.vtvtravel.view.f2.HistoryLuckyWheelActivity
-import com.namviet.vtvtravel.view.f2.TravelVoucherActivity
+import com.namviet.vtvtravel.view.f3.deal.view.mygift.NewMyGiftActivity
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity
 import com.namviet.vtvtravel.viewmodel.f2luckywheel.LuckyWheelViewModel
 import kotlinx.android.synthetic.main.f2_fragment_detail_deal_webview.*
@@ -60,6 +59,13 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
     var targetPosition: Int = -1
 
 
+
+    public fun setVoucherId(id : String){
+        listIds.clear()
+        listIds.add(id)
+    }
+
+
     override fun getLayoutRes(): Int {
         return R.layout.f2_fragment_detail_deal_webview
     }
@@ -67,8 +73,10 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
     override fun initView() {
         viewModel = LuckyWheelViewModel()
         viewModel?.addObserver(this)
-        viewModel?.wheelAreas("VTVTRAVEL", ArrayList<String>())
+        viewModel?.wheelAreas("VTVTRAVEL", listIds)
         viewModel?.wheelResult("VTVTRAVEL", "ANDROID", "app")
+
+        viewModel?.getWheelChart()
     }
 
     override fun initData() {
@@ -137,6 +145,8 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
 
     override fun inject() {}
 
+    private var mLastClickTime: Long = 0
+
     @SuppressLint("ClickableViewAccessibility")
     override fun setClickListener() {
 
@@ -172,6 +182,11 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
                         }
                     }
                     MotionEvent.ACTION_UP -> {
+                        run { unHighLight(v) }
+                        if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                            return true;
+                        }
+                        mLastClickTime = SystemClock.elapsedRealtime();
                         canSwipe = false
                         imgFrame.isClickable = true
                         if (canRoll) {
@@ -186,7 +201,6 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
                             Toast.makeText(mActivity, "Vòng quay chưa sẵn sàng", Toast.LENGTH_SHORT).show()
                         }
 
-                        run { unHighLight(v) }
                     }
                     MotionEvent.ACTION_CANCEL -> {
                         if (!isScroll!!) {
@@ -273,6 +287,16 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
         rclScroll.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
+                try {
+                    if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                        imgStart.alpha = 1.0f
+                        imgStart.isEnabled = true
+                    }else{
+                        imgStart.alpha = 0.5f
+                        imgStart.isEnabled = false
+                    }
+                } catch (e: Exception) {
+                }
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && !canSwipe) {
 
                     scrollAdapter?.highLight(targetPosition)
@@ -291,7 +315,8 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
 
                         "VOUCHER" -> {
                             var receiverVoucherLuckyWheelDialog = ReceiverVoucherLuckyWheelDialog.newInstance(ReceiverVoucherLuckyWheelDialog.ClickButton {
-                                TravelVoucherActivity.openScreen(mActivity, false, TravelVoucherActivity.OpenType.LIST, false)
+//                                TravelVoucherActivity.openScreen(mActivity, false, TravelVoucherActivity.OpenType.LIST, false)
+                                NewMyGiftActivity.startScreen(mActivity)
                             }, wheelResultResponse?.data?.wheelAward?.name)
                             receiverVoucherLuckyWheelDialog.show(mActivity.supportFragmentManager, null)
                         }
@@ -421,13 +446,27 @@ class VQMMWebviewFragment : BaseFragment<F2FragmentDetailDealWebviewBinding?>(),
 //                                    wheelLogId = null;
 //                                    viewModel?.wheelResult("VTVTRAVEL", "ANDROID", "app")
                                 }, 10)
-                                break
+                                return
                             }
                         }
+
+                        Toast.makeText(mActivity, "Có lỗi đã xảy ra, mời bạn thử lại sau", Toast.LENGTH_SHORT).show()
+
                     }
 
 //                    Handler().postDelayed({ rclScroll.smoothScrollToPosition(50) }, 10)
 
+                }
+
+                is WheelChartResponse -> {
+                    try {
+                        var listLucky = ""
+                        for (i in 0 until o.data.items.size){
+                            listLucky = listLucky +"    Xin chúc mừng thue bao "+o.data.items!![i].mobile.substring(0, 8)+"xxx " +"đã trúng giải "+o.data.items!![i].areasWinning+"..."
+                        }
+                        tvScroll.text = listLucky
+                    } catch (e: Exception) {
+                    }
                 }
                 is ErrorResponse -> {
                     try {

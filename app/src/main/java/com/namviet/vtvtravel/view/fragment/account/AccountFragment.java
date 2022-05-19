@@ -5,6 +5,8 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import androidx.databinding.DataBindingUtil;
+
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ import android.widget.Toast;
 
 import com.baseapp.menu.SlideMenu;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.AccountPageAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
@@ -210,6 +213,7 @@ public class AccountFragment extends MainFragment implements Observer {
         if (observable instanceof AccountViewModel) {
             if (loginViewModel.getAccount() != null) {
                 MyApplication.getInstance().setAccount(loginViewModel.getAccount());
+                Log.e("Debuggg"+"AccountFragment", new Gson().toJson(loginViewModel.getAccount()));
                 // mActivity.onBackPressed();
                 mActivity.updateLogin();
             }
@@ -220,6 +224,7 @@ public class AccountFragment extends MainFragment implements Observer {
                         Account account = accountResponse.getData();
                         account.setToken(mAccount.getToken());
                         MyApplication.getInstance().setAccount(account);
+                        Log.e("Debuggg"+"AccountFragment2", new Gson().toJson(account));
                         mActivity.updateLogin();
                         Toast.makeText(mActivity, "Cập nhật thành công!", Toast.LENGTH_SHORT).show();
                     } else {
@@ -240,14 +245,22 @@ public class AccountFragment extends MainFragment implements Observer {
                     startCropActivity(data.getData());
 //                    upLoadImage(selectedUri);
                 } else {
-                    Toast.makeText(getActivity(), R.string.toast_cannot_retrieve_selected_image, Toast.LENGTH_SHORT).show();
+                    try {
+                        Toast.makeText(getActivity(), R.string.toast_cannot_retrieve_selected_image, Toast.LENGTH_SHORT).show();
+                    } catch (Resources.NotFoundException e) {
+
+                    }
                 }
             } else if (requestCode == REQUEST_CAMERA) {
                 Uri selectedUri = fileUri;
                 if (null != selectedUri) {
                     startCropActivity(selectedUri);
                 } else {
-                    Toast.makeText(getActivity(), R.string.toast_cannot_retrieve_selected_image, Toast.LENGTH_SHORT).show();
+                    try {
+                        Toast.makeText(getActivity(), R.string.toast_cannot_retrieve_selected_image, Toast.LENGTH_SHORT).show();
+                    } catch (Resources.NotFoundException e) {
+
+                    }
                 }
             } else if (requestCode == UCrop.REQUEST_CROP) {
                 handleCropResult(data);
@@ -289,7 +302,11 @@ public class AccountFragment extends MainFragment implements Observer {
                     });
 
         } else {
-            Toast.makeText(getActivity(), R.string.toast_cannot_retrieve_cropped_image, Toast.LENGTH_SHORT).show();
+            try {
+                Toast.makeText(getActivity(), R.string.toast_cannot_retrieve_cropped_image, Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+
+            }
         }
     }
 
@@ -317,9 +334,17 @@ public class AccountFragment extends MainFragment implements Observer {
     private void handleCropError(@NonNull Intent result) {
         final Throwable cropError = UCrop.getError(result);
         if (cropError != null) {
-            Toast.makeText(getActivity(), cropError.getMessage(), Toast.LENGTH_LONG).show();
+            try {
+                Toast.makeText(getActivity(), cropError.getMessage(), Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+
+            }
         } else {
-            Toast.makeText(getActivity(), R.string.toast_unexpected_error, Toast.LENGTH_SHORT).show();
+            try {
+                Toast.makeText(getActivity(), R.string.toast_unexpected_error, Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+
+            }
         }
     }
 

@@ -204,6 +204,7 @@
     <string name="rules"><u>Các điều khoản</u></string>
     <string name="remove_noti">Xóa thông báo</string>
     <string name="save_noti">Lưu thông báo</string>
+    <string name="view_map">Xem bản đồ</string>
 
     Type a message
 
@@ -214,7 +215,8 @@
     <string name="infor_content">Thông tin</string>
     <string name="collapse">Thu gọn</string>
     <string name="ban_chua_san_text">Bạn chưa săn</string>
-
+    <string name="tip_user_vip"><p>Bạn đang là <b>Hội viên</b> của <b>#VTVTravel</b>, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:</p></string>
+    <string name="register_to_discount_member">Ưu đãi độc quyền khi đăng ký Hội viên của #VTVTravel</string>
 
 
 </resources>

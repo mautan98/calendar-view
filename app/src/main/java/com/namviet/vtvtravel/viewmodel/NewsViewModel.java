@@ -7,6 +7,7 @@ import com.namviet.vtvtravel.api.TravelService;
 import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.response.BannerResponse;
 import com.namviet.vtvtravel.response.CategoryPhotoResponse;
 import com.namviet.vtvtravel.response.CommentResponse;
@@ -15,6 +16,7 @@ import com.namviet.vtvtravel.response.NewsResponse;
 import com.namviet.vtvtravel.response.PostCommentResponse;
 import com.namviet.vtvtravel.response.SlideShowResponse;
 import com.namviet.vtvtravel.ultils.ResponseUltils;
+import com.namviet.vtvtravel.view.fragment.home.DetailMomentFrangment;
 
 
 import java.util.Map;
@@ -102,7 +104,7 @@ public class NewsViewModel extends BaseViewModel {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        requestFailed(throwable);
+                        requestFailed(DetailMomentFrangment.ERROR_CODE.ERROR_NEWS.toString());
                     }
                 });
 
@@ -333,12 +335,30 @@ public class NewsViewModel extends BaseViewModel {
         } catch (Exception e) {
 
         }
+//        try {
+//            setChanged();
+//            notifyObservers(ResponseUltils.requestFailed(throwable));
+//        } catch (Exception e) {
+//            setChanged();
+//            notifyObservers();
+//        }
+        setChanged();
+        notifyObservers(new ErrorResponse());
+    }
+    private void requestFailed(String code) {
         try {
-            setChanged();
-            notifyObservers(ResponseUltils.requestFailed(throwable));
+            onLoadFail();
         } catch (Exception e) {
-            setChanged();
-            notifyObservers();
+
         }
+//        try {
+//            setChanged();
+//            notifyObservers(ResponseUltils.requestFailed(throwable));
+//        } catch (Exception e) {
+//            setChanged();
+//            notifyObservers();
+//        }
+        setChanged();
+        notifyObservers(new ErrorResponse(code));
     }
 }

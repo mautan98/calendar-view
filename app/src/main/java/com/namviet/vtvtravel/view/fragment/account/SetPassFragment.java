@@ -5,11 +5,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.baseapp.menu.SlideMenu;
+import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
@@ -109,6 +112,7 @@ public class SetPassFragment extends MainFragment implements Observer {
                     AccountResponse accountResponse = (AccountResponse) o;
                     if (accountResponse.isSuccess()) {
                         MyApplication.getInstance().setAccount(accountResponse.getData());
+                        Log.e("Debuggg"+"SetPassFrm", new Gson().toJson(accountResponse.getData()));
                         mActivity.switchFragment(SlideMenu.MenuType.LOGIN_SCREEN);
                     } else {
                         showMessage(accountResponse.getMessage());

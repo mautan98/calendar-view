@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:paddingStart="5dp"
+    android:paddingEnd="5dp"
+    android:layout_height="wrap_content">
+    
+    
+    <com.ornach.richtext.RichView
+        app:rt_radius="10dp"
+        app:rt_borderWidth="0.5dp"
+        app:rt_borderColor="#DEDEDE"
+        android:layout_width="57dp"
+        android:layout_height="57dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+            <com.ornach.richtext.RichText
+                android:id="@+id/layoutBackground"
+                app:rt_borderWidth="0.5dp"
+                app:rt_borderColor="#DEDEDE"
+                app:rt_backgroundColor="@color/white"
+                app:rt_radius="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imgAvatar"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/f3_ic_eating" />
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Đi đâu"
+                    android:textColor="@color/black"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </com.ornach.richtext.RichView>
+
+</LinearLayout>

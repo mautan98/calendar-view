@@ -9,6 +9,7 @@ import com.namviet.vtvtravel.response.f2filter.FilterByCodeResponse;
 import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SmallLocationResponse;
+
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
 import java.util.Map;
@@ -74,7 +75,6 @@ public class DetailSmallLocationViewModel extends BaseViewModel {
 
         compositeDisposable.add(disposable);
     }
-
     private void requestSuccess(Object object) {
         setChanged();
         notifyObservers(object);
@@ -87,15 +87,17 @@ public class DetailSmallLocationViewModel extends BaseViewModel {
 
         }
 
-        try {
-            HttpException error = (HttpException) throwable;
-            String errorBody = error.response().errorBody().string();
-            ErrorResponse errorResponse = new Gson().fromJson(errorBody, ErrorResponse.class);
-            setChanged();
-            notifyObservers(errorResponse);
-        } catch (Exception e) {
-            setChanged();
-            notifyObservers();
-        }
+//        try {
+//            HttpException error = (HttpException) throwable;
+//            String errorBody = error.response().errorBody().string();
+//            ErrorResponse errorResponse = new Gson().fromJson(errorBody, ErrorResponse.class);
+//            setChanged();
+//            notifyObservers(errorResponse);
+//        } catch (Exception e) {
+//            setChanged();
+//            notifyObservers();
+//        }
+        setChanged();
+        notifyObservers(new ErrorResponse());
     }
 }

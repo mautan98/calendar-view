@@ -289,7 +289,6 @@
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:paddingStart="20dp"
-            android:text="Chúc mừng thuê bao 0966xxxxxx đã trúng giải voucher FREE VÉ VUI CHƠI PHÚ QUỐC... Chúc mừng thuê bao 0987xxxxxx đã trúng giải TOUR DU LỊCH ĐÀ NẴNG 4N3Đ"
             android:background="@drawable/f2_bg_run_text"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"

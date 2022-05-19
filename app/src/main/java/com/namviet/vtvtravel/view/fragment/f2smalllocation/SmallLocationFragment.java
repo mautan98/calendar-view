@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -39,7 +40,10 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.MyLocation;
+import com.namviet.vtvtravel.model.f2event.OnChooseRegionSmallLocation;
+import com.namviet.vtvtravel.model.f2event.OnDetectLocation;
 import com.namviet.vtvtravel.model.f2event.OnDoneFilterOption;
+import com.namviet.vtvtravel.model.f2event.OnReOpenChatScreen;
 import com.namviet.vtvtravel.model.f2smalllocation.Travel;
 import com.namviet.vtvtravel.model.travelnews.Location;
 import com.namviet.vtvtravel.response.f2filter.DistanceClass;
@@ -54,6 +58,9 @@ import com.namviet.vtvtravel.ultils.PreferenceUtil;
 import com.namviet.vtvtravel.ultils.ServiceUltils;
 import com.namviet.vtvtravel.view.f2.FilterActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.namviet.vtvtravel.view.f3.model.ClickHideMapView;
+import com.namviet.vtvtravel.view.f3.model.HideMapView;
+import com.namviet.vtvtravel.view.f3.model.ShowMapView;
 import com.namviet.vtvtravel.view.fragment.f2filter.SortDialog;
 import com.namviet.vtvtravel.view.fragment.nearbyexperience.SearchLocationFragment;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
@@ -67,9 +74,12 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -77,7 +87,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationBinding> implements Observer {
     String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final int REQUEST_CODE_PERMISSION = 2;
-    private SupportMapFragment mapFragment;
+    //  private SupportMapFragment mapFragment;
     private GoogleMap mGoogleMap;
 
     private SmallLocationAdapter smallLocationAdapter;
@@ -99,6 +109,14 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         this.link = link;
         this.code = code;
         this.regionId = regionId;
+    }
+
+    @SuppressLint("ValidFragment")
+    public SmallLocationFragment(String link, String code, String regionId, int position) {
+        this.link = link;
+        this.code = code;
+        this.regionId = regionId;
+        this.positionTabSelected = position;
     }
 
     public SmallLocationFragment() {
@@ -132,6 +150,15 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         getBinding().shimmerViewContainer.setVisibility(View.VISIBLE);
         getBinding().shimmerViewContainer.startShimmer();
 
+    }
+
+    @Subscribe
+    public void onClickbackHideMap(ClickHideMapView clickHideMapView) {
+        getBinding().layoutButtonMap.setVisibility(View.INVISIBLE);
+        getBinding().layoutItem.setVisibility(View.GONE);
+        getBinding().layoutMap.setVisibility(View.INVISIBLE);
+        getBinding().rclContent.setVisibility(View.VISIBLE);
+        getBinding().layoutButtonList.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -168,6 +195,15 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                }
+            }
+        }, new SmallLocationAdapter.DataListener() {
+            @Override
+            public void onHaveData(boolean isShowNoDataView) {
+                if(isShowNoDataView){
+                    getBinding().rllNoData.setVisibility(View.VISIBLE);
+                }else {
+                    getBinding().rllNoData.setVisibility(View.GONE);
                 }
             }
         });
@@ -211,6 +247,17 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         } catch (Exception e) {
             e.printStackTrace();
         }
+        // handle error
+        getBinding().rllNoData.findViewById(R.id.btn_reload).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getBinding().rllNoData.setVisibility(View.GONE);
+                getBinding().shimmerViewContainer.setVisibility(View.VISIBLE);
+                viewModel.getSmallLocation(link + typeDestination + genLinkRegionId(), false);
+                viewModel.getFilterByCode();
+                viewModel.sortSmallLocation();
+            }
+        });
 
     }
 
@@ -243,6 +290,21 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
     }
 
+    public void onPageSelected() {
+        try {
+            if(filterByCodeResponse != null){
+                for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
+                    if (filterByCodeResponse.getData().getItems().get(i).getCode().equals(code)) {
+                        filterByCodeResponse.getData().getItems().get(i).setSelected(true);
+                        Log.e("", "");
+                    } else filterByCodeResponse.getData().getItems().get(i).setSelected(false);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void setClickListener() {
         getBinding().btnBack.setOnClickListener(new View.OnClickListener() {
@@ -255,14 +317,16 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         getBinding().btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FilterActivity.startScreen(mActivity, filterByCodeResponse);
+                onPageSelected();
+                FilterActivity.startScreen(mActivity, filterByCodeResponse, positionTabSelected);
             }
         });
 
         getBinding().btnFilter2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FilterActivity.startScreen(mActivity, filterByCodeResponse);
+                onPageSelected();
+                FilterActivity.startScreen(mActivity, filterByCodeResponse, positionTabSelected);
             }
         });
 
@@ -274,6 +338,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 //                getBinding().layoutItem.setVisibility(View.VISIBLE);
                 getBinding().layoutMap.setVisibility(View.VISIBLE);
                 getBinding().layoutButtonList.setVisibility(View.INVISIBLE);
+                EventBus.getDefault().post(new ShowMapView());
             }
         });
 
@@ -285,6 +350,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                 getBinding().layoutMap.setVisibility(View.INVISIBLE);
                 getBinding().rclContent.setVisibility(View.VISIBLE);
                 getBinding().layoutButtonList.setVisibility(View.VISIBLE);
+                EventBus.getDefault().post(new HideMapView());
             }
         });
 
@@ -331,6 +397,13 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         });
     }
 
+    @Subscribe
+    public void loadDataOnChooseRegion(OnChooseRegionSmallLocation onChooseRegionSmallLocation){
+        this.regionId = onChooseRegionSmallLocation.regionId;
+        clearRclData();
+        viewModel.getSmallLocation(genLinkToFilter(), false);
+    }
+
     private void clearRclData() {
         travelList.clear();
         smallLocationAdapter.notifyDataSetChanged();
@@ -343,7 +416,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
     @Override
     public void update(Observable observable, Object o) {
-        Log.e("xxx", "update: observable" );
+        Log.e("xxx", "update: observable");
         try {
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -352,7 +425,7 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                     getBinding().shimmerViewContainer.setVisibility(View.GONE);
                     getBinding().shimmerViewContainer.stopShimmer();
                 }
-            },500);
+            }, 500);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -371,11 +444,16 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                 }
                 smallLocationAdapter.notifyDataSetChanged();
                 getBinding().tvRegionName.setText(response.getData().getNameRegion());
+                try {
+                    EventBus.getDefault().post(new OnDetectLocation(response.getData().getNameRegion()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 try {
-                    if (travelList == null || (travelList != null && travelList.size() == 0)) {
-                        showToast("Không tìm thấy địa điểm");
-                    }
+//                    if (travelList == null || (travelList != null && travelList.size() == 0)) {
+//                        showToast("Không tìm thấy địa điểm");
+//                    }
                     getBinding().layoutItem.setVisibility(View.GONE);
                     mGoogleMap.clear();
                     lastMarker = null;
@@ -404,16 +482,14 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
             } else if (o instanceof FilterByCodeResponse) {
                 filterByCodeResponse = (FilterByCodeResponse) o;
-                getDefaultSelectedFilterTab();
-                setDefaultSelectedFilterTab(positionTabSelected);
                 setDistance();
             } else if (o instanceof SortSmallLocationResponse) {
                 sortSmallLocationResponse = (SortSmallLocationResponse) o;
 
             } else if (o instanceof ErrorResponse) {
+//                getBinding().rllNoData.setVisibility(View.VISIBLE);
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
-//                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
                 } catch (Exception e) {
 
                 }
@@ -423,26 +499,17 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
     }
 
 
+
     @Subscribe
     public void onDoneOptionFilter(OnDoneFilterOption onDoneFilterOption) {
-        this.filterByCodeResponse = onDoneFilterOption.getFilterByCodeResponse();
-        clearRclData();
-        getMainCategory();
-        viewModel.getSmallLocation(genLinkToFilter(), false);
-        getAndSetPlaceHolder();
-    }
-
-    private void setDefaultSelectedFilterTab(int position) {
-        filterByCodeResponse.getData().getItems().get(position).setSelected(true);
-    }
-
-    private void getDefaultSelectedFilterTab() {
-        for (int i = 0; i < filterByCodeResponse.getData().getItems().size(); i++) {
-            if (filterByCodeResponse.getData().getItems().get(i).getCode().equals(code)) {
-                positionTabSelected = i;
-                return;
-            }
+        if (positionTabSelected == onDoneFilterOption.getPosition()) {
+            this.filterByCodeResponse = onDoneFilterOption.getFilterByCodeResponse();
+            clearRclData();
+            getMainCategory();
+            viewModel.getSmallLocation(genLinkToFilter(), false);
+            getAndSetPlaceHolder();
         }
+
     }
 
     public void setDistance() {
@@ -578,6 +645,48 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         }
     }
 
+    private String getParamFilter() {
+        String result = "";
+        // field filter
+        String baseFilter = "";
+        // value filter
+        String typeFilter = "";
+        int size = filterByCodeResponse.getData().getItems().size();
+        for (int i = 0; i < size; i++) {
+            FilterByPageResponse dataHasLoaded = filterByCodeResponse.getData().getItems().get(i).getDataHasLoaded();
+            if (dataHasLoaded != null) {
+                for (int j = 0; j < dataHasLoaded.getData().size(); j++) {
+                    List<FilterByPageResponse.Data.Input> inputs = dataHasLoaded.getData().get(j).getInputs();
+                    Map<String, String> mapData = new HashMap<>();
+                    if (inputs != null) {
+                        for (int k = 0; k < inputs.size(); k++) {
+                            if (inputs.get(k).isSelected()) {
+                                baseFilter = dataHasLoaded.getData().get(j).getField();
+                                typeFilter = inputs.get(k).getValue();
+                                mapData.put(typeFilter, baseFilter);
+                            }
+                        }
+
+                    }
+                    Set<String> set = mapData.keySet();
+                    String keyFilter = "";
+                    String paramFilter = "";
+                    for (String key : set) {
+                        keyFilter = mapData.get(key);
+                        paramFilter = paramFilter + key+",";
+
+                    }
+                    if (!paramFilter.isEmpty()) {
+                        paramFilter = paramFilter.substring(0, paramFilter.length() - 1);
+                        result = result + "&" + keyFilter + "=" + paramFilter;
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+
     private String getDistance() {
         String result = "";
         for (int i = 0; i < filterByCodeResponse.getDistanceClass().getDistances().size(); i++) {
@@ -597,8 +706,9 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
 
     private String genLinkToFilter() {
         try {
-            String result = link + typeDestination + getParamForFilterService() + getDistance() + getOpenType() + genLinkSort() + genLinkRegionId() + genLinkSearch(getBinding().edtSearch.getText().toString());
+            String result = link + typeDestination + getParamFilter() + getDistance() + getOpenType() + genLinkSort() + genLinkRegionId() + genLinkSearch(getBinding().edtSearch.getText().toString());
             Log.e("resultttt", result);
+            Log.e("xxx", "genLinkToFilter: " + getParamFilter());
             return result;
         } catch (Exception e) {
             return "";
@@ -706,6 +816,16 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
     }
 
     private void initItemMarker(Travel travel) {
+        getBinding().layoutItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    addFragment(new DetailSmallLocationFragment(travel.getDetail_link()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         getBinding().layoutItem.setVisibility(View.VISIBLE);
         Glide.with(mActivity).load(travel.getLogo_url()).into(getBinding().imgAvatar);
         getBinding().tvName.setText(travel.getName());
@@ -733,22 +853,49 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
         }
 
 
-        if (Constants.TypeDestination.RESTAURANTS.equals(travel.getContent_type()) || Constants.TypeDestination.HOTELS.equals(travel.getContent_type())) {
-            getBinding().linearPriceType.setVisibility(View.VISIBLE);
-            getBinding().linearOpenType.setVisibility(View.GONE);
-            getBinding().tvPriceRange.setText(travel.getPrice_from() + " đ" + " - " + travel.getPrice_to() + " đ");
-        } else {
+//        if (Constants.TypeDestination.RESTAURANTS.equals(travel.getContent_type()) || Constants.TypeDestination.HOTELS.equals(travel.getContent_type())) {
+//            getBinding().linearPriceType.setVisibility(View.VISIBLE);
+//            getBinding().linearOpenType.setVisibility(View.GONE);
+//            getBinding().tvPriceRange.setText(travel.getPrice_from() + " đ" + " - " + travel.getPrice_to() + " đ");
+//        } else {
             getBinding().linearPriceType.setVisibility(View.GONE);
             getBinding().linearOpenType.setVisibility(View.VISIBLE);
 
             try {
-                if (travel.getRange_time().isEmpty()) {
-                    getBinding().viewTime.setVisibility(View.GONE);
+                if (travel.getOpen_week().isEmpty()) {
+                    getBinding().linearOpenType.setVisibility(View.GONE);
+//                    getBinding().viewTime.setVisibility(View.GONE);
                     getBinding().tvOpenTime.setVisibility(View.GONE);
                 } else {
-                    getBinding().viewTime.setVisibility(View.VISIBLE);
-                    getBinding().tvOpenTime.setText(travel.getRange_time());
-                    getBinding().tvOpenTime.setVisibility(View.VISIBLE);
+                    getBinding().viewStatus.setBackgroundColor(Color.parseColor(travel.getTypeOpenColor()));
+                    getBinding().linearOpenType.setVisibility(View.VISIBLE);
+//                    getBinding().viewTime.setVisibility(View.VISIBLE);
+                    try {
+                        if (travel.getRange_time().isEmpty()) {
+                            //    viewTime.setVisibility(View.GONE);
+                            getBinding().tvOpenTime.setVisibility(View.GONE);
+                            getBinding().tvOpenTime2.setVisibility(View.GONE);
+                        } else {
+                            //    viewTime.setVisibility(View.VISIBLE);
+                            if(travel.getRange_time().contains("và")){
+                                String[] strings = travel.getRange_time().split("và");
+                                getBinding().tvOpenTime.setText(strings[0]);
+                                getBinding().tvOpenTime2.setText(strings[1]);
+                                getBinding().tvOpenTime.setVisibility(View.VISIBLE);
+                                getBinding().tvOpenTime2.setVisibility(View.VISIBLE);
+                            }else {
+                                getBinding().tvOpenTime.setText(travel.getRange_time());
+                                getBinding().tvOpenTime.setVisibility(View.VISIBLE);
+                                getBinding().tvOpenTime2.setVisibility(View.GONE);
+                            }
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        //   viewTime.setVisibility(View.GONE);
+                        getBinding().tvOpenTime.setVisibility(View.GONE);
+                        getBinding().tvOpenTime2.setVisibility(View.GONE);
+                    }
                     getBinding().tvOpenDate.setText(travel.getOpen_week());
                     getBinding().tvStatus.setText(travel.getType_open());
 
@@ -765,33 +912,34 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                getBinding().viewTime.setVisibility(View.GONE);
+//                getBinding().viewTime.setVisibility(View.GONE);
                 getBinding().tvOpenTime.setVisibility(View.GONE);
             }
-        }
+//        }
 
         try {
             if (travel.getRange_time().isEmpty()) {
-                getBinding().viewTime.setVisibility(View.GONE);
+//                getBinding().viewTime.setVisibility(View.GONE);
                 getBinding().tvOpenTime.setVisibility(View.GONE);
             } else {
-                getBinding().viewTime.setVisibility(View.VISIBLE);
+//                getBinding().viewTime.setVisibility(View.VISIBLE);
                 getBinding().tvOpenTime.setText(travel.getRange_time());
                 getBinding().tvOpenTime.setVisibility(View.VISIBLE);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            getBinding().viewTime.setVisibility(View.GONE);
+//            getBinding().viewTime.setVisibility(View.GONE);
             getBinding().tvOpenTime.setVisibility(View.GONE);
         }
     }
 
     private void initMap() {
         try {
-            mapFragment = SupportMapFragment.newInstance();
+            // mapFragment = SupportMapFragment.newInstance();
 
-
-            mapFragment.getMapAsync(new OnMapReadyCallback() {
+            getBinding().mapView.onCreate(null);
+            getBinding().mapView.onResume();
+            getBinding().mapView.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
                     mGoogleMap = googleMap;
@@ -849,7 +997,13 @@ public class SmallLocationFragment extends BaseFragment<F2FragmentSmallLocationB
                     });
                 }
             });
-            mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.map, mapFragment).commit();
+//            mapFragment.getMapAsync(new OnMapReadyCallback() {
+//                @Override
+//                public void onMapReady(GoogleMap googleMap) {
+//
+//                }
+//            });
+            //mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.map, mapFragment).commit();
 
         } catch (Exception e) {
             e.printStackTrace();

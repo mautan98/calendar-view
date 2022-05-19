@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.baseapp.activity.BaseActivity;
@@ -14,7 +15,9 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +29,7 @@ import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.smalllocation.DetailSmallLocationAdapter;
+import com.namviet.vtvtravel.adapter.smalllocation.SubSmallLocationAdapter;
 import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
@@ -61,6 +65,8 @@ import com.namviet.vtvtravel.widget.OnScrollToPositionListener;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import me.relex.circleindicator.CircleIndicator2;
+
 public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSmallLocationBinding> implements DetailSmallLocationAdapter.ClickItem, Observer {
     private DetailSmallLocationAdapter detailSmallLocationAdapter;
     private DetailSmallLocationViewModel viewModel;
@@ -72,7 +78,7 @@ public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSm
     private LinearLayoutManager contentLayoutManager;
     private AppBarStateChangeListener appBarStateChangeListener;
     private boolean changeTabFromScroll = false, changeTabFromClick = false;
-
+    private int position;
 
     @SuppressLint("ValidFragment")
     public DetailSmallLocationFragment(String detailLink) {
@@ -121,6 +127,18 @@ public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSm
                 }
             }
         });
+        getBinding().rllNoData.findViewById(R.id.btn_reload).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    getBinding().rllNoData.setVisibility(View.GONE);
+                    getBinding().shimmerMain.setVisibility(View.VISIBLE);
+                    viewModel.getDetailSmallLocation(detailLink, false);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
@@ -139,6 +157,34 @@ public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSm
 
     private void setDataForSomeView(DetailSmallLocationResponse response) {
         F2Util.loadImageToImageView(mActivity, response.getData().getBanner_url(), getBinding().imgBanner);
+//        List<String> urlsImg = new ArrayList<>();
+//        urlsImg.add(response.getData().getBanner_url());
+//        urlsImg.add(response.getData().getBanner_url());
+//        urlsImg.add(response.getData().getBanner_url());
+//        getBinding().tvCountImg.setText(1+"/"+urlsImg.size());
+
+//        SubSmallLocationAdapter subSmallLocationAdapter = new SubSmallLocationAdapter(mActivity, urlsImg, new SubSmallLocationAdapter.IOnSubItemClick() {
+//            @Override
+//            public void onSubitemClick() {
+////                clickItem.onClickItem(items.get(position));
+//            }
+//        });
+//        getBinding().rcvItemImg.setAdapter(subSmallLocationAdapter);
+//        getBinding().rcvItemImg.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                int current = ((LinearLayoutManager)getBinding().rcvItemImg.getLayoutManager())
+//                        .findFirstVisibleItemPosition();
+//                getBinding().tvCountImg.setText((current + 1) +"/"+urlsImg.size());
+//            }
+//        });
+//        try {
+//            SnapHelper pagerSnapHelper = new PagerSnapHelper();
+//            pagerSnapHelper.attachToRecyclerView(getBinding().rcvItemImg);
+//            getBinding().indicator.attachToRecyclerView(getBinding().rcvItemImg, pagerSnapHelper);
+//        } catch (IllegalStateException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private boolean canScroll = false;
@@ -211,6 +257,7 @@ public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSm
                         contentLayoutManager.scrollToPositionWithOffset(targetPostion, 0);
                         targetPostion = -1;
                     }
+
                 }
             }
 
@@ -227,6 +274,7 @@ public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSm
                 if (!canScroll) {
                     canScroll = true;
                 } else {
+
                     targetPostion = tab.getPosition();
                     if (!AppBarStateChangeListener.State.COLLAPSED.equals(appBarStateChangeListener.getCurrentState())) {
                         getBinding().appBar.setExpanded(false, true);
@@ -260,43 +308,8 @@ public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSm
             }
         });
 
-//        getBinding().imgHeart.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                try {
-//                    Account account = MyApplication.getInstance().getAccount();
-//                    if (null != account && account.isLogin()) {
-//                        viewModel.likeEvent(response.getData().getId(), response.getData().getContent_type());
-//                        if (response.getData().isLiked()) {
-//                            response.getData().setLiked(false);
-////                            getBinding().imgHeart.setImageResource(R.drawable.f2_ic_white_border_heart);
-//                            getBinding().imgHeart.setLiked(false);
-//                        } else {
-//                            response.getData().setLiked(true);
-////                            getBinding().imgHeart.setImageResource(R.drawable.f2_ic_red_heart);
-//                            getBinding().imgHeart.setLiked(true);
-//                        }
-//
-//
-//                        try {
-//                            TrackingAnalytic.postEvent(TrackingAnalytic.LIKE, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SMALL_LOCATION_DETAIL, TrackingAnalytic.ScreenTitle.SMALL_LOCATION_DETAIL)
-//                                    .setContent_id(response.getData().getId())
-//                                    .setContent_type(response.getData().getContent_type())
-//                                    .setScreen_class(this.getClass().getName()));
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                    } else {
-//                        LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-    }
 
+    }
     private void clickHeart() {
         try {
             Account account = MyApplication.getInstance().getAccount();
@@ -498,6 +511,7 @@ public class DetailSmallLocationFragment extends BaseFragment<F2FragmentDetailSm
                     e.printStackTrace();
                 }
             } else if (o instanceof ErrorResponse) {
+//                getBinding().rllNoData.setVisibility(View.VISIBLE);
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());

@@ -1,0 +1,76 @@
+{
+  "sortHeader": [
+    {
+      "name": "Sắp xếp theo",
+      "label" : "Sắp xếp theo",
+      "id": "Sắp xếp theo",
+      "isSelected": false,
+      "children": [
+        {
+          "name": "Tất cả",
+          "id": "",
+          "isSelected": false
+        },
+        {
+          "name": "Gần nhất",
+          "id": "mostCorrect",
+          "isSelected": false
+        },
+        {
+          "name": "Mới nhất",
+          "id": "closest",
+          "isSelected": false
+        },
+        {
+          "name": "Xem nhiều nhất",
+          "id": "favourite",
+          "isSelected": false
+        }
+      ]
+    },
+    {
+      "label" : "Địa điểm",
+      "name": "Địa điểm",
+      "id": "Sắp xếp theo",
+      "isSelected": false,
+      "children": [
+      ],
+      "content": {
+        "cityId": "",
+        "cityName": "",
+        "district": "",
+        "districtName": "",
+        "commune": "",
+        "communeName": ""
+      }
+    },
+    {
+      "label" : "Danh mục",
+      "name": "Danh mục",
+      "id": "Sắp xếp theo",
+      "isSelected": false,
+      "children": [
+        {
+          "name": "Đi đâu",
+          "id": "places",
+          "isSelected": false
+        },
+        {
+          "name": "Ở đâu",
+          "id": "hotels",
+          "isSelected": false
+        },
+        {
+          "name": "Ăn gì",
+          "id": "restaurants",
+          "isSelected": false
+        },
+        {
+          "name": "Chơi gì",
+          "id": "centers",
+          "isSelected": false
+        }
+      ]
+    }
+  ]
+}

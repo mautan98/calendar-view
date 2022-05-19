@@ -25,6 +25,7 @@ public class ImagePartFragment extends BaseFragment<F2FragmentImagePartBinding> 
     private ImagePartViewModel viewModel;
     private List<Travel> travels = new ArrayList<>();
     private String loadMoreLink;
+    private boolean isLoading = false;
 
     @Override
     public int getLayoutRes() {
@@ -37,6 +38,14 @@ public class ImagePartFragment extends BaseFragment<F2FragmentImagePartBinding> 
         getBinding().setImagePartViewModel(viewModel);
         viewModel.addObserver(this);
         viewModel.getGallery(false);
+        getBinding().btnReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showLoading();
+                getBinding().rllNoData.setVisibility(View.GONE);
+                viewModel.getGallery(false);
+            }
+        });
     }
 
     @Override
@@ -71,9 +80,9 @@ public class ImagePartFragment extends BaseFragment<F2FragmentImagePartBinding> 
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
-                if (!recyclerView.canScrollVertically(1)) {
+                if (!recyclerView.canScrollVertically(1) && !isLoading) {
                     viewModel.getGalleryMore(loadMoreLink, true);
-                    loadMoreLink = "";
+                    isLoading = true;
                 }
             }
         });
@@ -89,69 +98,77 @@ public class ImagePartFragment extends BaseFragment<F2FragmentImagePartBinding> 
     @Override
     public void update(Observable observable, Object o) {
         hideLoading();
-        if (observable instanceof ImagePartViewModel && null != o) {
-            if (o instanceof ImagePartResponse) {
-                ImagePartResponse response = (ImagePartResponse) o;
-                loadMoreLink = response.getData().getMore_link();
+        try {
+            if (observable instanceof ImagePartViewModel && null != o) {
+                if (o instanceof ImagePartResponse) {
+                    ImagePartResponse response = (ImagePartResponse) o;
+                    loadMoreLink = response.getData().getMore_link();
 
-                LinkedHashMap<Integer, ImagePart> imagePartLinkedHashMap = new LinkedHashMap<>();
+                    LinkedHashMap<Integer, ImagePart> imagePartLinkedHashMap = new LinkedHashMap<>();
 
 
-                if (response != null && response.getData() != null && response.getData().getItems() != null && response.getData().getItems().size() > 0) {
-                    travels.addAll(response.getData().getItems());
-                    for (int i = 0; i < travels.size(); i++) {
-                        if (imagePartLinkedHashMap.size() == 0) {
-                            ImagePart imagePart = new ImagePart();
-                            List<Travel> items = new ArrayList<>();
-                            items.add(travels.get(i));
-                            imagePart.setItems(items);
-                            imagePartLinkedHashMap.put(0, imagePart);
-                        } else {
-                            ImagePart imagePart = imagePartLinkedHashMap.get(imagePartLinkedHashMap.size() - 1);
-                            if (imagePart == null) {
-                                imagePart = new ImagePart();
+                    if (response != null && response.getData() != null && response.getData().getItems() != null && response.getData().getItems().size() > 0) {
+                        travels.addAll(response.getData().getItems());
+                        for (int i = 0; i < travels.size(); i++) {
+                            if (imagePartLinkedHashMap.size() == 0) {
+                                ImagePart imagePart = new ImagePart();
                                 List<Travel> items = new ArrayList<>();
                                 items.add(travels.get(i));
                                 imagePart.setItems(items);
                                 imagePartLinkedHashMap.put(0, imagePart);
                             } else {
-                                if (imagePart.getItems().size() < 9) {
-                                    List<Travel> items = imagePart.getItems();
-                                    items.add(travels.get(i));
-                                    imagePart.setItems(items);
-                                    imagePartLinkedHashMap.put(imagePartLinkedHashMap.size() - 1, imagePart);
-                                } else {
-                                    ImagePart imagePartNew = new ImagePart();
+                                ImagePart imagePart = imagePartLinkedHashMap.get(imagePartLinkedHashMap.size() - 1);
+                                if (imagePart == null) {
+                                    imagePart = new ImagePart();
                                     List<Travel> items = new ArrayList<>();
                                     items.add(travels.get(i));
-                                    imagePartNew.setItems(items);
-                                    imagePartLinkedHashMap.put(imagePartLinkedHashMap.size(), imagePartNew);
+                                    imagePart.setItems(items);
+                                    imagePartLinkedHashMap.put(0, imagePart);
+                                } else {
+                                    if (imagePart.getItems().size() < 9) {
+                                        List<Travel> items = imagePart.getItems();
+                                        items.add(travels.get(i));
+                                        imagePart.setItems(items);
+                                        imagePartLinkedHashMap.put(imagePartLinkedHashMap.size() - 1, imagePart);
+                                    } else {
+                                        ImagePart imagePartNew = new ImagePart();
+                                        List<Travel> items = new ArrayList<>();
+                                        items.add(travels.get(i));
+                                        imagePartNew.setItems(items);
+                                        imagePartLinkedHashMap.put(imagePartLinkedHashMap.size(), imagePartNew);
+                                    }
                                 }
                             }
+
                         }
+                    }
+                    else  {
+    //                    getBinding().rllNoData.setVisibility(View.VISIBLE);
+                    }
+
+                    if(response.isLoadMore()){
+                        imageParts.clear();
+                        imageParts.addAll(new ArrayList<>(imagePartLinkedHashMap.values()));
+                    }else {
+                        imageParts.clear();
+                        imageParts.addAll(new ArrayList<>(imagePartLinkedHashMap.values()));
+                    }
+                    isLoading = false;
+                    imagePartAdapter.notifyDataSetChanged();
+
+
+                } else if (o instanceof ErrorResponse) {
+    //                getBinding().rllNoData.setVisibility(View.VISIBLE);
+                    ErrorResponse responseError = (ErrorResponse) o;
+                    try {
+    //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
+                    } catch (Exception e) {
 
                     }
                 }
 
-                if(response.isLoadMore()){
-                    imageParts.clear();
-                    imageParts.addAll(new ArrayList<>(imagePartLinkedHashMap.values()));
-                }else {
-                    imageParts.clear();
-                    imageParts.addAll(new ArrayList<>(imagePartLinkedHashMap.values()));
-                }
-
-                imagePartAdapter.notifyDataSetChanged();
-
-
-            } else if (o instanceof ErrorResponse) {
-                ErrorResponse responseError = (ErrorResponse) o;
-                try {
-//                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
-                } catch (Exception e) {
-
-                }
             }
+        } catch (Exception e) {
 
         }
     }

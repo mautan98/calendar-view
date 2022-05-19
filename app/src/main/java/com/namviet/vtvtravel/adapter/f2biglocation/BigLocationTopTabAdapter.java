@@ -10,11 +10,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.f2biglocation.BigLocationResponse;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BigLocationTopTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -84,7 +89,11 @@ public class BigLocationTopTabAdapter extends RecyclerView.Adapter<RecyclerView.
                 @Override
                 public void onClick(View view) {
                     try {
-                        SmallLocationActivity.startScreen(context, items.get(position).getLink(), items.get(position).getCode(), SmallLocationActivity.OpenType.LIST, regionId);
+                        String json = new Gson().toJson(items);
+                        Type listType = new TypeToken<ArrayList<ItemHomeService.Item>>() {}.getType();
+                        ArrayList<ItemHomeService.Item> yourList = new Gson().fromJson(json, listType);
+                        SmallLocationActivity.startScreen(context, SmallLocationActivity.OpenType.LIST, yourList, items.get(position).getCode(),position, regionId);
+//                        SmallLocationActivity.startScreen(context, items.get(position).getLink(), items.get(position).getCode(), SmallLocationActivity.OpenType.LIST, regionId);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

@@ -1,0 +1,129 @@
+{
+  "sortHeader": [
+    {
+      "isOpen": false,
+      "name": "Sắp xếp theo",
+      "namePlace": "Sắp xếp theo",
+      "nameNews": "Sắp xếp theo",
+      "nameVideo": "Sắp xếp theo",
+      "label" : "Sắp xếp theo",
+      "id": "Sắp xếp theo",
+      "isSelected": false,
+      "childrenPlace": [
+        {
+          "name": "Tất cả",
+          "id": "",
+          "isSelected": false
+        },
+        {
+          "name": "Gần trung tâm nhất",
+          "id": "distance",
+          "isSelected": false
+        },
+        {
+          "name": "Mới nhất",
+          "id": "screated",
+          "isSelected": false
+        },
+        {
+          "name": "Xem nhiều nhất",
+          "id": "view_count",
+          "isSelected": false
+        }
+      ],
+      "childrenNews": [
+        {
+          "name": "Tất cả",
+          "id": "all",
+          "isSelected": false
+        },
+        {
+          "name": "Mới nhất",
+          "id": "publish_date",
+          "isSelected": false
+        },
+        {
+          "name": "Xem nhiều nhất",
+          "id": "view_count",
+          "isSelected": false
+        }
+      ],
+      "childrenVideo": [
+        {
+          "name": "Tất cả",
+          "id": "all",
+          "isSelected": false
+        },
+        {
+          "name": "Mới nhất",
+          "id": "publish_date",
+          "isSelected": false
+        },
+        {
+          "name": "Xem nhiều nhất",
+          "id": "view_count",
+          "isSelected": false
+        }
+
+      ]
+    },
+    {
+      "isOpen": false,
+      "label" : "Địa điểm",
+      "name": "Địa điểm",
+      "id": "Sắp xếp theo",
+      "isSelected": false,
+      "children": [
+      ],
+      "content": {
+        "cityId": "",
+        "cityName": "",
+        "district": "",
+        "districtName": "",
+        "commune": "",
+        "communeName": ""
+      }
+    },
+    {
+      "isOpen": false,
+      "label" : "Danh mục",
+      "name": "Danh mục",
+      "id": "Sắp xếp theo",
+      "isSelected": false,
+      "children": [
+        {
+          "name": "Đi đâu",
+          "id": "places",
+          "isSelected": false
+        },
+        {
+          "name": "Ở đâu",
+          "id": "hotels",
+          "isSelected": false
+        },
+        {
+          "name": "Ăn gì",
+          "id": "restaurants",
+          "isSelected": false
+        },
+        {
+          "name": "Chơi gì",
+          "id": "centers",
+          "isSelected": false
+        }
+      ]
+    },
+    {
+      "isOpen": false,
+      "label" : "Đang mở",
+      "name": "Đang mở",
+      "id": "Sắp xếp theo",
+      "isSelected": false,
+      "children": [
+      ],
+      "content": {
+        "isOpen": null
+      }
+    }
+  ]
+}

@@ -17,6 +17,9 @@ public class CheckCanReceiver {
     @Expose
     @SerializedName("data")
     private boolean data;
+    @Expose
+    @SerializedName("message")
+    private String message;
 
     public boolean isSuccess() {
         return success;
@@ -48,5 +51,13 @@ public class CheckCanReceiver {
 
     public void setData(boolean data) {
         this.data = data;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

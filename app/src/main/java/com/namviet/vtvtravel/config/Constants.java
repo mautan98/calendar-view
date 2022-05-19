@@ -123,6 +123,7 @@ public class Constants {
         public static final String SCREEN_TYPE = "SCREEN_TYPE";
         public static final String DETAIL_LINK = "DETAIL_LINK";
         public static final String REGION_ID = "REGION_ID";
+        public static final String POSITION_2 = "POSITION";
         public static final String FROM_REG_VIP = "FROM_REG_VIP";
         public static final String LAT = "LAT";
         public static final String LONG = "LONG";
@@ -130,6 +131,7 @@ public class Constants {
         public static final String SCHEDULE_ID = "SCHEDULE_ID";
         public static final String NOTIFICATION_TYPE = "NOTIFICATION_TYPE";
         public static final String NOTIFICATION = "NOTIFICATION";
+        public static final String RECENT_SEARCH_SMALLOCATION = "RECENT_SEARCH_SMALLOCATION";
 
 
 
@@ -141,6 +143,7 @@ public class Constants {
         public static final String PART_NAME = "part_name";
         public static final String IS_VIDEO_CALL = "is_video_call";
         public static final String NOTI_DATA = "noti_data";
+        public static final String POSITION_TAB_VOUCHER_NOW = "position_voucher_now";
     }
 
     public static class PrefKey {
@@ -245,6 +248,7 @@ public class Constants {
         public static final String DATE_FORMAT_16 = "dd MMMM yyyy";
         public static final String DATE_FORMAT_17 = "EEEE, dd/MM/yyyy";
         public static final String DATE_FORMAT_18 = "dd.MM.yyyy";
+        public static final String DATE_FORMAT_19 = "HH:mm dd/MM";
     }
 
     public static class KeyJSON {

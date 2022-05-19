@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menuItem_where_go"
+        android:title="Đi đâu" />
+    <item
+        android:id="@+id/menuItem_where_stay"
+        android:title="Ở đâu" />
+    <item
+        android:id="@+id/menuItem_what_eat"
+        android:title="Ăn gì" />
+    <item
+        android:id="@+id/menuItem_what_play"
+        android:title="Chơi gì" />
+
+</menu>

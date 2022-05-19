@@ -11,19 +11,25 @@ import com.namviet.vtvtravel.response.WeatherResponse;
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.LocationResponse;
 import com.namviet.vtvtravel.response.f2biglocation.TopLocationResponse;
+import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
 import java.util.Map;
+
+import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import retrofit2.HttpException;
 
+
 public class SearchBigLocationViewModel extends BaseViewModel {
 
 
-
+    @Inject
+    public SearchBigLocationViewModel() {
+    }
 
     public void getLocation() {
         MyApplication myApplication = MyApplication.getInstance();
@@ -75,6 +81,20 @@ public class SearchBigLocationViewModel extends BaseViewModel {
 
     public void getAllLocation() {
         MyApplication myApplication = MyApplication.getInstance();
+        if(myApplication.getAllLocation() == null ||myApplication.getAllLocation() != null && myApplication.getAllLocation().isEmpty()){
+            String json  ="";
+            if(WSConfig.ENVIRONMENT.equals("PRODUCT")) {
+                json = F2Util.loadJSONFromAsset(MyApplication.get(), "all_big_location_pro");
+            }else {
+                json = F2Util.loadJSONFromAsset(MyApplication.get(), "all_big_location_testing");
+            }
+            AllLocationResponse allLocationResponse = new Gson().fromJson(json, AllLocationResponse.class);
+            requestSuccess(allLocationResponse);
+        }else {
+            String json  = myApplication.getAllLocation();
+            AllLocationResponse allLocationResponse = new Gson().fromJson(json, AllLocationResponse.class);
+            requestSuccess(allLocationResponse);
+        }
         TravelService newsService = myApplication.getTravelService();
         Map<String, Object> queryMap = Param.getDefault();
         Disposable disposable = newsService.getAllLocation(queryMap)
@@ -83,14 +103,21 @@ public class SearchBigLocationViewModel extends BaseViewModel {
                 .subscribe(new Consumer<AllLocationResponse>() {
                     @Override
                     public void accept(AllLocationResponse response) throws Exception {
-                        if (response != null) {
-                            requestSuccess(response);
+//                        if (response != null) {
+//                            requestSuccess(response);
+//                        }
+                        try {
+                            if(response.getData().size() >= 50) {
+                                myApplication.setAllLocation(new Gson().toJson(response));
+                            }
+                        } catch (Exception e) {
+
                         }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        requestFailed(throwable);
+//                        requestFailed(throwable);
                     }
                 });
 

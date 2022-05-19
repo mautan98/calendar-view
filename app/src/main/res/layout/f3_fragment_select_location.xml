@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="searchBigLocationViewModel"
+            type="com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:gravity="center|left"
+            android:id="@+id/btnBack"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="#00918D"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:padding="15dp"
+                android:rotation="180"
+                android:src="@drawable/f3_ic_back"
+                app:tint="#ffffff" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="43dp"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:text="Điểm đến"
+                android:textColor="#ffffff"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="12dp">
+
+            <RelativeLayout
+                android:id="@+id/relativeBigSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/f3_bg_item_input_search_location">
+
+                <TextView
+                    android:id="@+id/edtLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="50dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:singleLine="true"
+                    android:text="--- Chọn tỉnh/thành phố ---"
+                    android:textColor="#000000"
+                    android:textSize="14dp" />
+
+                <LinearLayout
+                    android:clickable="true"
+                    android:id="@+id/imgCloseSearch"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="11dp"
+                        android:layout_height="6dp"
+                        android:layout_marginEnd="15dp"
+                        android:src="@drawable/ic_arrow_drop_down" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="12dp">
+
+            <RelativeLayout
+                android:id="@+id/relativeBigSearch2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/f3_bg_item_input_search_location">
+
+                <TextView
+                    android:id="@+id/edtLocation2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="50dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:singleLine="true"
+                    android:text="--- Chọn quận/huyện ---"
+                    android:textColor="#C1C1C1"
+                    android:textSize="14dp" />
+
+                <LinearLayout
+                    android:clickable="false"
+                    android:id="@+id/imgCloseSearch2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="11dp"
+                        android:layout_height="6dp"
+                        android:layout_marginEnd="15dp"
+                        android:src="@drawable/ic_arrow_drop_down" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="12dp">
+
+            <RelativeLayout
+                android:id="@+id/relativeBigSearch3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/f3_bg_item_input_search_location">
+
+                <TextView
+                    android:id="@+id/edtLocation3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="50dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:singleLine="true"
+                    android:text="--- Chọn xã/phường ---"
+                    android:textColor="#C1C1C1"
+                    android:textSize="14dp" />
+
+                <LinearLayout
+                    android:clickable="false"
+                    android:id="@+id/imgCloseSearch3"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="11dp"
+                        android:layout_height="6dp"
+                        android:layout_marginEnd="15dp"
+                        android:src="@drawable/ic_arrow_drop_down" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:gravity="bottom">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.ornach.richtext.RichText
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="142dp"
+                    android:layout_height="42dp"
+                    android:layout_marginRight="17dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center"
+                    android:text="Hủy chọn"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    app:rt_backgroundColor="#B9B9B9"
+                    app:rt_radius="21dp" />
+
+                <com.ornach.richtext.RichText
+                    android:id="@+id/btn_apply"
+                    android:layout_width="142dp"
+                    android:layout_height="42dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center"
+                    android:text="Áp dụng"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    app:rt_backgroundColor="#00918D"
+                    app:rt_radius="21dp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

@@ -6,12 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.baseapp.menu.SlideMenu;
 import com.baseapp.utils.KeyboardUtils;
+import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
@@ -83,6 +85,7 @@ public class RegisterFragment extends MainFragment implements Observer {
                     AccountResponse accountResponse = (AccountResponse) o;
                     if (accountResponse.isSuccess()) {
                         MyApplication.getInstance().setAccount(accountResponse.getData());
+                        Log.e("Debuggg"+"RegisterFrm", new Gson().toJson(accountResponse.getData()));
                         Bundle bundle = new Bundle();
                         bundle.putInt(Constants.IntentKey.KEY_TYPE, Constants.TypeScreen.OTP_REGISTER);
                         bundle.putString(OtpFragment.KEY_MOBILE, mobile);

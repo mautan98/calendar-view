@@ -13,6 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <View
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"/>
 
         <RelativeLayout
             android:background="@color/colorPrimary"
@@ -63,12 +67,61 @@
 
         </RelativeLayout>
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:id="@+id/rclContent"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:id="@+id/rclContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <RelativeLayout
+                android:id="@+id/rll_no_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#F6F6F6"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/img_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="70dp"
+                    android:src="@drawable/img_empty" />
+
+                <TextView
+                    android:textColor="#454545"
+                    android:id="@+id/tv_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/img_empty"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="35dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Trang bạn tìm không có dữ liệu"
+                    android:textSize="16dp" />
+
+                <com.ornach.richtext.RichText
+                    android:id="@+id/btn_reload"
+                    android:layout_width="129dp"
+                    android:layout_height="42dp"
+                    android:layout_below="@+id/tv_empty"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="25dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center"
+                    android:text="Tải lại"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    app:rt_backgroundColor="#00918D"
+                    app:rt_radius="4dp" />
+
+
+            </RelativeLayout>
+        </RelativeLayout>
+
     </LinearLayout>
 
 </layout>

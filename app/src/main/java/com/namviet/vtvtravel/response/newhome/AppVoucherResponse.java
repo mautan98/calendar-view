@@ -1,5 +1,7 @@
 package com.namviet.vtvtravel.response.newhome;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.namviet.vtvtravel.response.BaseResponse;
 import com.namviet.vtvtravel.response.f2callnow.CallNowHistoryResponse;
 
@@ -28,6 +30,17 @@ public class AppVoucherResponse extends BaseResponse {
         private Long startAt;
         private Long endAt;
         private String content;
+        @Expose
+        @SerializedName("expireDate")
+        private Long expireDate;
+
+        public Long getExpireDate() {
+            return expireDate;
+        }
+
+        public void setExpireDate(Long expireDate) {
+            this.expireDate = expireDate;
+        }
 
         public int getId() {
             return id;

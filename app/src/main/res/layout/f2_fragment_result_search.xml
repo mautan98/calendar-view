@@ -1,86 +1,573 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data></data>
 
-    <LinearLayout
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:id="@+id/btnBack"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#00918D"
+            android:layout_height="match_parent"
+            android:background="@color/white"
             android:orientation="vertical">
 
+
             <LinearLayout
-                android:id="@+id/imgBack"
-                android:layout_width="34dp"
-                android:layout_height="50dp">
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white">
+
 
                 <ImageView
-                    android:layout_width="10dp"
-                    android:layout_height="20dp"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="11dp"
-                    android:src="@drawable/f2_ic_back"
-                    android:tint="@color/white" />
+                    android:id="@+id/btnBack"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:padding="15dp"
+                    android:src="@drawable/f2_ic_back" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="18dp"
+                    android:layout_marginBottom="7dp"
+                    android:layout_weight="1">
+
+                    <com.ornach.richtext.RichView
+                        android:id="@+id/layoutSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:rt_backgroundColor="#f6f6f6"
+                        app:rt_radius="19dp" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical">
+
+
+                        <TextView
+                            android:id="@+id/edtSearch"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginEnd="19dp"
+                            android:background="#f6f6f6"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center_vertical"
+                            android:imeActionLabel="Tìm kiếm"
+                            android:imeOptions="actionSearch"
+                            android:singleLine="true"
+                            android:textSize="14dp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical">
+
+
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="6dp"
+                        android:src="@drawable/ic_filter" />
+
+                    <TextView
+                        android:id="@+id/tvFilter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginEnd="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Lọc"
+                        android:textColor="@color/black"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center"
-                android:fontFamily="@font/roboto_medium"
-                android:text="kết quả Tìm kiếm"
-                android:textAllCaps="true"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp" />
-        </RelativeLayout>
-
-
-        <com.google.android.material.tabs.TabLayout
-            app:tabIndicatorHeight="0dp"
-            app:tabIndicatorColor="@color/colorPrimary"
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="50dp" />
-
-        <View
-            android:background="#ECECEC"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"/>
-        
-        
-        <LinearLayout
-            android:visibility="gone"
-            android:layout_marginStart="12dp"
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-
-            <TextView
-                android:id="@+id/tvCountResult"
-                android:text="Kết quả..."
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="50dp"
+                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabIndicatorHeight="0dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#ECECEC" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rclSort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/f3_item_sort_in_search" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rclCategorySorted"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        android:paddingStart="12dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/f2_item_category_sorted" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="12dp"
+                        android:gravity="center_vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/tvCountResult"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Kết quả..." />
+
+
+                    </LinearLayout>
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/vpContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/layoutExpand"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <View
+                        android:id="@+id/viewCover"
+                        android:visibility="gone"
+                        android:alpha="0.3"
+                        android:background="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                    <com.ornach.richtext.RichView
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-11dp"
+                        app:rt_backgroundColor="@color/white"
+                        app:rt_radius="11dp" >
+
+
+                        <View
+                            android:layout_marginTop="20dp"
+                            android:background="#ECECEC"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"/>
+
+
+
+                        <FrameLayout
+                            android:id="@+id/sortFrame"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+<!--                        <LinearLayout-->
+<!--                            android:id="@+id/layoutSort"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content">-->
+
+
+<!--                            <androidx.recyclerview.widget.RecyclerView-->
+<!--                                android:paddingEnd="14dp"-->
+<!--                                android:paddingStart="14dp"-->
+<!--                                tools:listitem="@layout/f3_item_search_sort_param"-->
+<!--                                android:layout_marginBottom="22dp"-->
+<!--                                android:layout_marginTop="15dp"-->
+<!--                                android:orientation="vertical"-->
+<!--                                app:spanCount="2"-->
+<!--                                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
+<!--                                android:id="@+id/rclSortParam"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"/>-->
+
+<!--                        </LinearLayout>-->
+
+
+
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentBottom="true"-->
+<!--                            android:layout_marginBottom="24dp">-->
+
+<!--                            <com.ornach.richtext.RichText-->
+<!--                                android:layout_width="0dp"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="14dp"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:fontFamily="@font/roboto_regular"-->
+<!--                                android:gravity="center"-->
+<!--                                android:paddingStart="18dp"-->
+<!--                                android:paddingTop="8dp"-->
+<!--                                android:paddingEnd="18dp"-->
+<!--                                android:paddingBottom="8dp"-->
+<!--                                android:text="Xóa bộ lọc"-->
+<!--                                android:textAllCaps="true"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="14dp"-->
+<!--                                app:rt_backgroundColor="#EEEEEE"-->
+<!--                                app:rt_radius="21dp" />-->
+
+
+<!--                            <com.ornach.richtext.RichText-->
+<!--                                android:layout_width="0dp"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="16dp"-->
+<!--                                android:layout_marginEnd="14dp"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:fontFamily="@font/roboto_regular"-->
+<!--                                android:gravity="center"-->
+<!--                                android:paddingStart="18dp"-->
+<!--                                android:paddingTop="8dp"-->
+<!--                                android:paddingEnd="18dp"-->
+<!--                                android:paddingBottom="8dp"-->
+<!--                                android:text="Áp dụng"-->
+<!--                                android:textAllCaps="true"-->
+<!--                                android:textColor="@color/white"-->
+<!--                                app:rt_backgroundColor="@color/colorPrimary"-->
+<!--                                app:rt_radius="21dp" />-->
+
+<!--                        </LinearLayout>-->
+
+
+
+                    </com.ornach.richtext.RichView>
+
+
+
+                </RelativeLayout>
+
+            </RelativeLayout>
 
 
         </LinearLayout>
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/vpContent"
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/layoutFilter"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:background="@color/white">
 
 
-    </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <RelativeLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content">-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/btnCloseFilter"-->
+<!--                            android:layout_width="54dp"-->
+<!--                            android:layout_height="54dp"-->
+<!--                            android:padding="20dp"-->
+<!--                            android:src="@drawable/f2_ic_close"-->
+<!--                            app:tint="@color/black" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_centerInParent="true"-->
+<!--                            android:fontFamily="@font/roboto_medium"-->
+<!--                            android:text="Lọc"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="14dp" />-->
+
+<!--                    </RelativeLayout>-->
+
+
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="11dp"-->
+<!--                        android:background="#F3F3F3"-->
+<!--                        android:fontFamily="@font/roboto_medium"-->
+<!--                        android:paddingStart="16dp"-->
+<!--                        android:paddingTop="3dp"-->
+<!--                        android:paddingBottom="3dp"-->
+<!--                        android:text="Địa điểm"-->
+<!--                        android:textColor="@color/black" />-->
+
+
+<!--                    <com.ornach.richtext.RichView-->
+<!--                        android:id="@+id/btnChooseCity"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="14dp"-->
+<!--                        android:layout_marginTop="14dp"-->
+<!--                        android:layout_marginEnd="14dp"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:paddingStart="16dp"-->
+<!--                        android:paddingTop="9dp"-->
+<!--                        android:paddingEnd="18dp"-->
+<!--                        android:paddingBottom="11dp"-->
+<!--                        app:rt_backgroundColor="#F6F6F6"-->
+<!--                        app:rt_borderColor="#DFDFDF"-->
+<!--                        app:rt_borderWidth="0.5dp"-->
+<!--                        app:rt_radius="100dp">-->
+
+
+<!--                        <TextView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:fontFamily="@font/roboto_regular"-->
+<!--                            android:text="-&#45;&#45; Chọn tỉnh/thành phố -&#45;&#45;"-->
+<!--                            android:textColor="@color/black" />-->
+
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="10dp"-->
+<!--                            android:layout_height="6dp"-->
+<!--                            android:src="@drawable/f2_ic_arrow_down"-->
+<!--                            app:tint="@color/black" />-->
+
+
+<!--                    </com.ornach.richtext.RichView>-->
+
+<!--                    <com.ornach.richtext.RichView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="14dp"-->
+<!--                        android:layout_marginTop="26dp"-->
+<!--                        android:layout_marginEnd="14dp"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:paddingStart="16dp"-->
+<!--                        android:paddingTop="9dp"-->
+<!--                        android:paddingEnd="18dp"-->
+<!--                        android:paddingBottom="11dp"-->
+<!--                        app:rt_backgroundColor="#F6F6F6"-->
+<!--                        app:rt_borderColor="#DFDFDF"-->
+<!--                        app:rt_borderWidth="0.5dp"-->
+<!--                        app:rt_radius="100dp">-->
+
+
+<!--                        <TextView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:fontFamily="@font/roboto_regular"-->
+<!--                            android:text="-&#45;&#45; Chọn quận/huyện -&#45;&#45;"-->
+<!--                            android:textColor="#C1C1C1" />-->
+
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="10dp"-->
+<!--                            android:layout_height="6dp"-->
+<!--                            android:src="@drawable/f2_ic_arrow_down"-->
+<!--                            app:tint="@color/black" />-->
+
+
+<!--                    </com.ornach.richtext.RichView>-->
+
+
+<!--                    <com.ornach.richtext.RichView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="14dp"-->
+<!--                        android:layout_marginTop="26dp"-->
+<!--                        android:layout_marginEnd="14dp"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:paddingStart="16dp"-->
+<!--                        android:paddingTop="9dp"-->
+<!--                        android:paddingEnd="18dp"-->
+<!--                        android:paddingBottom="11dp"-->
+<!--                        app:rt_backgroundColor="#F6F6F6"-->
+<!--                        app:rt_borderColor="#DFDFDF"-->
+<!--                        app:rt_borderWidth="0.5dp"-->
+<!--                        app:rt_radius="100dp">-->
+
+
+<!--                        <TextView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:fontFamily="@font/roboto_regular"-->
+<!--                            android:text="-&#45;&#45; Chọn xã/phường -&#45;&#45;"-->
+<!--                            android:textColor="#C1C1C1" />-->
+
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="10dp"-->
+<!--                            android:layout_height="6dp"-->
+<!--                            android:src="@drawable/f2_ic_arrow_down"-->
+<!--                            app:tint="@color/black" />-->
+
+
+<!--                    </com.ornach.richtext.RichView>-->
+
+
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="40dp"-->
+<!--                        android:background="#F3F3F3"-->
+<!--                        android:fontFamily="@font/roboto_medium"-->
+<!--                        android:paddingStart="16dp"-->
+<!--                        android:paddingTop="3dp"-->
+<!--                        android:paddingBottom="3dp"-->
+<!--                        android:text="Danh mục"-->
+<!--                        android:textColor="@color/black" />-->
+
+
+<!--                    <androidx.recyclerview.widget.RecyclerView-->
+<!--                        android:id="@+id/rclCategory"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center_horizontal"-->
+<!--                        android:layout_marginTop="16dp"-->
+<!--                        android:layout_marginBottom="40dp"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--                        tools:itemCount="4"-->
+<!--                        tools:listitem="@layout/f3_item_search_category" />-->
+
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:fontFamily="@font/roboto_medium"-->
+<!--                            android:paddingStart="14dp"-->
+<!--                            android:text="Trạng thái mở cửa"-->
+<!--                            android:textColor="#4B4B4B" />-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content">-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:fontFamily="@font/roboto_medium"-->
+<!--                                android:text="Mở cửa"-->
+<!--                                android:textColor="#00918D"-->
+<!--                                android:textSize="12dp" />-->
+
+<!--                            <androidx.appcompat.widget.SwitchCompat-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="11dp"-->
+<!--                                android:layout_marginEnd="18dp" />-->
+<!--                        </LinearLayout>-->
+
+<!--                    </LinearLayout>-->
+
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignParentBottom="true"-->
+<!--                    android:layout_marginBottom="24dp">-->
+
+<!--                    <com.ornach.richtext.RichText-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="14dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:fontFamily="@font/roboto_regular"-->
+<!--                        android:gravity="center"-->
+<!--                        android:paddingStart="18dp"-->
+<!--                        android:paddingTop="8dp"-->
+<!--                        android:paddingEnd="18dp"-->
+<!--                        android:paddingBottom="8dp"-->
+<!--                        android:text="Xóa bộ lọc"-->
+<!--                        android:textAllCaps="true"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="14dp"-->
+<!--                        app:rt_backgroundColor="#EEEEEE"-->
+<!--                        app:rt_radius="21dp" />-->
+
+
+<!--                    <com.ornach.richtext.RichText-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="16dp"-->
+<!--                        android:layout_marginEnd="14dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:fontFamily="@font/roboto_regular"-->
+<!--                        android:gravity="center"-->
+<!--                        android:paddingStart="18dp"-->
+<!--                        android:paddingTop="8dp"-->
+<!--                        android:paddingEnd="18dp"-->
+<!--                        android:paddingBottom="8dp"-->
+<!--                        android:text="Áp dụng"-->
+<!--                        android:textAllCaps="true"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        app:rt_backgroundColor="@color/colorPrimary"-->
+<!--                        app:rt_radius="21dp" />-->
+
+<!--                </LinearLayout>-->
+
+
+                <FrameLayout
+                    android:id="@+id/chooseRegionFrame"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+
+        </com.google.android.material.navigation.NavigationView>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

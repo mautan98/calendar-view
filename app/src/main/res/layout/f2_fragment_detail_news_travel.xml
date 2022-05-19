@@ -19,70 +19,83 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center_vertical">
+            android:layout_height="76dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/btnBack"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="11dp"
-                    android:layout_height="19dp"
-                    android:src="@drawable/video_top_back"
-                    android:tint="#707070" />
-
-
-            </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="26dp"
+                android:background="@color/colorPrimary" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="18dp"
-                android:gravity="end|center_vertical">
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/btnBack"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="11dp"
+                        android:layout_height="19dp"
+                        android:src="@drawable/video_top_back"
+                        android:tint="#707070" />
 
 
-                <RelativeLayout
-                    android:layout_width="45dp"
-                    android:layout_height="wrap_content">
+                </LinearLayout>
 
-                    <com.like.LikeButton
-                        android:id="@+id/imgHeart"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="18dp"
+                    android:gravity="end|center_vertical">
+
+
+                    <RelativeLayout
                         android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_gravity="center"
-                        app:anim_scale_factor="4.5"
-                        app:icon_size="15dp"
-                        app:like_drawable="@drawable/f2_ic_red_heart"
-                        app:unlike_drawable="@drawable/f2_ic_gray_heart" />
+                        android:layout_height="wrap_content">
+
+                        <com.like.LikeButton
+                            android:id="@+id/imgHeart"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center"
+                            app:anim_scale_factor="4.5"
+                            app:icon_size="15dp"
+                            app:like_drawable="@drawable/f2_ic_red_heart"
+                            app:unlike_drawable="@drawable/f2_ic_gray_heart" />
 
 
-                    <TextView
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true"
-                        android:id="@+id/tvLikeCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="0"
-                        android:visibility="visible" />
+                        <TextView
+                            android:id="@+id/tvLikeCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="4dp"
+                            android:text="0"
+                            android:visibility="visible" />
 
-                </RelativeLayout>
+                    </RelativeLayout>
 
 
-                <ImageView
-                    android:id="@+id/btnShareLink"
-                    android:layout_width="30dp"
-                    android:layout_height="28dp"
+                    <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/btnShareLink"
+                        android:layout_width="30dp"
+                        android:layout_height="28dp"
 
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="12dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="12dp"
 
-                    android:padding="5dp"
-                    android:src="@drawable/f2_ic_share_new" />
+                        android:padding="5dp"
+                        android:src="@drawable/f2_ic_share_new" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -221,12 +234,12 @@
 
 
                         <TextView
-                            android:justificationMode="inter_word"
                             android:id="@+id/tvSapo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
                             android:fontFamily="@font/roboto_medium"
+                            android:justificationMode="inter_word"
                             android:lineSpacingExtra="3dp"
                             android:textColor="#585858"
                             android:textSize="16dp" />
@@ -243,27 +256,30 @@
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
-
                     </LinearLayout>
 
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <FrameLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
+
                             <WebView
-                                android:visibility="invisible"
                                 android:id="@+id/webViewContentCache"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:visibility="invisible" />
+
                             <WebView
-                                android:nestedScrollingEnabled="true"
                                 android:id="@+id/webViewContent"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:nestedScrollingEnabled="true" />
                         </FrameLayout>
+
                         <RelativeLayout
                             android:id="@+id/shimmer_view_container"
                             android:layout_width="match_parent"
@@ -476,66 +492,66 @@
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                         <LinearLayout
-                            android:orientation="vertical"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
                             <LinearLayout
-                                android:paddingBottom="15dp"
-                                android:paddingTop="15dp"
-                                android:gravity="center_vertical"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:paddingTop="15dp"
+                                android:paddingBottom="15dp">
 
                                 <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:layout_marginStart="12dp"
                                     android:layout_weight="1"
                                     android:fontFamily="@font/roboto_bold"
-                                    android:textSize="18dp"
-                                    android:textColor="#000000"
                                     android:text="Các tin liên quan"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
+                                    android:textColor="#000000"
+                                    android:textSize="18dp" />
 
 
                                 <TextView
-                                    android:foreground="@drawable/ripple_effect_click"
-                                    android:layout_marginEnd="12dp"
                                     android:id="@+id/btnSeeMore"
-                                    android:fontFamily="@font/roboto_regular"
-                                    android:text="Xem thêm"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="12dp"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:foreground="@drawable/ripple_effect_click"
+                                    android:text="Xem thêm" />
 
                             </LinearLayout>
 
 
                             <androidx.recyclerview.widget.RecyclerView
-                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                                 android:id="@+id/rclRelation"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
                             <View
-                                android:layout_marginTop="30dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="10dp"
+                                android:layout_marginTop="30dp"
                                 android:background="#E8E8E8" />
 
                         </LinearLayout>
 
 
                         <LinearLayout
-                            android:orientation="vertical"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
                             <com.google.android.material.tabs.TabLayout
-                                app:tabIndicatorHeight="0dp"
                                 android:id="@+id/tabLayout"
                                 android:layout_width="match_parent"
-                                android:layout_height="57dp"/>
+                                android:layout_height="57dp"
+                                app:tabIndicatorHeight="0dp" />
 
                             <View
                                 android:layout_width="match_parent"
@@ -543,40 +559,39 @@
                                 android:background="#E8E8E8" />
 
 
-
                             <androidx.recyclerview.widget.RecyclerView
-                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                                android:visibility="visible"
                                 android:id="@+id/rclRelationPlace"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:visibility="visible"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                             <androidx.recyclerview.widget.RecyclerView
-                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                                android:visibility="gone"
                                 android:id="@+id/rclNearByPlace"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                             <com.namviet.vtvtravel.widget.WrapContentHeightViewPager
                                 android:id="@+id/vpDestination"
-                                android:visibility="gone"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:visibility="gone" />
 
 
                             <LinearLayout
-                                android:layout_marginBottom="20dp"
-                                android:visibility="gone"
                                 android:id="@+id/btnReadMore"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="12dp"
                                 android:layout_marginTop="20dp"
                                 android:layout_marginEnd="12dp"
+                                android:layout_marginBottom="20dp"
                                 android:background="@drawable/f2_bg_round_see_more_transparent"
                                 android:paddingTop="10dp"
-                                android:paddingBottom="11dp">
+                                android:paddingBottom="11dp"
+                                android:visibility="gone">
 
 
                                 <LinearLayout
@@ -596,13 +611,13 @@
                                 </LinearLayout>
 
                                 <TextView
-                                    android:textColor="#00918D"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:gravity="center"
                                     android:text="Xem nhiều hơn"
-                                    android:textAllCaps="true" />
+                                    android:textAllCaps="true"
+                                    android:textColor="#00918D" />
 
 
                                 <LinearLayout
@@ -633,10 +648,10 @@
 
 
             <RelativeLayout
-                android:visibility="visible"
                 android:id="@+id/shimmerMain"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:visibility="visible">
 
                 <View
                     android:layout_width="match_parent"

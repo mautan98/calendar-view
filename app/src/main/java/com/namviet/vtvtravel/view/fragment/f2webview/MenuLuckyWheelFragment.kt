@@ -1,14 +1,17 @@
 package com.namviet.vtvtravel.view.fragment.f2webview
 
-import android.view.View
+import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.app.MyApplication
 import com.namviet.vtvtravel.databinding.F2FragmentMenuLuckyWheel2Binding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
-import com.namviet.vtvtravel.view.f2.HistoryLuckyWheelActivity
+import com.namviet.vtvtravel.model.f2event.OnUpdateAccount
+import com.namviet.vtvtravel.view.f2.UserInformationActivity
 import kotlinx.android.synthetic.main.f2_fragment_menu_lucky_wheel_2.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 class MenuLuckyWheelFragment : BaseFragment<F2FragmentMenuLuckyWheel2Binding?>() {
     override fun getLayoutRes(): Int {
@@ -58,8 +61,27 @@ class MenuLuckyWheelFragment : BaseFragment<F2FragmentMenuLuckyWheel2Binding?>()
             addFragment(LuckyWheelHistoriesFragment())
         }
 
+        layoutUser.setOnClickListener {
+            UserInformationActivity.openScreen(mActivity)
+        }
+
 
 
     }
     override fun setObserver() {}
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe
+    fun onUpdateAccount(onUpdateAccount: OnUpdateAccount?) {
+        initData()
+    }
 }

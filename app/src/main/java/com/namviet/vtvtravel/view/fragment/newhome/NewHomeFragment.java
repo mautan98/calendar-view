@@ -72,6 +72,7 @@ import com.namviet.vtvtravel.view.f2.SystemInboxActivity;
 
 import com.namviet.vtvtravel.view.f2.UserInformationActivity;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
+import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
 import com.namviet.vtvtravel.view.fragment.f2webview.HomeSpeedyLinearLayoutManager;
 import com.namviet.vtvtravel.viewmodel.newhome.ChangeRegionDialog;
 import com.namviet.vtvtravel.viewmodel.newhome.NewHomeViewModel;
@@ -85,7 +86,7 @@ import java.util.Observer;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
-public class NewHomeFragment extends MainFragment implements Observer, NewHomeAdapter.LoadData, NewHomeAdapter.ClickUserView, NewHomeAdapter.ClickItemSmallLocation, NewHomeAdapter.ClickSearch {
+public class NewHomeFragment extends MainFragment implements Observer, NewHomeAdapter.LoadData, NewHomeAdapter.ClickUserView, NewHomeAdapter.ClickButtonRegisterNow, NewHomeAdapter.ClickItemSmallLocation, NewHomeAdapter.ClickSearch {
     private F2FragmentHomeBinding binding;
     private NewHomeAdapter newHomeAdapter;
     private float heightTopbar = -400;
@@ -107,6 +108,8 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 
     };
     private boolean isLoadFail = false;
+
+
 
     public interface IOnClickTabReloadData {
         void onTabClick(String code);
@@ -276,6 +279,13 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                     mContext.unregisterReceiver(receiver);
                 }
             }
+            try {
+                if (newHomeAdapter != null && newHomeAdapter.getTimer() != null) {
+                    newHomeAdapter.getTimer().cancel();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -302,67 +312,80 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 
     @Subscribe
     public void onReloadUserView(OnLoginSuccessAndUpdateUserView onLoginSuccessAndUpdateUserView) {
-        Account account = MyApplication.getInstance().getAccount();
-        if (null != account && account.isLogin()) {
-//            animate(binding.rootView).setDuration(200).translationY(heightTopbar);
+        try {
+            Account account = MyApplication.getInstance().getAccount();
+            if (null != account && account.isLogin()) {
+    //            animate(binding.rootView).setDuration(200).translationY(heightTopbar);
 
-            String s = account.getFullname() != null ? account.getFullname() : "Bạn";
+                String s = account.getFullname() != null ? account.getFullname() : "Bạn";
 
-//            homeServiceResponse.getData().get(0).setUsername("Xin chào, " + s);
-//            homeServiceResponse.getData().get(0).setDescriptionUser("Đăng kí hội viên ngay");
-//            homeServiceResponse.getData().get(0).setAvatar(account.getImageProfile());
+    //            homeServiceResponse.getData().get(0).setUsername("Xin chào, " + s);
+    //            homeServiceResponse.getData().get(0).setDescriptionUser("Đăng kí hội viên ngay");
+    //            homeServiceResponse.getData().get(0).setAvatar(account.getImageProfile());
 
-            binding.tvName.setText("Chào, " + s);
-            binding.tvLoginRightNow.setText("Đăng kí hội viên ngay");
-            binding.tvLoginRightNow.setVisibility(View.GONE);
-            try {
-                String cut = account.getMobile().substring(7, 11);
-                String mobile = account.getMobile().replace(cut, "xxxxx");
-                binding.tvLoginRightNow.setText(mobile);
-                binding.tvLoginRightNow.setVisibility(View.VISIBLE);
-            } catch (Exception e) {
-                e.printStackTrace();
+                binding.tvName.setText("Chào, " + s);
+                binding.tvLoginRightNow.setText("Đăng kí hội viên ngay");
+                binding.tvLoginRightNow.setVisibility(View.GONE);
                 try {
-                    binding.tvLoginRightNow.setVisibility(View.GONE);
-                } catch (Exception exception) {
-                    exception.printStackTrace();
+                    String cut = account.getMobile().substring(7, 11);
+                    String mobile = account.getMobile().replace(cut, "xxxxx");
+                    binding.tvLoginRightNow.setText(mobile);
+                    binding.tvLoginRightNow.setVisibility(View.VISIBLE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    try {
+                        binding.tvLoginRightNow.setVisibility(View.GONE);
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                    }
                 }
+                binding.tvLevel.setVisibility(View.VISIBLE);
+                if (!"".equals(account.getImageProfile()) && account.getImageProfile() != null) {
+                    Glide.with(mActivity).load(account.getImageProfile()).error(R.drawable.f2_defaut_user).into(binding.imgAvatar);
+                }
+
+    //            newHomeAdapter.notifyItemChanged(0);
+
+
+                if(account.getPackageCode() == null){
+                    homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <b>Hội viên</b> của <b>#VTVTravel</b>");
+                    homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
+                    newHomeAdapter.notifyItemChanged(1);
+                    newHomeAdapter.notifyItemChanged(2);
+
+                }else {
+                    homeServiceResponse.getData().get(1).setTipUser("Bạn đang là <b>Hội viên</b> của <b>#VTVTravel</b>, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:");
+                    homeServiceResponse.getData().get(1).setShowBtnRegisterNow(false);
+                    newHomeAdapter.notifyItemChanged(1);
+                    newHomeAdapter.notifyItemChanged(2);
+                }
+
+
+            } else {
+                phoneNumberDetectedFrom3G = null;
+    //            homeServiceResponse.getData().get(0).setUsername("Xin chào!");
+    //            homeServiceResponse.getData().get(0).setDescriptionUser("Đăng nhập ngay");
+    //            homeServiceResponse.getData().get(0).setAvatar("0");
+
+                binding.tvName.setText("Xin chào!");
+                binding.tvLoginRightNow.setText("Đăng nhập ngay");
+                binding.tvLoginRightNow.setVisibility(View.VISIBLE);
+                binding.tvLevel.setVisibility(View.GONE);
+    //            Glide.with(mActivity).load("0").into(binding.imgAvatar);
+                binding.imgAvatar.setImageResource(R.drawable.f2_defaut_user);
+
+    //            newHomeAdapter.notifyItemChanged(0);
+
+
+                homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <b>Hội viên</b> của <b>#VTVTravel</b>");
+                homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
+                newHomeAdapter.notifyItemChanged(1);
+
+
+
             }
-            binding.tvLevel.setVisibility(View.VISIBLE);
-            if (!"".equals(account.getImageProfile()) && account.getImageProfile() != null) {
-                Glide.with(mActivity).load(account.getImageProfile()).error(R.drawable.f2_defaut_user).into(binding.imgAvatar);
-            }
-
-//            newHomeAdapter.notifyItemChanged(0);
-
-
-            homeServiceResponse.getData().get(1).setTipUser("Bạn đang là Hội viên của #VTVTravel, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:");
-            homeServiceResponse.getData().get(1).setShowBtnRegisterNow(false);
-            newHomeAdapter.notifyItemChanged(1);
-            newHomeAdapter.notifyItemChanged(2);
-
-        } else {
-            phoneNumberDetectedFrom3G = null;
-//            homeServiceResponse.getData().get(0).setUsername("Xin chào!");
-//            homeServiceResponse.getData().get(0).setDescriptionUser("Đăng nhập ngay");
-//            homeServiceResponse.getData().get(0).setAvatar("0");
-
-            binding.tvName.setText("Xin chào!");
-            binding.tvLoginRightNow.setText("Đăng nhập ngay");
-            binding.tvLoginRightNow.setVisibility(View.VISIBLE);
-            binding.tvLevel.setVisibility(View.GONE);
-//            Glide.with(mActivity).load("0").into(binding.imgAvatar);
-            binding.imgAvatar.setImageResource(R.drawable.f2_defaut_user);
-
-//            newHomeAdapter.notifyItemChanged(0);
-
-
-            homeServiceResponse.getData().get(1).setTipUser("Hãy đăng ký Hội viên của #VTVTravel để được nhận ưu đãi tốt nhất");
-            homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
-            newHomeAdapter.notifyItemChanged(1);
-
-
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -381,8 +404,9 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                LinearLayoutManager layoutManager = ((LinearLayoutManager) binding.rclHome.getLayoutManager());
-                int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
+                try {
+                    LinearLayoutManager layoutManager = ((LinearLayoutManager) binding.rclHome.getLayoutManager());
+                    int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
 
 //                int last = layoutManager.findLastCompletelyVisibleItemPosition();
 //                try {
@@ -394,47 +418,50 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 //                    e.printStackTrace();
 //                }
 
-                mTotalScrolled += dy;
+                    mTotalScrolled += dy;
 
-                Log.e("dy", mTotalScrolled + "");
+                    Log.e("dy", mTotalScrolled + "");
 
-                if (mTotalScrolled <= 0) {
-                    binding.layoutToolbar.setVisibility(View.GONE);
-                    binding.ivSearch.setVisibility(View.GONE);
-                    binding.viewColor.setAlpha(0);
-                } else {
-                    if (firstVisiblePosition == 0) {
-                        float alpha = (((float) mTotalScrolled / 100) / 10) * 2;
-                        Log.e("dy", alpha + "");
-                        binding.viewColor.setAlpha(alpha);
-                        if (binding.layoutToolbar.getVisibility() == View.VISIBLE) {
-                            outAlpha();
-                        }
-
+                    if (mTotalScrolled <= 0) {
+                        binding.layoutToolbar.setVisibility(View.GONE);
                         binding.ivSearch.setVisibility(View.GONE);
-                    }
+                        binding.viewColor.setAlpha(0);
+                    } else {
+                        if (firstVisiblePosition == 0) {
+                            float alpha = (((float) mTotalScrolled / 100) / 10) * 2;
+                            Log.e("dy", alpha + "");
+                            binding.viewColor.setAlpha(alpha);
+                            if (binding.layoutToolbar.getVisibility() == View.VISIBLE) {
+                                outAlpha();
+                            }
+
+                            binding.ivSearch.setVisibility(View.GONE);
+                        }
 
 
-                    if (firstVisiblePosition > 0) {
-                        if(binding.ivSearch.getVisibility() == View.GONE) {
-                            binding.viewColor.setAlpha(1.0f);
-                            inAlpha();
-                            binding.ivSearch.setVisibility(View.VISIBLE);
+                        if (firstVisiblePosition > 0) {
+                            if(binding.ivSearch.getVisibility() == View.GONE) {
+                                binding.viewColor.setAlpha(1.0f);
+                                inAlpha();
+                                binding.ivSearch.setVisibility(View.VISIBLE);
+                            }
                         }
                     }
-                }
 
-                try {
-                    if (pauseVideo != null) {
-                        pauseVideo.pauseVideoListener();
+                    try {
+                        if (pauseVideo != null) {
+                            pauseVideo.pauseVideoListener();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                try {
-                    if (isScroll) {
-                        isScroll = false;
-                        TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_SCROLL, TrackingAnalytic.getDefault("Home", "Home").setScreen_class(this.getClass().getName()));
+                    try {
+                        if (isScroll) {
+                            isScroll = false;
+                            TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_SCROLL, TrackingAnalytic.getDefault("Home", "Home").setScreen_class(this.getClass().getName()));
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -452,7 +479,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
         try {
             String json = PreferenceUtil.getInstance(mActivity).getValue(Constants.PrefKey.HOME_DATA, new Gson().toJson(homeServiceResponse));
             homeServiceResponse = new Gson().fromJson(json, HomeServiceResponse.class);
-            newHomeAdapter = new NewHomeAdapter(mActivity, homeServiceResponse, this, this, this, this, this, newHomeViewModel);
+            newHomeAdapter = new NewHomeAdapter(mActivity, homeServiceResponse, this, this, this,this, this, this, newHomeViewModel);
             binding.rclHome.setAdapter(newHomeAdapter);
         } catch (Exception e) {
             e.printStackTrace();
@@ -480,7 +507,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                         e.printStackTrace();
                     }
 
-                    newHomeAdapter = new NewHomeAdapter(mActivity, homeServiceResponse, this, this, this, this, this, newHomeViewModel);
+                    newHomeAdapter = new NewHomeAdapter(mActivity, homeServiceResponse, this, this, this,this, this, this, newHomeViewModel);
                     binding.rclHome.setAdapter(newHomeAdapter);
 
                     subSmallHeaderAdapter = new SubSmallHeaderAdapter(homeServiceResponse.getData().get(0).getMenus(), mActivity);
@@ -727,18 +754,28 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
     public void onClickUserView() {
         Account account = MyApplication.getInstance().getAccount();
         if (null != account && account.isLogin()) {
-//            mActivity.switchFragment(SlideMenu.MenuType.MAIN_CALL_NOW_SCREEN);
-//            binding.layoutMenuFloat.setVisibility(View.GONE);
             UserInformationActivity.openScreen(mActivity);
         } else {
             if (phoneNumberDetectedFrom3G != null && !phoneNumberDetectedFrom3G.isEmpty()) {
-//                mActivity.switchFragment(SlideMenu.MenuType.REGISTER_SCREEN);
-                LoginAndRegisterActivityNew.startScreen(mActivity, 1, false);
-            } else {
-//                Bundle bundle = new Bundle();
-//                mActivity.setBundle(bundle);
-//                mActivity.switchFragment(SlideMenu.MenuType.LOGIN_SCREEN);
                 LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+            } else {
+                LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+            }
+        }
+    }
+
+    @Override
+    public void onClickButtonRegisterNow() {
+        Account account = MyApplication.getInstance().getAccount();
+        if (null != account && account.isLogin()) {
+            if(account.getPackageCode() == null){
+                ServiceActivity.startScreen(mActivity);
+            }
+        } else {
+            if (phoneNumberDetectedFrom3G != null && !phoneNumberDetectedFrom3G.isEmpty()) {
+                LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+            } else {
+                LoginAndRegisterActivityNew.startScreen(mActivity, 1, false);
             }
         }
     }
@@ -752,8 +789,15 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 //                homeServiceResponse.getData().get(0).setDescriptionUser("Đăng kí hội viên ngay");
 //                homeServiceResponse.getData().get(0).setAvatar(account.getImageProfile());
 
-                homeServiceResponse.getData().get(1).setTipUser("Bạn đang là Hội viên của #VTVTravel, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:");
-                homeServiceResponse.getData().get(1).setShowBtnRegisterNow(false);
+
+                if(account.getPackageCode() == null){
+                    homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <b>Hội viên</b> của <b>#VTVTravel</b>");
+                    homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
+                }else {
+                    homeServiceResponse.getData().get(1).setTipUser("Bạn đang là <b>Hội viên</b> của <b>#VTVTravel</b>, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:");
+                    homeServiceResponse.getData().get(1).setShowBtnRegisterNow(false);
+                }
+
 
                 binding.tvName.setText("Chào, " + s);
                 binding.tvLoginRightNow.setText("Đăng kí hội viên ngay");
@@ -790,7 +834,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 //                    homeServiceResponse.getData().get(0).setDescriptionUser("Đăng nhập ngay");
                 }
 
-                homeServiceResponse.getData().get(1).setTipUser("Hãy đăng ký Hội viên của #VTVTravel để được nhận ưu đãi tốt nhất");
+                homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <b>Hội viên</b> của <b>#VTVTravel</b>");
                 homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
             }
 
@@ -816,7 +860,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 
     @Override
     public void onClickItemSmallLocation(ItemHomeService.Item item) {
-        SmallLocationActivity.startScreen(mActivity, item.getLink(), item.getCode(), SmallLocationActivity.OpenType.LIST);
+//        SmallLocationActivity.startScreen(mActivity, item.getLink(), item.getCode(), SmallLocationActivity.OpenType.LIST);
     }
 
     private void inAlpha() {
@@ -851,6 +895,13 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
         super.onPause();
         if (pauseVideo != null) {
             pauseVideo.pauseVideoListener();
+        }
+        try {
+            if (newHomeAdapter != null && newHomeAdapter.getTimer() != null) {
+                newHomeAdapter.getTimer().cancel();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

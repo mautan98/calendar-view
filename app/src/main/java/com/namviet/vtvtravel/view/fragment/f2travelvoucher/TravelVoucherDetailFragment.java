@@ -13,14 +13,12 @@ import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.response.BaseResponse;
 import com.namviet.vtvtravel.response.f2travelvoucher.ListVoucherResponse;
-import com.namviet.vtvtravel.tracking.Tracking;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
 import com.namviet.vtvtravel.view.fragment.f2offline.CopyVoucherDialog;
-import com.namviet.vtvtravel.tracking.TrackingViewModel;
 import com.namviet.vtvtravel.viewmodel.f2travelvoucher.TravelVoucherViewModel;
 
 import java.util.Observable;
@@ -67,12 +65,19 @@ public class TravelVoucherDetailFragment extends BaseFragment<F2FragmentTravelVo
 
     @Override
     public void initData() {
-        Glide.with(mActivity).load(voucher.getAvatarUri()).into(getBinding().imgAvatar);
+        try {
+            if(voucher.getBannerUri() == null || (voucher.getBannerUri() != null && voucher.getBannerUri().isEmpty())){
+                Glide.with(mActivity).load(voucher.getHomeUri()).into(getBinding().imgAvatar);
+            }else {
+                Glide.with(mActivity).load(voucher.getBannerUri()).into(getBinding().imgAvatar);
+            }
+        } catch (Exception e) {
+        }
         getBinding().tvName.setText(voucher.getName());
         try {
-            getBinding().tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(Long.valueOf(voucher.getEndAt()) / 1000));
+            getBinding().tvTimeLeft.setText("Hạn đến " + DateUtltils.timeToString(voucher.getExpireDate() / 1000));
         } catch (Exception e) {
-            e.printStackTrace();
+            getBinding().imgTime.setVisibility(View.INVISIBLE);
         }
     }
 

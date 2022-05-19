@@ -1,5 +1,7 @@
 package com.namviet.vtvtravel.viewmodel.f2video;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.namviet.vtvtravel.api.Param;
 import com.namviet.vtvtravel.api.TravelService;

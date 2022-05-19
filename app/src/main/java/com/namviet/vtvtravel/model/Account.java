@@ -74,7 +74,11 @@ public class Account {
     }
 
     public String getFullname() {
-        return fullname;
+        if(fullname == null){
+            return "Quý khách";
+        }else {
+            return fullname;
+        }
     }
 
     public void setFullname(String fullname) {

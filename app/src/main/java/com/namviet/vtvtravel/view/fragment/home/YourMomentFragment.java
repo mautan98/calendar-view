@@ -28,6 +28,7 @@ import com.namviet.vtvtravel.adapter.VideoMomentAdapter;
 import com.namviet.vtvtravel.adapter.YourMomentAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.listener.TravelSelectListener;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.response.NewestResponse;
@@ -104,6 +105,13 @@ public class YourMomentFragment extends MainFragment implements Observer, Travel
         binding.vpSlideShow.setPageTransformer(false, new CustPagerTransformer(getContext()));
 
         updateViews();
+        binding.btnReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.rllNoData.setVisibility(View.GONE);
+                updateViews();
+            }
+        });
     }
 
     @Override
@@ -118,6 +126,7 @@ public class YourMomentFragment extends MainFragment implements Observer, Travel
                 placeViewModel.loadMomentNewest();
             }
         }, Constants.TimeDelay);
+        binding.nestedScrollView.setVisibility(View.VISIBLE);
 
 
     }
@@ -163,6 +172,10 @@ public class YourMomentFragment extends MainFragment implements Observer, Travel
                             binding.rvVideo.setAdapter(videoMomentAdapter);
                             binding.vpIndicator.attachToRecyclerView(binding.rvVideo);
                             videoMomentAdapter.setTravelSelectListener(YourMomentFragment.this);
+                        }
+                        else if(o instanceof ErrorResponse){
+//                            binding.nestedScrollView.setVisibility(View.GONE);
+//                            binding.rllNoData.setVisibility(View.VISIBLE);
                         }
                     } else {
 

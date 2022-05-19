@@ -2,9 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
         <View
@@ -14,40 +14,61 @@
             android:background="#F89C1C"
             android:visibility="visible" />
 
+
         <RelativeLayout
-            android:background="#F89C1C"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <RelativeLayout
-                android:id="@+id/btnBack"
-                android:layout_width="50dp"
-                android:layout_height="50dp">
-
-                <ImageView
-                    android:layout_centerInParent="true"
-                    android:layout_width="14dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/ic_back_white" />
-
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/btnRule"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:fontFamily="@font/roboto_medium"
-                android:gravity="center"
-                android:paddingStart="26dp"
-                android:text="Thể lệ"
-                android:textAllCaps="true"
-                android:textColor="@color/white" />
-        </RelativeLayout>
+                android:layout_height="match_parent">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#F1C089" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#F89C1C">
+
+                    <RelativeLayout
+                        android:id="@+id/btnBack"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp">
+
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="25dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/ic_back_white" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/btnRule"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:gravity="center"
+                        android:paddingStart="26dp"
+                        android:text="Thể lệ"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F1C089" />
+
+            </LinearLayout>
+
+
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+        </RelativeLayout>
 
 
     </LinearLayout>

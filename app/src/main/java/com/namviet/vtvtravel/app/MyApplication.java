@@ -26,6 +26,7 @@ import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.database.AppDatabase;
 import com.namviet.vtvtravel.di.DaggerViewModelComponent;
 import com.namviet.vtvtravel.di.ViewModelComponent;
+import com.namviet.vtvtravel.di.module.StorageModule;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.City;
 import com.namviet.vtvtravel.model.MyLocation;
@@ -47,6 +48,15 @@ import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
 
 public class MyApplication extends Application implements Observer {
+    public String getAllLocation() {
+        return allLocation;
+    }
+
+    public void setAllLocation(String allLocation) {
+        this.allLocation = allLocation;
+    }
+
+    private String allLocation = "";
     private ViewModelComponent viewModelComponent;
 
     private boolean isVipRegisted;
@@ -160,21 +170,22 @@ public class MyApplication extends Application implements Observer {
         initDatabase();
         mAccount = new Account();
         try {
-            Account account = new Gson().fromJson(PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.ACCOUNT, ""), Account.class);
+            Account account = new Gson().fromJson(PreferenceUtil.getInstance(this).getValue(Constants.PrefKey.ACCOUNT, ""), Account.class);
             MyApplication.getInstance().setAccount(account);
+            Log.e("Debuggg"+"MyApplication", new Gson().toJson(account));
         } catch (Exception e) {
             e.printStackTrace();
         }
         AccountViewModel accountViewModel = new AccountViewModel();
         accountViewModel.addObserver(this);
-        boolean isLogin = PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.IS_LOGIN, false);
+        boolean isLogin = PreferenceUtil.getInstance(this).getValue(Constants.PrefKey.IS_LOGIN, false);
         if (isLogin) {
-            int typeLogin = PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.LOGIN, 0);
+            int typeLogin = PreferenceUtil.getInstance(this).getValue(Constants.PrefKey.LOGIN, 0);
             switch (typeLogin) {
                 case Constants.TypeLogin.MOBILE:
                     try {
-                        String mobile = PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.MOBILE, "");
-                        String password = PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.PASSWORD, "");
+//                        String mobile = PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.MOBILE, "");
+//                        String password = PreferenceUtil.getInstance(getBaseContext()).getValue(Constants.PrefKey.PASSWORD, "");
 //                    accountViewModel.login(StringUtils.isPhoneValidateV2(mobile, 84), password, PreferenceUtil.getInstance(MyApplication.this).getValue(Constants.PrefKey.DEVICE_TOKEN, ""));
                         long currentTime = System.currentTimeMillis()/1000;
                         long cacheTime = getTimeStamp();
@@ -206,7 +217,7 @@ public class MyApplication extends Application implements Observer {
         }
 
 
-        viewModelComponent = DaggerViewModelComponent.create();
+        viewModelComponent = DaggerViewModelComponent.builder().storageModule(new StorageModule(this)).build();
 
     }
 
@@ -315,21 +326,26 @@ public class MyApplication extends Application implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-        if (observable instanceof AccountViewModel) {
-            if (null != o) {
-                if (o instanceof AccountResponse) {
-                    AccountResponse accountResponse = (AccountResponse) o;
-                    if (accountResponse.isSuccess()) {
-                        setCurrentTimeStampToCache();
-                        PreferenceUtil.getInstance(getBaseContext()).setValue(Constants.PrefKey.IS_LOGIN, true);
-                        PreferenceUtil.getInstance(getBaseContext()).setValue(Constants.PrefKey.ACCOUNT, new Gson().toJson(accountResponse.getData()));
-                        MyApplication.getInstance().setAccount(accountResponse.getData());
-                        Intent intent = new Intent(Constants.KeyBroadcast.KEY_SAVE_LOGIN_SCREEN);
-                        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+        try {
+            if (observable instanceof AccountViewModel) {
+                if (null != o) {
+                    if (o instanceof AccountResponse) {
+                        AccountResponse accountResponse = (AccountResponse) o;
+                        if (accountResponse.isSuccess()) {
+                            setCurrentTimeStampToCache();
+                            PreferenceUtil.getInstance(getBaseContext()).setValue(Constants.PrefKey.IS_LOGIN, true);
+                            PreferenceUtil.getInstance(getBaseContext()).setValue(Constants.PrefKey.ACCOUNT, new Gson().toJson(accountResponse.getData()));
+                            MyApplication.getInstance().setAccount(accountResponse.getData());
+                            Log.e("Debuggg"+"MyApplication2", new Gson().toJson(accountResponse.getData()));
+                            Intent intent = new Intent(Constants.KeyBroadcast.KEY_SAVE_LOGIN_SCREEN);
+                            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+                        }
                     }
                 }
-            }
 
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

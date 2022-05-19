@@ -34,8 +34,15 @@ class ResultVideosSearchFragment : BaseFragment<F2FragmentSearchDestinationResul
     override fun initView() {
     }
 
-    public fun setList(travels: ArrayList<Video>?, moreLink: String?,  count: String, keyword: String, isApproximately: Boolean) {
-        travels?.let { this.travels?.addAll(travels) }
+    public fun setList(travels: ArrayList<Video>?, moreLink: String?,  count: String, keyword: String, isApproximately: Boolean, isLoadMore : Boolean) {
+        travels?.let {
+            if (isLoadMore) {
+                this.travels?.addAll(it)
+            } else {
+                this.travels?.clear()
+                this.travels?.addAll(it)
+            }
+        }
         this.moreLink = moreLink
         subTravelNewsAdapter?.notifyDataSetChanged()
         if(!isApproximately) {
@@ -47,11 +54,18 @@ class ResultVideosSearchFragment : BaseFragment<F2FragmentSearchDestinationResul
         }
     }
 
+    public fun clearData(){
+        tvCountResult.text = "Đang tìm các kết quả..."
+        this.travels?.clear()
+        subTravelNewsAdapter?.notifyDataSetChanged()
+
+    }
+
     override fun initData() {
         subTravelNewsAdapter = SubVideoAdapter(mActivity, travels, null)
         rclContent.adapter = subTravelNewsAdapter
 
-        resultSearchFragment?.searchAllVideo(SearchType.VIDEO)
+        resultSearchFragment?.searchAllVideo(SearchType.VIDEO, false)
     }
 
     override fun inject() {
@@ -62,10 +76,17 @@ class ResultVideosSearchFragment : BaseFragment<F2FragmentSearchDestinationResul
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
-                    resultSearchFragment?.searchAllVideoWithLink(moreLink, SearchType.VIDEO)
+                    resultSearchFragment?.searchAllVideoWithLink(moreLink, SearchType.VIDEO, true)
                 }
             }
         })
+
+        btnScrollToTop.setOnClickListener {
+            try {
+                rclContent.smoothScrollToPosition(0)
+            } catch (e: Exception) {
+            }
+        }
     }
 
     override fun setObserver() {

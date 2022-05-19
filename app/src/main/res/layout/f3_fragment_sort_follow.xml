@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layoutSort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rclSortParam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="22dp"
+                android:orientation="vertical"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:listitem="@layout/f3_item_search_sort_param" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="24dp">
+
+            <com.ornach.richtext.RichText
+                android:id="@+id/btnClearFilter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:paddingStart="18dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="8dp"
+                android:text="Xóa bộ lọc"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                app:rt_backgroundColor="#EEEEEE"
+                app:rt_radius="21dp" />
+
+
+            <com.ornach.richtext.RichText
+                android:id="@+id/btnApply"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="25dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:paddingStart="18dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="8dp"
+                android:text="Áp dụng"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                app:rt_backgroundColor="@color/colorPrimary"
+                app:rt_radius="21dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

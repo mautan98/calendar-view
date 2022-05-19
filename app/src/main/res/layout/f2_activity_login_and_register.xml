@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data></data>
 
@@ -19,7 +20,6 @@
             android:focusable="true"
             android:clickable="true"
             android:visibility="gone"
-            android:paddingBottom="15dp"
             android:id="@+id/layoutWarning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,6 +27,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:layout_marginBottom="15dp"
                 android:src="@drawable/f2_ic_error"
                 android:layout_marginTop="15dp"
                 android:layout_width="21dp"
@@ -35,6 +36,7 @@
 
 
             <TextView
+                android:layout_marginBottom="15dp"
                 android:id="@+id/tvWarningMessage"
                 android:layout_marginTop="15dp"
                 android:layout_weight="1"
@@ -43,19 +45,20 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:fontFamily="@font/roboto_regular"
-                android:text="Mật khẩu xác nhận không đúng. Vui lòng kiểm tra và nhập lại"
+                tools:text="Mật khẩu xác nhận không đúng. "
                 android:textColor="@color/white"
                 android:textSize="16dp" />
 
 
             <LinearLayout
-                android:gravity="bottom"
-                android:layout_width="32dp"
-                android:layout_height="32dp">
+                android:id="@+id/btnClose"
+                android:gravity="center_horizontal"
+                android:layout_width="50dp"
+                android:layout_height="match_parent">
 
                 <ImageView
+                    android:layout_marginTop="16dp"
                     android:src="@drawable/f2_ic_close"
-                    android:id="@+id/btnClose"
                     android:layout_width="13dp"
                     android:layout_height="13dp" />
 

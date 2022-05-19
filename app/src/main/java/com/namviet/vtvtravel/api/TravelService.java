@@ -115,6 +115,7 @@ import com.namviet.vtvtravel.view.f3.deal.model.BlockResponse;
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollowResponse;
+import com.namviet.vtvtravel.view.f3.deal.model.mygift.MyGiftResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.GetInfoResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ResentOtpServiceResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceOtpResponse;
@@ -315,18 +316,30 @@ public interface TravelService {
     @GET(WSConfig.Api.SEARCH_SUGGESTION)
     Observable<SearchSuggestionResponse> getSearchSuggestion(@QueryMap Map<String, Object> param, @Query("keyword") String keyword, @Query("region_id") String regionId);
 
+    @GET(WSConfig.Api.SEARCH_SUGGESTION)
+    Observable<SearchSuggestionResponse> getSearchSuggestionForSpecificContent(@QueryMap Map<String, Object> param, @Query("keyword") String keyword, @Query("region_id") String regionId, @Query("content_type") String contentType);
+
 
     @GET(WSConfig.Api.SEARCH_ALL)
-    Observable<ResultSearch> searchAll(@Path ("path") String path, @QueryMap Map<String, Object> queryMap,@Query("keyword") String keyword, @Query("region_id") String regionId, @Query("category_code") String categoryCode );
+    Observable<ResultSearch> searchAll(@Path ("path") String path, @QueryMap Map<String, Object> queryMap,@Query("keyword") String keyword, @Query("region_id") String regionId, @Query("category_code") String categoryCode
+    , @Query("district_id") String district_id, @Query("ward_id") String ward_id,  @Query("open") Boolean open, @Query("sort") String sort, @Query("content_type") String content_typ );
 
     @GET
     Observable<ResultSearch> searchAllWithFullLink( @Url String url, @QueryMap Map<String, Object> param);
 
     @GET(WSConfig.Api.SEARCH_ALL)
-    Observable<ResultVideoSearch> searchAllVideo(@Path ("path") String path, @QueryMap Map<String, Object> queryMap, @Query("keyword") String keyword, @Query("region_id") String regionId, @Query("category_code") String categoryCode);
+    Observable<ResultVideoSearch> searchAllVideo(@Path ("path") String path, @QueryMap Map<String, Object> queryMap, @Query("keyword") String keyword, @Query("region_id") String regionId, @Query("category_code") String categoryCode
+            , @Query("district_id") String district_id, @Query("ward_id") String ward_id,  @Query("open") Boolean open, @Query("sort") String sort, @Query("content_type") String content_typ );
 
     @GET
     Observable<ResultVideoSearch> searchAllVideoWithFullLink(@Url String url, @QueryMap Map<String, Object> param);
+
+
+    @GET(WSConfig.Api.SEARCH_ALL)
+    Observable<ItemImagePartResponse> searchAllImage(@Path ("path") String path, @QueryMap Map<String, Object> queryMap, @Query("keyword") String keyword, @Query("region_id") String regionId, @Query("category_code") String categoryCode);
+
+    @GET
+    Observable<ItemImagePartResponse> searchAllImageWithFullLink(@Url String url, @QueryMap Map<String, Object> param);
 
     @GET(WSConfig.Api.GET_SEARCH_RESULT)
     Observable<SearchResultResponse> loadSearchResult(@QueryMap Map<String, Object> param);
@@ -581,6 +594,9 @@ public interface TravelService {
     @GET(WSConfig.Api.USAGE_RULES)
     Observable<HtmlResponse> getUsageRule();
 
+    @GET(WSConfig.Api.CTKM_RULES)
+    Observable<HtmlResponse> getCTKMRule();
+
     @GET(WSConfig.Api.DEAL_DETAIL)
     Observable<HtmlResponse> getDealDetail();
 
@@ -665,6 +681,9 @@ public interface TravelService {
     @GET(WSConfig.Api.WHEEL_CHARTS)
     Observable<WheelChartResponse> getWheelChartResponse();
 
+    @GET(WSConfig.Api.WHEEL_CHARTS_2)
+    Observable<WheelChartResponse> getWheelChart();
+
     @GET
     Observable<VideoDetailResponse> viewVideo(@Url String url);
 
@@ -738,6 +757,10 @@ public interface TravelService {
 
     @GET(WSConfig.Api.DEAL_BY_CAMPAIGN)
     Observable<DealResponse> getDealByCampaign(@Query("isProcessing") String isProcessing, @Query("campaignId") String campaignId, @Query("rewardStatus") String rewardStatus);
+
+
+    @GET(WSConfig.Api.MY_GIFT)
+    Observable<MyGiftResponse> getAllMyGift(@Query("page") int page);
 
 
 

@@ -180,7 +180,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private ArrayList<String> tabs = new ArrayList<>();
         private ShimmerFrameLayout mShimmerFrameLayout;
         private LinearLayout lnlParent;
-        private Button btnHunt;
+        private TextView btnHunt;
         private String status = IsProcessingType.DANG_DIEN_RA_TYPE;
         private String filter = "";
 
@@ -406,6 +406,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     btnHunt.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            Log.e("ClickHunt", "ok");
                             Account account = MyApplication.getInstance().getAccount();
                             if (null != account && account.isLogin()) {
                                 if (status.equals(IsProcessingType.DANG_DIEN_RA_TYPE)) {
@@ -716,7 +717,7 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         ClipboardManager clipboard = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
                         ClipData clip = ClipData.newPlainText("Copy", tvCode.getText().toString().trim());
                         clipboard.setPrimaryClip(clip);
-                        Toast.makeText(mContext, "Đã coppy vào Clipboard", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Đã copy vào Clipboard", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -779,7 +780,12 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 mHuntingCount.setText(F3SubDealAdapter.getHuntingUserCount(dealCampaignDetail.getData().getUserHuntingCount()));
                 String status = dealCampaignDetail.getData().getIsProcessing();
                 if (dealCampaignDetail.getData().getRanking() == 0) {
-                    mTvRank.setText(mContext.getString(R.string.ban_chua_san_text));
+                    if(dealCampaignDetail.getData().isCampaign()){
+                        mTvRank.setText("Bạn chưa tích luỹ");
+                    }else {
+                        mTvRank.setText(mContext.getString(R.string.ban_chua_san_text));
+                    }
+
                 } else if (dealCampaignDetail.getData().getRanking() == 1) {
                     mTvRank.setVisibility(View.GONE);
                     imgNo1.setVisibility(View.VISIBLE);
@@ -792,7 +798,12 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     return;
                 }
                 if (!dealCampaignDetail.getData().getIsUserHunting()) {
-                    mTvTimeKeepDeal.setText(mContext.getString(R.string.ban_chua_san_text));
+                    if(dealCampaignDetail.getData().isCampaign()){
+                        mTvTimeKeepDeal.setText("Bạn chưa tích luỹ");
+                    }else {
+                        mTvTimeKeepDeal.setText(mContext.getString(R.string.ban_chua_san_text));
+                    }
+
                 } else {
                     try {
                         long distance = dealCampaignDetail.getData().getTotalHoldTime() / 1000;
@@ -804,8 +815,8 @@ public class DealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                mTvTimeKeepDeal.setText(mContext.getString(R.string.ban_chua_san_text));
-                mTvRank.setText(mContext.getString(R.string.ban_chua_san_text));
+                mTvTimeKeepDeal.setText("Bạn chưa tích luỹ");
+                mTvRank.setText("Bạn chưa tích luỹ");
             }
         }
     }

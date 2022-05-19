@@ -144,7 +144,10 @@ public class F2Util {
 
     public static void showToast(Context context, String mess){
         if(mess != null){
-            Toast.makeText(context, mess, Toast.LENGTH_SHORT).show();
+            try {
+                Toast.makeText(context, mess, Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+            }
         }
     }
 
@@ -154,7 +157,7 @@ public class F2Util {
         }
     }
 
-    public static String loadJSONFromAsset(Activity activity, String name) {
+    public static String loadJSONFromAsset(Context activity, String name) {
         String json = null;
         try {
             InputStream is = activity.getAssets().open(name+".json");

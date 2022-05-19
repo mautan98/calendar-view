@@ -57,6 +57,11 @@ public class HighLightSeeMoreVideoFragment extends BaseFragment<F2FragmentHighLi
         subVideoViewModel.addObserver(this);
         subVideoViewModel.getDetailVideo(detailLink + "?region_id=" + regionId, false);
         getBinding().tvTitle.setText(regionName);
+        getBinding().rllNoData.findViewById(R.id.btn_reload).setOnClickListener(view -> {
+            getBinding().rllNoData.setVisibility(View.GONE);
+            showLoading();
+            subVideoViewModel.getDetailVideo(detailLink + "?region_id=" + regionId, false);
+        });
     }
 
     @Override
@@ -144,6 +149,7 @@ public class HighLightSeeMoreVideoFragment extends BaseFragment<F2FragmentHighLi
 
     @Override
     public void update(Observable observable, Object o) {
+        hideLoading();
         if (observable instanceof SubVideoViewModel && null != o) {
             if (o instanceof DetailVideoResponse) {
                 DetailVideoResponse response = (DetailVideoResponse) o;
@@ -157,6 +163,7 @@ public class HighLightSeeMoreVideoFragment extends BaseFragment<F2FragmentHighLi
                 subVideoAdapter.notifyDataSetChanged();
 
             } else if (o instanceof ErrorResponse) {
+//                getBinding().rllNoData.setVisibility(View.VISIBLE);
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
 //                    ((BaseActivityNew) mActivity).showWarning(responseError.getMessage());

@@ -4,16 +4,6 @@
       "label": "Mới nhất",
       "value": "0",
       "isSelected": true
-    },
-    {
-      "label": "Giảm giá nhiều nhất",
-      "value": "1",
-      "isSelected": false
-    },
-    {
-      "label": "Gần tôi nhất",
-      "value": "2",
-      "isSelected": false
     }
   ]
 }

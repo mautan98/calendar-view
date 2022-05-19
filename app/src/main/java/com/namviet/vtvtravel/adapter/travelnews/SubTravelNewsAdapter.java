@@ -14,6 +14,7 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.ultils.DateUtltils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -25,10 +26,10 @@ public class SubTravelNewsAdapter extends RecyclerView.Adapter<RecyclerView.View
     private Context context;
     int max = 3;
     int min = 0;
-    private List<Travel> travels;
+    private ArrayList<Travel> travels;
     private ClickItem clickItem;
 
-    public SubTravelNewsAdapter(Context context, List<Travel> travels, ClickItem clickItem) {
+    public SubTravelNewsAdapter(Context context, ArrayList<Travel> travels, ClickItem clickItem) {
         this.travels = travels;
         this.context = context;
         this.clickItem = clickItem;

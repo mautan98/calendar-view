@@ -11,6 +11,8 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -31,6 +33,7 @@ public class MapActivity extends BaseActivityNew<F2ActivityMapBinding> {
     private String lat;
     private String lng;
     private String address;
+    private String contentType;
     private MySupportMapFragment mapFragment;
     private GoogleMap mGoogleMap;
     private String type;
@@ -58,6 +61,7 @@ public class MapActivity extends BaseActivityNew<F2ActivityMapBinding> {
             lat = getIntent().getStringExtra(Constants.IntentKey.LAT);
             lng = getIntent().getStringExtra(Constants.IntentKey.LONG);
             address = getIntent().getStringExtra(Constants.IntentKey.ADDRESS);
+            contentType = getIntent().getStringExtra("contentType");
         } else {
             travelList = (List<Travel>) getIntent().getSerializableExtra(DATA);
         }
@@ -113,7 +117,12 @@ public class MapActivity extends BaseActivityNew<F2ActivityMapBinding> {
 
     @Override
     public void setClick() {
-
+        getBinding().btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -124,7 +133,7 @@ public class MapActivity extends BaseActivityNew<F2ActivityMapBinding> {
     private void addMyLocation(double lat, double lng, String address) {
         try {
             LatLng coordinate = new LatLng(lat, lng); //Store these lat lng values somewhere. These should be constant.
-            mGoogleMap.addMarker(new MarkerOptions().position(coordinate).title(address));
+            mGoogleMap.addMarker(new MarkerOptions().position(coordinate).title(address).icon(getMarkerFromContentType(contentType)));
             CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
                     coordinate, 15);
             mGoogleMap.animateCamera(location);
@@ -133,11 +142,12 @@ public class MapActivity extends BaseActivityNew<F2ActivityMapBinding> {
         }
     }
 
-    public static void startScreen(Context activity, String lat, String lng, String address) {
+    public static void startScreen(Context activity, String lat, String lng, String address, String contentType) {
         Intent intent = new Intent(activity, MapActivity.class);
         intent.putExtra(Constants.IntentKey.LAT, lat);
         intent.putExtra(Constants.IntentKey.LONG, lng);
         intent.putExtra(Constants.IntentKey.ADDRESS, address);
+        intent.putExtra("contentType", contentType);
         intent.putExtra(TYPE_MAP, SINGLE_MARK);
         activity.startActivity(intent);
     }
@@ -147,5 +157,22 @@ public class MapActivity extends BaseActivityNew<F2ActivityMapBinding> {
         intent.putExtra(DATA, (Serializable) travelList);
         intent.putExtra(TYPE_MAP, MULTI_MARK);
         activity.startActivity(intent);
+    }
+
+    private BitmapDescriptor getMarkerFromContentType(String contentType) {
+
+
+        switch (contentType) {
+            case Constants.TypeSchedule.RESTAURANTS:
+                return BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_eat_what);
+            case Constants.TypeSchedule.CENTERS:
+                return BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_play_what);
+            case Constants.TypeSchedule.PLACES:
+                return BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_go_where);
+            case Constants.TypeSchedule.HOTEL:
+                return BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_stay_what);
+            default:
+                return BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_go_where);
+        }
     }
 }

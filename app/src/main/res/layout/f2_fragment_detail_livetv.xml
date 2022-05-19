@@ -77,18 +77,108 @@
                     android:id="@+id/jwplayer"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    app:layout_constraintDimensionRatio="354:200"
+                    app:layout_constraintDimensionRatio="375:206"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-                <ImageView
-                    android:id="@+id/imgFullScreen"
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
+<!--                <ImageView-->
+<!--                    android:id="@+id/imgFullScreen"-->
+<!--                    android:layout_width="52dp"-->
+<!--                    android:layout_height="52dp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent" />-->
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    android:id="@+id/rclChannel2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginEnd="11dp"
+                    android:layout_marginBottom="50dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ECECEC"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_marginTop="13dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Đang phát sóng"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14dp" />
+
+                <View
+                    android:background="#00918D"
+                    android:layout_width="47dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="11dp" />
+
+
+                <LinearLayout
+                    android:layout_marginTop="7dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp">
+
+                    <TextView
+                        android:id="@+id/tvRunningTime"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textSize="14dp"
+                        android:textColor="#070707"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="14:00" />
+
+
+                    <LinearLayout
+                        android:layout_marginEnd="13dp"
+                        android:layout_marginStart="13dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvRunningName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="hihihih"
+                            android:textColor="#070707"
+                            android:textSize="14dp" />
+
+
+                        <TextView
+                            android:id="@+id/tvRunningCategory"
+                            android:layout_marginBottom="14dp"
+                            android:textColor="#070707"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_italic"
+                            android:text="hihi"
+                            android:textSize="14dp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tvTitle"

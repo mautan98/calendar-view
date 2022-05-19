@@ -9,10 +9,12 @@ import com.namviet.vtvtravel.databinding.F2ActivityFilterBinding;
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.response.f2filter.FilterByCodeResponse;
+import com.namviet.vtvtravel.view.f3.smalllocation.view.fragment.FilterSmallLocationFragment;
 import com.namviet.vtvtravel.view.fragment.f2filter.FilterHomeFragment;
 
 public class FilterActivity extends BaseActivityNew<F2ActivityFilterBinding> {
     private FilterByCodeResponse filterByCodeResponse;
+    private int position;
     @Override
     public int getLayoutRes() {
         return R.layout.f2_activity_filter;
@@ -31,6 +33,7 @@ public class FilterActivity extends BaseActivityNew<F2ActivityFilterBinding> {
     @Override
     public void doAfterOnCreate() {
         filterByCodeResponse = (FilterByCodeResponse) getIntent().getSerializableExtra(Constants.IntentKey.DATA);
+        position = getIntent().getIntExtra("position",0);
     }
 
     @Override
@@ -40,12 +43,13 @@ public class FilterActivity extends BaseActivityNew<F2ActivityFilterBinding> {
 
     @Override
     public BaseFragment initFragment() {
-        return new FilterHomeFragment(filterByCodeResponse);
+        return new FilterSmallLocationFragment(filterByCodeResponse,position);
     }
 
-    public static void startScreen(Activity activity, FilterByCodeResponse filterByCodeResponse){
+    public static void startScreen(Activity activity, FilterByCodeResponse filterByCodeResponse, int i){
         Intent intent = new Intent(activity, FilterActivity.class);
         intent.putExtra(Constants.IntentKey.DATA, filterByCodeResponse);
+        intent.putExtra("position", i);
         activity.startActivity(intent);
     }
 }

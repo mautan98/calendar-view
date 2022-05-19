@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingEnd="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <com.ornach.richtext.RichText
+                android:id="@+id/viewBackground"
+                app:rt_radius="5dp"
+                app:rt_backgroundColor="#F6F6F6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"/>
+
+
+            <TextView
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="11dp"
+                android:id="@+id/tvTitle"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Sắp xếp theo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <ImageView
+                android:id="@+id/imgDown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvTitle"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="9dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/tvTitle"
+                android:tint="@color/black"
+                android:src="@drawable/f2_ic_down_small"
+                android:layout_width="9dp"
+                android:layout_height="5dp"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>

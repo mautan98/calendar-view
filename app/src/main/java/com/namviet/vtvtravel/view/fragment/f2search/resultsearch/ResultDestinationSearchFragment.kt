@@ -15,22 +15,38 @@ import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity
 import com.namviet.vtvtravel.view.fragment.f2search.ResultSearchFragment
 import kotlinx.android.synthetic.main.f2_fragment_search_destination_result.*
+import kotlinx.android.synthetic.main.f2_fragment_search_destination_result.rclContent
+import kotlinx.android.synthetic.main.f2_fragment_search_destination_result.tvCountResult
 import kotlin.collections.ArrayList
 
 @SuppressLint("ValidFragment")
-class ResultDestinationSearchFragment(private var resultSearchFragment: ResultSearchFragment?) : BaseFragment<F2FragmentSearchDestinationResultBinding>() {
+class ResultDestinationSearchFragment : BaseFragment<F2FragmentSearchDestinationResultBinding> {
     private var subTravelNewsAdapter: NearByInTravelDetailAdapter? = null
     private var travels: ArrayList<Travel>? = ArrayList()
     private var moreLink: String? = null
+    private var resultSearchFragment: ResultSearchFragment?  =null
     override fun getLayoutRes(): Int {
         return R.layout.f2_fragment_search_destination_result
+    }
+
+    constructor()
+
+    constructor(resultSearchFragment: ResultSearchFragment?){
+        this.resultSearchFragment = resultSearchFragment
     }
 
     override fun initView() {
     }
 
-    public fun setList(travels: ArrayList<Travel>?, moreLink: String?, count: String, keyword: String,isApproximately: Boolean) {
-        travels?.let { this.travels?.addAll(it) }
+    public fun setList(travels: ArrayList<Travel>?, moreLink: String?, count: String, keyword: String,isApproximately: Boolean, isLoadMore : Boolean) {
+        travels?.let {
+            if (isLoadMore) {
+                this.travels?.addAll(it)
+            } else {
+                this.travels?.clear()
+                this.travels?.addAll(it)
+            }
+        }
         this.moreLink = moreLink
         subTravelNewsAdapter?.notifyDataSetChanged()
         if(!isApproximately) {
@@ -40,6 +56,13 @@ class ResultDestinationSearchFragment(private var resultSearchFragment: ResultSe
             tvCountResult.text = "Có $count kết quả tìm kiếm điểm đến gần đúng khớp với \"$keyword\""
             resultSearchFragment?.setHighLightedText(tvCountResult, "\"$keyword\"")
         }
+    }
+
+    public fun clearData(){
+        tvCountResult.text = "Đang tìm các kết quả..."
+        this.travels?.clear()
+        subTravelNewsAdapter?.notifyDataSetChanged()
+
     }
 
     override fun initData() {
@@ -57,7 +80,7 @@ class ResultDestinationSearchFragment(private var resultSearchFragment: ResultSe
         })
         rclContent.adapter = subTravelNewsAdapter
 
-        resultSearchFragment?.searchAll(SearchType.DESTINATION)
+        resultSearchFragment?.searchAll(SearchType.DESTINATION, false)
     }
 
     override fun inject() {
@@ -68,10 +91,17 @@ class ResultDestinationSearchFragment(private var resultSearchFragment: ResultSe
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
-                    resultSearchFragment?.searchAllWithLink(moreLink, SearchType.DESTINATION)
+                    resultSearchFragment?.searchAllWithLink(moreLink, SearchType.DESTINATION, true)
                 }
             }
         })
+
+        btnScrollToTop.setOnClickListener {
+            try {
+                rclContent.smoothScrollToPosition(0)
+            } catch (e: Exception) {
+            }
+        }
     }
 
     override fun setObserver() {

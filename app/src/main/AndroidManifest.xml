@@ -60,6 +60,17 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_api_key" />
@@ -277,6 +288,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.f2.f2oldbase.FormChatActivity"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.f2.f2oldbase.LiveTVActivityOld"
@@ -344,18 +356,24 @@
         <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3459722054810147~6205999249"/>
+            android:value="ca-app-pub-3459722054810147~6205999222"/>
 
         <activity android:name=".view.f3.floor.view.FloorActivity" />
+        <activity android:name=".view.f3.smalllocation.activities.NearByExperienceActivity" />
 
         <activity android:name=".view.f3.booking.view.BookingActivity" />
         <activity android:name=".view.f3.notification.view.NotificationActivity" />
+        <activity android:name=".view.f3.search.view.SearchSuggestionForSpecificContentActivity" android:screenOrientation="portrait" />
+        <activity android:name=".view.fragment.f2video.ResultSearchVideoActivity" android:screenOrientation="portrait" />
+        <activity android:name=".view.fragment.f2travelnote.ResultSearchNewsActivity" android:screenOrientation="portrait" />
+        <activity android:name=".view.fragment.imagepart.ResultSearchImagesActivity" android:screenOrientation="portrait" />
         <activity android:name=".view.f3.deal.view.dealhome.DealHomeActivity" android:screenOrientation="portrait"/>
         <activity android:name=".view.f3.deal.view.dealdetail.DetailDealActivity" android:screenOrientation="portrait"/>
         <activity android:name=".view.f3.deal.view.listdeal.ListDealActivity" android:screenOrientation="portrait"/>
         <activity android:name=".view.f3.deal.view.listhotdeal.ListHotDealActivity" android:screenOrientation="portrait"/>
         <activity android:name=".view.f3.deal.view.dealdetail.PopupBannerDealActivity" android:screenOrientation="portrait"/>
         <activity android:name=".view.f3.deal.view.dealrule.DealRuleActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".view.f3.deal.view.mygift.NewMyGiftActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

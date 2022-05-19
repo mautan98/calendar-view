@@ -267,7 +267,7 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
                     String clientMessageId = "android" + uuid;
                     emitMessage(roomId, mess, clientMessageId);
                 } else {
-                    Toast.makeText(mActivity, "Create room error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, "Có lỗi đã xảy ra, mời bạn thử lại sau!", Toast.LENGTH_SHORT).show();
                 }
                 getBinding().edtTypeMessage.setText("");
 
@@ -608,10 +608,12 @@ public class ChatFragmentV2 extends BaseFragment<F2FragmentChatBinding> implemen
             MyApplication.getInstance().setChatBot(false);
             try {
                 String mobile = "anonymous";
+                String fullName = "Bạn";
                 if (MyApplication.getInstance().getAccount() != null && !MyApplication.getInstance().getAccount().getMobile().isEmpty()) {
                     mobile = MyApplication.getInstance().getAccount().getMobile();
+                    fullName = MyApplication.getInstance().getAccount().getFullname();
                 }
-                mChatViewModel.createRoom(mobile);
+                mChatViewModel.createRoom(mobile, fullName);
             } catch (Exception e) {
                 e.printStackTrace();
             }

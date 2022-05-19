@@ -23,11 +23,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 
 import com.baseapp.utils.KeyboardUtils;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent;
+import com.namviet.vtvtravel.BuildConfig;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.smalllocation.AddImageAdapter;
 import com.namviet.vtvtravel.app.MyApplication;
@@ -51,7 +53,10 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -363,13 +368,41 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
     }
 
     public void getPhotoFromCamera() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        ContentValues values = new ContentValues(1);
-        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
-        fileUri = mActivity.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        startActivityForResult(intent, REQUEST_CAMERA);
+        try {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            ContentValues values = new ContentValues(1);
+            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
+            fileUri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        File photoFile = null;
+        try {
+            photoFile = createImageFile();
+        } catch (IOException ex) {
+            // Error occurred while creating the File
+        }
+        fileUri = FileProvider.getUriForFile(mActivity,
+                BuildConfig.APPLICATION_ID + ".provider",
+                photoFile);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            startActivityForResult(intent, REQUEST_CAMERA);
+        } catch (Exception e) {
+            Toast.makeText(mActivity, "Đã có lỗi xảy ra, mời bạn thử chọn ảnh từ thư viện!", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public static final String IMAGE_NAME = "VTVTravelImg";
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = IMAGE_NAME;
+        File storageDir = mActivity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        return image;
     }
 
     @Override
@@ -406,7 +439,8 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
             } else if (requestCode == REQUEST_CAMERA) {
                 Uri selectedUri = fileUri;
                 if (null != selectedUri) {
-                    handleConvertURIToBitmap(selectedUri);
+                    startCropActivity(selectedUri);
+//                    handleConvertURIToBitmap(selectedUri);
                 } else {
                     Toast.makeText(mActivity, R.string.toast_cannot_retrieve_selected_image, Toast.LENGTH_SHORT).show();
                 }
@@ -422,6 +456,32 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
     private void startCropActivity(@NonNull Uri uri) {
         UCrop uCrop = UCrop.of(uri, Uri.fromFile(new File(mActivity.getCacheDir(), SAMPLE_CROPPED_IMAGE_NAME + ".jpg")));
         uCrop.start(mActivity);
+    }
+
+    private void handleCropResult(@NonNull Intent result) {
+        this.mUri = UCrop.getOutput(result);
+        if (this.mUri != null) {
+            int maxBitmapSize = BitmapLoadUtils.calculateMaxBitmapSize(getContext());
+            BitmapLoadUtils.decodeBitmapInBackground(getActivity(), this.mUri, null, maxBitmapSize, maxBitmapSize,
+                    new BitmapLoadCallback() {
+
+                        @Override
+                        public void onBitmapLoaded(@NonNull Bitmap bitmap, @NonNull ExifInfo exifInfo,
+                                                   @NonNull String imageInputPath,
+                                                   @Nullable String imageOutputPath) {
+                            bitmaps.add(bitmap);
+                            addImageAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Exception bitmapWorkerException) {
+
+                        }
+                    });
+
+        } else {
+            Toast.makeText(getActivity(), R.string.toast_cannot_retrieve_cropped_image, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void handleConvertURIToBitmap(Uri uri) {
@@ -450,58 +510,83 @@ public class WriteReviewFragment extends BaseFragment<F2FragmentWriteReviewBindi
         }
     }
 
-    private void handleCropResult(@NonNull Intent result) {
-        this.mUri = UCrop.getOutput(result);
-        if (this.mUri != null) {
-            int maxBitmapSize = BitmapLoadUtils.calculateMaxBitmapSize(mActivity);
-            BitmapLoadUtils.decodeBitmapInBackground(mActivity, this.mUri, null, maxBitmapSize, maxBitmapSize,
-                    new BitmapLoadCallback() {
-
-                        @Override
-                        public void onBitmapLoaded(@NonNull Bitmap bitmap, @NonNull ExifInfo exifInfo,
-                                                   @NonNull String imageInputPath,
-                                                   @Nullable String imageOutputPath) {
-                            showToast("ok");
-
-                        }
-
-                        @Override
-                        public void onFailure(@NonNull Exception bitmapWorkerException) {
-
-                        }
-                    });
-
-        } else {
-            Toast.makeText(mActivity, R.string.toast_cannot_retrieve_cropped_image, Toast.LENGTH_SHORT).show();
-        }
-    }
+//    private void handleCropResult(@NonNull Intent result) {
+//        this.mUri = UCrop.getOutput(result);
+//        if (this.mUri != null) {
+//            int maxBitmapSize = BitmapLoadUtils.calculateMaxBitmapSize(mActivity);
+//            BitmapLoadUtils.decodeBitmapInBackground(mActivity, this.mUri, null, maxBitmapSize, maxBitmapSize,
+//                    new BitmapLoadCallback() {
+//
+//                        @Override
+//                        public void onBitmapLoaded(@NonNull Bitmap bitmap, @NonNull ExifInfo exifInfo,
+//                                                   @NonNull String imageInputPath,
+//                                                   @Nullable String imageOutputPath) {
+//                            showToast("ok");
+//
+//                        }
+//
+//                        @Override
+//                        public void onFailure(@NonNull Exception bitmapWorkerException) {
+//
+//                        }
+//                    });
+//
+//        } else {
+//            Toast.makeText(mActivity, R.string.toast_cannot_retrieve_cropped_image, Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     private void handleCropError(@NonNull Intent result) {
         final Throwable cropError = UCrop.getError(result);
         if (cropError != null) {
-            Toast.makeText(mActivity, cropError.getMessage(), Toast.LENGTH_LONG).show();
+            try {
+                Toast.makeText(mActivity, cropError.getMessage(), Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+
+            }
         } else {
-            Toast.makeText(mActivity, R.string.toast_unexpected_error, Toast.LENGTH_SHORT).show();
+            try {
+                Toast.makeText(mActivity, R.string.toast_unexpected_error, Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+
+            }
         }
     }
 
+//    private File saveBitmap(Bitmap bm) {
+//
+//        String fileName = "android" + System.currentTimeMillis();
+//        File sdCard = mActivity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+//        File dir = new File(sdCard.getAbsolutePath() + "/VTVTravelFileUploaded/");
+//        dir.mkdirs();
+//        File file = new File(dir, fileName + ".jpg");
+//
+//        try {
+//            FileOutputStream fOut = new FileOutputStream(file, false);
+//            bm.compress(Bitmap.CompressFormat.JPEG, 90, fOut);
+//            fOut.flush();
+//            fOut.close();
+//        } catch (Exception e) {
+//
+//        }
+//        return file;
+//    }
+
     private File saveBitmap(Bitmap bm) {
-
         String fileName = "android" + System.currentTimeMillis();
-        File sdCard = Environment.getExternalStorageDirectory();
-        File dir = new File(sdCard.getAbsolutePath() + "/VTVTravelFileUploaded/");
-        dir.mkdirs();
-        File file = new File(dir, fileName + ".jpg");
-
+        File sd = mActivity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File dest = new File(sd, fileName);
+        Log.e("path", "" + dest.getPath());
+        Bitmap result = Bitmap.createScaledBitmap(bm, 200, 200, false);
         try {
-            FileOutputStream fOut = new FileOutputStream(file, false);
-            bm.compress(Bitmap.CompressFormat.JPEG, 90, fOut);
-            fOut.flush();
-            fOut.close();
+            FileOutputStream out = new FileOutputStream(dest);
+            result.compress(Bitmap.CompressFormat.PNG, 70, out);
+            out.flush();
+            out.close();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
-        return file;
+        return dest;
     }
 
     private void genDialogSendReviewSuccess() {

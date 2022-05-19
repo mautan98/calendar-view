@@ -10,10 +10,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.response.f2searchmain.MainSearchResponse;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DiscoveryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -81,7 +86,11 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 @Override
                 public void onClick(View view) {
                     try {
-                        SmallLocationActivity.startScreen(context, items.get(position).getLink(), items.get(position).getCode(), SmallLocationActivity.OpenType.LIST);
+                        String json = new Gson().toJson(items);
+                        Type listType = new TypeToken<ArrayList<ItemHomeService.Item>>() {}.getType();
+                        ArrayList<ItemHomeService.Item> yourList = new Gson().fromJson(json, listType);
+                        SmallLocationActivity.startScreen(context, SmallLocationActivity.OpenType.LIST, yourList, items.get(position).getCode(),position);
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

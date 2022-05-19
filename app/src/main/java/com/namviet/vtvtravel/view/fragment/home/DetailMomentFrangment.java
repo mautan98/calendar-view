@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+
 import androidx.databinding.DataBindingUtil;
+
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -39,6 +42,7 @@ import com.namviet.vtvtravel.adapter.travelnews.CommentInDetailTravelNewsAdapter
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.FragmentDetailMomentBinding;
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.listener.NewsSelectListener;
 import com.namviet.vtvtravel.listener.PostCommentListener;
 import com.namviet.vtvtravel.model.Account;
@@ -71,6 +75,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class DetailMomentFrangment extends MainFragment implements Observer, NewsSelectListener, PostCommentListener {
+    public enum ERROR_CODE{
+       ERROR_NEWS
+    }
     private FragmentDetailMomentBinding binding;
     private NewsViewModel newsViewModel;
     private Travel mTravel;
@@ -171,6 +178,15 @@ public class DetailMomentFrangment extends MainFragment implements Observer, New
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Constants.KeyBroadcast.KEY_LOGIN_SCREEN);
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, intentFilter);
+        binding.rllNoData.findViewById(R.id.btn_reload).setOnClickListener(view -> {
+            if (null != mTravel) {
+                newsViewModel.getNewsById(mTravel.getDetail_link());
+            } else return;
+            binding.rllNoData.setVisibility(View.GONE);
+            binding.lnlData.setVisibility(View.VISIBLE);
+            showDialogLoading();
+
+        });
         updateViews();
     }
 
@@ -228,12 +244,18 @@ public class DetailMomentFrangment extends MainFragment implements Observer, New
                         @Override
                         public void run() {
                             DetailNewsResponse response = (DetailNewsResponse) o;
+//                            if(response.getStatus().equals("error")){
+//                                binding.rllNoData.setVisibility(View.VISIBLE);
+//                                binding.lnlData.setVisibility(View.GONE);
+//                            }
+
                             updateUI(response.getData());
                             getComment(response.getData().getId());
                             detailTravelNewsResponse = new DetailTravelNewsResponse();
-                            DetailTravelNewsResponse.Data data = new DetailTravelNewsResponse(). new Data();
+                            DetailTravelNewsResponse.Data data = new DetailTravelNewsResponse().new Data();
                             data.setId(response.getData().getId());
                             data.setContent_type(response.getData().getContent_type());
+                            data.setName(response.getData().getName());
                             detailTravelNewsResponse.setData(data);
                         }
                     });
@@ -279,9 +301,14 @@ public class DetailMomentFrangment extends MainFragment implements Observer, New
                         }
                     });
                     binding.rclComment.setAdapter(commentInDetailTravelNewsAdapter);
-                } else if (o instanceof ResponseError) {
-                    ResponseError responseError = (ResponseError) o;
-                    showMessage(responseError.getMessage());
+                } else if (o instanceof ErrorResponse) {
+                    ErrorResponse responseError = (ErrorResponse) o;
+//                    if(responseError.getErrorCode().equals(ERROR_CODE.ERROR_NEWS.toString())){
+//                        binding.rllNoData.setVisibility(View.VISIBLE);
+//                        binding.lnlData.setVisibility(View.GONE);
+//                    }
+//                    showMessage(responseError.getMessage());
+
                 }
             } else {
             }
@@ -375,7 +402,7 @@ public class DetailMomentFrangment extends MainFragment implements Observer, New
         } else if (null != mTravel && mTravel.getType().equals(Constants.TypeLeftMenu.PHOTO)) {
             stopPlaybackImmediately();
             binding.rlVideoPlayer.setVisibility(View.GONE);
-            if (null != data.getPhotos() && data.getPhotos().size() > 0){
+            if (null != data.getPhotos() && data.getPhotos().size() > 0) {
                 binding.vpSlideShow.setVisibility(View.VISIBLE);
                 binding.vpSlideShow.setPageTransformer(false, new CustPagerTransformer(getContext()));
                 slideMomentAdapter = new SlideMomentPhotoAdapter(getContext(), data.getPhotos());

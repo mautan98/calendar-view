@@ -23,14 +23,14 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
     private var tabAdapter: TabAdapter? = null
     private var dealHomeFragment: DealHomeFragment? = null
     private var dealSubcribeFragment: DealSubcribeFragment? = null
+    private var myGiftFragment : MyGiftFragment? = null
     override fun getLayoutRes(): Int {
         return R.layout.fragment_page_deal_home
     }
 
     override fun initView() {
         tabAdapter = TabAdapter(childFragmentManager, mActivity)
-        var myGiftFragment =
-            MyGiftFragment()
+        myGiftFragment = MyGiftFragment()
         tabAdapter?.addFragment(myGiftFragment, "")
 
         dealHomeFragment = DealHomeFragment()
@@ -53,19 +53,36 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
     override fun inject() {}
     override fun setClickListener() {
         btnMyGift.setOnClickListener {
-//            vpContent.currentItem = 0
-//            imgMyGift.setImageResource(R.drawable.ic_my_gift_selected)
-//            tvMyGift.setTextColor(Color.parseColor("#F92418"))
-//
-//            imgDealSubscribe.setImageResource(R.drawable.ic_my_subcribe_unselected)
-//            tvDealSubscribe.setTextColor(Color.parseColor("#707070"))
 
-            try {
-                var oneButtonTitleImageDialog = OneButtonTitleImageDialog();
-                oneButtonTitleImageDialog.show(mActivity.supportFragmentManager, Constants.TAG_DIALOG);
-            } catch (e: Exception) {
+            val account = MyApplication.getInstance().account
+            if (null != account && account.isLogin) {
+                vpContent.currentItem = 0
+                imgMyGift.setImageResource(R.drawable.ic_my_gift_selected)
+                tvMyGift.setTextColor(Color.parseColor("#F92418"))
 
+                imgDealSubscribe.setImageResource(R.drawable.ic_my_subcribe_unselected)
+                tvDealSubscribe.setTextColor(Color.parseColor("#707070"))
+
+
+                if(!isLogin){
+                    isLogin = true
+                    dealSubcribeFragment?.getData(0)
+                    myGiftFragment?.getData()
+                }
+
+                (mActivity as DealHomeActivity).setStatusBarColorMyGift()
+
+            } else {
+                LoginAndRegisterActivityNew.startScreen(mActivity, 0, false)
             }
+
+
+//            try {
+//                var oneButtonTitleImageDialog = OneButtonTitleImageDialog();
+//                oneButtonTitleImageDialog.show(mActivity.supportFragmentManager, Constants.TAG_DIALOG);
+//            } catch (e: Exception) {
+//
+//            }
         }
         btnDealSubcribe.setOnClickListener {
             val account = MyApplication.getInstance().account
@@ -81,7 +98,10 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
                 if(!isLogin){
                     isLogin = true
                     dealSubcribeFragment?.getData(0)
+                    myGiftFragment?.getData()
                 }
+
+                (mActivity as DealHomeActivity).setStatusBarColorDefault()
             } else {
                 LoginAndRegisterActivityNew.startScreen(mActivity, 0, false)
             }
@@ -100,6 +120,8 @@ class PageDealHomeFragment : BaseFragment<FragmentPageDealHomeBinding?>() {
                 imgDealSubscribe.setImageResource(R.drawable.ic_my_subcribe_unselected)
                 tvDealSubscribe.setTextColor(Color.parseColor("#707070"))
             }
+
+            (mActivity as DealHomeActivity).setStatusBarColorDefault()
         }
 
 //        vpContent.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {

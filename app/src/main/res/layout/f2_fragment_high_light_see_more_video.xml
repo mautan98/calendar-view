@@ -45,12 +45,20 @@
 
         </RelativeLayout>
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleContent"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            <include
+                android:id="@+id/rll_no_data"
+                android:visibility="gone"
+                layout="@layout/layout_no_data"/>
+        </RelativeLayout>
+
 
 
     </LinearLayout>

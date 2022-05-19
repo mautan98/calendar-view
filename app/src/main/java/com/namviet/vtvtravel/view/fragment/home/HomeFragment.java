@@ -4,17 +4,23 @@ import android.animation.Animator;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+
 import androidx.databinding.DataBindingUtil;
+
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.baseapp.activity.BaseActivity;
 import com.google.android.material.tabs.TabLayout;
+
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -160,11 +166,11 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
                 binding.layoutMenuFloat.setVisibility(View.GONE);
                 Account account = MyApplication.getInstance().getAccount();
                 if (null != account && account.isLogin()) {
-                   if(account.isTravelingSupporter()){
-                       VirtualSwitchBoardActivity.Companion.openActivity(mActivity, VirtualSwitchBoardActivity.Companion.getTRAVEL_TYPE());
-                   }else {
-                       LandingPageActivity.startScreen(mActivity);
-                   }
+                    if (account.isTravelingSupporter()) {
+                        VirtualSwitchBoardActivity.Companion.openActivity(mActivity, VirtualSwitchBoardActivity.Companion.getTRAVEL_TYPE());
+                    } else {
+                        LandingPageActivity.startScreen(mActivity);
+                    }
                 } else {
                     LandingPageActivity.startScreen(mActivity);
                 }
@@ -202,22 +208,22 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             @Override
             public void onClick(View view) {
                 try {
-                    if(isShowBottomMenu){
+                    if (isShowBottomMenu) {
                         binding.viewAboveBottomMenu.setVisibility(View.GONE);
-                  //      binding.motionLayout.transitionToEnd();
-    //                    binding.viewCoverBottomMenu.setVisibility(View.GONE);
-    //                    binding.btnShowBottomMenu.setRotation(45);
+                        //      binding.motionLayout.transitionToEnd();
+                        //                    binding.viewCoverBottomMenu.setVisibility(View.GONE);
+                        //                    binding.btnShowBottomMenu.setRotation(45);
                         binding.addButtonMotionLayout.transitionToStart();
                         isShowBottomMenu = false;
-                       hideMenuAnim();
-                    }else {
-    //                    binding.btnShowBottomMenu.setRotation(0);
+                        hideMenuAnim();
+                    } else {
+                        //                    binding.btnShowBottomMenu.setRotation(0);
                         binding.addButtonMotionLayout.transitionToEnd();
                         binding.viewAboveBottomMenu.setVisibility(View.VISIBLE);
-                 //       binding.motionLayout.transitionToStart();
-    //                    binding.viewCoverBottomMenu.setVisibility(View.VISIBLE);
+                        //       binding.motionLayout.transitionToStart();
+                        //                    binding.viewCoverBottomMenu.setVisibility(View.VISIBLE);
                         isShowBottomMenu = true;
-                       showMenuAnim();
+                        showMenuAnim();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -226,46 +232,74 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
         });
 
 
-
         binding.imgSan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hideBottomMenu();
-                FloorActivity.Companion.openActivity(mActivity);
-//                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-//                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+                try {
+                    hideBottomMenu();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                FloorActivity.Companion.openActivity(mActivity);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, 200);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         });
 
         binding.imgCreateTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hideBottomMenu();
-                Account account = MyApplication.getInstance().getAccount();
-                if (null != account && account.isLogin()) {
-                    CreateTripActivity.startScreen(mActivity);
-                } else {
-                    LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+                try {
+                    hideBottomMenu();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Account account = MyApplication.getInstance().getAccount();
+                                if (null != account && account.isLogin()) {
+                                    CreateTripActivity.startScreen(mActivity);
+                                } else {
+                                    LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, 200);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+
 
             }
         });
         binding.imgPrize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hideBottomMenu();
+                try {
+                    hideBottomMenu();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                DealHomeActivity.Companion.startScreen(mActivity);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, 200);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-//                try {
-//                    String mUrlDeal = WSConfig.LINK_DEAL;
-//                    DetailDealWebviewActivity.startScreen(mActivity, mUrlDeal);
-//                } catch (java.lang.Exception e) {
-//                    e.printStackTrace();
-//                }
-
-                DealHomeActivity.Companion.startScreen(mActivity);
-
-//                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-//                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
             }
         });
         binding.imgLuckyWheel.setOnClickListener(new View.OnClickListener() {
@@ -273,17 +307,25 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             public void onClick(View view) {
                 hideBottomMenu();
                 try {
-                    Account account = MyApplication.getInstance().getAccount();
-                    if (null != account && account.isLogin()) {
-                        VQMMWebviewActivity.startScreen(mActivity, "");
-                    } else {
-                        LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
-                    }
-                } catch ( Exception e) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Account account = MyApplication.getInstance().getAccount();
+                                if (null != account && account.isLogin()) {
+                                    VQMMWebviewActivity.startScreen(mActivity, "");
+                                } else {
+                                    LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+                                }
+                            } catch (Exception e) {
+                            }
+                        }
+                    }, 200);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-//                OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
-//                oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
-                }
+
+            }
         });
 
 //        binding.viewCoverBottomMenu.setOnClickListener(new View.OnClickListener() {
@@ -310,7 +352,6 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
         });
 
 
-
         gestureDetector = new GestureDetector(mActivity, new SingleTapConfirm());
         binding.layoutButton.setOnTouchListener(new View.OnTouchListener() {
             float dX, dY;
@@ -325,9 +366,8 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
                 if (gestureDetector.onTouchEvent(event)) {
                     // single tap
 
-                    if(event.getX() > 0 && event.getX() < 217 ){
-                        if(event.getY() > 0 && event.getY() < 120){
-//                            Toast.makeText(mActivity, "Call click", Toast.LENGTH_SHORT).show();
+                    if (event.getX() > 0 && event.getX() < 217) {
+                        if (event.getY() > 0 && event.getY() < 120) {
 //
                             binding.layoutButton.animate().x(x).y(y).setDuration(500L).setListener(new Animator.AnimatorListener() {
                                 @Override
@@ -350,7 +390,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 
                                 }
                             }).start();
-                        }else {
+                        } else {
                             binding.layoutButton.animate().x(x).y(y).setDuration(500L).setListener(new Animator.AnimatorListener() {
                                 @Override
                                 public void onAnimationStart(Animator animation) {
@@ -372,7 +412,6 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 
                                 }
                             }).start();
-//                            Toast.makeText(mActivity, "Chat click", Toast.LENGTH_SHORT).show();
 //
                         }
                     }
@@ -398,7 +437,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 //                            .y(event.getRawY() + dY)
 //                            .setDuration(0)
 //                            .start();
-                    binding.layoutButton.setX(event.getRawX()+ dX);
+                    binding.layoutButton.setX(event.getRawX() + dX);
                     binding.layoutButton.setY(event.getRawY() + dY);
 
 //                    trashView.setVisibility(View.VISIBLE);
@@ -425,7 +464,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
         }
     }
 
-    private void showMenuAnim(){
+    private void showMenuAnim() {
         Animation scaleDown = AnimationUtils.loadAnimation(mActivity, R.anim.scale_up1);
         scaleDown.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -449,7 +488,8 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
         });
         binding.redStar.startAnimation(scaleDown);
     }
-    private void hideMenuAnim(){
+
+    private void hideMenuAnim() {
         Animation scaleDown = AnimationUtils.loadAnimation(mActivity, R.anim.scale_down1);
         scaleDown.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -474,13 +514,13 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
         binding.redStar.startAnimation(scaleDown);
     }
 
-    private void hideBottomMenu(){
+    private void hideBottomMenu() {
 //        binding.btnShowBottomMenu.setRotation(45);
         binding.viewAboveBottomMenu.setVisibility(View.GONE);
 //        binding.viewCoverBottomMenu.setVisibility(View.GONE);
- //       binding.motionLayout.transitionToEnd();
+        //       binding.motionLayout.transitionToEnd();
         binding.addButtonMotionLayout.transitionToStart();
-        if(isShowBottomMenu)
+        if (isShowBottomMenu)
             hideMenuAnim();
         isShowBottomMenu = false;
     }
@@ -502,13 +542,13 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                if(tab.getPosition() == 0){
-                   getActivity().sendBroadcast(new Intent("SCROLL_TO_TOP"));
+                if (tab.getPosition() == 0) {
+                    getActivity().sendBroadcast(new Intent("SCROLL_TO_TOP"));
                 }
                 hideBottomMenu();
             }
         });
- //       binding.motionLayout.transitionToEnd();
+        //       binding.motionLayout.transitionToEnd();
 //        checkPermission();
     }
 
@@ -518,12 +558,11 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             if (o instanceof ErrorResponse) {
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
-//                    Toast.makeText(mActivity, responseError.getMessage(), Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                 }
             } else if (o instanceof MenuResponse) {
                 menuResponse = (MenuResponse) o;
-                PreferenceUtil.getInstance(mActivity).setValue(Constants.PrefKey.MENU_DATA,  new Gson().toJson(menuResponse));
+                PreferenceUtil.getInstance(mActivity).setValue(Constants.PrefKey.MENU_DATA, new Gson().toJson(menuResponse));
                 getMainMenu();
             }
 
@@ -716,17 +755,23 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 
     @Subscribe
     public void onClickBookingFromTopMenu(OnClickBookingTopMenu onLoginSuccessAndUpdateUserView) {
-        BookingActivity.Companion.openActivity(mActivity);
+//        BookingActivity.Companion.openActivity(mActivity);
+        try {
+            OneButtonTitleImageDialog oneButtonTitleImageDialog = new OneButtonTitleImageDialog();
+            oneButtonTitleImageDialog.show(mActivity.getSupportFragmentManager(), Constants.TAG_DIALOG);
+        } catch (Exception exception) {
+
+        }
     }
 
 
     @Subscribe
     public void onClickVideo(OnClickVideoInMenu onClickVideoInMenu) {
         try {
-            int size  = menuResponse.getData().getMenus().getFooter().size();
+            int size = menuResponse.getData().getMenus().getFooter().size();
             for (int i = 0; i < size; i++) {
-                if(menuResponse.getData().getMenus().getFooter().get(i).getCode_type().equals("APP_FOOTER_VIDEO")){
-                    TabLayout.Tab newTab =  binding.tabLayoutMain.getTabAt(i);
+                if (menuResponse.getData().getMenus().getFooter().get(i).getCode_type().equals("APP_FOOTER_VIDEO")) {
+                    TabLayout.Tab newTab = binding.tabLayoutMain.getTabAt(i);
                     newTab.select();
                     break;
                 }
@@ -742,10 +787,10 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
     @Subscribe
     public void onClickVideo(OnClickMomentInMenu onClickMomentInMenu) {
         try {
-            int size  = menuResponse.getData().getMenus().getFooter().size();
+            int size = menuResponse.getData().getMenus().getFooter().size();
             for (int i = 0; i < size; i++) {
-                if(menuResponse.getData().getMenus().getFooter().get(i).getCode_type().equals("APP_FOOTER_MOMENT")){
-                    TabLayout.Tab newTab =  binding.tabLayoutMain.getTabAt(i);
+                if (menuResponse.getData().getMenus().getFooter().get(i).getCode_type().equals("APP_FOOTER_MOMENT")) {
+                    TabLayout.Tab newTab = binding.tabLayoutMain.getTabAt(i);
                     newTab.select();
                     break;
                 }
@@ -756,9 +801,9 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
         onMomentClick(1);
     }
 
-    private void getMenuDataFromCache(){
+    private void getMenuDataFromCache() {
         try {
-            String json = PreferenceUtil.getInstance(mActivity).getValue(Constants.PrefKey.MENU_DATA,  new Gson().toJson(menuResponse));
+            String json = PreferenceUtil.getInstance(mActivity).getValue(Constants.PrefKey.MENU_DATA, new Gson().toJson(menuResponse));
             menuResponse = new Gson().fromJson(json, MenuResponse.class);
             getMainMenu();
         } catch (Exception e) {
@@ -768,11 +813,12 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 
 
     private MenuResponse menuResponse;
+
     private void getMainMenu() {
 //        menuResponse = new Gson().fromJson(json, MenuResponse.class);
         try {
             binding.tabLayoutMain.removeAllTabs();
-            int size  = menuResponse.getData().getMenus().getFooter().size();
+            int size = menuResponse.getData().getMenus().getFooter().size();
 
             for (int i = 0; i < size; i++) {
                 View tabHome = LayoutInflater.from(mActivity).inflate(R.layout.f2_layout_main_tab_footer_app, null);
@@ -785,16 +831,14 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
                 }
 
 
-
-
                 ImageView imgHome = tabHome.findViewById(R.id.imgAvatar);
-                if(i == 0){
+                if (i == 0) {
                     Glide.with(mActivity).load(menuResponse.getData().getMenus().getFooter().get(i).getIcon_enable_url()).into(imgHome);
-                }else {
+                } else {
                     Glide.with(mActivity).load(menuResponse.getData().getMenus().getFooter().get(i).getIcon_url()).into(imgHome);
                 }
 
-                if(i == 2){
+                if (i == 2) {
                     tvHome.setVisibility(View.GONE);
                     imgHome.setVisibility(View.GONE);
                 }
@@ -816,7 +860,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             ImageView imageView = selected.findViewById(R.id.imgAvatar);
             Glide.with(mActivity).load(menuResponse.getData().getMenus().getFooter().get(position).getIcon_enable_url()).into(imageView);
 
-            switch (menuResponse.getData().getMenus().getFooter().get(position).getCode_type()){
+            switch (menuResponse.getData().getMenus().getFooter().get(position).getCode_type()) {
                 case "APP_FOOTER_HOME":
                     onHotClick(0);
                     break;

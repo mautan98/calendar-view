@@ -20,6 +20,17 @@ public class ItemAppVoucherNowResponse extends BaseResponse {
         private String linkVoucher;
         private Long startAt;
         private Long endAt;
+
+        private Long expireDate;
+
+        public Long getExpireDate() {
+            return expireDate;
+        }
+
+        public void setExpireDate(Long expireDate) {
+            this.expireDate = expireDate;
+        }
+
         private String regionId;
         private String content;
         private String name;

@@ -4,6 +4,8 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +40,7 @@ public class DistanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
         if (viewType == TYPE_ITEM) {
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_item_distance, parent, false);
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f3_item_filter_text, parent, false);
             return new HeaderViewHolder(v);
         }
         return null;
@@ -70,18 +72,25 @@ public class DistanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private LinearLayout layoutFilter;
         private TextView tvDistance;
         private int position;
-
+        private TextView tv_filter_count;
         public HeaderViewHolder(View itemView) {
             super(itemView);
-            layoutFilter = itemView.findViewById(R.id.layoutFilter);
-            tvDistance = itemView.findViewById(R.id.tvDistance);
+            layoutFilter = itemView.findViewById(R.id.lnl_filter);
+            tvDistance = itemView.findViewById(R.id.tv_filter);
+            tv_filter_count = itemView.findViewById(R.id.tv_filter_count);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    for (int i = 0; i < distances.size(); i++) {
-                        distances.get(i).setSelected(false);
+                    if(distances.get(position).isSelected()){
+                        for (int i = 0; i < distances.size(); i++) {
+                            distances.get(i).setSelected(false);
+                        }
+                    }else {
+                        for (int i = 0; i < distances.size(); i++) {
+                            distances.get(i).setSelected(false);
+                        }
+                        distances.get(position).setSelected(true);
                     }
-                    distances.get(position).setSelected(true);
                     notifyDataSetChanged();
                     clickItem.onClickItemDistance(distances.get(position));
                 }
@@ -92,13 +101,15 @@ public class DistanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public void bindItem(int position) {
             this.position = position;
             if (distances.get(position).isSelected()) {
-                layoutFilter.setBackground(ContextCompat.getDrawable(context, R.drawable.f2_bg_tab_filter_selected));
-                tvDistance.setTextColor(ContextCompat.getColor(context, R.color.white));
+                layoutFilter.setBackground(context.getResources().getDrawable(R.drawable.f3_bg_filter_text_selected));
+                tvDistance.setTextColor(context.getResources().getColor(R.color.white));
+                tv_filter_count.setTextColor(context.getResources().getColor(R.color.white));
             } else {
-                layoutFilter.setBackground(ContextCompat.getDrawable(context, R.drawable.f2_bg_tab_filter));
-                tvDistance.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                layoutFilter.setBackground(context.getResources().getDrawable(R.drawable.f3_bg_filter_text));
+                tvDistance.setTextColor(Color.parseColor("#00918D"));
+                tv_filter_count.setTextColor(Color.parseColor("#808080"));
             }
-            tvDistance.setText(distances.get(position).getLabel());
+            tvDistance.setText("Dưới "+distances.get(position).getLabel());
         }
     }
 

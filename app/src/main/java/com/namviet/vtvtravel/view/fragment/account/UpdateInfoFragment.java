@@ -31,6 +31,7 @@ import com.android.datetimepicker.date.DatePickerDialog;
 import com.baseapp.utils.KeyboardUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
@@ -241,6 +242,7 @@ public class UpdateInfoFragment extends MainFragment implements Observer {
                         Account account = accountResponse.getData();
                         account.setToken(mAccount.getToken());
                         MyApplication.getInstance().setAccount(account);
+                        Log.e("Debuggg"+"UpdateInfoFrm", new Gson().toJson(account));
                         mActivity.updateLogin();
                         updateViews();
                         Toast.makeText(mActivity, "Cập nhật thành công!", Toast.LENGTH_SHORT).show();
@@ -331,9 +333,17 @@ public class UpdateInfoFragment extends MainFragment implements Observer {
     private void handleCropError(@NonNull Intent result) {
         final Throwable cropError = UCrop.getError(result);
         if (cropError != null) {
-            Toast.makeText(getActivity(), cropError.getMessage(), Toast.LENGTH_LONG).show();
+            try {
+                Toast.makeText(getActivity(), cropError.getMessage(), Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+
+            }
         } else {
-            Toast.makeText(getActivity(), R.string.toast_unexpected_error, Toast.LENGTH_SHORT).show();
+            try {
+                Toast.makeText(getActivity(), R.string.toast_unexpected_error, Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+
+            }
         }
     }
 

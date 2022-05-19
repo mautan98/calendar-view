@@ -21,6 +21,7 @@ import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
+import com.ornach.richtext.RichText;
 
 import java.util.List;
 
@@ -99,6 +100,7 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
         private TextView tvType;
         private TextView tvStatus;
         private TextView tvOpenTime;
+        private TextView tvOpenTime2;
         private TextView tvOpenDate;
         private TextView tvPriceRange;
         private TextView tvTime;
@@ -107,6 +109,7 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
         private int position;
         private View viewTime;
         private LikeButton imgHeart;
+        private RichText viewStatus;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -115,6 +118,7 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
             tvLocationName = itemView.findViewById(R.id.tvLocationName);
             tvPriceRange = itemView.findViewById(R.id.tvPriceRange);
             tvOpenTime = itemView.findViewById(R.id.tvOpenTime);
+            tvOpenTime2 = itemView.findViewById(R.id.tvOpenTime2);
             tvOpenDate = itemView.findViewById(R.id.tvOpenDate);
             layoutForRestaurant = itemView.findViewById(R.id.layoutForRestaurant);
             linearPriceType = itemView.findViewById(R.id.linearPriceType);
@@ -130,6 +134,7 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
             tvTime = itemView.findViewById(R.id.tvTime);
             tvViewCount = itemView.findViewById(R.id.tvViewCount);
             imgHeart = itemView.findViewById(R.id.imgHeart);
+            viewStatus = itemView.findViewById(R.id.viewStatus);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -261,9 +266,11 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
 
                 try {
                     tvStatus.setTextColor(Color.parseColor(travel.getTypeOpenColor()));
+                    viewStatus.setBackgroundColor(Color.parseColor(travel.getTypeOpenColor()));
                 } catch (Exception e) {
                     try {
                         tvStatus.setTextColor(Color.parseColor("#FF0000"));
+                        viewStatus.setBackgroundColor(Color.parseColor("#FF0000"));
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
@@ -274,15 +281,26 @@ public class NearByInTravelDetailAdapter extends RecyclerView.Adapter<RecyclerVi
                     if(travel.getRange_time().isEmpty()){
                         viewTime.setVisibility(View.GONE);
                         tvOpenTime.setVisibility(View.GONE);
+                        tvOpenTime2.setVisibility(View.GONE);
                     }else {
-                        viewTime.setVisibility(View.VISIBLE);
-                        tvOpenTime.setText(travel.getRange_time());
-                        tvOpenTime.setVisibility(View.VISIBLE);
+                        if(travel.getRange_time().contains("và")){
+                            String[] strings = travel.getRange_time().split("và");
+                            tvOpenTime.setText(strings[0]);
+                            tvOpenTime2.setText(strings[1]);
+                            tvOpenTime.setVisibility(View.VISIBLE);
+                            tvOpenTime2.setVisibility(View.VISIBLE);
+                        }else {
+                            tvOpenTime.setText(travel.getRange_time());
+                            tvOpenTime.setVisibility(View.VISIBLE);
+                            tvOpenTime2.setVisibility(View.GONE);
+                        }
+                        viewTime.setVisibility(View.INVISIBLE);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                     viewTime.setVisibility(View.GONE);
                     tvOpenTime.setVisibility(View.GONE);
+                    tvOpenTime2.setVisibility(View.GONE);
                 }
 //            }
         }

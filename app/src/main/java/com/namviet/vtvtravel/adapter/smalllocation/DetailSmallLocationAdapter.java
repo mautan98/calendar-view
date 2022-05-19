@@ -6,6 +6,9 @@ import android.content.Context;
 import android.graphics.Color;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,17 +32,26 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.tabs.TabLayout;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.adapter.travelnews.NearByInTravelDetailAdapter;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
+import com.namviet.vtvtravel.response.f2smalllocation.SmallLocationResponse;
 import com.namviet.vtvtravel.view.f2.MapActivity;
 import com.namviet.vtvtravel.view.f2.SlideImageActivity;
+import com.namviet.vtvtravel.view.f3.smalllocation.activities.NearByExperienceActivity;
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.DetailSmallLocationFragment;
+import com.namviet.vtvtravel.viewmodel.f2smalllocation.DetailSmallLocationViewModel;
+import com.namviet.vtvtravel.viewmodel.f2smalllocation.SmallLocationViewModel;
+import com.namviet.vtvtravel.widget.AppBarStateChangeListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM_OVER_VIEW = 0;
@@ -46,12 +59,14 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
     private static final int TYPE_ITEM_IMAGE = 2;
     private static final int TYPE_ITEM_RATING = 3;
     private static final int TYPE_ITEM_NEARBY_EXPERIENCE = 4;
+    private static final int TYPE_ITEM_MORE = 5;
     private BitmapDescriptor mMarkerIcon;
     private Context context;
     private ClickItem clickItem;
     private List<GetReviewResponse.Data.Content> reviews;
     private String contentType;
     private DetailSmallLocationFragment detailSmallLocationFragment;
+    private SmallLocationViewModel viewModel;
 
     public void setContentType(String contentType) {
         this.contentType = contentType;
@@ -65,6 +80,7 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
         public static final String TYPE_ITEM_IMAGE = "GALLERY";
         public static final String TYPE_ITEM_RATING = "FEEDBACK";
         public static final String TYPE_ITEM_NEARBY_EXPERIENCE = "NEARPOINT";
+        public static final String TYPE_ITEM_MORE = "MORE";
     }
 
     private List<DetailSmallLocationResponse.Data.Tab> items;
@@ -80,6 +96,9 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
         this.detailSmallLocationFragment = detailSmallLocationFragment;
         MapsInitializer.initialize(context);
         this.mMarkerIcon = getMarkerFromContentType("");
+        viewModel = new SmallLocationViewModel();
+
+
     }
 
     private BitmapDescriptor getMarkerFromContentType(String contentType) {
@@ -108,6 +127,7 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
                 return TYPE_ITEM_INFORMATION;
             case TypeString.TYPE_ITEM_IMAGE:
                 return TYPE_ITEM_IMAGE;
+
             case TypeString.TYPE_ITEM_RATING:
                 return TYPE_ITEM_RATING;
             case TypeString.TYPE_ITEM_NEARBY_EXPERIENCE:
@@ -139,6 +159,10 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
             return new RatingViewHolder(v);
         }
         if (viewType == TYPE_ITEM_NEARBY_EXPERIENCE) {
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_layout_detail_small_location_nearby_experience, parent, false);
+            return new NearbyExperienceViewHolder(v);
+        }
+        if (viewType == TYPE_ITEM_MORE ) {
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_layout_detail_small_location_nearby_experience, parent, false);
             return new NearbyExperienceViewHolder(v);
         }
@@ -189,6 +213,7 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
         private RelativeLayout btnControl;
         private ImageView imgDown;
         private ImageView imgUp;
+        private int count;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -284,22 +309,21 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
         private TextView tvOpenState;
         private ImageView imgIcon;
         private TextView tvPrice;
-        private RelativeLayout layoutPrice;
-        private LinearLayout layoutOpenType;
         private LinearLayout layoutPhone;
         private LinearLayout layoutURL;
-        private View viewTime;
+        private RelativeLayout layoutPrice;
+        private LinearLayout layoutOpenType;
         private MapView mapView;
 
         private SupportMapFragment mapFragment;
         private GoogleMap mGoogleMap;
 
 
+
         public InformationViewHolder(View itemView) {
             super(itemView);
             tvDistance = itemView.findViewById(R.id.tvDistance);
             mapView = itemView.findViewById(R.id.mapView);
-            viewTime = itemView.findViewById(R.id.viewTime);
             layoutPhone = itemView.findViewById(R.id.layoutPhone);
             layoutURL = itemView.findViewById(R.id.layoutURL);
             tvAddress = itemView.findViewById(R.id.tvAddress);
@@ -317,13 +341,6 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
 
         private void addMyLocation(double lat, double lng, String address) {
             try {
-//                LatLng sydney = new LatLng(lat, lng);
-//                CameraUpdate center = CameraUpdateFactory.newLatLng(sydney);
-//                CameraUpdate zoom = CameraUpdateFactory.zoomTo(16);
-//                mGoogleMap.addMarker(new MarkerOptions().position(sydney).title(address));
-//                mGoogleMap.moveCamera(center);
-
-
                 LatLng coordinate = new LatLng(lat, lng); //Store these lat lng values somewhere. These should be constant.
                 mGoogleMap.addMarker(new MarkerOptions()
                         .position(coordinate)
@@ -358,7 +375,7 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
                                 @Override
                                 public void onMapClick(LatLng latLng) {
                                     try {
-                                        MapActivity.startScreen(context, tab.getLat(), tab.getLng(), tab.getAddress());
+                                        MapActivity.startScreen(context, tab.getLat(), tab.getLng(), tab.getAddress(), contentType);
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
@@ -369,16 +386,6 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
                         }
                     }
                 });
-//                mapFragment = (SupportMapFragment) detailSmallLocationFragment.getChildFragmentManager()
-//                        .findFragmentById(R.id.map);
-
-//                mapFragment.getMapAsync(new OnMapReadyCallback() {
-//                    @Override
-//                    public void onMapReady(GoogleMap googleMap) {
-//
-//                    }
-//                });
-//                detailSmallLocationFragment.getChildFragmentManager().beginTransaction().replace(R.id.map, mapFragment).commit();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -408,15 +415,15 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
 
             try {
                 if (tab.getRange_time().isEmpty()) {
-                    viewTime.setVisibility(View.GONE);
+
                     tvOpenTime.setVisibility(View.GONE);
                 } else {
-                    viewTime.setVisibility(View.VISIBLE);
+
                     tvOpenTime.setText(tab.getRange_time());
                     tvOpenTime.setVisibility(View.VISIBLE);
                 }
             } catch (Exception e) {
-                viewTime.setVisibility(View.GONE);
+
                 tvOpenTime.setVisibility(View.GONE);
                 e.printStackTrace();
             }
@@ -676,28 +683,126 @@ public class DetailSmallLocationAdapter extends RecyclerView.Adapter<RecyclerVie
         }
     }
 
-    public class NearbyExperienceViewHolder extends RecyclerView.ViewHolder {
+    public class NearbyExperienceViewHolder extends RecyclerView.ViewHolder implements Observer {
         private int position;
         private RecyclerView rclContent;
         private SubNearbyExperienceInSmallLocationDetailAdapter subNearbyExperienceInSmallLocationDetailAdapter;
-
+        private TabLayout tabs;
+        private ArrayList<String> tabsList = new ArrayList<>();
+        private ShimmerFrameLayout shimmerFrameLayout;
+        private TextView tvViewMore;
+        private List<com.namviet.vtvtravel.model.f2smalllocation.Travel> travelList = new ArrayList<>();
         public NearbyExperienceViewHolder(View itemView) {
             super(itemView);
             rclContent = itemView.findViewById(R.id.rclContent);
+            tvViewMore = itemView.findViewById(R.id.tv_view_more);
+            shimmerFrameLayout = itemView.findViewById(R.id.shimmer_view_container);
+            tabs = itemView.findViewById(R.id.tabs);
+            viewModel.addObserver(this);
         }
 
         public void bindItem(int position) {
             this.position = position;
-            subNearbyExperienceInSmallLocationDetailAdapter = new SubNearbyExperienceInSmallLocationDetailAdapter(items.get(position).getItems(), context, new SubNearbyExperienceInSmallLocationDetailAdapter.ClickItem() {
+            shimmerFrameLayout.setVisibility(View.VISIBLE);
+            rclContent.setVisibility(View.INVISIBLE);
+            viewModel.getSmallLocation(items.get(position).getMenu().get(0).getLink(),false);
+            tvViewMore.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClickItem(Travel travel) {
-
+                public void onClick(View view) {
+                    NearByExperienceActivity.startScreenDetail(context,NearByExperienceActivity.OpenType.LIST,items.get(position).getMenu());
                 }
             });
+            this.position = position;
+            genTab();
+            tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    setOnSelectView(tabs, tab.getPosition());
+                    loadData(tab.getPosition());
+                }
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+                    setUnSelectView(tabs, tab.getPosition());
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+                }
+            });
+            subNearbyExperienceInSmallLocationDetailAdapter = new SubNearbyExperienceInSmallLocationDetailAdapter(travelList, context, null);
 
             rclContent.setAdapter(subNearbyExperienceInSmallLocationDetailAdapter);
+        }
+        private void loadData(int i) {
+            viewModel.getSmallLocation(items.get(position).getMenu().get(i).getLink(),false);
+            shimmerFrameLayout.setVisibility(View.VISIBLE);
+            rclContent.setVisibility(View.INVISIBLE);
+        }
+        private void stopLoading(){
+            shimmerFrameLayout.setVisibility(View.GONE);
+            rclContent.setVisibility(View.VISIBLE);
+        }
+        public void setOnSelectView(TabLayout tabLayout, int position) {
+            TabLayout.Tab tab = tabLayout.getTabAt(position);
+            View selected = tab.getCustomView();
+            TextView iv_text = selected.findViewById(R.id.tvTitle);
+            View view = selected.findViewById(R.id.indicator);
+            view.setVisibility(View.VISIBLE);
+            iv_text.setTextColor(Color.parseColor("#00918D"));
 
+        }
 
+        public void setUnSelectView(TabLayout tabLayout, int position) {
+            TabLayout.Tab tab = tabLayout.getTabAt(position);
+            View selected = tab.getCustomView();
+            TextView iv_text = selected.findViewById(R.id.tvTitle);
+            View view = selected.findViewById(R.id.indicator);
+            view.setVisibility(View.INVISIBLE);
+            iv_text.setTextColor(Color.parseColor("#101010"));
+
+        }
+        private void genTab() {
+            tabsList.clear();
+            for (int i = 0; i < items.get(position).getMenu().size(); i++) {
+                tabsList.add(items.get(position).getMenu().get(i).getName());
+            }
+            try {
+                for (int i = 0; i < tabsList.size(); i++) {
+                    View tabHome = LayoutInflater.from(context).inflate(R.layout.f2_custom_tab_vtv_style, null);
+                    TextView tvHome = tabHome.findViewById(R.id.tvTitle);
+                    tvHome.setText((tabsList.get(i)));
+                    if (i == 0) {
+                        tvHome.setTextColor(Color.parseColor("#00918D"));
+                    } else {
+                        tvHome.setTextColor(Color.parseColor("#101010"));
+                    }
+                    View view = tabHome.findViewById(R.id.indicator);
+                    if (i == 0) {
+                        view.setVisibility(View.VISIBLE);
+                    } else {
+                        view.setVisibility(View.INVISIBLE);
+                    }
+                    tabs.addTab(tabs.newTab().setCustomView(tabHome));
+                    //            getBinding().tabs.addTab(getBinding().tabs.newTab().setText(detailSmallLocationResponse.getData().getTabs().get(i).getTitle()));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void update(Observable observable, Object o) {
+            if (o instanceof SmallLocationResponse) {
+                SmallLocationResponse response = (SmallLocationResponse) o;
+                if (response.isLoadMore()) {
+                    travelList.addAll(response.getData().getItems());
+                } else {
+                    travelList.clear();
+                    travelList.addAll(response.getData().getItems());
+                }
+                subNearbyExperienceInSmallLocationDetailAdapter.notifyDataSetChanged();
+                stopLoading();
+            }
         }
     }
 

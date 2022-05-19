@@ -31,6 +31,7 @@ public class SearchLocationFragment extends BaseFragment<F2FragmentSearchLocatio
     private List<Location> locationsMain = new ArrayList<>();
     private List<Location> locations = new ArrayList<>();
     private DoneSearch doneSearch;
+    private Location mLocation;
 
     @SuppressLint("ValidFragment")
     public SearchLocationFragment(DoneSearch doneSearch) {
@@ -50,8 +51,6 @@ public class SearchLocationFragment extends BaseFragment<F2FragmentSearchLocatio
         viewModel = new SearchBigLocationViewModel();
         getBinding().setSearchBigLocationViewModel(viewModel);
         viewModel.addObserver(this);
-
-        viewModel.getAllLocation();
     }
 
     @Override
@@ -59,15 +58,32 @@ public class SearchLocationFragment extends BaseFragment<F2FragmentSearchLocatio
         searchAllLocationAdapter = new SearchAllLocationAdapter(mActivity, locations, new SearchAllLocationAdapter.ClickItem() {
             @Override
             public void onClick(Location location) {
-                if(location.getId() != null && !location.getId().isEmpty()) {
+                mLocation = location;
+                getBinding().btnApply.setText("Chọn");
+              //  getBinding().edtLocation.setText(location.getName());
+            }
+        });
+        getBinding().rclLocation.setAdapter(searchAllLocationAdapter);
+        getBinding().btnApply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mLocation != null) {
+                    if (mLocation.getId() != null && !mLocation.getId().isEmpty()) {
+                        KeyboardUtils.hideKeyboard(mActivity, getBinding().edtLocation);
+                        doneSearch.onDoneSearch(mLocation);
+                        mActivity.onBackPressed();
+
+                    }
+                } else {
                     KeyboardUtils.hideKeyboard(mActivity, getBinding().edtLocation);
-                    doneSearch.onDoneSearch(location);
+                    //doneSearch.onDoneSearch(mLocation);
                     mActivity.onBackPressed();
                 }
             }
         });
-        getBinding().rclLocation.setAdapter(searchAllLocationAdapter);
+        viewModel.getAllLocation();
     }
+
 
     @Override
     public void inject() {
@@ -88,6 +104,7 @@ public class SearchLocationFragment extends BaseFragment<F2FragmentSearchLocatio
             @Override
             public void onClick(View view) {
                 viewModel.getLocation();
+
             }
         });
         getBinding().btnBack.setOnClickListener(new View.OnClickListener() {
@@ -112,12 +129,13 @@ public class SearchLocationFragment extends BaseFragment<F2FragmentSearchLocatio
                 locationsMain = response.getData();
                 locations.addAll(locationsMain);
                 searchAllLocationAdapter.notifyDataSetChanged();
-            }  else if (o instanceof LocationResponse) {
+            } else if (o instanceof LocationResponse) {
                 LocationResponse response = (LocationResponse) o;
                 getBinding().edtLocation.setText(response.getData().getName());
-            }else if (o instanceof ErrorResponse) {
+            } else if (o instanceof ErrorResponse) {
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
+
 //                    ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
                 } catch (Exception e) {
 
@@ -137,21 +155,31 @@ public class SearchLocationFragment extends BaseFragment<F2FragmentSearchLocatio
 //                    if(getBinding().edtLocation.getText().toString().isEmpty()){
 //                        getBinding().rclLocation.setVisibility(View.GONE);
 //                    }else {
-                        getBinding().rclLocation.setVisibility(View.VISIBLE);
-                        locations.clear();
-                        for (int i = 0; i < locationsMain.size(); i++) {
-                            if(F2Util.removeAccent(locationsMain.get(i).getName().toLowerCase()).contains(F2Util.removeAccent(getBinding().edtLocation.getText().toString().toLowerCase()))){
-                                locations.add(locationsMain.get(i));
-                            }
+                    getBinding().rclLocation.setVisibility(View.VISIBLE);
+                    locations.clear();
+                    for (int i = 0; i < locationsMain.size(); i++) {
+                        if (F2Util.removeAccent(locationsMain.get(i).getName().toLowerCase()).contains(F2Util.removeAccent(getBinding().edtLocation.getText().toString().toLowerCase()))) {
+                            locations.add(locationsMain.get(i));
                         }
-                        searchAllLocationAdapter.notifyDataSetChanged();
+                    }
+                    searchAllLocationAdapter.notifyDataSetChanged();
 //                    }
 
                 });
     }
 
-    public interface DoneSearch{
+    public interface DoneSearch {
         void onDoneSearch(Location location);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override

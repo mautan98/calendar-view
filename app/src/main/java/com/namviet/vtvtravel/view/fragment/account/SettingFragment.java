@@ -2,6 +2,9 @@ package com.namviet.vtvtravel.view.fragment.account;
 
 import android.content.DialogInterface;
 import androidx.databinding.DataBindingUtil;
+
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -72,6 +75,15 @@ public class SettingFragment extends MainFragment {
         });
 
         binding.llSetting.setOnClickListener(view -> mActivity.getSupportFragmentManager().beginTransaction().add(R.id.frame, new SettingNotiFragment()).addToBackStack(null).commit());
+
+
+        try {
+            PackageInfo pInfo = mActivity.getPackageManager().getPackageInfo(mActivity.getPackageName(), 0);
+            String version = pInfo.versionName;
+            binding.tvVersionName.setText(version);
+        } catch (Exception e) {
+        }
+
 
     }
 

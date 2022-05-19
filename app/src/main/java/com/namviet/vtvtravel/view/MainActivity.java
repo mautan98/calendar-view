@@ -31,6 +31,7 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.provider.ContactsContract;
 
+import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -129,7 +130,6 @@ import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.f2.SystemInboxActivity;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
-import com.namviet.vtvtravel.view.fragment.ChatFragment;
 import com.namviet.vtvtravel.view.fragment.DetailsFragment;
 import com.namviet.vtvtravel.view.fragment.EncodeDemoFragment;
 import com.namviet.vtvtravel.view.fragment.FormChatFragment;
@@ -189,6 +189,7 @@ import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 import com.namviet.vtvtravel.viewmodel.HomeViewModel;
 import com.namviet.vtvtravel.viewmodel.PlaceViewModel;
 import com.namviet.vtvtravel.viewmodel.SearchViewModel;
+import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel;
 import com.namviet.vtvtravel.viewmodel.f2systeminbox.SystemInboxViewModel;
 import com.namviet.vtvtravel.widget.RobotoTextView;
 
@@ -281,6 +282,8 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
     private boolean fromNotification = false;
     private boolean fromVIPNoti = false;
+    private AlertDialog permissionDialog;
+    private SearchBigLocationViewModel searchBigLocationViewModel;
 
 
     //for Linphone
@@ -537,7 +540,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
         try {
             if (ActivityCompat.checkSelfPermission(this, mPermission) != MockPackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{mPermission, Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_PERMISSION);
+                ActivityCompat.requestPermissions(this, new String[]{mPermission, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE_PERMISSION);
             } else {
                 getLocation();
             }
@@ -563,6 +566,12 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
 //        Intent serviceIntent = new Intent(this, ForegroundService.class);
 //        ContextCompat.startForegroundService(this, serviceIntent);
+        try {
+            searchBigLocationViewModel = new SearchBigLocationViewModel();
+            searchBigLocationViewModel.getAllLocation();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void pushEvent(String key) {
@@ -714,7 +723,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
             case CHAT_SCREEN:
                 setDrawerEnabled(false);
                 // MyFragment.openFragment(this, getContentFrame(), ChatFragment.class, getBundle(), true);
-                MyFragment.openFragment(this, getContentFrame(), ChatFragment.class, getBundle(), true);
+//                MyFragment.openFragment(this, getContentFrame(), ChatFragment.class, getBundle(), true);
                 break;
             case LOGIN_SCREEN:
                 setDrawerEnabled(false);
@@ -943,14 +952,53 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
     }
 
 
+    private void displayNeverAskAgainDialog() {
+        try {
+            if (permissionDialog == null){
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Ứng dụng cần quyền truy cập vào vị trí để các tính năng có thể hoạt động một cách đúng nhất.");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Đi đến cài đặt", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            Intent intent = new Intent();
+                            intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            Uri uri = Uri.fromParts("package", getPackageName(), null);
+                            intent.setData(uri);
+                            startActivity(intent);
+                            dialog.dismiss();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                builder.setNegativeButton(android.R.string.cancel, null);
+                permissionDialog = builder.create();
+            }
+            permissionDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case REQUEST_CODE_PERMISSION:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    getLocation();
-                } else {
-                    searchViewModel.loadSearchTrend();
+                for (int i = 0; i < permissions.length; i++) {
+                    String permission = permissions[i];
+                    int grantResult = grantResults[i];
+                    if (grantResult == PackageManager.PERMISSION_DENIED){
+                        searchViewModel.loadSearchTrend();
+                        boolean showRationale = shouldShowRequestPermissionRationale( permission );
+                        if (!showRationale) {
+                            displayNeverAskAgainDialog();
+                        } else if (Manifest.permission.ACCESS_FINE_LOCATION.equals(permission) || Manifest.permission.ACCESS_COARSE_LOCATION.equals(permission)) {
+                            getLocation();
+                        }
+                    }
                 }
                 break;
 

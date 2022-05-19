@@ -26,10 +26,10 @@ import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.MyGiftActivity;
 import com.namviet.vtvtravel.view.f2.MyTripActivity;
 import com.namviet.vtvtravel.view.f2.SystemInboxActivity;
-import com.namviet.vtvtravel.view.f2.WebviewActivity;
 import com.namviet.vtvtravel.view.f2.f2oldbase.SettingActivity;
 import com.namviet.vtvtravel.view.f2.landingpage.LandingPageActivity;
 import com.namviet.vtvtravel.view.f2.virtualswitchboard.VirtualSwitchBoardActivity;
+import com.namviet.vtvtravel.view.f3.deal.view.mygift.NewMyGiftActivity;
 import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
 
 import java.util.ArrayList;
@@ -117,11 +117,13 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     Log.e("xxx", "onClick: " +items.get(position).getCode_type());
                     switch (items.get(position).getCode_type()) {
                         case "APP_MAIN_HEADER_MY_GIFT":
-                            try {
-                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_MY_PROMOTION, TrackingAnalytic.getDefault("Menu", "Menu"));
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+//                            try {
+//                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_MY_PROMOTION, TrackingAnalytic.getDefault("Menu", "Menu"));
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+                            NewMyGiftActivity.startScreen(context);
+                            break;
                         case "APP_MAIN_FOOTER_SUPPORT":
                             MyGiftActivity.startScreen(context, (ArrayList<MenuItem>) items.get(position).getMenuChildren(), items.get(position).getName());
                             break;

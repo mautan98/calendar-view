@@ -8,7 +8,8 @@ import java.util.List;
 
 public class FilterByPageResponse extends BaseResponse implements Serializable {
     private String codeSet;
-
+    public static final String TYPE_DISTANCE = "TYPE_DISTANCE";
+    public static final String TYPE_OPEN_STATE = "TYPE_OPEN_STATE";
     public String getCodeSet() {
         return codeSet;
     }
@@ -23,8 +24,23 @@ public class FilterByPageResponse extends BaseResponse implements Serializable {
         return data;
     }
 
-    public class Data implements Serializable {
+    public static class Data implements Serializable {
         private boolean isSelected;
+        private String typeData;
+        public Data() {
+        }
+
+        public Data(String typeData) {
+            this.typeData = typeData;
+        }
+
+        public String getTypeData() {
+            return typeData;
+        }
+
+        public void setTypeData(String typeData) {
+            this.typeData = typeData;
+        }
 
         public boolean isSelected() {
             return isSelected;

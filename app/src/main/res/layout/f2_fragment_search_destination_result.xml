@@ -2,37 +2,62 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-    </data>
+    <data></data>
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_marginStart="12dp"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvCountResult"
-                android:text="Kết quả..."
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvCountResult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Kết quả..." />
+
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rclContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:id="@+id/rclContent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/btnScrollToTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/f2_bg_scroll_top"
+            android:drawableLeft="@drawable/f2_ic_go_fisrt"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:paddingStart="30dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="15dp"
+            android:text="Lên đầu trang"
+            android:textColor="#000000"
+            android:textSize="16dp" />
 
-
-
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

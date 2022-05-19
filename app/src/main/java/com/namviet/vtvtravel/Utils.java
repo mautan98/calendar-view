@@ -2,6 +2,8 @@ package com.namviet.vtvtravel;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.os.Build;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -112,5 +114,13 @@ public class Utils {
     public static void fadeIn(View view) {
         view.setAlpha(0f);
         view.animate().alpha(1.0f).setDuration(500);
+    }
+
+    public static String getSpannedText(String text) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT).toString();
+        } else {
+            return Html.fromHtml(text).toString();
+        }
     }
 }

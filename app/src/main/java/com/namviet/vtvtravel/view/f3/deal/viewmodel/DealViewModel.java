@@ -10,6 +10,7 @@ import com.namviet.vtvtravel.view.f3.deal.model.BlockResponse;
 import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollowResponse;
+import com.namviet.vtvtravel.view.f3.deal.model.mygift.MyGiftResponse;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
 import java.util.Map;
@@ -1093,6 +1094,32 @@ public class DealViewModel extends BaseViewModel {
                     public void accept(DealResponse dealByCampaign) throws Exception {
                         if (dealByCampaign != null) {
                             requestSuccess(dealByCampaign);
+                        } else {
+                            requestSuccess(null);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable);
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+
+    public void getAllMyGift(int page) {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+        Disposable disposable = newsService.getAllMyGift(page)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<MyGiftResponse>() {
+                    @Override
+                    public void accept(MyGiftResponse dealFollowResponse) throws Exception {
+                        if (dealFollowResponse != null) {
+                            requestSuccess(dealFollowResponse);
                         } else {
                             requestSuccess(null);
                         }

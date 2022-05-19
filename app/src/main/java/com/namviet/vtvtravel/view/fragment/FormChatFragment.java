@@ -230,7 +230,7 @@ public class FormChatFragment extends MainFragment implements Observer {
             mTimer60s.cancel();
             i[0] = 0;
         }
-        mTimer60s = new CountDownTimer(15000, 1000) {
+        mTimer60s = new CountDownTimer(60000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 i[0] = i[0] + 1;

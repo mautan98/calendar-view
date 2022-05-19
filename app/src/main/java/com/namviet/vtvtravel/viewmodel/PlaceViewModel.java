@@ -9,6 +9,7 @@ import com.namviet.vtvtravel.api.TravelService;
 import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.City;
 import com.namviet.vtvtravel.model.GroupSchedule;
 import com.namviet.vtvtravel.response.BaseResponse;
@@ -813,8 +814,9 @@ public class PlaceViewModel extends BaseViewModel {
 
         }
         try {
+            ErrorResponse errorResponse = new ErrorResponse();
             setChanged();
-            notifyObservers(ResponseUltils.requestFailed(throwable));
+            notifyObservers(errorResponse);
         } catch (Exception e) {
             setChanged();
             notifyObservers();
