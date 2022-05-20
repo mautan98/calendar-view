@@ -39,7 +39,7 @@ public class SubNearByAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
         if (viewType == TYPE_ITEM) {
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_item_home_near_place, parent, false);
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_item_home_near_place_full_screen, parent, false);
             return new HeaderViewHolder(v);
         }
         return null;
