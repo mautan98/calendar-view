@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data></data>
 
@@ -42,8 +43,8 @@
                         android:id="@+id/tvPlace"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="7dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/f2_bg_location"
                         android:fontFamily="@font/roboto_regular"
                         android:paddingStart="6dp"
@@ -164,40 +165,19 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="110dp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/tvName"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
-                            android:layout_marginTop="6dp"
-                            android:layout_marginEnd="6dp"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/roboto_bold"
-                            android:maxLines="2"
-                            android:text="Terracotta Hotel &amp; Resort HaNoi đang ưu đãi lớn"
-                            android:textColor="@color/md_black_1000"
-                            android:textSize="16dp" />
-
-
-                    </LinearLayout>
+                    android:layout_height="140dp"
+                    android:orientation="vertical"
+                    android:paddingStart="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        android:paddingTop="5dp">
+                        android:paddingTop="5.5dp">
 
                         <ImageView
                             android:layout_width="12dp"
                             android:layout_height="12dp"
-                            android:src="@drawable/f2_ic_distance" />
+                            android:src="@drawable/ic_my_location" />
 
                         <TextView
                             android:id="@+id/tvDistance"
@@ -210,98 +190,190 @@
 
                     </LinearLayout>
 
-                    <RelativeLayout
-                        android:layout_weight="1"
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginEnd="6dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/roboto_bold"
+                        android:maxLines="2"
+                        android:text="Terracotta Hotel &amp; Resort HaNoi đang ưu đãi lớn"
+                        android:textColor="@color/md_black_1000"
+                        android:textSize="16dp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="9dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_metro_location" />
+
+                        <TextView
+                            android:id="@+id/tvAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="7dp"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/roboto_regular"
+                            android:maxLines="1"
+                            android:textColor="#5E5E5E"
+                            android:textSize="12dp"
+                            tools:text="Tầng 4, Tòa nhà N07-B3, Khu đô thị mới ..." />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:gravity="bottom"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
+
+
                         <LinearLayout
-                            android:layout_alignParentBottom="true"
-                            android:id="@+id/linearOpenType"
+                            android:id="@+id/layoutOpen"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="20dp"
-                            android:orientation="horizontal"
-                            android:visibility="visible">
+                            android:layout_marginTop="13dp"
+                            android:layout_marginBottom="10dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="16dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_time_open" />
 
                             <LinearLayout
-                                android:id="@+id/layoutForRestaurant"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="6dp"
+                                android:orientation="vertical">
 
-                                android:orientation="horizontal"
-                                android:visibility="visible">
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
 
-                                <TextView
-                                    android:id="@+id/tvOpenDate"
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:textColor="#5E5E5E"
+                                        android:textSize="12dp"
+                                        android:visibility="gone"
+                                        tools:text="Mở cửa" />
+
+
+                                    <TextView
+                                        android:id="@+id/tvOpenDate"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="6dp"
+                                        android:fontFamily="@font/roboto_medium"
+                                        android:textColor="#5E5E5E"
+                                        android:textSize="12dp"
+                                        tools:text="T2 - CN" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/roboto_medium"
-                                    android:text="Mở cửa T2 - CN"
-                                    android:textColor="#000000"
-                                    android:textSize="12dp" />
+                                    android:layout_marginStart="6dp"
+                                    android:orientation="horizontal">
 
-                                <View
-                                    android:id="@+id/viewTime"
-                                    android:layout_width="1dp"
-                                    android:layout_height="12dp"
+                                    <TextView
+                                        android:id="@+id/tvOpenTime"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:background="@drawable/bg_otp_inactive"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:paddingLeft="5dp"
+                                        android:paddingTop="2dp"
+                                        android:paddingRight="5dp"
+                                        android:paddingBottom="2dp"
+                                        android:textColor="#5E5E5E"
+                                        android:textSize="12dp"
+                                        tools:text="06:30 - 21:30" />
+
+                                    <TextView
+                                        android:id="@+id/tvOpenTime2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginStart="8dp"
+                                        android:background="@drawable/bg_otp_inactive"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:paddingLeft="5dp"
+                                        android:paddingTop="2dp"
+                                        android:paddingRight="5dp"
+                                        android:paddingBottom="2dp"
+                                        android:textColor="#5E5E5E"
+                                        android:textSize="12dp"
+                                        android:visibility="visible"
+                                        tools:text="06:30 - 21:30" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <View
+                                android:id="@+id/viewTime"
+                                android:layout_width="1dp"
+                                android:layout_height="12dp"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="11dp"
+                                android:layout_marginEnd="11dp"
+                                android:background="#707070"
+                                android:visibility="gone" />
+
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="12dp"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="11dp"
+                                android:layout_marginEnd="11dp"
+                                android:background="#707070"
+                                android:visibility="gone" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="right|center"
+                                android:orientation="horizontal">
+
+                                <com.ornach.richtext.RichText
+                                    android:id="@+id/viewStatus"
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:layout_marginEnd="6dp"
+                                    app:rt_backgroundColor="#0FB403"
+                                    app:rt_radius="100dp" />
+
+                                <TextView
+                                    android:id="@+id/tvOpenState"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:background="#B4B4B4" />
-
-                                <TextView
-                                    android:id="@+id/tvOpenTime"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="11dp"
                                     android:fontFamily="@font/roboto_medium"
-                                    android:textColor="#000000"
+                                    android:text="Đang mở"
+                                    android:textColor="#0FB403"
                                     android:textSize="12dp" />
                             </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/tvStatus"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="6dp"
-                                android:layout_marginEnd="10dp"
-                                android:gravity="end"
-                                android:text="Đã đóng"
-                                android:textColor="#FF0000"
-                                android:textSize="12dp"
-                                android:textStyle="italic"
-                                android:visibility="visible" />
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:id="@+id/linearPriceType"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
-                            android:orientation="vertical"
-                            android:paddingTop="16dp"
-                            android:visibility="gone">
+                    </LinearLayout>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/roboto_medium"
-                                android:text="Giá từ"
-                                android:textColor="#888888" />
-
-                            <TextView
-                                android:id="@+id/tvPriceRange"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/roboto_medium"
-                                android:textColor="#000000"
-                                android:textSize="16dp" />
-
-                        </LinearLayout>
-
-                    </RelativeLayout>
 
                 </LinearLayout>
 
