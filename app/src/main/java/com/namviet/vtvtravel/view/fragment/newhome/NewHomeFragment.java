@@ -458,7 +458,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                     try {
                         if (isScroll) {
                             isScroll = false;
-                            TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_SCROLL, TrackingAnalytic.getDefault("Home", "Home").setScreen_class(this.getClass().getName()));
+                            TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_SCROLL, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setScreen_class(this.getClass().getName()));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

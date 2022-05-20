@@ -14,9 +14,12 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.response.newhome.AppPromotionPartnerResponse;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SubPromotionPartnerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private ArrayList<String> idsClicked = new ArrayList<>();
+
     private static final int TYPE_ITEM = 0;
 
     private Context context;
@@ -63,6 +66,7 @@ public class SubPromotionPartnerAdapter extends RecyclerView.Adapter<RecyclerVie
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         private ImageView imvBanner;
+        private int position = 0;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -71,10 +75,13 @@ public class SubPromotionPartnerAdapter extends RecyclerView.Adapter<RecyclerVie
                 @Override
                 public void onClick(View view) {
                     try {
-                        try {
-                            TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id("mess").setScreen_class(this.getClass().getName()));
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        if(!checkID(itemList.get(position).getAvatarUri())) {
+                            try {
+                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id("").setScreen_class(this.getClass().getName()));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            idsClicked.add(itemList.get(position).getAvatarUri());
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -84,7 +91,20 @@ public class SubPromotionPartnerAdapter extends RecyclerView.Adapter<RecyclerVie
         }
 
         public void bindItem(int position) {
+            this.position = position;
             setImage(itemList.get(position).getAvatarUri(), imvBanner);
+
+            if(position == 0){
+                try {
+                    try {
+                        TrackingAnalytic.postEvent(TrackingAnalytic.VIEW_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id("").setScreen_class(this.getClass().getName()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         public void setImage(String url, ImageView image) {
@@ -93,6 +113,15 @@ public class SubPromotionPartnerAdapter extends RecyclerView.Adapter<RecyclerVie
             requestOptions.error(com.daimajia.slider.library.R.drawable.img_placeholder);
             Glide.with(context).setDefaultRequestOptions(requestOptions).load(url).thumbnail(0.2f).into(image);
 
+        }
+
+        private boolean checkID(String id){
+            for (int i = 0; i < idsClicked.size(); i++) {
+                if(id.equals(idsClicked.get(i))){
+                    return true;
+                }
+            }
+            return false;
         }
     }
 

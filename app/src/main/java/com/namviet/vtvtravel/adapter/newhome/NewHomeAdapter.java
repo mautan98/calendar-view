@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -135,6 +136,9 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final BaseViewModel viewModel;
     private Timer timer;
     private int pageNumber;
+
+
+    private ArrayList<String> idsViewed = new ArrayList<>();
 
     public ViewPager getViewPagerVoucher() {
         return pager;
@@ -895,10 +899,15 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         super.onScrollStateChanged(recyclerView, newState);
                         try {
                             if(newState == 0){
-                                try {
-                                    TrackingAnalytic.postEvent(TrackingAnalytic.VIEW_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id("mess").setScreen_class(this.getClass().getName()));
-                                } catch (Exception e) {
-                                    e.printStackTrace();
+                                LinearLayoutManager layoutManager = ((LinearLayoutManager) recyclerPartnerLink.getLayoutManager());
+                                int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
+                                if(!checkID(appPromotionPartnerResponse.getItems().get(firstVisiblePosition).getAvatarUri())) {
+                                    try {
+                                        TrackingAnalytic.postEvent(TrackingAnalytic.VIEW_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id("mess").setScreen_class(this.getClass().getName()));
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    idsViewed.add(appPromotionPartnerResponse.getItems().get(firstVisiblePosition).getAvatarUri());
                                 }
                             }
                         } catch (Exception e) {
@@ -909,6 +918,16 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+
+
+        private boolean checkID(String id){
+            for (int i = 0; i < idsViewed.size(); i++) {
+                if(id.equals(idsViewed.get(i))){
+                    return true;
+                }
+            }
+            return false;
         }
     }
 
