@@ -287,6 +287,8 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                     TrackingAnalytic.postEvent(TrackingAnalytic.SHARE, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.NEWS_DETAIL, TrackingAnalytic.ScreenTitle.NEWS_DETAIL)
                             .setContent_id(detailTravelNewsResponse.getData().getId())
                             .setContent_type(detailTravelNewsResponse.getData().getContent_type())
+                            .setCategory_tree_code(detailTravelNewsResponse.getData().getCategory_tree_code())
+                            .setCategory_tree_name(detailTravelNewsResponse.getData().getCategory_tree_name())
                             .setScreen_class(this.getClass().getName()));
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -769,7 +771,6 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
     @Override
     public void setScreenTitle() {
         super.setScreenTitle();
-        setDataScreen(TrackingAnalytic.ScreenCode.NEWS_DETAIL, TrackingAnalytic.ScreenTitle.NEWS_DETAIL);
     }
 
 
