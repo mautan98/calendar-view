@@ -25,7 +25,7 @@
                 android:id="@+id/lnl_header"
                 android:paddingTop="25dp"
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
+                android:layout_height="78dp"
                 android:background="@color/colorPrimary">
 
                 <ImageView
