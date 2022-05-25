@@ -195,7 +195,7 @@ class NotificationTabFragment : BaseFragment<F3FragmentNotificationTabBinding?>,
         var resultDataList = ArrayList<Notification>()
         try {
             var dateStringSave = "";
-            val sdf = SimpleDateFormat(Constants.DateFormat.DATE_FORMAT_18, Locale.getDefault())
+            val sdf = SimpleDateFormat(Constants.DateFormat.DATE_FORMAT_NOTI, Locale.getDefault())
             for (i in 0 until dataList.size) {
                 var date = Date(dataList[i].createdAt.toLong())
                 var dateString = sdf.format(date)
