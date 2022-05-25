@@ -217,6 +217,10 @@
     <string name="ban_chua_san_text">Bạn chưa săn</string>
     <string name="tip_user_vip"><p>Bạn đang là <b>Hội viên</b> của <b>#VTVTravel</b>, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:</p></string>
     <string name="register_to_discount_member">Ưu đãi độc quyền khi đăng ký Hội viên của #VTVTravel</string>
+    <string name="create_your_trip">Tạo chuyến đi của bạn</string>
+    <string name="name_to_the_trip">Đặt tên cho chuyến đi</string>
+    <string name="hint_trip_name">Tên chuyến đi</string>
+    <string name="description_title">Mô tả</string>
 
 
 </resources>
