@@ -22,6 +22,7 @@ import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.response.f2menu.MenuItem;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.MainActivity;
+import com.namviet.vtvtravel.view.f2.CreateTripActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.MyGiftActivity;
 import com.namviet.vtvtravel.view.f2.MyTripActivity;
@@ -159,7 +160,7 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         case "APP_MAIN_HEADER_MY_TRIP":
                             Account account2 = MyApplication.getInstance().getAccount();
                             if (null != account2 && account2.isLogin()) {
-                                MyTripActivity.startScreen(context);
+                                CreateTripActivity.startScreen(context);
                             } else {
                                 LoginAndRegisterActivityNew.startScreen(context, 0, false);
                             }
