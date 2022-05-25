@@ -91,13 +91,13 @@
 
 
                             <ImageView
-
                                 android:layout_width="11dp"
                                 android:layout_height="7dp"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="11dp"
-                                android:src="@drawable/f2_ic_down_small" />
+                                android:src="@drawable/f2_ic_down_small"
+                                app:tint="#707070" />
 
                         </RelativeLayout>
 

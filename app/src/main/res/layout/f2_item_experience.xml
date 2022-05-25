@@ -293,10 +293,10 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="12dp"
-                            android:layout_height="13dp"
+                            android:layout_width="9dp"
+                            android:layout_height="15dp"
                             android:layout_marginEnd="4dp"
-                            android:src="@drawable/f2_ic_location" />
+                            android:src="@drawable/ic_metro_location" />
 
                         <TextView
                             android:id="@+id/tvAddress"
@@ -322,7 +322,7 @@
                             android:layout_width="12dp"
                             android:layout_height="13dp"
                             android:layout_marginEnd="4dp"
-                            android:src="@drawable/f2_ic_distance" />
+                            android:src="@drawable/ic_my_location" />
 
                         <TextView
                             android:id="@+id/tvDistance"
