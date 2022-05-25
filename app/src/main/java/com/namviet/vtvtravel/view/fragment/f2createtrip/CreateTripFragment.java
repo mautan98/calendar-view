@@ -41,64 +41,12 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
 
     @Override
     public void initView() {
-        getBinding().webView.getSettings().setJavaScriptEnabled(true);
 
-        getBinding().webView.setWebChromeClient(new WebChromeClient() {
-            public void onProgressChanged(WebView view, int progress) {
-                if (progress == 100) { //...page is fully loaded.
-                    try {
-                        getBinding().shimmerViewContainer.stopShimmer();
-                        getBinding().layoutLoading.setVisibility(View.GONE);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
 
-        getBinding().webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                try {
-                    Log.e("url", url);
-                    if (url.toUpperCase().equals("APP://EXIT")) {
-                        mActivity.onBackPressed();
-                    } else if (url.toUpperCase().startsWith("APP://DETAIL")) {
-                        try {
-                            String link = new UrlQuerySanitizer(url).getValue("link");
-                            SmallLocationActivity.startScreenDetail(mActivity, SmallLocationActivity.OpenType.DETAIL, link);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    } else if(url.toUpperCase().startsWith("APP://MAP")){
-                        try {
-                            String link = new UrlQuerySanitizer(url).getValue("link");
-                            DisplayMarkerForMapActivity.startScreen(mActivity, link);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    } else if(url.toUpperCase().equals("APP://CALL")){
-                        try {
-                            String phone = "1039";
-                            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
-                            mActivity.startActivity(intent);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }else {
-                        view.loadUrl(url);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return true;
-            }
-        });
     }
 
     @Override
     public void initData() {
-        getBinding().webView.loadUrl(genLink(), extraHeaders);
     }
 
     @Override
@@ -144,9 +92,5 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
     @Override
     public void onDestroy() {
         super.onDestroy();
-        CookieManager cookieManager = CookieManager.getInstance();
-        cookieManager.removeSessionCookie();
-        getBinding().webView.clearCache(true);
-        getBinding().webView.clearHistory();
     }
 }
