@@ -45,67 +45,6 @@ public class ReceiveInviteTripDetailActivity extends BaseActivityNew<F2FragmentC
 
     @Override
     public void doAfterOnCreate() {
-        WebSettings webSettings = getBinding().webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setGeolocationEnabled(true);
-        webSettings.setSupportMultipleWindows(true); // This forces ChromeClient enabled.
-
-        getBinding().webView.setWebChromeClient(new WebChromeClient() {
-            public void onProgressChanged(WebView view, int progress) {
-                if (progress == 100) { //...page is fully loaded.
-                    try {
-                        getBinding().shimmerViewContainer.stopShimmer();
-                        getBinding().layoutLoading.setVisibility(View.GONE);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-        getBinding().webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.toUpperCase().equals("APP://EXIT")) {
-                    finish();
-                } else if (url.toUpperCase().startsWith("APP://DETAIL")) {
-                    try {
-                        String link = new UrlQuerySanitizer(url).getValue("link");
-                        SmallLocationActivity.startScreenDetail(ReceiveInviteTripDetailActivity.this, SmallLocationActivity.OpenType.DETAIL, link);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else if(url.toUpperCase().startsWith("APP://MAP")){
-                    try {
-                        String link = new UrlQuerySanitizer(url).getValue("link");
-                        DisplayMarkerForMapActivity.startScreen(ReceiveInviteTripDetailActivity.this, link);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }else if(url.toUpperCase().equals("APP://CALL")){
-                    try {
-                        String phone = "1039";
-                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
-                        startActivity(intent);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }else {
-                    view.loadUrl(url);
-                }
-                return true;
-            }
-        });
-
-        Account account = MyApplication.getInstance().getAccount();
-        if (null != account && account.isLogin()) {
-            token = account.getToken();
-            Map<String, String> extraHeaders = new HashMap<>();
-            extraHeaders.put("token",token);
-            getBinding().webView.loadUrl(genLink(), extraHeaders);
-        } else {
-
-        }
     }
 
     @Override
