@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -58,8 +59,16 @@
             android:background="@color/white"
             android:paddingStart="16dp"
             android:paddingEnd="8dp"
+            android:paddingTop="20dp"
             android:layout_height="match_parent"/>
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_create_trips"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/_40sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"/>
 
         <RelativeLayout
             android:id="@+id/layoutLoading"
