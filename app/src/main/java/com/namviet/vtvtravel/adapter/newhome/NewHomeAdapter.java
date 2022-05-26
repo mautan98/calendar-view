@@ -546,11 +546,9 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public class VoucherViewHolder extends RecyclerView.ViewHolder {
-        private final PagerContainer container;
 
         private final TextView tvTipUser;
         private final TextView btnRegisterNow;
-        private final IndefinitePagerIndicator vpIndicator;
         private final CircleIndicator indicator;
 
         private int pageIndex = 0;
@@ -558,10 +556,8 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public VoucherViewHolder(View itemView) {
             super(itemView);
-            container = itemView.findViewById(R.id.pager_container);
             tvTipUser = itemView.findViewById(R.id.tvTipUser);
             btnRegisterNow = itemView.findViewById(R.id.btnRegisterNow);
-            vpIndicator = itemView.findViewById(R.id.vpIndicator);
             indicator = itemView.findViewById(R.id.indicator);
             imvNodata = itemView.findViewById(R.id.imv_no_voucher);
         }
@@ -571,7 +567,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             if (appVoucherResponse == null) {
                 loadData.onLoadData(homeServiceResponse.getData().get(position).getContent_link(), TypeString.APP_VOUCHER);
             }
-            pager = container.getViewPager();
+//            pager = container.getViewPager();
             pager.setAdapter(new SubAppVoucherAdapter(context, appVoucherResponse, new SubAppVoucherAdapter.ClickItem() {
                 @Override
                 public void onClickItem(AppVoucherResponse.Item item) {
@@ -600,13 +596,13 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
             pager.setClipChildren(false);
             pager.setOffscreenPageLimit(15);
-            container.setPageItemClickListener(new PageItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-
-                }
-            });
-            new CoverFlow.Builder().with(pager).scale(0.3f).pagerMargin(-50f).spaceSize(0f).build();
+//            container.setPageItemClickListener(new PageItemClickListener() {
+//                @Override
+//                public void onItemClick(View view, int position) {
+//
+//                }
+//            });
+//            new CoverFlow.Builder().with(pager).scale(0.3f).pagerMargin(-50f).spaceSize(0f).build();
 
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 tvTipUser.setText(Html.fromHtml(homeServiceResponse.getData().get(position).getTipUser(), Html.FROM_HTML_MODE_COMPACT));
@@ -630,7 +626,6 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             });
 
             try {
-                vpIndicator.attachToViewPager(pager);
 
                 indicator.setViewPager(pager);
 

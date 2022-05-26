@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,63 +11,78 @@
         android:orientation="vertical">
 
 
-        <TextView
-            android:id="@+id/tvTipUser"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:gravity="center_horizontal"
-            android:lineSpacingExtra="10dp"
-            android:text="@string/register_to_discount_member"
-            android:textColor="#000000"
-            android:textSize="14dp" />
+            android:orientation="horizontal">
 
 
-        <TextView
-            android:id="@+id/btnRegisterNow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/f2_bg_button_yellow"
-            android:fontFamily="@font/roboto_regular"
-            android:paddingStart="16dp"
-            android:paddingTop="4dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="4dp"
-            android:text="Đăng ký ngay"
-            android:textColor="@color/white"
-            android:textSize="14dp" />
+            <ImageView
+                android:id="@+id/imgIcon"
+                android:layout_width="21dp"
+                android:layout_height="19dp"
+                android:layout_marginStart="11dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <me.crosswall.lib.coverflow.core.PagerContainer
-            android:id="@+id/pager_container"
+
+            <TextView
+                android:id="@+id/tvTipUser"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_weight="1"
+                android:includeFontPadding="false"
+                android:text="@string/register_to_discount_member"
+                android:textColor="#000000"
+                android:textSize="14dp"
+                app:layout_constraintEnd_toStartOf="@+id/btnRegisterNow"
+                app:layout_constraintStart_toEndOf="@+id/imgIcon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/btnRegisterNow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/f2_bg_button_yellow"
+                android:fontFamily="@font/roboto_regular"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="4dp"
+                android:text="Đăng ký ngay"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvTipUser"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginTop="13dp"
             android:layout_width="match_parent"
-            android:layout_height="220dp">
+            android:layout_height="wrap_content">
 
             <androidx.viewpager.widget.ViewPager
+                app:layout_constraintDimensionRatio="258:85"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 android:id="@+id/vpSlideShow"
-                android:layout_width="280dp"
-                android:layout_height="190dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_gravity="center" />
 
-
-        </me.crosswall.lib.coverflow.core.PagerContainer>
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
-            android:id="@+id/vpIndicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="2dp"
-            android:visibility="gone"
-            app:dotColor="@color/gray_99"
-            app:dotRadius="5dp"
-            app:selectedDotColor="@color/colorPrimary"
-            app:selectedDotRadius="5dp" />
 
         <me.relex.circleindicator.CircleIndicator
+            android:layout_marginTop="12dp"
             android:id="@id/indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,15 +94,6 @@
             app:ci_margin="5dp"
             app:ci_orientation="horizontal"
             app:ci_width="8dp" />
-
-        <!--    <android.support.v4.view.ViewPager-->
-        <!--        android:id="@+id/vpSlideShow"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:layout_below="@+id/tvAddMoment"-->
-        <!--        android:clipToPadding="false"-->
-        <!--        android:paddingStart="30dp"-->
-        <!--        android:paddingEnd="30dp" />-->
 
 
         <View
@@ -101,11 +107,11 @@
 
     <ImageView
         android:id="@+id/imv_no_voucher"
-        android:layout_marginTop="80dp"
-        android:layout_centerHorizontal="true"
-        android:alpha="0.5"
-        android:src="@drawable/img_no_voucher"
         android:layout_width="150dp"
-        android:layout_height="150dp"/>
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="80dp"
+        android:alpha="0.5"
+        android:src="@drawable/img_no_voucher" />
 
 </RelativeLayout>
