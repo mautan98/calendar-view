@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.view.fragment.f2mytrip.adapter
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.namviet.vtvtravel.databinding.LayoutItemMyTripsBinding
@@ -22,7 +23,8 @@ class MyTripsAdapter : RecyclerView.Adapter<MyTripsAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val tripItem: TripItem = listTripItem[position]
+        holder.bind(tripItem,position)
     }
 
     override fun getItemCount(): Int {
@@ -31,8 +33,8 @@ class MyTripsAdapter : RecyclerView.Adapter<MyTripsAdapter.ViewHolder>() {
 
     inner class ViewHolder(var binding: LayoutItemMyTripsBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(position: Int) {
-            MyTripsResponse().data?.listTrip
+        fun bind(tripItem: TripItem , position: Int) {
+
         }
 
     }
