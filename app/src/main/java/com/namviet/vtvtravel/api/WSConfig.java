@@ -25,6 +25,7 @@ public class WSConfig {
     public static final String LINK_DEAL = "http://deal.vtvtravel.vn";
     public static final String HOST_ORDER = "https://booking-testing.vtvtravel.vn/order/dashboard";
     public static final String API_VQMM_HISTORY = "https://core-testing.vtvtravel.vn/api/v1/wheel/history";
+    public static final String API_TRIPS_SCHEDULE = "https://core-testing.vtvtravel.vn/api/v1/user/customSchedule/";
 
 
     //Deal
@@ -258,6 +259,8 @@ public class WSConfig {
         public static final String DEAL_CHILD_DETAIL = "deals/details";
         public static final String DEAL_BY_CAMPAIGN = "deals/byCampaigns";
         public static final String MY_GIFT = "myGifts";
+        public static final String GET_SCHEDULE = "schedule";
+        public static final String CREATE_SCHEDULE = "createSchedule";
     }
 
     public class KeyParam {
