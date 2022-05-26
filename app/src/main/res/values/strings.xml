@@ -221,6 +221,10 @@
     <string name="name_to_the_trip">Đặt tên cho chuyến đi</string>
     <string name="hint_trip_name">Tên chuyến đi</string>
     <string name="description_title">Mô tả</string>
+    <string name="creator_trips">Người tạo:</string>
+    <string name="estimate_cost">Chi phí dự tính:</string>
+    <string name="days_in_trip">Thời gian đi:</string>
+    <string name="people_numb">Người</string>
 
 
 </resources>
