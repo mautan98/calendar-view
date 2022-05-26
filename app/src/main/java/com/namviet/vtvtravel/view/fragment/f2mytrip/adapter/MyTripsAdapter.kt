@@ -3,8 +3,10 @@ package com.namviet.vtvtravel.view.fragment.f2mytrip.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.LayoutItemMyTripsBinding
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
 import java.util.*
@@ -21,7 +23,7 @@ class MyTripsAdapter(var context: Context) : RecyclerView.Adapter<MyTripsAdapter
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val viewBinding = LayoutItemMyTripsBinding.inflate(LayoutInflater.from(context),parent,false)
+        val viewBinding:LayoutItemMyTripsBinding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.layout_item_my_trips,parent,false)
         return ViewHolder(viewBinding)
     }
 
