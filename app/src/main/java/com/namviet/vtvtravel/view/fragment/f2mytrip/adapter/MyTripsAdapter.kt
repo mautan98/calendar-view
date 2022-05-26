@@ -12,6 +12,11 @@ class MyTripsAdapter : RecyclerView.Adapter<MyTripsAdapter.ViewHolder>() {
     private lateinit var context: Context
     private var listTripItem: MutableList<TripItem> = mutableListOf()
 
+    fun setListTripItem(list:MutableList<TripItem>){
+        this.listTripItem = list
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         TODO("Not yet implemented")
     }
