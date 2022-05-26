@@ -19,7 +19,8 @@ class MyTripsAdapter : RecyclerView.Adapter<MyTripsAdapter.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        TODO("Not yet implemented")
+        val viewBinding = LayoutItemMyTripsBinding.inflate(LayoutInflater.from(context),parent,false)
+        return ViewHolder(viewBinding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
