@@ -160,7 +160,7 @@ public class SubMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         case "APP_MAIN_HEADER_MY_TRIP":
                             Account account2 = MyApplication.getInstance().getAccount();
                             if (null != account2 && account2.isLogin()) {
-                                CreateTripActivity.startScreen(context);
+                                MyTripActivity.startScreen(context);
                             } else {
                                 LoginAndRegisterActivityNew.startScreen(context, 0, false);
                             }
