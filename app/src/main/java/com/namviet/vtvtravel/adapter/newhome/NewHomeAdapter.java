@@ -560,6 +560,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             btnRegisterNow = itemView.findViewById(R.id.btnRegisterNow);
             indicator = itemView.findViewById(R.id.indicator);
             imvNodata = itemView.findViewById(R.id.imv_no_voucher);
+            pager = itemView.findViewById(R.id.vpSlideShow);
         }
 
         public void bindItem(int position) {
