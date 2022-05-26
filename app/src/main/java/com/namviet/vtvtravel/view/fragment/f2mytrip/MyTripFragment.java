@@ -14,14 +14,26 @@ import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.databinding.F2FragmentMyTripBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.model.Account;
+import com.namviet.vtvtravel.response.newhome.HomeServiceResponse;
 import com.namviet.vtvtravel.view.f2.DisplayMarkerForMapActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
+import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.MyTripsAdapter;
+import com.namviet.vtvtravel.view.fragment.f2mytrip.model.MyTripsResponse;
+import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem;
+import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
-public class MyTripFragment extends BaseFragment<F2FragmentMyTripBinding> {
+public class MyTripFragment extends BaseFragment<F2FragmentMyTripBinding> implements Observer {
     Map<String, String> extraHeaders = new HashMap<>();
+    private MyTripsAdapter myTripsAdapter;
+    private MyTripsViewModel myTripsViewModel;
+    private List<TripItem> tripItemList = new ArrayList<>();
     public MyTripFragment() {
     }
 
@@ -33,6 +45,11 @@ public class MyTripFragment extends BaseFragment<F2FragmentMyTripBinding> {
 
     @Override
     public void initView() {
+        myTripsViewModel = new MyTripsViewModel();
+        myTripsViewModel.addObserver(this);
+        myTripsViewModel.getListScheduleTrips();
+        myTripsAdapter = new MyTripsAdapter(getContext());
+        getBinding().rcvAllSchedule.setAdapter(myTripsAdapter);
 
 
 
@@ -58,4 +75,14 @@ public class MyTripFragment extends BaseFragment<F2FragmentMyTripBinding> {
 
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        if (arg instanceof MyTripsResponse){
+            MyTripsResponse myTripsResponse = (MyTripsResponse) arg;
+            if (myTripsResponse.getData() != null && myTripsResponse.getData().getListTrip() != null){
+                tripItemList = myTripsResponse.getData().getListTrip();
+                myTripsAdapter.setListTripItem(tripItemList);
+            }
+        }
+    }
 }
