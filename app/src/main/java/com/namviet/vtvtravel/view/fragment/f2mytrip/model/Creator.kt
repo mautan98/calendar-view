@@ -3,12 +3,13 @@ package com.namviet.vtvtravel.view.fragment.f2mytrip.model
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 
 @Parcelize
 data class Creator(
 
 	@field:SerializedName("googleId")
-	val googleId: Any? = null,
+	val googleId: @RawValue  Any? = null,
 
 	@field:SerializedName("birthday")
 	val birthday: String? = null,
@@ -23,7 +24,7 @@ data class Creator(
 	val gender: Int? = null,
 
 	@field:SerializedName("tokenFacebook")
-	val tokenFacebook: Any? = null,
+	val tokenFacebook: @RawValue  Any? = null,
 
 	@field:SerializedName("langCode")
 	val langCode: String? = null,
@@ -32,28 +33,28 @@ data class Creator(
 	val about: String? = null,
 
 	@field:SerializedName("channel")
-	val channel: Any? = null,
+	val channel: @RawValue  Any? = null,
 
 	@field:SerializedName("sipTransportType")
-	val sipTransportType: Any? = null,
+	val sipTransportType: @RawValue  Any? = null,
 
 	@field:SerializedName("isTravelingSupporter")
-	val isTravelingSupporter: Any? = null,
+	val isTravelingSupporter: @RawValue  Any? = null,
 
 	@field:SerializedName("password")
-	val password: Any? = null,
+	val password: @RawValue  Any? = null,
 
 	@field:SerializedName("icppNumber")
 	val icppNumber: String? = null,
 
 	@field:SerializedName("sipDomain")
-	val sipDomain: Any? = null,
+	val sipDomain: @RawValue  Any? = null,
 
 	@field:SerializedName("rankName")
-	val rankName: Any? = null,
+	val rankName: @RawValue  Any? = null,
 
 	@field:SerializedName("adminId")
-	val adminId: Any? = null,
+	val adminId: @RawValue  Any? = null,
 
 	@field:SerializedName("imageBackground")
 	val imageBackground: String? = null,
@@ -65,55 +66,55 @@ data class Creator(
 	val id: Int? = null,
 
 	@field:SerializedName("packageName")
-	val packageName: Any? = null,
+	val packageName: @RawValue  Any? = null,
 
 	@field:SerializedName("tokenGoogle")
-	val tokenGoogle: Any? = null,
+	val tokenGoogle: @RawValue  Any? = null,
 
 	@field:SerializedName("email")
 	val email: String? = null,
 
 	@field:SerializedName("deviceType")
-	val deviceType: Any? = null,
+	val deviceType: @RawValue  Any? = null,
 
 	@field:SerializedName("address")
 	val address: String? = null,
 
 	@field:SerializedName("sipPassword")
-	val sipPassword: Any? = null,
+	val sipPassword: @RawValue  Any? = null,
 
 	@field:SerializedName("created")
 	val created: Long? = null,
 
 	@field:SerializedName("oldPassword")
-	val oldPassword: Any? = null,
+	val oldPassword: @RawValue  Any? = null,
 
 	@field:SerializedName("facebookId")
-	val facebookId: Any? = null,
+	val facebookId: @RawValue  Any? = null,
 
 	@field:SerializedName("mobile")
 	val mobile: String? = null,
 
 	@field:SerializedName("sipAccount")
-	val sipAccount: Any? = null,
+	val sipAccount: @RawValue  Any? = null,
 
 	@field:SerializedName("token")
-	val token: Any? = null,
+	val token: @RawValue  Any? = null,
 
 	@field:SerializedName("deviceToken")
-	val deviceToken: Any? = null,
+	val deviceToken: @RawValue  Any? = null,
 
 	@field:SerializedName("totalPoint")
-	val totalPoint: Any? = null,
+	val totalPoint: @RawValue  Any? = null,
 
 	@field:SerializedName("telcoCode")
 	val telcoCode: String? = null,
 
 	@field:SerializedName("accessKey")
-	val accessKey: Any? = null,
+	val accessKey: @RawValue  Any? = null,
 
 	@field:SerializedName("packageCode")
-	val packageCode: Any? = null,
+	val packageCode: @RawValue  Any? = null,
 
 	@field:SerializedName("imageProfile")
 	val imageProfile: String? = null,
@@ -122,7 +123,7 @@ data class Creator(
 	val fullname: String? = null,
 
 	@field:SerializedName("rankIcon")
-	val rankIcon: Any? = null,
+	val rankIcon: @RawValue  Any? = null,
 
 	@field:SerializedName("status")
 	val status: Int? = null,
@@ -131,5 +132,5 @@ data class Creator(
 	val username: String? = null,
 
 	@field:SerializedName("refreshToken")
-	val refreshToken: Any? = null
+	val refreshToken: @RawValue  Any? = null
 ) : Parcelable

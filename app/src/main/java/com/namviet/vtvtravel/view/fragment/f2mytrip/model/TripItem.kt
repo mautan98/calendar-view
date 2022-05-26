@@ -3,6 +3,7 @@ package com.namviet.vtvtravel.view.fragment.f2mytrip.model
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 
 @Parcelize
 data class TripItem(
@@ -14,7 +15,7 @@ data class TripItem(
 	val userList: List<UserListItem?>? = null,
 
 	@field:SerializedName("checkRights")
-	val checkRights: Any? = null,
+	val checkRights: @RawValue Any? = null,
 
 	@field:SerializedName("name")
 	val name: String? = null,
@@ -26,7 +27,7 @@ data class TripItem(
 	val description: String? = null,
 
 	@field:SerializedName("schedulePlaceByDays")
-	val schedulePlaceByDays: Any? = null,
+	val schedulePlaceByDays: @RawValue  Any? = null,
 
 	@field:SerializedName("id")
 	val id: String? = null,
