@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.namviet.vtvtravel.databinding.LayoutItemMyTripsBinding
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.MyTripsResponse
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
@@ -35,6 +36,14 @@ class MyTripsAdapter : RecyclerView.Adapter<MyTripsAdapter.ViewHolder>() {
     inner class ViewHolder(var binding: LayoutItemMyTripsBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(tripItem: TripItem , position: Int) {
+            Glide.with(context).load(tripItem.bannerUrl).into(binding.imvBannerTrip)
+            binding.tvCreatorName.text = tripItem.creator?.fullname
+            binding.tvTripsName.text = tripItem.name
+            binding.tvTripsDesc.text = tripItem.description
+            binding.tvEstimateCost.text = tripItem.estimatedCost.toString()
+            if (tripItem.startAt == tripItem.endAt){
+                binding.tvDaysTrip.text = "1 Ngày"
+            }
 
         }
 
