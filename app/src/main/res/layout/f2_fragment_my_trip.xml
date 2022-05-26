@@ -60,6 +60,7 @@
             android:paddingStart="16dp"
             android:paddingEnd="8dp"
             android:paddingTop="20dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_height="match_parent"/>
 
         <ImageView
