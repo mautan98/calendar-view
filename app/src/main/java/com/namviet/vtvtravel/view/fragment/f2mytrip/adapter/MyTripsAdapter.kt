@@ -6,12 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.namviet.vtvtravel.databinding.LayoutItemMyTripsBinding
-import com.namviet.vtvtravel.view.fragment.f2mytrip.model.MyTripsResponse
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
+import java.util.*
+import java.util.concurrent.TimeUnit
 
-class MyTripsAdapter : RecyclerView.Adapter<MyTripsAdapter.ViewHolder>() {
 
-    private lateinit var context: Context
+class MyTripsAdapter(var context: Context) : RecyclerView.Adapter<MyTripsAdapter.ViewHolder>() {
+
     private var listTripItem: MutableList<TripItem> = mutableListOf()
 
     fun setListTripItem(list:MutableList<TripItem>){
@@ -41,8 +42,12 @@ class MyTripsAdapter : RecyclerView.Adapter<MyTripsAdapter.ViewHolder>() {
             binding.tvTripsName.text = tripItem.name
             binding.tvTripsDesc.text = tripItem.description
             binding.tvEstimateCost.text = tripItem.estimatedCost.toString()
+            val diff = tripItem.startAt?.let { tripItem.endAt?.minus(it) }
             if (tripItem.startAt == tripItem.endAt){
                 binding.tvDaysTrip.text = "1 Ngày"
+            } else {
+                binding.tvDaysTrip.text =
+                    diff?.let { TimeUnit.DAYS.convert(it, TimeUnit.MILLISECONDS) }.toString()
             }
 
         }
