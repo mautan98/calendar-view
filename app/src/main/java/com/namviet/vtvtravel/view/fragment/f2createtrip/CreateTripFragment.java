@@ -20,6 +20,7 @@ import com.namviet.vtvtravel.databinding.F2FragmentCreateTripBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.travelnews.Location;
+import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse;
 import com.namviet.vtvtravel.view.f2.DisplayMarkerForMapActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
@@ -70,10 +71,14 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
 
     @Override
     public void setClickListener() {
-        ChooseRegionMainFragment chooseRegionMainFragment = new ChooseRegionMainFragment();
-        chooseRegionMainFragment.setData(locationList,this);
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.rlt_main,chooseRegionMainFragment).commit();
+        getBinding().edtStartPlace.setOnClickListener(v -> {
+            if (locationList.size() > 0) {
+                ChooseRegionMainFragment chooseRegionMainFragment = new ChooseRegionMainFragment();
+                chooseRegionMainFragment.setData(locationList, CreateTripFragment.this);
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.replace(R.id.rlt_main, chooseRegionMainFragment,ChooseRegionMainFragment.class.getSimpleName()).addToBackStack(ChooseRegionMainFragment.class.getSimpleName()).commit();
+            }
+        });
     }
 
     @Override
@@ -120,6 +125,12 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
 
     @Override
     public void update(Observable o, Object arg) {
-
+        if (o instanceof SearchBigLocationViewModel) {
+            if (arg instanceof AllLocationResponse) {
+                AllLocationResponse locationResponse = (AllLocationResponse) arg;
+                if (locationResponse.getData() != null)
+                    locationList = (ArrayList<Location>) locationResponse.getData();
+            }
+        }
     }
 }
