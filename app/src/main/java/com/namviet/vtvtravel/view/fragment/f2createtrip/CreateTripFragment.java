@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.view.fragment.f2createtrip;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.net.UrlQuerySanitizer;
@@ -11,10 +12,12 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 
 import androidx.fragment.app.FragmentTransaction;
 
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.Utils;
 import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.databinding.F2FragmentCreateTripBinding;
@@ -32,6 +35,7 @@ import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -85,6 +89,26 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
                 getBinding().edtReturnDate.setVisibility(isChecked?View.GONE:View.VISIBLE);
             }
         });
+        Calendar calendar = Calendar.getInstance();
+        getBinding().edtStartDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selectedYear = calendar.get(Calendar.YEAR);
+                int selectedMonth = calendar.get(Calendar.MONTH);
+                int selectedDayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                calendar.set(Calendar.YEAR,year);
+                                calendar.set(Calendar.MONTH,month);
+                                calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                                getBinding().edtStartDate.setText(Utils.formatTimestampTrips(calendar.getTimeInMillis()));
+                            }
+                        }, selectedYear, selectedMonth, selectedDayOfMonth);
+                datePickerDialog.show();
+            }
+        });
     }
 
     @Override
@@ -125,7 +149,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
     @Override
     public void clickRegion(@Nullable Location location) {
         if (location != null) {
-            getBinding().edtStartDate.setText(location.getName());
+            getBinding().edtStartPlace.setText(location.getName());
         }
     }
 
