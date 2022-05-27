@@ -17,10 +17,4 @@ data class MyTripsResponse(
 
 	@field:SerializedName("requestId")
 	val requestId: @RawValue Any? = null,
-
-	@field:SerializedName("success")
-	val isSuccess: Boolean? = null,
-
-	@field:SerializedName("message")
-	val message: @RawValue  Any? = null
 ) : BaseResponse(), Parcelable
