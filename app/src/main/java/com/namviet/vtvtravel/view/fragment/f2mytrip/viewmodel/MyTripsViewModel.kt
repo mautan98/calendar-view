@@ -12,7 +12,7 @@ class MyTripsViewModel: BaseViewModel() {
 
     fun getListScheduleTrips(){
         val myApplication = MyApplication.getInstance()
-        val newsService = myApplication.travelService
+        val newsService = myApplication.travelServiceAcc
 
         val dispose  = newsService.allTripsSchedule.subscribeOn(myApplication.subscribeScheduler())
             .observeOn(AndroidSchedulers.mainThread()).subscribe(Consumer {
