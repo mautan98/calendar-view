@@ -11,6 +11,8 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import androidx.fragment.app.FragmentTransaction;
+
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
@@ -25,11 +27,16 @@ import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionMainFragment;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel;
 
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 
-public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding> implements Observer, ChooseRegionMainFragment.ChooseRegion {
+public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding> implements ChooseRegionMainFragment.ChooseRegion, Observer {
     private String link = WSConfig.HOST_CREATE_TRIP;
     private ArrayList<Location> locationList = new ArrayList<>();
     private SearchBigLocationViewModel locationViewModel;
@@ -63,7 +70,10 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
 
     @Override
     public void setClickListener() {
-
+        ChooseRegionMainFragment chooseRegionMainFragment = new ChooseRegionMainFragment();
+        chooseRegionMainFragment.setData(locationList,this);
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.rlt_main,chooseRegionMainFragment).commit();
     }
 
     @Override
@@ -99,5 +109,17 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void clickRegion(@Nullable Location location) {
+        if (location != null) {
+            getBinding().edtStartDate.setText(location.getName());
+        }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
     }
 }
