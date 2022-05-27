@@ -135,4 +135,11 @@ public class Utils {
         }
     }
 
+    public static String formatTimestampTrips(Long timeStamp) {
+        Date date = new Date(timeStamp);
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        calendar.setTime(date);
+        return calendar.get(Calendar.DAY_OF_MONTH) + " thg " + (calendar.get(Calendar.MONTH) + 1);
+    }
+
 }
