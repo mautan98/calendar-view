@@ -3,11 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+<variable
+    name="viewmodel"
+    type="com.namviet.vtvtravel.view.fragment.f2createtrip.viewmodel.CreateTripViewModel" />
 
     </data>
 
     <RelativeLayout
+        android:id="@+id/rlt_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_gray_trip_ec">
@@ -144,7 +147,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_regular"
                             android:hint="Hà Nội"
-                            
+                            android:inputType="none"
                             android:layout_marginTop="8dp"
                             android:textSize="16sp"
                             app:layout_constraintEnd_toStartOf="@id/imv_link_place"
@@ -168,7 +171,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_regular"
                             android:hint="Đà Lạt"
-                            
+                            android:inputType="none"
                             android:textSize="16sp"
                             android:layout_marginTop="8dp"
                             app:layout_constraintEnd_toStartOf="@id/imv_link_place"
