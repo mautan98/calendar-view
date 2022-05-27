@@ -225,6 +225,7 @@
     <string name="estimate_cost">Chi phí dự tính:</string>
     <string name="days_in_trip">Thời gian đi:</string>
     <string name="people_numb">Người</string>
+    <string name="my_trips_title">Chuyến đi của tôi</string>
 
 
 </resources>
