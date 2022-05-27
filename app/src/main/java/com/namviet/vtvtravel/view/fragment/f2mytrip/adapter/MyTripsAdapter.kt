@@ -49,9 +49,20 @@ class MyTripsAdapter(var context: Context) : RecyclerView.Adapter<MyTripsAdapter
                 binding.tvDaysTrip.text = "1 Ngày"
             } else {
                 binding.tvDaysTrip.text =
-                    diff?.let { TimeUnit.DAYS.convert(it, TimeUnit.MILLISECONDS) }.toString()
+                    "${diff?.let { TimeUnit.DAYS.convert(it, TimeUnit.MILLISECONDS) }} Ngày"
             }
+            binding.tvAmountPeople.text = tripItem.numberPeople.toString()
+            binding.tvStartDate.text = formatTimestamp(tripItem.startAt)
+            binding.tvEndDate.text = formatTimestamp(tripItem.endAt)
 
+        }
+
+        private fun formatTimestamp(timeStamp: Long?):String{
+            val date = timeStamp?.let { Date(it) }
+            val calendar = Calendar.getInstance(TimeZone.getDefault())
+            calendar.time = date
+            val stringTime = "${calendar.get(Calendar.DAY_OF_MONTH)} thg ${calendar.get(Calendar.MONTH)+ 1}"
+            return stringTime
         }
 
     }
