@@ -67,7 +67,9 @@ public class MyTripFragment extends BaseFragment<F2FragmentMyTripBinding> implem
 
     @Override
     public void setClickListener() {
-
+        getBinding().imvBackTrips.setOnClickListener(v -> {
+            getActivity().onBackPressed();
+        });
     }
 
     @Override
