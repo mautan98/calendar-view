@@ -17,17 +17,22 @@ import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.databinding.F2FragmentCreateTripBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.model.Account;
+import com.namviet.vtvtravel.model.travelnews.Location;
 import com.namviet.vtvtravel.view.f2.DisplayMarkerForMapActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
+import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionMainFragment;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
+import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding> {
+public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding> implements Observer, ChooseRegionMainFragment.ChooseRegion {
     private String link = WSConfig.HOST_CREATE_TRIP;
+    private ArrayList<Location> locationList = new ArrayList<>();
+    private SearchBigLocationViewModel locationViewModel;
     Map<String, String> extraHeaders = new HashMap<>();
 
 
@@ -41,7 +46,9 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
 
     @Override
     public void initView() {
-
+        locationViewModel = new SearchBigLocationViewModel();
+        locationViewModel.addObserver(this);
+        locationViewModel.getAllLocation();
 
     }
 
