@@ -10,6 +10,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -123,4 +124,15 @@ public class Utils {
             return Html.fromHtml(text).toString();
         }
     }
+
+    public static String convertPriceTrips(Long price) {
+        String pattern = " <u>đ</u>";
+        try {
+            DecimalFormat df = new DecimalFormat("###,###,###");
+            return df.format(price)+pattern;
+        } catch (Exception e) {
+            return "0" +pattern;
+        }
+    }
+
 }
