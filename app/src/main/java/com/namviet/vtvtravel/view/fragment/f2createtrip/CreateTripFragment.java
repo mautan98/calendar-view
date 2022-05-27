@@ -10,6 +10,7 @@ import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.CompoundButton;
 
 import androidx.fragment.app.FragmentTransaction;
 
@@ -75,8 +76,13 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
             if (locationList.size() > 0) {
                 ChooseRegionMainFragment chooseRegionMainFragment = new ChooseRegionMainFragment();
                 chooseRegionMainFragment.setData(locationList, CreateTripFragment.this);
-                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.replace(R.id.rlt_main, chooseRegionMainFragment,ChooseRegionMainFragment.class.getSimpleName()).addToBackStack(ChooseRegionMainFragment.class.getSimpleName()).commit();
+                addFragment(chooseRegionMainFragment);
+            }
+        });
+        getBinding().tripInday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                getBinding().edtReturnDate.setVisibility(isChecked?View.GONE:View.VISIBLE);
             }
         });
     }
