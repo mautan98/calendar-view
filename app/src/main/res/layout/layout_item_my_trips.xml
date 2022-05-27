@@ -67,8 +67,9 @@
             android:id="@+id/tv_trips_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="Chuyến đi Hà Nội - Đà Lạt"
+            tools:text="Chuyến đi Hà Nội - Đà Lạt"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -77,6 +78,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
             android:src="@drawable/ic_share_my_trips"
             app:layout_constraintBottom_toBottomOf="@id/tv_trips_name"
             app:layout_constraintEnd_toEndOf="parent"
@@ -85,11 +87,11 @@
         <TextView
             android:id="@+id/tv_trips_desc"
             android:layout_width="wrap_content"
-            android:text="Chuyen di lang man"
+            tools:text="Chuyen di lang man"
             android:fontFamily="@font/roboto_italic"
             android:textColor="#3A3A3A"
             app:layout_constraintTop_toBottomOf="@id/tv_trips_name"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_trips_name"
             android:layout_height="wrap_content" />
 
         <ImageView
@@ -98,14 +100,14 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_money_cost_my_trips"
             app:layout_constraintBottom_toBottomOf="@id/estimate_cost"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_trips_name"
             app:layout_constraintTop_toTopOf="@id/estimate_cost" />
 
         <TextView
             android:id="@+id/estimate_cost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="@dimen/_16sdp"
             android:fontFamily="@font/roboto_regular"
             android:includeFontPadding="false"
@@ -121,7 +123,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"
             android:includeFontPadding="false"
-            android:text="131231"
+            tools:text="131231"
             android:textColor="@color/black"
             android:textSize="@dimen/_16ssp"
             app:layout_constraintBottom_toBottomOf="@id/estimate_cost"
@@ -134,14 +136,14 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_calendar_time_for_trips"
             app:layout_constraintBottom_toBottomOf="@id/days_trip"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_trips_name"
             app:layout_constraintTop_toTopOf="@id/days_trip" />
 
         <TextView
             android:id="@+id/days_trip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="@dimen/_13sdp"
             android:fontFamily="@font/roboto_regular"
             android:includeFontPadding="false"
@@ -157,7 +159,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"
             android:includeFontPadding="false"
-            android:text="3 Ngay"
+            tools:text="3 Ngay"
             android:textColor="@color/black"
             android:textSize="@dimen/_16ssp"
             app:layout_constraintBottom_toBottomOf="@id/days_trip"
@@ -165,9 +167,12 @@
             app:layout_constraintTop_toTopOf="@id/days_trip" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ly_detail_days"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintTop_toBottomOf="@id/imv_calendar">
 
             <TextView
@@ -190,7 +195,7 @@
                 android:layout_marginStart="@dimen/_3sdp"
                 android:fontFamily="@font/roboto_regular"
                 android:includeFontPadding="false"
-                android:text="15 thang 6"
+                tools:text="15 thang 6"
                 android:textColor="#3A3A3A"
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -216,7 +221,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_regular"
                 android:includeFontPadding="false"
-                android:text="19 thang 6"
+                tools:text="19 thang 6"
                 android:textColor="#3A3A3A"
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -243,7 +248,7 @@
                 android:layout_marginStart="@dimen/_2sdp"
                 android:fontFamily="@font/roboto_regular"
                 android:includeFontPadding="false"
-                android:text="123"
+                tools:text="123"
                 android:textColor="#3A3A3A"
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -254,6 +259,7 @@
                 android:id="@+id/people"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:fontFamily="@font/roboto_regular"
                 android:includeFontPadding="false"
                 android:text="@string/people_numb"
@@ -273,6 +279,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/color_gray_trip_ec"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ly_detail_days" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
