@@ -33,7 +33,7 @@ data class TripItem(
 	val id: String? = null,
 
 	@field:SerializedName("estimatedCost")
-	val estimatedCost: Int? = null,
+	val estimatedCost: Long? = null,
 
 	@field:SerializedName("endAt")
 	val endAt: Long? = null,
