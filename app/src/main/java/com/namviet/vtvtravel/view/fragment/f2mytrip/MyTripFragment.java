@@ -15,6 +15,7 @@ import com.namviet.vtvtravel.databinding.F2FragmentMyTripBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.response.newhome.HomeServiceResponse;
+import com.namviet.vtvtravel.view.f2.CreateTripActivity;
 import com.namviet.vtvtravel.view.f2.DisplayMarkerForMapActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.MyTripsAdapter;
@@ -69,6 +70,9 @@ public class MyTripFragment extends BaseFragment<F2FragmentMyTripBinding> implem
     public void setClickListener() {
         getBinding().imvBackTrips.setOnClickListener(v -> {
             getActivity().onBackPressed();
+        });
+        getBinding().imvCreateTrip.setOnClickListener(v -> {
+            CreateTripActivity.startScreen(getContext());
         });
     }
 
