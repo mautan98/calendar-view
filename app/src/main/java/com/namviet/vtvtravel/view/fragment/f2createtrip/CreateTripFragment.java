@@ -28,6 +28,7 @@ import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse;
 import com.namviet.vtvtravel.view.f2.DisplayMarkerForMapActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
+import com.namviet.vtvtravel.view.fragment.f2createtrip.dialog.BottomSheetPassengerDialog;
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionMainFragment;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel;
@@ -107,6 +108,20 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
                             }
                         }, selectedYear, selectedMonth, selectedDayOfMonth);
                 datePickerDialog.show();
+            }
+        });
+        getBinding().edtAmountPeople.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetPassengerDialog passengerDialog = new BottomSheetPassengerDialog(getContext());
+                passengerDialog.setApplyListener(new BottomSheetPassengerDialog.ApplyPassengerListener() {
+                    @Override
+                    public void onApplyClick(int numAdult, int numChildren, int numBaby) {
+                        String amount = getContext().getString(R.string.number_passenger,numAdult,numChildren,numBaby);
+                        getBinding().edtAmountPeople.setText(amount);
+                    }
+                });
+                passengerDialog.show(requireFragmentManager(),passengerDialog.getTag());
             }
         });
     }
