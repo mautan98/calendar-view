@@ -5,6 +5,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        android:paddingTop="8dp"
+        android:background="@color/transparent"
         android:layout_height="wrap_content">
 
         <com.ornach.richtext.RichView
@@ -119,10 +121,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="12dp"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:includeFontPadding="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/imv_plus"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="5" />
+                    android:text="5" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imv_plus"
@@ -184,10 +189,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="12dp"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:includeFontPadding="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/imv_plus_children"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="5" />
+                    android:text="5" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imv_plus_children"
@@ -249,10 +257,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="12dp"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:includeFontPadding="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/imv_plus_baby"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="5" />
+                    android:text="5" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imv_plus_baby"
@@ -269,6 +280,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <com.ornach.richtext.RichText
+            android:id="@+id/btn_apply"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="12dp"
