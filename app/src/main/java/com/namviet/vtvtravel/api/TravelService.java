@@ -116,6 +116,9 @@ import com.namviet.vtvtravel.view.f3.deal.model.deal.DealResponse;
 import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollowResponse;
 import com.namviet.vtvtravel.view.f3.deal.model.mygift.MyGiftResponse;
+import com.namviet.vtvtravel.view.f3.notification.model.ui.NotificationResponse;
+import com.namviet.vtvtravel.view.f3.notification.model.ui.NotificationTab;
+import com.namviet.vtvtravel.view.f3.notification.model.ui.UpdateNotificationResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.GetInfoResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ResentOtpServiceResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceOtpResponse;
@@ -762,6 +765,30 @@ public interface TravelService {
     @GET(WSConfig.Api.MY_GIFT)
     Observable<MyGiftResponse> getAllMyGift(@Query("page") int page);
 
+
+    @POST(WSConfig.Api.INBOX_TYPE)
+    Observable<NotificationResponse> getNotificationByType(@Query("typeId") String type, @Body RequestBody body);
+
+    @POST(WSConfig.Api.INBOX_MARK)
+    Observable<NotificationResponse> getNotificationByMark(@Body RequestBody body);
+
+    @POST(WSConfig.Api.SYSTEM_INBOX)
+    Observable<NotificationResponse> getAllNotification(@Body RequestBody body);
+
+    @POST(WSConfig.Api.INBOX_STATUS)
+    Observable<NotificationResponse> getNotificationByStatus(@Query("status") String type, @Body RequestBody body);
+
+    @POST(WSConfig.Api.UPDATE_MARK)
+    Observable<UpdateNotificationResponse> updateMark(@Body RequestBody body);
+
+    @POST(WSConfig.Api.UPDATE_INBOX)
+    Observable<UpdateNotificationResponse> updateInbox(@Body RequestBody body);
+
+    @POST(WSConfig.Api.USER_LOGOUT)
+    Observable<Object> logout(@Body RequestBody body);
+
+    @GET
+    Observable<NotificationTab> getNotificationTab(@Url String url);
 
 
 }

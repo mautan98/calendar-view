@@ -71,6 +71,7 @@ import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.f2.SystemInboxActivity;
 
 import com.namviet.vtvtravel.view.f2.UserInformationActivity;
+import com.namviet.vtvtravel.view.f3.notification.view.NotificationActivity;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
 import com.namviet.vtvtravel.view.fragment.f2webview.HomeSpeedyLinearLayoutManager;
@@ -191,7 +192,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
             public void onClick(View view) {
                 Account account1 = MyApplication.getInstance().getAccount();
                 if (null != account1 && account1.isLogin()) {
-                    SystemInboxActivity.startScreen(mActivity);
+                    NotificationActivity.Companion.openActivity(mActivity);
                 } else {
                     LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
                 }

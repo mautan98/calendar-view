@@ -253,11 +253,20 @@ public class WSConfig {
         public static final String HASH_TAG_SEARCH = "deals/getDealFilter";
         public static final String DEAL_HOT_HOME = "deals/getDealHot";
         public static final String TERMS = "page/dieu-khoan-su-dung";
+
         public static final String CTKM_BLOCK = "ctkm";
         public static final String DEAL_CAMPAIGN_DETAIL = "deals/campaigns/details";
         public static final String DEAL_CHILD_DETAIL = "deals/details";
         public static final String DEAL_BY_CAMPAIGN = "deals/byCampaigns";
         public static final String MY_GIFT = "myGifts";
+
+
+        public static final String INBOX_TYPE = "user/inbox/type";
+        public static final String INBOX_MARK = "user/inbox/mark";
+        public static final String INBOX_STATUS = "user/inbox/status";
+        public static final String UPDATE_MARK = "user/inbox/marked";
+        public static final String UPDATE_INBOX = "user/updateInbox";
+        public static final String USER_LOGOUT = "user/logout";
     }
 
     public class KeyParam {

@@ -1052,4 +1052,40 @@ public class Param {
         }
         return map;
     }
+
+
+    public static JSONObject updateInbox(String id, String status) {
+        JSONObject map = new JSONObject();
+        try {
+            JSONArray jsonArray = new JSONArray();
+            jsonArray.put(id);
+            map.putOpt(WSConfig.KeyParam.IDS, jsonArray);
+            map.put(WSConfig.KeyParam.STATUS, status);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static JSONObject updateViewedAllInbox() {
+        JSONObject map = new JSONObject();
+        try {
+            JSONArray jsonArray = new JSONArray();
+            map.putOpt(WSConfig.KeyParam.IDS, jsonArray);
+            map.put(WSConfig.KeyParam.STATUS, "1");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static JSONObject logout(String token) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.DEVICE_TOKEN, token);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
 }
