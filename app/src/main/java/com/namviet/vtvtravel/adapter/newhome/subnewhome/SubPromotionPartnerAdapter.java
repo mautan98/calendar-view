@@ -1,8 +1,10 @@
 package com.namviet.vtvtravel.adapter.newhome.subnewhome;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubPromotionPartnerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private boolean isTracking0Position = false;
     private ArrayList<String> idsClicked = new ArrayList<>();
 
     private static final int TYPE_ITEM = 0;
@@ -75,7 +78,7 @@ public class SubPromotionPartnerAdapter extends RecyclerView.Adapter<RecyclerVie
                 @Override
                 public void onClick(View view) {
                     try {
-                        if(!checkID(itemList.get(position).getId())) {
+                        if (!checkID(itemList.get(position).getId())) {
                             try {
                                 TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id(itemList.get(position).getId()).setScreen_class(this.getClass().getName()));
                             } catch (Exception e) {
@@ -94,16 +97,14 @@ public class SubPromotionPartnerAdapter extends RecyclerView.Adapter<RecyclerVie
             this.position = position;
             setImage(itemList.get(position).getAvatarUri(), imvBanner);
 
-            if(position == 0){
+            if (position == 0 && !isTracking0Position) {
                 try {
-                    try {
-                        TrackingAnalytic.postEvent(TrackingAnalytic.VIEW_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id(itemList.get(position).getId()).setScreen_class(this.getClass().getName()));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    TrackingAnalytic.postEvent(TrackingAnalytic.VIEW_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id(itemList.get(position).getId()).setScreen_class(this.getClass().getName()));
+                    isTracking0Position  =true;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
             }
         }
 
@@ -115,9 +116,9 @@ public class SubPromotionPartnerAdapter extends RecyclerView.Adapter<RecyclerVie
 
         }
 
-        private boolean checkID(String id){
+        private boolean checkID(String id) {
             for (int i = 0; i < idsClicked.size(); i++) {
-                if(id.equals(idsClicked.get(i))){
+                if (id.equals(idsClicked.get(i))) {
                     return true;
                 }
             }

@@ -884,6 +884,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
             subPromotionPartnerAdapter = new SubPromotionPartnerAdapter(context, appPromotionPartnerResponse.getItems());
             recyclerPartnerLink.setAdapter(subPromotionPartnerAdapter);
+            recyclerPartnerLink.setItemViewCacheSize(6);
 
             try {
                 vpIndicator.attachToRecyclerView(recyclerPartnerLink);
@@ -903,7 +904,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             if(newState == 0){
                                 LinearLayoutManager layoutManager = ((LinearLayoutManager) recyclerPartnerLink.getLayoutManager());
                                 int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
-                                if(!checkID(appPromotionPartnerResponse.getItems().get(firstVisiblePosition).getId())) {
+                                if(!checkID(appPromotionPartnerResponse.getItems().get(firstVisiblePosition).getId()) && firstVisiblePosition != 0) {
                                     try {
                                         TrackingAnalytic.postEvent(TrackingAnalytic.VIEW_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id(appPromotionPartnerResponse.getItems().get(firstVisiblePosition).getId()).setScreen_class(this.getClass().getName()));
                                     } catch (Exception e) {
