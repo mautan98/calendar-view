@@ -61,29 +61,37 @@ class BottomSheetPassengerDialog(context: Context) : BottomSheetDialogFragment()
             applyListener?.onApplyClick(numAdult,numChildren,numBaby)
         }
         binding.imvPlus.setOnClickListener({
-            numAdult = setPlusPassenger(numAdult,binding.tvNumberPassenger,binding.imvPlus)
+            numAdult = setPlusPassenger(numAdult,binding.tvNumberPassenger,binding.imvPlus,binding.imvMinus)
         })
         binding.imvMinus.setOnClickListener({
-            numAdult = setMinusPassenger(numAdult,binding.tvNumberPassenger,binding.imvMinus)
+            numAdult = setMinusPassenger(numAdult,binding.tvNumberPassenger,binding.imvMinus,binding.imvPlus)
         })
 
         binding.imvPlusChildren.setOnClickListener({
-            numChildren = setPlusPassenger(numChildren,binding.tvNumberChildren,binding.imvPlusChildren)
+            numChildren = setPlusPassenger(numChildren,binding.tvNumberChildren,binding.imvPlusChildren,binding.imvMinusChildren)
         })
         binding.imvMinusChildren.setOnClickListener({
-            numChildren = setMinusPassenger(numChildren,binding.tvNumberChildren,binding.imvMinusChildren)
+            numChildren = setMinusPassenger(numChildren,binding.tvNumberChildren,binding.imvMinusChildren,binding.imvPlusChildren)
+        })
+
+        binding.imvPlusBaby.setOnClickListener({
+            numBaby = setPlusPassenger(numBaby,binding.tvNumberBaby,binding.imvPlusBaby,binding.imvMinusBaby)
+        })
+        binding.imvMinusBaby.setOnClickListener({
+            numBaby = setMinusPassenger(numBaby,binding.tvNumberBaby,binding.imvMinusBaby,binding.imvPlusBaby)
         })
     }
 
     private fun setPlusPassenger(
         numberPassenger: Int,
         tvPassenger: TextView,
-        imvPlus: ImageView
+        imvPlus: ImageView,
+        imvMinus: ImageView
     ): Int {
         var number = numberPassenger
-        if (!binding.imvMinus.isEnabled) {
-            binding.imvMinus.isEnabled = true
-            binding.imvMinus.setImageResource(R.drawable.ic_minus_passenger)
+        if (!imvMinus.isEnabled) {
+            imvMinus.isEnabled = true
+            imvMinus.setImageResource(R.drawable.ic_minus_passenger)
         }
         if (numberPassenger < 6) {
             number += 1
@@ -111,12 +119,13 @@ class BottomSheetPassengerDialog(context: Context) : BottomSheetDialogFragment()
     private fun setMinusPassenger(
         numberPassenger: Int,
         tvPassenger: TextView,
-        imvMinus: ImageView
+        imvMinus: ImageView,
+        imvPlus: ImageView
     ): Int {
         var number = numberPassenger
-        if (!binding.imvPlus.isEnabled) {
-            binding.imvPlus.isEnabled = true
-            binding.imvPlus.setImageResource(R.drawable.ic_plus_passenger)
+        if (!imvPlus.isEnabled) {
+            imvPlus.isEnabled = true
+            imvPlus.setImageResource(R.drawable.ic_plus_passenger)
         }
         if (numberPassenger > 0) {
             number -= 1
