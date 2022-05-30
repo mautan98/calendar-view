@@ -66,6 +66,13 @@ class BottomSheetPassengerDialog(context: Context) : BottomSheetDialogFragment()
         binding.imvMinus.setOnClickListener({
             numAdult = setMinusPassenger(numAdult,binding.tvNumberPassenger,binding.imvMinus)
         })
+
+        binding.imvPlusChildren.setOnClickListener({
+            numChildren = setPlusPassenger(numChildren,binding.tvNumberChildren,binding.imvPlusChildren)
+        })
+        binding.imvMinusChildren.setOnClickListener({
+            numChildren = setMinusPassenger(numChildren,binding.tvNumberChildren,binding.imvMinusChildren)
+        })
     }
 
     private fun setPlusPassenger(
