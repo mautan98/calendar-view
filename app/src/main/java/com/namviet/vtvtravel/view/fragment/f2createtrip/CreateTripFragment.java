@@ -86,6 +86,13 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
                 addFragment(chooseRegionMainFragment);
             }
         });
+        getBinding().edtDestination.setOnClickListener(v -> {
+            if (locationList.size() > 0) {
+                ChooseRegionMainFragment chooseRegionMainFragment = new ChooseRegionMainFragment();
+                chooseRegionMainFragment.setData(locationList, CreateTripFragment.this);
+                addFragment(chooseRegionMainFragment);
+            }
+        });
         getBinding().tripInday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
