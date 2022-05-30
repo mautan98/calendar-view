@@ -48,7 +48,9 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
     private ArrayList<Location> locationList = new ArrayList<>();
     private SearchBigLocationViewModel locationViewModel;
     Map<String, String> extraHeaders = new HashMap<>();
-
+    private int numAdult = 0;
+    private int numChildren = 0;
+    private int numBaby = 0;
 
     public CreateTripFragment() {
     }
@@ -114,9 +116,13 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
             @Override
             public void onClick(View v) {
                 BottomSheetPassengerDialog passengerDialog = new BottomSheetPassengerDialog(getContext());
+                passengerDialog.setInfor(numAdult,numChildren,numBaby);
                 passengerDialog.setApplyListener(new BottomSheetPassengerDialog.ApplyPassengerListener() {
                     @Override
                     public void onApplyClick(int numAdult, int numChildren, int numBaby) {
+                        CreateTripFragment.this.numAdult = numAdult;
+                        CreateTripFragment.this.numChildren = numChildren;
+                        CreateTripFragment.this.numBaby = numBaby;
                         String amount = getContext().getString(R.string.number_passenger,numAdult,numChildren,numBaby);
                         getBinding().edtAmountPeople.setText(amount);
                     }
