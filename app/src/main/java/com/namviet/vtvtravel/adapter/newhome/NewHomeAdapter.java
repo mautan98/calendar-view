@@ -903,13 +903,13 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             if(newState == 0){
                                 LinearLayoutManager layoutManager = ((LinearLayoutManager) recyclerPartnerLink.getLayoutManager());
                                 int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
-                                if(!checkID(appPromotionPartnerResponse.getItems().get(firstVisiblePosition).getAvatarUri())) {
+                                if(!checkID(appPromotionPartnerResponse.getItems().get(firstVisiblePosition).getId())) {
                                     try {
-                                        TrackingAnalytic.postEvent(TrackingAnalytic.VIEW_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id("mess").setScreen_class(this.getClass().getName()));
+                                        TrackingAnalytic.postEvent(TrackingAnalytic.VIEW_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id(appPromotionPartnerResponse.getItems().get(firstVisiblePosition).getId()).setScreen_class(this.getClass().getName()));
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                    idsViewed.add(appPromotionPartnerResponse.getItems().get(firstVisiblePosition).getAvatarUri());
+                                    idsViewed.add(appPromotionPartnerResponse.getItems().get(firstVisiblePosition).getId());
                                 }
                             }
                         } catch (Exception e) {

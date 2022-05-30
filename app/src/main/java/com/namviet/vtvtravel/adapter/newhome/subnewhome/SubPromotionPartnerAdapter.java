@@ -75,13 +75,13 @@ public class SubPromotionPartnerAdapter extends RecyclerView.Adapter<RecyclerVie
                 @Override
                 public void onClick(View view) {
                     try {
-                        if(!checkID(itemList.get(position).getAvatarUri())) {
+                        if(!checkID(itemList.get(position).getId())) {
                             try {
-                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id("").setScreen_class(this.getClass().getName()));
+                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id(itemList.get(position).getId()).setScreen_class(this.getClass().getName()));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            idsClicked.add(itemList.get(position).getAvatarUri());
+                            idsClicked.add(itemList.get(position).getId());
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -97,7 +97,7 @@ public class SubPromotionPartnerAdapter extends RecyclerView.Adapter<RecyclerVie
             if(position == 0){
                 try {
                     try {
-                        TrackingAnalytic.postEvent(TrackingAnalytic.VIEW_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id("").setScreen_class(this.getClass().getName()));
+                        TrackingAnalytic.postEvent(TrackingAnalytic.VIEW_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id(itemList.get(position).getId()).setScreen_class(this.getClass().getName()));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
