@@ -11,6 +11,7 @@ import com.namviet.vtvtravel.view.f2.LiveTVActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
 import com.namviet.vtvtravel.view.f2.WebviewActivity;
+import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealHomeActivity;
 import com.namviet.vtvtravel.view.f3.notification.model.Notification;
 import com.namviet.vtvtravel.view.f3.notification.model.NotificationCode;
 
@@ -67,7 +68,7 @@ public class NotificationCaseProcessing {
                 case NotificationCode.DEAL_WIN :
                 case NotificationCode.HOT_DEAL :
                     try {
-                        DetailDealWebviewActivity.startScreen(context, notification.getData().getDealDetailLink());
+                        DealHomeActivity.Companion.startScreen(context);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

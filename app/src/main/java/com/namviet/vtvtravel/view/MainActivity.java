@@ -7,6 +7,7 @@ import android.app.NotificationChannel;
 
 import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
 import com.namviet.vtvtravel.view.f2.WebviewActivity;
+import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealHomeActivity;
 import com.namviet.vtvtravel.view.f3.notification.model.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -136,7 +137,6 @@ import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.f3.notification.view.NotificationActivity;
 import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
 import com.namviet.vtvtravel.view.f3.notification.model.NotificationCode;
-import com.namviet.vtvtravel.view.fragment.ChatFragment;
 import com.namviet.vtvtravel.view.fragment.DetailsFragment;
 import com.namviet.vtvtravel.view.fragment.EncodeDemoFragment;
 import com.namviet.vtvtravel.view.fragment.FormChatFragment;
@@ -2166,7 +2166,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
                 case NotificationCode.DEAL_WIN :
                 case NotificationCode.HOT_DEAL :
                     try {
-                        DetailDealWebviewActivity.startScreen(this, notification.getData().getDealDetailLink());
+                        DealHomeActivity.Companion.startScreen(this);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
