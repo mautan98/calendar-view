@@ -15,9 +15,18 @@ class BottomSheetPassengerDialog(context: Context) : BottomSheetDialogFragment()
 
     private lateinit var binding:LayoutChooseNumOfPassengerBinding
     private var applyListener: ApplyPassengerListener? =null
+    private var numAdult: Int = 0
+    private var numChildren: Int = 0
+    private var numBaby: Int = 0
 
     fun setApplyListener(applyListener: ApplyPassengerListener){
         this.applyListener = applyListener
+    }
+
+    fun setInfor(numAdult: Int,numChildren: Int,numBaby: Int){
+        this.numAdult = numAdult
+        this.numChildren = numChildren
+        this.numBaby = numBaby
     }
 
     override fun onCreateView(
@@ -36,17 +45,27 @@ class BottomSheetPassengerDialog(context: Context) : BottomSheetDialogFragment()
     }
 
     private fun initView(){
-
+        binding.tvNumberPassenger.text = numAdult.toString()
+        binding.tvNumberChildren.text = numChildren.toString()
+        binding.tvNumberBaby.text = numBaby.toString()
     }
 
     private fun initClickListener(){
-        val numAdult = binding.tvNumberPassenger.text.toString().toInt()
-        val numChildren = binding.tvNumberChildren.text.toString().toInt()
-        val numBaby = binding.tvNumberBaby.text.toString().toInt()
         binding.btnApply.setOnClickListener{
+            numAdult = binding.tvNumberPassenger.text.toString().toInt()
+            numChildren = binding.tvNumberChildren.text.toString().toInt()
+            numBaby = binding.tvNumberBaby.text.toString().toInt()
             dismiss()
             applyListener?.onApplyClick(numAdult,numChildren,numBaby)
         }
+        binding.imvPlus.setOnClickListener({
+            if (numAdult < 6){
+                numAdult+= 1
+                binding.tvNumberPassenger.text = numAdult.toString()
+            }else{
+                binding.imvPlus.isEnabled = false
+            }
+        })
     }
 
     interface ApplyPassengerListener{
