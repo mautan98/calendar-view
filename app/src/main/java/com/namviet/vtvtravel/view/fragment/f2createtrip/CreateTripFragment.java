@@ -126,6 +126,27 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
                 datePickerDialog.show();
             }
         });
+
+        getBinding().edtReturnDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selectedYear = calendar.get(Calendar.YEAR);
+                int selectedMonth = calendar.get(Calendar.MONTH);
+                int selectedDayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                calendar.set(Calendar.YEAR,year);
+                                calendar.set(Calendar.MONTH,month);
+                                calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                                getBinding().edtReturnDate.setText(Utils.formatTimestampTrips(calendar.getTimeInMillis()));
+                            }
+                        }, selectedYear, selectedMonth, selectedDayOfMonth);
+                datePickerDialog.show();
+            }
+        });
+
         getBinding().edtAmountPeople.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
