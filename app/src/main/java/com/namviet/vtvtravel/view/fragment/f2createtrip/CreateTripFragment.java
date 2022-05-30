@@ -89,7 +89,14 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
         getBinding().edtDestination.setOnClickListener(v -> {
             if (locationList.size() > 0) {
                 ChooseRegionMainFragment chooseRegionMainFragment = new ChooseRegionMainFragment();
-                chooseRegionMainFragment.setData(locationList, CreateTripFragment.this);
+                chooseRegionMainFragment.setData(locationList, new ChooseRegionMainFragment.ChooseRegion() {
+                    @Override
+                    public void clickRegion(@Nullable Location location) {
+                        if (location != null) {
+                            getBinding().edtDestination.setText(location.getName());
+                        }
+                    }
+                });
                 addFragment(chooseRegionMainFragment);
             }
         });
