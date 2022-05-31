@@ -25,6 +25,7 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.travelnews.Location;
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse;
+import com.namviet.vtvtravel.ultils.ValidateUtils;
 import com.namviet.vtvtravel.view.f2.DisplayMarkerForMapActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
@@ -34,6 +35,7 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.CreateS
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel;
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionMainFragment;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
+import com.namviet.vtvtravel.view.fragment.f2travelvoucher.AlreadyReceiverDialog;
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel;
 
 import org.jetbrains.annotations.Nullable;
@@ -179,26 +181,33 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
             }
         });
         getBinding().btnScheduleTrip.setOnClickListener(v -> {
-            String des = getBinding().edtTripDesc.getText().toString();
-            String name = getBinding().edtTripName.getText().toString();
-            String startAtString = Utils.formatTimeStamp(startAtTimestamp,"yyyy-MM-dd");
-            String endAtString = Utils.formatTimeStamp(endAtTimestamp,"yyyy-MM-dd");
-            BodyCreateTrip body = new BodyCreateTrip();
-            body.setName(name);
-            body.setDescription(des);
-            body.setPlaceCheckInId(checkinPlaceId);
-            body.setPlaceCheckOutId(checkoutPlaceId);
-            body.setAdults(numAdult);
-            body.setChildren(numChildren);
-            body.setInfant(numBaby);
-            body.setStartAt(startAtString);
-            body.setEndAt(endAtString);
-            body.setType("1");
-            myTripsViewModel.createScheduleTrip(body);
+            BodyCreateTrip body = initBodyCreateTrip();
+            if (validateCreate()) {
+                myTripsViewModel.createScheduleTrip(body);
+            }
         });
         getBinding().imvBack.setOnClickListener(v -> {
             getActivity().onBackPressed();
         });
+    }
+
+    private BodyCreateTrip initBodyCreateTrip(){
+        String des = getBinding().edtTripDesc.getText().toString();
+        String name = getBinding().edtTripName.getText().toString();
+        String startAtString = Utils.formatTimeStamp(startAtTimestamp,"yyyy-MM-dd");
+        String endAtString = Utils.formatTimeStamp(endAtTimestamp,"yyyy-MM-dd");
+        BodyCreateTrip body = new BodyCreateTrip();
+        body.setName(name);
+        body.setDescription(des);
+        body.setPlaceCheckInId(checkinPlaceId);
+        body.setPlaceCheckOutId(checkoutPlaceId);
+        body.setAdults(numAdult);
+        body.setChildren(numChildren);
+        body.setInfant(numBaby);
+        body.setStartAt(startAtString);
+        body.setEndAt(endAtString);
+        body.setType("1");
+        return body;
     }
 
     @Override
@@ -229,6 +238,18 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
             e.printStackTrace();
             return link;
         }
+    }
+
+    private boolean validateCreate(){
+        AlreadyReceiverDialog dialog = new AlreadyReceiverDialog();
+        dialog.setDialogTitle(getString(R.string.error_title));
+        dialog.setLabelButton(getString(R.string.close_title));
+        if (ValidateUtils.isEmptyEdittext(getBinding().edtTripName)){
+            dialog.setDescription("Tên chuyến đi không được để trống");
+            dialog.show(getChildFragmentManager(),null);
+            return false;
+        }
+        return true;
     }
 
     @Override
