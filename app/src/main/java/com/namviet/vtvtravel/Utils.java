@@ -142,4 +142,9 @@ public class Utils {
         return calendar.get(Calendar.DAY_OF_MONTH) + " thg " + (calendar.get(Calendar.MONTH) + 1);
     }
 
+    public static String formatTimeStamp(Long timestamp,String pattern){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return simpleDateFormat.format(new Date(timestamp));
+    }
+
 }
