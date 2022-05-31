@@ -42,10 +42,13 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.TimeZone;
 
 
 public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding> implements ChooseRegionMainFragment.ChooseRegion, Observer {
@@ -126,6 +129,8 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
                 int selectedYear = calendar.get(Calendar.YEAR);
                 int selectedMonth = calendar.get(Calendar.MONTH);
                 int selectedDayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+                Calendar minCalendar = Calendar.getInstance(TimeZone.getDefault());
+                minCalendar.add(Calendar.DATE,1);
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
@@ -137,6 +142,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
                                 getBinding().edtStartDate.setText(Utils.formatTimestampTrips(calendar.getTimeInMillis()));
                             }
                         }, selectedYear, selectedMonth, selectedDayOfMonth);
+                datePickerDialog.getDatePicker().setMinDate(minCalendar.getTimeInMillis());
                 datePickerDialog.show();
             }
         });
@@ -158,6 +164,14 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
                                 getBinding().edtReturnDate.setText(Utils.formatTimestampTrips(calendar.getTimeInMillis()));
                             }
                         }, selectedYear, selectedMonth, selectedDayOfMonth);
+                if (startAtTimestamp > 0){
+                    Date date = new Date(startAtTimestamp);
+                    Calendar minCalendarReturn = Calendar.getInstance(TimeZone.getDefault(),Locale.getDefault());
+                    minCalendarReturn.setTime(date);
+                    minCalendarReturn.add(Calendar.DATE,1);
+                    datePickerDialog.getDatePicker().setMinDate(minCalendarReturn.getTimeInMillis());
+                }
+
                 datePickerDialog.show();
             }
         });
@@ -256,8 +270,12 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
             dialog.setDescription("Bạn chưa chọn nơi đi");
             dialog.show(getChildFragmentManager(),null);
             return false;
-        } else if (ValidateUtils.isEmptyEdittext(getBinding().edtStartPlace)){
+        } else if (ValidateUtils.isEmptyEdittext(getBinding().edtDestination)){
             dialog.setDescription("Bạn chưa chọn nơi đến");
+            dialog.show(getChildFragmentManager(),null);
+            return false;
+        } else if (ValidateUtils.isEmptyEdittext(getBinding().edtStartDate)){
+            dialog.setDescription("Bạn chưa chọn ngày đi");
             dialog.show(getChildFragmentManager(),null);
             return false;
         }
