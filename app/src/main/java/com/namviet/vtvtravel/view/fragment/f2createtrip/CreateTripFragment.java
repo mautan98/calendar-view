@@ -263,35 +263,33 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
         dialog.setDialogTitle(getString(R.string.error_title));
         dialog.setLabelButton(getString(R.string.close_title));
         if (ValidateUtils.isEmptyEdittext(getBinding().edtTripName)){
-            dialog.setDescription("Tên chuyến đi không được để trống");
-            dialog.show(getChildFragmentManager(),null);
+            showErrorDialog(dialog,"Tên chuyến đi không được để trống");
             return false;
         } else if (ValidateUtils.isEmptyEdittext(getBinding().edtTripDesc)){
-            dialog.setDescription("Mô tả không được để trống");
-            dialog.show(getChildFragmentManager(),null);
+            showErrorDialog(dialog,"Mô tả không được để trống");
             return false;
         } else if (ValidateUtils.isEmptyEdittext(getBinding().edtStartPlace)){
-            dialog.setDescription("Bạn chưa chọn nơi đi");
-            dialog.show(getChildFragmentManager(),null);
+            showErrorDialog(dialog, "Bạn chưa chọn nơi đi");
             return false;
         } else if (ValidateUtils.isEmptyEdittext(getBinding().edtDestination)){
-            dialog.setDescription("Bạn chưa chọn nơi đến");
-            dialog.show(getChildFragmentManager(),null);
+            showErrorDialog(dialog,"Bạn chưa chọn nơi đến");
             return false;
         } else if (ValidateUtils.isEmptyEdittext(getBinding().edtStartDate)){
-            dialog.setDescription("Bạn chưa chọn ngày đi");
-            dialog.show(getChildFragmentManager(),null);
+            showErrorDialog(dialog, "Bạn chưa chọn ngày đi");
             return false;
         } else if (ValidateUtils.isEmptyEdittext(getBinding().edtReturnDate)){
-            dialog.setDescription("Bạn chưa chọn ngày về");
-            dialog.show(getChildFragmentManager(),null);
+            showErrorDialog(dialog, "Bạn chưa chọn ngày về");
             return false;
         } else if (ValidateUtils.isEmptyEdittext(getBinding().edtAmountPeople)) {
-            dialog.setDescription("Bạn chưa chọn số lượng hành khách");
-            dialog.show(getChildFragmentManager(), null);
+            showErrorDialog(dialog, "Bạn chưa chọn số lượng hành khách");
             return false;
         }
         return true;
+    }
+
+    private void showErrorDialog(AlreadyReceiverDialog dialog,String description){
+        dialog.setDescription(description);
+        dialog.show(getChildFragmentManager(),null);
     }
 
     @Override
