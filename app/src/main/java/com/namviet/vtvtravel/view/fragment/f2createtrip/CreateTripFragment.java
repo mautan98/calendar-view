@@ -282,6 +282,10 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
             dialog.setDescription("Bạn chưa chọn ngày đi");
             dialog.show(getChildFragmentManager(),null);
             return false;
+        } else if (ValidateUtils.isEmptyEdittext(getBinding().edtReturnDate)){
+            dialog.setDescription("Bạn chưa chọn ngày về");
+            dialog.show(getChildFragmentManager(),null);
+            return false;
         }
         return true;
     }
