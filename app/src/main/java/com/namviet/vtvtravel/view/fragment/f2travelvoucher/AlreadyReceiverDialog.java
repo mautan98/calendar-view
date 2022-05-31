@@ -17,7 +17,22 @@ import com.namviet.vtvtravel.view.dialog.f2.BaseDialogFragment2;
 
 public class AlreadyReceiverDialog extends BaseDialogFragment2 {
     private F2DialogNotifyBinding binding;
+
     private String description;
+    private String dialogTitle;
+    private String labelButton;
+
+    public void setLabelButton(String labelButton) {
+        this.labelButton = labelButton;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDialogTitle(String dialogTitle) {
+        this.dialogTitle = dialogTitle;
+    }
 
 
 
@@ -75,6 +90,11 @@ public class AlreadyReceiverDialog extends BaseDialogFragment2 {
                 case "ALREADY_RECEIVE_VOUCHER":
                     binding.tvDescription.setText("Bạn đã sở hữu phần quà này.");
                     binding.tvLabel.setText("Đóng");
+                    break;
+                default:
+                    binding.tvTitle.setText(dialogTitle);
+                    binding.tvDescription.setText(description);
+                    binding.tvLabel.setText(labelButton);
                     break;
 
             }
