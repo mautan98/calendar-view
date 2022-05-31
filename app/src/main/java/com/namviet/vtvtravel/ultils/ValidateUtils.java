@@ -313,6 +313,6 @@ public class ValidateUtils {
     }
 
     public static boolean isEmptyEdittext(EditText editText) {
-        return !TextUtils.isEmpty(editText.getText().toString());
+        return TextUtils.isEmpty(editText.getText().toString());
     }
 }
