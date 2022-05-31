@@ -120,6 +120,10 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 getBinding().edtReturnDate.setVisibility(isChecked?View.GONE:View.VISIBLE);
+                if (isChecked){
+                    endAtTimestamp = startAtTimestamp;
+                    getBinding().edtReturnDate.setText(Utils.formatTimestampTrips(endAtTimestamp));
+                }
             }
         });
         Calendar calendar = Calendar.getInstance();
