@@ -374,6 +374,10 @@ public class WSConfig {
         public static final String PROCESS_TICKET_CONTENT = "content";
         public static final String TICKET_STATUS = "type";
         public static final String TITLE = "title";
+        public static final String PLACE_CHECKIN_ID = "placeCheckInId";
+        public static final String PLACE_CHECKOUT_ID = "placeCheckOutId";
+        public static final String START_AT = "startAt";
+        public static final String END_AT = "endAt";
     }
 
     public class KeySocket {
