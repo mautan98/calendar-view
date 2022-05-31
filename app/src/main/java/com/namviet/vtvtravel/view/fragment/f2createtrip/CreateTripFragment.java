@@ -252,6 +252,10 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
             dialog.setDescription("Mô tả không được để trống");
             dialog.show(getChildFragmentManager(),null);
             return false;
+        } else if (ValidateUtils.isEmptyEdittext(getBinding().edtStartPlace)){
+            dialog.setDescription("Bạn chưa chọn nơi đi");
+            dialog.show(getChildFragmentManager(),null);
+            return false;
         }
         return true;
     }
