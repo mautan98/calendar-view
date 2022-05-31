@@ -29,6 +29,7 @@ import com.namviet.vtvtravel.view.f2.DisplayMarkerForMapActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.fragment.f2createtrip.dialog.BottomSheetPassengerDialog;
+import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel;
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionMainFragment;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel;
@@ -47,6 +48,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
     private String link = WSConfig.HOST_CREATE_TRIP;
     private ArrayList<Location> locationList = new ArrayList<>();
     private SearchBigLocationViewModel locationViewModel;
+    private MyTripsViewModel myTripsViewModel;
     Map<String, String> extraHeaders = new HashMap<>();
     private int numAdult = 0;
     private int numChildren = 0;
@@ -63,8 +65,10 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
     @Override
     public void initView() {
         locationViewModel = new SearchBigLocationViewModel();
+        myTripsViewModel = new MyTripsViewModel();
         locationViewModel.addObserver(this);
         locationViewModel.getAllLocation();
+        myTripsViewModel.addObserver(this);
 
     }
 
@@ -164,6 +168,9 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
                 });
                 passengerDialog.show(requireFragmentManager(),passengerDialog.getTag());
             }
+        });
+        getBinding().btnScheduleTrip.setOnClickListener(v -> {
+            myTripsViewModel.createScheduleTrip();
         });
     }
 
