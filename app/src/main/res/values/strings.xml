@@ -227,6 +227,8 @@
     <string name="people_numb">Người</string>
     <string name="my_trips_title">Chuyến đi của tôi</string>
     <string name="number_passenger">%d Người lớn, %d trẻ em, %d em bé</string>
+    <string name="error_title">Lỗi</string>
+    <string name="close_title">Đóng</string>
 
 
 </resources>
