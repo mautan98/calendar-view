@@ -38,6 +38,7 @@ import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
 import com.namviet.vtvtravel.view.fragment.f2offline.OneButtonTitleImageDialog;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealHomeActivity;
+import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -119,6 +120,18 @@ public class SubHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         String code = items.get(getAdapterPosition()).getCode();
                         String link = items.get(getAdapterPosition()).getLink();
                         switch (code){
+                            case "MEMBER":
+                                try {
+                                    Account account = MyApplication.getInstance().getAccount();
+                                    if (null != account && account.isLogin()) {
+                                        ServiceActivity.startScreen(context);
+                                    } else {
+                                        LoginAndRegisterActivityNew.startScreen(context, 0, false);
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
                             case "BOOKING":
                             //    MyFragment.openFragment(context,  R.id.frHome, BookingFragment.class, null, false);
                                 EventBus.getDefault().post(new OnClickBookingTopMenu());
