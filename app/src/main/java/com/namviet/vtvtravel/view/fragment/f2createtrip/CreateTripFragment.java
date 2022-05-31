@@ -53,6 +53,8 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
     private int numAdult = 0;
     private int numChildren = 0;
     private int numBaby = 0;
+    private String checkinPlaceId;
+    private String checkoutPlaceId;
 
     public CreateTripFragment() {
     }
@@ -97,6 +99,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
                     @Override
                     public void clickRegion(@Nullable Location location) {
                         if (location != null) {
+                            checkoutPlaceId = location.getId();
                             getBinding().edtDestination.setText(location.getName());
                         }
                     }
@@ -212,6 +215,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
     @Override
     public void clickRegion(@Nullable Location location) {
         if (location != null) {
+            checkinPlaceId = location.getId();
             getBinding().edtStartPlace.setText(location.getName());
         }
     }
