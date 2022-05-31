@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.databinding.LayoutItemMyTripsBinding
+import com.namviet.vtvtravel.listener.OnItemRecyclerClickListener
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -19,6 +20,11 @@ import java.util.concurrent.TimeUnit
 class MyTripsAdapter(var context: Context) : RecyclerView.Adapter<MyTripsAdapter.ViewHolder>() {
 
     private var listTripItem: MutableList<TripItem> = mutableListOf()
+    private var onClickItemListener: OnItemRecyclerClickListener?= null
+
+    fun setOnClickItemListener(onClickItemListener: OnItemRecyclerClickListener){
+        this.onClickItemListener = onClickItemListener
+    }
 
     fun setListTripItem(list:MutableList<TripItem>){
         this.listTripItem = list
@@ -61,6 +67,9 @@ class MyTripsAdapter(var context: Context) : RecyclerView.Adapter<MyTripsAdapter
             binding.tvAmountPeople.text = tripItem.numberPeople.toString()
             binding.tvStartDate.text = formatTimestamp(tripItem.startAt)
             binding.tvEndDate.text = formatTimestamp(tripItem.endAt)
+            itemView.setOnClickListener{
+                onClickItemListener?.onItemClick(position)
+            }
 
         }
 
