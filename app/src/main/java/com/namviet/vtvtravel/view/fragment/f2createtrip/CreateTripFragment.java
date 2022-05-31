@@ -248,6 +248,10 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
             dialog.setDescription("Tên chuyến đi không được để trống");
             dialog.show(getChildFragmentManager(),null);
             return false;
+        } else if (ValidateUtils.isEmptyEdittext(getBinding().edtTripDesc)){
+            dialog.setDescription("Mô tả không được để trống");
+            dialog.show(getChildFragmentManager(),null);
+            return false;
         }
         return true;
     }
