@@ -29,6 +29,8 @@ import com.namviet.vtvtravel.view.f2.DisplayMarkerForMapActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.fragment.f2createtrip.dialog.BottomSheetPassengerDialog;
+import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.BodyCreateTrip;
+import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.CreateScheduleResponse;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel;
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionMainFragment;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
@@ -55,6 +57,8 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
     private int numBaby = 0;
     private String checkinPlaceId;
     private String checkoutPlaceId;
+    private long startAtTimestamp;
+    private long endAtTimestamp;
 
     public CreateTripFragment() {
     }
@@ -127,6 +131,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
                                 calendar.set(Calendar.YEAR,year);
                                 calendar.set(Calendar.MONTH,month);
                                 calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                                startAtTimestamp = calendar.getTimeInMillis();
                                 getBinding().edtStartDate.setText(Utils.formatTimestampTrips(calendar.getTimeInMillis()));
                             }
                         }, selectedYear, selectedMonth, selectedDayOfMonth);
@@ -147,6 +152,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
                                 calendar.set(Calendar.YEAR,year);
                                 calendar.set(Calendar.MONTH,month);
                                 calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                                endAtTimestamp = calendar.getTimeInMillis();
                                 getBinding().edtReturnDate.setText(Utils.formatTimestampTrips(calendar.getTimeInMillis()));
                             }
                         }, selectedYear, selectedMonth, selectedDayOfMonth);
@@ -173,7 +179,22 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
             }
         });
         getBinding().btnScheduleTrip.setOnClickListener(v -> {
-            myTripsViewModel.createScheduleTrip();
+            String des = getBinding().edtTripDesc.getText().toString();
+            String name = getBinding().edtTripName.getText().toString();
+            String startAtString = Utils.formatTimeStamp(startAtTimestamp,"yyyy-MM-dd");
+            String endAtString = Utils.formatTimeStamp(endAtTimestamp,"yyyy-MM-dd");
+            BodyCreateTrip body = new BodyCreateTrip();
+            body.setName(name);
+            body.setDescription(des);
+            body.setPlaceCheckInId(checkinPlaceId);
+            body.setPlaceCheckOutId(checkoutPlaceId);
+            body.setAdults(numAdult);
+            body.setChildren(numChildren);
+            body.setInfant(numBaby);
+            body.setStartAt(startAtString);
+            body.setEndAt(endAtString);
+            body.setType("1");
+            myTripsViewModel.createScheduleTrip(body);
         });
     }
 
@@ -227,6 +248,13 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
                 AllLocationResponse locationResponse = (AllLocationResponse) arg;
                 if (locationResponse.getData() != null)
                     locationList = (ArrayList<Location>) locationResponse.getData();
+            }
+        } else if (o instanceof MyTripsViewModel){
+            if (arg instanceof CreateScheduleResponse){
+                CreateScheduleResponse dataCreateTrips = (CreateScheduleResponse) arg;
+                if (dataCreateTrips.getDataCreateTrips() != null){
+                   getActivity().onBackPressed();
+                }
             }
         }
     }

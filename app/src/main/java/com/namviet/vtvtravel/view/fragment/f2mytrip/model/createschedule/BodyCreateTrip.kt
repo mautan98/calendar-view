@@ -31,4 +31,7 @@ class BodyCreateTrip {
     @field:SerializedName("infant")
     var infant: Int? = null
 
+    @field:SerializedName("type")
+    var type: String? = null
+
 }
