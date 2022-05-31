@@ -87,13 +87,13 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
                 if (phone.isEmpty()) {
                     handleValidateFail(getBinding().edtPhone, getBinding().linearUsername, getString(R.string.phone_empty_v2), getBinding().tvPhoneError);
                 } else if (name.isEmpty()) {
-                    handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.name_empty), getBinding().tvNameError);
+                    handleValidateFail(getBinding().edtName, getBinding().layoutName, getString(R.string.name_empty), getBinding().tvNameError);
                 } else if (name.trim().length() < 3) {
-                    handleValidateFail(getBinding().edtName, getBinding().edtName, "Độ dài tên nhỏ hơn 3 ký tự", getBinding().tvNameError);
+                    handleValidateFail(getBinding().edtName, getBinding().layoutName, "Độ dài tên nhỏ hơn 3 ký tự", getBinding().tvNameError);
                 }else if (name.length() > 60) {
-                    handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.name_invalid), getBinding().tvNameError);
+                    handleValidateFail(getBinding().edtName, getBinding().layoutName, getString(R.string.name_invalid), getBinding().tvNameError);
                 } else if (ValidateUtils.isString(name)) {
-                    handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.special_charactor), getBinding().tvNameError);
+                    handleValidateFail(getBinding().edtName, getBinding().layoutName, getString(R.string.special_charactor), getBinding().tvNameError);
                 } else if (!ValidateUtils.isValidPhoneNumberNew(phone)) {
                     handleValidateFail(getBinding().edtPhone, getBinding().linearUsername, getString(R.string.phone_invalid), getBinding().tvPhoneError);
                 } else {
