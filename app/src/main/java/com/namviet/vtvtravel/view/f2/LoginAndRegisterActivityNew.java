@@ -19,6 +19,7 @@ public class LoginAndRegisterActivityNew extends BaseActivityNew<F2ActivityLogin
     public boolean isFromBooking;
     public boolean isFromDeal;
 
+
     private int position;
     public String packageCode = Constants.TypePackage.TRAVEL_VIP;
 

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.widget.RxTextView;
@@ -18,12 +19,15 @@ import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2FragmentRegisterBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.model.f2event.OnChangeTab;
 import com.namviet.vtvtravel.response.AccountResponse;
 import com.namviet.vtvtravel.ultils.StringUtils;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.ValidateUtils;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.viewmodel.AccountViewModel;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -51,7 +55,7 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
         accountViewModel.addObserver(this);
 
         handleValidateSuccess(getBinding().edtPhone, getBinding().linearUsername);
-        handleValidateSuccess(getBinding().edtName, getBinding().edtName);
+        handleValidateSuccess(getBinding().edtName, getBinding().layoutName);
 
     }
 
@@ -75,23 +79,23 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
         getBinding().btnRegisterNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                resetError();
                 phone = getBinding().edtPhone.getText().toString();
                 String name = getBinding().edtName.getText().toString();
                 ((LoginAndRegisterActivityNew)mActivity).fullName = name;
 
                 if (phone.isEmpty()) {
-                    handleValidateFail(getBinding().edtPhone, getBinding().linearUsername, getString(R.string.phone_empty_v2));
-                } else if (name.trim().isEmpty()) {
-                    handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.name_empty));
-                }else if (name.trim().length() < 3) {
-                    handleValidateFail(getBinding().edtName, getBinding().edtName, "Độ dài tên nhỏ hơn 3 ký tự");
-                } else if (name.trim().length() > 60) {
-                    handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.name_invalid));
+                    handleValidateFail(getBinding().edtPhone, getBinding().linearUsername, getString(R.string.phone_empty_v2), getBinding().tvPhoneError);
+                } else if (name.isEmpty()) {
+                    handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.name_empty), getBinding().tvNameError);
+                } else if (name.trim().length() < 3) {
+                    handleValidateFail(getBinding().edtName, getBinding().edtName, "Độ dài tên nhỏ hơn 3 ký tự", getBinding().tvNameError);
+                }else if (name.length() > 60) {
+                    handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.name_invalid), getBinding().tvNameError);
                 } else if (ValidateUtils.isString(name)) {
-                    handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.special_charactor));
+                    handleValidateFail(getBinding().edtName, getBinding().edtName, getString(R.string.special_charactor), getBinding().tvNameError);
                 } else if (!ValidateUtils.isValidPhoneNumberNew(phone)) {
-                    handleValidateFail(getBinding().edtPhone, getBinding().linearUsername, getString(R.string.phone_invalid));
+                    handleValidateFail(getBinding().edtPhone, getBinding().linearUsername, getString(R.string.phone_invalid), getBinding().tvPhoneError);
                 } else {
                     if (phone.substring(0, 3).equals("840")) {
                         phone = phone.replaceFirst("0", "");
@@ -123,6 +127,20 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
                 addFragment(new RulesFragment());
             }
         });
+
+        getBinding().btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.finish();
+            }
+        });
+
+        getBinding().btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new OnChangeTab(0));
+            }
+        });
     }
 
     @Override
@@ -145,22 +163,23 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
     public void update(Observable observable, Object o) {
         hideLoading();
         try {
-            if (observable instanceof AccountViewModel && null != o) {
-                if (o instanceof AccountResponse) {
-                    AccountResponse accountResponse = (AccountResponse) o;
-                    if (accountResponse.isSuccess()) {
-                        MyApplication.getInstance().setAccount(accountResponse.getData());
-                        Log.e("Debuggg"+"RegisterF2Frm", new Gson().toJson(accountResponse.getData()));
-                        OtpF2Fragment otpF2Fragment = new OtpF2Fragment();
-                        otpF2Fragment.setTypeOTP(Constants.IntentKey.TYPE_OTP_REGISTER);
-                        otpF2Fragment.setMobile(phone);
-                        addFragment(otpF2Fragment);
-                    }
-                } else if (o instanceof ErrorResponse) {
-                    ErrorResponse responseError = (ErrorResponse) o;
-                    try {
-                        ((LoginAndRegisterActivityNew) mActivity).showWarning(responseError.getMessage());
-                    } catch (Exception e) {
+        if (observable instanceof AccountViewModel && null != o) {
+            if (o instanceof AccountResponse) {
+                AccountResponse accountResponse = (AccountResponse) o;
+                if (accountResponse.isSuccess()) {
+                    MyApplication.getInstance().setAccount(accountResponse.getData());
+                    OtpF2Fragment otpF2Fragment = new OtpF2Fragment();
+                    otpF2Fragment.setTypeOTP(Constants.IntentKey.TYPE_OTP_REGISTER);
+                    otpF2Fragment.setMobile(phone);
+                    addFragment(otpF2Fragment);
+                }
+            } else if (o instanceof ErrorResponse) {
+                ErrorResponse responseError = (ErrorResponse) o;
+                try {
+                    getBinding().tvRegisterFail.setVisibility(View.VISIBLE);
+                    getBinding().tvRegisterFail.setText(responseError.getMessage());
+                } catch (Exception e) {
+
 
                     }
                 }
@@ -180,9 +199,10 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
         }
     }
 
-    private void handleValidateFail(EditText editText, View linearLayout, String error) {
-        ((LoginAndRegisterActivityNew) mActivity).showWarning(error);
+    private void handleValidateFail(EditText editText, View linearLayout, String error , TextView tvError) {
         linearLayout.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.f2_bg_login_fail));
+        tvError.setText(error);
+        tvError.setVisibility(View.VISIBLE);
         editText.requestFocus();
     }
 
@@ -202,4 +222,15 @@ public class RegisterF2Fragment extends BaseFragment<F2FragmentRegisterBinding> 
         super.setScreenTitle();
         setDataScreen(TrackingAnalytic.ScreenCode.REGISTER, TrackingAnalytic.ScreenTitle.REGISTER);
     }
+
+    private void resetError(){
+        getBinding().tvPhoneError.setVisibility(View.INVISIBLE);
+        getBinding().tvNameError.setVisibility(View.INVISIBLE);
+        getBinding().tvRegisterFail.setVisibility(View.INVISIBLE);
+        getBinding().tvPhoneError.setText("");
+        getBinding().tvNameError.setText("");
+        getBinding().tvRegisterFail.setText("");
+    }
+
+
 }

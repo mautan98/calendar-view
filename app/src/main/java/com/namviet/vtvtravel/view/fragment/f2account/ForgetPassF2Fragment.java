@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.widget.RxTextView;
@@ -69,7 +70,7 @@ public class ForgetPassF2Fragment extends BaseFragment<F2FragmentForgetPassBindi
         getBinding().btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                resetError();
 //                accountViewModel.resetPassword(phone);
 //                addFragment(new RecreatePassF2Fragment());
 
@@ -78,9 +79,9 @@ public class ForgetPassF2Fragment extends BaseFragment<F2FragmentForgetPassBindi
                 phone = getBinding().edtUsername.getText().toString();
                 if (phone.isEmpty()) {
 //                    ((LoginAndRegisterActivityNew)mActivity).showWarning("Mật khẩu không được để trống");
-                    handleValidateFail(getBinding().edtUsername, getBinding().edtPhone, "Số điện thoại không được để trống");
+                    handleValidateFail(getBinding().edtUsername, getBinding().edtPhone, "Số điện thoại không được để trống", getBinding().tvPhoneError);
                 } else if (!ValidateUtils.isValidPhoneNumberNew(phone)) {
-                    handleValidateFail(getBinding().edtUsername, getBinding().edtPhone, "Số điện thoại nhập không đúng định dạng");
+                    handleValidateFail(getBinding().edtUsername, getBinding().edtPhone, "Số điện thoại nhập không đúng định dạng", getBinding().tvPhoneError);
 //                    ((LoginAndRegisterActivityNew)mActivity).showWarning("Số điện thoại nhập không đúng định dạng");
                 } else {
                     showLoading();
@@ -153,7 +154,13 @@ public class ForgetPassF2Fragment extends BaseFragment<F2FragmentForgetPassBindi
                 } else if (o instanceof ErrorResponse) {
                     ErrorResponse responseError = (ErrorResponse) o;
                     try {
-                        ((LoginAndRegisterActivityNew)mActivity).showWarning(responseError.getMessage());
+//                        ((LoginAndRegisterActivityNew)mActivity).showWarning(responseError.getMessage());
+
+                        getBinding().tvLoginFail.setVisibility(View.VISIBLE);
+                        getBinding().tvLoginFail.setText(responseError.getMessage());
+                        if(responseError.getMessage().isEmpty()){
+                            getBinding().tvLoginFail.setText("Có lỗi đã xảy ra trong quá trình đăng nhâp!");
+                        }
                     } catch (Exception e) {
 
                     }
@@ -162,9 +169,11 @@ public class ForgetPassF2Fragment extends BaseFragment<F2FragmentForgetPassBindi
         }
     }
 
-    private void handleValidateFail(EditText editText, LinearLayout linearLayout, String error) {
-        ((LoginAndRegisterActivityNew) mActivity).showWarning(error);
+    private void handleValidateFail(EditText editText, LinearLayout linearLayout, String error, TextView tvError) {
+//        ((LoginAndRegisterActivityNew) mActivity).showWarning(error);
         linearLayout.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.f2_bg_login_fail));
+        tvError.setText(error);
+        tvError.setVisibility(View.VISIBLE);
         editText.requestFocus();
     }
 
@@ -183,5 +192,12 @@ public class ForgetPassF2Fragment extends BaseFragment<F2FragmentForgetPassBindi
     public void setScreenTitle() {
         super.setScreenTitle();
         setDataScreen(TrackingAnalytic.ScreenCode.FORGET_PASS, TrackingAnalytic.ScreenTitle.FORGET_PASS);
+    }
+
+    private void resetError(){
+        getBinding().tvPhoneError.setVisibility(View.INVISIBLE);
+        getBinding().tvLoginFail.setVisibility(View.INVISIBLE);
+        getBinding().tvPhoneError.setText("");
+        getBinding().tvLoginFail.setText("");
     }
 }
