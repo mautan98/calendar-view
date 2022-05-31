@@ -168,11 +168,12 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ly_detail_days"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/days_trip"
             app:layout_constraintTop_toBottomOf="@id/imv_calendar">
 
             <TextView
@@ -192,7 +193,6 @@
                 android:id="@+id/tv_start_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_3sdp"
                 android:fontFamily="@font/roboto_regular"
                 android:includeFontPadding="false"
                 tools:text="15 thang 6"
@@ -272,7 +272,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_3sdp"
                 android:text=")"
                 android:textColor="#3A3A3A"
                 app:layout_constraintStart_toEndOf="@id/people"
