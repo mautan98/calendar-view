@@ -196,6 +196,9 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
             body.setType("1");
             myTripsViewModel.createScheduleTrip(body);
         });
+        getBinding().imvBack.setOnClickListener(v -> {
+            getActivity().onBackPressed();
+        });
     }
 
     @Override

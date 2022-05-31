@@ -41,6 +41,7 @@
                         android:layout_marginTop="16dp">
 
                         <ImageView
+                            android:id="@+id/imv_back"
                             android:layout_width="12dp"
                             android:layout_height="18dp"
                             android:layout_centerVertical="true"
