@@ -769,7 +769,7 @@ public interface TravelService {
     Observable<MyTripsResponse> getAllTripsSchedule();
 
     @POST(WSConfig.API_TRIPS_SCHEDULE+WSConfig.Api.CREATE_SCHEDULE)
-    Observable<CreateScheduleResponse> createTrip(@Body DataCreateTrips body);
+    Observable<CreateScheduleResponse> createTrip(@Body RequestBody body);
 
 
 }
