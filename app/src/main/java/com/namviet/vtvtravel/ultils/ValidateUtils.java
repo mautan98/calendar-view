@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.ultils;
 
 import android.text.TextUtils;
+import android.widget.EditText;
 
 
 import com.baseapp.utils.StringUtils;
@@ -309,5 +310,9 @@ public class ValidateUtils {
             }
             return phone;
         }
+    }
+
+    public static boolean isEmptyEdittext(EditText editText) {
+        return !TextUtils.isEmpty(editText.getText().toString());
     }
 }
