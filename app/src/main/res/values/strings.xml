@@ -229,6 +229,7 @@
     <string name="number_passenger">%d Người lớn, %d trẻ em, %d em bé</string>
     <string name="error_title">Lỗi</string>
     <string name="close_title">Đóng</string>
+    <string name="view_all">Xem tất cả</string>
 
 
 </resources>
