@@ -72,6 +72,11 @@ class MyTripsAdapter(var context: Context) : RecyclerView.Adapter<MyTripsAdapter
             itemView.setOnClickListener{
                 onClickItemListener?.onItemClick(position)
             }
+            val userAdapter = UserListAdapter(context)
+            val listAvt = tripItem.userList as MutableList<UserListItem>
+            userAdapter.setListAvt(listAvt)
+            binding.rcvImageUser.addItemDecoration(OverlapDecoration(listAvt))
+            binding.rcvImageUser.adapter = userAdapter
 
         }
 
@@ -81,34 +86,6 @@ class MyTripsAdapter(var context: Context) : RecyclerView.Adapter<MyTripsAdapter
             calendar.time = date
             val stringTime = "${calendar.get(Calendar.DAY_OF_MONTH)} thg ${calendar.get(Calendar.MONTH)+ 1}"
             return stringTime
-        }
-
-    }
-
-    inner class UserListAdapter: RecyclerView.Adapter<UserListViewHolder>() {
-
-        private var listAvt:MutableList<UserListItem> = mutableListOf()
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserListViewHolder {
-            val binding:LayoutItemUserTripsBinding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.layout_item_user_trips,parent,false)
-            return UserListViewHolder(binding)
-        }
-
-        override fun onBindViewHolder(holder: UserListViewHolder, position: Int) {
-            val userItem = listAvt.get(position)
-            holder.bind(userItem)
-        }
-
-        override fun getItemCount(): Int {
-            return listAvt.size
-        }
-
-    }
-
-    inner class UserListViewHolder(var binding: LayoutItemUserTripsBinding) : RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(userItem: UserListItem?){
-            Glide.with(context).load(userItem?.imageProfile).into(binding.imvUserTrips)
         }
 
     }
