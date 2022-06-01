@@ -1,6 +1,8 @@
 package com.namviet.vtvtravel.view.fragment.home;
 
 import android.animation.Animator;
+import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,6 +29,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
@@ -127,6 +130,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void initViews(View v) {
         super.initViews(v);
@@ -353,106 +357,197 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 
 
         gestureDetector = new GestureDetector(mActivity, new SingleTapConfirm());
+//        binding.layoutButton.setOnTouchListener(new View.OnTouchListener() {
+//            float dX, dY;
+//
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//
+//                Log.e("event", event.getX() + "");
+//                Log.e("event", event.getY() + "");
+//
+//
+//                if (gestureDetector.onTouchEvent(event)) {
+//                    // single tap
+//
+//                    if (event.getX() > 0 && event.getX() < 217) {
+//                        if (event.getY() > 0 && event.getY() < 120) {
+////
+//                            binding.layoutButton.animate().x(x).y(y).setDuration(500L).setListener(new Animator.AnimatorListener() {
+//                                @Override
+//                                public void onAnimationStart(Animator animation) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onAnimationEnd(Animator animation) {
+//                                    binding.layoutMenuFloat.setVisibility(View.VISIBLE);
+//                                }
+//
+//                                @Override
+//                                public void onAnimationCancel(Animator animation) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onAnimationRepeat(Animator animation) {
+//
+//                                }
+//                            }).start();
+//                        } else {
+//                            binding.layoutButton.animate().x(x).y(y).setDuration(500L).setListener(new Animator.AnimatorListener() {
+//                                @Override
+//                                public void onAnimationStart(Animator animation) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onAnimationEnd(Animator animation) {
+//                                    ChatActivity.startScreen(mActivity);
+//                                }
+//
+//                                @Override
+//                                public void onAnimationCancel(Animator animation) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onAnimationRepeat(Animator animation) {
+//
+//                                }
+//                            }).start();
+////
+//                        }
+//                    }
+////                    if (layout.getVisibility() == View.INVISIBLE) {
+//////                        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+//////                        mWindowManager.updateViewLayout(mChatHeadView, params);
+////                        layout.setVisibility(View.VISIBLE);
+////                    } else {
+//////                        params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+//////                        mWindowManager.updateViewLayout(mChatHeadView, params);
+////                        layout.setVisibility(View.INVISIBLE);
+////                    }
+//                    return true;
+//                } else {
+//                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//                        dX = binding.layoutButton.getX() - event.getRawX();
+//                        dY = binding.layoutButton.getY() - event.getRawY();
+//                        return true;
+//                    }
+//
+////                    binding.layoutButton.animate()
+////                            .x(event.getRawX() + dX)
+////                            .y(event.getRawY() + dY)
+////                            .setDuration(0)
+////                            .start();
+//                    binding.layoutButton.setX(event.getRawX() + dX);
+//                    binding.layoutButton.setY(event.getRawY() + dY);
+//
+////                    trashView.setVisibility(View.VISIBLE);
+//
+////                    if(event.getAction() == MotionEvent.ACTION_UP){
+////                        trashView.setVisibility(View.GONE);
+////                    }
+//                    return true;
+//                }
+//            }
+//        });
+
+
+
         binding.layoutButton.setOnTouchListener(new View.OnTouchListener() {
-            float dX, dY;
+            private int lastAction = 0;
+            private int initialX = 0;
+            private int initialY = 0;
+            private float initialTouchX = 0f;
+            private float initialTouchY = 0f;
+
 
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                int x_cord = (int) motionEvent.getRawX();
+                if (gestureDetector.onTouchEvent(motionEvent)) {
 
-                Log.e("event", event.getX() + "");
-                Log.e("event", event.getY() + "");
-
-
-                if (gestureDetector.onTouchEvent(event)) {
-                    // single tap
-
-                    if (event.getX() > 0 && event.getX() < 217) {
-                        if (event.getY() > 0 && event.getY() < 120) {
-//
-                            binding.layoutButton.animate().x(x).y(y).setDuration(500L).setListener(new Animator.AnimatorListener() {
-                                @Override
-                                public void onAnimationStart(Animator animation) {
-
-                                }
-
-                                @Override
-                                public void onAnimationEnd(Animator animation) {
-                                    binding.layoutMenuFloat.setVisibility(View.VISIBLE);
-                                }
-
-                                @Override
-                                public void onAnimationCancel(Animator animation) {
-
-                                }
-
-                                @Override
-                                public void onAnimationRepeat(Animator animation) {
-
-                                }
-                            }).start();
-                        } else {
-                            binding.layoutButton.animate().x(x).y(y).setDuration(500L).setListener(new Animator.AnimatorListener() {
-                                @Override
-                                public void onAnimationStart(Animator animation) {
-
-                                }
-
-                                @Override
-                                public void onAnimationEnd(Animator animation) {
-                                    ChatActivity.startScreen(mActivity);
-                                }
-
-                                @Override
-                                public void onAnimationCancel(Animator animation) {
-
-                                }
-
-                                @Override
-                                public void onAnimationRepeat(Animator animation) {
-
-                                }
-                            }).start();
-//
-                        }
-                    }
-//                    if (layout.getVisibility() == View.INVISIBLE) {
-////                        params.width = WindowManager.LayoutParams.MATCH_PARENT;
-////                        mWindowManager.updateViewLayout(mChatHeadView, params);
-//                        layout.setVisibility(View.VISIBLE);
-//                    } else {
-////                        params.width = WindowManager.LayoutParams.WRAP_CONTENT;
-////                        mWindowManager.updateViewLayout(mChatHeadView, params);
-//                        layout.setVisibility(View.INVISIBLE);
-//                    }
                     return true;
                 } else {
-                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                        dX = binding.layoutButton.getX() - event.getRawX();
-                        dY = binding.layoutButton.getY() - event.getRawY();
-                        return true;
+                    switch (motionEvent.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+
+                            initialX = (int) binding.layoutButton.getX();
+                            initialY = (int) binding.layoutButton.getY();
+
+                            initialTouchX = motionEvent.getRawX();
+                            initialTouchY = motionEvent.getRawY();
+
+                            lastAction = motionEvent.getAction();
+                            return true;
+                        case MotionEvent.ACTION_UP:
+
+
+                            if (lastAction != MotionEvent.ACTION_DOWN) {
+
+
+                                resetPosition(x_cord);
+                            } else {
+                            }
+                            lastAction = motionEvent.getAction();
+                            return true;
+                        case MotionEvent.ACTION_MOVE:
+                            int x = Math.round(initialX + (motionEvent.getRawX() - initialTouchX));
+                            int y = Math.round(initialY + (motionEvent.getRawY() - initialTouchY));
+                            if (x < 0 || y < 0 || x > 1080 || y > 2340 || initialX == x && initialY == y) {
+                                return true;
+                            }
+                            //Update the layout with new X & Y coordinate
+
+                            binding.layoutButton.setX(x);
+                            binding.layoutButton.setY(y);
+
+                            lastAction = motionEvent.getAction();
+                            return true;
                     }
-
-//                    binding.layoutButton.animate()
-//                            .x(event.getRawX() + dX)
-//                            .y(event.getRawY() + dY)
-//                            .setDuration(0)
-//                            .start();
-                    binding.layoutButton.setX(event.getRawX() + dX);
-                    binding.layoutButton.setY(event.getRawY() + dY);
-
-//                    trashView.setVisibility(View.VISIBLE);
-
-//                    if(event.getAction() == MotionEvent.ACTION_UP){
-//                        trashView.setVisibility(View.GONE);
-//                    }
-                    return true;
                 }
+                return false;
             }
+
         });
 
 
         updateViews();
     }
+
+
+    private void resetPosition(int x_cord_now) {
+        if (x_cord_now <= 1080 / 2) {
+            moveToLeft();
+        } else {
+            moveToRight();
+        }
+
+    }
+
+
+    private void updateAnimateLocation(int i) {
+        ValueAnimator valueAnimator = ValueAnimator.ofInt((int) binding.layoutButton.getX(), i);
+        valueAnimator.addUpdateListener(it -> {
+            binding.layoutButton.setX((int) it.getAnimatedValue());
+        });
+        valueAnimator.setDuration(250);
+        valueAnimator.start();
+    }
+
+
+    private void moveToLeft() {
+        updateAnimateLocation(0);
+    }
+
+    /*  Method to move the Floating widget view to Right  */
+    private void moveToRight() {
+        updateAnimateLocation(1080 - binding.layoutButton.getWidth());
+    }
+
+
 
     private GestureDetector gestureDetector;
 
