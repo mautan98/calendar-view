@@ -63,7 +63,6 @@
             android:layout_alignParentBottom="true"
             android:layout_marginTop="10dp"
             android:background="@color/white"
-            android:paddingTop="20dp"
             android:paddingBottom="10dp"
             tools:listitem="@layout/layout_item_my_trips"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
