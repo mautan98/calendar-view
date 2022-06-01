@@ -13,6 +13,7 @@ import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.databinding.F2FragmentMyTripBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
+import com.namviet.vtvtravel.listener.OnItemRecyclerClickListener;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.response.newhome.HomeServiceResponse;
 import com.namviet.vtvtravel.view.f2.CreateTripActivity;
@@ -30,7 +31,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-public class MyTripFragment extends BaseFragment<F2FragmentMyTripBinding> implements Observer {
+public class MyTripFragment extends BaseFragment<F2FragmentMyTripBinding> implements Observer, OnItemRecyclerClickListener {
     Map<String, String> extraHeaders = new HashMap<>();
     private MyTripsAdapter myTripsAdapter;
     private MyTripsViewModel myTripsViewModel;
@@ -50,6 +51,7 @@ public class MyTripFragment extends BaseFragment<F2FragmentMyTripBinding> implem
         myTripsViewModel.addObserver(this);
         myTripsViewModel.getListScheduleTrips();
         myTripsAdapter = new MyTripsAdapter(getContext());
+        myTripsAdapter.setOnClickItemListener(this);
         getBinding().rcvAllSchedule.setAdapter(myTripsAdapter);
 
 
@@ -90,5 +92,11 @@ public class MyTripFragment extends BaseFragment<F2FragmentMyTripBinding> implem
                 myTripsAdapter.setListTripItem(tripItemList);
             }
         }
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        DetailTripFragment detailTripFragment = new DetailTripFragment();
+        addFragment(detailTripFragment);
     }
 }
