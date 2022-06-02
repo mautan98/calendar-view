@@ -7,7 +7,10 @@ import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.databinding.FragmentDetailTripBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.OverlapDecoration
+import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.UserListAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
+import com.namviet.vtvtravel.view.fragment.f2mytrip.model.UserListItem
 
 class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>() {
 
@@ -24,7 +27,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>() {
         }
     }
 
-    private val binding = getBinding()
+    private lateinit var binding:FragmentDetailTripBinding
     private var tripItem:TripItem?= null
 
     override fun getLayoutRes(): Int {
@@ -32,7 +35,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>() {
     }
 
     override fun initView() {
-
+        binding = getBinding()
     }
 
     override fun initData() {
@@ -49,6 +52,11 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>() {
         } else {
             binding.tvEstimateCost.text = Html.fromHtml(Utils.convertPriceTrips(tripItem?.estimatedCost))
         }
+        val userAdapter = UserListAdapter(requireContext())
+        val listAvt = tripItem?.userList as MutableList<UserListItem>
+        userAdapter.setListAvt(listAvt)
+        binding.rcvImageUser.addItemDecoration(OverlapDecoration(listAvt))
+        binding.rcvImageUser.adapter = userAdapter
     }
 
     override fun inject() {
