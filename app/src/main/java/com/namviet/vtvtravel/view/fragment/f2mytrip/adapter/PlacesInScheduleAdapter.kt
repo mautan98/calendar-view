@@ -17,6 +17,7 @@ class PlacesInScheduleAdapter(var context:Context) : RecyclerView.Adapter<Places
 
     fun setListPlaces(list:MutableList<SchedulePlaceByDaysItem>){
         listPlace = list
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,9 +38,9 @@ class PlacesInScheduleAdapter(var context:Context) : RecyclerView.Adapter<Places
 
         fun bind(placeItem:SchedulePlaceByDaysItem,position: Int){
             Glide.with(context).load(placeItem.logoUrl).into(binding.imvPlace)
-            binding.tvDayNo.text = "${position +1}"
+            binding.tvDayNo.text = "Ngày ${position +1}"
             binding.tvDayStartSchedule.text = Utils.formatTimestampTrips(placeItem.day)
-            binding.tvNumberPlace.text = "${placeItem.totalPlace}, ${placeItem.totalDistance} km"
+            binding.tvNumberPlace.text = "${placeItem.totalPlace} địa điểm, ${placeItem.totalDistance} km"
         }
     }
 }
