@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
 
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -549,7 +550,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
                         case MotionEvent.ACTION_MOVE:
                             int x = Math.round(initialX + (motionEvent.getRawX() - initialTouchX));
                             int y = Math.round(initialY + (motionEvent.getRawY() - initialTouchY));
-                            if (x < 0 || y < 0 || x > 1080 || y > 2340 || initialX == x && initialY == y) {
+                            if (x < 0 || y < 0 || x > getScreenWidth() || y > getScreenHeight() || initialX == x && initialY == y) {
                                 return true;
                             }
                             //Update the layout with new X & Y coordinate
@@ -572,7 +573,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 
 
     private void resetPosition(int x_cord_now) {
-        if (x_cord_now <= 1080 / 2) {
+        if (x_cord_now <= getScreenWidth() / 2) {
             moveToLeft();
         } else {
             moveToRight();
@@ -597,7 +598,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 
     /*  Method to move the Floating widget view to Right  */
     private void moveToRight() {
-        updateAnimateLocation(1080 - binding.layoutButton.getWidth());
+        updateAnimateLocation(getScreenWidth() - binding.layoutButton.getWidth());
     }
 
 
@@ -1045,6 +1046,33 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             e.printStackTrace();
         }
 
+    }
+
+
+    private int screenWidth = 0;
+    private int screenHeight = 0;
+    private int getScreenWidth(){
+        if(screenWidth == 0) {
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            mActivity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            screenWidth = displayMetrics.widthPixels;
+        }
+        return screenWidth;
+    }
+
+
+    private int getScreenHeight(){
+        if(screenHeight == 0) {
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            mActivity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            screenHeight = displayMetrics.heightPixels - dpToPx(80);
+        }
+        return screenHeight;
+    }
+
+    public int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
 }
