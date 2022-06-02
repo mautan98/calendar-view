@@ -8,11 +8,14 @@ import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.databinding.FragmentDetailTripBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.OverlapDecoration
+import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.PlacesInScheduleAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.UserListAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.UserListItem
+import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
+import java.util.*
 
-class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>() {
+class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer {
 
     companion object {
 
@@ -29,6 +32,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>() {
 
     private lateinit var binding:FragmentDetailTripBinding
     private var tripItem:TripItem?= null
+    private var viewModel = MyTripsViewModel()
 
     override fun getLayoutRes(): Int {
         return R.layout.fragment_detail_trip
@@ -40,6 +44,8 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>() {
 
     override fun initData() {
         tripItem = arguments?.getParcelable(KEY_TRIP_ITEM)
+        tripItem?.id?.let { viewModel.getDetailplaceById(it) }
+        viewModel.addObserver(this)
 
         binding.tvDetailTripName.text = tripItem?.name
         binding.tvDetailTripDesc.text = tripItem?.description
@@ -57,6 +63,9 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>() {
         userAdapter.setListAvt(listAvt)
         binding.rcvImageUser.addItemDecoration(OverlapDecoration(listAvt))
         binding.rcvImageUser.adapter = userAdapter
+
+        val adapter = PlacesInScheduleAdapter(requireContext())
+        binding.rcvAllSchedule.adapter = adapter
     }
 
     override fun inject() {
@@ -66,5 +75,9 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>() {
     }
 
     override fun setObserver() {
+    }
+
+    override fun update(o: Observable?, arg: Any?) {
+
     }
 }
