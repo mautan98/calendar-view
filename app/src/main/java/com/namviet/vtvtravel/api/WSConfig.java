@@ -261,6 +261,7 @@ public class WSConfig {
         public static final String MY_GIFT = "myGifts";
         public static final String GET_SCHEDULE = "schedule";
         public static final String CREATE_SCHEDULE = "createSchedule";
+        public static final String SCHEDULE_BY_ID = "scheduleById";
     }
 
     public class KeyParam {
