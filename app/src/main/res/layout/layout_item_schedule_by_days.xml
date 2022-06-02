@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/imv_place"
+            android:layout_width="120dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_demo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="10dp" />
+
+
+        <TextView
+            android:id="@+id/tv_day_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="-101dp"
+            android:background="@drawable/bg_radius_11dp_left_black"
+            android:drawablePadding="6dp"
+            android:fontFamily="@font/roboto_medium"
+            android:includeFontPadding="false"
+            android:paddingVertical="2dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="10dp"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:drawableStartCompat="@drawable/ic_dot_4dp_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Ngay 1" />
+
+        <TextView
+            android:id="@+id/tv_day_start_schedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/imv_place"
+            app:layout_constraintTop_toBottomOf="@id/imv_place"
+            tools:text="20 thg 6 2022" />
+
+        <TextView
+            android:id="@+id/tv_number_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tv_day_start_schedule"
+            app:layout_constraintTop_toBottomOf="@id/tv_day_start_schedule"
+            tools:text="8 dia diem, 23.6km" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
