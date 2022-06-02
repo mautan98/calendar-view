@@ -106,7 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_italic"
-                        android:text="@string/description_title"
+                        tools:text="@string/description_title"
                         android:textColor="#3A3A3A"
                         android:textSize="16sp" />
 
@@ -115,7 +115,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"
-                        android:text="dsafsdf"
+                        tools:text="dsafsdf"
                         android:textColor="#3A3A3A"
                         android:textSize="16sp" />
 
