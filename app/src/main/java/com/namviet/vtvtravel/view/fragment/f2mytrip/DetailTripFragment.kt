@@ -10,8 +10,10 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.OverlapDecoration
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.PlacesInScheduleAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.UserListAdapter
+import com.namviet.vtvtravel.view.fragment.f2mytrip.model.SchedulePlaceByDaysItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.UserListItem
+import com.namviet.vtvtravel.view.fragment.f2mytrip.model.detail.PlaceScheduleResponse
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
 import java.util.*
 
@@ -30,6 +32,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer {
         }
     }
 
+    private var adapter: PlacesInScheduleAdapter? = null
     private lateinit var binding:FragmentDetailTripBinding
     private var tripItem:TripItem?= null
     private var viewModel = MyTripsViewModel()
@@ -64,7 +67,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer {
         binding.rcvImageUser.addItemDecoration(OverlapDecoration(listAvt))
         binding.rcvImageUser.adapter = userAdapter
 
-        val adapter = PlacesInScheduleAdapter(requireContext())
+        adapter = PlacesInScheduleAdapter(requireContext())
         binding.rcvAllSchedule.adapter = adapter
     }
 
@@ -78,6 +81,9 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer {
     }
 
     override fun update(o: Observable?, arg: Any?) {
-
+        if (arg is PlaceScheduleResponse) {
+            val myTripResponse = arg
+            adapter?.setListPlaces(myTripResponse.data?.schedulePlaceByDays as MutableList<SchedulePlaceByDaysItem>)
+        }
     }
 }
