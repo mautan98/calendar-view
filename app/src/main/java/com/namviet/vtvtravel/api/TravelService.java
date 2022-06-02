@@ -771,5 +771,8 @@ public interface TravelService {
     @POST(WSConfig.API_TRIPS_SCHEDULE+WSConfig.Api.CREATE_SCHEDULE)
     Observable<CreateScheduleResponse> createTrip(@Body RequestBody body);
 
+    @GET(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.SCHEDULE_BY_ID)
+    Observable<MyTripsResponse> getDetailPlaceByScheduleid(@Query("scheduleCustomId") String scheduleCustomId);
+
 
 }
