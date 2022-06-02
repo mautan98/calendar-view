@@ -54,7 +54,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer {
         binding.tvDetailTripDesc.text = tripItem?.description
         val startDate = Utils.formatTimestampTrips(tripItem?.startAt)
         val endDate = Utils.formatTimestampTrips(tripItem?.endAt)
-        binding.tvDetailTimeTrips.text = "($startDate - $endDate, ${tripItem?.numberPeople})"
+        binding.tvDetailTimeTrips.text = "($startDate - $endDate, ${tripItem?.numberPeople} người)"
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             binding.tvEstimateCost.text = Html.fromHtml(Utils.convertPriceTrips(tripItem?.estimatedCost),
                 Html.FROM_HTML_MODE_COMPACT)
