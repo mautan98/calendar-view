@@ -27,7 +27,7 @@ data class TripItem(
 	val description: String? = null,
 
 	@field:SerializedName("schedulePlaceByDays")
-	val schedulePlaceByDays: @RawValue  Any? = null,
+	val schedulePlaceByDays: List<SchedulePlaceByDaysItem?>? = null,
 
 	@field:SerializedName("id")
 	val id: String? = null,
