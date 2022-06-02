@@ -9,8 +9,8 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imv_place"
-            android:layout_width="120dp"
-            android:layout_height="200dp"
+            android:layout_width="140dp"
+            android:layout_height="220dp"
             android:scaleType="centerCrop"
             android:src="@drawable/bg_demo"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,6 +57,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_regular"
             android:textSize="14sp"
+            android:textColor="#919191"
             app:layout_constraintStart_toStartOf="@id/tv_day_start_schedule"
             app:layout_constraintTop_toBottomOf="@id/tv_day_start_schedule"
             tools:text="8 dia diem, 23.6km" />

@@ -31,7 +31,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="32dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -181,7 +181,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
-                        android:layout_marginStart="10dp"
                         android:layout_marginTop="14dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="@dimen/dp_9"
@@ -230,7 +229,10 @@
                     android:layout_marginTop="20dp"
                     app:layout_constraintStart_toStartOf="@id/summarize_layout"
                     app:layout_constraintEnd_toEndOf="@id/summarize_layout"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/layout_item_schedule_by_days" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
@@ -243,6 +245,7 @@
                     <TextView
                         android:id="@+id/estimate_cost"
                         android:layout_width="wrap_content"
+                        android:layout_marginTop="6dp"
                         android:text="Chi phí dự tính"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -256,7 +259,7 @@
                         android:layout_width="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/estimate_cost"
                         app:layout_constraintStart_toStartOf="@id/estimate_cost"
-                        android:text="142523325"
+                        tools:text="142523325"
                         android:textSize="20sp"
                         android:layout_marginTop="6dp"
                         android:fontFamily="@font/roboto_bold"
@@ -283,6 +286,7 @@
 
                     <View
                         android:id="@+id/view_spe"
+                        android:layout_marginTop="13dp"
                         android:layout_width="match_parent"
                         android:background="@color/color_gray_trip_ec"
                         app:layout_constraintTop_toBottomOf="@id/btn_save_schedule"
@@ -292,6 +296,7 @@
                         android:layout_width="match_parent"
                         android:paddingTop="28dp"
                         android:paddingBottom="14dp"
+                        android:elevation="6dp"
                         app:layout_constraintTop_toBottomOf="@id/view_spe"
                         android:layout_height="wrap_content">
 
