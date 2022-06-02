@@ -22,6 +22,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>() {
     }
 
     private val binding = getBinding()
+    private var tripItem:TripItem?= null
 
     override fun getLayoutRes(): Int {
         return R.layout.fragment_detail_trip
@@ -32,7 +33,9 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>() {
     }
 
     override fun initData() {
-        binding.tvDetailTripName.text
+        tripItem = arguments?.getParcelable(KEY_TRIP_ITEM)
+
+        binding.tvDetailTripName.text = tripItem?.name
     }
 
     override fun inject() {
