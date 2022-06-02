@@ -23,6 +23,7 @@ import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
+import com.ornach.richtext.RichText;
 
 import java.util.List;
 
@@ -79,28 +80,29 @@ public class HeaderBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         private int position;
-        private ImageView imgAvatar;
+        private ImageView imgBanner;
         private TextView tvName;
         private TextView tvRate;
         private TextView tvRateText;
         private TextView tvCommentCount;
         private TextView tvAddress;
         private TextView tvDistance;
-        private TextView tvType;
-        private TextView tvLocationName;
+        private TextView tvPlace;
         private TextView tvOpenDate;
-        private TextView tvStatus;
         private TextView tvOpenTime;
 //        private View viewTime;
         private LikeButton imgHeart;
         private LinearLayout layoutStandardRate;
         private TextView tvStandardRate;
+        private LinearLayout layoutOpen;
+        private TextView tvOpenState;
+        private RichText viewStatus;
+        private TextView tvOpenTime2;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
-            imgAvatar = itemView.findViewById(R.id.imgAvatar);
+            imgBanner = itemView.findViewById(R.id.imgBanner);
             tvOpenDate = itemView.findViewById(R.id.tvOpenDate);
-            tvStatus = itemView.findViewById(R.id.tvStatus);
             tvOpenTime = itemView.findViewById(R.id.tvOpenTime);
 //            viewTime = itemView.findViewById(R.id.viewTime);
             tvName = itemView.findViewById(R.id.tvName);
@@ -108,12 +110,15 @@ public class HeaderBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
             tvCommentCount = itemView.findViewById(R.id.tvCommentCount);
             tvAddress = itemView.findViewById(R.id.tvAddress);
             tvDistance = itemView.findViewById(R.id.tvDistance);
-            tvType = itemView.findViewById(R.id.tvType);
-            tvLocationName = itemView.findViewById(R.id.tvLocationName);
+            tvPlace = itemView.findViewById(R.id.tvPlace);
             tvRateText = itemView.findViewById(R.id.tvRateText);
             imgHeart = itemView.findViewById(R.id.imgHeart);
+            layoutOpen = itemView.findViewById(R.id.layoutOpen);
             layoutStandardRate = itemView.findViewById(R.id.layoutStandardRate);
             tvStandardRate = itemView.findViewById(R.id.tvStandardRate);
+            tvOpenState = itemView.findViewById(R.id.tvOpenState);
+            viewStatus = itemView.findViewById(R.id.viewStatus);
+            tvOpenTime2 = itemView.findViewById(R.id.tvOpenTime2);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -140,40 +145,40 @@ public class HeaderBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
 
             Travel travel = items.get(position);
 
-            Glide.with(context).load(travel.getLogo_url()).into(imgAvatar);
+            Glide.with(context).load(travel.getLogo_url()).into(imgBanner);
             tvName.setText(travel.getName());
             tvRate.setText(travel.getEvaluate());
             tvRateText.setText(travel.getEvaluate_text());
-            tvCommentCount.setText(travel.getComment_count());
             tvAddress.setText(travel.getAddress());
-            tvLocationName.setText(travel.getRegion_name());
+            tvPlace.setText(travel.getRegion_name());
 
-            tvType.setText(travel.getType());
 
             try {
-                if (travel.isHas_location()) {
-                    if (travel.getDistance() != null && !"".equals(travel.getDistance()) && Double.parseDouble(travel.getDistance()) < 1000) {
-                        tvDistance.setText(travel.getDistance_text()+" "+ travel.getDistance() + " m");
-                    } else if (travel.getDistance() != null && !"".equals(travel.getDistance())) {
-                        double finalValue = Math.round(Double.parseDouble(travel.getDistance()) / 1000 * 10.0) / 10.0;
-                        tvDistance.setText(travel.getDistance_text()+" "+ finalValue + " km");
-                    }
+                if (travel.getComment_count().endsWith(".0")) {
+                    tvCommentCount.setText(String.valueOf((int) Double.parseDouble(travel.getComment_count())));
                 } else {
-                    tvDistance.setText("Không xác định");
+                    tvCommentCount.setText(travel.getComment_count());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                tvCommentCount.setText("");
             }
 
 
+
+            layoutOpen.setVisibility(View.VISIBLE);
             tvOpenDate.setText(travel.getOpen_week());
-            tvStatus.setText("("+travel.getType_open()+")");
+            tvOpenState.setText(travel.getType_open());
+
+
 
             try {
-                tvStatus.setTextColor(Color.parseColor(travel.getTypeOpenColor()));
+                tvOpenState.setTextColor(Color.parseColor(travel.getTypeOpenColor()));
+                viewStatus.setBackgroundColor(Color.parseColor(travel.getTypeOpenColor()));
             } catch (Exception e) {
                 try {
-                    tvStatus.setTextColor(Color.parseColor("#FF0000"));
+                    tvOpenState.setTextColor(Color.parseColor("#FF0000"));
+                    viewStatus.setBackgroundColor(Color.parseColor("#FF0000"));
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -183,18 +188,44 @@ public class HeaderBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
 
             try {
                 if (travel.getRange_time().isEmpty()) {
-//                    viewTime.setVisibility(View.GONE);
+                    //    viewTime.setVisibility(View.GONE);
                     tvOpenTime.setVisibility(View.GONE);
+                    tvOpenTime2.setVisibility(View.GONE);
                 } else {
-//                    viewTime.setVisibility(View.VISIBLE);
-                    tvOpenTime.setText(travel.getRange_time());
-                    tvOpenTime.setVisibility(View.VISIBLE);
+                    //    viewTime.setVisibility(View.VISIBLE);
+                    if(travel.getRange_time().contains("và")){
+                        String[] strings = travel.getRange_time().split("và");
+                        tvOpenTime.setText(strings[0]);
+                        tvOpenTime2.setText(strings[1]);
+                        tvOpenTime.setVisibility(View.VISIBLE);
+                        tvOpenTime2.setVisibility(View.VISIBLE);
+                    }else {
+                        tvOpenTime.setText(travel.getRange_time());
+                        tvOpenTime.setVisibility(View.VISIBLE);
+                        tvOpenTime2.setVisibility(View.GONE);
+                    }
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-//                viewTime.setVisibility(View.GONE);
+                //   viewTime.setVisibility(View.GONE);
                 tvOpenTime.setVisibility(View.GONE);
+                tvOpenTime2.setVisibility(View.GONE);
             }
+
+
+            if (travel.isHas_location()) {
+                if (travel.getDistance() != null && !"".equals(travel.getDistance()) && Double.parseDouble(travel.getDistance()) < 1000) {
+                    tvDistance.setText(travel.getDistance_text() + " " + travel.getDistance() + " m");
+                } else if (travel.getDistance() != null && !"".equals(travel.getDistance())) {
+                    double finalValue = Math.round(Double.parseDouble(travel.getDistance()) / 1000 * 10.0) / 10.0;
+                    tvDistance.setText(travel.getDistance_text() + " " + finalValue + " km");
+                }
+            } else {
+                tvDistance.setText("Không xác định");
+            }
+
+
 
             try {
                 if (travel.isLiked()) {
@@ -243,21 +274,7 @@ public class HeaderBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
                 layoutStandardRate.setVisibility(View.GONE);
             }
 
-//            imgHeart.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    try {
-//                        Account account = MyApplication.getInstance().getAccount();
-//                        if (null != account && account.isLogin()) {
-//                            clickItem.likeEvent(position);
-//                        } else {
-//                            LoginAndRegisterActivityNew.startScreen(context, 0, false);
-//                        }
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            });
+
         }
     }
 
