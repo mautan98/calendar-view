@@ -1,31 +1,46 @@
 package com.namviet.vtvtravel.view.fragment.f2mytrip
 
+import android.os.Bundle
+import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.FragmentDetailTripBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
 
 class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>() {
 
+    companion object {
+
+        const val KEY_TRIP_ITEM = "trip_item_key"
+
+        fun newInstance(tripItem: TripItem): DetailTripFragment{
+            val args = Bundle()
+            args.putParcelable(KEY_TRIP_ITEM,tripItem)
+            val fragment = DetailTripFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    private val binding = getBinding()
+
     override fun getLayoutRes(): Int {
-        TODO("Not yet implemented")
+        return R.layout.fragment_detail_trip
     }
 
     override fun initView() {
-        TODO("Not yet implemented")
+
     }
 
     override fun initData() {
-        TODO("Not yet implemented")
+        binding.tvDetailTripName.text
     }
 
     override fun inject() {
-        TODO("Not yet implemented")
     }
 
     override fun setClickListener() {
-        TODO("Not yet implemented")
     }
 
     override fun setObserver() {
-        TODO("Not yet implemented")
     }
 }
