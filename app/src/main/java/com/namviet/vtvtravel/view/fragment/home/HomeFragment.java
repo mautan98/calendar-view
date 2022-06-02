@@ -468,7 +468,64 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 int x_cord = (int) motionEvent.getRawX();
                 if (gestureDetector.onTouchEvent(motionEvent)) {
+                    if (motionEvent.getX() > 0 && motionEvent.getX() < 217) {
+                        if (motionEvent.getY() > 0 && motionEvent.getY() < 120) {
+//
+                            binding.layoutButton.animate().x(x).y(y).setDuration(500L).setListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animation) {
 
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    binding.layoutMenuFloat.setVisibility(View.VISIBLE);
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animation) {
+
+                                }
+                            }).start();
+                        } else {
+                            binding.layoutButton.animate().x(x).y(y).setDuration(500L).setListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    ChatActivity.startScreen(mActivity);
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animation) {
+
+                                }
+                            }).start();
+//
+                        }
+                    }
+//                    if (layout.getVisibility() == View.INVISIBLE) {
+////                        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+////                        mWindowManager.updateViewLayout(mChatHeadView, params);
+//                        layout.setVisibility(View.VISIBLE);
+//                    } else {
+////                        params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+////                        mWindowManager.updateViewLayout(mChatHeadView, params);
+//                        layout.setVisibility(View.INVISIBLE);
+//                    }
                     return true;
                 } else {
                     switch (motionEvent.getAction()) {
@@ -483,11 +540,7 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
                             lastAction = motionEvent.getAction();
                             return true;
                         case MotionEvent.ACTION_UP:
-
-
                             if (lastAction != MotionEvent.ACTION_DOWN) {
-
-
                                 resetPosition(x_cord);
                             } else {
                             }

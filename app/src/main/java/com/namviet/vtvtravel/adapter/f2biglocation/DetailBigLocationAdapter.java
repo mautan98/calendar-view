@@ -22,6 +22,7 @@ import com.namviet.vtvtravel.adapter.f2biglocation.sub.HeaderBigLocation2Adapter
 import com.namviet.vtvtravel.adapter.f2biglocation.sub.HeaderBigLocationAdapter;
 import com.namviet.vtvtravel.adapter.f2biglocation.sub.TravelTipBigLocationAdapter;
 import com.namviet.vtvtravel.adapter.f2biglocation.sub.VideoBigLocationAdapter;
+import com.namviet.vtvtravel.adapter.newhome.subnewhome.SubSuggestionLocationAdapter;
 import com.namviet.vtvtravel.model.newhome.ItemHomeService;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.response.WeatherResponse;
@@ -288,6 +289,7 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
         private TextView tvTitle;
         private LinearLayout btnReadMore;
         private FooterBigLocationAdapter headerBigLocationAdapter;
+        private SubSuggestionLocationAdapter subSuggestionLocationAdapter;
 
 
         public FooterViewHolder(View itemView) {
@@ -300,31 +302,39 @@ public class DetailBigLocationAdapter extends RecyclerView.Adapter<RecyclerView.
 
         public void bindItem(int position) {
             this.position = position;
-            headerBigLocationAdapter = new FooterBigLocationAdapter(items.get(position).getItems(), context, items.get(position).getCode_type(), new FooterBigLocationAdapter.ClickItem() {
-                @Override
-                public void onClickItem(Travel travel) {
+//            headerBigLocationAdapter = new FooterBigLocationAdapter(items.get(position).getItems(), context, items.get(position).getCode_type(), new FooterBigLocationAdapter.ClickItem() {
+//                @Override
+//                public void onClickItem(Travel travel) {
+//
+//                }
+//
+//                @Override
+//                public void likeEvent(int i) {
+//                    try {
+//                        Travel travel = items.get(position).getItems().get(i);
+//
+//                        viewModel.likeEvent(travel.getId(), travel.getContent_type());
+//
+//                        if (travel.isLiked()) {
+//                            travel.setLiked(false);
+//                        } else {
+//                            travel.setLiked(true);
+//                        }
+//                        headerBigLocationAdapter.notifyItemChanged(i);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
+//            rclContent.setAdapter(headerBigLocationAdapter);
 
-                }
 
-                @Override
-                public void likeEvent(int i) {
-                    try {
-                        Travel travel = items.get(position).getItems().get(i);
+            subSuggestionLocationAdapter = new SubSuggestionLocationAdapter(context, items.get(position).getItems(), viewModel);
+            rclContent.setAdapter(subSuggestionLocationAdapter);
 
-                        viewModel.likeEvent(travel.getId(), travel.getContent_type());
 
-                        if (travel.isLiked()) {
-                            travel.setLiked(false);
-                        } else {
-                            travel.setLiked(true);
-                        }
-                        headerBigLocationAdapter.notifyItemChanged(i);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            rclContent.setAdapter(headerBigLocationAdapter);
+
+
             tvTitle.setText(items.get(position).getName());
 
             btnReadMore.setOnClickListener(new View.OnClickListener() {
