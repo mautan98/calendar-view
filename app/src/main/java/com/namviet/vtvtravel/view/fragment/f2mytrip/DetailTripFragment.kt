@@ -36,6 +36,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>() {
         tripItem = arguments?.getParcelable(KEY_TRIP_ITEM)
 
         binding.tvDetailTripName.text = tripItem?.name
+        binding.tvDetailTripDesc.text = tripItem?.description
     }
 
     override fun inject() {
