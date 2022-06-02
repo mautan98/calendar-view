@@ -96,7 +96,7 @@ public class MyTripFragment extends BaseFragment<F2FragmentMyTripBinding> implem
 
     @Override
     public void onItemClick(int position) {
-        DetailTripFragment detailTripFragment = new DetailTripFragment();
+        DetailTripFragment detailTripFragment = DetailTripFragment.Companion.newInstance(tripItemList.get(position));
         addFragment(detailTripFragment);
     }
 }
