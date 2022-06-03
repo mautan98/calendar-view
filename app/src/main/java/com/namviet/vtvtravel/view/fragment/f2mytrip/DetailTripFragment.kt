@@ -10,6 +10,7 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.OverlapDecoration
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.PlacesInScheduleAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.UserListAdapter
+import com.namviet.vtvtravel.view.fragment.f2mytrip.edit.EditTripBottomDialog
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.SchedulePlaceByDaysItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.UserListItem
@@ -75,6 +76,10 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer {
     }
 
     override fun setClickListener() {
+        binding.tvEditTrip.setOnClickListener{
+            val dialog = EditTripBottomDialog()
+            dialog.show(childFragmentManager,null)
+        }
     }
 
     override fun setObserver() {
