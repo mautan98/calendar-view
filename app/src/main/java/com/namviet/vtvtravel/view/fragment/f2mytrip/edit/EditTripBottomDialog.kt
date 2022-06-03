@@ -26,6 +26,7 @@ class EditTripBottomDialog : BottomSheetDialogFragment() {
     }
 
     private lateinit var binding: LayoutBottomDialogEditTripBinding
+    private var tripItem: TripItem? = null
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -46,4 +47,14 @@ class EditTripBottomDialog : BottomSheetDialogFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initView()
+    }
+
+    private fun initView(){
+        tripItem = arguments?.getParcelable(DetailTripFragment.KEY_TRIP_ITEM)
+
+        binding.edtTripName.setText(tripItem?.name)
+        binding.edtTripDesc.setText(tripItem?.description)
+    }
 }

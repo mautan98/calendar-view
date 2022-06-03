@@ -77,8 +77,8 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer {
 
     override fun setClickListener() {
         binding.tvEditTrip.setOnClickListener{
-            val dialog = EditTripBottomDialog()
-            dialog.show(childFragmentManager,null)
+            val dialog = tripItem?.let { it1 -> EditTripBottomDialog.newInstance(it1) }
+            dialog?.show(childFragmentManager,null)
         }
     }
 
