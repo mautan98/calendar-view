@@ -233,6 +233,7 @@
     <string name="travel_companion_text">Bạn đồng hành du lịch</string>
     <string name="delete_trip">Xóa chuyến đi</string>
     <string name="delete_trip_warning">Thao tác này sẽ xóa vĩnh viễn tất cả các mục đã lưu và ghi chú trong Chuyến đi của bạn</string>
+    <string name="invite">Mời</string>
 
 
 </resources>
