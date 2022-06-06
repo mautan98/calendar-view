@@ -3,6 +3,8 @@ package com.namviet.vtvtravel.view.fragment.f2mytrip
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
+import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.databinding.FragmentDetailTripBinding
@@ -70,6 +72,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer {
 
         adapter = PlacesInScheduleAdapter(requireContext())
         binding.rcvAllSchedule.adapter = adapter
+        Glide.with(requireContext()).load(tripItem?.bannerUrl).into(binding.imvBannerDetail)
     }
 
     override fun inject() {
@@ -77,8 +80,11 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer {
 
     override fun setClickListener() {
         binding.tvEditTrip.setOnClickListener{
-            val dialog = tripItem?.let { it1 -> EditTripBottomDialog.newInstance(it1) }
-            dialog?.show(childFragmentManager,null)
+            val editTripBottomDialog = EditTripBottomDialog()
+            val tripItemClone =  Gson().fromJson(Gson().toJson(tripItem) , TripItem::class.java )
+            editTripBottomDialog.setList(tripItemClone)
+
+            editTripBottomDialog?.show(childFragmentManager,null)
         }
     }
 

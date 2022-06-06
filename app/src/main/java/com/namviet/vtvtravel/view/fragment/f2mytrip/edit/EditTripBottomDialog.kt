@@ -10,8 +10,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.LayoutBottomDialogEditTripBinding
 import com.namviet.vtvtravel.view.fragment.f2mytrip.DetailTripFragment
+import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.ParticipantsAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
+import com.namviet.vtvtravel.view.fragment.f2mytrip.model.UserListItem
 import java.util.*
+import kotlin.collections.ArrayList
 
 class EditTripBottomDialog : BottomSheetDialogFragment() {
 
@@ -27,6 +30,10 @@ class EditTripBottomDialog : BottomSheetDialogFragment() {
 
     private lateinit var binding: LayoutBottomDialogEditTripBinding
     private var tripItem: TripItem? = null
+
+    fun setList(tripItem: TripItem?){
+        this.tripItem = tripItem
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -52,9 +59,14 @@ class EditTripBottomDialog : BottomSheetDialogFragment() {
     }
 
     private fun initView(){
-        tripItem = arguments?.getParcelable(DetailTripFragment.KEY_TRIP_ITEM)
 
         binding.edtTripName.setText(tripItem?.name)
         binding.edtTripDesc.setText(tripItem?.description)
+        val adapter = ParticipantsAdapter(requireContext())
+        val listAdapter:ArrayList<UserListItem> = tripItem?.userList as ArrayList<UserListItem>
+        listAdapter.add(UserListItem())
+
+        adapter.setListParticipants(listAdapter)
+        binding.rcvParticipant.adapter = adapter
     }
 }
