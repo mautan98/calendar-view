@@ -12,6 +12,8 @@ class TypeCost {
         this.costName = costName
     }
 
+    constructor()
+
     var costName: String? = null
         get() = field
         set(value) {
