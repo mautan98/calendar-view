@@ -1062,10 +1062,11 @@ public class HomeFragment extends MainFragment implements Observer, HomeMenuFoot
 
 
     private int getScreenHeight(){
+        int topAddButton = (int) binding.addButtonMotionLayout.getY();
         if(screenHeight == 0) {
             DisplayMetrics displayMetrics = new DisplayMetrics();
             mActivity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-            screenHeight = displayMetrics.heightPixels - dpToPx(80);
+            screenHeight = topAddButton - dpToPx(100);
         }
         return screenHeight;
     }
