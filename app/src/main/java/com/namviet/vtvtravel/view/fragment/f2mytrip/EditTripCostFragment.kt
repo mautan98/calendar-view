@@ -40,6 +40,7 @@ class EditTripCostFragment: BaseFragment<FragmentAddEstimateCostBinding>() {
         listTypeCost.add(TypeCost(R.drawable.ic_type_visiting,getString(R.string.type_visiting)))
         listTypeCost.add(TypeCost(R.drawable.ic_type_shopping,getString(R.string.type_shopping)))
         listTypeCost.add(TypeCost(R.drawable.ic_type_eating,getString(R.string.type_transportation)))
+        listTypeCost.add(TypeCost())
     }
 
     override fun initData() {
