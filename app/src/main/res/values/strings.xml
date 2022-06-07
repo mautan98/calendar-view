@@ -223,6 +223,7 @@
     <string name="description_title">Mô tả</string>
     <string name="creator_trips">Người tạo:</string>
     <string name="estimate_cost">Chi phí dự tính:</string>
+    <string name="estimate_cost_title">Chi phí dự tính</string>
     <string name="days_in_trip">Thời gian đi:</string>
     <string name="people_numb">Người</string>
     <string name="my_trips_title">Chuyến đi của tôi</string>
@@ -234,6 +235,11 @@
     <string name="delete_trip">Xóa chuyến đi</string>
     <string name="delete_trip_warning">Thao tác này sẽ xóa vĩnh viễn tất cả các mục đã lưu và ghi chú trong Chuyến đi của bạn</string>
     <string name="invite">Mời</string>
+    <string name="amount">Số lượng</string>
+    <string name="type_eating">Ăn uống</string>
+    <string name="type_visiting">Thăm quan</string>
+    <string name="type_shopping">Mua sắm</string>
+    <string name="type_transportation">Di chuyển</string>
 
 
 </resources>
