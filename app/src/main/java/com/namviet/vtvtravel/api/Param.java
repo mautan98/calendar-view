@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -59,13 +60,18 @@ public class Param {
 
 
     public static JSONObject getParamWithAccessKey(JSONObject param, String accessKey) {
+        Random generator = new Random();
+        int a  = generator.nextInt();
+
+        String requestId = StringUtils.md5(String.valueOf(a));
+
         JSONObject map = new JSONObject();
         try {
             map.put(WSConfig.KeyParam.SERVICE_ENDPOINT_NAME, WSConfig.ENDPOINT_NAME);
             map.putOpt(WSConfig.KeyParam.DATA, param);
-            map.put(WSConfig.KeyParam.CHECK_SUM, StringUtils.md5(param.toString().replace("\\", "") + WSConfig.REQUEST_ID + accessKey));
+            map.put(WSConfig.KeyParam.CHECK_SUM, StringUtils.md5(param.toString().replace("\\", "") + requestId + accessKey));
 //            map.put(WSConfig.KeyParam.CHECK_SUM, "4b1beb638e2dafa1c41a1f00e94e5cda");
-            map.put(WSConfig.KeyParam.REQUEST_ID, WSConfig.REQUEST_ID);
+            map.put(WSConfig.KeyParam.REQUEST_ID, requestId);
             map.put(WSConfig.KeyParam.LANG_CODE2, "vi");
         } catch (JSONException e) {
             e.printStackTrace();
