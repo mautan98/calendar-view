@@ -4,6 +4,14 @@ import com.google.gson.annotations.SerializedName
 
 class TypeCost {
 
+
+    @field:SerializedName("id")
+    var id: String? = null
+        get() = field
+        set(value) {
+            field = value
+        }
+
     @field:SerializedName("scheduleCustomId")
     var scheduleCustomId:String?= null
         get() = field
@@ -49,4 +57,23 @@ class TypeCost {
             field = value
         }
 
+    @field:SerializedName("created")
+    var created: Long?= null
+    get() =  field
+    set(value) {
+        field = value
+    }
+
+    @field:SerializedName("modified")
+    var modified: Long?= null
+        get() =  field
+        set(value) {
+            field = value
+        }
+
+    var removeAble: Boolean = false
+        get() = field
+        set(value) {
+            field = value
+        }
 }
