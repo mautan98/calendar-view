@@ -30,6 +30,7 @@ import com.namviet.vtvtravel.view.f2.DisplayMarkerForMapActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
 import com.namviet.vtvtravel.view.fragment.f2createtrip.dialog.BottomSheetPassengerDialog;
+import com.namviet.vtvtravel.view.fragment.f2createtrip.viewmodel.CreateTripViewModel;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.BodyCreateTrip;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.CreateScheduleResponse;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel;
@@ -55,7 +56,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
     private String link = WSConfig.HOST_CREATE_TRIP;
     private ArrayList<Location> locationList = new ArrayList<>();
     private SearchBigLocationViewModel locationViewModel;
-    private MyTripsViewModel myTripsViewModel;
+    private CreateTripViewModel myTripsViewModel;
     Map<String, String> extraHeaders = new HashMap<>();
     private int numAdult = 0;
     private int numChildren = 0;
@@ -76,7 +77,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
     @Override
     public void initView() {
         locationViewModel = new SearchBigLocationViewModel();
-        myTripsViewModel = new MyTripsViewModel();
+        myTripsViewModel = new CreateTripViewModel();
         locationViewModel.addObserver(this);
         locationViewModel.getAllLocation();
         myTripsViewModel.addObserver(this);
@@ -313,7 +314,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
                 if (locationResponse.getData() != null)
                     locationList = (ArrayList<Location>) locationResponse.getData();
             }
-        } else if (o instanceof MyTripsViewModel){
+        } else if (o instanceof CreateTripViewModel){
             if (arg instanceof CreateScheduleResponse){
                 CreateScheduleResponse dataCreateTrips = (CreateScheduleResponse) arg;
                 if (dataCreateTrips.getDataCreateTrips() != null){
