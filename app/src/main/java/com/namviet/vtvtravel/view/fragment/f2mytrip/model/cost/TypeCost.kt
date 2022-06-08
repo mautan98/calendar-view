@@ -19,17 +19,17 @@ class TypeCost {
         set(value) {
             field = value
         }
-     var pricePP: Float? = null
+     var pricePP: Float = 0f
          get() = field
          set(value) {
              field = value
          }
-    var amount: Int? = null
+    var amount: Int = 0
         get() = field
         set(value) {
             field = value
         }
-    var totalPrice: Float? = null
+    var totalPrice: Float = 0f
         get() = field
         set(value) {
             field = value

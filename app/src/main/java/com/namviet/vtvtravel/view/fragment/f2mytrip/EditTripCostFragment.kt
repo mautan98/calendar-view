@@ -29,6 +29,11 @@ class EditTripCostFragment: BaseFragment<FragmentAddEstimateCostBinding>() {
     override fun initView() {
         binding = getBinding()
         costTypeAdapter = CostTypesAdapter(requireContext())
+        costTypeAdapter?.setSumTotalCostListener(object :CostTypesAdapter.SumTotalCost{
+            override fun onTotalPriceChange(total: Float) {
+                binding.tvTotalCost.text = total.toString()
+            }
+        })
         initListType()
         costTypeAdapter?.setListTypeCost(listTypeCost)
         binding.rcvTypeOfCost.adapter = costTypeAdapter

@@ -71,16 +71,23 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
                     try {
                         val priceFloat = it.editable().toString().toFloat()
                         val amount = binding.tvAmount.text.toString().toInt()
-                        changeTotal(priceFloat,amount)
+                        changeTotal(priceFloat,amount,typeCost)
                     } catch (e: Exception) {
                     }
                 }
         }
 
-        private fun changeTotal(priceFloat: Float, amount: Int) {
+        private fun changeTotal(priceFloat: Float, amount: Int,typeCost: TypeCost) {
             val totalPrice = priceFloat * amount
             binding.tvTotalPrice.text = "$totalPrice"
-            sumTotalCostListener.onTotalPriceChange(totalPrice)
+            typeCost.pricePP = priceFloat
+            typeCost.amount = amount
+            typeCost.totalPrice = totalPrice
+            var totalSum = 0f
+            for (i in 0..listTypeCost.size-2){
+                totalSum+= listTypeCost.get(i).totalPrice
+                sumTotalCostListener.onTotalPriceChange(totalSum)
+            }
         }
     }
 
