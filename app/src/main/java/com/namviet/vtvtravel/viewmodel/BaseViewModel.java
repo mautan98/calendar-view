@@ -4,9 +4,11 @@ import android.content.Context;
 import android.view.View;
 
 import com.baseapp.menu.SlideMenu;
+import com.google.gson.Gson;
 import com.namviet.vtvtravel.api.Param;
 import com.namviet.vtvtravel.api.TravelService;
 import com.namviet.vtvtravel.app.MyApplication;
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.listener.F2LoadFailListener;
 import com.namviet.vtvtravel.model.f2event.OnLoadFail;
 import com.namviet.vtvtravel.ultils.ResponseUltils;
@@ -97,6 +99,27 @@ public class BaseViewModel extends Observable implements F2LoadFailListener {
         compositeDisposable.add(disposable);
     }
 
+    public void requestSuccessRes(Object data) {
+        setChanged();
+        notifyObservers(data);
+    }
+
+    public void requestFailedRes(Throwable throwable) {
+        try {
+            onLoadFail();
+        } catch (Exception e) {
+        }
+        try {
+            HttpException error = (HttpException) throwable;
+            String errorBody = error.response().errorBody().string();
+            ErrorResponse errorResponse = new Gson().fromJson(errorBody, ErrorResponse.class);
+            setChanged();
+            notifyObservers(errorResponse);
+        } catch (Exception e) {
+            setChanged();
+            notifyObservers();
+        }
+    }
 
     @Override
     public void onLoadFail() {
