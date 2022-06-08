@@ -50,10 +50,10 @@ class EditTripCostFragment: BaseFragment<FragmentAddEstimateCostBinding>(), Obse
     }
 
     private fun initListType(){
-        listTypeCost.add(TypeCost(R.drawable.ic_type_eating,getString(R.string.type_eating)))
-        listTypeCost.add(TypeCost(R.drawable.ic_type_visiting,getString(R.string.type_visiting)))
-        listTypeCost.add(TypeCost(R.drawable.ic_type_shopping,getString(R.string.type_shopping)))
-        listTypeCost.add(TypeCost(R.drawable.ic_type_eating,getString(R.string.type_transportation)))
+        listTypeCost.add(TypeCost(R.drawable.ic_type_eating,getString(R.string.type_eating),false))
+        listTypeCost.add(TypeCost(R.drawable.ic_type_visiting,getString(R.string.type_visiting),false))
+        listTypeCost.add(TypeCost(R.drawable.ic_type_shopping,getString(R.string.type_shopping),false))
+        listTypeCost.add(TypeCost(R.drawable.ic_type_eating,getString(R.string.type_transportation),false))
     }
 
     override fun initData() {

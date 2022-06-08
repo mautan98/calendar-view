@@ -25,9 +25,10 @@ class TypeCost {
             field = value
         }
 
-    constructor(resourceImage: Int, costName: String?) {
+    constructor(resourceImage: Int, costName: String?,removeAble:Boolean) {
         this.resourceImage = resourceImage
         this.costName = costName
+        this.removeAble = removeAble
     }
 
     constructor()
@@ -51,6 +52,7 @@ class TypeCost {
         set(value) {
             field = value
         }
+    @field:SerializedName("totalCost")
     var totalPrice: Float = 0f
         get() = field
         set(value) {
@@ -71,7 +73,7 @@ class TypeCost {
             field = value
         }
 
-    var removeAble: Boolean = false
+    var removeAble: Boolean = true
         get() = field
         set(value) {
             field = value
