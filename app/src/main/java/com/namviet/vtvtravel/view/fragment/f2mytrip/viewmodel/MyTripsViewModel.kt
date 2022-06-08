@@ -22,28 +22,11 @@ class MyTripsViewModel: BaseViewModel() {
         val dispose  = newsService.allTripsSchedule.subscribeOn(myApplication.subscribeScheduler())
             .observeOn(AndroidSchedulers.mainThread()).subscribe(Consumer {
                 if (it != null) {
-                    requestSuccess(it)
+                    requestSuccessRes(it)
                 } else {
-                    requestSuccess(null)
+                    requestSuccessRes(null)
                 }
-            },{requestFailed(it)})
-        compositeDisposable.add(dispose)
-    }
-
-    fun createScheduleTrip(bodyCreate:BodyCreateTrip){
-        val myApplication = MyApplication.getInstance()
-        val newsService = myApplication.travelServiceAcc
-        val jsonObj = JSONObject(Gson().toJson(bodyCreate))
-        val param = Param.getParams(jsonObj)
-        val resquestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),param.toString())
-        val dispose  = newsService.createTrip(resquestBody).subscribeOn(myApplication.subscribeScheduler())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe(Consumer {
-                if (it != null) {
-                    requestSuccess(it)
-                } else {
-                    requestSuccess(null)
-                }
-            },{requestFailed(it)})
+            },{requestFailedRes(it)})
         compositeDisposable.add(dispose)
     }
 
@@ -53,34 +36,26 @@ class MyTripsViewModel: BaseViewModel() {
         val dispose  = newsService.getDetailPlaceByScheduleid(scheduleId).subscribeOn(myApplication.subscribeScheduler())
             .observeOn(AndroidSchedulers.mainThread()).subscribe(Consumer {
                 if (it != null) {
-                    requestSuccess(it)
+                    requestSuccessRes(it)
                 } else {
-                    requestSuccess(null)
+                    requestSuccessRes(null)
                 }
-            },{requestFailed(it)})
+            },{requestFailedRes(it)})
         compositeDisposable.add(dispose)
     }
 
-    private fun requestSuccess(data: Any?) {
-        setChanged()
-        notifyObservers(data)
-    }
-
-    private fun requestFailed(throwable: Throwable) {
-        try {
-            onLoadFail()
-        } catch (e: Exception) {
-        }
-        try {
-            val error = throwable as HttpException
-            val errorBody = error.response().errorBody()!!.string()
-            val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
-            setChanged()
-            notifyObservers(errorResponse)
-        } catch (e: Exception) {
-            setChanged()
-            notifyObservers()
-        }
+    fun getCostList(scheduleId:String?){
+        val myApplication = MyApplication.getInstance()
+        val newsService = myApplication.travelServiceAcc
+        val dispose  = newsService.getCostDetail(scheduleId).subscribeOn(myApplication.subscribeScheduler())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe(Consumer {
+                if (it != null) {
+                    requestSuccessRes(it)
+                } else {
+                    requestSuccessRes(null)
+                }
+            },{requestFailedRes(it)})
+        compositeDisposable.add(dispose)
     }
 
 }
