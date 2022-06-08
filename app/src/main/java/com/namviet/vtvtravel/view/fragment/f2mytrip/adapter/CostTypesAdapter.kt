@@ -3,6 +3,8 @@ package com.namviet.vtvtravel.view.fragment.f2mytrip.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -75,6 +77,14 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
                     } catch (e: Exception) {
                     }
                 }
+            binding.imvPlus.setOnClickListener {
+                val numberPlus = binding.tvAmount.text.toString().toInt()
+                setPlusNumber(numberPlus, binding.tvAmount, binding.imvMinus, typeCost)
+            }
+            binding.imvMinus.setOnClickListener {
+                val numberPlus = binding.tvAmount.text.toString().toInt()
+                setMinusNumber(numberPlus, binding.tvAmount, binding.imvMinus, typeCost)
+            }
         }
 
         private fun changeTotal(priceFloat: Float, amount: Int,typeCost: TypeCost) {
@@ -87,6 +97,46 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
             for (i in 0..listTypeCost.size-2){
                 totalSum+= listTypeCost.get(i).totalPrice
                 sumTotalCostListener.onTotalPriceChange(totalSum)
+            }
+        }
+
+        private fun setPlusNumber(
+            number: Int,
+            tvNumber: TextView,
+            imvMinus: ImageView,
+            typeCost: TypeCost
+        ) {
+            var numberAmount = number
+            if (!imvMinus.isEnabled) {
+                imvMinus.isEnabled = true
+                imvMinus.setImageResource(R.drawable.ic_minus_passenger)
+            }
+            numberAmount += 1
+            tvNumber.text = numberAmount.toString()
+            typeCost.amount = numberAmount
+            changeTotal(typeCost.pricePP,typeCost.amount,typeCost)
+        }
+
+        private fun setMinusNumber(
+            number: Int,
+            tvNumber: TextView,
+            imvMinus: ImageView,
+            typeCost: TypeCost
+        ) {
+            var numberAmount = number
+            if (!imvMinus.isEnabled) {
+                imvMinus.isEnabled = true
+                imvMinus.setImageResource(R.drawable.ic_minus_passenger)
+            }
+            if (numberAmount > 0) {
+                numberAmount-= 1
+                if (numberAmount == 0){
+                    imvMinus.isEnabled = false
+                    imvMinus.setImageResource(R.drawable.ic_minus_passenger_disable_min)
+                }
+                tvNumber.text = numberAmount.toString()
+                typeCost.amount = numberAmount
+                changeTotal(typeCost.pricePP,typeCost.amount,typeCost)
             }
         }
     }
