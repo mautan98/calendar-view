@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.view.fragment.f2mytrip.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -64,8 +65,13 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
     inner class ViewHolder(var binding: LayoutItemTypeCostBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(typeCost:TypeCost){
-            binding.imvCostType.setImageResource(typeCost.resourceImage)
+            binding.imvCostType.setImageResource(if (typeCost.resourceImage != 0) typeCost.resourceImage else R.drawable.ic_money_no_coin)
             binding.tvTypeName.text = typeCost.costName
+            binding.tvAmount.text = "${typeCost.amount}"
+            binding.edtPrice.setText(typeCost.pricePP.toString())
+            binding.tvTotalPrice.text = typeCost.totalPrice.toString()
+            binding.imbDeleteCost.visibility =
+                (if (typeCost.removeAble) View.VISIBLE else View.GONE)
             RxTextView.afterTextChangeEvents(binding.edtPrice)
                 .skipInitialValue()
                 .debounce(790, TimeUnit.MILLISECONDS)
