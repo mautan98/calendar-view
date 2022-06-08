@@ -16,9 +16,14 @@ import java.util.concurrent.TimeUnit
 class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TYPE_ADD_OTHER_COST = -1
     private var listTypeCost:MutableList<TypeCost> = mutableListOf()
+    private lateinit var sumTotalCostListener:SumTotalCost
 
     fun setListTypeCost(list: MutableList<TypeCost>) {
         this.listTypeCost = list
+    }
+
+    fun setSumTotalCostListener(sumTotalCostListener:SumTotalCost){
+        this.sumTotalCostListener = sumTotalCostListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -65,11 +70,17 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
                 .subscribe {
                     try {
                         val priceFloat = it.editable().toString().toFloat()
-                        val amount = binding.tvAmount.text.toString().toFloat()
-                        binding.tvTotalPrice.text = "${priceFloat * amount}"
+                        val amount = binding.tvAmount.text.toString().toInt()
+                        changeTotal(priceFloat,amount)
                     } catch (e: Exception) {
                     }
                 }
+        }
+
+        private fun changeTotal(priceFloat: Float, amount: Int) {
+            val totalPrice = priceFloat * amount
+            binding.tvTotalPrice.text = "$totalPrice"
+            sumTotalCostListener.onTotalPriceChange(totalPrice)
         }
     }
 
@@ -81,5 +92,9 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
             }
         }
 
+    }
+
+    interface SumTotalCost{
+        fun onTotalPriceChange(total : Float)
     }
 }
