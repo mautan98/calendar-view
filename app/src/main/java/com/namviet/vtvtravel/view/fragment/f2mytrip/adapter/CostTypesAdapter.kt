@@ -46,7 +46,7 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
         if (getItemViewType(position) == TYPE_ADD_OTHER_COST){
             (holder as CostTypesAdapter.AddCostViewHolder).bind()
         } else {
-            (holder as CostTypesAdapter.ViewHolder).bind(typeCost)
+            (holder as CostTypesAdapter.ViewHolder).bind(typeCost,position)
         }
     }
 
@@ -64,7 +64,7 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
 
     inner class ViewHolder(var binding: LayoutItemTypeCostBinding) : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(typeCost:TypeCost){
+        fun bind(typeCost:TypeCost,position:Int){
             binding.imvCostType.setImageResource(if (typeCost.resourceImage != 0) typeCost.resourceImage else R.drawable.ic_money_no_coin)
             binding.tvTypeName.text = typeCost.costName
             binding.tvAmount.text = "${typeCost.amount}"
@@ -91,6 +91,10 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
             binding.imvMinus.setOnClickListener {
                 val numberPlus = binding.tvAmount.text.toString().toInt()
                 setMinusNumber(numberPlus, binding.tvAmount, binding.imvMinus, typeCost)
+            }
+            binding.imbDeleteCost.setOnClickListener {
+                listTypeCost.removeAt(position)
+                notifyItemRemoved(position)
             }
         }
 
