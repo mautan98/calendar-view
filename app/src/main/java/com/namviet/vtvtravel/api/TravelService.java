@@ -117,6 +117,7 @@ import com.namviet.vtvtravel.view.f3.deal.model.dealcampaign.DealCampaignDetail;
 import com.namviet.vtvtravel.view.f3.deal.model.dealfollow.DealFollowResponse;
 import com.namviet.vtvtravel.view.f3.deal.model.mygift.MyGiftResponse;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.MyTripsResponse;
+import com.namviet.vtvtravel.view.fragment.f2mytrip.model.cost.CostResponse;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.CreateScheduleResponse;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.DataCreateTrips;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.detail.PlaceScheduleResponse;
@@ -774,6 +775,12 @@ public interface TravelService {
 
     @GET(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.SCHEDULE_BY_ID)
     Observable<PlaceScheduleResponse> getDetailPlaceByScheduleid(@Query("scheduleCustomId") String scheduleCustomId);
+
+    @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_COST)
+    Observable<BaseResponse> updateCost(@Query("scheduleCustomId") String scheduleCustomId);
+
+    @GET(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.GET_COST)
+    Observable<CostResponse> getCostDetail(@Query("scheduleCustomId") String scheduleCustomId);
 
 
 }
