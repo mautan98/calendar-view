@@ -87,7 +87,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer {
             editTripBottomDialog?.show(childFragmentManager,null)
         }
         binding.imvEditTripCost.setOnClickListener {
-            val fragment = EditTripCostFragment()
+            val fragment = EditTripCostFragment.newInstance(tripItem?.id)
             addFragment(fragment)
         }
     }

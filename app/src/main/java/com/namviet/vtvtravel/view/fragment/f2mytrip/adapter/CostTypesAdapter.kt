@@ -22,6 +22,7 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
 
     fun setListTypeCost(list: MutableList<TypeCost>) {
         this.listTypeCost = list
+        notifyDataSetChanged()
     }
 
     fun setSumTotalCostListener(sumTotalCostListener:SumTotalCost){
