@@ -7,6 +7,7 @@ import com.namviet.vtvtravel.databinding.FragmentAddEstimateCostBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.response.BaseResponse
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.CostTypesAdapter
+import com.namviet.vtvtravel.view.fragment.f2mytrip.model.cost.AddNewCostBottomDialog
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.cost.CostResponse
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.cost.TypeCost
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
@@ -47,6 +48,20 @@ class EditTripCostFragment: BaseFragment<FragmentAddEstimateCostBinding>(), Obse
             override fun onTotalPriceChange(total: Float) {
                 binding.tvTotalCost.text = total.toString()
             }
+        })
+        costTypeAdapter?.setAddNewCostListener(object :CostTypesAdapter.AddNewCost{
+            override fun onClickAddNewCost() {
+                val dialog = AddNewCostBottomDialog.newInstance()
+                dialog.setAddDoneListener(object : AddNewCostBottomDialog.AddNewCostDoneListener{
+                    override fun onAddDone(typeCost: TypeCost) {
+                        listTypeCost.add(listTypeCost.size - 1,typeCost)
+                        costTypeAdapter?.setListTypeCost(listTypeCost)
+                    }
+
+                })
+                dialog.show(childFragmentManager,null)
+            }
+
         })
         initListType()
         costTypeAdapter?.setListTypeCost(listTypeCost)
@@ -134,7 +149,7 @@ class EditTripCostFragment: BaseFragment<FragmentAddEstimateCostBinding>(), Obse
         } else if (arg is BaseResponse) {
             if (arg.isSuccess){
                 onBackFragment.onBackFragment()
-                Toast.makeText(requireContext(),"thanh cong",Toast.LENGTH_SHORT).show()
+                activity?.onBackPressed()
             }
         }
     }

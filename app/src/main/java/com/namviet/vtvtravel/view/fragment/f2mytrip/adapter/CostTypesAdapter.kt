@@ -20,6 +20,7 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
     private val TYPE_ADD_OTHER_COST = -1
     private var listTypeCost:MutableList<TypeCost> = mutableListOf()
     private lateinit var sumTotalCostListener:SumTotalCost
+    private lateinit var addNewCostListener:AddNewCost
 
     fun setListTypeCost(list: MutableList<TypeCost>) {
         this.listTypeCost = list
@@ -28,6 +29,10 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
 
     fun setSumTotalCostListener(sumTotalCostListener:SumTotalCost){
         this.sumTotalCostListener = sumTotalCostListener
+    }
+
+    fun setAddNewCostListener(addNewCostListener:AddNewCost){
+        this.addNewCostListener = addNewCostListener
     }
 
     fun getListTypeCost():MutableList<TypeCost>{
@@ -170,7 +175,7 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
 
         fun bind(){
             binding.tvAddNewCostType.setOnClickListener {
-
+               addNewCostListener.onClickAddNewCost()
             }
         }
 
@@ -178,5 +183,9 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
 
     interface SumTotalCost{
         fun onTotalPriceChange(total : Float)
+    }
+
+    interface AddNewCost{
+        fun onClickAddNewCost()
     }
 }
