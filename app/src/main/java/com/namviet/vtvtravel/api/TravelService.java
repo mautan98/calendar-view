@@ -777,7 +777,7 @@ public interface TravelService {
     Observable<PlaceScheduleResponse> getDetailPlaceByScheduleid(@Query("scheduleCustomId") String scheduleCustomId);
 
     @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_COST)
-    Observable<BaseResponse> updateCost(@Query("scheduleCustomId") String scheduleCustomId);
+    Observable<BaseResponse> updateCost(@Body RequestBody bodyCost);
 
     @GET(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.GET_COST)
     Observable<CostResponse> getCostDetail(@Query("scheduleCustomId") String scheduleCustomId);

@@ -4,12 +4,14 @@ import com.google.gson.Gson
 import com.namviet.vtvtravel.api.Param
 import com.namviet.vtvtravel.app.MyApplication
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
+import com.namviet.vtvtravel.view.fragment.f2mytrip.model.cost.TypeCost
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.BodyCreateTrip
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.DataCreateTrips
 import com.namviet.vtvtravel.viewmodel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import okhttp3.RequestBody
+import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.HttpException
 
@@ -48,6 +50,25 @@ class MyTripsViewModel: BaseViewModel() {
         val myApplication = MyApplication.getInstance()
         val newsService = myApplication.travelServiceAcc
         val dispose  = newsService.getCostDetail(scheduleId).subscribeOn(myApplication.subscribeScheduler())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe(Consumer {
+                if (it != null) {
+                    requestSuccessRes(it)
+                } else {
+                    requestSuccessRes(null)
+                }
+            },{requestFailedRes(it)})
+        compositeDisposable.add(dispose)
+    }
+
+    fun updateCost(list:MutableList<TypeCost>?){
+        val myApplication = MyApplication.getInstance()
+        val newsService = myApplication.travelServiceAcc
+        val jsArray = JSONArray(Gson().toJson(list))
+        val jsonObject = JSONObject()
+        jsonObject.putOpt("scheduleCostList",jsArray)
+        val param = Param.getParams(jsonObject)
+        val resquestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),param.toString())
+        val dispose  = newsService.updateCost(resquestBody).subscribeOn(myApplication.subscribeScheduler())
             .observeOn(AndroidSchedulers.mainThread()).subscribe(Consumer {
                 if (it != null) {
                     requestSuccessRes(it)
