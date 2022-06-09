@@ -35,8 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="18dp"
-            android:background="@drawable/ic_drop_down_thick_3726"
-            android:rotation="180"
+            android:background="@drawable/ic_drop_up_thick_3726"
             app:layout_constraintBottom_toBottomOf="@id/tv_type_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_type_name" />
