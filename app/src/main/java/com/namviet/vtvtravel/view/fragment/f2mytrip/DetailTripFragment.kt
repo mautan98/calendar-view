@@ -20,7 +20,8 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.model.detail.PlaceScheduleRe
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
 import java.util.*
 
-class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer {
+class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
+    EditTripCostFragment.OnBackFragmentListener {
 
     companion object {
 
@@ -88,6 +89,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer {
         }
         binding.imvEditTripCost.setOnClickListener {
             val fragment = EditTripCostFragment.newInstance(tripItem?.id)
+            fragment.setOnBackFragmentListener(this)
             addFragment(fragment)
         }
     }
@@ -99,6 +101,16 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer {
         if (arg is PlaceScheduleResponse) {
             val myTripResponse = arg
             adapter?.setListPlaces(myTripResponse.data?.schedulePlaceByDays as MutableList<SchedulePlaceByDaysItem>)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                binding.tvEstimateCost.text = Html.fromHtml(Utils.convertPriceTrips(myTripResponse.data?.estimatedCost),
+                    Html.FROM_HTML_MODE_COMPACT)
+            } else {
+                binding.tvEstimateCost.text = Html.fromHtml(Utils.convertPriceTrips(myTripResponse.data?.estimatedCost))
+            }
         }
+    }
+
+    override fun onBackFragment() {
+        tripItem?.id?.let { viewModel.getDetailplaceById(it) }
     }
 }
