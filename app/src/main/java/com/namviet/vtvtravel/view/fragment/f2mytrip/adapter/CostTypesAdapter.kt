@@ -30,6 +30,10 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
         this.sumTotalCostListener = sumTotalCostListener
     }
 
+    fun getListTypeCost():MutableList<TypeCost>{
+        return listTypeCost
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == TYPE_ADD_OTHER_COST){
             val binding:LayoutAddOtherCostBinding = DataBindingUtil.inflate(LayoutInflater.from(context),
@@ -63,7 +67,7 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
     }
 
     inner class ViewHolder(var binding: LayoutItemTypeCostBinding) : RecyclerView.ViewHolder(binding.root){
-
+        private var isClick = false
         fun bind(typeCost:TypeCost,position:Int){
             binding.imvCostType.setImageResource(if (typeCost.resourceImage != 0) typeCost.resourceImage else R.drawable.ic_money_no_coin)
             binding.tvTypeName.text = typeCost.costName
@@ -95,6 +99,16 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
             binding.imbDeleteCost.setOnClickListener {
                 listTypeCost.removeAt(position)
                 notifyItemRemoved(position)
+            }
+            binding.layoutHeader.setOnClickListener {
+                isClick = !isClick
+                if (isClick){
+                    binding.llDetailTypes.visibility = View.GONE
+                    binding.imvShowHide.setImageResource(R.drawable.ic_drop_down_thick_3726)
+                } else {
+                    binding.llDetailTypes.visibility = View.VISIBLE
+                    binding.imvShowHide.setImageResource(R.drawable.ic_drop_up_thick_3726)
+                }
             }
         }
 
