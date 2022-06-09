@@ -1,9 +1,11 @@
 package com.namviet.vtvtravel.view.fragment.f2mytrip
 
 import android.os.Bundle
+import android.widget.Toast
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.FragmentAddEstimateCostBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.response.BaseResponse
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.CostTypesAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.cost.CostResponse
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.cost.TypeCost
@@ -27,6 +29,11 @@ class EditTripCostFragment: BaseFragment<FragmentAddEstimateCostBinding>(), Obse
     private var listTypeCost: MutableList<TypeCost> = mutableListOf()
     private var tripViewModel: MyTripsViewModel = MyTripsViewModel()
     private var scheduleId:String?= null
+    private lateinit var onBackFragment:OnBackFragmentListener
+
+    fun setOnBackFragmentListener(onBack: OnBackFragmentListener) {
+        this.onBackFragment = onBack
+    }
 
     override fun getLayoutRes(): Int {
         return R.layout.fragment_add_estimate_cost
@@ -64,6 +71,16 @@ class EditTripCostFragment: BaseFragment<FragmentAddEstimateCostBinding>(), Obse
     }
 
     override fun setClickListener() {
+        binding.btnUpdateCost.setOnClickListener {
+            val list = costTypeAdapter?.getListTypeCost()
+            list?.size?.minus(1)?.let { it -> list.removeAt(it) }
+            for (i in 0..list?.size?.minus(1)!!){
+                if (list.get(i).scheduleCustomId == null){
+                    list.get(i).scheduleCustomId = scheduleId
+                }
+            }
+            tripViewModel.updateCost(list)
+        }
     }
 
     override fun setObserver() {
@@ -71,9 +88,58 @@ class EditTripCostFragment: BaseFragment<FragmentAddEstimateCostBinding>(), Obse
 
     override fun update(o: Observable?, arg: Any?) {
         if (arg is CostResponse){
-            listTypeCost.addAll(arg.data as MutableList<TypeCost>)
+
+            val listResponse = arg.data as MutableList<TypeCost>
+            for (i in 0..listResponse.size - 1){
+                val typeCost = listResponse.get(i)
+                when(typeCost.costName){
+                    "Ăn uống" -> {
+                        typeCost.resourceImage = R.drawable.ic_type_eating
+                        typeCost.removeAble = false
+                    }
+                    "Thăm quan" -> {
+                        typeCost.resourceImage = R.drawable.ic_type_visiting
+                        typeCost.removeAble = false
+                    }
+                    "Mua sắm" -> {
+                        typeCost.resourceImage = R.drawable.ic_type_shopping
+                        typeCost.removeAble = false
+                    }
+                    "Di chuyển" -> {
+                        typeCost.resourceImage = R.drawable.ic_type_eating
+                        typeCost.removeAble = false
+                    }
+                }
+            }
+            val listDefault:MutableList<String?> = mutableListOf()
+            for (i in 0..listTypeCost.size - 1){
+                listDefault.add(listTypeCost.get(i).costName)
+            }
+            val listRes:MutableList<String?> = mutableListOf()
+            for (i in 0..listResponse.size - 1){
+                listRes.add(listResponse.get(i).costName)
+            }
+            if (listRes.containsAll(listDefault)){
+                listTypeCost = listResponse
+            } else {
+                listTypeCost.addAll(listResponse)
+            }
+            for (i in 0..listTypeCost.size - 1){
+                if (listTypeCost.get(i).resourceImage == 0){
+                    listTypeCost.get(i)
+                }
+            }
             listTypeCost.add(TypeCost())
             costTypeAdapter?.setListTypeCost(listTypeCost)
+        } else if (arg is BaseResponse) {
+            if (arg.isSuccess){
+                onBackFragment.onBackFragment()
+                Toast.makeText(requireContext(),"thanh cong",Toast.LENGTH_SHORT).show()
+            }
         }
+    }
+
+    interface OnBackFragmentListener{
+        fun onBackFragment()
     }
 }
