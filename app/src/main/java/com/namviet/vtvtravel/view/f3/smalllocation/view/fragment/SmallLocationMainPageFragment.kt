@@ -1,14 +1,17 @@
 package com.namviet.vtvtravel.view.f3.smalllocation.view.fragment
 
 import android.annotation.SuppressLint
+import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.viewpager.widget.ViewPager
 import com.baseapp.utils.KeyboardUtils
-import com.jakewharton.rxbinding2.widget.RxTextView
+import com.google.android.material.tabs.TabLayout
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.adapter.f2offline.MainAdapter
 import com.namviet.vtvtravel.adapter.f2search.SearchSuggestionKeyWordAdapter
@@ -37,12 +40,9 @@ import com.namviet.vtvtravel.view.fragment.f2smalllocation.SearchResultFragment
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.SmallLocationFragment
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel
 import com.namviet.vtvtravel.viewmodel.f2search.SearchViewModel
-import com.namviet.vtvtravel.viewmodel.f2smalllocation.SmallLocationViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.f2_fragment_main_page_small_location.*
 import kotlinx.android.synthetic.main.f2_fragment_main_page_small_location.btnBack
 import kotlinx.android.synthetic.main.f2_fragment_main_page_small_location.layoutRegion
-import kotlinx.android.synthetic.main.f2_fragment_main_page_small_location.rclSearchSuggestion
 import kotlinx.android.synthetic.main.f2_fragment_main_page_small_location.tabLayout
 import kotlinx.android.synthetic.main.f2_fragment_main_page_small_location.vpContent
 import kotlinx.android.synthetic.main.f2_fragment_search.*
@@ -51,7 +51,6 @@ import kotlinx.android.synthetic.main.f2_layout_keyword.view.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.util.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
@@ -170,6 +169,38 @@ class SmallLocationMainPageFragment : BaseFragment<F2FragmentMainPageSmallLocati
             for(i in 0 until dataMenu!!.size){
                 tabLayout.getTabAt(i)?.text = dataMenu?.get(i)?.name
             }
+
+
+            val tabLayout1 = (tabLayout.getChildAt(0)as ViewGroup).getChildAt(
+                0
+            ) as ViewGroup
+            val tabTextView = tabLayout1.getChildAt(1) as TextView
+            val typeface = ResourcesCompat.getFont(mActivity, R.font.roboto_medium)
+            tabTextView.typeface = typeface
+
+            tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    val tabLayout = (tabLayout.getChildAt(0)as ViewGroup).getChildAt(
+                        tab!!.position
+                    ) as ViewGroup
+                    val tabTextView = tabLayout.getChildAt(1) as TextView
+                    val typeface = ResourcesCompat.getFont(mActivity, R.font.roboto_medium)
+                    tabTextView.typeface = typeface
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    val tabLayout = (tabLayout.getChildAt(0)as ViewGroup).getChildAt(
+                        tab!!.position
+                    ) as ViewGroup
+                    val tabTextView = tabLayout.getChildAt(1) as TextView
+                    val typeface = ResourcesCompat.getFont(mActivity, R.font.roboto_regular)
+                    tabTextView.typeface = typeface
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                }
+
+            })
         }, 200)
 
     }

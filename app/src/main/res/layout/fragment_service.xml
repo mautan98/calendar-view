@@ -10,17 +10,17 @@
     </data>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        android:orientation="vertical">
 
         <View
-            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
-            android:layout_height="20dp"/>
+            android:layout_height="20dp"
+            android:background="@color/colorPrimary" />
 
         <RelativeLayout
             android:id="@+id/rlToolBar"
@@ -30,12 +30,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:textAllCaps="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Gói dịch vụ"
+                android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="18dp" />
 
@@ -58,23 +58,25 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <com.google.android.material.tabs.TabLayout
-                    app:tabIndicatorColor="#00918D"
-                    app:tabTextColor="#707070"
-                    app:tabSelectedTextColor="@color/colorPrimary"
-                    app:tabIndicatorHeight="2dp"
-                    app:tabTextAppearance="@style/MyCustomTextAppearance"
                     android:id="@+id/tabVideo"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
                     app:layout_constraintBottom_toTopOf="@id/vpVideo"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rlToolBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="46dp"/>
+                    app:tabIndicatorColor="#00918D"
+                    app:tabIndicatorHeight="2dp"
+                    app:tabSelectedTextColor="@color/colorPrimary"
+                    app:tabTextAppearance="@style/MyCustomTextAppearance"
+                    app:tabTextColor="#707070" />
 
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/vpVideo"
@@ -84,6 +86,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tabVideo" />
             </LinearLayout>
+
             <RelativeLayout
                 android:id="@+id/rll_no_data"
                 android:layout_width="match_parent"
@@ -100,7 +103,6 @@
                     android:src="@drawable/img_empty" />
 
                 <TextView
-                    android:textColor="#454545"
                     android:id="@+id/tv_empty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -109,6 +111,7 @@
                     android:layout_marginTop="35dp"
                     android:fontFamily="@font/roboto_medium"
                     android:text="Trang bạn tìm không có dữ liệu"
+                    android:textColor="#454545"
                     android:textSize="16dp" />
 
                 <com.ornach.richtext.RichText

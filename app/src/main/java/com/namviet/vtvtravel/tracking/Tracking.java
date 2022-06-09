@@ -11,6 +11,7 @@ import com.namviet.vtvtravel.model.MyLocation;
 
 public class Tracking {
     private String screen_class;
+    private String partner_banner_ad_id ;
     private String screen_title;
     private String screen_code_referrer;
     private String screen_resolution;
@@ -309,6 +310,11 @@ public class Tracking {
         return this;
     }
 
+    public Tracking setPartner_banner_ad_id(String partner_banner_ad_id) {
+        this.partner_banner_ad_id = partner_banner_ad_id;
+        return this;
+    }
+
     public Tracking build() {
         Tracking tracking = new Tracking();
         tracking.platform = this.platform;
@@ -360,6 +366,7 @@ public class Tracking {
         tracking.user_agent = this.user_agent;
         tracking.category_tree_code = this.category_tree_code;
         tracking.category_tree_name = this.category_tree_name;
+        tracking.partner_banner_ad_id = this.partner_banner_ad_id;
         return tracking;
     }
 

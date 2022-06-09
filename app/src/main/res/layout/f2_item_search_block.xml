@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -53,11 +54,13 @@
         android:layout_height="wrap_content" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="12dp"
+        tools:listitem="@layout/f2_item_home_near_place_full_screen"
+        app:spanCount="4"
         android:layout_marginTop="15dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:id="@+id/rclContent2"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

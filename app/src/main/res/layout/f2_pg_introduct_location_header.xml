@@ -188,7 +188,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="12dp"
                         android:fontFamily="@font/roboto_regular"
                         android:text="Xem thêm"
                         android:padding="8dp"
@@ -200,22 +200,23 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.recyclerview.widget.RecyclerView
+            tools:listitem="@layout/f2_item_big_location_top_tab"
+            app:spanCount="4"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             android:id="@+id/rclActivity"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="28dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="31dp"
-            android:layout_marginRight="28dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+            android:layout_marginRight="5dp"
+            android:orientation="vertical">
 
         </androidx.recyclerview.widget.RecyclerView>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:layout_marginTop="43dp"
+            android:layout_marginTop="13dp"
             android:background="#ECECEC" />
 
     </LinearLayout>

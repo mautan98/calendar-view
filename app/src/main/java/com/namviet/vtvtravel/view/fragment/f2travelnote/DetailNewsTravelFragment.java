@@ -287,6 +287,8 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
                     TrackingAnalytic.postEvent(TrackingAnalytic.SHARE, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.NEWS_DETAIL, TrackingAnalytic.ScreenTitle.NEWS_DETAIL)
                             .setContent_id(detailTravelNewsResponse.getData().getId())
                             .setContent_type(detailTravelNewsResponse.getData().getContent_type())
+                            .setCategory_tree_code(detailTravelNewsResponse.getData().getCategory_tree_code())
+                            .setCategory_tree_name(detailTravelNewsResponse.getData().getCategory_tree_name())
                             .setScreen_class(this.getClass().getName()));
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -769,7 +771,6 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
     @Override
     public void setScreenTitle() {
         super.setScreenTitle();
-        setDataScreen(TrackingAnalytic.ScreenCode.NEWS_DETAIL, TrackingAnalytic.ScreenTitle.NEWS_DETAIL);
     }
 
 
@@ -790,7 +791,7 @@ public class DetailNewsTravelFragment extends BaseFragment<F2FragmentDetailNewsT
             View tabPlace = LayoutInflater.from(mActivity).inflate(R.layout.f2_custom_tab_vtv_style_in_travel_news, null);
             TextView tvPlace = tabPlace.findViewById(R.id.tvTitle);
             tvPlace.setText("Địa điểm gần bạn");
-            tvPlace.setTextColor(Color.parseColor("#00918D"));
+            tvPlace.setTextColor(Color.parseColor("#8A8A8A"));
             View view1 = tabPlace.findViewById(R.id.indicator);
             view1.setVisibility(View.INVISIBLE);
             getBinding().tabLayout.addTab(getBinding().tabLayout.newTab().setCustomView(tabPlace));

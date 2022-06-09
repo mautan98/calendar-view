@@ -25,13 +25,13 @@
             android:textSize="12sp" />
 
         <TextView
+            android:fontFamily="@font/sharnay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="7dp"
             android:text="Sắp diễn ra"
             android:textColor="#1A94FF"
-            android:textSize="14sp"
-            android:textStyle="italic" />
+            android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"

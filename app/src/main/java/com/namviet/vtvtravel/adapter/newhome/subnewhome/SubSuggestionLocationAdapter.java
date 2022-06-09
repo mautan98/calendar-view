@@ -18,13 +18,13 @@ import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
-import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.travelnews.Travel;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
+import com.ornach.richtext.RichText;
 
 import java.util.List;
 
@@ -91,13 +91,16 @@ public class SubSuggestionLocationAdapter extends RecyclerView.Adapter<RecyclerV
         private TextView tvPriceRange;
         private TextView tvOpenDate;
         private TextView tvOpenTime;
-        private TextView tvStatus;
+        private TextView tvOpenState;
+        private TextView tvAddress;
 
-        private LinearLayout linearOpenType;
-        private LinearLayout linearPriceType;
+        private LinearLayout layoutOpen;
+//        private LinearLayout linearPriceType;
 
         private int position;
         private View viewTime;
+        private RichText viewStatus;
+        private TextView tvOpenTime2;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -108,14 +111,17 @@ public class SubSuggestionLocationAdapter extends RecyclerView.Adapter<RecyclerV
             tvRate = itemView.findViewById(R.id.tvRate);
             tvRateText = itemView.findViewById(R.id.tvRateText);
             tvCommentCount = itemView.findViewById(R.id.tvCommentCount);
+            tvAddress = itemView.findViewById(R.id.tvAddress);
             tvPriceRange = itemView.findViewById(R.id.tvPriceRange);
             tvDistance = itemView.findViewById(R.id.tvDistance);
             tvOpenDate = itemView.findViewById(R.id.tvOpenDate);
             tvOpenTime = itemView.findViewById(R.id.tvOpenTime);
-            tvStatus = itemView.findViewById(R.id.tvStatus);
-            linearOpenType = itemView.findViewById(R.id.linearOpenType);
-            linearPriceType = itemView.findViewById(R.id.linearPriceType);
+            tvOpenState = itemView.findViewById(R.id.tvOpenState);
+            layoutOpen = itemView.findViewById(R.id.layoutOpen);
+//            linearPriceType = itemView.findViewById(R.id.linearPriceType);
             imgHeart = itemView.findViewById(R.id.imgHeart);
+            viewStatus = itemView.findViewById(R.id.viewStatus);
+            tvOpenTime2 = itemView.findViewById(R.id.tvOpenTime2);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -132,6 +138,7 @@ public class SubSuggestionLocationAdapter extends RecyclerView.Adapter<RecyclerV
             Glide.with(context).load(travel.getLogo_url()).into(imgBanner);
             tvName.setText(travel.getName());
             tvRate.setText(travel.getEvaluate());
+            tvAddress.setText(travel.getAddress());
             tvRateText.setText(travel.getEvaluate_text());
             tvPlace.setText(travel.getRegion_name());
 
@@ -146,60 +153,51 @@ public class SubSuggestionLocationAdapter extends RecyclerView.Adapter<RecyclerV
                 tvCommentCount.setText("");
             }
 
-//            if (Constants.TypeDestination.RESTAURANTS.equals(travel.getContent_type()) || Constants.TypeDestination.HOTELS.equals(travel.getContent_type())) {
-//                linearPriceType.setVisibility(View.VISIBLE);
-//                linearOpenType.setVisibility(View.GONE);
-//
-//                try {
-//                    String priceFrom = "";
-//                    String priceTo = "";
-//
-//                    if (travel.getPrice_from().endsWith(".0")) {
-//                        priceFrom = travel.getPrice_from().substring(0, travel.getPrice_from().length() - 2);
-//                    }
-//
-//                    if (travel.getPrice_to().endsWith(".0")) {
-//                        priceTo = travel.getPrice_to().substring(0, travel.getPrice_to().length() - 2);
-//                    }
-//
-//                    tvPriceRange.setText(priceFrom + " đ" + " - " + priceTo + " đ");
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    tvPriceRange.setText(travel.getPrice_from() + " đ" + " - " + travel.getPrice_to() + " đ");
-//                }
-//            } else {
-                linearPriceType.setVisibility(View.GONE);
-                linearOpenType.setVisibility(View.VISIBLE);
-                tvOpenDate.setText(travel.getOpen_week());
 
-                tvStatus.setText("("+travel.getType_open()+")");
+            layoutOpen.setVisibility(View.VISIBLE);
+            tvOpenDate.setText(travel.getOpen_week());
+            tvOpenState.setText(travel.getType_open());
 
+            try {
+                tvOpenState.setTextColor(Color.parseColor(travel.getTypeOpenColor()));
+                viewStatus.setBackgroundColor(Color.parseColor(travel.getTypeOpenColor()));
+            } catch (Exception e) {
                 try {
-                    tvStatus.setTextColor(Color.parseColor(travel.getTypeOpenColor()));
-                } catch (Exception e) {
-                    try {
-                        tvStatus.setTextColor(Color.parseColor("#FF0000"));
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                    e.printStackTrace();
+                    tvOpenState.setTextColor(Color.parseColor("#FF0000"));
+                    viewStatus.setBackgroundColor(Color.parseColor("#FF0000"));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
+                e.printStackTrace();
+            }
 
 
-                try {
-                    if (travel.getRange_time().isEmpty()) {
-                        viewTime.setVisibility(View.GONE);
-                        tvOpenTime.setVisibility(View.GONE);
-                    } else {
-                        viewTime.setVisibility(View.VISIBLE);
+            try {
+                if (travel.getRange_time().isEmpty()) {
+                    //    viewTime.setVisibility(View.GONE);
+                    tvOpenTime.setVisibility(View.GONE);
+                    tvOpenTime2.setVisibility(View.GONE);
+                } else {
+                    //    viewTime.setVisibility(View.VISIBLE);
+                    if(travel.getRange_time().contains("và")){
+                        String[] strings = travel.getRange_time().split("và");
+                        tvOpenTime.setText(strings[0]);
+                        tvOpenTime2.setText(strings[1]);
+                        tvOpenTime.setVisibility(View.VISIBLE);
+                        tvOpenTime2.setVisibility(View.VISIBLE);
+                    }else {
                         tvOpenTime.setText(travel.getRange_time());
                         tvOpenTime.setVisibility(View.VISIBLE);
+                        tvOpenTime2.setVisibility(View.GONE);
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    viewTime.setVisibility(View.GONE);
-                    tvOpenTime.setVisibility(View.GONE);
+
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+                //   viewTime.setVisibility(View.GONE);
+                tvOpenTime.setVisibility(View.GONE);
+                tvOpenTime2.setVisibility(View.GONE);
+            }
 
 
 //            }
@@ -249,40 +247,6 @@ public class SubSuggestionLocationAdapter extends RecyclerView.Adapter<RecyclerV
                 }
             });
 
-//            imgHeart.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    try {
-//                        Account account = MyApplication.getInstance().getAccount();
-//                        if (null != account && account.isLogin()) {
-//                            viewModel.likeEvent(travel.getId(), travel.getContent_type());
-//
-//
-//                            if (travel.isLiked()) {
-////                                imgHeart.setImageResource(R.drawable.f2_ic_transparent_heart);
-//                                travel.setLiked(false);
-//                            } else {
-////                                imgHeart.setImageResource(R.drawable.f2_ic_heart);
-//                                travel.setLiked(true);
-//                            }
-//
-//
-//                            try {
-//                                TrackingAnalytic.postEvent(TrackingAnalytic.LIKE, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.SMALL_LOCATION_SUGGEST, TrackingAnalytic.ScreenTitle.SMALL_LOCATION_SUGGEST)
-//                                        .setContent_id(travel.getId())
-//                                        .setContent_type(travel.getContent_type())
-//                                        .setScreen_class(this.getClass().getName()));
-//                            } catch (Exception e) {
-//                                e.printStackTrace();
-//                            }
-//                        } else {
-//                            LoginAndRegisterActivityNew.startScreen(context, 0, false);
-//                        }
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            });
         }
 
         private void clickHeart(Travel travel){

@@ -1,8 +1,12 @@
 package com.namviet.vtvtravel.adapter.newhome.subnewhome;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +16,15 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.response.newhome.AppPromotionPartnerResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SubPromotionPartnerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private boolean isTracking0Position = false;
+    private ArrayList<String> idsClicked = new ArrayList<>();
+
     private static final int TYPE_ITEM = 0;
 
     private Context context;
@@ -62,14 +71,55 @@ public class SubPromotionPartnerAdapter extends RecyclerView.Adapter<RecyclerVie
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         private ImageView imvBanner;
+        private int position = 0;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
             imvBanner = itemView.findViewById(R.id.imvBanner);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        if (!checkID(itemList.get(position).getId())) {
+                            try {
+                                TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id(itemList.get(position).getId()).setScreen_class(this.getClass().getName()));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                idsClicked.add(itemList.get(position).getId());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            try {
+                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(itemList.get(position).getLinkAdvertise()));
+                                context.startActivity(browserIntent);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
 
         public void bindItem(int position) {
+            this.position = position;
             setImage(itemList.get(position).getAvatarUri(), imvBanner);
+
+            if (position == 0 && !isTracking0Position) {
+                try {
+                    TrackingAnalytic.postEvent(TrackingAnalytic.VIEW_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id(itemList.get(position).getId()).setScreen_class(this.getClass().getName()));
+                    isTracking0Position  =true;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
         }
 
         public void setImage(String url, ImageView image) {
@@ -77,6 +127,16 @@ public class SubPromotionPartnerAdapter extends RecyclerView.Adapter<RecyclerVie
             requestOptions.placeholder(com.daimajia.slider.library.R.drawable.img_placeholder);
             requestOptions.error(com.daimajia.slider.library.R.drawable.img_placeholder);
             Glide.with(context).setDefaultRequestOptions(requestOptions).load(url).thumbnail(0.2f).into(image);
+
+        }
+
+        private boolean checkID(String id) {
+            for (int i = 0; i < idsClicked.size(); i++) {
+                if (id.equals(idsClicked.get(i))) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 

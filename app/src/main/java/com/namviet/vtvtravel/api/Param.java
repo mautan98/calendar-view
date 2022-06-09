@@ -534,10 +534,11 @@ public class Param {
         return map;
     }
 
-    public static JSONObject createRoom(String mobile) {
+    public static JSONObject createRoom(String mobile, String fullname) {
         JSONObject map = new JSONObject();
         try {
             map.put(WSConfig.KeyParam.MOBILE, mobile);
+            map.put(WSConfig.KeyParam.FULLNAME, fullname);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -13,10 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.like.LikeButton;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.response.f2smalllocation.DetailSmallLocationResponse;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
+import com.ornach.richtext.RichText;
 
 import java.util.List;
 
@@ -76,17 +78,21 @@ public class SubRecentViewAdapter extends RecyclerView.Adapter<RecyclerView.View
         private TextView tvRateText;
         private TextView tvCommentCount;
         private TextView tvDistance;
+        private LikeButton imgHeart;
 
         private TextView tvPriceRange;
         private TextView tvOpenDate;
         private TextView tvOpenTime;
-        private TextView tvStatus;
+        private TextView tvOpenState;
+        private TextView tvAddress;
 
-        private LinearLayout linearOpenType;
-        private LinearLayout linearPriceType;
-        private View viewTime;
+        private LinearLayout layoutOpen;
+//        private LinearLayout linearPriceType;
 
         private int position;
+        private View viewTime;
+        private RichText viewStatus;
+        private TextView tvOpenTime2;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -97,13 +103,17 @@ public class SubRecentViewAdapter extends RecyclerView.Adapter<RecyclerView.View
             tvRate = itemView.findViewById(R.id.tvRate);
             tvRateText = itemView.findViewById(R.id.tvRateText);
             tvCommentCount = itemView.findViewById(R.id.tvCommentCount);
+            tvAddress = itemView.findViewById(R.id.tvAddress);
             tvPriceRange = itemView.findViewById(R.id.tvPriceRange);
             tvDistance = itemView.findViewById(R.id.tvDistance);
             tvOpenDate = itemView.findViewById(R.id.tvOpenDate);
             tvOpenTime = itemView.findViewById(R.id.tvOpenTime);
-            tvStatus = itemView.findViewById(R.id.tvStatus);
-            linearOpenType = itemView.findViewById(R.id.linearOpenType);
-            linearPriceType = itemView.findViewById(R.id.linearPriceType);
+            tvOpenState = itemView.findViewById(R.id.tvOpenState);
+            layoutOpen = itemView.findViewById(R.id.layoutOpen);
+//            linearPriceType = itemView.findViewById(R.id.linearPriceType);
+            imgHeart = itemView.findViewById(R.id.imgHeart);
+            viewStatus = itemView.findViewById(R.id.viewStatus);
+            tvOpenTime2 = itemView.findViewById(R.id.tvOpenTime2);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -120,48 +130,65 @@ public class SubRecentViewAdapter extends RecyclerView.Adapter<RecyclerView.View
             tvRate.setText(travel.getTabs().get(0).getEvaluate());
             tvRateText.setText(travel.getTabs().get(0).getEvaluate_text());
             tvPlace.setText(travel.getTabs().get(0).getRegion_name());
-            tvCommentCount.setText(travel.getTabs().get(0).getComment_count());
+            tvAddress.setText(travel.getTabs().get(0).getAddress());
 
-//            if (Constants.TypeDestination.RESTAURANTS.equals(travel.getContent_type()) || Constants.TypeDestination.HOTELS.equals(travel.getContent_type())) {
-//                linearPriceType.setVisibility(View.VISIBLE);
-//                linearOpenType.setVisibility(View.GONE);
-//                tvPriceRange.setText(travel.getTabs().get(1).getPrice_from() + " đ" + " - " + travel.getTabs().get(1).getPrice_to() + " đ");
-//            } else {
-                linearPriceType.setVisibility(View.GONE);
-                linearOpenType.setVisibility(View.VISIBLE);
-
-                tvOpenDate.setText(travel.getTabs().get(1).getOpen_week());
-
-                tvStatus.setText("("+travel.getTabs().get(1).getType_open()+")");
-
-                try {
-                    tvStatus.setTextColor(Color.parseColor(travel.getTabs().get(1).getTypeOpenColor()));
-                } catch (Exception e) {
-                    try {
-                        tvStatus.setTextColor(Color.parseColor("#FF0000"));
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                    e.printStackTrace();
+            try {
+                if (travel.getTabs().get(0).getComment_count().endsWith(".0")) {
+                    tvCommentCount.setText(String.valueOf((int) Double.parseDouble(travel.getTabs().get(0).getComment_count())));
+                } else {
+                    tvCommentCount.setText(travel.getTabs().get(0).getComment_count());
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+                tvCommentCount.setText("");
+            }
 
 
+            layoutOpen.setVisibility(View.VISIBLE);
+            tvOpenDate.setText(travel.getTabs().get(1).getOpen_week());
+            tvOpenState.setText("("+travel.getTabs().get(1).getType_open()+")");
 
 
+            try {
+                tvOpenState.setTextColor(Color.parseColor(travel.getTabs().get(1).getTypeOpenColor()));
+                viewStatus.setBackgroundColor(Color.parseColor(travel.getTabs().get(1).getTypeOpenColor()));
+            } catch (Exception e) {
                 try {
-                    if(travel.getTabs().get(1).getRange_time().isEmpty()){
-                        tvOpenTime.setVisibility(View.GONE);
-                        viewTime.setVisibility(View.GONE);
+                    tvOpenState.setTextColor(Color.parseColor("#FF0000"));
+                    viewStatus.setBackgroundColor(Color.parseColor("#FF0000"));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                e.printStackTrace();
+            }
+
+
+            try {
+                if (travel.getTabs().get(1).getRange_time().isEmpty()) {
+                    //    viewTime.setVisibility(View.GONE);
+                    tvOpenTime.setVisibility(View.GONE);
+                    tvOpenTime2.setVisibility(View.GONE);
+                } else {
+                    //    viewTime.setVisibility(View.VISIBLE);
+                    if(travel.getTabs().get(1).getRange_time().contains("và")){
+                        String[] strings = travel.getTabs().get(1).getRange_time().split("và");
+                        tvOpenTime.setText(strings[0]);
+                        tvOpenTime2.setText(strings[1]);
+                        tvOpenTime.setVisibility(View.VISIBLE);
+                        tvOpenTime2.setVisibility(View.VISIBLE);
                     }else {
-                        viewTime.setVisibility(View.VISIBLE);
                         tvOpenTime.setText(travel.getTabs().get(1).getRange_time());
                         tvOpenTime.setVisibility(View.VISIBLE);
+                        tvOpenTime2.setVisibility(View.GONE);
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    viewTime.setVisibility(View.GONE);
-                    tvOpenTime.setVisibility(View.GONE);
+
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+                //   viewTime.setVisibility(View.GONE);
+                tvOpenTime.setVisibility(View.GONE);
+                tvOpenTime2.setVisibility(View.GONE);
+            }
 
 //            }
 

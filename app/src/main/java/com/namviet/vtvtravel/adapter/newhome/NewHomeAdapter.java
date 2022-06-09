@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,6 +62,7 @@ import com.namviet.vtvtravel.response.newhome.HomeServiceResponse;
 import com.namviet.vtvtravel.response.newhome.ItemAppDiscoverResponse;
 import com.namviet.vtvtravel.response.newhome.ItemAppExperienceResponse;
 import com.namviet.vtvtravel.response.newhome.ItemAppVoucherNowResponse;
+import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
 import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f2.BigLocationActivity;
@@ -86,6 +88,7 @@ import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
 import com.zhpan.indicator.IndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -133,6 +136,9 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final BaseViewModel viewModel;
     private Timer timer;
     private int pageNumber;
+
+
+    private ArrayList<String> idsViewed = new ArrayList<>();
 
     public ViewPager getViewPagerVoucher() {
         return pager;
@@ -600,7 +606,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                 }
             });
-            new CoverFlow.Builder().with(pager).scale(0.3f).pagerMargin(-50f).spaceSize(0f).build();
+            new CoverFlow.Builder().with(pager).scale(0.0f).pagerMargin(10f).spaceSize(0f).build();
 
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 tvTipUser.setText(Html.fromHtml(homeServiceResponse.getData().get(position).getTipUser(), Html.FROM_HTML_MODE_COMPACT));
@@ -624,9 +630,11 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             });
 
             try {
-                vpIndicator.attachToViewPager(pager);
+                vpIndicator.attachToViewPager(pager)
+                ;
 
-                indicator.setViewPager(pager);
+                indicator.setViewPager(pager)
+                ;
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -876,6 +884,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
             subPromotionPartnerAdapter = new SubPromotionPartnerAdapter(context, appPromotionPartnerResponse.getItems());
             recyclerPartnerLink.setAdapter(subPromotionPartnerAdapter);
+            recyclerPartnerLink.setItemViewCacheSize(6);
 
             try {
                 vpIndicator.attachToRecyclerView(recyclerPartnerLink);
@@ -885,6 +894,43 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            try {
+                recyclerPartnerLink.addOnScrollListener(new RecyclerView.OnScrollListener(){
+                    @Override
+                    public void onScrollStateChanged(@NonNull @NotNull RecyclerView recyclerView, int newState) {
+                        super.onScrollStateChanged(recyclerView, newState);
+                        try {
+                            if(newState == 0){
+                                LinearLayoutManager layoutManager = ((LinearLayoutManager) recyclerPartnerLink.getLayoutManager());
+                                int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
+                                if(!checkID(appPromotionPartnerResponse.getItems().get(firstVisiblePosition).getId()) && firstVisiblePosition != 0) {
+                                    try {
+                                        TrackingAnalytic.postEvent(TrackingAnalytic.VIEW_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id(appPromotionPartnerResponse.getItems().get(firstVisiblePosition).getId()).setScreen_class(this.getClass().getName()));
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    idsViewed.add(appPromotionPartnerResponse.getItems().get(firstVisiblePosition).getId());
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        private boolean checkID(String id){
+            for (int i = 0; i < idsViewed.size(); i++) {
+                if(id.equals(idsViewed.get(i))){
+                    return true;
+                }
+            }
+            return false;
         }
     }
 

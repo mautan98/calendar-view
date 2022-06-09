@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:paddingTop="12dp">
 
@@ -30,14 +31,14 @@
         android:textSize="14dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginEnd="6dp"
-        android:layout_gravity="center_horizontal"
+        tools:listitem="@layout/f2_item_home_near_place_full_screen"
+        android:layout_marginEnd="12dp"
         android:id="@+id/recyclerNearPlace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        app:spanCount="4"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
     <View
         android:layout_width="match_parent"

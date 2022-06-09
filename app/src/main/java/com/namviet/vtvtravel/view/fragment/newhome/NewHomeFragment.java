@@ -348,13 +348,13 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 
 
                 if(account.getPackageCode() == null){
-                    homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <b>Hội viên</b> của <b>#VTVTravel</b>");
+                    homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <font color=\"#00918D\"><b>Hội viên</b></font> của <font color=\"#00918D\"><b>#VTVTravel</b></font>");
                     homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
                     newHomeAdapter.notifyItemChanged(1);
                     newHomeAdapter.notifyItemChanged(2);
 
                 }else {
-                    homeServiceResponse.getData().get(1).setTipUser("Bạn đang là <b>Hội viên</b> của <b>#VTVTravel</b>, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:");
+                    homeServiceResponse.getData().get(1).setTipUser("Bạn đang là <font color=\"#00918D\"><b>Hội viên</b></font> của <font color=\"#00918D\"><b>#VTVTravel</b></font>, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:");
                     homeServiceResponse.getData().get(1).setShowBtnRegisterNow(false);
                     newHomeAdapter.notifyItemChanged(1);
                     newHomeAdapter.notifyItemChanged(2);
@@ -377,7 +377,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
     //            newHomeAdapter.notifyItemChanged(0);
 
 
-                homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <b>Hội viên</b> của <b>#VTVTravel</b>");
+                homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <font color=\"#00918D\"><b>Hội viên</b></font> của <font color=\"#00918D\"><b>#VTVTravel</b></font>");
                 homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
                 newHomeAdapter.notifyItemChanged(1);
 
@@ -458,7 +458,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
                     try {
                         if (isScroll) {
                             isScroll = false;
-                            TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_SCROLL, TrackingAnalytic.getDefault("Home", "Home").setScreen_class(this.getClass().getName()));
+                            TrackingAnalytic.postEvent(TrackingAnalytic.SCREEN_SCROLL, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setScreen_class(this.getClass().getName()));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -791,10 +791,10 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 
 
                 if(account.getPackageCode() == null){
-                    homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <b>Hội viên</b> của <b>#VTVTravel</b>");
+                    homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <font color=\"#00918D\"><b>Hội viên</b></font> của <font color=\"#00918D\"><b>#VTVTravel</b></font>");
                     homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
                 }else {
-                    homeServiceResponse.getData().get(1).setTipUser("Bạn đang là <b>Hội viên</b> của <b>#VTVTravel</b>, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:");
+                    homeServiceResponse.getData().get(1).setTipUser("Bạn đang là <font color=\"#00918D\"><b>Hội viên</b></font> của <font color=\"#00918D\"><b>#VTVTravel</b></font>, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:");
                     homeServiceResponse.getData().get(1).setShowBtnRegisterNow(false);
                 }
 
@@ -834,7 +834,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 //                    homeServiceResponse.getData().get(0).setDescriptionUser("Đăng nhập ngay");
                 }
 
-                homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <b>Hội viên</b> của <b>#VTVTravel</b>");
+                homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <font color=\"#00918D\"><b>Hội viên</b></font> của <font color=\"#00918D\"><b>#VTVTravel</b></font>");
                 homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
             }
 
