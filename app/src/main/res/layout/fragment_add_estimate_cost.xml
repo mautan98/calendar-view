@@ -126,6 +126,7 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <com.ornach.richtext.RichText
+                android:id="@+id/btn_update_cost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="26dp"
