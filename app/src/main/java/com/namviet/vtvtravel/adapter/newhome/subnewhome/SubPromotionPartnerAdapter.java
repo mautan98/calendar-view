@@ -80,6 +80,12 @@ public class SubPromotionPartnerAdapter extends RecyclerView.Adapter<RecyclerVie
                 @Override
                 public void onClick(View view) {
                     try {
+                        try {
+                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(itemList.get(position).getLinkAdvertise()));
+                            context.startActivity(browserIntent);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         if (!checkID(itemList.get(position).getId())) {
                             try {
                                 TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id(itemList.get(position).getId()).setScreen_class(this.getClass().getName()));
@@ -93,12 +99,7 @@ public class SubPromotionPartnerAdapter extends RecyclerView.Adapter<RecyclerVie
                             }
 
 
-                            try {
-                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(itemList.get(position).getLinkAdvertise()));
-                                context.startActivity(browserIntent);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
