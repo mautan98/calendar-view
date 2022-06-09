@@ -682,6 +682,9 @@ public interface TravelService {
     @POST(WSConfig.Api.WHEEL_AREAS)
     Observable<WheelAreasResponse> wheelAreas(@Body RequestBody body);
 
+    @POST
+    Observable<WheelAreasResponse> wheelAreasV2(@Body RequestBody body, @Url String url);
+
     @GET(WSConfig.Api.WHEEL_CHARTS)
     Observable<WheelChartResponse> getWheelChartResponse();
 

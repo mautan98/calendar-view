@@ -3,6 +3,7 @@ package com.namviet.vtvtravel.viewmodel.f2luckywheel;
 import com.google.gson.Gson;
 import com.namviet.vtvtravel.api.Param;
 import com.namviet.vtvtravel.api.TravelService;
+import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.response.f2chat.GetUserGuildResponse;
@@ -123,7 +124,7 @@ public class LuckyWheelViewModel extends BaseViewModel {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
 
-        Disposable disposable = newsService.wheelAreas(jsonBodyObject)
+        Disposable disposable = newsService.wheelAreasV2(jsonBodyObject, WSConfig.API_VQMM_AREAS)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<WheelAreasResponse>() {
