@@ -25,6 +25,7 @@ public class WSConfig {
     public static final String LINK_DEAL = "http://deal.vtvtravel.vn";
     public static final String HOST_ORDER = "https://booking-testing.vtvtravel.vn/order/dashboard";
     public static final String API_VQMM_HISTORY = "https://core-testing.vtvtravel.vn/api/v1/wheel/history";
+    public static final String API_VQMM_AREAS = "https://core-testing.vtvtravel.vn/api/v2/wheel/wheelAreas";
 
 
     //Deal
@@ -56,6 +57,7 @@ public class WSConfig {
 //    public static final String LINK_DEAL = "http://deal.vtvtravel.vn";
 //    public static final String HOST_ORDER = "https://booking-dev.vtvtravel.vn/order/dashboard";
 //    public static final String API_VQMM_HISTORY = "https://core-dev.vtvtravel.vn/api/v1/wheel/history";
+//    public static final String API_VQMM_AREAS = "https://core-dev.vtvtravel.vn/api/v2/wheel/wheelAreas";
 //
 //
 //    //Deal
@@ -85,6 +87,7 @@ public class WSConfig {
 //    public static final String LINK_DEAL = "http://deal.vtvtravel.vn";
 //    public static final String HOST_ORDER = "http://booking.vtvtravel.vn/order/dashboard/";
 //    public static final String API_VQMM_HISTORY = "https://core.vtvtravel.vn/api/v1/wheel/history";
+//    public static final String API_VQMM_AREAS = "https://core.vtvtravel.vn/api/v2/wheel/wheelAreas";
 //
 //    //Deal
 //    public static final String HOST_DEAL_CAMPAIGN_HOME = HOST_ACC+"deals/campaigns/home?page=0&size=5";
