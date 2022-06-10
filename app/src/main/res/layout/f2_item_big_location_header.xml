@@ -23,12 +23,12 @@
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="130dp"
+                    android:layout_width="@dimen/dimen116dp"
                     android:layout_height="170dp"
                     app:cardCornerRadius="3dp">
 
                     <RelativeLayout
-                        android:layout_width="130dp"
+                        android:layout_width="@dimen/dimen116dp"
                         android:layout_height="170dp">
 
                         <ImageView

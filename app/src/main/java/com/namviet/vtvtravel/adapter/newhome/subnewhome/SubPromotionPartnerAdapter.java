@@ -5,6 +5,8 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,13 +80,26 @@ public class SubPromotionPartnerAdapter extends RecyclerView.Adapter<RecyclerVie
                 @Override
                 public void onClick(View view) {
                     try {
+                        try {
+                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(itemList.get(position).getLinkAdvertise()));
+                            context.startActivity(browserIntent);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         if (!checkID(itemList.get(position).getId())) {
                             try {
                                 TrackingAnalytic.postEvent(TrackingAnalytic.CLICK_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id(itemList.get(position).getId()).setScreen_class(this.getClass().getName()));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            idsClicked.add(itemList.get(position).getId());
+                            try {
+                                idsClicked.add(itemList.get(position).getId());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
