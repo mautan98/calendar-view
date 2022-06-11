@@ -84,7 +84,12 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             val editTripBottomDialog = EditTripBottomDialog()
             val tripItemClone =  Gson().fromJson(Gson().toJson(tripItem) , TripItem::class.java )
             editTripBottomDialog.setList(tripItemClone)
+            editTripBottomDialog.setOnBackFragmentListener(object:EditTripBottomDialog.OnBackFragmentListener{
+                override fun onBackFragment() {
+                    tripItem?.id?.let { it -> viewModel.getDetailplaceById(it) }
+                }
 
+            })
             editTripBottomDialog?.show(childFragmentManager,null)
         }
         binding.imvEditTripCost.setOnClickListener {
@@ -107,6 +112,8 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             } else {
                 binding.tvEstimateCost.text = Html.fromHtml(Utils.convertPriceTrips(myTripResponse.data?.estimatedCost))
             }
+            binding.tvDetailTripName.text = myTripResponse.data?.name
+            binding.tvDetailTripName.text = myTripResponse.data?.description
         }
     }
 

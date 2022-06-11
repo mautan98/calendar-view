@@ -90,6 +90,9 @@ class EditTripBottomDialog : BottomSheetDialogFragment(), Observer {
         binding.tvCancel.setOnClickListener {
             dismiss()
         }
+        binding.layoutDeleteTrip.setOnClickListener {
+            viewModel.deleteSchedule(tripItem?.id!!)
+        }
     }
 
     override fun update(o: Observable?, arg: Any?) {
@@ -97,7 +100,6 @@ class EditTripBottomDialog : BottomSheetDialogFragment(), Observer {
             val response = arg
             if (response.isSuccess){
                 dismiss()
-                onBackFragmentListener?.onBackFragment()
             }
         }
     }
