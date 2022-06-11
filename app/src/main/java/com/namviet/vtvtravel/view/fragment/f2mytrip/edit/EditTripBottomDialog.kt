@@ -87,6 +87,9 @@ class EditTripBottomDialog : BottomSheetDialogFragment(), Observer {
             val scheduleId = tripItem?.id
             viewModel.updateSchedule(name,description,scheduleId!!)
         }
+        binding.tvCancel.setOnClickListener {
+            dismiss()
+        }
     }
 
     override fun update(o: Observable?, arg: Any?) {
