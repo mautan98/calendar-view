@@ -91,6 +91,26 @@ class MyTripsViewModel: BaseViewModel() {
         val dispose  = newsService.updateSchedule(resquestBody).subscribeOn(myApplication.subscribeScheduler())
             .observeOn(AndroidSchedulers.mainThread()).subscribe(Consumer {
                 if (it != null) {
+                    it.apiCode = "updateScheduleCustom"
+                    requestSuccessRes(it)
+                } else {
+                    requestSuccessRes(null)
+                }
+            },{requestFailedRes(it)})
+        compositeDisposable.add(dispose)
+    }
+
+    fun deleteSchedule(scheduleId: String){
+        val myApplication = MyApplication.getInstance()
+        val newsService = myApplication.travelServiceAcc
+        val jsonObject = JSONObject()
+        jsonObject.put("scheduleCustomId",scheduleId)
+        val param = Param.getParams(jsonObject)
+        val resquestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),param.toString())
+        val dispose  = newsService.deleteSchedule(resquestBody).subscribeOn(myApplication.subscribeScheduler())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe(Consumer {
+                if (it != null) {
+                    it.apiCode = "deleteScheduleCustom"
                     requestSuccessRes(it)
                 } else {
                     requestSuccessRes(null)
