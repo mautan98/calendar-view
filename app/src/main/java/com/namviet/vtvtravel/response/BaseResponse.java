@@ -11,6 +11,16 @@ public class BaseResponse {
     private boolean success;
 
 
+    private String apiCode;
+
+    public String getApiCode() {
+        return apiCode;
+    }
+
+    public void setApiCode(String apiCode) {
+        this.apiCode = apiCode;
+    }
+
     public String getStatus() {
         return status;
     }
