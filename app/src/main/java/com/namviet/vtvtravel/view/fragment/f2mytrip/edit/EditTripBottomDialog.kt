@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.LayoutBottomDialogEditTripBinding
+import com.namviet.vtvtravel.response.BaseResponse
 import com.namviet.vtvtravel.view.fragment.f2mytrip.DetailTripFragment
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.ParticipantsAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
@@ -17,7 +18,7 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
-class EditTripBottomDialog : BottomSheetDialogFragment() {
+class EditTripBottomDialog : BottomSheetDialogFragment(), Observer {
 
     companion object {
         fun newInstance(tripItem: TripItem):EditTripBottomDialog {
@@ -32,9 +33,14 @@ class EditTripBottomDialog : BottomSheetDialogFragment() {
     private lateinit var binding: LayoutBottomDialogEditTripBinding
     private var tripItem: TripItem? = null
     private val viewModel = MyTripsViewModel()
+    private var onBackFragmentListener:OnBackFragmentListener?= null
 
     fun setList(tripItem: TripItem?){
         this.tripItem = tripItem
+    }
+
+    fun setOnBackFragmentListener(onBackFragmentListener: OnBackFragmentListener?){
+        this.onBackFragmentListener = onBackFragmentListener
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -71,6 +77,7 @@ class EditTripBottomDialog : BottomSheetDialogFragment() {
 
         adapter.setListParticipants(listAdapter)
         binding.rcvParticipant.adapter = adapter
+        viewModel.addObserver(this)
     }
 
     private fun initClickListener(){
@@ -80,5 +87,19 @@ class EditTripBottomDialog : BottomSheetDialogFragment() {
             val scheduleId = tripItem?.id
             viewModel.updateSchedule(name,description,scheduleId!!)
         }
+    }
+
+    override fun update(o: Observable?, arg: Any?) {
+        if (arg is BaseResponse){
+            val response = arg
+            if (response.isSuccess){
+                dismiss()
+                onBackFragmentListener?.onBackFragment()
+            }
+        }
+    }
+
+    interface OnBackFragmentListener{
+        fun onBackFragment()
     }
 }
