@@ -13,6 +13,7 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.DetailTripFragment
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.ParticipantsAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.UserListItem
+import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -30,6 +31,7 @@ class EditTripBottomDialog : BottomSheetDialogFragment() {
 
     private lateinit var binding: LayoutBottomDialogEditTripBinding
     private var tripItem: TripItem? = null
+    private val viewModel = MyTripsViewModel()
 
     fun setList(tripItem: TripItem?){
         this.tripItem = tripItem
@@ -56,6 +58,7 @@ class EditTripBottomDialog : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initView()
+        initClickListener()
     }
 
     private fun initView(){
@@ -68,5 +71,14 @@ class EditTripBottomDialog : BottomSheetDialogFragment() {
 
         adapter.setListParticipants(listAdapter)
         binding.rcvParticipant.adapter = adapter
+    }
+
+    private fun initClickListener(){
+        binding.tvUpdateSchedule.setOnClickListener {
+            val name = binding.edtTripName.text.toString()
+            val description = binding.edtTripDesc.text.toString()
+            val scheduleId = tripItem?.id
+            viewModel.updateSchedule(name,description,scheduleId!!)
+        }
     }
 }
