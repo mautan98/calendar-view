@@ -14,12 +14,14 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.OverlapDecoration
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.PlacesInScheduleAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.UserListAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.edit.EditTripBottomDialog
+import com.namviet.vtvtravel.view.fragment.f2mytrip.edit.EditTripTimeBottomDialog
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.SchedulePlaceByDaysItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.UserListItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.detail.PlaceScheduleResponse
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
 import java.util.*
+import kotlin.collections.ArrayList
 
 class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
     EditTripCostFragment.OnBackFragmentListener {
@@ -107,6 +109,10 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             val fragment = EditTripCostFragment.newInstance(tripItem?.id)
             fragment.setOnBackFragmentListener(this)
             addFragment(fragment)
+        }
+        binding.tvEditTime.setOnClickListener {
+            val dialog = tripItem?.let { it1 -> EditTripTimeBottomDialog.newInstance(it1.schedulePlaceByDays as ArrayList<SchedulePlaceByDaysItem>) }
+            dialog?.show(childFragmentManager,null)
         }
     }
 
