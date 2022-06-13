@@ -19,6 +19,7 @@ import com.namviet.vtvtravel.response.newhome.HomeServiceResponse;
 import com.namviet.vtvtravel.view.f2.CreateTripActivity;
 import com.namviet.vtvtravel.view.f2.DisplayMarkerForMapActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
+import com.namviet.vtvtravel.view.fragment.f2createtrip.CreateTripFragment;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.MyTripsAdapter;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.MyTripsResponse;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem;
@@ -74,7 +75,14 @@ public class MyTripFragment extends BaseFragment<F2FragmentMyTripBinding> implem
             getActivity().onBackPressed();
         });
         getBinding().imvCreateTrip.setOnClickListener(v -> {
-            CreateTripActivity.startScreen(getContext());
+            CreateTripFragment createTripFragment = new CreateTripFragment();
+            createTripFragment.setOnBackToTripsFragment(new CreateTripFragment.OnBackToTripsFragment() {
+                @Override
+                public void backToMainTrips() {
+                    myTripsViewModel.getListScheduleTrips();
+                }
+            });
+            addFragment(createTripFragment);
         });
     }
 
@@ -97,6 +105,12 @@ public class MyTripFragment extends BaseFragment<F2FragmentMyTripBinding> implem
     @Override
     public void onItemClick(int position) {
         DetailTripFragment detailTripFragment = DetailTripFragment.Companion.newInstance(tripItemList.get(position));
+        detailTripFragment.setOnBackToTripsFragment(new DetailTripFragment.OnBackFragmentListener() {
+            @Override
+            public void onBackFragment() {
+                myTripsViewModel.getListScheduleTrips();
+            }
+        });
         addFragment(detailTripFragment);
     }
 }

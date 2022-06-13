@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.Utils
+import com.namviet.vtvtravel.api.WSConfig
 import com.namviet.vtvtravel.databinding.FragmentDetailTripBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.OverlapDecoration
@@ -40,6 +41,11 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
     private lateinit var binding:FragmentDetailTripBinding
     private var tripItem:TripItem?= null
     private var viewModel = MyTripsViewModel()
+    private var onBackToTripsFragment:OnBackFragmentListener ?= null
+
+    fun setOnBackToTripsFragment(listener: OnBackFragmentListener){
+        this.onBackToTripsFragment = listener
+    }
 
     override fun getLayoutRes(): Int {
         return R.layout.fragment_detail_trip
@@ -85,7 +91,12 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             val tripItemClone =  Gson().fromJson(Gson().toJson(tripItem) , TripItem::class.java )
             editTripBottomDialog.setList(tripItemClone)
             editTripBottomDialog.setOnBackFragmentListener(object:EditTripBottomDialog.OnBackFragmentListener{
-                override fun onBackFragment() {
+                override fun onBackFragment(apiCode: String) {
+                    if (apiCode.equals(WSConfig.Api.DELETE_SCHEDULE)){
+                        onBackToTripsFragment?.onBackFragment()
+                        activity?.onBackPressed()
+                        return
+                    }
                     tripItem?.id?.let { it -> viewModel.getDetailplaceById(it) }
                 }
 
@@ -105,6 +116,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
     override fun update(o: Observable?, arg: Any?) {
         if (arg is PlaceScheduleResponse) {
             val myTripResponse = arg
+            tripItem = myTripResponse.data
             adapter?.setListPlaces(myTripResponse.data?.schedulePlaceByDays as MutableList<SchedulePlaceByDaysItem>)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 binding.tvEstimateCost.text = Html.fromHtml(Utils.convertPriceTrips(myTripResponse.data?.estimatedCost),
@@ -113,11 +125,15 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
                 binding.tvEstimateCost.text = Html.fromHtml(Utils.convertPriceTrips(myTripResponse.data?.estimatedCost))
             }
             binding.tvDetailTripName.text = myTripResponse.data?.name
-            binding.tvDetailTripName.text = myTripResponse.data?.description
+            binding.tvDetailTripDesc.text = myTripResponse.data?.description
         }
     }
 
     override fun onBackFragment() {
         tripItem?.id?.let { viewModel.getDetailplaceById(it) }
+    }
+
+    interface OnBackFragmentListener{
+        fun onBackFragment()
     }
 }
