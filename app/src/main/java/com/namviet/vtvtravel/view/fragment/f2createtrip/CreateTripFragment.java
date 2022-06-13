@@ -66,6 +66,12 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
     private long startAtTimestamp;
     private long endAtTimestamp;
 
+    private OnBackToTripsFragment onBackToTripsFragment;
+
+    public void setOnBackToTripsFragment(OnBackToTripsFragment onBackToTripsFragment) {
+        this.onBackToTripsFragment = onBackToTripsFragment;
+    }
+
     public CreateTripFragment() {
     }
 
@@ -318,9 +324,14 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
             if (arg instanceof CreateScheduleResponse){
                 CreateScheduleResponse dataCreateTrips = (CreateScheduleResponse) arg;
                 if (dataCreateTrips.getDataCreateTrips() != null){
+                    onBackToTripsFragment.backToMainTrips();
                    getActivity().onBackPressed();
                 }
             }
         }
+    }
+
+    public interface OnBackToTripsFragment{
+        void backToMainTrips();
     }
 }
