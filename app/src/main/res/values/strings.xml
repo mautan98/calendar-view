@@ -240,6 +240,7 @@
     <string name="type_visiting">Thăm quan</string>
     <string name="type_shopping">Mua sắm</string>
     <string name="type_transportation">Di chuyển</string>
+    <string name="edit_date_time">Chỉnh sửa ngày tháng</string>
 
 
 </resources>
