@@ -99,12 +99,13 @@ class EditTripBottomDialog : BottomSheetDialogFragment(), Observer {
         if (arg is BaseResponse){
             val response = arg
             if (response.isSuccess){
+                onBackFragmentListener?.onBackFragment(response.apiCode)
                 dismiss()
             }
         }
     }
 
     interface OnBackFragmentListener{
-        fun onBackFragment()
+        fun onBackFragment(apiCode:String)
     }
 }
