@@ -8,17 +8,17 @@ import kotlinx.android.parcel.Parcelize
 data class SchedulePlaceByDaysItem(
 
 	@field:SerializedName("totalDistance")
-	val totalDistance: Int? = null,
+	var totalDistance: Int? = null,
 
 	@field:SerializedName("day")
-	val day: Long? = null,
+	var day: Long? = null,
 
 	@field:SerializedName("totalPlace")
-	val totalPlace: Int? = null,
+	var totalPlace: Int? = null,
 
 	@field:SerializedName("schedulePlaceId")
-	val schedulePlaceId: String? = null,
+	var schedulePlaceId: String? = null,
 
 	@field:SerializedName("logoUrl")
-	val logoUrl: String? = null
+	var logoUrl: String? = null
 ):Parcelable
