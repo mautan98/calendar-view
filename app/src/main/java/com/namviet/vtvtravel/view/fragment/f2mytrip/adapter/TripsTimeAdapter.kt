@@ -44,7 +44,7 @@ class TripsTimeAdapter : RecyclerView.Adapter<TripsTimeAdapter.ViewHolder>() {
             val numberPlace = item.totalPlace
             val distance = item.totalDistance
             binding.tvTime.text = "Ngày ${sttDate}: $date"
-            binding.tvDescDistance.text = "${numberPlace}, ${distance} km"
+            binding.tvDescDistance.text = "${numberPlace} địa điểm, ${distance} km"
         }
 
     }
