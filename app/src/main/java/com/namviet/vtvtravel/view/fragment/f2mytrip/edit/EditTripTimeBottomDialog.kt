@@ -1,10 +1,12 @@
 package com.namviet.vtvtravel.view.fragment.f2mytrip.edit
 
+import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.namviet.vtvtravel.R
@@ -33,6 +35,7 @@ class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer {
     private var listDay: MutableList<SchedulePlaceByDaysItem> = mutableListOf()
     private val viewModel = MyTripsViewModel()
     private var onBackFragmentListener: OnBackFragmentListener? = null
+    private var adapter: TripsTimeAdapter? = null
 
     fun setOnBackFragmentListener(onBackFragmentListener: OnBackFragmentListener?) {
         this.onBackFragmentListener = onBackFragmentListener
@@ -64,8 +67,8 @@ class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer {
 
     private fun initView() {
         listDay = arguments?.get(KEY_LIST_SCHEDULE_DAY) as MutableList<SchedulePlaceByDaysItem>
-        val adapter = TripsTimeAdapter()
-        adapter.setListScheduleByDays(listDay)
+        adapter = TripsTimeAdapter()
+        adapter?.setListScheduleByDays(listDay)
         binding.rcvPlaceByDay.adapter = adapter
         viewModel.addObserver(this)
     }
@@ -76,6 +79,42 @@ class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer {
         }
         binding.tvCancel.setOnClickListener {
             dismiss()
+        }
+        binding.tvAddNewDate.setOnClickListener {
+            var lastDate:Long?
+            val calendar = Calendar.getInstance()
+            if (listDay.size > 0){
+                lastDate = listDay.get(listDay.size-1).day
+            } else {
+                lastDate = calendar.timeInMillis
+            }
+            if (lastDate != null) {
+                calendar.timeInMillis = lastDate
+            }
+            val selectedYear = calendar[Calendar.YEAR]
+            val selectedMonth = calendar[Calendar.MONTH]
+            val selectedDayOfMonth = calendar[Calendar.DAY_OF_MONTH]
+            val datePickerDialog = DatePickerDialog(
+                requireContext(),
+                object : DatePickerDialog.OnDateSetListener {
+                    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+                        calendar[Calendar.YEAR] = year
+                        calendar[Calendar.MONTH] = month
+                        calendar[Calendar.DAY_OF_MONTH] = dayOfMonth
+
+                        val item = SchedulePlaceByDaysItem()
+                        item.totalDistance = 0
+                        item.totalPlace = 0
+                        item.day = calendar.timeInMillis
+                        listDay.add(item)
+                        adapter?.setListScheduleByDays(listDay)
+                    }
+                }, selectedYear, selectedMonth, selectedDayOfMonth
+            )
+            if (lastDate != null) {
+                datePickerDialog.datePicker.minDate = lastDate
+            }
+            datePickerDialog.show()
         }
     }
 
