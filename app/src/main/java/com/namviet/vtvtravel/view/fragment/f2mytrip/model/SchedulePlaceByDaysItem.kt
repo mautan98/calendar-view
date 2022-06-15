@@ -20,5 +20,7 @@ data class SchedulePlaceByDaysItem(
 	var schedulePlaceId: String? = null,
 
 	@field:SerializedName("logoUrl")
-	var logoUrl: String? = null
+	var logoUrl: String? = null,
+
+	var removeAble: Boolean = true
 ):Parcelable
