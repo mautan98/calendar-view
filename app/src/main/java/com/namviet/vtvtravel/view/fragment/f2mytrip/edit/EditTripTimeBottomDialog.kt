@@ -106,6 +106,7 @@ class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer {
                         item.totalDistance = 0
                         item.totalPlace = 0
                         item.day = calendar.timeInMillis
+                        item.removeAble = false
                         listDay.add(item)
                         adapter?.setListScheduleByDays(listDay)
                     }

@@ -1,9 +1,11 @@
 package com.namviet.vtvtravel.view.fragment.f2mytrip.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.databinding.LayoutItemDateTimeTripBinding
@@ -35,7 +37,7 @@ class TripsTimeAdapter : RecyclerView.Adapter<TripsTimeAdapter.ViewHolder>() {
         return listScheduleDay.size
     }
 
-    class ViewHolder(var binding: LayoutItemDateTimeTripBinding) :
+    inner class ViewHolder(var binding: LayoutItemDateTimeTripBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: SchedulePlaceByDaysItem, position: Int) {
@@ -45,6 +47,20 @@ class TripsTimeAdapter : RecyclerView.Adapter<TripsTimeAdapter.ViewHolder>() {
             val distance = item.totalDistance
             binding.tvTime.text = "Ngày ${sttDate}: $date"
             binding.tvDescDistance.text = "${numberPlace} địa điểm, ${distance} km"
+            Glide.with(itemView.context).load(item.logoUrl).into(binding.imvPlaceTime)
+            if (item.removeAble){
+                binding.imvDeleteScheduleDate.visibility = View.VISIBLE
+            } else {
+                binding.imvDeleteScheduleDate.visibility = View.GONE
+            }
+            clickListener(position)
+        }
+
+        private fun clickListener(position: Int){
+            binding.imvDeleteScheduleDate.setOnClickListener {
+                listScheduleDay.removeAt(position)
+                notifyItemRemoved(position)
+            }
         }
 
     }
