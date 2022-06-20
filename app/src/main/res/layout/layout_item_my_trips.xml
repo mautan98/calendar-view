@@ -116,12 +116,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto_regular"
             android:includeFontPadding="false"
             android:text="@string/estimate_cost"
             android:textColor="@color/black"
-            android:textSize="@dimen/_16ssp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/imv_money"
             app:layout_constraintTop_toBottomOf="@id/tv_trips_desc" />
 
@@ -133,7 +133,7 @@
             android:includeFontPadding="false"
             tools:text="131231"
             android:textColor="@color/black"
-            android:textSize="@dimen/_16ssp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/estimate_cost"
             app:layout_constraintStart_toEndOf="@id/estimate_cost"
             app:layout_constraintTop_toTopOf="@id/estimate_cost" />
@@ -152,12 +152,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="@dimen/_13sdp"
+            android:layout_marginTop="13dp"
             android:fontFamily="@font/roboto_regular"
             android:includeFontPadding="false"
             android:text="@string/days_in_trip"
             android:textColor="@color/black"
-            android:textSize="@dimen/_16ssp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/imv_calendar"
             app:layout_constraintTop_toBottomOf="@id/estimate_cost" />
 
@@ -169,7 +169,7 @@
             android:includeFontPadding="false"
             tools:text="3 Ngay"
             android:textColor="@color/black"
-            android:textSize="@dimen/_16ssp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/days_trip"
             app:layout_constraintStart_toEndOf="@id/days_trip"
             app:layout_constraintTop_toTopOf="@id/days_trip" />
@@ -178,7 +178,7 @@
             android:id="@+id/ly_detail_days"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/days_trip"
@@ -192,7 +192,7 @@
                 android:includeFontPadding="false"
                 android:text="("
                 android:textColor="#3A3A3A"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -205,7 +205,7 @@
                 android:includeFontPadding="false"
                 tools:text="15 thang 6"
                 android:textColor="#3A3A3A"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/open"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -218,7 +218,7 @@
                 android:includeFontPadding="false"
                 android:text=" - "
                 android:textColor="#3A3A3A"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_start_date"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -231,7 +231,7 @@
                 android:includeFontPadding="false"
                 tools:text="19 thang 6"
                 android:textColor="#3A3A3A"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/dash_symbol"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -244,7 +244,7 @@
                 android:includeFontPadding="false"
                 android:text=","
                 android:textColor="#3A3A3A"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_end_date"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -253,12 +253,12 @@
                 android:id="@+id/tv_amount_people"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginStart="2dp"
                 android:fontFamily="@font/roboto_regular"
                 android:includeFontPadding="false"
                 tools:text="123"
                 android:textColor="#3A3A3A"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/comma"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -272,7 +272,7 @@
                 android:includeFontPadding="false"
                 android:text="@string/people_numb"
                 android:textColor="#3A3A3A"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_amount_people"
                 app:layout_constraintTop_toTopOf="parent" />
