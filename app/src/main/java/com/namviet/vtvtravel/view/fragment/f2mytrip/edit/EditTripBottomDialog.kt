@@ -10,13 +10,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.LayoutBottomDialogEditTripBinding
 import com.namviet.vtvtravel.response.BaseResponse
+import com.namviet.vtvtravel.ultils.ValidateUtils
 import com.namviet.vtvtravel.view.fragment.f2mytrip.DetailTripFragment
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.ParticipantsAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.UserListItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
+import com.namviet.vtvtravel.view.fragment.f2travelvoucher.AlreadyReceiverDialog
 import java.util.*
-import kotlin.collections.ArrayList
 
 class EditTripBottomDialog : BottomSheetDialogFragment(), Observer {
 
@@ -82,10 +83,12 @@ class EditTripBottomDialog : BottomSheetDialogFragment(), Observer {
 
     private fun initClickListener(){
         binding.tvUpdateSchedule.setOnClickListener {
-            val name = binding.edtTripName.text.toString()
-            val description = binding.edtTripDesc.text.toString()
-            val scheduleId = tripItem?.id
-            viewModel.updateSchedule(name,description,scheduleId!!)
+            if (validateUpdate()){
+                val name = binding.edtTripName.text.toString()
+                val description = binding.edtTripDesc.text.toString()
+                val scheduleId = tripItem?.id
+                viewModel.updateSchedule(name,description,scheduleId!!)
+            }
         }
         binding.tvCancel.setOnClickListener {
             dismiss()
@@ -93,6 +96,25 @@ class EditTripBottomDialog : BottomSheetDialogFragment(), Observer {
         binding.layoutDeleteTrip.setOnClickListener {
             viewModel.deleteSchedule(tripItem?.id!!)
         }
+    }
+
+    private fun validateUpdate(): Boolean {
+        val dialog = AlreadyReceiverDialog()
+        dialog.setDialogTitle(getString(R.string.error_title))
+        dialog.setLabelButton(getString(R.string.close_title))
+        if (ValidateUtils.isEmptyEdittext(binding.edtTripName)) {
+            showErrorDialog(dialog, "Tên chuyến đi không được để trống")
+            return false
+        } else if (ValidateUtils.isEmptyEdittext(binding.edtTripDesc)) {
+            showErrorDialog(dialog, "Mô tả không được để trống")
+            return false
+        }
+        return true
+    }
+
+    private fun showErrorDialog(dialog: AlreadyReceiverDialog, description: String) {
+        dialog.setDescription(description)
+        dialog.show(childFragmentManager, null)
     }
 
     override fun update(o: Observable?, arg: Any?) {
