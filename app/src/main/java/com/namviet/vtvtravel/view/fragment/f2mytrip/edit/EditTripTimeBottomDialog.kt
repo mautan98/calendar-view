@@ -10,6 +10,7 @@ import android.widget.DatePicker
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.namviet.vtvtravel.R
+import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.databinding.LayoutEditTimeTripBinding
 import com.namviet.vtvtravel.response.BaseResponse
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.TripsTimeAdapter
@@ -78,7 +79,9 @@ class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer {
 
     private fun initClickListener() {
         binding.tvSave.setOnClickListener {
-
+            val startAt = Utils.formatTimeStamp(listDay.get(0).day,"yyyy-MM-dd")
+            val endAt = Utils.formatTimeStamp(listDay.get(listDay.size - 1).day,"yyyy-MM-dd")
+            viewModel.updateRangeScheduleTime(tripItem?.id!!,startAt,endAt,)
         }
         binding.tvCancel.setOnClickListener {
             dismiss()

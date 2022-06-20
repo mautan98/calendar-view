@@ -111,7 +111,13 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             addFragment(fragment)
         }
         binding.tvEditTime.setOnClickListener {
-            val dialog = tripItem?.let { it1 -> EditTripTimeBottomDialog.newInstance(it1.schedulePlaceByDays as ArrayList<SchedulePlaceByDaysItem>) }
+            val dialog = tripItem?.let { it1 -> EditTripTimeBottomDialog.newInstance(it1) }
+            dialog?.setOnBackFragmentListener(object :EditTripTimeBottomDialog.OnBackFragmentListener{
+                override fun onBackFragment(apiCode: String) {
+                   viewModel.getDetailplaceById(tripItem?.id!!)
+                }
+
+            })
             dialog?.show(childFragmentManager,null)
         }
     }
@@ -132,6 +138,9 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             }
             binding.tvDetailTripName.text = myTripResponse.data?.name
             binding.tvDetailTripDesc.text = myTripResponse.data?.description
+            val startDate = Utils.formatTimestampTrips(tripItem?.startAt)
+            val endDate = Utils.formatTimestampTrips(tripItem?.endAt)
+            binding.tvDetailTimeTrips.text = "($startDate - $endDate, ${tripItem?.numberPeople} người)"
         }
     }
 
