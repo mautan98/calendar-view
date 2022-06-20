@@ -58,7 +58,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
     private SearchBigLocationViewModel locationViewModel;
     private CreateTripViewModel myTripsViewModel;
     Map<String, String> extraHeaders = new HashMap<>();
-    private int numAdult = 0;
+    private int numAdult = 1;
     private int numChildren = 0;
     private int numBaby = 0;
     private String checkinPlaceId;
