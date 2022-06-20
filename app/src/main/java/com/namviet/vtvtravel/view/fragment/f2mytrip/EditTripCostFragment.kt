@@ -68,7 +68,14 @@ class EditTripCostFragment: BaseFragment<FragmentAddEstimateCostBinding>(), Obse
         binding.rcvTypeOfCost.adapter = costTypeAdapter
         tripViewModel.getCostList(scheduleId)
         tripViewModel.addObserver(this)
+        initClickListener()
 
+    }
+
+    private fun initClickListener(){
+        binding.imvBackCost.setOnClickListener {
+            activity?.onBackPressed()
+        }
     }
 
     private fun initListType(){

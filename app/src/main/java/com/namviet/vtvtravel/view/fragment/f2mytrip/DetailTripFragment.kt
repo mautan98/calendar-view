@@ -120,6 +120,9 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             })
             dialog?.show(childFragmentManager,null)
         }
+        binding.btnBack.setOnClickListener {
+            activity?.onBackPressed()
+        }
     }
 
     override fun setObserver() {
