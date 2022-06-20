@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/bg_radius_4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imv_detail_place"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_demo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_corner_radius_top_left="4dp"
+                app:riv_corner_radius_top_right="4dp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_time_travel_place"
+                android:layout_width="0dp"
+                android:paddingVertical="3dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_radius_4dp_bottom"
+                android:backgroundTint="#F89C1C"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@id/imv_detail_place"
+                app:layout_constraintStart_toStartOf="@id/imv_detail_place"
+                app:layout_constraintTop_toBottomOf="@id/imv_detail_place">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:textColor="@color/white"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="09:00" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/ic_drop_down_thick_3726"
+                    app:tint="@color/white" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_detail_place_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/imv_detail_place"
+                app:layout_constraintTop_toTopOf="@id/imv_detail_place"
+                tools:text="Quang truong lam vien" />
+
+            <TextView
+                android:id="@+id/time_visiting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/time_visiting"
+                android:textColor="#919191"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/edt_time_visiting"
+                app:layout_constraintStart_toStartOf="@id/tv_detail_place_name"
+                app:layout_constraintTop_toTopOf="@id/edt_time_visiting" />
+
+            <TextView
+                android:id="@+id/edt_time_visiting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="#F89C1C"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/time_visiting"
+                app:layout_constraintTop_toBottomOf="@id/tv_detail_place_name"
+                tools:text="30p" />
+
+            <TextView
+                android:id="@+id/note_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:drawablePadding="5dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center_vertical"
+                android:text="@string/note_title"
+                android:textColor="#F89C1C"
+                android:textSize="12sp"
+                app:drawableStartCompat="@drawable/ic_notes"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_detail_place_name"
+                app:layout_constraintTop_toBottomOf="@id/edt_time_visiting" />
+
+            <TextView
+                android:id="@+id/change_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:drawablePadding="5dp"
+                android:fontFamily="@font/roboto_regular"
+                android:textColor="#F89C1C"
+                android:textSize="12sp"
+                android:gravity="center_vertical"
+                app:drawableStartCompat="@drawable/ic_change_place"
+                app:layout_constraintBottom_toBottomOf="@id/note_place"
+                app:layout_constraintStart_toEndOf="@id/note_place"
+                app:layout_constraintTop_toTopOf="@id/note_place"
+                tools:text="@string/change_places" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/imv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_close_circle_gray_ec"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
