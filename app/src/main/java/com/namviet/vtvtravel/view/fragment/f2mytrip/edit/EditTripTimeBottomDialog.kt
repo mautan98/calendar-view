@@ -14,6 +14,7 @@ import com.namviet.vtvtravel.databinding.LayoutEditTimeTripBinding
 import com.namviet.vtvtravel.response.BaseResponse
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.TripsTimeAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.SchedulePlaceByDaysItem
+import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
 import java.util.*
 import kotlin.collections.ArrayList
@@ -22,9 +23,9 @@ class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer {
 
     companion object {
         const val KEY_LIST_SCHEDULE_DAY = "list_schedule_day"
-        fun newInstance(listDaysItem: ArrayList<SchedulePlaceByDaysItem>): EditTripTimeBottomDialog {
+        fun newInstance(listDaysItem: TripItem): EditTripTimeBottomDialog {
             val args = Bundle()
-            args.putParcelableArrayList(KEY_LIST_SCHEDULE_DAY, listDaysItem)
+            args.putParcelable(KEY_LIST_SCHEDULE_DAY, listDaysItem)
             val fragment = EditTripTimeBottomDialog()
             fragment.arguments = args
             return fragment
@@ -33,6 +34,7 @@ class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer {
 
     private lateinit var binding: LayoutEditTimeTripBinding
     private var listDay: MutableList<SchedulePlaceByDaysItem> = mutableListOf()
+    private var tripItem: TripItem? = null
     private val viewModel = MyTripsViewModel()
     private var onBackFragmentListener: OnBackFragmentListener? = null
     private var adapter: TripsTimeAdapter? = null
@@ -66,7 +68,8 @@ class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer {
     }
 
     private fun initView() {
-        listDay = arguments?.get(KEY_LIST_SCHEDULE_DAY) as MutableList<SchedulePlaceByDaysItem>
+        tripItem = arguments?.getParcelable(KEY_LIST_SCHEDULE_DAY)
+        listDay = tripItem?.schedulePlaceByDays as MutableList<SchedulePlaceByDaysItem>
         adapter = TripsTimeAdapter()
         adapter?.setListScheduleByDays(listDay)
         binding.rcvPlaceByDay.adapter = adapter
