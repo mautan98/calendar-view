@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.view.fragment.f2createtrip.dialog
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.LayoutChooseNumOfPassengerBinding
 import com.namviet.vtvtravel.view.fragment.f2offline.BaseDialogBottom
+import java.util.*
 
 class BottomSheetPassengerDialog(context: Context) : BottomSheetDialogFragment() {
 
@@ -40,6 +42,11 @@ class BottomSheetPassengerDialog(context: Context) : BottomSheetDialogFragment()
         return binding.root
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        (Objects.requireNonNull(view)!!.parent as View).setBackgroundColor(Color.TRANSPARENT)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
@@ -50,6 +57,11 @@ class BottomSheetPassengerDialog(context: Context) : BottomSheetDialogFragment()
         binding.tvNumberPassenger.text = numAdult.toString()
         binding.tvNumberChildren.text = numChildren.toString()
         binding.tvNumberBaby.text = numBaby.toString()
+
+        binding.imvMinusChildren.isEnabled = false
+        binding.imvMinusChildren.setImageResource(R.drawable.ic_minus_passenger_disable_min)
+        binding.imvMinusBaby.isEnabled = false
+        binding.imvMinusBaby.setImageResource(R.drawable.ic_minus_passenger_disable_min)
     }
 
     private fun initClickListener(){
