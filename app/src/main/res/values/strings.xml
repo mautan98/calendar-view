@@ -241,6 +241,9 @@
     <string name="type_shopping">Mua sắm</string>
     <string name="type_transportation">Di chuyển</string>
     <string name="edit_date_time">Chỉnh sửa ngày tháng</string>
+    <string name="time_visiting">Thời gian thăm quan:</string>
+    <string name="note_title">Ghi chú</string>
+    <string name="change_places">Thay đổi</string>
 
 
 </resources>
