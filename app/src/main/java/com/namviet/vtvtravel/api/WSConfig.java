@@ -266,6 +266,7 @@ public class WSConfig {
         public static final String GET_COST = "scheduleCost";
         public static final String UPDATE_SCHEDULE = "updateScheduleCustom";
         public static final String DELETE_SCHEDULE = "deleteScheduleCustom";
+        public static final String UPDATE_RANGE_SCHEDULE_CUSTOM = "updateRangesScheduleCustom";
     }
 
     public class KeyParam {

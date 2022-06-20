@@ -59,7 +59,7 @@ class TripsTimeAdapter : RecyclerView.Adapter<TripsTimeAdapter.ViewHolder>() {
         private fun clickListener(position: Int){
             binding.imvDeleteScheduleDate.setOnClickListener {
                 listScheduleDay.removeAt(position)
-                notifyItemRemoved(position)
+                notifyDataSetChanged()
             }
         }
 
