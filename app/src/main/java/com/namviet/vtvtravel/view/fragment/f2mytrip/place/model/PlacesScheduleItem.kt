@@ -34,8 +34,8 @@ data class PlacesScheduleItem(
 	@field:SerializedName("stt")
 	var stt: Int? = null,
 
-	@field:SerializedName("arrivarTime")
-	var arrivarTime: Long? = null,
+	@field:SerializedName("arrivalTime")
+	var arrivalTime: Long? = null,
 
 	@field:SerializedName("freeTime")
 	var freeTime: Int? = null,
@@ -53,5 +53,15 @@ data class PlacesScheduleItem(
 	var day: Long? = null,
 
 	@field:SerializedName("status")
-	var status: Any? = null
+	var status: Any? = null,
+
+	@field:SerializedName("name")
+	var name: String? = null,
+
+	@field:SerializedName("lat")
+	var lat: Double? = null,
+
+	@field:SerializedName("lng")
+	var lng: Double? = null,
+
 )
