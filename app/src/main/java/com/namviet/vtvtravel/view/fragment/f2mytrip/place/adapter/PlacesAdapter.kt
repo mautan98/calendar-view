@@ -14,6 +14,7 @@ class PlacesAdapter : RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
 
     fun setListDetailPlaces(list: MutableList<PlacesScheduleItem>) {
         this.listDetailPlace = list
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
