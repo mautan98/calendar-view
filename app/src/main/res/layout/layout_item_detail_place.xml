@@ -131,7 +131,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/note_place"
                 app:layout_constraintStart_toEndOf="@id/note_place"
                 app:layout_constraintTop_toTopOf="@id/note_place"
-                tools:text="@string/change_places" />
+                android:text="@string/change_places" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
