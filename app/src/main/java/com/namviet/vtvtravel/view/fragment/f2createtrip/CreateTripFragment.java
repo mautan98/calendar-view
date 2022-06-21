@@ -5,8 +5,11 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.net.UrlQuerySanitizer;
+import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -78,6 +81,14 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
     @Override
     public int getLayoutRes() {
         return R.layout.f2_fragment_create_trip;
+    }
+
+    @androidx.annotation.Nullable
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @androidx.annotation.Nullable @Nullable ViewGroup container, @androidx.annotation.Nullable @Nullable Bundle savedInstanceState) {
+        getContext().getTheme().applyStyle(R.style.ActionBarTheme, true);
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
