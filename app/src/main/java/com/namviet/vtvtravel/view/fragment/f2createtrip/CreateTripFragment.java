@@ -139,8 +139,10 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 getBinding().edtReturnDate.setVisibility(isChecked?View.GONE:View.VISIBLE);
                 if (isChecked){
-                    endAtTimestamp = startAtTimestamp;
-                    getBinding().edtReturnDate.setText(Utils.formatTimestampTrips(endAtTimestamp));
+                    if (startAtTimestamp != 0) {
+                        endAtTimestamp = startAtTimestamp;
+                        getBinding().edtReturnDate.setText(Utils.formatTimestampTrips(endAtTimestamp));
+                    }
                 }
             }
         });
