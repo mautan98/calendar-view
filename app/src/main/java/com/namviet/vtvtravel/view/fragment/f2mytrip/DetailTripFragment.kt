@@ -10,6 +10,7 @@ import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.api.WSConfig
 import com.namviet.vtvtravel.databinding.FragmentDetailTripBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.listener.OnItemRecyclerClickListener
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.OverlapDecoration
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.PlacesInScheduleAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.UserListAdapter
@@ -19,6 +20,7 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.model.SchedulePlaceByDaysIte
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.UserListItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.detail.PlaceScheduleResponse
+import com.namviet.vtvtravel.view.fragment.f2mytrip.place.DetailPlacesFragment
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
 import java.util.*
 import kotlin.collections.ArrayList
@@ -80,6 +82,12 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
         binding.rcvImageUser.adapter = userAdapter
 
         adapter = PlacesInScheduleAdapter(requireContext())
+        adapter?.setOnItemClickListener(object : OnItemRecyclerClickListener{
+            override fun onItemClick(position: Int) {
+                val fragment = DetailPlacesFragment.newInstance(tripItem)
+                addFragment(fragment)
+            }
+        })
         binding.rcvAllSchedule.adapter = adapter
         Glide.with(requireContext()).load(tripItem?.bannerUrl).into(binding.imvBannerDetail)
     }

@@ -9,15 +9,21 @@ import com.bumptech.glide.Glide
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.databinding.LayoutItemScheduleByDaysBinding
+import com.namviet.vtvtravel.listener.OnItemRecyclerClickListener
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.SchedulePlaceByDaysItem
 
 class PlacesInScheduleAdapter(var context:Context) : RecyclerView.Adapter<PlacesInScheduleAdapter.ViewHolder>() {
 
     private var listPlace:MutableList<SchedulePlaceByDaysItem> = mutableListOf()
+    private lateinit var onItemClickListener : OnItemRecyclerClickListener
 
     fun setListPlaces(list:MutableList<SchedulePlaceByDaysItem>){
         listPlace = list
         notifyDataSetChanged()
+    }
+
+    fun setOnItemClickListener(listener:OnItemRecyclerClickListener){
+        onItemClickListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,6 +47,9 @@ class PlacesInScheduleAdapter(var context:Context) : RecyclerView.Adapter<Places
             binding.tvDayNo.text = "Ngày ${position +1}"
             binding.tvDayStartSchedule.text = Utils.formatTimestampTrips(placeItem.day)
             binding.tvNumberPlace.text = "${placeItem.totalPlace} địa điểm, ${placeItem.totalDistance} km"
+            itemView.setOnClickListener {
+                onItemClickListener.onItemClick(position)
+            }
         }
     }
 }
