@@ -145,4 +145,19 @@ class MyTripsViewModel: BaseViewModel() {
         compositeDisposable.add(dispose)
     }
 
+    fun getDetailPlaces(scheduleId: String) {
+        val myApplication = MyApplication.getInstance()
+        val newsService = myApplication.travelServiceAcc
+        val dispose = newsService.getDetailPlaces(scheduleId)
+            .subscribeOn(myApplication.subscribeScheduler())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe(Consumer {
+                if (it != null) {
+                    requestSuccessRes(it)
+                } else {
+                    requestSuccessRes(null)
+                }
+            }, { requestFailedRes(it) })
+        compositeDisposable.add(dispose)
+    }
+
 }

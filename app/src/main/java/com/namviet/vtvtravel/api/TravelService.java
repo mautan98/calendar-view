@@ -121,6 +121,7 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.model.cost.CostResponse;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.CreateScheduleResponse;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.DataCreateTrips;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.detail.PlaceScheduleResponse;
+import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.DetailPlacesResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.GetInfoResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ResentOtpServiceResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceOtpResponse;
@@ -790,5 +791,8 @@ public interface TravelService {
 
     @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_RANGE_SCHEDULE_CUSTOM)
     Observable<BaseResponse> updateRangeSchedule(@Body RequestBody bodyUpdateRange);
+
+    @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.PLACE_PARAM)
+    Observable<DetailPlacesResponse> getDetailPlaces(@Query("scheduleCustomId") String scheduleCustomId);
 
 }
