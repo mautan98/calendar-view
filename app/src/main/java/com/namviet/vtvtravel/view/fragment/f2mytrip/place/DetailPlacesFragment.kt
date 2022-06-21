@@ -5,6 +5,8 @@ import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.FragmentDetailSchedulePlacesBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
+import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.DetailPlacesResponse
+import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.PlacesScheduleItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
 import java.util.*
 
@@ -23,6 +25,7 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
     }
     private var tripItem:TripItem? = null
     private var viewModel:MyTripsViewModel? =null
+    private var listPlaces:MutableList<PlacesScheduleItem> = mutableListOf()
 
     override fun getLayoutRes(): Int {
         return R.layout.fragment_detail_schedule_places
@@ -52,6 +55,7 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
     }
 
     override fun update(o: Observable?, arg: Any?) {
-
+        val response = arg as DetailPlacesResponse
+        listPlaces = response.data?.content as MutableList<PlacesScheduleItem>
     }
 }
