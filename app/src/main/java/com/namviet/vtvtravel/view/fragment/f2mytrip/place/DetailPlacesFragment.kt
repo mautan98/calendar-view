@@ -19,13 +19,14 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
             return fragment
         }
     }
+    private var tripItem:TripItem? = null
 
     override fun getLayoutRes(): Int {
         return R.layout.fragment_detail_schedule_places
     }
 
     override fun initView() {
-
+        tripItem = arguments?.getParcelable(KEY_DETAIL_PLACE_TRIP_ITEM)
     }
 
     override fun initData() {
