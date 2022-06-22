@@ -41,9 +41,27 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
         tripItem = arguments?.getParcelable(KEY_DETAIL_PLACE_TRIP_ITEM)
         viewModel = MyTripsViewModel()
         adapter = AllPlacesAdapter()
-        adapter?.setOnItemClickListener(object :PlacesAdapter.OnItemClickListener{
-            override fun onItemClick(position: Int, view: View) {
+        adapter?.setOnItemClickListener(object :AllPlacesAdapter.OnItemClickPlace{
+            override fun onItemClick(currentPosition:Int, itemDetailPosition: Int, view: View) {
                 val dialog = BottomWheelDialog()
+                dialog.setOnSaveListener(object : BottomWheelDialog.OnClickSaveWheelTime{
+                    override fun onClickSave(hour: Int, minute: Int) {
+                        when(view.id){
+                            R.id.layout_time_travel_place -> {
+                                val calendar = Calendar.getInstance()
+                                calendar.timeInMillis = listPlaces[currentPosition].day!!
+                                calendar.set(Calendar.HOUR_OF_DAY,hour)
+                                calendar.set(Calendar.MINUTE,minute)
+                                listPlaces.get(currentPosition).schedulePlaceList?.get(itemDetailPosition)?.arrivalTime = calendar.timeInMillis
+                                adapter?.notifyDataSetChanged()
+                            }
+                            R.id.edt_time_visiting -> {
+
+                            }
+                        }
+                    }
+
+                })
                 dialog.show(childFragmentManager,null)
             }
         })
