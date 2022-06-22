@@ -22,6 +22,8 @@ class BottomWheelDialog : BottomSheetDialogFragment() {
     }
 
     private lateinit var binding: LayoutBottomWheelTimeBinding
+    private var listHour:MutableList<String> = mutableListOf()
+    private var listMinute:MutableList<String> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +40,20 @@ class BottomWheelDialog : BottomSheetDialogFragment() {
     }
 
     private fun initViews() {
+        initData()
+        binding.wheelHourTime.data = listHour
+        binding.wheelMinuteTime.data = listMinute
+    }
 
+    private fun initData(){
+      for (i in 0..23){
+          val formatted = String.format("%02d", i)
+          listHour.add("${formatted} Giờ")
+      }
+        for (i in 0..59){
+            val formatted = String.format("%02d", i)
+            listMinute.add("${formatted} Phút")
+        }
     }
 
 }
