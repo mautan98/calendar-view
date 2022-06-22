@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.databinding.LayoutItemDetailPlaceBinding
@@ -48,6 +49,7 @@ class PlacesAdapter : RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
             binding.tvDetailPlaceName.text = placeDetailItem.name
             binding.edtTimeVisiting.text = "${placeDetailItem.durationVisit}p"
             binding.tvArrivalTime.text = Utils.formatTimeStamp(placeDetailItem.arrivalTime,"HH:mm")
+            Glide.with(itemView.context).load(placeDetailItem.logoUrl).into(binding.imvDetailPlace)
             binding.layoutTimeTravelPlace.setOnClickListener {
                 onItemClickListener?.onItemClick(position,binding.layoutTimeTravelPlace)
             }
