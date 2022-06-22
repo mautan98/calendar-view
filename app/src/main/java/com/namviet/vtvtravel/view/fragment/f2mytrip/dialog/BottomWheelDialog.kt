@@ -24,6 +24,11 @@ class BottomWheelDialog : BottomSheetDialogFragment() {
     private lateinit var binding: LayoutBottomWheelTimeBinding
     private var listHour:MutableList<String> = mutableListOf()
     private var listMinute:MutableList<String> = mutableListOf()
+    private var listener:OnClickSaveWheelTime? = null
+
+    fun setOnSaveListener(listener: OnClickSaveWheelTime) {
+        this.listener = listener
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +48,7 @@ class BottomWheelDialog : BottomSheetDialogFragment() {
         initData()
         binding.wheelHourTime.data = listHour
         binding.wheelMinuteTime.data = listMinute
+        initClickListener()
     }
 
     private fun initData(){
@@ -54,6 +60,21 @@ class BottomWheelDialog : BottomSheetDialogFragment() {
             val formatted = String.format("%02d", i)
             listMinute.add("${formatted} Phút")
         }
+    }
+
+    private fun initClickListener(){
+        binding.tvSave.setOnClickListener {
+            val stringHour = listHour.get(binding.wheelHourTime.currentItemPosition).substring(0,2)
+            val stringMinute = listMinute.get(binding.wheelMinuteTime.currentItemPosition).substring(0,2)
+            val selectedHour:Int = stringHour.toInt()
+            val selectedMinute:Int = stringMinute.toInt()
+            listener?.onClickSave(selectedHour,selectedMinute)
+            dismiss()
+        }
+    }
+
+    interface OnClickSaveWheelTime {
+        fun onClickSave(hour:Int,minute:Int)
     }
 
 }
