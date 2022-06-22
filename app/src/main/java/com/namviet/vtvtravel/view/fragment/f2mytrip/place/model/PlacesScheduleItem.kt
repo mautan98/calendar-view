@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class PlacesScheduleItem(
 
 	@field:SerializedName("note")
-	var note: Any? = null,
+	var note: String? = null,
 
 	@field:SerializedName("durationMove")
 	var durationMove: Int? = null,
