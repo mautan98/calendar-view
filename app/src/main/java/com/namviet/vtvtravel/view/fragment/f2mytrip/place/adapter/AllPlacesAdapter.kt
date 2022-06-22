@@ -13,14 +13,14 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.ItemPlaces
 class AllPlacesAdapter : RecyclerView.Adapter<AllPlacesAdapter.ViewHolder>() {
 
     private var listDetailPlace: MutableList<ItemPlaces> = mutableListOf()
-    private var onItemClickListener: PlacesAdapter.OnItemClickListener? = null
+    private var onItemClickListener: OnItemClickPlace? = null
 
     fun setListDetailPlaces(list: MutableList<ItemPlaces>) {
         this.listDetailPlace = list
         notifyDataSetChanged()
     }
 
-    fun setOnItemClickListener(listener: PlacesAdapter.OnItemClickListener) {
+    fun setOnItemClickListener(listener: OnItemClickPlace) {
         this.onItemClickListener = listener
     }
 
@@ -44,20 +44,24 @@ class AllPlacesAdapter : RecyclerView.Adapter<AllPlacesAdapter.ViewHolder>() {
     inner class ViewHolder(var binding: LayoutItemPlaceBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(placeItem: ItemPlaces, position: Int) {
-            binding.tvDayNoDetail.text = "Ngày${position + 1}"
+        fun bind(placeItem: ItemPlaces, currentPosition: Int) {
+            binding.tvDayNoDetail.text = "Ngày${currentPosition + 1}"
             binding.tvDayDetail.text = Utils.formatTimeStamp(placeItem.day, "yyyy-MM-dd")
             binding.tvNumberPlace.text = "${placeItem.totalPlace} địa điểm"
             val adapter = PlacesAdapter()
             adapter.setOnItemClickListener(object : PlacesAdapter.OnItemClickListener{
                 override fun onItemClick(position: Int, view: View) {
-                    onItemClickListener?.onItemClick(position,view)
+                    onItemClickListener?.onItemClick(currentPosition,position,view)
                 }
 
             })
             placeItem.schedulePlaceList?.let { adapter.setListDetailPlaces(it) }
             binding.rcvPlacesInday.adapter = adapter
         }
+    }
+
+    interface OnItemClickPlace{
+        fun onItemClick(currentPos: Int, positionItem: Int, view: View)
     }
 
 }
