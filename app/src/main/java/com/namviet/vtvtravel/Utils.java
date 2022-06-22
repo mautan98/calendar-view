@@ -143,8 +143,12 @@ public class Utils {
     }
 
     public static String formatTimeStamp(Long timestamp,String pattern){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        return simpleDateFormat.format(new Date(timestamp));
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            return simpleDateFormat.format(new Date(timestamp));
+        } catch (Exception e){
+            return "";
+        }
     }
 
 }
