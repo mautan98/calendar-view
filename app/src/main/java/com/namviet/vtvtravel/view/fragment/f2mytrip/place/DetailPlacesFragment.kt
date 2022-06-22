@@ -1,12 +1,16 @@
 package com.namviet.vtvtravel.view.fragment.f2mytrip.place
 
 import android.os.Bundle
+import android.view.View
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.FragmentDetailSchedulePlacesBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.view.fragment.f2mytrip.dialog.BottomWheelDialog
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
+import com.namviet.vtvtravel.view.fragment.f2mytrip.place.adapter.AllPlacesAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.place.adapter.PlacesAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.DetailPlacesResponse
+import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.ItemPlaces
 import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.PlacesScheduleItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
 import java.util.*
@@ -26,8 +30,8 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
     }
     private var tripItem:TripItem? = null
     private var viewModel:MyTripsViewModel? =null
-    private var listPlaces:MutableList<PlacesScheduleItem> = mutableListOf()
-    private var adapter:PlacesAdapter? = null
+    private var listPlaces:MutableList<ItemPlaces> = mutableListOf()
+    private var adapter:AllPlacesAdapter? = null
 
     override fun getLayoutRes(): Int {
         return R.layout.fragment_detail_schedule_places
@@ -36,7 +40,13 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
     override fun initView() {
         tripItem = arguments?.getParcelable(KEY_DETAIL_PLACE_TRIP_ITEM)
         viewModel = MyTripsViewModel()
-        adapter = PlacesAdapter()
+        adapter = AllPlacesAdapter()
+        adapter?.setOnItemClickListener(object :PlacesAdapter.OnItemClickListener{
+            override fun onItemClick(position: Int, view: View) {
+                val dialog = BottomWheelDialog()
+                dialog.show(childFragmentManager,null)
+            }
+        })
         adapter?.setListDetailPlaces(listPlaces)
         binding.rcvPlaces.adapter = adapter
         tripItem?.id?.let { viewModel?.getDetailPlaces(it) }
@@ -61,7 +71,7 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
 
     override fun update(o: Observable?, arg: Any?) {
         val response = arg as DetailPlacesResponse
-        listPlaces = response.data?.content as MutableList<PlacesScheduleItem>
+        listPlaces = response.data?.content as MutableList<ItemPlaces>
         adapter?.setListDetailPlaces(listPlaces)
     }
 }
