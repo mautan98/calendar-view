@@ -1,5 +1,6 @@
 package com.namviet.vtvtravel.view.fragment.f2mytrip.place.adapter
 
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,6 +54,8 @@ class PlacesAdapter : RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
             binding.layoutTimeTravelPlace.setOnClickListener {
                 onItemClickListener?.onItemClick(position,binding.layoutTimeTravelPlace)
             }
+            binding.imvIsHaveNote.visibility =
+                (if (!TextUtils.isEmpty(placeDetailItem.note)) View.VISIBLE else View.GONE)
         }
 
     }
