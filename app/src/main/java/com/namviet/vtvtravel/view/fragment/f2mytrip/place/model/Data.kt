@@ -8,5 +8,5 @@ data class Data(
 	var checkRights: String? = null,
 
 	@field:SerializedName("content")
-	var content: List<PlacesScheduleItem?>? = null
+	var content: List<ItemPlaces?>? = null
 )
