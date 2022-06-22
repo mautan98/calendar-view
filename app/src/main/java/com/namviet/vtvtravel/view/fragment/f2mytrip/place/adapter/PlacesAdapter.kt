@@ -1,20 +1,27 @@
 package com.namviet.vtvtravel.view.fragment.f2mytrip.place.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.namviet.vtvtravel.R
+import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.databinding.LayoutItemDetailPlaceBinding
 import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.PlacesScheduleItem
 
 class PlacesAdapter : RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
 
     private var listDetailPlace: MutableList<PlacesScheduleItem> = mutableListOf()
+    private var onItemClickListener: OnItemClickListener? = null
 
     fun setListDetailPlaces(list: MutableList<PlacesScheduleItem>) {
         this.listDetailPlace = list
         notifyDataSetChanged()
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.onItemClickListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -40,8 +47,16 @@ class PlacesAdapter : RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
         fun bind(placeDetailItem: PlacesScheduleItem, position: Int) {
             binding.tvDetailPlaceName.text = placeDetailItem.name
             binding.edtTimeVisiting.text = "${placeDetailItem.durationVisit}p"
-            binding.tvArrivalTime.text = "${placeDetailItem.arrivalTime}"
+            binding.tvArrivalTime.text = Utils.formatTimeStamp(placeDetailItem.arrivalTime,"HH:mm")
+            binding.layoutTimeTravelPlace.setOnClickListener {
+                onItemClickListener?.onItemClick(position,binding.layoutTimeTravelPlace)
+            }
         }
 
     }
+
+    interface OnItemClickListener{
+        fun onItemClick(position: Int,view:View)
+    }
+
 }
