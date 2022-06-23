@@ -56,6 +56,9 @@ class PlacesAdapter : RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
             }
             binding.imvIsHaveNote.visibility =
                 (if (!TextUtils.isEmpty(placeDetailItem.note)) View.VISIBLE else View.GONE)
+            binding.notePlace.setOnClickListener {
+                onItemClickListener?.onItemClick(position,binding.notePlace)
+            }
         }
 
     }
