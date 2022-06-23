@@ -14,7 +14,7 @@ class AllPlacesAdapter : RecyclerView.Adapter<AllPlacesAdapter.ViewHolder>() {
 
     private var listDetailPlace: MutableList<ItemPlaces> = mutableListOf()
     private var onItemClickListener: OnItemClickPlace? = null
-
+    private var lastCheckedPos = -1
     fun setListDetailPlaces(list: MutableList<ItemPlaces>) {
         this.listDetailPlace = list
         notifyDataSetChanged()
@@ -41,6 +41,13 @@ class AllPlacesAdapter : RecyclerView.Adapter<AllPlacesAdapter.ViewHolder>() {
         return listDetailPlace.size
     }
 
+    fun getItemPlaceSelected(): ItemPlaces? {
+        if (lastCheckedPos != -1){
+            return listDetailPlace.get(lastCheckedPos)
+        }
+        return null
+    }
+
     inner class ViewHolder(var binding: LayoutItemPlaceBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -57,6 +64,15 @@ class AllPlacesAdapter : RecyclerView.Adapter<AllPlacesAdapter.ViewHolder>() {
             })
             placeItem.schedulePlaceList?.let { adapter.setListDetailPlaces(it) }
             binding.rcvPlacesInday.adapter = adapter
+            binding.rbtnSelectAddPlace.isChecked = currentPosition == lastCheckedPos
+            placeItem.isSelected = binding.rbtnSelectAddPlace.isChecked
+            binding.rbtnSelectAddPlace.setOnCheckedChangeListener { buttonView, isChecked ->
+                placeItem.isSelected = isChecked
+                if (isChecked){
+                    lastCheckedPos = currentPosition
+                    notifyDataSetChanged()
+                }
+            }
         }
     }
 
