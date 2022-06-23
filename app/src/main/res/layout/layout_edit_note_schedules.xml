@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <com.ornach.richtext.RichView
             android:id="@+id/line_gesture"
@@ -13,6 +13,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:rt_backgroundColor="@color/white"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             app:rt_radius="30dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +24,7 @@
             android:layout_marginTop="11dp"
             android:background="@drawable/bg_radius_10dp_top"
             android:backgroundTint="#00918D"
+            android:layout_below="@id/line_gesture"
             app:layout_constraintTop_toBottomOf="@id/line_gesture">
 
             <TextView
@@ -66,13 +69,17 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <EditText
+            android:id="@+id/edt_note_schedule"
             android:layout_width="match_parent"
             app:layout_constraintTop_toBottomOf="@id/layout_header"
-            android:text="afsdfaasdfasdfasdfasdf"
-            android:hint="reqwrqwer"
-            android:textColor="@color/red"
+            android:layout_height="match_parent"
+            android:layout_below="@id/layout_header"
+            android:background="@color/white"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="top"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_height="wrap_content"/>
+            android:textSize="14sp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 </layout>
