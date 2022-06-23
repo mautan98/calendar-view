@@ -1,7 +1,11 @@
 package com.namviet.vtvtravel.view.fragment.f2mytrip.place.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 
+@Parcelize
 data class PlacesScheduleItem(
 
 	@field:SerializedName("note")
@@ -26,7 +30,7 @@ data class PlacesScheduleItem(
 	var scheduleCustomId: String? = null,
 
 	@field:SerializedName("logoUrl")
-	var logoUrl: Any? = null,
+	var logoUrl: @RawValue Any? = null,
 
 	@field:SerializedName("typePlace")
 	var typePlace: String? = null,
@@ -53,7 +57,7 @@ data class PlacesScheduleItem(
 	var day: Long? = null,
 
 	@field:SerializedName("status")
-	var status: Any? = null,
+	var status: @RawValue Any? = null,
 
 	@field:SerializedName("name")
 	var name: String? = null,
@@ -64,4 +68,4 @@ data class PlacesScheduleItem(
 	@field:SerializedName("lng")
 	var lng: Double? = null,
 
-)
+	) : Parcelable
