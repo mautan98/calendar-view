@@ -244,6 +244,7 @@
     <string name="time_visiting">Thời gian thăm quan:</string>
     <string name="note_title">Ghi chú</string>
     <string name="change_places">Thay đổi</string>
+    <string name="add_schedule_note">Thêm ghi chú</string>
 
 
 </resources>
