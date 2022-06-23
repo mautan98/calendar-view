@@ -5,6 +5,7 @@ import android.view.View
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.FragmentDetailSchedulePlacesBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.view.fragment.f2mytrip.dialog.BottomNoteDialog
 import com.namviet.vtvtravel.view.fragment.f2mytrip.dialog.BottomWheelDialog
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.place.adapter.AllPlacesAdapter
@@ -43,11 +44,11 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
         adapter = AllPlacesAdapter()
         adapter?.setOnItemClickListener(object :AllPlacesAdapter.OnItemClickPlace{
             override fun onItemClick(currentPosition:Int, itemDetailPosition: Int, view: View) {
-                val dialog = BottomWheelDialog()
-                dialog.setOnSaveListener(object : BottomWheelDialog.OnClickSaveWheelTime{
-                    override fun onClickSave(hour: Int, minute: Int) {
-                        when(view.id){
-                            R.id.layout_time_travel_place -> {
+                when(view.id){
+                    R.id.layout_time_travel_place -> {
+                        val dialog = BottomWheelDialog()
+                        dialog.setOnSaveListener(object : BottomWheelDialog.OnClickSaveWheelTime{
+                            override fun onClickSave(hour: Int, minute: Int) {
                                 val calendar = Calendar.getInstance()
                                 calendar.timeInMillis = listPlaces[currentPosition].day!!
                                 calendar.set(Calendar.HOUR_OF_DAY,hour)
@@ -55,14 +56,14 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
                                 listPlaces.get(currentPosition).schedulePlaceList?.get(itemDetailPosition)?.arrivalTime = calendar.timeInMillis
                                 adapter?.notifyDataSetChanged()
                             }
-                            R.id.edt_time_visiting -> {
-
-                            }
-                        }
+                        })
+                        dialog.show(childFragmentManager,null)
                     }
-
-                })
-                dialog.show(childFragmentManager,null)
+                    R.id.note_place -> {
+                        val dialog = BottomNoteDialog.newInstance()
+                        dialog.show(childFragmentManager,null)
+                    }
+                }
             }
         })
         adapter?.setListDetailPlaces(listPlaces)
