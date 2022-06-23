@@ -11,5 +11,7 @@ data class ItemPlaces(
     var totalPlace: Int? = null,
 
     @field:SerializedName("schedulePlaceList")
-    var schedulePlaceList: MutableList<PlacesScheduleItem>? = null
+    var schedulePlaceList: MutableList<PlacesScheduleItem>? = null,
+
+    var isSelected: Boolean = false
 )
