@@ -60,8 +60,11 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
                         dialog.show(childFragmentManager,null)
                     }
                     R.id.note_place -> {
-                        val dialog = BottomNoteDialog.newInstance()
-                        dialog.show(childFragmentManager,null)
+                        val item = listPlaces.get(currentPosition).schedulePlaceList?.get(
+                            itemDetailPosition
+                        )
+                        val dialog = BottomNoteDialog.newInstance(item)
+                        dialog.show(childFragmentManager, null)
                     }
                 }
             }
@@ -81,7 +84,9 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
     }
 
     override fun setClickListener() {
-
+        binding.layoutAddPlace.setOnClickListener {
+            adapter?.getItemPlaceSelected()
+        }
     }
 
     override fun setObserver() {
