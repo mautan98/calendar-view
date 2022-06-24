@@ -73,6 +73,20 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
                         })
                         dialog.show(childFragmentManager, null)
                     }
+                    R.id.edt_time_visiting -> {
+                        val dialog = BottomWheelDialog()
+                        dialog.setOnSaveListener(object : BottomWheelDialog.OnClickSaveWheelTime{
+                            override fun onClickSave(hour: Int, minute: Int) {
+                                val calendar = Calendar.getInstance()
+                                calendar.timeInMillis = listPlaces[currentPosition].day!!
+                                calendar.set(Calendar.HOUR_OF_DAY,hour)
+                                calendar.set(Calendar.MINUTE,minute)
+//                                listPlaces.get(currentPosition).schedulePlaceList?.get(itemDetailPosition)?.freeTime = calendar.timeInMillis
+                                adapter?.notifyItemChanged(currentPosition)
+                            }
+                        })
+                        dialog.show(childFragmentManager,null)
+                    }
                 }
             }
         })
