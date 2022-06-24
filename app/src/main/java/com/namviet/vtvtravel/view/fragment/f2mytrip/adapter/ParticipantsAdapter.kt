@@ -8,16 +8,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.LayoutItemParticipantBinding
+import com.namviet.vtvtravel.listener.OnItemRecyclerClickListener
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.UserListItem
 
 class ParticipantsAdapter(var context: Context) :
     RecyclerView.Adapter<ParticipantsAdapter.ViewHolder>() {
 
     private var listParticipants: MutableList<UserListItem> = mutableListOf()
+    private var onItemClickListener:OnItemRecyclerClickListener? = null
 
     fun setListParticipants(listData:MutableList<UserListItem> ){
         listParticipants = listData
         notifyDataSetChanged()
+    }
+
+    fun setOnItemClickListener(listener :OnItemRecyclerClickListener){
+        onItemClickListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -48,6 +54,9 @@ class ParticipantsAdapter(var context: Context) :
             if (position ==listParticipants.size-1){
                 Glide.with(context).load(R.drawable.ic_invite_trip_participant).into(binding.imvParticipant)
                 binding.tvParticipantName.text = context.getString(R.string.invite)
+            }
+            itemView.setOnClickListener {
+                onItemClickListener?.onItemClick(position)
             }
         }
     }
