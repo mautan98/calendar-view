@@ -102,6 +102,10 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             editTripBottomDialog.setList(tripItemClone)
             editTripBottomDialog.setOnBackFragmentListener(object:EditTripBottomDialog.OnBackFragmentListener{
                 override fun onBackFragment(apiCode: String) {
+                    if (apiCode.equals("back_to_invite_friend")){
+                        addFragment(InviteFriendScheduleFragment())
+                        return
+                    }
                     if (apiCode.equals(WSConfig.Api.DELETE_SCHEDULE)){
                         onBackToTripsFragment?.onBackFragment()
                         activity?.onBackPressed()
@@ -130,6 +134,10 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
         }
         binding.btnBack.setOnClickListener {
             activity?.onBackPressed()
+        }
+        binding.tvInvieFriends.setOnClickListener {
+            val fragment = InviteFriendScheduleFragment()
+            addFragment(fragment)
         }
     }
 
