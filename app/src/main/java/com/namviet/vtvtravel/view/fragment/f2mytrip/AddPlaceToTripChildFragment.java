@@ -51,7 +51,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceToTripChildBinding> implements Observer {
     private SmallLocationViewModel viewModel;
     private String typeDestination = Constants.TypeDestination.PLACES;
-    private String link = "https://api-dev.vtvtravel.vn/nearby?content_type=places";
+    private String link = "https://api-dev.vtvtravel.vn/nearby?content_type";
     private String regionId;
     private List<Travel> travelList = new ArrayList<>();
     private SmallLocationToAddToTripAdapter smallLocationToAddToTripAdapter;
@@ -512,7 +512,7 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
                     mGoogleMap = googleMap;
-                    lastMarker = null;
+//                    lastMarker = null;
                     for (Travel travel : travelList) {
                         try {
                             if (travel.getLoc() != null && travel.getLoc().getCoordinates() != null
@@ -520,12 +520,12 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
                                     && travel.getLoc().getCoordinates().get(1) != null
                                     && !"".equals(travel.getLoc().getCoordinates().get(0))
                                     && !"".equals(travel.getLoc().getCoordinates().get(1))) {
-                                addMyLocation(Double.parseDouble(
-                                                travel.getLoc().getCoordinates().get(1)),
-                                        Double.parseDouble(travel.getLoc().getCoordinates().get(0)),
-                                        travel.getAddress(),
-                                        travel.getId(),
-                                        travel.getContent_type());
+//                                addMyLocation(Double.parseDouble(
+//                                                travel.getLoc().getCoordinates().get(1)),
+//                                        Double.parseDouble(travel.getLoc().getCoordinates().get(0)),
+//                                        travel.getAddress(),
+//                                        travel.getId(),
+//                                        travel.getContent_type());
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -545,7 +545,7 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
                                 }
 
                                 try {
-                                    updateMarker(marker, travelList.get(0).getContent_type());
+//                                    updateMarker(marker, travelList.get(0).getContent_type());
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -579,112 +579,112 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
         }
     }
 
-    private void addMyLocation(double lat, double lng, String address, String id, String contentType) {
-        try {
-            LatLng coordinate = new LatLng(lat, lng); //Store these lat lng values somewhere. These should be constant.
-            restaurants = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_eat_what);
-            centers = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_play_what);
-            places = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_go_where);
-            hotels = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_stay_what);
-
-
-            restaurantsBig = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_eat_what_big);
-            centersBig = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_play_what_big);
-            placesBig = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_go_where_big);
-            hotelsBig = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_stay_what_big);
-            switch (contentType) {
-                case Constants.TypeSchedule.RESTAURANTS:
-                    mGoogleMap.addMarker(new MarkerOptions().position(coordinate).title(address).snippet(id).icon(restaurants));
-                    break;
-                case Constants.TypeSchedule.CENTERS:
-                    mGoogleMap.addMarker(new MarkerOptions().position(coordinate).title(address).snippet(id).icon(centers));
-                    break;
-                case Constants.TypeSchedule.PLACES:
-                    mGoogleMap.addMarker(new MarkerOptions().position(coordinate).title(address).snippet(id).icon(places));
-                    break;
-                case Constants.TypeSchedule.HOTEL:
-                    mGoogleMap.addMarker(new MarkerOptions().position(coordinate).title(address).snippet(id).icon(hotels));
-                    break;
-                default:
-                    mGoogleMap.addMarker(new MarkerOptions().position(coordinate).title(address).snippet(id));
-                    break;
-            }
-
-
-            CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
-                    coordinate, 15);
-            mGoogleMap.animateCamera(location);
-        } catch (Exception e) {
-
-        }
-    }
-
-    private void updateMarker(Marker marker, String contentType) {
-        restaurants = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_eat_what);
-        centers = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_play_what);
-        places = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_go_where);
-        hotels = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_stay_what);
-
-
-        restaurantsBig = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_eat_what_big);
-        centersBig = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_play_what_big);
-        placesBig = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_go_where_big);
-        hotelsBig = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_stay_what_big);
-
-        switch (contentType) {
-            case Constants.TypeSchedule.RESTAURANTS:
-                if (lastMarker == null) {
-                    marker.setIcon(restaurantsBig);
-                    lastMarker = marker;
-                } else {
-                    lastMarker.setIcon(restaurants);
-                    marker.setIcon(restaurantsBig);
-                    lastMarker = marker;
-                }
-
-                break;
-            case Constants.TypeSchedule.CENTERS:
-                if (lastMarker == null) {
-                    marker.setIcon(centersBig);
-                    lastMarker = marker;
-                } else {
-                    lastMarker.setIcon(centers);
-                    marker.setIcon(centersBig);
-                    lastMarker = marker;
-                }
-                break;
-            case Constants.TypeSchedule.PLACES:
-                if (lastMarker == null) {
-                    marker.setIcon(placesBig);
-                    lastMarker = marker;
-                } else {
-                    lastMarker.setIcon(places);
-                    marker.setIcon(placesBig);
-                    lastMarker = marker;
-                }
-                break;
-            case Constants.TypeSchedule.HOTEL:
-                if (lastMarker == null) {
-                    marker.setIcon(hotelsBig);
-                    lastMarker = marker;
-                } else {
-                    lastMarker.setIcon(hotels);
-                    marker.setIcon(hotelsBig);
-                    lastMarker = marker;
-                }
-                break;
-            default:
-                if (lastMarker == null) {
-                    marker.setIcon(hotelsBig);
-                    lastMarker = marker;
-                } else {
-                    lastMarker.setIcon(hotels);
-                    marker.setIcon(hotelsBig);
-                    lastMarker = marker;
-                }
-                break;
-        }
-
-
-    }
+//    private void addMyLocation(double lat, double lng, String address, String id, String contentType) {
+//        try {
+//            LatLng coordinate = new LatLng(lat, lng); //Store these lat lng values somewhere. These should be constant.
+//            restaurants = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_eat_what);
+//            centers = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_play_what);
+//            places = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_go_where);
+//            hotels = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_stay_what);
+//
+//
+//            restaurantsBig = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_eat_what_big);
+//            centersBig = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_play_what_big);
+//            placesBig = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_go_where_big);
+//            hotelsBig = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_stay_what_big);
+//            switch (contentType) {
+//                case Constants.TypeSchedule.RESTAURANTS:
+//                    mGoogleMap.addMarker(new MarkerOptions().position(coordinate).title(address).snippet(id).icon(restaurants));
+//                    break;
+//                case Constants.TypeSchedule.CENTERS:
+//                    mGoogleMap.addMarker(new MarkerOptions().position(coordinate).title(address).snippet(id).icon(centers));
+//                    break;
+//                case Constants.TypeSchedule.PLACES:
+//                    mGoogleMap.addMarker(new MarkerOptions().position(coordinate).title(address).snippet(id).icon(places));
+//                    break;
+//                case Constants.TypeSchedule.HOTEL:
+//                    mGoogleMap.addMarker(new MarkerOptions().position(coordinate).title(address).snippet(id).icon(hotels));
+//                    break;
+//                default:
+//                    mGoogleMap.addMarker(new MarkerOptions().position(coordinate).title(address).snippet(id));
+//                    break;
+//            }
+//
+//
+//            CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
+//                    coordinate, 15);
+//            mGoogleMap.animateCamera(location);
+//        } catch (Exception e) {
+//
+//        }
+//    }
+//
+//    private void updateMarker(Marker marker, String contentType) {
+//        restaurants = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_eat_what);
+//        centers = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_play_what);
+//        places = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_go_where);
+//        hotels = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_stay_what);
+//
+//
+//        restaurantsBig = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_eat_what_big);
+//        centersBig = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_play_what_big);
+//        placesBig = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_go_where_big);
+//        hotelsBig = BitmapDescriptorFactory.fromResource(R.drawable.f2_ic_marker_stay_what_big);
+//
+//        switch (contentType) {
+//            case Constants.TypeSchedule.RESTAURANTS:
+//                if (lastMarker == null) {
+//                    marker.setIcon(restaurantsBig);
+//                    lastMarker = marker;
+//                } else {
+//                    lastMarker.setIcon(restaurants);
+//                    marker.setIcon(restaurantsBig);
+//                    lastMarker = marker;
+//                }
+//
+//                break;
+//            case Constants.TypeSchedule.CENTERS:
+//                if (lastMarker == null) {
+//                    marker.setIcon(centersBig);
+//                    lastMarker = marker;
+//                } else {
+//                    lastMarker.setIcon(centers);
+//                    marker.setIcon(centersBig);
+//                    lastMarker = marker;
+//                }
+//                break;
+//            case Constants.TypeSchedule.PLACES:
+//                if (lastMarker == null) {
+//                    marker.setIcon(placesBig);
+//                    lastMarker = marker;
+//                } else {
+//                    lastMarker.setIcon(places);
+//                    marker.setIcon(placesBig);
+//                    lastMarker = marker;
+//                }
+//                break;
+//            case Constants.TypeSchedule.HOTEL:
+//                if (lastMarker == null) {
+//                    marker.setIcon(hotelsBig);
+//                    lastMarker = marker;
+//                } else {
+//                    lastMarker.setIcon(hotels);
+//                    marker.setIcon(hotelsBig);
+//                    lastMarker = marker;
+//                }
+//                break;
+//            default:
+//                if (lastMarker == null) {
+//                    marker.setIcon(hotelsBig);
+//                    lastMarker = marker;
+//                } else {
+//                    lastMarker.setIcon(hotels);
+//                    marker.setIcon(hotelsBig);
+//                    lastMarker = marker;
+//                }
+//                break;
+//        }
+//
+//
+//    }
 }

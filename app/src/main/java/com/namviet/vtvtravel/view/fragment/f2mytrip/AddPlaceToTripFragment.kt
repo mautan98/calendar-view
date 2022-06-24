@@ -10,6 +10,7 @@ import com.namviet.vtvtravel.adapter.f2offline.MainAdapter
 import com.namviet.vtvtravel.config.Constants
 import com.namviet.vtvtravel.databinding.FragmentAddPlaceToTripBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.view.fragment.f2smalllocation.AddPlaceToTripChildFragment2
 import com.namviet.vtvtravel.viewmodel.f2smalllocation.SmallLocationViewModel
 import kotlinx.android.synthetic.main.f2_fragment_main_page_small_location.*
 
@@ -31,16 +32,16 @@ class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>() {
         mainAdapter = MainAdapter(childFragmentManager)
         binding!!.vpContent.offscreenPageLimit = 10
 
-        var addPlaceToTripChildFragment1 = AddPlaceToTripChildFragment();
+        var addPlaceToTripChildFragment1 = AddPlaceToTripChildFragment2();
         mainAdapter?.addFragment(addPlaceToTripChildFragment1, "")
 
-        var addPlaceToTripChildFragment2 = AddPlaceToTripChildFragment();
+        var addPlaceToTripChildFragment2 = AddPlaceToTripChildFragment2();
         mainAdapter?.addFragment(addPlaceToTripChildFragment2, "")
 
-        var addPlaceToTripChildFragment3 = AddPlaceToTripChildFragment();
+        var addPlaceToTripChildFragment3 = AddPlaceToTripChildFragment2();
         mainAdapter?.addFragment(addPlaceToTripChildFragment3, "")
 
-        var addPlaceToTripChildFragment4 = AddPlaceToTripChildFragment();
+        var addPlaceToTripChildFragment4 = AddPlaceToTripChildFragment2();
         mainAdapter?.addFragment(addPlaceToTripChildFragment4, "")
 
         binding!!.vpContent.adapter = mainAdapter
