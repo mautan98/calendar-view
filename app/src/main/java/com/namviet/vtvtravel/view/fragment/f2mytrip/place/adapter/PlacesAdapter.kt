@@ -59,6 +59,9 @@ class PlacesAdapter : RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
             binding.notePlace.setOnClickListener {
                 onItemClickListener?.onItemClick(position,binding.notePlace)
             }
+            binding.edtTimeVisiting.setOnClickListener {
+                onItemClickListener?.onItemClick(position,binding.edtTimeVisiting)
+            }
         }
 
     }

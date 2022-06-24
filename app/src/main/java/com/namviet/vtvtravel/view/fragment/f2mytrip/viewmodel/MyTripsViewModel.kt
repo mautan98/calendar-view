@@ -180,4 +180,25 @@ class MyTripsViewModel: BaseViewModel() {
         compositeDisposable.add(dispose)
     }
 
+    fun inviteSchedule(scheduleId:String,mobileInvite: String) {
+        val myApplication = MyApplication.getInstance()
+        val newsService = myApplication.travelServiceAcc
+        val jsonObject = JSONObject()
+        jsonObject.put("mobileInvited",mobileInvite)
+        jsonObject.put("scheduleCustomId",scheduleId)
+        val param = Param.getParams(jsonObject)
+        val resquestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),param.toString())
+        val dispose = newsService.inviteSchedule(resquestBody)
+            .subscribeOn(myApplication.subscribeScheduler())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe(Consumer {
+                if (it != null) {
+                    it.apiCode = WSConfig.Api.INVITE_SCHEDULE
+                    requestSuccessRes(it)
+                } else {
+                    requestSuccessRes(null)
+                }
+            }, { requestFailedRes(it) })
+        compositeDisposable.add(dispose)
+    }
+
 }
