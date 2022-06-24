@@ -9,11 +9,10 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.dialog.BottomNoteDialog
 import com.namviet.vtvtravel.view.fragment.f2mytrip.dialog.BottomWheelDialog
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.place.adapter.AllPlacesAdapter
-import com.namviet.vtvtravel.view.fragment.f2mytrip.place.adapter.PlacesAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.DetailPlacesResponse
 import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.ItemPlaces
-import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.PlacesScheduleItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
+import com.namviet.vtvtravel.view.fragment.f2travelvoucher.AlreadyReceiverDialog
 import java.util.*
 
 class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>(), Observer {
@@ -85,7 +84,17 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
 
     override fun setClickListener() {
         binding.layoutAddPlace.setOnClickListener {
-            adapter?.getItemPlaceSelected()
+            val dialog = AlreadyReceiverDialog()
+            dialog.setDialogTitle(getString(R.string.error_title))
+            dialog.setLabelButton(getString(R.string.close_title))
+            if (adapter?.getItemPlaceSelected() == null){
+                dialog.setDescription("Bạn chưa chọn ngày để thêm địa điểm")
+                dialog.show(childFragmentManager,null)
+                return@setOnClickListener
+            }
+        }
+        binding.imvBack.setOnClickListener {
+            activity?.onBackPressed()
         }
     }
 
