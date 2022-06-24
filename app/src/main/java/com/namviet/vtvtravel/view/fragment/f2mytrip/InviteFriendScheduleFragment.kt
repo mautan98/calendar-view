@@ -1,8 +1,10 @@
 package com.namviet.vtvtravel.view.fragment.f2mytrip
 
+import android.text.TextUtils
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.FragmentInviteScheduleBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.ultils.ValidateUtils
 
 class InviteFriendScheduleFragment : BaseFragment<FragmentInviteScheduleBinding>() {
 
@@ -21,9 +23,20 @@ class InviteFriendScheduleFragment : BaseFragment<FragmentInviteScheduleBinding>
     }
 
     override fun setClickListener() {
+        binding.btnSendInvite.setOnClickListener {
+
+        }
     }
 
     override fun setObserver() {
     }
 
+    private fun validate(phoneNumber: String): Boolean {
+        if (TextUtils.isEmpty(phoneNumber)) {
+            return false
+        } else if (ValidateUtils.isValidPhoneNumberInvite(phoneNumber)) {
+            return false
+        }
+        return true
+    }
 }
