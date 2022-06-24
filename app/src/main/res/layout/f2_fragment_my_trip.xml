@@ -61,11 +61,11 @@
             android:layout_width="match_parent"
             android:layout_below="@id/header_my_trip"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="10dp"
             android:background="@color/white"
-            android:paddingBottom="10dp"
+           android:paddingVertical="10dp"
             tools:listitem="@layout/layout_item_my_trips"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:clipToPadding="false"
             android:layout_height="match_parent"/>
 
         <ImageView
