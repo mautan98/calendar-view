@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.LayoutEditNoteSchedulesBinding
+import com.namviet.vtvtravel.ultils.DialogUtil
+import com.namviet.vtvtravel.ultils.ValidateUtils
 import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.PlacesScheduleItem
 import java.util.*
 
@@ -60,7 +62,13 @@ class BottomNoteDialog : BottomSheetDialogFragment() {
 
     private fun initClickListener() {
         binding.tvSave.setOnClickListener {
-
+            if (ValidateUtils.isEmptyEdittext(binding.edtNoteSchedule)){
+                DialogUtil.showErrorDialog(requireContext().getString(R.string.error_title),requireContext().getString(R.string.close_title),
+                "Nội dung ghi chú không được để trống",childFragmentManager)
+                return@setOnClickListener
+            }
+            val noteContent = binding.edtNoteSchedule.text.toString().trim()
+            listener?.onClickSave(noteContent)
             dismiss()
         }
         binding.tvCancel.setOnClickListener {
@@ -69,7 +77,7 @@ class BottomNoteDialog : BottomSheetDialogFragment() {
     }
 
     interface OnClickSaveNote {
-        fun onClickSave()
+        fun onClickSave(note:String)
     }
 
 }
