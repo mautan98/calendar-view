@@ -386,6 +386,7 @@ public class WSConfig {
         public static final String PLACE_CHECKOUT_ID = "placeCheckOutId";
         public static final String START_AT = "startAt";
         public static final String END_AT = "endAt";
+        public static final String SCHEDULE_PLACE_ID = "schedulePlaceId";
     }
 
     public class KeySocket {
