@@ -13,7 +13,6 @@ import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2ActivityLitterPartLuckyWheelBinding;
-import com.namviet.vtvtravel.databinding.F2ActivityLitterPartLuckyWheelBindingImpl;
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.model.Account;

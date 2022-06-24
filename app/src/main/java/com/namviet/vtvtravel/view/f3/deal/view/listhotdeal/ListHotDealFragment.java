@@ -10,7 +10,6 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.vtvtabstyle.VTVTabStyleAdapter;
-import com.namviet.vtvtravel.databinding.DialogCityBindingImpl;
 import com.namviet.vtvtravel.databinding.FragmentListDealBinding;
 import com.namviet.vtvtravel.databinding.FragmentListHotDealBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
