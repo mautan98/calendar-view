@@ -269,6 +269,7 @@ public class WSConfig {
         public static final String UPDATE_RANGE_SCHEDULE_CUSTOM = "updateRangesScheduleCustom";
         public static final String PLACE = "place";
         public static final String EDIT_NOTE = "updateNote";
+        public static final String INVITE_SCHEDULE = "inviteSchedule";
     }
 
     public class KeyParam {
