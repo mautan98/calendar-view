@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.LayoutBottomDialogEditTripBinding
+import com.namviet.vtvtravel.listener.OnItemRecyclerClickListener
 import com.namviet.vtvtravel.response.BaseResponse
 import com.namviet.vtvtravel.ultils.ValidateUtils
 import com.namviet.vtvtravel.view.fragment.f2mytrip.DetailTripFragment
@@ -77,6 +78,12 @@ class EditTripBottomDialog : BottomSheetDialogFragment(), Observer {
         listAdapter.add(UserListItem())
 
         adapter.setListParticipants(listAdapter)
+        adapter.setOnItemClickListener(object :OnItemRecyclerClickListener{
+            override fun onItemClick(position: Int) {
+                onBackFragmentListener?.onBackFragment("back_to_invite_friend")
+                dismiss()
+            }
+        })
         binding.rcvParticipant.adapter = adapter
         viewModel.addObserver(this)
     }

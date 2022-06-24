@@ -5,7 +5,7 @@ import android.view.View
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.FragmentDetailSchedulePlacesBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
-import com.namviet.vtvtravel.view.fragment.f2mytrip.AddPlaceToTripFragment
+import com.namviet.vtvtravel.response.BaseResponse
 import com.namviet.vtvtravel.view.fragment.f2mytrip.dialog.BottomNoteDialog
 import com.namviet.vtvtravel.view.fragment.f2mytrip.dialog.BottomWheelDialog
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
@@ -64,6 +64,13 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
                             itemDetailPosition
                         )
                         val dialog = BottomNoteDialog.newInstance(item)
+                        dialog.setOnSaveListener(object : BottomNoteDialog.OnClickSaveNote{
+                            override fun onClickSave(note: String) {
+                                val placeItem = listPlaces.get(currentPosition).schedulePlaceList?.get(itemDetailPosition)
+                                placeItem?.note = note
+                                placeItem?.id?.let { viewModel?.updateNoteSchedule(it,note) }
+                            }
+                        })
                         dialog.show(childFragmentManager, null)
                     }
                 }
@@ -108,8 +115,14 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
     }
 
     override fun update(o: Observable?, arg: Any?) {
-        val response = arg as DetailPlacesResponse
-        listPlaces = response.data?.content as MutableList<ItemPlaces>
-        adapter?.setListDetailPlaces(listPlaces)
+        if (arg is DetailPlacesResponse){
+            val response = arg
+            listPlaces = response.data?.content as MutableList<ItemPlaces>
+            adapter?.setListDetailPlaces(listPlaces)
+        } else if (arg is BaseResponse) {
+            if (arg.isSuccess){
+                adapter?.notifyDataSetChanged()
+            }
+        }
     }
 }

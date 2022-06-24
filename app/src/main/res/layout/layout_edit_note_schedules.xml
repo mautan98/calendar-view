@@ -79,7 +79,8 @@
             android:gravity="top"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:textSize="14sp" />
+            android:paddingHorizontal="8dp"
+            android:textSize="16sp" />
 
     </RelativeLayout>
 </layout>
