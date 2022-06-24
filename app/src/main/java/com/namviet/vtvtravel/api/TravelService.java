@@ -792,7 +792,10 @@ public interface TravelService {
     @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_RANGE_SCHEDULE_CUSTOM)
     Observable<BaseResponse> updateRangeSchedule(@Body RequestBody bodyUpdateRange);
 
-    @GET(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.PLACE_PARAM)
+    @GET(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.PLACE)
     Observable<DetailPlacesResponse> getDetailPlaces(@Query("scheduleCustomId") String scheduleCustomId);
+
+    @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.EDIT_NOTE)
+    Observable<BaseResponse> updateNoteSchedule(@Body RequestBody bodyUpdateNote);
 
 }

@@ -160,4 +160,24 @@ class MyTripsViewModel: BaseViewModel() {
         compositeDisposable.add(dispose)
     }
 
+    fun updateNoteSchedule(schedulePlaceId:String,noteContent: String) {
+        val myApplication = MyApplication.getInstance()
+        val newsService = myApplication.travelServiceAcc
+        val jsonObject = JSONObject()
+        jsonObject.put("schedulePlaceId",schedulePlaceId)
+        jsonObject.put("note",noteContent)
+        val param = Param.getParams(jsonObject)
+        val resquestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),param.toString())
+        val dispose = newsService.updateNoteSchedule(resquestBody)
+            .subscribeOn(myApplication.subscribeScheduler())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe(Consumer {
+                if (it != null) {
+                    requestSuccessRes(it)
+                } else {
+                    requestSuccessRes(null)
+                }
+            }, { requestFailedRes(it) })
+        compositeDisposable.add(dispose)
+    }
+
 }
