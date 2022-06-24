@@ -56,6 +56,7 @@ class ParticipantsAdapter(var context: Context) :
                 binding.tvParticipantName.text = context.getString(R.string.invite)
             }
             itemView.setOnClickListener {
+                if (position == listParticipants.size - 1)
                 onItemClickListener?.onItemClick(position)
             }
         }
