@@ -28,6 +28,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.FragmentAddPlaceToTripChildBinding;
@@ -89,7 +90,7 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
     private SortSmallLocationResponse sortSmallLocationResponse;
     private int positionTabSelected = 0;
     private String typeDestination = Constants.TypeDestination.PLACES;
-    private String link = "https://api.vtvtravel.vn/nearby?content_type=";
+    private String link = WSConfig.API_TO_GET_SMALL_LOCATION;
     private String code;
     private List<Travel> travelList = new ArrayList<>();
     private String loadMoreLink;
@@ -98,7 +99,7 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
     private Marker lastMarker;
 
     @SuppressLint("ValidFragment")
-    public AddPlaceToTripChildFragment(String link, String code, String regionId) {
+    public AddPlaceToTripChildFragment(String code, String regionId) {
         this.link = link;
         this.code = code;
         this.regionId = regionId;
@@ -194,24 +195,24 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
         getBinding().rclContent.setAdapter(smallLocationToAddToTripAdapter);
 
 
-//        switch (code) {
-//            case "APP_WHERE_GO":
-//                typeDestination = Constants.TypeDestination.PLACES;
+        switch (code) {
+            case "APP_WHERE_GO":
+                typeDestination = Constants.TypeDestination.PLACES;
 //                getBinding().edtSearch.setHint("Bạn muốn đi đâu");
-//                break;
-//            case "APP_WHAT_EAT":
-//                typeDestination = Constants.TypeDestination.RESTAURANTS;
+                break;
+            case "APP_WHAT_EAT":
+                typeDestination = Constants.TypeDestination.RESTAURANTS;
 //                getBinding().edtSearch.setHint("Bạn muốn ăn gì");
-//                break;
-//            case "APP_WHAT_PLAY":
-//                typeDestination = Constants.TypeDestination.CENTERS;
+                break;
+            case "APP_WHAT_PLAY":
+                typeDestination = Constants.TypeDestination.CENTERS;
 //                getBinding().edtSearch.setHint("Bạn muốn chơi gì");
-//                break;
-//            case "APP_WHERE_STAY":
-//                typeDestination = Constants.TypeDestination.HOTELS;
+                break;
+            case "APP_WHERE_STAY":
+                typeDestination = Constants.TypeDestination.HOTELS;
 //                getBinding().edtSearch.setHint("Bạn muốn ở đâu");
-//                break;
-//        }
+                break;
+        }
         viewModel.getSmallLocation(link + typeDestination + genLinkRegionId(), false);
         viewModel.getFilterByCode();
 

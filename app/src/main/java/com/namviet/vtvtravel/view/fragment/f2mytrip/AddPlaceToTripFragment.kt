@@ -31,19 +31,19 @@ class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>() {
         binding!!.vpContent.offscreenPageLimit = 10
 
         var addPlaceToTripChildFragment1 =
-            AddPlaceToTripChildFragment();
+            AddPlaceToTripChildFragment("APP_WHERE_GO", "");
         mainAdapter?.addFragment(addPlaceToTripChildFragment1, "")
 
         var addPlaceToTripChildFragment2 =
-            AddPlaceToTripChildFragment();
+            AddPlaceToTripChildFragment("APP_WHERE_STAY", "");
         mainAdapter?.addFragment(addPlaceToTripChildFragment2, "")
 
         var addPlaceToTripChildFragment3 =
-            AddPlaceToTripChildFragment();
+            AddPlaceToTripChildFragment("APP_WHAT_EAT", "");
         mainAdapter?.addFragment(addPlaceToTripChildFragment3, "")
 
         var addPlaceToTripChildFragment4 =
-            AddPlaceToTripChildFragment();
+            AddPlaceToTripChildFragment("APP_WHAT_PLAY", "");
         mainAdapter?.addFragment(addPlaceToTripChildFragment4, "")
 
         binding!!.vpContent.adapter = mainAdapter
