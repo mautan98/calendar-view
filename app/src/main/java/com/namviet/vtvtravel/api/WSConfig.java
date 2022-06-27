@@ -271,6 +271,7 @@ public class WSConfig {
         public static final String EDIT_NOTE = "updateNote";
         public static final String INVITE_SCHEDULE = "inviteSchedule";
         public static final String UPDATE_ARRIVAL_TIME = "updateArrivalTime";
+        public static final String UPDATE_FREE_TIME = "updateFreeTime";
     }
 
     public class KeyParam {
