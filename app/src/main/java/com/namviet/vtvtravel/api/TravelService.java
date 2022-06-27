@@ -801,4 +801,7 @@ public interface TravelService {
     @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.INVITE_SCHEDULE)
     Observable<BaseResponse> inviteSchedule(@Body RequestBody bodyInvite);
 
+    @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_ARRIVAL_TIME)
+    Observable<BaseResponse> updateArrivalTime(@Body RequestBody bodyInvite);
+
 }
