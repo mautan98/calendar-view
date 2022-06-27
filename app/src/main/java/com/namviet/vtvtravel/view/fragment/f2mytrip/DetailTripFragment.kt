@@ -136,7 +136,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             activity?.onBackPressed()
         }
         binding.tvInvieFriends.setOnClickListener {
-            val fragment = InviteFriendScheduleFragment()
+            val fragment = tripItem?.id?.let { it -> InviteFriendScheduleFragment.newInstance(it) }
             addFragment(fragment)
         }
     }
