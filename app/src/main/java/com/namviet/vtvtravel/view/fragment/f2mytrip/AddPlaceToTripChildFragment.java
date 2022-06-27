@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.test.mock.MockPackageManager;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -378,6 +380,38 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
 //                }));
 //            }
 //        });
+
+        getBinding().btnChangeFreeTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(mActivity, getBinding().btnChangeFreeTime);
+                popupMenu.inflate(R.menu.my_menu_item);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.freeTime1:
+                                getBinding().tvFreeTime.setText("Thời gian rảnh (30 phút)");
+                                break;
+
+                            case R.id.freeTime2:
+                                getBinding().tvFreeTime.setText("Thời gian rảnh (40 phút)");
+                                break;
+
+                            case R.id.freeTime3:
+                                getBinding().tvFreeTime.setText("Thời gian rảnh (50 phút)");
+                                break;
+
+                            case R.id.freeTime4:
+                                getBinding().tvFreeTime.setText("Thời gian rảnh (60 phút)");
+                                break;
+                        }
+                        return true;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
     }
 
     @Subscribe

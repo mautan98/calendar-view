@@ -50,7 +50,7 @@ public class SmallLocationToAddToTripAdapter extends RecyclerView.Adapter<Recycl
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
         if (viewType == TYPE_ITEM) {
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_item_experience, parent, false);
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.f2_item_experience_for_trip, parent, false);
             return new HeaderViewHolder(v);
         }
         return null;
@@ -102,6 +102,7 @@ public class SmallLocationToAddToTripAdapter extends RecyclerView.Adapter<Recycl
         private View viewTime;
         private LikeButton imgHeart;
         private RichText viewStatus;
+        private View btnAddPlaceToTrip;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -127,6 +128,7 @@ public class SmallLocationToAddToTripAdapter extends RecyclerView.Adapter<Recycl
             tvViewCount = itemView.findViewById(R.id.tvViewCount);
             imgHeart = itemView.findViewById(R.id.imgHeart);
             viewStatus = itemView.findViewById(R.id.viewStatus);
+            btnAddPlaceToTrip = itemView.findViewById(R.id.btnAddPlaceToTrip);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -195,6 +197,15 @@ public class SmallLocationToAddToTripAdapter extends RecyclerView.Adapter<Recycl
                     }, 100);
                 }
             });
+
+            btnAddPlaceToTrip.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+
 
 
 //            imgHeart.setOnClickListener(new View.OnClickListener() {
