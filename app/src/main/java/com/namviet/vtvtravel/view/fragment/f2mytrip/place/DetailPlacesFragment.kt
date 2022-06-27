@@ -81,7 +81,7 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
                         dialog.show(childFragmentManager, null)
                     }
                     R.id.edt_time_visiting -> {
-                        val dialog = BottomWheelDialog()
+                        val dialog = BottomWheelDialog.newInstance(true)
                         dialog.setOnSaveListener(object : BottomWheelDialog.OnClickSaveWheelTime{
                             override fun onClickSave(hour: Int, minute: Int) {
                                 val placeItem = listPlaces.get(currentPosition).schedulePlaceList?.get(itemDetailPosition)
