@@ -36,7 +36,7 @@ class DetailPlaceScheduleViewModel : BaseViewModel() {
         val myApplication = MyApplication.getInstance()
         val newsService = myApplication.travelServiceAcc
         val jsonObject = JSONObject()
-        jsonObject.put("arrivalTime",freeTime)
+        jsonObject.put("freeTime",freeTime)
         jsonObject.put("schedulePlaceId",schedulePlaceId)
         val param = Param.getParams(jsonObject)
         val resquestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),param.toString())
