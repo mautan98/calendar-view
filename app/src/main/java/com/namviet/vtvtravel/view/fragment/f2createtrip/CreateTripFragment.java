@@ -288,19 +288,19 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
         } else if (ValidateUtils.isEmptyEdittext(getBinding().edtTripDesc)){
             showErrorDialog(dialog,"Mô tả không được để trống");
             return false;
-        } else if (ValidateUtils.isEmptyEdittext(getBinding().edtStartPlace)){
+        } else if (ValidateUtils.isEmptyTextview(getBinding().edtStartPlace)){
             showErrorDialog(dialog, "Bạn chưa chọn nơi đi");
             return false;
-        } else if (ValidateUtils.isEmptyEdittext(getBinding().edtDestination)){
+        } else if (ValidateUtils.isEmptyTextview(getBinding().edtDestination)){
             showErrorDialog(dialog,"Bạn chưa chọn nơi đến");
             return false;
-        } else if (ValidateUtils.isEmptyEdittext(getBinding().edtStartDate)){
+        } else if (ValidateUtils.isEmptyTextview(getBinding().edtStartDate)){
             showErrorDialog(dialog, "Bạn chưa chọn ngày đi");
             return false;
-        } else if (ValidateUtils.isEmptyEdittext(getBinding().edtReturnDate)){
+        } else if (ValidateUtils.isEmptyTextview(getBinding().edtReturnDate)){
             showErrorDialog(dialog, "Bạn chưa chọn ngày về");
             return false;
-        } else if (ValidateUtils.isEmptyEdittext(getBinding().edtAmountPeople)) {
+        } else if (ValidateUtils.isEmptyTextview(getBinding().edtAmountPeople)) {
             showErrorDialog(dialog, "Bạn chưa chọn số lượng hành khách");
             return false;
         }
