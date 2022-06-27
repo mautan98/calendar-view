@@ -32,4 +32,25 @@ class DetailPlaceScheduleViewModel : BaseViewModel() {
         compositeDisposable.add(dispose)
     }
 
+    fun updateFreeTime(schedulePlaceId:String,freeTime:String,){
+        val myApplication = MyApplication.getInstance()
+        val newsService = myApplication.travelServiceAcc
+        val jsonObject = JSONObject()
+        jsonObject.put("arrivalTime",freeTime)
+        jsonObject.put("schedulePlaceId",schedulePlaceId)
+        val param = Param.getParams(jsonObject)
+        val resquestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),param.toString())
+        val dispose = newsService.updateFreeTime(resquestBody)
+            .subscribeOn(myApplication.subscribeScheduler())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe(Consumer {
+                if (it != null) {
+                    it.apiCode = WSConfig.Api.UPDATE_ARRIVAL_TIME
+                    requestSuccessRes(it)
+                } else {
+                    requestSuccessRes(null)
+                }
+            }, { requestFailedRes(it) })
+        compositeDisposable.add(dispose)
+    }
+
 }
