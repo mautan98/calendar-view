@@ -245,6 +245,10 @@
     <string name="note_title">Ghi chú</string>
     <string name="change_places">Thay đổi</string>
     <string name="add_schedule_note">Thêm ghi chú</string>
+    <string name="send_invite_to_phone_success">Bạn đã gửi lời mời đến số điện thoại %s thành công</string>
+    <string name="confirm_delete_schedule">Bạn có muốn xoá lịch trình trong ngày</string>
+    <string name="agree">Đồng ý</string>
+    <string name="confirm_delete_trip">Bạn có chắc chắn muốn xoá chuyến đi?</string>
 
 
 </resources>
