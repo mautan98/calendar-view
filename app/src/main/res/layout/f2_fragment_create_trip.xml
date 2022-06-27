@@ -37,13 +37,13 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
                         android:layout_marginTop="16dp">
 
                         <ImageView
                             android:id="@+id/imv_back"
-                            android:layout_width="12dp"
-                            android:layout_height="18dp"
+                            android:layout_width="36dp"
+                            android:layout_height="48dp"
+                            android:paddingVertical="15dp"
                             android:layout_centerVertical="true"
                             android:src="@drawable/ic_back_white" />
 
@@ -80,8 +80,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_medium"
                         android:text="@string/name_to_the_trip"
-                        android:textColor="#3D3D3D"
-                        android:textSize="12sp" />
+                        android:textColor="#3D3D3D" />
 
                     <EditText
                         android:id="@+id/edt_trip_name"
@@ -89,7 +88,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"
                         android:hint="@string/hint_trip_name"
-                        
+
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -99,8 +98,7 @@
                         android:layout_marginTop="18dp"
                         android:fontFamily="@font/roboto_medium"
                         android:text="@string/description_title"
-                        android:textColor="#3D3D3D"
-                        android:textSize="12sp" />
+                        android:textColor="#3D3D3D" />
 
                     <EditText
                         android:id="@+id/edt_trip_desc"
@@ -140,46 +138,64 @@
                             android:fontFamily="@font/roboto_medium"
                             android:text="Nơi đi"
                             android:textColor="#3D3D3D"
-                            android:textSize="12sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/edt_start_place"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_regular"
                             android:hint="Hà Nội"
-                            android:editable="false"
+                            android:textColor="@color/black"
                             android:layout_marginTop="8dp"
                             android:textSize="16sp"
                             app:layout_constraintEnd_toStartOf="@id/imv_link_place"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/start_place" />
 
+                        <View
+                            android:layout_width="0dp"
+                            android:background="@color/color_gray_trip_ec"
+                            app:layout_constraintTop_toBottomOf="@id/edt_start_place"
+                            android:layout_marginTop="4dp"
+                            app:layout_constraintStart_toStartOf="@id/edt_destination"
+                            app:layout_constraintEnd_toEndOf="@id/edt_destination"
+                            android:layout_height="1dp"/>
+
                         <TextView
                             android:id="@+id/destination"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="20dp"
                             android:fontFamily="@font/roboto_medium"
                             android:text="Nơi đến"
                             android:textColor="#3D3D3D"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/edt_start_place" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/edt_destination"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_regular"
                             android:hint="Đà Lạt"
+                            android:textColor="@color/black"
                             android:editable="false"
                             android:textSize="16sp"
                             android:layout_marginTop="8dp"
                             app:layout_constraintEnd_toStartOf="@id/imv_link_place"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/destination" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:background="@color/color_gray_trip_ec"
+                            app:layout_constraintTop_toBottomOf="@id/edt_destination"
+                            android:layout_marginTop="4dp"
+                            app:layout_constraintStart_toStartOf="@id/edt_destination"
+                            app:layout_constraintEnd_toEndOf="@id/edt_destination"
+                            android:layout_height="1dp"/>
 
                         <ImageView
                             android:id="@+id/imv_link_place"
@@ -196,7 +212,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
                             android:text="Ngày đi"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="20dp"
                             android:textColor="#3D3D3D"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/edt_destination" />
@@ -211,20 +227,28 @@
                             app:layout_constraintBottom_toBottomOf="@id/start_date"
                             app:layout_constraintTop_toTopOf="@id/start_date" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/edt_start_date"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:drawableStart="@drawable/ic_start_date_picker"
                             android:drawablePadding="20dp"
                             android:fontFamily="@font/roboto_regular"
                             android:editable="false"
+                            android:textColor="@color/black"
                             android:src="@drawable/ic_start_date_picker"
                             android:textSize="16sp"
                             app:layout_constraintEnd_toStartOf="@id/trip_inday"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/start_date" />
+                            app:layout_constraintTop_toBottomOf="@+id/start_date"
+                            app:drawableStartCompat="@drawable/ic_start_date_picker" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:background="@color/color_gray_trip_ec"
+                            app:layout_constraintTop_toBottomOf="@id/edt_start_date"
+                            android:layout_marginTop="4dp"
+                            android:layout_height="1dp"/>
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/trip_inday"
@@ -241,24 +265,32 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
                             android:text="Ngày về"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="20dp"
                             android:textColor="#3D3D3D"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/edt_start_date" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/edt_return_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:drawableStart="@drawable/ic_return_date"
                             android:drawablePadding="20dp"
                             android:fontFamily="@font/roboto_regular"
                             android:editable="false"
                             android:src="@drawable/ic_start_date_picker"
                             android:textSize="16sp"
+                            android:textColor="@color/black"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/return_day" />
+                            app:layout_constraintTop_toBottomOf="@+id/return_day"
+                            app:drawableStartCompat="@drawable/ic_return_date" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:background="@color/color_gray_trip_ec"
+                            app:layout_constraintTop_toBottomOf="@id/edt_return_date"
+                            android:layout_marginTop="4dp"
+                            android:layout_height="1dp"/>
 
                         <TextView
                             android:id="@+id/amount_people"
@@ -267,28 +299,36 @@
                             android:fontFamily="@font/roboto_medium"
                             android:text="Số người"
                             android:textColor="#3D3D3D"
-                            android:layout_marginTop="16dp"
-                            android:textSize="12sp"
+                            android:layout_marginTop="20dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/edt_return_date" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/edt_amount_people"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_regular"
                             android:editable="false"
+                            android:hint="Số lượng người tham gia"
                             android:textSize="16sp"
+                            android:textColor="@color/black"
                             android:layout_marginTop="8dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/amount_people" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:background="@color/color_gray_trip_ec"
+                            app:layout_constraintTop_toBottomOf="@id/edt_amount_people"
+                            android:layout_marginTop="4dp"
+                            android:layout_height="1dp"/>
 
                         <com.ornach.richtext.RichText
                             android:id="@+id/btn_schedule_trip"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:paddingVertical="12dp"
+                            android:paddingVertical="16dp"
                             android:layout_marginTop="30dp"
                             android:text="Lên lịch trình"
                             android:textColor="@color/white"
