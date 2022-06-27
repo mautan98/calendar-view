@@ -139,6 +139,10 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             val fragment = tripItem?.id?.let { it -> InviteFriendScheduleFragment.newInstance(it) }
             addFragment(fragment)
         }
+        binding.tvViewAll.setOnClickListener {
+            val fragment = DetailPlacesFragment.newInstance(tripItem)
+            addFragment(fragment)
+        }
     }
 
     override fun setObserver() {
