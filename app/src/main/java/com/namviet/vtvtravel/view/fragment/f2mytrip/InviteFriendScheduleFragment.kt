@@ -5,7 +5,9 @@ import android.text.TextUtils
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.FragmentInviteScheduleBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
-import com.namviet.vtvtravel.ultils.ValidateUtils
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
+import com.namviet.vtvtravel.response.BaseResponse
+import com.namviet.vtvtravel.ultils.DialogUtil
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
 import java.util.*
 
@@ -47,6 +49,9 @@ class InviteFriendScheduleFragment : BaseFragment<FragmentInviteScheduleBinding>
                 scheduleId?.let { it -> viewmodel?.inviteSchedule(it,phoneNumber) }
             }
         }
+        binding.imvBack.setOnClickListener {
+            activity?.onBackPressed()
+        }
     }
 
     override fun setObserver() {
@@ -54,14 +59,35 @@ class InviteFriendScheduleFragment : BaseFragment<FragmentInviteScheduleBinding>
 
     private fun validate(phoneNumber: String): Boolean {
         if (TextUtils.isEmpty(phoneNumber)) {
-            return false
-        } else if (ValidateUtils.isValidPhoneNumberInvite(phoneNumber)) {
+            DialogUtil.showErrorDialog(
+                requireContext().getString(R.string.error_title),
+                requireContext().getString(R.string.close_title),
+                "Số điện thoại không được để trống",
+                childFragmentManager
+            )
             return false
         }
         return true
     }
 
     override fun update(o: Observable?, arg: Any?) {
-
+        if (arg is BaseResponse) {
+            val response = arg
+            if (response.isSuccess) {
+                val desc = requireContext().getString(
+                    R.string.send_invite_to_phone_success,
+                    binding.edtPhoneNumber.text.toString()
+                )
+                DialogUtil.showConfirmSuccessDialog(desc, "Ok", childFragmentManager)
+            }
+        } else if (arg is ErrorResponse) {
+            val response = arg
+            DialogUtil.showErrorDialog(
+                requireContext().getString(R.string.error_title),
+                requireContext().getString(R.string.close_title),
+                response.errorCode,
+                childFragmentManager
+            )
+        }
     }
 }
