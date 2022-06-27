@@ -18,6 +18,7 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.UserListItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
 import com.namviet.vtvtravel.view.fragment.f2travelvoucher.AlreadyReceiverDialog
+import com.namviet.vtvtravel.widget.ConfirmDeleteDialog
 import java.util.*
 
 class EditTripBottomDialog : BottomSheetDialogFragment(), Observer {
@@ -101,7 +102,14 @@ class EditTripBottomDialog : BottomSheetDialogFragment(), Observer {
             dismiss()
         }
         binding.layoutDeleteTrip.setOnClickListener {
-            viewModel.deleteSchedule(tripItem?.id!!)
+            val confirmDialog = ConfirmDeleteDialog()
+            confirmDialog.setDescription(getString(R.string.confirm_delete_trip))
+            confirmDialog.setConfirmClickListener(object :ConfirmDeleteDialog.OnConfirmListener{
+                override fun onClickConfirm() {
+                    viewModel.deleteSchedule(tripItem?.id!!)
+                }
+            })
+            confirmDialog.show(childFragmentManager,null)
         }
     }
 

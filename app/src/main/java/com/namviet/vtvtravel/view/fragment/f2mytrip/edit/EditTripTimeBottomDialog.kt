@@ -12,15 +12,18 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.databinding.LayoutEditTimeTripBinding
+import com.namviet.vtvtravel.listener.OnItemRecyclerClickListener
 import com.namviet.vtvtravel.response.BaseResponse
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.TripsTimeAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.SchedulePlaceByDaysItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
+import com.namviet.vtvtravel.widget.ConfirmDeleteDialog
 import java.util.*
 import kotlin.collections.ArrayList
 
-class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer {
+class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer,
+    OnItemRecyclerClickListener {
 
     companion object {
         const val KEY_LIST_SCHEDULE_DAY = "list_schedule_day"
@@ -72,6 +75,7 @@ class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer {
         tripItem = arguments?.getParcelable(KEY_LIST_SCHEDULE_DAY)
         listDay = tripItem?.schedulePlaceByDays as MutableList<SchedulePlaceByDaysItem>
         adapter = TripsTimeAdapter()
+        adapter?.setOnItemClickListener(this)
         adapter?.setListScheduleByDays(listDay)
         binding.rcvPlaceByDay.adapter = adapter
         viewModel.addObserver(this)
@@ -137,5 +141,19 @@ class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer {
 
     interface OnBackFragmentListener {
         fun onBackFragment(apiCode: String)
+    }
+
+    override fun onItemClick(position: Int) {
+        val confirmDialog = ConfirmDeleteDialog()
+        confirmDialog.setDescription(requireContext().getString(R.string.confirm_delete_schedule))
+        confirmDialog.setLabelButton(getString(R.string.agree))
+        confirmDialog.setConfirmClickListener(object :ConfirmDeleteDialog.OnConfirmListener{
+            override fun onClickConfirm() {
+                listDay.removeAt(position)
+                adapter?.notifyItemRemoved(position)
+            }
+
+        })
+        confirmDialog.show(childFragmentManager,null)
     }
 }
