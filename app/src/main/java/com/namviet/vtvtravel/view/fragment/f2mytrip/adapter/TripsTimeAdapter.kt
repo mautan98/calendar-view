@@ -9,15 +9,21 @@ import com.bumptech.glide.Glide
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.databinding.LayoutItemDateTimeTripBinding
+import com.namviet.vtvtravel.listener.OnItemRecyclerClickListener
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.SchedulePlaceByDaysItem
 
 class TripsTimeAdapter : RecyclerView.Adapter<TripsTimeAdapter.ViewHolder>() {
 
     private var listScheduleDay: MutableList<SchedulePlaceByDaysItem> = mutableListOf()
+    private var onItemClickListener: OnItemRecyclerClickListener? = null
 
     fun setListScheduleByDays(listData: MutableList<SchedulePlaceByDaysItem>) {
         this.listScheduleDay = listData
         notifyDataSetChanged()
+    }
+
+    fun setOnItemClickListener(listener: OnItemRecyclerClickListener) {
+        onItemClickListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -58,8 +64,7 @@ class TripsTimeAdapter : RecyclerView.Adapter<TripsTimeAdapter.ViewHolder>() {
 
         private fun clickListener(position: Int){
             binding.imvDeleteScheduleDate.setOnClickListener {
-                listScheduleDay.removeAt(position)
-                notifyDataSetChanged()
+                onItemClickListener?.onItemClick(position)
             }
         }
 
