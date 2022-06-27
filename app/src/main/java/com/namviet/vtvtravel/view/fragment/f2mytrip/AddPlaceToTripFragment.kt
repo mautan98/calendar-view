@@ -1,5 +1,7 @@
 package com.namviet.vtvtravel.view.fragment.f2mytrip
 
+import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -10,7 +12,16 @@ import com.namviet.vtvtravel.adapter.f2offline.MainAdapter
 import com.namviet.vtvtravel.config.Constants
 import com.namviet.vtvtravel.databinding.FragmentAddPlaceToTripBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
-import kotlinx.android.synthetic.main.f2_fragment_main_page_small_location.*
+import com.namviet.vtvtravel.view.f3.model.ClickHideMapView
+import com.namviet.vtvtravel.view.f3.model.HideMapView
+import com.namviet.vtvtravel.view.f3.model.ShowMapView
+import kotlinx.android.synthetic.main.fragment_add_place_to_trip.*
+import kotlinx.android.synthetic.main.fragment_add_place_to_trip.btnBack
+import kotlinx.android.synthetic.main.fragment_add_place_to_trip.btnBackmap
+import kotlinx.android.synthetic.main.fragment_add_place_to_trip.rll_header_map
+import kotlinx.android.synthetic.main.fragment_add_place_to_trip.tabLayout
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>() {
     private var mainAdapter : MainAdapter? = null
@@ -100,6 +111,37 @@ class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>() {
         btnBack.setOnClickListener {
             mActivity.onBackPressed()
         }
+
+        btnBackmap.setOnClickListener {
+            layout_header.visibility = View.VISIBLE
+            rll_header_map.visibility = View.GONE
+            tabLayout.visibility = View.VISIBLE
+            EventBus.getDefault().post(ClickHideMapView())
+        }
     }
     override fun setObserver() {}
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe
+    public fun showMapView(showMapView: ShowMapView){
+        layout_header.visibility = View.GONE
+        tabLayout.visibility = View.GONE
+        rll_header_map.visibility = View.VISIBLE
+    }
+    @Subscribe
+    public fun hideMapView(hideMapView: HideMapView){
+        layout_header.visibility = View.VISIBLE
+        tabLayout.visibility = View.VISIBLE
+        rll_header_map.visibility = View.GONE
+    }
 }

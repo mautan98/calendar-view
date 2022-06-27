@@ -54,6 +54,7 @@ import com.namviet.vtvtravel.view.f2.FilterActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f3.model.ClickHideMapView;
 import com.namviet.vtvtravel.view.f3.model.HideMapView;
+import com.namviet.vtvtravel.view.f3.model.ShowMapView;
 import com.namviet.vtvtravel.view.fragment.f2filter.SortDialog;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.SmallLocationToAddToTripAdapter;
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.DetailSmallLocationFragment;
@@ -153,6 +154,7 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
         getBinding().layoutMap.setVisibility(View.INVISIBLE);
         getBinding().rclContent.setVisibility(View.VISIBLE);
         getBinding().layoutButtonList.setVisibility(View.VISIBLE);
+        getBinding().layoutToolbar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -309,17 +311,18 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
             }
         });
 
-//        getBinding().btnMap.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                MapActivity.startScreen(mActivity, travelList);
-//                getBinding().layoutButtonMap.setVisibility(View.VISIBLE);
-////                getBinding().layoutItem.setVisibility(View.VISIBLE);
-//                getBinding().layoutMap.setVisibility(View.VISIBLE);
-//                getBinding().layoutButtonList.setVisibility(View.INVISIBLE);
-//                EventBus.getDefault().post(new ShowMapView());
-//            }
-//        });
+        getBinding().btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                MapActivity.startScreen(mActivity, travelList);
+                getBinding().layoutButtonMap.setVisibility(View.VISIBLE);
+//                getBinding().layoutItem.setVisibility(View.VISIBLE);
+                getBinding().layoutMap.setVisibility(View.VISIBLE);
+                getBinding().layoutButtonList.setVisibility(View.INVISIBLE);
+                getBinding().layoutToolbar.setVisibility(View.GONE);
+                EventBus.getDefault().post(new ShowMapView());
+            }
+        });
 
         getBinding().btnList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -329,6 +332,7 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
                 getBinding().layoutMap.setVisibility(View.INVISIBLE);
                 getBinding().rclContent.setVisibility(View.VISIBLE);
                 getBinding().layoutButtonList.setVisibility(View.VISIBLE);
+                getBinding().layoutToolbar.setVisibility(View.VISIBLE);
                 EventBus.getDefault().post(new HideMapView());
             }
         });
