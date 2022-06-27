@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/freeTime1"
+        android:alphabeticShortcut="t"
+        android:orderInCategory="1"
+        android:title="Thời gian rảnh (30 phút)"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/freeTime2"
+        android:alphabeticShortcut="t"
+        android:orderInCategory="1"
+        android:title="Thời gian rảnh (40 phút)"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/freeTime3"
+        android:alphabeticShortcut="t"
+        android:orderInCategory="1"
+        android:title="Thời gian rảnh (50 phút)"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/freeTime4"
+        android:alphabeticShortcut="t"
+        android:orderInCategory="1"
+        android:title="Thời gian rảnh (60 phút)"
+        app:showAsAction="never"/>
+
+</menu>

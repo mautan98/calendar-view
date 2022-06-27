@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.test.mock.MockPackageManager;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -28,6 +30,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.FragmentAddPlaceToTripChildBinding;
@@ -53,6 +56,7 @@ import com.namviet.vtvtravel.view.f2.FilterActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f3.model.ClickHideMapView;
 import com.namviet.vtvtravel.view.f3.model.HideMapView;
+import com.namviet.vtvtravel.view.f3.model.ShowMapView;
 import com.namviet.vtvtravel.view.fragment.f2filter.SortDialog;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.SmallLocationToAddToTripAdapter;
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.DetailSmallLocationFragment;
@@ -89,7 +93,7 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
     private SortSmallLocationResponse sortSmallLocationResponse;
     private int positionTabSelected = 0;
     private String typeDestination = Constants.TypeDestination.PLACES;
-    private String link = "https://api.vtvtravel.vn/nearby?content_type=";
+    private String link = WSConfig.API_TO_GET_SMALL_LOCATION;
     private String code;
     private List<Travel> travelList = new ArrayList<>();
     private String loadMoreLink;
@@ -98,7 +102,7 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
     private Marker lastMarker;
 
     @SuppressLint("ValidFragment")
-    public AddPlaceToTripChildFragment(String link, String code, String regionId) {
+    public AddPlaceToTripChildFragment(String code, String regionId) {
         this.link = link;
         this.code = code;
         this.regionId = regionId;
@@ -152,6 +156,7 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
         getBinding().layoutMap.setVisibility(View.INVISIBLE);
         getBinding().rclContent.setVisibility(View.VISIBLE);
         getBinding().layoutButtonList.setVisibility(View.VISIBLE);
+        getBinding().layoutToolbar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -194,24 +199,24 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
         getBinding().rclContent.setAdapter(smallLocationToAddToTripAdapter);
 
 
-//        switch (code) {
-//            case "APP_WHERE_GO":
-//                typeDestination = Constants.TypeDestination.PLACES;
+        switch (code) {
+            case "APP_WHERE_GO":
+                typeDestination = Constants.TypeDestination.PLACES;
 //                getBinding().edtSearch.setHint("Bạn muốn đi đâu");
-//                break;
-//            case "APP_WHAT_EAT":
-//                typeDestination = Constants.TypeDestination.RESTAURANTS;
+                break;
+            case "APP_WHAT_EAT":
+                typeDestination = Constants.TypeDestination.RESTAURANTS;
 //                getBinding().edtSearch.setHint("Bạn muốn ăn gì");
-//                break;
-//            case "APP_WHAT_PLAY":
-//                typeDestination = Constants.TypeDestination.CENTERS;
+                break;
+            case "APP_WHAT_PLAY":
+                typeDestination = Constants.TypeDestination.CENTERS;
 //                getBinding().edtSearch.setHint("Bạn muốn chơi gì");
-//                break;
-//            case "APP_WHERE_STAY":
-//                typeDestination = Constants.TypeDestination.HOTELS;
+                break;
+            case "APP_WHERE_STAY":
+                typeDestination = Constants.TypeDestination.HOTELS;
 //                getBinding().edtSearch.setHint("Bạn muốn ở đâu");
-//                break;
-//        }
+                break;
+        }
         viewModel.getSmallLocation(link + typeDestination + genLinkRegionId(), false);
         viewModel.getFilterByCode();
 
@@ -308,17 +313,18 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
             }
         });
 
-//        getBinding().btnMap.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                MapActivity.startScreen(mActivity, travelList);
-//                getBinding().layoutButtonMap.setVisibility(View.VISIBLE);
-////                getBinding().layoutItem.setVisibility(View.VISIBLE);
-//                getBinding().layoutMap.setVisibility(View.VISIBLE);
-//                getBinding().layoutButtonList.setVisibility(View.INVISIBLE);
-//                EventBus.getDefault().post(new ShowMapView());
-//            }
-//        });
+        getBinding().btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                MapActivity.startScreen(mActivity, travelList);
+                getBinding().layoutButtonMap.setVisibility(View.VISIBLE);
+//                getBinding().layoutItem.setVisibility(View.VISIBLE);
+                getBinding().layoutMap.setVisibility(View.VISIBLE);
+                getBinding().layoutButtonList.setVisibility(View.INVISIBLE);
+                getBinding().layoutToolbar.setVisibility(View.GONE);
+                EventBus.getDefault().post(new ShowMapView());
+            }
+        });
 
         getBinding().btnList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -328,6 +334,7 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
                 getBinding().layoutMap.setVisibility(View.INVISIBLE);
                 getBinding().rclContent.setVisibility(View.VISIBLE);
                 getBinding().layoutButtonList.setVisibility(View.VISIBLE);
+                getBinding().layoutToolbar.setVisibility(View.VISIBLE);
                 EventBus.getDefault().post(new HideMapView());
             }
         });
@@ -373,6 +380,38 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
 //                }));
 //            }
 //        });
+
+        getBinding().btnChangeFreeTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(mActivity, getBinding().btnChangeFreeTime);
+                popupMenu.inflate(R.menu.my_menu_item);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.freeTime1:
+                                getBinding().tvFreeTime.setText("Thời gian rảnh (30 phút)");
+                                break;
+
+                            case R.id.freeTime2:
+                                getBinding().tvFreeTime.setText("Thời gian rảnh (40 phút)");
+                                break;
+
+                            case R.id.freeTime3:
+                                getBinding().tvFreeTime.setText("Thời gian rảnh (50 phút)");
+                                break;
+
+                            case R.id.freeTime4:
+                                getBinding().tvFreeTime.setText("Thời gian rảnh (60 phút)");
+                                break;
+                        }
+                        return true;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
     }
 
     @Subscribe

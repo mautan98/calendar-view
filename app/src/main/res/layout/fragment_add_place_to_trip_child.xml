@@ -66,6 +66,7 @@
 
 
             <LinearLayout
+                android:id="@+id/btnChangeFreeTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
@@ -81,6 +82,7 @@
 
 
                 <TextView
+                    android:id="@+id/tvFreeTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="9.5dp"
