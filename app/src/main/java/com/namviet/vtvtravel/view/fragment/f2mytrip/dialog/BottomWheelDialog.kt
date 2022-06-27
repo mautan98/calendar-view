@@ -12,15 +12,17 @@ import com.namviet.vtvtravel.databinding.LayoutBottomWheelTimeBinding
 class BottomWheelDialog : BottomSheetDialogFragment() {
 
     companion object {
-        fun newInstance(): BottomWheelDialog {
+        const val KEY_IS_FREE_TIME = "key_free_time"
+        fun newInstance(isFreeTime: Boolean): BottomWheelDialog {
             val args = Bundle()
-
+            args.putBoolean(KEY_IS_FREE_TIME,isFreeTime)
             val fragment = BottomWheelDialog()
             fragment.arguments = args
             return fragment
         }
     }
 
+    private var isFreeTime: Boolean = false
     private lateinit var binding: LayoutBottomWheelTimeBinding
     private var listHour:MutableList<String> = mutableListOf()
     private var listMinute:MutableList<String> = mutableListOf()
@@ -52,18 +54,43 @@ class BottomWheelDialog : BottomSheetDialogFragment() {
     }
 
     private fun initData(){
-      for (i in 0..23){
-          val formatted = String.format("%02d", i)
-          listHour.add("${formatted} Giờ")
-      }
-        for (i in 0..59){
+        isFreeTime = arguments?.getBoolean(KEY_IS_FREE_TIME) == true
+        for (i in 0..23) {
             val formatted = String.format("%02d", i)
-            listMinute.add("${formatted} Phút")
+            listHour.add("${formatted} Giờ")
+        }
+        if (isFreeTime){
+            binding.wheelHourTime.visibility = View.GONE
+            listMinute.add("30 Phút")
+            listMinute.add("1 Giờ")
+            listMinute.add("1 giờ 30 phút ")
+        } else {
+            for (i in 0..59) {
+                val formatted = String.format("%02d", i)
+                listMinute.add("${formatted} Phút")
+            }
         }
     }
 
     private fun initClickListener(){
         binding.tvSave.setOnClickListener {
+            if (isFreeTime){
+                var selectedMinute = 0
+                when(binding.wheelMinuteTime.currentItemPosition){
+                    0 -> {
+                        selectedMinute = 30
+                    }
+                    1 -> {
+                        selectedMinute = 60
+                    }
+                    2 -> {
+                        selectedMinute = 90
+                    }
+                }
+                listener?.onClickSave(0,selectedMinute)
+                dismiss()
+                return@setOnClickListener
+            }
             val stringHour = listHour.get(binding.wheelHourTime.currentItemPosition).substring(0,2)
             val stringMinute = listMinute.get(binding.wheelMinuteTime.currentItemPosition).substring(0,2)
             val selectedHour:Int = stringHour.toInt()
