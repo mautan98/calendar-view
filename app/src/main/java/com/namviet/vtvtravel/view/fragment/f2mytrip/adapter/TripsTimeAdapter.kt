@@ -22,6 +22,10 @@ class TripsTimeAdapter : RecyclerView.Adapter<TripsTimeAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun getListSchedulesDay():MutableList<SchedulePlaceByDaysItem>{
+        return listScheduleDay
+    }
+
     fun setOnItemClickListener(listener: OnItemRecyclerClickListener) {
         onItemClickListener = listener
     }

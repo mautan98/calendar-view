@@ -17,10 +17,10 @@ import com.namviet.vtvtravel.response.BaseResponse
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.TripsTimeAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.SchedulePlaceByDaysItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
+import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.DetailPlaceScheduleViewModel
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
 import com.namviet.vtvtravel.widget.ConfirmDeleteDialog
 import java.util.*
-import kotlin.collections.ArrayList
 
 class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer,
     OnItemRecyclerClickListener {
@@ -36,10 +36,12 @@ class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer,
         }
     }
 
+    private var listClone: MutableList<SchedulePlaceByDaysItem>? = null
     private lateinit var binding: LayoutEditTimeTripBinding
     private var listDay: MutableList<SchedulePlaceByDaysItem> = mutableListOf()
     private var tripItem: TripItem? = null
     private val viewModel = MyTripsViewModel()
+    private val detailPlaceViewModel = DetailPlaceScheduleViewModel()
     private var onBackFragmentListener: OnBackFragmentListener? = null
     private var adapter: TripsTimeAdapter? = null
 
@@ -73,19 +75,23 @@ class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer,
 
     private fun initView() {
         tripItem = arguments?.getParcelable(KEY_LIST_SCHEDULE_DAY)
-        listDay = tripItem?.schedulePlaceByDays as MutableList<SchedulePlaceByDaysItem>
+        listDay.addAll(tripItem?.schedulePlaceByDays as MutableList<SchedulePlaceByDaysItem>)
+        listClone = mutableListOf()
+        listClone?.addAll(listDay)
         adapter = TripsTimeAdapter()
         adapter?.setOnItemClickListener(this)
         adapter?.setListScheduleByDays(listDay)
         binding.rcvPlaceByDay.adapter = adapter
         viewModel.addObserver(this)
+        detailPlaceViewModel.addObserver(this)
     }
 
     private fun initClickListener() {
         binding.tvSave.setOnClickListener {
+            listDay = adapter?.getListSchedulesDay()!!
             val startAt = Utils.formatTimeStamp(listDay.get(0).day,"yyyy-MM-dd")
             val endAt = Utils.formatTimeStamp(listDay.get(listDay.size - 1).day,"yyyy-MM-dd")
-            viewModel.updateRangeScheduleTime(tripItem?.id!!,startAt,endAt,)
+            viewModel.updateRangeScheduleTime(tripItem?.id!!, startAt, endAt)
         }
         binding.tvCancel.setOnClickListener {
             dismiss()
@@ -117,8 +123,9 @@ class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer,
                         item.totalPlace = 0
                         item.day = calendar.timeInMillis
                         item.removeAble = false
-                        listDay.add(item)
-                        adapter?.setListScheduleByDays(listDay)
+                        val listClone = listDay
+                        listClone.add(item)
+                        adapter?.setListScheduleByDays(listClone)
                     }
                 }, selectedYear, selectedMonth, selectedDayOfMonth
             )
@@ -149,8 +156,9 @@ class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer,
         confirmDialog.setLabelButton(getString(R.string.agree))
         confirmDialog.setConfirmClickListener(object :ConfirmDeleteDialog.OnConfirmListener{
             override fun onClickConfirm() {
-                listDay.removeAt(position)
-                adapter?.notifyItemRemoved(position)
+//                detailPlaceViewModel.deltePlaceByDay()
+                listClone?.removeAt(position)
+                listClone?.let { adapter?.setListScheduleByDays(it) }
             }
 
         })
