@@ -807,4 +807,10 @@ public interface TravelService {
     @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_FREE_TIME)
     Observable<BaseResponse> updateFreeTime(@Body RequestBody bodyInvite);
 
+    @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.DELETE_PLACE)
+    Observable<BaseResponse> deletePlace(@Body RequestBody schedulePlaceId);
+
+    @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.DELETE_PLACE_BY_DAY)
+    Observable<BaseResponse> deletePlaceByDay(@Body RequestBody bodyDelete);
+
 }

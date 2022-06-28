@@ -53,4 +53,45 @@ class DetailPlaceScheduleViewModel : BaseViewModel() {
         compositeDisposable.add(dispose)
     }
 
+    fun deltePlace(schedulePlaceId:String){
+        val myApplication = MyApplication.getInstance()
+        val newsService = myApplication.travelServiceAcc
+        val jsonObject = JSONObject()
+        jsonObject.put("schedulePlaceId",schedulePlaceId)
+        val param = Param.getParams(jsonObject)
+        val resquestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),param.toString())
+        val dispose = newsService.deletePlace(resquestBody)
+            .subscribeOn(myApplication.subscribeScheduler())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe(Consumer {
+                if (it != null) {
+                    it.apiCode = WSConfig.Api.UPDATE_ARRIVAL_TIME
+                    requestSuccessRes(it)
+                } else {
+                    requestSuccessRes(null)
+                }
+            }, { requestFailedRes(it) })
+        compositeDisposable.add(dispose)
+    }
+
+    fun deltePlaceByDay(schedulePlaceId:String,scheduleCustomId:String){
+        val myApplication = MyApplication.getInstance()
+        val newsService = myApplication.travelServiceAcc
+        val jsonObject = JSONObject()
+        jsonObject.put("schedulePlaceId",schedulePlaceId)
+        jsonObject.put("scheduleCustomId",schedulePlaceId)
+        val param = Param.getParams(jsonObject)
+        val resquestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),param.toString())
+        val dispose = newsService.deletePlaceByDay(resquestBody)
+            .subscribeOn(myApplication.subscribeScheduler())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe(Consumer {
+                if (it != null) {
+                    it.apiCode = WSConfig.Api.UPDATE_ARRIVAL_TIME
+                    requestSuccessRes(it)
+                } else {
+                    requestSuccessRes(null)
+                }
+            }, { requestFailedRes(it) })
+        compositeDisposable.add(dispose)
+    }
+
 }

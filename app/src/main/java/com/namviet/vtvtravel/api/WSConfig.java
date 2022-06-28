@@ -276,6 +276,8 @@ public class WSConfig {
         public static final String INVITE_SCHEDULE = "inviteSchedule";
         public static final String UPDATE_ARRIVAL_TIME = "updateArrivalTime";
         public static final String UPDATE_FREE_TIME = "updateFreeTime";
+        public static final String DELETE_PLACE = "deletePlace";
+        public static final String DELETE_PLACE_BY_DAY = "deletePlaceByDay";
     }
 
     public class KeyParam {
