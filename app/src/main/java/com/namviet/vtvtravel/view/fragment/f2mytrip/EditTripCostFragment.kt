@@ -11,6 +11,7 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.model.cost.AddNewCostBottomD
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.cost.CostResponse
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.cost.TypeCost
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
+import java.math.BigDecimal
 import java.util.*
 
 class EditTripCostFragment: BaseFragment<FragmentAddEstimateCostBinding>(), Observer {
@@ -45,7 +46,7 @@ class EditTripCostFragment: BaseFragment<FragmentAddEstimateCostBinding>(), Obse
         binding = getBinding()
         costTypeAdapter = CostTypesAdapter(requireContext())
         costTypeAdapter?.setSumTotalCostListener(object :CostTypesAdapter.SumTotalCost{
-            override fun onTotalPriceChange(total: Float) {
+            override fun onTotalPriceChange(total: BigDecimal) {
                 binding.tvTotalCost.text = total.toString()
             }
         })
