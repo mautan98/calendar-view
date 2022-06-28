@@ -100,12 +100,15 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
     private String regionId;
 
     private Marker lastMarker;
+    private String freeTime = "30";
+    private String scheduleCustomId;
 
     @SuppressLint("ValidFragment")
-    public AddPlaceToTripChildFragment(String code, String regionId) {
+    public AddPlaceToTripChildFragment(String code, String regionId, String scheduleCustomId) {
         this.link = link;
         this.code = code;
         this.regionId = regionId;
+        this.scheduleCustomId = scheduleCustomId;
     }
 
     @SuppressLint("ValidFragment")
@@ -195,6 +198,11 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
                     e.printStackTrace();
                 }
             }
+
+            @Override
+            public void onClickAddPlaceToTrip(Travel travel) {
+                viewModel.createPlace(scheduleCustomId, "", "1", "", freeTime, "", travel.getContent_type(), travel.getId(), travel.getDetail_link(), travel.getName(), "1","");
+            }
         });
         getBinding().rclContent.setAdapter(smallLocationToAddToTripAdapter);
 
@@ -227,15 +235,15 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
         initMap();
 
 
-        try {
-            if (ContextCompat.checkSelfPermission(mActivity, mPermission) != MockPackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{mPermission, Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_PERMISSION);
-            } else {
-//                getLocation();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            if (ContextCompat.checkSelfPermission(mActivity, mPermission) != MockPackageManager.PERMISSION_GRANTED) {
+//                requestPermissions(new String[]{mPermission, Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_PERMISSION);
+//            } else {
+////                getLocation();
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         // handle error
         getBinding().rllNoData.findViewById(R.id.btn_reload).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -392,18 +400,22 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
                         switch (item.getItemId()){
                             case R.id.freeTime1:
                                 getBinding().tvFreeTime.setText("Thời gian rảnh (30 phút)");
+                                freeTime = "30";
                                 break;
 
                             case R.id.freeTime2:
                                 getBinding().tvFreeTime.setText("Thời gian rảnh (40 phút)");
+                                freeTime = "40";
                                 break;
 
                             case R.id.freeTime3:
                                 getBinding().tvFreeTime.setText("Thời gian rảnh (50 phút)");
+                                freeTime = "50";
                                 break;
 
                             case R.id.freeTime4:
                                 getBinding().tvFreeTime.setText("Thời gian rảnh (60 phút)");
+                                freeTime = "60";
                                 break;
                         }
                         return true;

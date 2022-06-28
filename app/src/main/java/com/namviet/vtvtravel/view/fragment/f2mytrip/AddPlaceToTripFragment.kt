@@ -16,10 +16,6 @@ import com.namviet.vtvtravel.view.f3.model.ClickHideMapView
 import com.namviet.vtvtravel.view.f3.model.HideMapView
 import com.namviet.vtvtravel.view.f3.model.ShowMapView
 import kotlinx.android.synthetic.main.fragment_add_place_to_trip.*
-import kotlinx.android.synthetic.main.fragment_add_place_to_trip.btnBack
-import kotlinx.android.synthetic.main.fragment_add_place_to_trip.btnBackmap
-import kotlinx.android.synthetic.main.fragment_add_place_to_trip.rll_header_map
-import kotlinx.android.synthetic.main.fragment_add_place_to_trip.tabLayout
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
@@ -28,6 +24,12 @@ class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>() {
 
     private val typeDestination = Constants.TypeDestination.PLACES
     private val link: String? = null
+    private var scheduleCustomId: String? = null
+
+    public fun setData(scheduleCustomId: String?){
+        this.scheduleCustomId = scheduleCustomId
+    }
+
     override fun getLayoutRes(): Int {
         return R.layout.fragment_add_place_to_trip
     }
@@ -42,19 +44,19 @@ class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>() {
         binding!!.vpContent.offscreenPageLimit = 10
 
         var addPlaceToTripChildFragment1 =
-            AddPlaceToTripChildFragment("APP_WHERE_GO", "");
+            AddPlaceToTripChildFragment("APP_WHERE_GO", "", scheduleCustomId);
         mainAdapter?.addFragment(addPlaceToTripChildFragment1, "")
 
         var addPlaceToTripChildFragment2 =
-            AddPlaceToTripChildFragment("APP_WHERE_STAY", "");
+            AddPlaceToTripChildFragment("APP_WHERE_STAY", "", scheduleCustomId);
         mainAdapter?.addFragment(addPlaceToTripChildFragment2, "")
 
         var addPlaceToTripChildFragment3 =
-            AddPlaceToTripChildFragment("APP_WHAT_EAT", "");
+            AddPlaceToTripChildFragment("APP_WHAT_EAT", "", scheduleCustomId);
         mainAdapter?.addFragment(addPlaceToTripChildFragment3, "")
 
         var addPlaceToTripChildFragment4 =
-            AddPlaceToTripChildFragment("APP_WHAT_PLAY", "");
+            AddPlaceToTripChildFragment("APP_WHAT_PLAY", "", scheduleCustomId);
         mainAdapter?.addFragment(addPlaceToTripChildFragment4, "")
 
         binding!!.vpContent.adapter = mainAdapter
