@@ -23,7 +23,6 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.model.detail.PlaceScheduleRe
 import com.namviet.vtvtravel.view.fragment.f2mytrip.place.DetailPlacesFragment
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
 import java.util.*
-import kotlin.collections.ArrayList
 
 class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
     EditTripCostFragment.OnBackFragmentListener {
@@ -51,6 +50,10 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
         this.onBackToTripsFragment = listener
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        context!!.theme.applyStyle(R.style.ActionBarTheme, true)
+    }
     override fun getLayoutRes(): Int {
         return R.layout.fragment_detail_trip
     }
@@ -142,6 +145,10 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
         binding.tvViewAll.setOnClickListener {
             val fragment = DetailPlacesFragment.newInstance(tripItem)
             addFragment(fragment)
+        }
+        binding.btnSaveSchedule.setOnClickListener {
+            onBackToTripsFragment?.onBackFragment()
+            activity?.onBackPressed()
         }
     }
 
