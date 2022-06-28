@@ -435,6 +435,28 @@ public class Param {
         return map;
     }
 
+
+    public static JSONObject createPlace(String scheduleCustomId, String note, String stt, String arrivalTime, String freeTime, String durationVisit, String typePlace, String placeId, String detail_link, String name, String status, String day) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.SCHEDULE_CUSTOM_ID, scheduleCustomId);
+            map.put(WSConfig.KeyParam.NOTE, note);
+            map.put("stt", stt);
+            map.put("arrivalTime", arrivalTime);
+            map.put("freeTime", freeTime);
+            map.put("durationVisit", durationVisit);
+            map.put("typePlace", typePlace);
+            map.put("placeId", placeId);
+            map.put("detail_link", detail_link);
+            map.put("name", name);
+            map.put("status", status);
+            map.put("day", day);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
     public static JSONObject commentsCreate(int userId, String content, String contentId, String contentType, Integer parentId) {
         JSONObject map = new JSONObject();
         try {
