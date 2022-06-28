@@ -30,6 +30,15 @@ import retrofit2.HttpException;
 public class BaseViewModel extends Observable implements F2LoadFailListener {
     private static BaseViewModel baseViewModel;
 
+    public boolean isLoading() {
+        return isLoading;
+    }
+
+    public void setLoading(boolean loading) {
+        isLoading = loading;
+    }
+
+    public boolean isLoading = false;
     public static BaseViewModel getInstance() {
         if (baseViewModel == null) {
             baseViewModel = new BaseViewModel();
