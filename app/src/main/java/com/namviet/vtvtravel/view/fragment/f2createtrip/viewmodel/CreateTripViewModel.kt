@@ -13,6 +13,7 @@ import org.json.JSONObject
 class CreateTripViewModel : BaseViewModel() {
 
     fun createScheduleTrip(bodyCreate: BodyCreateTrip){
+        isLoading = true
         val myApplication = MyApplication.getInstance()
         val newsService = myApplication.travelServiceAcc
         val jsonObj = JSONObject(Gson().toJson(bodyCreate))
@@ -20,12 +21,16 @@ class CreateTripViewModel : BaseViewModel() {
         val resquestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),param.toString())
         val dispose  = newsService.createTrip(resquestBody).subscribeOn(myApplication.subscribeScheduler())
             .observeOn(AndroidSchedulers.mainThread()).subscribe(Consumer {
+                isLoading = false
                 if (it != null) {
                     requestSuccessRes(it)
                 } else {
                     requestSuccessRes(null)
                 }
-            },{requestFailedRes(it)})
+            }, {
+                isLoading = false
+                requestFailedRes(it)
+            })
         compositeDisposable.add(dispose)
     }
 }
