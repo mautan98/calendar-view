@@ -8,6 +8,7 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.response.BaseResponse
 import com.namviet.vtvtravel.ultils.DialogUtil
+import com.namviet.vtvtravel.ultils.ValidateUtils
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
 import java.util.*
 
@@ -58,11 +59,20 @@ class InviteFriendScheduleFragment : BaseFragment<FragmentInviteScheduleBinding>
     }
 
     private fun validate(phoneNumber: String): Boolean {
+        val phoneNumber = binding.edtPhoneNumber.text.toString().trim()
         if (TextUtils.isEmpty(phoneNumber)) {
             DialogUtil.showErrorDialog(
                 requireContext().getString(R.string.error_title),
                 requireContext().getString(R.string.close_title),
                 "Số điện thoại không được để trống",
+                childFragmentManager
+            )
+            return false
+        } else if (ValidateUtils.isValidPhoneNumberNew(phoneNumber)){
+            DialogUtil.showErrorDialog(
+                requireContext().getString(R.string.error_title),
+                requireContext().getString(R.string.close_title),
+                "Số điện thoại định dạng chưa đúng",
                 childFragmentManager
             )
             return false
@@ -82,12 +92,25 @@ class InviteFriendScheduleFragment : BaseFragment<FragmentInviteScheduleBinding>
             }
         } else if (arg is ErrorResponse) {
             val response = arg
+            var desc = ""
+            when(response.errorCode){
+                CodePhone.PHONE_FORMAT_NOT_VALID -> {
+                    desc = "Số điện thoại bạn nhập không đúng"
+                }
+                CodePhone.INVITE_DIFFERENT_NETWORK -> {
+                    desc = "Số điện thoại bạn nhập không phải số của nhà mạng Viettel"
+                }
+            }
             DialogUtil.showErrorDialog(
                 requireContext().getString(R.string.error_title),
                 requireContext().getString(R.string.close_title),
-                response.errorCode,
+                desc,
                 childFragmentManager
             )
         }
+    }
+    object CodePhone{
+        const val PHONE_FORMAT_NOT_VALID = "PHONE_FORMAT_NOT_VALID"
+        const val INVITE_DIFFERENT_NETWORK = "INVITE_DIFFIRENT_NETWORK"
     }
 }
