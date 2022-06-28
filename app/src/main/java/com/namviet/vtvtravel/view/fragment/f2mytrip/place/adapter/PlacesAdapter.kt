@@ -62,6 +62,9 @@ class PlacesAdapter : RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
             binding.edtTimeVisiting.setOnClickListener {
                 onItemClickListener?.onItemClick(position,binding.edtTimeVisiting)
             }
+            binding.imvClose.setOnClickListener {
+                onItemClickListener?.onItemClick(position,binding.imvClose)
+            }
         }
 
     }

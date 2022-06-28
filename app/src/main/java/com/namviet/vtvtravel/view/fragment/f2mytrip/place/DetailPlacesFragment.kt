@@ -17,6 +17,7 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.ItemPlaces
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.DetailPlaceScheduleViewModel
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
 import com.namviet.vtvtravel.view.fragment.f2travelvoucher.AlreadyReceiverDialog
+import com.namviet.vtvtravel.widget.ConfirmDeleteDialog
 import java.util.*
 
 class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>(), Observer {
@@ -91,6 +92,18 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
                         })
                         dialog.show(childFragmentManager,null)
                     }
+                    R.id.imv_close -> {
+                        val dialog = ConfirmDeleteDialog(requireContext())
+                        dialog.setDescription("Bạn có chắc chắn muốn xoá địa điểm này?")
+                        dialog.setConfirmClickListener(object :ConfirmDeleteDialog.OnConfirmListener{
+                            override fun onClickConfirm() {
+                                val placeItemList = listPlaces.get(currentPosition).schedulePlaceList
+                                val placeItem = listPlaces.get(currentPosition).schedulePlaceList?.get(itemDetailPosition)
+                                placeItem?.id?.let { detailPlaceViewModel?.deltePlace(it) }
+                            }
+                        })
+                        dialog.show()
+                    }
                 }
             }
         })
@@ -142,7 +155,7 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
             adapter?.setListDetailPlaces(listPlaces)
         } else if (arg is BaseResponse) {
             if (arg.isSuccess){
-                adapter?.notifyDataSetChanged()
+                tripItem?.id?.let { viewModel?.getDetailPlaces(it) }
             }
         }
     }
