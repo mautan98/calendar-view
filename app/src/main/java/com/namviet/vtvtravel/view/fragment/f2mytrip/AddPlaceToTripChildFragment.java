@@ -201,7 +201,7 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
 
             @Override
             public void onClickAddPlaceToTrip(Travel travel) {
-                viewModel.createPlace(scheduleCustomId, "", "1", "", freeTime, "", travel.getContent_type(), travel.getId(), travel.getDetail_link(), travel.getName(), "1","");
+                viewModel.createPlace(scheduleCustomId, "", "1", "", freeTime, "30", travel.getContent_type(), travel.getId(), travel.getDetail_link(), travel.getName(), "1","");
             }
         });
         getBinding().rclContent.setAdapter(smallLocationToAddToTripAdapter);
