@@ -1,23 +1,13 @@
 package com.namviet.vtvtravel.view.fragment.f2createtrip;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Intent;
-import android.net.Uri;
-import android.net.UrlQuerySanitizer;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.CookieManager;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
-
-import androidx.fragment.app.FragmentTransaction;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.Utils;
@@ -29,16 +19,12 @@ import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.travelnews.Location;
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse;
 import com.namviet.vtvtravel.ultils.ValidateUtils;
-import com.namviet.vtvtravel.view.f2.DisplayMarkerForMapActivity;
-import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
-import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
+import com.namviet.vtvtravel.view.f2.MyTripActivity;
 import com.namviet.vtvtravel.view.fragment.f2createtrip.dialog.BottomSheetPassengerDialog;
 import com.namviet.vtvtravel.view.fragment.f2createtrip.viewmodel.CreateTripViewModel;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.BodyCreateTrip;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.CreateScheduleResponse;
-import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel;
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionMainFragment;
-import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
 import com.namviet.vtvtravel.view.fragment.f2travelvoucher.AlreadyReceiverDialog;
 import com.namviet.vtvtravel.viewmodel.f2biglocation.SearchBigLocationViewModel;
 
@@ -138,6 +124,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 getBinding().edtReturnDate.setVisibility(isChecked?View.GONE:View.VISIBLE);
+                getBinding().returnDay.setVisibility(isChecked?View.GONE:View.VISIBLE);
                 if (isChecked){
                     if (startAtTimestamp != 0) {
                         endAtTimestamp = startAtTimestamp;
@@ -163,6 +150,9 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
                                 calendar.set(Calendar.MONTH,month);
                                 calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
                                 startAtTimestamp = calendar.getTimeInMillis();
+                                if (getBinding().tripInday.isChecked()){
+                                    endAtTimestamp = startAtTimestamp;
+                                }
                                 getBinding().edtStartDate.setText(Utils.formatTimestampTrips(calendar.getTimeInMillis()));
                             }
                         }, selectedYear, selectedMonth, selectedDayOfMonth);
@@ -221,6 +211,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
         getBinding().btnScheduleTrip.setOnClickListener(v -> {
             BodyCreateTrip body = initBodyCreateTrip();
             if (validateCreate()) {
+                if (!myTripsViewModel.isLoading)
                 myTripsViewModel.createScheduleTrip(body);
             }
         });
@@ -297,7 +288,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
         } else if (ValidateUtils.isEmptyTextview(getBinding().edtStartDate)){
             showErrorDialog(dialog, "Bạn chưa chọn ngày đi");
             return false;
-        } else if (ValidateUtils.isEmptyTextview(getBinding().edtReturnDate)){
+        } else if (ValidateUtils.isEmptyTextview(getBinding().edtReturnDate) && !getBinding().tripInday.isChecked()){
             showErrorDialog(dialog, "Bạn chưa chọn ngày về");
             return false;
         } else if (ValidateUtils.isEmptyTextview(getBinding().edtAmountPeople)) {
@@ -337,9 +328,15 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
             if (arg instanceof CreateScheduleResponse){
                 CreateScheduleResponse dataCreateTrips = (CreateScheduleResponse) arg;
                 if (dataCreateTrips.getDataCreateTrips() != null){
+                    if (onBackToTripsFragment != null)
                     onBackToTripsFragment.backToMainTrips();
                    getActivity().onBackPressed();
                 }
+                if (onBackToTripsFragment == null){
+                    MyTripActivity.startScreen(getContext());
+                    getActivity().finish();
+                }
+
             }
         }
     }
