@@ -201,7 +201,7 @@ public class SmallLocationToAddToTripAdapter extends RecyclerView.Adapter<Recycl
             btnAddPlaceToTrip.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    clickItem.onClickAddPlaceToTrip(travels.get(position));
                 }
             });
 
@@ -314,5 +314,7 @@ public class SmallLocationToAddToTripAdapter extends RecyclerView.Adapter<Recycl
         void onClickItem(Travel travel);
 
         void likeEvent(int position);
+
+        void onClickAddPlaceToTrip(Travel travel);
     }
 }

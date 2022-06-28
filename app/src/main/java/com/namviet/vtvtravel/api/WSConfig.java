@@ -278,6 +278,7 @@ public class WSConfig {
         public static final String UPDATE_FREE_TIME = "updateFreeTime";
         public static final String DELETE_PLACE = "deletePlace";
         public static final String DELETE_PLACE_BY_DAY = "deletePlaceByDay";
+        public static final String CREATE_PLACE = "user/customSchedule/createPlace";
     }
 
     public class KeyParam {

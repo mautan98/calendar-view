@@ -555,6 +555,9 @@ public interface TravelService {
     @GET(WSConfig.Api.ALL_LOCATION)
     Observable<AllLocationResponse> getAllLocation(@QueryMap Map<String, Object> queryMap);
 
+    @POST(WSConfig.Api.CREATE_PLACE)
+    Observable<BaseResponse> createPlace(@Body RequestBody jsonBodyObject);
+
     @POST(WSConfig.Api.POST_EVENT)
     Observable<BaseResponse> postEvent(@Body RequestBody jsonBodyObject);
 

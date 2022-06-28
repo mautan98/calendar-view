@@ -125,7 +125,9 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
         }
 
         binding.btnAddPlace.setOnClickListener {
-            addFragment(AddPlaceToTripFragment())
+            var addPlaceToTripFragment  = AddPlaceToTripFragment();
+            addPlaceToTripFragment.setData(tripItem?.id)
+            addFragment(addPlaceToTripFragment)
         }
     }
 

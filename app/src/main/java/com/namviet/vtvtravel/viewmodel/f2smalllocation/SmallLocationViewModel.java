@@ -5,6 +5,7 @@ import com.namviet.vtvtravel.api.Param;
 import com.namviet.vtvtravel.api.TravelService;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.response.BaseResponse;
 import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByCodeResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SmallLocationResponse;
@@ -17,6 +18,8 @@ import java.util.Map;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.HttpException;
 
 public class SmallLocationViewModel extends BaseViewModel {
@@ -105,6 +108,32 @@ public class SmallLocationViewModel extends BaseViewModel {
                     public void accept(SmallLocationResponse response) throws Exception {
                         if (response != null) {
                             response.setLoadMore(isLoadMore);
+                            requestSuccess(response);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable);
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+    public void createPlace(String scheduleCustomId, String note, String stt, String arrivalTime, String freeTime, String durationVisit, String typePlace, String placeId, String detail_link, String name, String status, String day) {
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),
+                Param.getParams2(Param.createPlace(scheduleCustomId, note, stt, arrivalTime, freeTime, durationVisit, typePlace, placeId, detail_link, name, status, day)).toString());
+        Disposable disposable = newsService.createPlace(requestBody)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<BaseResponse>() {
+                    @Override
+                    public void accept(BaseResponse response) throws Exception {
+                        if (response != null) {
                             requestSuccess(response);
                         }
                     }
