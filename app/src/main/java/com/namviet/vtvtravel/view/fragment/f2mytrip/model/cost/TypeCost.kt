@@ -1,6 +1,7 @@
 package com.namviet.vtvtravel.view.fragment.f2mytrip.model.cost
 
 import com.google.gson.annotations.SerializedName
+import java.math.BigDecimal
 
 class TypeCost {
 
@@ -40,7 +41,7 @@ class TypeCost {
             field = value
         }
     @field:SerializedName("prices")
-     var pricePP: Float = 0f
+     var pricePP: BigDecimal = BigDecimal.ZERO
          get() = field
          set(value) {
              field = value
@@ -53,7 +54,7 @@ class TypeCost {
             field = value
         }
     @field:SerializedName("totalCost")
-    var totalPrice: Float = 0f
+    var totalPrice: BigDecimal = BigDecimal.ZERO
         get() = field
         set(value) {
             field = value
