@@ -14,6 +14,7 @@ import com.namviet.vtvtravel.databinding.LayoutAddOtherCostBinding
 import com.namviet.vtvtravel.databinding.LayoutItemTypeCostBinding
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.cost.TypeCost
 import io.reactivex.android.schedulers.AndroidSchedulers
+import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -87,7 +88,7 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     try {
-                        val priceFloat = it.editable().toString().toFloat()
+                        val priceFloat = it.editable().toString().toBigDecimal()
                         val amount = binding.tvAmount.text.toString().toInt()
                         changeTotal(priceFloat,amount,typeCost)
                     } catch (e: Exception) {
@@ -117,13 +118,13 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
             }
         }
 
-        private fun changeTotal(priceFloat: Float, amount: Int,typeCost: TypeCost) {
-            val totalPrice = priceFloat * amount
+        private fun changeTotal(priceFloat: BigDecimal, amount: Int,typeCost: TypeCost) {
+            val totalPrice = (priceFloat.multiply(BigDecimal.valueOf(amount.toLong())))
             binding.tvTotalPrice.text = "$totalPrice"
             typeCost.pricePP = priceFloat
             typeCost.amount = amount
             typeCost.totalPrice = totalPrice
-            var totalSum = 0f
+            var totalSum = BigDecimal("0")
             for (i in 0..listTypeCost.size-2){
                 totalSum+= listTypeCost.get(i).totalPrice
                 sumTotalCostListener.onTotalPriceChange(totalSum)
@@ -182,7 +183,7 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
     }
 
     interface SumTotalCost{
-        fun onTotalPriceChange(total : Float)
+        fun onTotalPriceChange(total : BigDecimal)
     }
 
     interface AddNewCost{
