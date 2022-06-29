@@ -191,6 +191,7 @@ public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implem
                     accountViewModel.notificationReg(DeviceUtils.getDeviceId(getContext()), token, "ANDROID");
                     mPreferenceUtil.setValue(Constants.PrefKey.ACCOUNT_ID, accountResponse.getData().getId().toString());
                     PreferenceUtil.getInstance(mActivity).setValue(Constants.PrefKey.ACCOUNT, new Gson().toJson(accountResponse.getData()));
+                    PreferenceUtil.getInstance(mActivity).setValue(Constants.PrefKey.ACCESS_KEY, accountResponse.getData().getAccessKey());
                     setCurrentTimeStampToCache();
                     /*mActivity.onBackPressed();*/
                     mActivity.finish();

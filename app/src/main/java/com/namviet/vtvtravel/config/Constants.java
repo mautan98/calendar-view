@@ -175,6 +175,7 @@ public class Constants {
         public static final String MENU_DATA = "MENU_DATA";
         public static final String TIME_STAMP = "TIME_STAMP";
         public static final String CITY_NAME = "CITY_NAME";
+        public static final String ACCESS_KEY = "ACCESS_KEY";
 
 
 
