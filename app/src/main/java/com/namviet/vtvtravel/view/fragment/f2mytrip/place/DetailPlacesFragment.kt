@@ -7,6 +7,7 @@ import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.databinding.FragmentDetailSchedulePlacesBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.response.BaseResponse
+import com.namviet.vtvtravel.ultils.DialogUtil
 import com.namviet.vtvtravel.view.fragment.f2mytrip.AddPlaceToTripFragment
 import com.namviet.vtvtravel.view.fragment.f2mytrip.dialog.BottomNoteDialog
 import com.namviet.vtvtravel.view.fragment.f2mytrip.dialog.BottomWheelDialog
@@ -93,7 +94,7 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
                         dialog.show(childFragmentManager,null)
                     }
                     R.id.imv_close -> {
-                        val dialog = ConfirmDeleteDialog(requireContext())
+                        val dialog = ConfirmDeleteDialog()
                         dialog.setDescription("Bạn có chắc chắn muốn xoá địa điểm này?")
                         dialog.setConfirmClickListener(object :ConfirmDeleteDialog.OnConfirmListener{
                             override fun onClickConfirm() {
@@ -102,7 +103,7 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
                                 placeItem?.id?.let { detailPlaceViewModel?.deltePlace(it) }
                             }
                         })
-                        dialog.show()
+                        dialog.show(childFragmentManager,null)
                     }
                 }
             }
@@ -138,6 +139,15 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
         }
 
         binding.btnAddPlace.setOnClickListener {
+            if (adapter?.getItemPlaceSelected() == null) {
+                DialogUtil.showErrorDialog(
+                    requireContext().getString(R.string.error_title),
+                    requireContext().getString(R.string.close_title),
+                    "Bạn chưa chọn ngày để thêm địa điểm",
+                    childFragmentManager
+                )
+                return@setOnClickListener
+            }
             var addPlaceToTripFragment  = AddPlaceToTripFragment();
             addPlaceToTripFragment.setData(tripItem?.id)
             addFragment(addPlaceToTripFragment)
