@@ -72,7 +72,8 @@ class ConfirmDeleteDialog : BaseDialogFragment2() {
             dismiss()
         }
         binding.btnConfirm.setOnClickListener {
-
+            confirmListener?.onClickConfirm()
+            dismiss()
         }
     }
 
