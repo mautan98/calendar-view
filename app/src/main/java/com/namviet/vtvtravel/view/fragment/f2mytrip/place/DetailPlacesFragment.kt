@@ -89,7 +89,7 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
                             override fun onClickSave(hour: Int, minute: Int) {
                                 val placeItem = listPlaces.get(currentPosition).schedulePlaceList?.get(itemDetailPosition)
                                 placeItem?.freeTime = minute
-                                placeItem?.id?.let { detailPlaceViewModel?.updateFreeTime(it,minute.toString()) }
+                                placeItem?.id?.let { detailPlaceViewModel?.updateDurationVisit(it,minute.toString()) }
                             }
                         })
                         dialog.show(childFragmentManager,null)
