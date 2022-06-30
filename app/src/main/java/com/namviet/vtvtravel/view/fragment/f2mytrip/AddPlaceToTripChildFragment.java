@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.namviet.vtvtravel.R;
+import com.namviet.vtvtravel.Utils;
 import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
@@ -42,6 +43,7 @@ import com.namviet.vtvtravel.model.f2event.OnChooseRegionSmallLocation;
 import com.namviet.vtvtravel.model.f2event.OnDetectLocation;
 import com.namviet.vtvtravel.model.f2event.OnDoneFilterOption;
 import com.namviet.vtvtravel.model.f2smalllocation.Travel;
+import com.namviet.vtvtravel.response.BaseResponse;
 import com.namviet.vtvtravel.response.f2filter.DistanceClass;
 import com.namviet.vtvtravel.response.f2filter.FilterByCodeResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByPageResponse;
@@ -59,6 +61,7 @@ import com.namviet.vtvtravel.view.f3.model.HideMapView;
 import com.namviet.vtvtravel.view.f3.model.ShowMapView;
 import com.namviet.vtvtravel.view.fragment.f2filter.SortDialog;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.SmallLocationToAddToTripAdapter;
+import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.ItemPlaces;
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.DetailSmallLocationFragment;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 import com.namviet.vtvtravel.viewmodel.f2smalllocation.SmallLocationViewModel;
@@ -102,6 +105,7 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
     private Marker lastMarker;
     private String freeTime = "30";
     private String scheduleCustomId;
+    private ItemPlaces placesScheduleItem;
 
     @SuppressLint("ValidFragment")
     public AddPlaceToTripChildFragment(String code, String regionId, String scheduleCustomId) {
@@ -201,7 +205,8 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
 
             @Override
             public void onClickAddPlaceToTrip(Travel travel) {
-                viewModel.createPlace(scheduleCustomId, "", "1", "", freeTime, "30", travel.getContent_type(), travel.getId(), travel.getDetail_link(), travel.getName(), "1","");
+                String day = Utils.formatTimeStamp(placesScheduleItem.getDay(),"yyyy-MM-dd");
+                viewModel.createPlace(scheduleCustomId, "", String.valueOf(placesScheduleItem.getSchedulePlaceList().size() + 1), "07:00", freeTime, "30", travel.getContent_type(), travel.getId(), travel.getDetail_link(), travel.getName(), "1",day);
             }
         });
         getBinding().rclContent.setAdapter(smallLocationToAddToTripAdapter);
@@ -522,6 +527,8 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
                 } catch (Exception e) {
 
                 }
+            } else if (o instanceof BaseResponse){
+                getActivity().onBackPressed();
             }
 
         }
@@ -1167,5 +1174,13 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
     public void setScreenTitle() {
         super.setScreenTitle();
         setDataScreen(TrackingAnalytic.ScreenCode.SMALL_LOCATIONS, TrackingAnalytic.ScreenTitle.SMALL_LOCATIONS);
+    }
+
+    public void setPlacesScheduleItem(ItemPlaces placesScheduleItem) {
+        this.placesScheduleItem = placesScheduleItem;
+    }
+
+    public ItemPlaces getPlacesScheduleItem() {
+        return placesScheduleItem;
     }
 }
