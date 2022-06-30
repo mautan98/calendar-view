@@ -12,6 +12,7 @@ import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
 import com.namviet.vtvtravel.view.f2.WebviewActivity;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealHomeActivity;
+import com.namviet.vtvtravel.view.f3.deal.view.mygift.NewMyGiftActivity;
 import com.namviet.vtvtravel.view.f3.notification.model.Notification;
 import com.namviet.vtvtravel.view.f3.notification.model.NotificationCode;
 
@@ -74,7 +75,7 @@ public class NotificationCaseProcessing {
                     }
                     break;
                 case NotificationCode.WIN_WHEEL :
-
+                    NewMyGiftActivity.startScreen(context);
                     break;
 
             }

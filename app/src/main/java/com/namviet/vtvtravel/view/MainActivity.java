@@ -6,8 +6,10 @@ import android.app.Activity;
 import android.app.NotificationChannel;
 
 import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
+import com.namviet.vtvtravel.view.f2.MyGiftActivity;
 import com.namviet.vtvtravel.view.f2.WebviewActivity;
 import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealHomeActivity;
+import com.namviet.vtvtravel.view.f3.deal.view.mygift.NewMyGiftActivity;
 import com.namviet.vtvtravel.view.f3.notification.model.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -2172,7 +2174,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
                     }
                     break;
                 case NotificationCode.WIN_WHEEL :
-
+                    NewMyGiftActivity.startScreen(this);
                     break;
 
             }
