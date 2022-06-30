@@ -1,6 +1,8 @@
 package com.namviet.vtvtravel.view.f3.notification.view
 
+import android.app.AlertDialog
 import android.app.ProgressDialog
+import android.content.DialogInterface
 import android.util.Log
 import android.view.View
 import com.namviet.vtvtravel.R
@@ -93,11 +95,26 @@ class NotificationTabFragment : BaseFragment<F3FragmentNotificationTabBinding?>,
                                 if (notification?.status == "0") "1" else "0",
                                 position!!
                             )
-                            MenuItemNotifyDialog.MenuItem.REMOVE -> notificationViewModel?.updateInbox(
-                                notification?.id,
-                                "2",
-                                position!!
-                            )
+                            MenuItemNotifyDialog.MenuItem.REMOVE -> {
+                                var dialog = AlertDialog.Builder(mActivity)
+                                dialog.setMessage("Bạn đồng ý xoá thông báo này chứ?")
+                                dialog.setPositiveButton("Đồng ý") { dialog, which ->
+                                    notificationViewModel?.updateInbox(
+                                        notification?.id,
+                                        "2",
+                                        position!!
+                                    )
+                                }
+                                dialog.setNegativeButton("Huỷ bỏ", object : DialogInterface.OnClickListener{
+                                    override fun onClick(dialog: DialogInterface?, which: Int) {
+
+                                    }
+                                })
+
+                                dialog.create()
+                                dialog.show();
+
+                            }
                             MenuItemNotifyDialog.MenuItem.CANCEL -> progressDialog?.dismiss()
 
                         }
