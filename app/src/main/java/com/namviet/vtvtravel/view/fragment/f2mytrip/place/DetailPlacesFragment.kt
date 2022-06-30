@@ -150,6 +150,7 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
             }
             var addPlaceToTripFragment  = AddPlaceToTripFragment();
             addPlaceToTripFragment.setData(tripItem?.id)
+            addPlaceToTripFragment.setPlaceScheduleItem(adapter?.getItemPlaceSelected())
             addFragment(addPlaceToTripFragment)
         }
     }
