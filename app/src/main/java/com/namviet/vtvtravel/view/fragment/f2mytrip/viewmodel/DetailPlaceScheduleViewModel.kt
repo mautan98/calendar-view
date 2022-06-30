@@ -73,12 +73,13 @@ class DetailPlaceScheduleViewModel : BaseViewModel() {
         compositeDisposable.add(dispose)
     }
 
-    fun deltePlaceByDay(schedulePlaceId:String,scheduleCustomId:String){
+    fun deltePlaceByDay(schedulePlaceId:String?,scheduleCustomId:String?,day:String?){
         val myApplication = MyApplication.getInstance()
         val newsService = myApplication.travelServiceAcc
         val jsonObject = JSONObject()
         jsonObject.put("schedulePlaceId",schedulePlaceId)
-        jsonObject.put("scheduleCustomId",schedulePlaceId)
+        jsonObject.put("scheduleCustomId",scheduleCustomId)
+        jsonObject.put("day",day)
         val param = Param.getParams(jsonObject)
         val resquestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),param.toString())
         val dispose = newsService.deletePlaceByDay(resquestBody)
