@@ -156,9 +156,9 @@ class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer,
         confirmDialog.setLabelButton(getString(R.string.agree))
         confirmDialog.setConfirmClickListener(object :ConfirmDeleteDialog.OnConfirmListener{
             override fun onClickConfirm() {
-//                detailPlaceViewModel.deltePlaceByDay()
-                listClone?.removeAt(position)
-                listClone?.let { adapter?.setListScheduleByDays(it) }
+                val schedulePlaceId = listClone?.get(position)?.schedulePlaceId
+                val day = Utils.formatTimeStamp(listClone?.get(position)?.day,"yyyy-MM-dd")
+                detailPlaceViewModel.deltePlaceByDay(schedulePlaceId,tripItem?.id,day)
             }
 
         })
