@@ -239,10 +239,14 @@ public class DealItemDetailFragment extends BaseFragment<FragmentDealItemDetailB
                     mDealViewModel.getDealByCampaign(status, idDetail, rewardStatus);
                 }
             });
-            getBinding().rcvDetailDeal.setAdapter(mDealAdapter);
-            getBinding().tvTitle.setText(dealCampaignDetail.getData().getName());
-            for (int i = 0; i < dealCampaignDetail.getData().getGalleryUri().size(); i++) {
-                dataBanner.add(dealCampaignDetail.getData().getGalleryUri().get(i));
+            try {
+                getBinding().rcvDetailDeal.setAdapter(mDealAdapter);
+                getBinding().tvTitle.setText(dealCampaignDetail.getData().getName());
+                for (int i = 0; i < dealCampaignDetail.getData().getGalleryUri().size(); i++) {
+                    dataBanner.add(dealCampaignDetail.getData().getGalleryUri().get(i));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
             initBanner();
             stopLoading();

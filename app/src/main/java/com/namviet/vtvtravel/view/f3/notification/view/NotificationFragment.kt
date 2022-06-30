@@ -119,7 +119,14 @@ class NotificationFragment : BaseFragment<F3FragmentNotificationBinding?>(), Obs
                 }
 
                 is CountSystemInbox -> {
-                    tvCountMessage.text = "Thông báo("+o.data.count+")"
+                    try {
+                        if(o.data.count ==  "0"){
+                            tvCountMessage.text = "Thông báo"
+                        }else {
+                            tvCountMessage.text = "Thông báo(" + o.data.count + ")"
+                        }
+                    } catch (e: Exception) {
+                    }
                 }
 
                 is ErrorResponse -> {
