@@ -279,6 +279,7 @@ public class WSConfig {
         public static final String DELETE_PLACE = "deletePlace";
         public static final String DELETE_PLACE_BY_DAY = "deletePlaceByDay";
         public static final String CREATE_PLACE = "user/customSchedule/createPlace";
+        public static final String UPDATE_DURATION_VISIT = "updateDurationVisit";
     }
 
     public class KeyParam {

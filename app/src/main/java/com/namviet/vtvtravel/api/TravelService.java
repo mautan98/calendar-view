@@ -816,4 +816,7 @@ public interface TravelService {
     @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.DELETE_PLACE_BY_DAY)
     Observable<BaseResponse> deletePlaceByDay(@Body RequestBody bodyDelete);
 
+    @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_DURATION_VISIT)
+    Observable<BaseResponse> updateDurationVisit(@Body RequestBody bodyUpdateDuration);
+
 }
