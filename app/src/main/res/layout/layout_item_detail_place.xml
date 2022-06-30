@@ -7,26 +7,16 @@
         android:layout_marginStart="8dp"
         android:layout_height="wrap_content">
 
-        <View
-            android:id="@+id/view_line"
-            android:layout_width="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="5dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@color/red"
-            android:layout_height="1dp"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="7dp"
             android:layout_marginBottom="5dp"
             android:paddingEnd="32dp"
             android:background="@drawable/bg_radius_4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_line">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imv_detail_place"
@@ -43,7 +33,7 @@
                 android:id="@+id/layout_time_travel_place"
                 android:layout_width="0dp"
                 android:paddingVertical="3dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@drawable/bg_radius_4dp_bottom"
                 android:backgroundTint="#F89C1C"
                 android:orientation="horizontal"
@@ -62,8 +52,8 @@
                     tools:text="09:00" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="11dp"
+                    android:layout_height="6dp"
                     android:layout_gravity="center_vertical|start"
                     android:layout_marginEnd="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -113,10 +103,24 @@
                 tools:text="30p" />
 
             <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:gravity="center_horizontal"
+                android:includeFontPadding="false"
+                android:singleLine="true"
+                android:text="..............."
+                android:textColor="@color/my_statusbar_color"
+                app:layout_constraintEnd_toEndOf="@id/edt_time_visiting"
+                app:layout_constraintStart_toStartOf="@id/edt_time_visiting"
+                app:layout_constraintTop_toTopOf="@id/edt_time_visiting" />
+
+            <TextView
                 android:id="@+id/note_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
+                android:layout_marginBottom="6dp"
                 android:drawablePadding="5dp"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center_vertical"
@@ -154,6 +158,50 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layout_movement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/layout_content"
+            app:layout_constraintTop_toBottomOf="@id/layout_content">
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="15dp"
+                android:background="@color/my_statusbar_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_car" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="8dp"
+                android:background="@color/my_statusbar_color" />
+
+            <TextView
+                android:id="@+id/tv_desc_movement"
+                android:layout_width="wrap_content"
+                tools:text="0.3 Km/1p"
+                android:textColor="@color/my_statusbar_color"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="16sp"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="32dp"
+                android:background="@color/my_statusbar_color" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
         <ImageView
             android:id="@+id/imv_close"
             android:layout_width="wrap_content"
@@ -162,7 +210,7 @@
             android:gravity="center"
             android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_line" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
