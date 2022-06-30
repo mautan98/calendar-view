@@ -6,6 +6,7 @@ import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.databinding.FragmentDetailSchedulePlacesBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.listener.OnBackToFragmentListener
 import com.namviet.vtvtravel.response.BaseResponse
 import com.namviet.vtvtravel.ultils.DialogUtil
 import com.namviet.vtvtravel.view.fragment.f2mytrip.AddPlaceToTripFragment
@@ -149,6 +150,11 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
                 return@setOnClickListener
             }
             var addPlaceToTripFragment  = AddPlaceToTripFragment();
+            addPlaceToTripFragment.setOnBackToFragmentListener(object :OnBackToFragmentListener{
+                override fun onBack() {
+                    tripItem?.id?.let { it1 -> viewModel?.getDetailPlaces(it1) }
+                }
+            })
             addPlaceToTripFragment.setData(tripItem?.id)
             addPlaceToTripFragment.setPlaceScheduleItem(adapter?.getItemPlaceSelected())
             addFragment(addPlaceToTripFragment)

@@ -12,6 +12,7 @@ import com.namviet.vtvtravel.adapter.f2offline.MainAdapter
 import com.namviet.vtvtravel.config.Constants
 import com.namviet.vtvtravel.databinding.FragmentAddPlaceToTripBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.listener.OnBackToFragmentListener
 import com.namviet.vtvtravel.view.f3.model.ClickHideMapView
 import com.namviet.vtvtravel.view.f3.model.HideMapView
 import com.namviet.vtvtravel.view.f3.model.ShowMapView
@@ -20,13 +21,15 @@ import kotlinx.android.synthetic.main.fragment_add_place_to_trip.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
-class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>() {
+class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>(),
+    OnBackToFragmentListener {
     private var mainAdapter : MainAdapter? = null
 
     private val typeDestination = Constants.TypeDestination.PLACES
     private val link: String? = null
     private var scheduleCustomId: String? = null
     private var placesScheduleItem: ItemPlaces? = null
+    private var onBackToFragmentListener: OnBackToFragmentListener? = null
 
     public fun setData(scheduleCustomId: String?){
         this.scheduleCustomId = scheduleCustomId
@@ -34,6 +37,10 @@ class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>() {
 
     fun setPlaceScheduleItem(placesScheduleItem: ItemPlaces?){
         this.placesScheduleItem = placesScheduleItem
+    }
+
+    fun setOnBackToFragmentListener(onBackToFragmentListener: OnBackToFragmentListener?) {
+        this.onBackToFragmentListener = onBackToFragmentListener
     }
 
     override fun getLayoutRes(): Int {
@@ -51,22 +58,26 @@ class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>() {
 
         var addPlaceToTripChildFragment1 =
             AddPlaceToTripChildFragment("APP_WHERE_GO", "", scheduleCustomId);
+        addPlaceToTripChildFragment1.setOnBackToFragmentListener(this)
         addPlaceToTripChildFragment1.placesScheduleItem = placesScheduleItem
         mainAdapter?.addFragment(addPlaceToTripChildFragment1, "")
 
         var addPlaceToTripChildFragment2 =
             AddPlaceToTripChildFragment("APP_WHERE_STAY", "", scheduleCustomId);
         addPlaceToTripChildFragment2.placesScheduleItem = placesScheduleItem
+        addPlaceToTripChildFragment2.setOnBackToFragmentListener(this)
         mainAdapter?.addFragment(addPlaceToTripChildFragment2, "")
 
         var addPlaceToTripChildFragment3 =
             AddPlaceToTripChildFragment("APP_WHAT_EAT", "", scheduleCustomId);
         addPlaceToTripChildFragment3.placesScheduleItem = placesScheduleItem
+        addPlaceToTripChildFragment3.setOnBackToFragmentListener(this)
         mainAdapter?.addFragment(addPlaceToTripChildFragment3, "")
 
         var addPlaceToTripChildFragment4 =
             AddPlaceToTripChildFragment("APP_WHAT_PLAY", "", scheduleCustomId);
         addPlaceToTripChildFragment4.placesScheduleItem = placesScheduleItem
+        addPlaceToTripChildFragment4.setOnBackToFragmentListener(this)
         mainAdapter?.addFragment(addPlaceToTripChildFragment4, "")
 
         binding!!.vpContent.adapter = mainAdapter
@@ -155,5 +166,9 @@ class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>() {
         layout_header.visibility = View.VISIBLE
         tabLayout.visibility = View.VISIBLE
         rll_header_map.visibility = View.GONE
+    }
+
+    override fun onBack() {
+
     }
 }

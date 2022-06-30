@@ -37,6 +37,7 @@ import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.FragmentAddPlaceToTripChildBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.listener.OnBackToFragmentListener;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.MyLocation;
 import com.namviet.vtvtravel.model.f2event.OnChooseRegionSmallLocation;
@@ -74,6 +75,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -106,6 +108,12 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
     private String freeTime = "30";
     private String scheduleCustomId;
     private ItemPlaces placesScheduleItem;
+
+    public void setOnBackToFragmentListener(OnBackToFragmentListener onBackToFragmentListener) {
+        this.onBackToFragmentListener = onBackToFragmentListener;
+    }
+
+    private OnBackToFragmentListener onBackToFragmentListener;
 
     @SuppressLint("ValidFragment")
     public AddPlaceToTripChildFragment(String code, String regionId, String scheduleCustomId) {
@@ -206,7 +214,12 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
             @Override
             public void onClickAddPlaceToTrip(Travel travel) {
                 String day = Utils.formatTimeStamp(placesScheduleItem.getDay(),"yyyy-MM-dd");
-                viewModel.createPlace(scheduleCustomId, "", String.valueOf(placesScheduleItem.getSchedulePlaceList().size() + 1), "07:00", freeTime, "30", travel.getContent_type(), travel.getId(), travel.getDetail_link(), travel.getName(), "1",day);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(placesScheduleItem.getDay());
+                calendar.set(Calendar.HOUR_OF_DAY,7);
+                calendar.set(Calendar.MINUTE,0);
+                String arrivalTime = Utils.formatTimeStamp(calendar.getTimeInMillis(),"dd-MM-yyyy HH:mm:ss");
+                viewModel.createPlace(scheduleCustomId, "", String.valueOf(placesScheduleItem.getSchedulePlaceList().size() + 1), arrivalTime, freeTime, "30", travel.getContent_type(), travel.getId(), travel.getDetail_link(), travel.getName(), "1",day);
             }
         });
         getBinding().rclContent.setAdapter(smallLocationToAddToTripAdapter);
