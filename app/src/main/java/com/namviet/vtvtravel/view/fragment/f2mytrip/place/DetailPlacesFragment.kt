@@ -106,6 +106,19 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
                         })
                         dialog.show(childFragmentManager,null)
                     }
+                    R.id.change_place -> {
+                        var addPlaceToTripFragment  = AddPlaceToTripFragment();
+                        addPlaceToTripFragment.setOnBackToFragmentListener(object :OnBackToFragmentListener{
+                            override fun onBack() {
+                                tripItem?.id?.let { it1 -> viewModel?.getDetailPlaces(it1) }
+                            }
+                        })
+                        addPlaceToTripFragment.setData(tripItem?.id)
+                        addPlaceToTripFragment.setPlaceScheduleItem(listPlaces.get(currentPosition))
+                        addPlaceToTripFragment.setDetailPlaceScheduleItem(listPlaces.get(currentPosition).schedulePlaceList?.get(itemDetailPosition))
+                        addPlaceToTripFragment.setIsUpdatePlace(true)
+                        addFragment(addPlaceToTripFragment)
+                    }
                 }
             }
         })
