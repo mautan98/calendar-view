@@ -46,7 +46,11 @@ class PlacesInScheduleAdapter(var context:Context) : RecyclerView.Adapter<Places
             Glide.with(context).load(placeItem.logoUrl).into(binding.imvPlace)
             binding.tvDayNo.text = "Ngày ${position +1}"
             binding.tvDayStartSchedule.text = Utils.formatTimestampTrips(placeItem.day)
-            binding.tvNumberPlace.text = "${placeItem.totalPlace} địa điểm, ${placeItem.totalDistance} km"
+            if (placeItem.totalPlace != null && placeItem.totalDistance != null){
+                binding.tvNumberPlace.text = "${placeItem.totalPlace} địa điểm, ${placeItem.totalDistance} km"
+            } else {
+                binding.tvNumberPlace.text = "0 địa điểm, 0 km"
+            }
             itemView.setOnClickListener {
                 onItemClickListener.onItemClick(position)
             }
