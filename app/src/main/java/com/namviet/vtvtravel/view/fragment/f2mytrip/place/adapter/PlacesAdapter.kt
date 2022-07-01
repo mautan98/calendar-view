@@ -68,6 +68,9 @@ class PlacesAdapter : RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
             binding.imvClose.setOnClickListener {
                 onItemClickListener?.onItemClick(position,binding.imvClose)
             }
+            binding.changePlace.setOnClickListener {
+                onItemClickListener?.onItemClick(position,binding.changePlace)
+            }
         }
 
     }
