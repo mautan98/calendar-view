@@ -135,8 +135,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation project(':readmoreoption')
     implementation 'com.ornach.richtext:richtext:1.0'
-
-    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
+    implementation project(':likebutton')
 
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
     implementation 'com.github.aabhasr1:OtpView:v1.1.2'

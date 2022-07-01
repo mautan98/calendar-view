@@ -751,10 +751,10 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         public void bindItem(int position) {
-            BaseResponseSpecialNewHome appDealResponse = (BaseResponseSpecialNewHome) homeServiceResponse.getData().get(position).getDataExtra();
-            if (appDealResponse == null) {
-                loadData.onLoadData(homeServiceResponse.getData().get(position).getContent_link(), TypeString.APP_DEAL);
-            }
+//            BaseResponseSpecialNewHome appDealResponse = (BaseResponseSpecialNewHome) homeServiceResponse.getData().get(position).getDataExtra();
+//            if (appDealResponse == null) {
+//                loadData.onLoadData(homeServiceResponse.getData().get(position).getContent_link(), TypeString.APP_DEAL);
+//            }
 
 //            subDealAdapter = new SubDealAdapter(context, appDealResponse.getData(), new SubDealAdapter.ClickItem() {
 //                @Override
