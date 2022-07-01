@@ -17,6 +17,7 @@ import com.namviet.vtvtravel.view.f3.model.ClickHideMapView
 import com.namviet.vtvtravel.view.f3.model.HideMapView
 import com.namviet.vtvtravel.view.f3.model.ShowMapView
 import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.ItemPlaces
+import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.PlacesScheduleItem
 import kotlinx.android.synthetic.main.fragment_add_place_to_trip.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -29,6 +30,8 @@ class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>(),
     private val link: String? = null
     private var scheduleCustomId: String? = null
     private var placesScheduleItem: ItemPlaces? = null
+    private var detailPlaceScheduleItem: PlacesScheduleItem? = null
+    private var isUpdatePlace: Boolean = false
     private var onBackToFragmentListener: OnBackToFragmentListener? = null
 
     public fun setData(scheduleCustomId: String?){
@@ -37,6 +40,14 @@ class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>(),
 
     fun setPlaceScheduleItem(placesScheduleItem: ItemPlaces?){
         this.placesScheduleItem = placesScheduleItem
+    }
+
+    fun setDetailPlaceScheduleItem(detailItem: PlacesScheduleItem?){
+        this.detailPlaceScheduleItem = detailItem
+    }
+
+    fun setIsUpdatePlace(isUpdatePlace:Boolean){
+        this.isUpdatePlace = isUpdatePlace
     }
 
     fun setOnBackToFragmentListener(onBackToFragmentListener: OnBackToFragmentListener?) {
@@ -60,23 +71,31 @@ class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>(),
             AddPlaceToTripChildFragment("APP_WHERE_GO", "", scheduleCustomId);
         addPlaceToTripChildFragment1.setOnBackToFragmentListener(this)
         addPlaceToTripChildFragment1.placesScheduleItem = placesScheduleItem
+        addPlaceToTripChildFragment1.setDetailPlacesScheduleItem(detailPlaceScheduleItem)
+        addPlaceToTripChildFragment1.setUpdatePlace(isUpdatePlace)
         mainAdapter?.addFragment(addPlaceToTripChildFragment1, "")
 
         var addPlaceToTripChildFragment2 =
             AddPlaceToTripChildFragment("APP_WHERE_STAY", "", scheduleCustomId);
         addPlaceToTripChildFragment2.placesScheduleItem = placesScheduleItem
+        addPlaceToTripChildFragment2.setDetailPlacesScheduleItem(detailPlaceScheduleItem)
         addPlaceToTripChildFragment2.setOnBackToFragmentListener(this)
+        addPlaceToTripChildFragment2.setUpdatePlace(isUpdatePlace)
         mainAdapter?.addFragment(addPlaceToTripChildFragment2, "")
 
         var addPlaceToTripChildFragment3 =
             AddPlaceToTripChildFragment("APP_WHAT_EAT", "", scheduleCustomId);
         addPlaceToTripChildFragment3.placesScheduleItem = placesScheduleItem
+        addPlaceToTripChildFragment3.setDetailPlacesScheduleItem(detailPlaceScheduleItem)
+        addPlaceToTripChildFragment3.setUpdatePlace(isUpdatePlace)
         addPlaceToTripChildFragment3.setOnBackToFragmentListener(this)
         mainAdapter?.addFragment(addPlaceToTripChildFragment3, "")
 
         var addPlaceToTripChildFragment4 =
             AddPlaceToTripChildFragment("APP_WHAT_PLAY", "", scheduleCustomId);
         addPlaceToTripChildFragment4.placesScheduleItem = placesScheduleItem
+        addPlaceToTripChildFragment4.setDetailPlacesScheduleItem(detailPlaceScheduleItem)
+        addPlaceToTripChildFragment4.setUpdatePlace(isUpdatePlace)
         addPlaceToTripChildFragment4.setOnBackToFragmentListener(this)
         mainAdapter?.addFragment(addPlaceToTripChildFragment4, "")
 
