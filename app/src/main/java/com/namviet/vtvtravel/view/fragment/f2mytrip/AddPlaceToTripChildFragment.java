@@ -63,6 +63,7 @@ import com.namviet.vtvtravel.view.f3.model.ShowMapView;
 import com.namviet.vtvtravel.view.fragment.f2filter.SortDialog;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.SmallLocationToAddToTripAdapter;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.ItemPlaces;
+import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.PlacesScheduleItem;
 import com.namviet.vtvtravel.view.fragment.f2smalllocation.DetailSmallLocationFragment;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 import com.namviet.vtvtravel.viewmodel.f2smalllocation.SmallLocationViewModel;
@@ -108,6 +109,16 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
     private String freeTime = "30";
     private String scheduleCustomId;
     private ItemPlaces placesScheduleItem;
+    private PlacesScheduleItem detailPlacesScheduleItem;
+    private boolean isUpdatePlace;
+
+    public void setUpdatePlace(boolean updatePlace) {
+        isUpdatePlace = updatePlace;
+    }
+
+    public void setDetailPlacesScheduleItem(PlacesScheduleItem detailPlacesScheduleItem) {
+        this.detailPlacesScheduleItem = detailPlacesScheduleItem;
+    }
 
     public void setOnBackToFragmentListener(OnBackToFragmentListener onBackToFragmentListener) {
         this.onBackToFragmentListener = onBackToFragmentListener;
@@ -219,7 +230,11 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
                 calendar.set(Calendar.HOUR_OF_DAY,7);
                 calendar.set(Calendar.MINUTE,0);
                 String arrivalTime = Utils.formatTimeStamp(calendar.getTimeInMillis(),"dd-MM-yyyy HH:mm:ss");
-                viewModel.createPlace(scheduleCustomId, "", String.valueOf(placesScheduleItem.getSchedulePlaceList().size() + 1), arrivalTime, freeTime, "30", travel.getContent_type(), travel.getId(), travel.getDetail_link(), travel.getName(), "1",day);
+                if (isUpdatePlace){
+                    viewModel.updateSchedulePlace(detailPlacesScheduleItem.getId(),travel.getLoc().getCoordinates(),travel.getDetail_link(),travel.getName(),travel.getLogo_url());
+                } else {
+                    viewModel.createPlace(scheduleCustomId, "", String.valueOf(placesScheduleItem.getSchedulePlaceList().size() + 1), arrivalTime, freeTime, "30", travel.getContent_type(), travel.getId(), travel.getDetail_link(), travel.getName(), "1",day);
+                }
             }
         });
         getBinding().rclContent.setAdapter(smallLocationToAddToTripAdapter);
