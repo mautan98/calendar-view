@@ -1,6 +1,5 @@
 package com.namviet.vtvtravel.viewmodel.f2smalllocation;
 
-import com.google.gson.Gson;
 import com.namviet.vtvtravel.api.Param;
 import com.namviet.vtvtravel.api.TravelService;
 import com.namviet.vtvtravel.app.MyApplication;
@@ -10,9 +9,13 @@ import com.namviet.vtvtravel.response.f2biglocation.AllLocationResponse;
 import com.namviet.vtvtravel.response.f2filter.FilterByCodeResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SmallLocationResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SortSmallLocationResponse;
-import com.namviet.vtvtravel.response.travelnews.NotebookResponse;
 import com.namviet.vtvtravel.viewmodel.BaseViewModel;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -20,7 +23,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import retrofit2.HttpException;
 
 public class SmallLocationViewModel extends BaseViewModel {
 
@@ -147,6 +149,44 @@ public class SmallLocationViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
+    public void updateSchedulePlace(String schedulePlaceId, List<String> lstCordinate, String detailLink, String name, String logoUrl){
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+        JSONObject jsonObject = new JSONObject();
+        JSONObject locJsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray(lstCordinate);
+        try {
+            locJsonObject.put("type","Point");
+            locJsonObject.putOpt("coordinates",jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            jsonObject.put("id",schedulePlaceId);
+            jsonObject.putOpt("loc",locJsonObject);
+            jsonObject.put("detailLink",detailLink);
+            jsonObject.put("name",name);
+            jsonObject.put("logoUrl",logoUrl);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JSONObject param = Param.getParams(jsonObject);
+        RequestBody resquestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),param.toString());
+        Disposable dispose = newsService.updateSchedulePlace(resquestBody)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<BaseResponse>() {
+                    @Override
+                    public void accept(BaseResponse baseResponse) throws Exception {
+                        requestSuccess(baseResponse);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable);
+                    }
+                });
+        compositeDisposable.add(dispose);
+    }
     public void sortSmallLocation() {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelService();

@@ -819,4 +819,7 @@ public interface TravelService {
     @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_DURATION_VISIT)
     Observable<BaseResponse> updateDurationVisit(@Body RequestBody bodyUpdateDuration);
 
+    @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_SCHEDULE_PLACE)
+    Observable<BaseResponse> updateSchedulePlace(@Body RequestBody bodyUpdatePlace);
+
 }
