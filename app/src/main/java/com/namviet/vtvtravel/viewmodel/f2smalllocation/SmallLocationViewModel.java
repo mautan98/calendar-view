@@ -167,6 +167,7 @@ public class SmallLocationViewModel extends BaseViewModel {
             jsonObject.put("detailLink",detailLink);
             jsonObject.put("name",name);
             jsonObject.put("logoUrl",logoUrl);
+            jsonObject.put("status","1");
         } catch (JSONException e) {
             e.printStackTrace();
         }
