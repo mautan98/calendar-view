@@ -188,6 +188,6 @@ class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>(),
     }
 
     override fun onBack() {
-
+        onBackToFragmentListener?.onBack()
     }
 }

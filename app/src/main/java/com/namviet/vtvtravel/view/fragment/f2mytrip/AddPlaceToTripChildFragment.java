@@ -233,7 +233,8 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
                 if (isUpdatePlace){
                     viewModel.updateSchedulePlace(detailPlacesScheduleItem.getId(),travel.getLoc().getCoordinates(),travel.getDetail_link(),travel.getName(),travel.getLogo_url());
                 } else {
-                    viewModel.createPlace(scheduleCustomId, "", String.valueOf(placesScheduleItem.getSchedulePlaceList().size() + 1), arrivalTime, freeTime, "30", travel.getContent_type(), travel.getId(), travel.getDetail_link(), travel.getName(), "1",day);
+                    int stt = placesScheduleItem.getSchedulePlaceList() != null ? placesScheduleItem.getSchedulePlaceList().size() + 1 :1;
+                    viewModel.createPlace(scheduleCustomId, "", String.valueOf(stt), "", freeTime, "30", travel.getContent_type(), travel.getId(), travel.getDetail_link(), travel.getName(), "1",day);
                 }
             }
         });
@@ -556,6 +557,7 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
 
                 }
             } else if (o instanceof BaseResponse){
+                onBackToFragmentListener.onBack();
                 getActivity().onBackPressed();
             }
 
