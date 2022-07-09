@@ -66,11 +66,11 @@ class AllPlacesAdapter : RecyclerView.Adapter<AllPlacesAdapter.ViewHolder>() {
             binding.rcvPlacesInday.adapter = adapter
             binding.rbtnSelectAddPlace.isChecked = currentPosition == lastCheckedPos
             placeItem.isSelected = binding.rbtnSelectAddPlace.isChecked
-            binding.rbtnSelectAddPlace.setOnCheckedChangeListener { buttonView, isChecked ->
-                placeItem.isSelected = isChecked
-                if (isChecked){
+            binding.rbtnSelectAddPlace.setOnClickListener {
+                if (currentPosition != lastCheckedPos){
                     lastCheckedPos = currentPosition
                     notifyDataSetChanged()
+
                 }
             }
         }
