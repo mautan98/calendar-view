@@ -53,10 +53,18 @@ class TripsTimeAdapter : RecyclerView.Adapter<TripsTimeAdapter.ViewHolder>() {
         fun bind(item: SchedulePlaceByDaysItem, position: Int) {
             val sttDate = position + 1
             val date = Utils.formatTimestampTrips(item.day)
-            val numberPlace = item.totalPlace
-            val distance = item.totalDistance
+            val distance = if (item.totalDistance != null){
+                item.totalDistance
+            } else {
+                0
+            }
             binding.tvTime.text = "Ngày ${sttDate}: $date"
-            binding.tvDescDistance.text = "${numberPlace} địa điểm, ${distance} km"
+            val totalPlace: Int? = if (item.totalPlace != null) {
+                item.totalPlace
+            } else {
+                0
+            }
+            binding.tvDescDistance.text = "${totalPlace} địa điểm, ${distance} km"
             Glide.with(itemView.context).load(item.logoUrl).into(binding.imvPlaceTime)
             if (item.removeAble){
                 binding.imvDeleteScheduleDate.visibility = View.VISIBLE

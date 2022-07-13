@@ -52,9 +52,14 @@ class AllPlacesAdapter : RecyclerView.Adapter<AllPlacesAdapter.ViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(placeItem: ItemPlaces, currentPosition: Int) {
-            binding.tvDayNoDetail.text = "Ngày${currentPosition + 1}"
+            binding.tvDayNoDetail.text = "Ngày ${currentPosition + 1}"
             binding.tvDayDetail.text = Utils.formatTimeStamp(placeItem.day, "yyyy-MM-dd")
-            binding.tvNumberPlace.text = "${placeItem.totalPlace} địa điểm"
+            val totalPlace = if (placeItem.totalPlace != null){
+                placeItem.totalPlace
+            } else {
+                0
+            }
+            binding.tvNumberPlace.text = "${totalPlace} địa điểm"
             val adapter = PlacesAdapter()
             adapter.setOnItemClickListener(object : PlacesAdapter.OnItemClickListener{
                 override fun onItemClick(position: Int, view: View) {
