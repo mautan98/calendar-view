@@ -3,6 +3,7 @@ package com.namviet.vtvtravel.view.fragment.f2mytrip
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
+import android.text.TextUtils
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.namviet.vtvtravel.R
@@ -10,7 +11,9 @@ import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.api.WSConfig
 import com.namviet.vtvtravel.databinding.FragmentDetailTripBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.listener.OnItemRecyclerClickListener
+import com.namviet.vtvtravel.ultils.DialogUtil.Companion.showErrorDialog
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.OverlapDecoration
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.PlacesInScheduleAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.UserListAdapter
@@ -171,6 +174,16 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             val startDate = Utils.formatTimestampTrips(tripItem?.startAt)
             val endDate = Utils.formatTimestampTrips(tripItem?.endAt)
             binding.tvDetailTimeTrips.text = "($startDate - $endDate, ${tripItem?.numberPeople} người)"
+        } else if (arg is ErrorResponse){
+            val responseError = arg
+            var des = "Đã có lỗi không xác định"
+            if (!TextUtils.isEmpty(responseError.getErrorCode())) {
+                des = responseError.getErrorCode()
+            }
+            showErrorDialog(
+                getString(R.string.error_title), getString(R.string.close_title),
+                des, childFragmentManager
+            )
         }
     }
 
