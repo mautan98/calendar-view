@@ -1,14 +1,17 @@
 package com.namviet.vtvtravel.view.fragment.f2mytrip.place
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.databinding.FragmentDetailSchedulePlacesBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
+import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.listener.OnBackToFragmentListener
 import com.namviet.vtvtravel.response.BaseResponse
 import com.namviet.vtvtravel.ultils.DialogUtil
+import com.namviet.vtvtravel.ultils.DialogUtil.Companion.showErrorDialog
 import com.namviet.vtvtravel.view.fragment.f2mytrip.AddPlaceToTripFragment
 import com.namviet.vtvtravel.view.fragment.f2mytrip.dialog.BottomNoteDialog
 import com.namviet.vtvtravel.view.fragment.f2mytrip.dialog.BottomWheelDialog
@@ -21,6 +24,7 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
 import com.namviet.vtvtravel.view.fragment.f2travelvoucher.AlreadyReceiverDialog
 import com.namviet.vtvtravel.widget.ConfirmDeleteDialog
 import java.util.*
+
 
 class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>(), Observer {
 
@@ -187,6 +191,16 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
             if (arg.isSuccess){
                 tripItem?.id?.let { viewModel?.getDetailPlaces(it) }
             }
+        } else if (arg is ErrorResponse){
+            val responseError = arg
+            var des = "Đã có lỗi không xác định"
+            if (!TextUtils.isEmpty(responseError.getErrorCode())) {
+                des = responseError.getErrorCode()
+            }
+            showErrorDialog(
+                getString(R.string.error_title), getString(R.string.close_title),
+                des, childFragmentManager
+            )
         }
     }
 }
