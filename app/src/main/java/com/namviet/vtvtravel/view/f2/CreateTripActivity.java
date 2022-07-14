@@ -2,6 +2,8 @@ package com.namviet.vtvtravel.view.f2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.view.View;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.config.Constants;
@@ -13,6 +15,9 @@ import com.namviet.vtvtravel.view.fragment.f2createtrip.CreateTripFragment;
 public class CreateTripActivity extends BaseActivityNew {
     @Override
     public int getLayoutRes() {
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
         return R.layout.f2_activity_create_trip;
     }
 

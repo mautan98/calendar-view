@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.test.mock.MockPackageManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,6 +54,7 @@ import com.namviet.vtvtravel.response.f2smalllocation.SortSmallLocationResponse;
 import com.namviet.vtvtravel.service.TrackLocationService;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
 import com.namviet.vtvtravel.ultils.DeviceUtils;
+import com.namviet.vtvtravel.ultils.DialogUtil;
 import com.namviet.vtvtravel.ultils.PreferenceUtil;
 import com.namviet.vtvtravel.ultils.ServiceUltils;
 import com.namviet.vtvtravel.view.f2.FilterActivity;
@@ -552,6 +554,11 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
             } else if (o instanceof ErrorResponse) {
 //                getBinding().rllNoData.setVisibility(View.VISIBLE);
                 ErrorResponse responseError = (ErrorResponse) o;
+               String des = "Đã có lỗi không xác định";
+                if (!TextUtils.isEmpty(responseError.getErrorCode())) {
+                    des = responseError.getErrorCode();
+                }
+                DialogUtil.Companion.showErrorDialog(getString(R.string.error_title), getString(R.string.close_title), des, getChildFragmentManager());
                 try {
                 } catch (Exception e) {
 
