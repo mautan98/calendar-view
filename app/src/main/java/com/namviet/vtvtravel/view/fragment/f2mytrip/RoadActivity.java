@@ -61,24 +61,24 @@ public class RoadActivity extends BaseActivityNew<ActivityRoadBinding> implement
         getBinding().mapView.onCreate(null);
         getBinding().mapView.onResume();
         getBinding().mapView.getMapAsync(this);
-        Button btnDraw = (Button) findViewById(R.id.btn_draw);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
+//        Button btnDraw = (Button) findViewById(R.id.btn_draw);
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            return;
+//        }
 
 
-        btnDraw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (markerPoints.size() >= 2) {
-                    LatLng origin = markerPoints.get(0);
-                    LatLng dest = markerPoints.get(1);
-                    String url = getDirectionsUrl(origin, dest);
-                    DownloadTask downloadTask = new DownloadTask();
-                    downloadTask.execute(url);
-                }
-            }
-        });
+//        btnDraw.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (markerPoints.size() >= 2) {
+//                    LatLng origin = markerPoints.get(0);
+//                    LatLng dest = markerPoints.get(1);
+//                    String url = getDirectionsUrl(origin, dest);
+//                    DownloadTask downloadTask = new DownloadTask();
+//                    downloadTask.execute(url);
+//                }
+//            }
+//        });
     }
 
 
@@ -139,7 +139,7 @@ public class RoadActivity extends BaseActivityNew<ActivityRoadBinding> implement
 
 
 
-        mMap.setMyLocationEnabled(true);
+//        mMap.setMyLocationEnabled(true);
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override

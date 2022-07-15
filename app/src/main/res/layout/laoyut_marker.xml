@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <ImageView
+        android:src="@drawable/f2_ic_marker_play_what_big"
+        android:layout_width="80dp"
+        android:layout_height="80dp"/>
+
+
+    <com.ornach.richtext.RichText
+        android:id="@+id/tvPosition"
+        android:textColor="@color/colorPrimary"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center"
+        android:text="1"
+        app:rt_borderColor="@color/white"
+        app:rt_borderWidth="1dp"
+        app:rt_radius="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        app:rt_backgroundColor="@color/white"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
+
+</RelativeLayout>
