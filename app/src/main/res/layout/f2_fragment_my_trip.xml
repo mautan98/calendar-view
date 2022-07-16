@@ -13,7 +13,13 @@
         android:layout_height="match_parent"
         android:background="@color/color_gray_trip_ec">
 
+        <View
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"/>
+
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginTop="26dp"
             android:id="@+id/header_my_trip"
             android:layout_width="match_parent"
             android:paddingEnd="18dp"

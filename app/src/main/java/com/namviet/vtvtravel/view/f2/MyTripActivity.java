@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.view.f2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.View;
 
 import androidx.core.content.ContextCompat;
@@ -52,11 +53,8 @@ public class MyTripActivity extends BaseActivityNew<F2ActivityMyTripBinding> {
     @Override
     public void afterSetContentView() {
         super.afterSetContentView();
-        try {
-            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.white));
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//  set status text dark
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        getWindow().getDecorView().setSystemUiVisibility (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN| View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
     }
 }

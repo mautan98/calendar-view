@@ -50,7 +50,7 @@ class MyTripsAdapter(var context: Context) : RecyclerView.Adapter<MyTripsAdapter
     inner class ViewHolder(var binding: LayoutItemMyTripsBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(tripItem: TripItem , position: Int) {
-            Glide.with(context).load(tripItem.bannerUrl).into(binding.imvBannerTrip)
+            Glide.with(context).load(tripItem.bannerUrl).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(binding.imvBannerTrip)
             binding.tvCreatorName.text = tripItem.creator?.fullname
             binding.tvTripsName.text = tripItem.name
             binding.tvTripsDesc.text = tripItem.description
