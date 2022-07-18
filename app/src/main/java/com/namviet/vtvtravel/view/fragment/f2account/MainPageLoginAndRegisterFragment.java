@@ -3,7 +3,10 @@ package com.namviet.vtvtravel.view.fragment.f2account;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.os.Handler;
+
+import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.viewpager.widget.ViewPager;
 import android.view.View;
@@ -13,7 +16,11 @@ import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.adapter.f2offline.MainAdapter;
 import com.namviet.vtvtravel.databinding.F2FragmentPageMainLoginBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
+import com.namviet.vtvtravel.model.f2event.OnChangeTab;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Objects;
 
@@ -39,7 +46,7 @@ public class MainPageLoginAndRegisterFragment extends BaseFragment<F2FragmentPag
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                getBinding().vpMainLogin.setCurrentItem(position);
+                getBinding().vpMainLogin.setCurrentItem(position, false);
             }
         }, 200);
 
@@ -114,7 +121,7 @@ public class MainPageLoginAndRegisterFragment extends BaseFragment<F2FragmentPag
 
 
     private void tabLoginSelected(){
-        getBinding().vpMainLogin.setCurrentItem(0,true);
+        getBinding().vpMainLogin.setCurrentItem(0,false);
         Typeface typeface = ResourcesCompat.getFont(mActivity, R.font.roboto_black);
         getBinding().btnTabLogin.setTypeface(typeface);
         getBinding().btnTabLogin.setAlpha(1);
@@ -125,7 +132,7 @@ public class MainPageLoginAndRegisterFragment extends BaseFragment<F2FragmentPag
     }
 
     private void tabRegisterSelected(){
-        getBinding().vpMainLogin.setCurrentItem(1,true);
+        getBinding().vpMainLogin.setCurrentItem(1,false);
         Typeface typeface = ResourcesCompat.getFont(mActivity, R.font.roboto_regular);
         getBinding().btnTabLogin.setTypeface(typeface);
         getBinding().btnTabLogin.setAlpha(0.5f);
@@ -153,5 +160,26 @@ public class MainPageLoginAndRegisterFragment extends BaseFragment<F2FragmentPag
     public void setScreenTitle() {
         super.setScreenTitle();
         setDataScreen(TrackingAnalytic.ScreenCode.LOGIN_AND_REGISTER, TrackingAnalytic.ScreenTitle.LOGIN_AND_REGISTER);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onChangeScreen(OnChangeTab onChangeTab){
+        if(onChangeTab.getPosition() == 0){
+            getBinding().vpMainLogin.setCurrentItem(0);
+        }else {
+            getBinding().vpMainLogin.setCurrentItem(1);
+        }
     }
 }

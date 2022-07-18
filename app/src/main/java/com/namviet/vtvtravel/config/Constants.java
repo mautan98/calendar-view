@@ -175,6 +175,7 @@ public class Constants {
         public static final String MENU_DATA = "MENU_DATA";
         public static final String TIME_STAMP = "TIME_STAMP";
         public static final String CITY_NAME = "CITY_NAME";
+        public static final String ACCESS_KEY = "ACCESS_KEY";
 
 
 
@@ -248,6 +249,7 @@ public class Constants {
         public static final String DATE_FORMAT_16 = "dd MMMM yyyy";
         public static final String DATE_FORMAT_17 = "EEEE, dd/MM/yyyy";
         public static final String DATE_FORMAT_18 = "dd.MM.yyyy";
+        public static final String DATE_FORMAT_NOTI = "MMMM, yyyy";
         public static final String DATE_FORMAT_19 = "HH:mm dd/MM";
     }
 

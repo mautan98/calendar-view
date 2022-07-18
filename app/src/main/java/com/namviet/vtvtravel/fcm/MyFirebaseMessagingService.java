@@ -14,8 +14,11 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.namviet.vtvtravel.view.f3.notification.model.NotificationCode;
+import com.namviet.vtvtravel.view.f3.notification.model.Notification;
+
 import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
+
 
 import android.os.PowerManager;
 import android.util.Log;
@@ -23,13 +26,11 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.model.f2event.OnReloadCountSystemInbox;
-import com.namviet.vtvtravel.response.f2systeminbox.DataSystemInbox;
-import com.namviet.vtvtravel.service.InCallForegroundService;
-import com.namviet.vtvtravel.ultils.F2Util;
+
 import com.namviet.vtvtravel.view.MainActivity;
 import com.namviet.vtvtravel.view.f2.ReceiverCallActivity;
 
@@ -66,39 +67,32 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(final RemoteMessage remoteMessage) {
 
-        // [START_EXCLUDE]
-        // There are two types of messages data messages and notification messages. Data messages
-        // are handled
-        // here in onMessageReceived whether the app is in the foreground or background. Data
-        // messages are the type
-        // traditionally used with GCM. Notification messages are only received here in
-        // onMessageReceived when the app
-        // is in the foreground. When the app is in the background an automatically generated
-        // notification is displayed.
-        // When the user taps on the notification they are returned to the app. Messages
-        // containing both notification
-        // and data payloads are treated as notification messages. The Firebase console always
-        // sends notification
-        // messages. For more see: https://firebase.google.com/docs/cloud-messaging/concept-options
-        // [END_EXCLUDE]
-
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.d(TAG, "From: " + remoteMessage.getFrom());
 
         // Check if message contains a data payload.
-//        try {
-//            if (remoteMessage.getData().size() > 0) {
-//
-//                try {
-//                    EventBus.getDefault().post(new OnReloadCountSystemInbox());
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//
-//
-//                Notification notification = new Gson().fromJson(remoteMessage.getData().get("data"), Notification.class);
-//
+        try {
+            if (remoteMessage.getData().size() > 0) {
+
+                try {
+                    EventBus.getDefault().post(new OnReloadCountSystemInbox());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+
+                Notification notification = new Gson().fromJson(remoteMessage.getData().get("data"), Notification.class);
+                try {
+                    Log.e("FirebaseJson", new Gson().toJson(notification));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if(notification != null){
+                    sendNotificationNotInApp(notification.getData().getCode(),notification);
+                }
+
 //                if (notification.getTitle().equals("INVITE_SCHEDULE")) {
 //                    //                if (isAppRunning()) {
 //                    //                    runOnUiThread(new Runnable() {
@@ -145,12 +139,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 //                    }
 //                    sendNotificationNotInApp(NotificationType.VIP, notification);
 //                }
-//
-//
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+
+
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         // test call
 //        wakeup();
@@ -247,11 +243,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // TODO: Implement this method to send token to your app server.
     }
 
-    /**
-     * Create and show a simple notification containing the received FCM message.
-     *
-     * @param messageBody FCM message body received.
-     */
 
 
     private boolean isAppRunning() {
@@ -271,61 +262,66 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
 
-    private void sendNotificationNotInApp(int notificationType, Notification notification) {
-
+    private void sendNotificationNotInApp(String notificationCode, Notification notification) {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(Constants.IntentKey.NOTIFICATION_TYPE, notificationType);
+        intent.putExtra(Constants.IntentKey.NOTIFICATION_TYPE, notificationCode);
         intent.putExtra(Constants.IntentKey.NOTIFICATION, notification);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
         String channelId = "VTVTravel Notification";
-        NotificationCompat.Builder notificationBuilder = null;
-        switch (notificationType) {
-            case NotificationType.INVITE_TRIP:
-                notificationBuilder =
-                        new NotificationCompat.Builder(this, channelId)
-                                .setSmallIcon(R.mipmap.ic_app)
-                                .setContentTitle("Thông báo")
-                                .setContentText("Bạn nhận được lời mời vào chuyến đi.")
-                                .setAutoCancel(true)
-                                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                                .setContentIntent(pendingIntent);
-                break;
-            case NotificationType.VIP:
-                notificationBuilder =
-                        new NotificationCompat.Builder(this, channelId)
-                                .setSmallIcon(R.mipmap.ic_app)
-                                .setContentTitle("Thông báo")
-                                .setContentText("Bạn vừa đăng ký VIP thành công.")
-                                .setAutoCancel(true)
-                                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                                .setContentIntent(pendingIntent);
-                break;
-
-            case NotificationType.SHARE:
-                notificationBuilder =
-                        new NotificationCompat.Builder(this, channelId)
-                                .setSmallIcon(R.mipmap.ic_app)
-                                .setContentTitle("Thông báo")
-                                .setContentText("Bạn nhận được một chia sẻ bài viết.")
-                                .setAutoCancel(true)
-                                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                                .setContentIntent(pendingIntent);
-                break;
-
-            case NotificationType.TICKET:
-                notificationBuilder =
-                        new NotificationCompat.Builder(this, channelId)
-                                .setSmallIcon(R.mipmap.ic_app)
-                                .setContentTitle("Thông báo")
-                                .setContentText("Bạn nhận được ticket mới.")
-                                .setAutoCancel(true)
-                                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                                .setContentIntent(pendingIntent);
-                break;
-        }
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, channelId)
+                        .setSmallIcon(R.mipmap.ic_app)
+                        .setContentTitle(notification.getTitle())
+                        .setContentText(notification.getMessage())
+                        .setAutoCancel(true)
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setContentIntent(pendingIntent);
+//        switch (notificationCode) {
+//            case NotificationType.INVITE_TRIP:
+//                notificationBuilder =
+//                        new NotificationCompat.Builder(this, channelId)
+//                                .setSmallIcon(R.mipmap.ic_app)
+//                                .setContentTitle("Thông báo")
+//                                .setContentText("Bạn nhận được lời mời vào chuyến đi.")
+//                                .setAutoCancel(true)
+//                                .setPriority(NotificationCompat.PRIORITY_HIGH)
+//                                .setContentIntent(pendingIntent);
+//                break;
+//            case NotificationType.VIP:
+//                notificationBuilder =
+//                        new NotificationCompat.Builder(this, channelId)
+//                                .setSmallIcon(R.mipmap.ic_app)
+//                                .setContentTitle("Thông báo")
+//                                .setContentText("Bạn vừa đăng ký VIP thành công.")
+//                                .setAutoCancel(true)
+//                                .setPriority(NotificationCompat.PRIORITY_HIGH)
+//                                .setContentIntent(pendingIntent);
+//                break;
+//
+//            case NotificationType.SHARE:
+//                notificationBuilder =
+//                        new NotificationCompat.Builder(this, channelId)
+//                                .setSmallIcon(R.mipmap.ic_app)
+//                                .setContentTitle("Thông báo")
+//                                .setContentText("Bạn nhận được một chia sẻ bài viết.")
+//                                .setAutoCancel(true)
+//                                .setPriority(NotificationCompat.PRIORITY_HIGH)
+//                                .setContentIntent(pendingIntent);
+//                break;
+//
+//            case NotificationType.TICKET:
+//                notificationBuilder =
+//                        new NotificationCompat.Builder(this, channelId)
+//                                .setSmallIcon(R.mipmap.ic_app)
+//                                .setContentTitle("Thông báo")
+//                                .setContentText("Bạn nhận được ticket mới.")
+//                                .setAutoCancel(true)
+//                                .setPriority(NotificationCompat.PRIORITY_HIGH)
+//                                .setContentIntent(pendingIntent);
+//                break;
+//        }
 
 
         NotificationManager notificationManager =

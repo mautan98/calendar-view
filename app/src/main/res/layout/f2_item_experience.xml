@@ -78,7 +78,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="11dp"
+                android:layout_marginStart="8dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -95,7 +95,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -176,6 +176,7 @@
                                 android:layout_height="wrap_content">
 
                                 <TextView
+                                    android:visibility="gone"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
@@ -190,7 +191,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:layout_marginStart="5dp"
+                                    android:layout_marginStart="6dp"
                                     android:fontFamily="@font/roboto_medium"
                                     android:textColor="#5E5E5E"
                                     android:textSize="12dp"
@@ -262,6 +263,7 @@
 
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:id="@+id/linearPriceType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -287,16 +289,17 @@
 
 
                     <LinearLayout
+                        android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="12dp"
-                            android:layout_height="13dp"
+                            android:layout_width="9dp"
+                            android:layout_height="15dp"
                             android:layout_marginEnd="4dp"
-                            android:src="@drawable/f2_ic_location" />
+                            android:src="@drawable/ic_metro_location" />
 
                         <TextView
                             android:id="@+id/tvAddress"
@@ -313,6 +316,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -320,9 +324,9 @@
 
                         <ImageView
                             android:layout_width="12dp"
-                            android:layout_height="13dp"
+                            android:layout_height="12dp"
                             android:layout_marginEnd="4dp"
-                            android:src="@drawable/f2_ic_distance" />
+                            android:src="@drawable/ic_my_location" />
 
                         <TextView
                             android:id="@+id/tvDistance"
@@ -336,6 +340,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:gravity="center_vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -345,7 +350,7 @@
                         <ImageView
                             android:id="@+id/imgType"
                             android:layout_width="16dp"
-                            android:layout_height="17dp" />
+                            android:layout_height="16dp" />
 
                         <TextView
                             android:id="@+id/tvType"

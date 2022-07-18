@@ -606,7 +606,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                 }
             });
-            new CoverFlow.Builder().with(pager).scale(0.3f).pagerMargin(-50f).spaceSize(0f).build();
+            new CoverFlow.Builder().with(pager).scale(0.0f).pagerMargin(10f).spaceSize(0f).build();
 
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 tvTipUser.setText(Html.fromHtml(homeServiceResponse.getData().get(position).getTipUser(), Html.FROM_HTML_MODE_COMPACT));
@@ -630,9 +630,11 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             });
 
             try {
-                vpIndicator.attachToViewPager(pager);
+                vpIndicator.attachToViewPager(pager)
+                ;
 
-                indicator.setViewPager(pager);
+                indicator.setViewPager(pager)
+                ;
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -749,10 +751,10 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         public void bindItem(int position) {
-            BaseResponseSpecialNewHome appDealResponse = (BaseResponseSpecialNewHome) homeServiceResponse.getData().get(position).getDataExtra();
-            if (appDealResponse == null) {
-                loadData.onLoadData(homeServiceResponse.getData().get(position).getContent_link(), TypeString.APP_DEAL);
-            }
+//            BaseResponseSpecialNewHome appDealResponse = (BaseResponseSpecialNewHome) homeServiceResponse.getData().get(position).getDataExtra();
+//            if (appDealResponse == null) {
+//                loadData.onLoadData(homeServiceResponse.getData().get(position).getContent_link(), TypeString.APP_DEAL);
+//            }
 
 //            subDealAdapter = new SubDealAdapter(context, appDealResponse.getData(), new SubDealAdapter.ClickItem() {
 //                @Override
@@ -882,6 +884,7 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
             subPromotionPartnerAdapter = new SubPromotionPartnerAdapter(context, appPromotionPartnerResponse.getItems());
             recyclerPartnerLink.setAdapter(subPromotionPartnerAdapter);
+            recyclerPartnerLink.setItemViewCacheSize(6);
 
             try {
                 vpIndicator.attachToRecyclerView(recyclerPartnerLink);
@@ -901,13 +904,13 @@ public class NewHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             if(newState == 0){
                                 LinearLayoutManager layoutManager = ((LinearLayoutManager) recyclerPartnerLink.getLayoutManager());
                                 int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
-                                if(!checkID(appPromotionPartnerResponse.getItems().get(firstVisiblePosition).getAvatarUri())) {
+                                if(!checkID(appPromotionPartnerResponse.getItems().get(firstVisiblePosition).getId()) && firstVisiblePosition != 0) {
                                     try {
-                                        TrackingAnalytic.postEvent(TrackingAnalytic.VIEW_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id("mess").setScreen_class(this.getClass().getName()));
+                                        TrackingAnalytic.postEvent(TrackingAnalytic.VIEW_PARTNER_BANNER_AD, TrackingAnalytic.getDefault(TrackingAnalytic.ScreenCode.HOME, TrackingAnalytic.ScreenTitle.HOME).setPartner_banner_ad_id(appPromotionPartnerResponse.getItems().get(firstVisiblePosition).getId()).setScreen_class(this.getClass().getName()));
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                    idsViewed.add(appPromotionPartnerResponse.getItems().get(firstVisiblePosition).getAvatarUri());
+                                    idsViewed.add(appPromotionPartnerResponse.getItems().get(firstVisiblePosition).getId());
                                 }
                             }
                         } catch (Exception e) {

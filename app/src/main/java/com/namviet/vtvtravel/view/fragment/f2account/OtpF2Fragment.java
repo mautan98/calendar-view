@@ -8,6 +8,8 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baseapp.utils.KeyboardUtils;
@@ -115,8 +117,9 @@ public class OtpF2Fragment extends BaseFragment<F2FragmentOtpBinding> implements
     }
 
     private void submitOtp() {
+        resetError();
         if (getBinding().otpView.getOTP().length()<6) {
-            ((LoginAndRegisterActivityNew) mActivity).showWarning("Mã OTP không được bỏ trống");
+            handleValidateFail("Mã OTP không được bỏ trống", getBinding().tvWarning);
             getBinding().otpView.showError();
         } else {
             String otp = getBinding().otpView.getOTP();
@@ -181,7 +184,7 @@ public class OtpF2Fragment extends BaseFragment<F2FragmentOtpBinding> implements
                     getBinding().tvTimeLeft.setVisibility(View.GONE);
                 }
                 try {
-                    ((LoginAndRegisterActivityNew)mActivity).showWarning(responseError.getMessage());
+                    handleValidateFail(responseError.getMessage(), getBinding().tvWarning);
                     getBinding().otpView.showError();
 
                     if(responseError.getErrorCode().equals("USER_OTP_TIMEOUT")){
@@ -256,5 +259,16 @@ public class OtpF2Fragment extends BaseFragment<F2FragmentOtpBinding> implements
     public void setScreenTitle() {
         super.setScreenTitle();
         setDataScreen(TrackingAnalytic.ScreenCode.OTP, TrackingAnalytic.ScreenTitle.OTP);
+    }
+
+    private void resetError(){
+        getBinding().tvWarning.setVisibility(View.INVISIBLE);
+        getBinding().tvWarning.setText("");
+    }
+
+    private void handleValidateFail(String error, TextView tvError) {
+        tvError.setText(error);
+        tvError.setVisibility(View.VISIBLE);
+
     }
 }

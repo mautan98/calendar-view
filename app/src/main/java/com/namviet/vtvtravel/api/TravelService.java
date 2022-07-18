@@ -92,6 +92,7 @@ import com.namviet.vtvtravel.response.f2comment.UpdateCommentResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SmallLocationResponse;
 import com.namviet.vtvtravel.response.f2video.DetailVideoResponse;
 import com.namviet.vtvtravel.response.f2wheel.RuleLuckyWheel;
+import com.namviet.vtvtravel.response.f2wheel.WheelActionResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelAreasResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelChartResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelResultResponse;
@@ -122,6 +123,9 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.CreateS
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.DataCreateTrips;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.detail.PlaceScheduleResponse;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.DetailPlacesResponse;
+import com.namviet.vtvtravel.view.f3.notification.model.ui.NotificationResponse;
+import com.namviet.vtvtravel.view.f3.notification.model.ui.NotificationTab;
+import com.namviet.vtvtravel.view.f3.notification.model.ui.UpdateNotificationResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.GetInfoResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ResentOtpServiceResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceOtpResponse;
@@ -684,8 +688,14 @@ public interface TravelService {
     @POST(WSConfig.Api.WHEEL_RESULT)
     Observable<WheelResultResponse> wheelResult(@Body RequestBody body);
 
+    @POST(WSConfig.Api.WHEEL_ACTION)
+    Observable<WheelActionResponse> wheelAction(@Body RequestBody body);
+
     @POST(WSConfig.Api.WHEEL_AREAS)
     Observable<WheelAreasResponse> wheelAreas(@Body RequestBody body);
+
+    @POST
+    Observable<WheelAreasResponse> wheelAreasV2(@Body RequestBody body, @Url String url);
 
     @GET(WSConfig.Api.WHEEL_CHARTS)
     Observable<WheelChartResponse> getWheelChartResponse();
@@ -821,5 +831,30 @@ public interface TravelService {
 
     @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_SCHEDULE_PLACE)
     Observable<BaseResponse> updateSchedulePlace(@Body RequestBody bodyUpdatePlace);
+
+    @POST(WSConfig.Api.INBOX_TYPE)
+    Observable<NotificationResponse> getNotificationByType(@Query("typeId") String type, @Body RequestBody body);
+
+    @POST(WSConfig.Api.INBOX_MARK)
+    Observable<NotificationResponse> getNotificationByMark(@Body RequestBody body);
+
+    @POST(WSConfig.Api.SYSTEM_INBOX)
+    Observable<NotificationResponse> getAllNotification(@Body RequestBody body);
+
+    @POST(WSConfig.Api.INBOX_STATUS)
+    Observable<NotificationResponse> getNotificationByStatus(@Query("status") String type, @Body RequestBody body);
+
+    @POST(WSConfig.Api.UPDATE_MARK)
+    Observable<UpdateNotificationResponse> updateMark(@Body RequestBody body);
+
+    @POST(WSConfig.Api.UPDATE_INBOX)
+    Observable<UpdateNotificationResponse> updateInbox(@Body RequestBody body);
+
+    @POST(WSConfig.Api.USER_LOGOUT)
+    Observable<Object> logout(@Body RequestBody body);
+
+    @GET
+    Observable<NotificationTab> getNotificationTab(@Url String url);
+
 
 }

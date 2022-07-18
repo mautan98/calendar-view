@@ -71,6 +71,7 @@ import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.f2.SystemInboxActivity;
 
 import com.namviet.vtvtravel.view.f2.UserInformationActivity;
+import com.namviet.vtvtravel.view.f3.notification.view.NotificationActivity;
 import com.namviet.vtvtravel.view.fragment.MainFragment;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceActivity;
 import com.namviet.vtvtravel.view.fragment.f2webview.HomeSpeedyLinearLayoutManager;
@@ -191,7 +192,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
             public void onClick(View view) {
                 Account account1 = MyApplication.getInstance().getAccount();
                 if (null != account1 && account1.isLogin()) {
-                    SystemInboxActivity.startScreen(mActivity);
+                    NotificationActivity.Companion.openActivity(mActivity);
                 } else {
                     LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
                 }
@@ -348,13 +349,13 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 
 
                 if(account.getPackageCode() == null){
-                    homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <b>Hội viên</b> của <b>#VTVTravel</b>");
+                    homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <font color=\"#00918D\"><b>Hội viên</b></font> của <font color=\"#00918D\"><b>#VTVTravel</b></font>");
                     homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
                     newHomeAdapter.notifyItemChanged(1);
                     newHomeAdapter.notifyItemChanged(2);
 
                 }else {
-                    homeServiceResponse.getData().get(1).setTipUser("Bạn đang là <b>Hội viên</b> của <b>#VTVTravel</b>, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:");
+                    homeServiceResponse.getData().get(1).setTipUser("Bạn đang là <font color=\"#00918D\"><b>Hội viên</b></font> của <font color=\"#00918D\"><b>#VTVTravel</b></font>, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:");
                     homeServiceResponse.getData().get(1).setShowBtnRegisterNow(false);
                     newHomeAdapter.notifyItemChanged(1);
                     newHomeAdapter.notifyItemChanged(2);
@@ -377,7 +378,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
     //            newHomeAdapter.notifyItemChanged(0);
 
 
-                homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <b>Hội viên</b> của <b>#VTVTravel</b>");
+                homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <font color=\"#00918D\"><b>Hội viên</b></font> của <font color=\"#00918D\"><b>#VTVTravel</b></font>");
                 homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
                 newHomeAdapter.notifyItemChanged(1);
 
@@ -791,10 +792,10 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 
 
                 if(account.getPackageCode() == null){
-                    homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <b>Hội viên</b> của <b>#VTVTravel</b>");
+                    homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <font color=\"#00918D\"><b>Hội viên</b></font> của <font color=\"#00918D\"><b>#VTVTravel</b></font>");
                     homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
                 }else {
-                    homeServiceResponse.getData().get(1).setTipUser("Bạn đang là <b>Hội viên</b> của <b>#VTVTravel</b>, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:");
+                    homeServiceResponse.getData().get(1).setTipUser("Bạn đang là <font color=\"#00918D\"><b>Hội viên</b></font> của <font color=\"#00918D\"><b>#VTVTravel</b></font>, đừng bỏ lỡ những cơ hội ưu đãi dưới đây:");
                     homeServiceResponse.getData().get(1).setShowBtnRegisterNow(false);
                 }
 
@@ -834,7 +835,7 @@ public class NewHomeFragment extends MainFragment implements Observer, NewHomeAd
 //                    homeServiceResponse.getData().get(0).setDescriptionUser("Đăng nhập ngay");
                 }
 
-                homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <b>Hội viên</b> của <b>#VTVTravel</b>");
+                homeServiceResponse.getData().get(1).setTipUser("Ưu đãi độc quyền khi đăng ký <font color=\"#00918D\"><b>Hội viên</b></font> của <font color=\"#00918D\"><b>#VTVTravel</b></font>");
                 homeServiceResponse.getData().get(1).setShowBtnRegisterNow(true);
             }
 

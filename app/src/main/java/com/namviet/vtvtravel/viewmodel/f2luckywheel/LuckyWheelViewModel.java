@@ -3,6 +3,7 @@ package com.namviet.vtvtravel.viewmodel.f2luckywheel;
 import com.google.gson.Gson;
 import com.namviet.vtvtravel.api.Param;
 import com.namviet.vtvtravel.api.TravelService;
+import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.response.f2chat.GetUserGuildResponse;
@@ -10,6 +11,7 @@ import com.namviet.vtvtravel.response.f2review.CreateReviewResponse;
 import com.namviet.vtvtravel.response.f2review.GetReviewResponse;
 import com.namviet.vtvtravel.response.f2topexperience.SubTopExperienceResponse;
 import com.namviet.vtvtravel.response.f2wheel.RuleLuckyWheel;
+import com.namviet.vtvtravel.response.f2wheel.WheelActionResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelAreasResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelChartResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelResultResponse;
@@ -115,14 +117,14 @@ public class LuckyWheelViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
-    public void wheelAreas(String service, List<String> listIdVoucher) {
+    public void wheelAreas(String service, List<String> listIdVoucher, String accessKey) {
         RequestBody jsonBodyObject = RequestBody.create(
                 okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                Param.getParams2(Param.wheelAreas(service, listIdVoucher)).toString());
+                Param.getParamWithAccessKey(Param.wheelAreas(service, listIdVoucher), accessKey).toString());
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
 
-        Disposable disposable = newsService.wheelAreas(jsonBodyObject)
+        Disposable disposable = newsService.wheelAreasV2(jsonBodyObject, WSConfig.API_VQMM_AREAS)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<WheelAreasResponse>() {
@@ -144,6 +146,41 @@ public class LuckyWheelViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
+    public void wheelAction(String service, String os, String channel, String accessKey) {
+        RequestBody jsonBodyObject = RequestBody.create(
+                okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                Param.getParamWithAccessKey(Param.wheelResult(service, os, channel), accessKey).toString());
+        MyApplication myApplication = MyApplication.getInstance();
+        TravelService newsService = myApplication.getTravelServiceAcc();
+
+        Disposable disposable = newsService.wheelAction(jsonBodyObject)
+                .subscribeOn(myApplication.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<WheelActionResponse>() {
+                    @Override
+                    public void accept(WheelActionResponse response) throws Exception {
+                        try {
+                            if (response != null && response.isSuccess()) {
+                                requestSuccess(response);
+                            } else if(response != null && !response.isSuccess()&& response.getErrorCode().equals("USER_PACKAGE_NOT_VIP")){
+                                requestSuccess(response);
+                            }else if(response != null && !response.isSuccess()&& response.getErrorCode().equals("NO_TURN")){
+                                requestSuccess(response);
+                            }else {
+                                requestSuccess(null);
+                            }
+                        } catch (Exception e) {
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable, "wheelAction");
+                    }
+                });
+
+        compositeDisposable.add(disposable);
+    }
 
     public void getRuleOrPlayRuleLuckyWheel(String link) {
         MyApplication myApplication = MyApplication.getInstance();

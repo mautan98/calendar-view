@@ -1,7 +1,12 @@
 package com.namviet.vtvtravel.view.fragment.f2service;
 
 import android.content.Context;
+
+import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.DataBindingUtil;
+
+import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.annotation.NonNull;
@@ -12,9 +17,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
@@ -123,6 +130,47 @@ public class ServiceFragment extends MainFragment implements Observer {
         binding.tabVideo.setupWithViewPager(binding.vpVideo);
         binding.vpVideo.setOffscreenPageLimit(list.size());
         binding.vpVideo.setCurrentItem(1);
+
+
+        try {
+            ViewGroup  tabLayout = (ViewGroup) ((ViewGroup)binding.tabVideo.getChildAt(0)).getChildAt(1);
+            TextView textView = (TextView) tabLayout.getChildAt(1);
+            Typeface typeface = ResourcesCompat.getFont(mActivity, R.font.roboto_bold);
+            textView.setTypeface(typeface);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        binding.tabVideo.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                try {
+                    ViewGroup  tabLayout = (ViewGroup) ((ViewGroup)binding.tabVideo.getChildAt(0)).getChildAt(tab.getPosition());
+                    TextView textView = (TextView) tabLayout.getChildAt(1);
+                    Typeface typeface = ResourcesCompat.getFont(mActivity, R.font.roboto_bold);
+                    textView.setTypeface(typeface);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                try {
+                    ViewGroup  tabLayout = (ViewGroup) ((ViewGroup)binding.tabVideo.getChildAt(0)).getChildAt(tab.getPosition());
+                    TextView textView = (TextView) tabLayout.getChildAt(1);
+                    Typeface typeface = ResourcesCompat.getFont(mActivity, R.font.roboto_medium);
+                    textView.setTypeface(typeface);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
     }
 
