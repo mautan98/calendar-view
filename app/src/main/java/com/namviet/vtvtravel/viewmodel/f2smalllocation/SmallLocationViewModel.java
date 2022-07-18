@@ -204,7 +204,7 @@ public class SmallLocationViewModel extends BaseViewModel {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        requestFailed(throwable);
+                        requestFailedRes(throwable);
                     }
                 });
 
