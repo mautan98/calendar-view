@@ -277,6 +277,24 @@ public class WSConfig {
         public static final String USER_LOGOUT = "user/logout";
 
         public static final String API_TRIPS_SCHEDULE = "user/customSchedule/";
+        public static final String GET_SCHEDULE = "schedule";
+        public static final String CREATE_SCHEDULE = "createSchedule";
+        public static final String SCHEDULE_BY_ID = "scheduleById";
+        public static final String UPDATE_COST = "updateCost";
+        public static final String GET_COST = "scheduleCost";
+        public static final String UPDATE_SCHEDULE = "updateScheduleCustom";
+        public static final String DELETE_SCHEDULE = "deleteScheduleCustom";
+        public static final String UPDATE_RANGE_SCHEDULE_CUSTOM = "updateRangesScheduleCustom";
+        public static final String PLACE = "place";
+        public static final String EDIT_NOTE = "updateNote";
+        public static final String INVITE_SCHEDULE = "inviteSchedule";
+        public static final String UPDATE_ARRIVAL_TIME = "updateArrivalTime";
+        public static final String UPDATE_FREE_TIME = "updateFreeTime";
+        public static final String DELETE_PLACE = "deletePlace";
+        public static final String DELETE_PLACE_BY_DAY = "deletePlaceByDay";
+        public static final String CREATE_PLACE = "user/customSchedule/createPlace";
+        public static final String UPDATE_DURATION_VISIT = "updateDurationVisit";
+        public static final String UPDATE_SCHEDULE_PLACE = "updateSchedulePlace";
     }
 
     public class KeyParam {
