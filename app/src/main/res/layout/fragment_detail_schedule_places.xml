@@ -9,6 +9,7 @@
         android:layout_height="match_parent">
 
         <View
+            android:background="@color/white"
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/viewStatusBar"
             android:layout_width="match_parent"
