@@ -92,6 +92,25 @@ class BottomSheetPassengerDialog(context: Context) : BottomSheetDialogFragment()
         binding.imvMinusBaby.setOnClickListener({
             numBaby = setMinusPassenger(numBaby,binding.tvNumberBaby,binding.imvMinusBaby,binding.imvPlusBaby)
         })
+        binding.btnReset.setOnClickListener {
+            resetSelect()
+        }
+    }
+
+    private fun resetSelect(){
+        binding.tvNumberPassenger.text = "1"
+        binding.tvNumberPassenger.text = "0"
+        binding.tvNumberPassenger.text = "0"
+        numAdult = 1
+        numChildren = 0
+        numBaby = 0
+        setEnableButton(binding.imvMinus,false,false)
+        setEnableButton(binding.imvPlus,true,true)
+        setEnableButton(binding.imvMinusChildren,false,false)
+        setEnableButton(binding.imvPlusChildren,true,true)
+        setEnableButton(binding.imvMinusBaby,false,false)
+        setEnableButton(binding.imvPlusBaby,true,true)
+
     }
 
     private fun setPlusPassenger(
@@ -113,15 +132,13 @@ class BottomSheetPassengerDialog(context: Context) : BottomSheetDialogFragment()
                 setEnableButton(
                     imvPlus,
                     false,
-                    R.drawable.ic_plus_passenger,
-                    R.drawable.ic_plus_max_disable
+                    true
                 )
             } else {
                 setEnableButton(
                     imvPlus,
                     true,
-                    R.drawable.ic_plus_passenger,
-                    R.drawable.ic_plus_max_disable
+                    true
                 )
             }
         }
@@ -148,16 +165,14 @@ class BottomSheetPassengerDialog(context: Context) : BottomSheetDialogFragment()
                 setEnableButton(
                     imvMinus,
                     false,
-                    R.drawable.ic_minus_passenger,
-                    R.drawable.ic_minus_passenger_disable_min
+                   false
                 )
             } else {
                 imvMinus.isEnabled = true
                 setEnableButton(
                     imvMinus,
                     true,
-                    R.drawable.ic_minus_passenger,
-                    R.drawable.ic_minus_passenger_disable_min
+                  false
                 )
             }
         }
@@ -167,15 +182,23 @@ class BottomSheetPassengerDialog(context: Context) : BottomSheetDialogFragment()
     private fun setEnableButton(
         imageView: ImageView,
         isEnable: Boolean,
-        resEnable: Int,
-        resDisable: Int
+        isPlus: Boolean
     ) {
         if (isEnable) {
             imageView.isEnabled = true
-            imageView.setImageResource(resEnable)
+            if (isPlus){
+                imageView.setImageResource(R.drawable.ic_plus_passenger)
+            } else {
+                imageView.setImageResource(R.drawable.ic_minus_passenger)
+            }
+
         } else {
             imageView.isEnabled = false
-            imageView.setImageResource(resDisable)
+            if (isPlus){
+                imageView.setImageResource(R.drawable.ic_plus_max_disable)
+            } else {
+                imageView.setImageResource(R.drawable.ic_minus_passenger_disable_min)
+            }
         }
     }
 
