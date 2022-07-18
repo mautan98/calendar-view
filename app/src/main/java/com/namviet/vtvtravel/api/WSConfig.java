@@ -29,7 +29,7 @@ public class WSConfig {
     public static final String API_TRIPS_SCHEDULE = "user/customSchedule/";
 //
 //
-//    //Deal
+    //Deal
 //    public static final String HOST_DEAL_CAMPAIGN_HOME = "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/home?page=0&size=5";
 //    public static final String HOST_DEAL_HOME = "https://core-testing.vtvtravel.vn/api/v1/deals/home?size=5&page=0";
 //    public static final String HOST_DEAL_FOLLOW = "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/follows";

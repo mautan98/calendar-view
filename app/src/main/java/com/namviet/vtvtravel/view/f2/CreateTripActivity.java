@@ -50,4 +50,12 @@ public class CreateTripActivity extends BaseActivityNew {
         Intent intent = new Intent(activity, CreateTripActivity.class);
         activity.startActivity(intent);
     }
+
+    @Override
+    public void afterSetContentView() {
+        super.afterSetContentView();
+        getWindow().getDecorView().setSystemUiVisibility (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN| View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
+    }
 }

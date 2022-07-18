@@ -1,5 +1,6 @@
 package com.namviet.vtvtravel.view.fragment.f2mytrip.place
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -13,6 +14,8 @@ import com.namviet.vtvtravel.response.BaseResponse
 import com.namviet.vtvtravel.ultils.DialogUtil
 import com.namviet.vtvtravel.ultils.DialogUtil.Companion.showErrorDialog
 import com.namviet.vtvtravel.view.fragment.f2mytrip.AddPlaceToTripFragment
+import com.namviet.vtvtravel.view.fragment.f2mytrip.RoadActivity
+import com.namviet.vtvtravel.view.fragment.f2mytrip.TripRoadFragment
 import com.namviet.vtvtravel.view.fragment.f2mytrip.dialog.BottomNoteDialog
 import com.namviet.vtvtravel.view.fragment.f2mytrip.dialog.BottomWheelDialog
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
@@ -175,6 +178,10 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
             addPlaceToTripFragment.setData(tripItem?.id)
             addPlaceToTripFragment.setPlaceScheduleItem(adapter?.getItemPlaceSelected())
             addFragment(addPlaceToTripFragment)
+        }
+
+        binding!!.btnOpenRoad.setOnClickListener {
+            addFragment(TripRoadFragment(listPlaces))
         }
     }
 

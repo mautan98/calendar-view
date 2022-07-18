@@ -95,7 +95,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             }
         })
         binding.rcvAllSchedule.adapter = adapter
-        Glide.with(requireContext()).load(tripItem?.bannerUrl).into(binding.imvBannerDetail)
+        Glide.with(requireContext()).load(tripItem?.bannerUrl).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(binding.imvBannerDetail)
     }
 
     override fun inject() {

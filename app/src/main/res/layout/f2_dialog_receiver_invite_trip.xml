@@ -11,7 +11,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+
         <LinearLayout
+            android:id="@+id/layoutNoti"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -22,18 +24,17 @@
 
             <TextView
                 android:id="@+id/tvTitle"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Thông báo"
-                android:textSize="18dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="55dp"
                 android:fontFamily="@font/roboto_bold"
-                android:textColor="#000000"/>
+                android:gravity="center"
+                android:text="Thông báo"
+                android:textColor="#000000"
+                android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/tvDescription"
-                android:textSize="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -42,42 +43,51 @@
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center"
                 android:text="tin nhắn"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:textSize="16dp" />
 
 
             <TextView
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:background="@drawable/f2_bg_button_agree_invite"
-                android:textAllCaps="true"
                 android:id="@+id/tvLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginBottom="12dp"
+                android:background="@drawable/f2_bg_button_agree_invite"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:text="Đồng ý tham gia"
+                android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="15dp" />
 
 
             <TextView
                 android:id="@+id/btnDismiss"
-                android:layout_marginBottom="40dp"
-                android:textAllCaps="true"
-                android:textSize="14dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="21dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginBottom="40dp"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center"
                 android:text="Đã hiểu"
-                android:textColor="#6DC0BD" />
+                android:textAllCaps="true"
+                android:textColor="#6DC0BD"
+                android:textSize="14dp" />
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignTop="@+id/layoutNoti"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-40dp"
+            android:background="@color/colorPrimary" />
     </RelativeLayout>
 </layout>

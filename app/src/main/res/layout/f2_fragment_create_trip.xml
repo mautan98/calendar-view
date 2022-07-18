@@ -15,7 +15,12 @@
         android:layout_height="match_parent"
         android:background="@color/color_gray_trip_ec">
 
+        <View
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"/>
         <ScrollView
+            android:layout_marginTop="26dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
