@@ -93,6 +93,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"
                         android:hint="@string/hint_trip_name"
+                        android:backgroundTint="@color/color_gray_trip_ec"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -110,7 +111,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"
                         android:hint="Ví dụ: Chuyến đi lãng mạn cho 2 người"
-                        
+                        android:backgroundTint="@color/color_gray_trip_ec"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 

@@ -66,8 +66,9 @@
 
             <TextView
                 android:id="@+id/tv_detail_place_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:maxLines="2"
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/roboto_medium"
@@ -75,6 +76,7 @@
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/imv_detail_place"
                 app:layout_constraintTop_toTopOf="@id/imv_detail_place"
+                app:layout_constraintEnd_toEndOf="parent"
                 tools:text="Quang truong lam vien" />
 
             <TextView
