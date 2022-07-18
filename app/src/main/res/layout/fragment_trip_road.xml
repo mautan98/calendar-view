@@ -11,7 +11,13 @@
         android:orientation="vertical">
 
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:background="@color/white" />
+
         <RelativeLayout
+            android:layout_marginTop="26dp"
             android:gravity="center_vertical"
             android:id="@+id/layout_header"
             android:layout_width="match_parent"
