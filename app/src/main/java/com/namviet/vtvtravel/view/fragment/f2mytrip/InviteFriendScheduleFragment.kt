@@ -68,7 +68,7 @@ class InviteFriendScheduleFragment : BaseFragment<FragmentInviteScheduleBinding>
                 childFragmentManager
             )
             return false
-        } else if (ValidateUtils.isValidPhoneNumberNew(phoneNumber)){
+        } else if (!ValidateUtils.isValidPhoneNumberNew(phoneNumber)){
             DialogUtil.showErrorDialog(
                 requireContext().getString(R.string.error_title),
                 requireContext().getString(R.string.close_title),
@@ -100,6 +100,9 @@ class InviteFriendScheduleFragment : BaseFragment<FragmentInviteScheduleBinding>
                 CodePhone.INVITE_DIFFERENT_NETWORK -> {
                     desc = "Số điện thoại bạn nhập không phải số của nhà mạng Viettel"
                 }
+                CodePhone.INVITE_PHONE_IS_MEMBER -> {
+                    desc = "Số điện thoại đã là thành viên"
+                }
             }
             DialogUtil.showErrorDialog(
                 requireContext().getString(R.string.error_title),
@@ -112,5 +115,6 @@ class InviteFriendScheduleFragment : BaseFragment<FragmentInviteScheduleBinding>
     object CodePhone{
         const val PHONE_FORMAT_NOT_VALID = "PHONE_FORMAT_NOT_VALID"
         const val INVITE_DIFFERENT_NETWORK = "INVITE_DIFFIRENT_NETWORK"
+        const val INVITE_PHONE_IS_MEMBER = "INVITE_PHONE_IS_MEMBER"
     }
 }
