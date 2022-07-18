@@ -92,6 +92,7 @@ import com.namviet.vtvtravel.response.f2comment.UpdateCommentResponse;
 import com.namviet.vtvtravel.response.f2smalllocation.SmallLocationResponse;
 import com.namviet.vtvtravel.response.f2video.DetailVideoResponse;
 import com.namviet.vtvtravel.response.f2wheel.RuleLuckyWheel;
+import com.namviet.vtvtravel.response.f2wheel.WheelActionResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelAreasResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelChartResponse;
 import com.namviet.vtvtravel.response.f2wheel.WheelResultResponse;
@@ -122,6 +123,9 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.CreateS
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.DataCreateTrips;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.detail.PlaceScheduleResponse;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.DetailPlacesResponse;
+import com.namviet.vtvtravel.view.f3.notification.model.ui.NotificationResponse;
+import com.namviet.vtvtravel.view.f3.notification.model.ui.NotificationTab;
+import com.namviet.vtvtravel.view.f3.notification.model.ui.UpdateNotificationResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.GetInfoResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ResentOtpServiceResponse;
 import com.namviet.vtvtravel.view.fragment.f2service.ServiceOtpResponse;
@@ -684,8 +688,14 @@ public interface TravelService {
     @POST(WSConfig.Api.WHEEL_RESULT)
     Observable<WheelResultResponse> wheelResult(@Body RequestBody body);
 
+    @POST(WSConfig.Api.WHEEL_ACTION)
+    Observable<WheelActionResponse> wheelAction(@Body RequestBody body);
+
     @POST(WSConfig.Api.WHEEL_AREAS)
     Observable<WheelAreasResponse> wheelAreas(@Body RequestBody body);
+
+    @POST
+    Observable<WheelAreasResponse> wheelAreasV2(@Body RequestBody body, @Url String url);
 
     @GET(WSConfig.Api.WHEEL_CHARTS)
     Observable<WheelChartResponse> getWheelChartResponse();
@@ -771,55 +781,80 @@ public interface TravelService {
     @GET(WSConfig.Api.MY_GIFT)
     Observable<MyGiftResponse> getAllMyGift(@Query("page") int page);
 
-    @GET(WSConfig.API_TRIPS_SCHEDULE+WSConfig.Api.GET_SCHEDULE)
+    @GET(WSConfig.Api.API_TRIPS_SCHEDULE+WSConfig.Api.GET_SCHEDULE)
     Observable<MyTripsResponse> getAllTripsSchedule();
 
-    @POST(WSConfig.API_TRIPS_SCHEDULE+WSConfig.Api.CREATE_SCHEDULE)
+    @POST(WSConfig.Api.API_TRIPS_SCHEDULE+WSConfig.Api.CREATE_SCHEDULE)
     Observable<CreateScheduleResponse> createTrip(@Body RequestBody body);
 
-    @GET(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.SCHEDULE_BY_ID)
+    @GET(WSConfig.Api.API_TRIPS_SCHEDULE + WSConfig.Api.SCHEDULE_BY_ID)
     Observable<PlaceScheduleResponse> getDetailPlaceByScheduleid(@Query("scheduleCustomId") String scheduleCustomId);
 
-    @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_COST)
+    @POST(WSConfig.Api.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_COST)
     Observable<BaseResponse> updateCost(@Body RequestBody bodyCost);
 
-    @GET(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.GET_COST)
+    @GET(WSConfig.Api.API_TRIPS_SCHEDULE + WSConfig.Api.GET_COST)
     Observable<CostResponse> getCostDetail(@Query("scheduleCustomId") String scheduleCustomId);
 
-    @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_SCHEDULE)
+    @POST(WSConfig.Api.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_SCHEDULE)
     Observable<BaseResponse> updateSchedule(@Body RequestBody bodyUpdate);
 
-    @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.DELETE_SCHEDULE)
+    @POST(WSConfig.Api.API_TRIPS_SCHEDULE + WSConfig.Api.DELETE_SCHEDULE)
     Observable<BaseResponse> deleteSchedule(@Body RequestBody bodyDelete);
 
-    @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_RANGE_SCHEDULE_CUSTOM)
+    @POST(WSConfig.Api.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_RANGE_SCHEDULE_CUSTOM)
     Observable<BaseResponse> updateRangeSchedule(@Body RequestBody bodyUpdateRange);
 
-    @GET(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.PLACE)
+    @GET(WSConfig.Api.API_TRIPS_SCHEDULE + WSConfig.Api.PLACE)
     Observable<DetailPlacesResponse> getDetailPlaces(@Query("scheduleCustomId") String scheduleCustomId);
 
-    @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.EDIT_NOTE)
+    @POST(WSConfig.Api.API_TRIPS_SCHEDULE + WSConfig.Api.EDIT_NOTE)
     Observable<BaseResponse> updateNoteSchedule(@Body RequestBody bodyUpdateNote);
 
-    @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.INVITE_SCHEDULE)
+    @POST(WSConfig.Api.API_TRIPS_SCHEDULE + WSConfig.Api.INVITE_SCHEDULE)
     Observable<BaseResponse> inviteSchedule(@Body RequestBody bodyInvite);
 
-    @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_ARRIVAL_TIME)
+    @POST(WSConfig.Api.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_ARRIVAL_TIME)
     Observable<BaseResponse> updateArrivalTime(@Body RequestBody bodyInvite);
 
-    @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_FREE_TIME)
+    @POST(WSConfig.Api.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_FREE_TIME)
     Observable<BaseResponse> updateFreeTime(@Body RequestBody bodyInvite);
 
-    @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.DELETE_PLACE)
+    @POST(WSConfig.Api.API_TRIPS_SCHEDULE + WSConfig.Api.DELETE_PLACE)
     Observable<BaseResponse> deletePlace(@Body RequestBody schedulePlaceId);
 
-    @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.DELETE_PLACE_BY_DAY)
+    @POST(WSConfig.Api.API_TRIPS_SCHEDULE + WSConfig.Api.DELETE_PLACE_BY_DAY)
     Observable<BaseResponse> deletePlaceByDay(@Body RequestBody bodyDelete);
 
-    @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_DURATION_VISIT)
+    @POST(WSConfig.Api.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_DURATION_VISIT)
     Observable<BaseResponse> updateDurationVisit(@Body RequestBody bodyUpdateDuration);
 
-    @POST(WSConfig.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_SCHEDULE_PLACE)
+    @POST(WSConfig.Api.API_TRIPS_SCHEDULE + WSConfig.Api.UPDATE_SCHEDULE_PLACE)
     Observable<BaseResponse> updateSchedulePlace(@Body RequestBody bodyUpdatePlace);
+
+    @POST(WSConfig.Api.INBOX_TYPE)
+    Observable<NotificationResponse> getNotificationByType(@Query("typeId") String type, @Body RequestBody body);
+
+    @POST(WSConfig.Api.INBOX_MARK)
+    Observable<NotificationResponse> getNotificationByMark(@Body RequestBody body);
+
+    @POST(WSConfig.Api.SYSTEM_INBOX)
+    Observable<NotificationResponse> getAllNotification(@Body RequestBody body);
+
+    @POST(WSConfig.Api.INBOX_STATUS)
+    Observable<NotificationResponse> getNotificationByStatus(@Query("status") String type, @Body RequestBody body);
+
+    @POST(WSConfig.Api.UPDATE_MARK)
+    Observable<UpdateNotificationResponse> updateMark(@Body RequestBody body);
+
+    @POST(WSConfig.Api.UPDATE_INBOX)
+    Observable<UpdateNotificationResponse> updateInbox(@Body RequestBody body);
+
+    @POST(WSConfig.Api.USER_LOGOUT)
+    Observable<Object> logout(@Body RequestBody body);
+
+    @GET
+    Observable<NotificationTab> getNotificationTab(@Url String url);
+
 
 }

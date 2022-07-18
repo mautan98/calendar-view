@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -47,9 +48,30 @@ public class Param {
         try {
             map.put(WSConfig.KeyParam.SERVICE_ENDPOINT_NAME, WSConfig.ENDPOINT_NAME);
             map.putOpt(WSConfig.KeyParam.DATA, param);
-            map.put(WSConfig.KeyParam.CHECK_SUM, StringUtils.md5(param.toString().replace("\\", "") + WSConfig.ENDPOINT_KEY));
+//            map.put(WSConfig.KeyParam.CHECK_SUM, StringUtils.md5(param.toString().replace("\\", "") + WSConfig.REQUEST_ID+ WSConfig.ENDPOINT_KEY));
             map.put(WSConfig.KeyParam.CHECK_SUM, "4b1beb638e2dafa1c41a1f00e94e5cda");
             map.put(WSConfig.KeyParam.REQUEST_ID, WSConfig.REQUEST_ID);
+            map.put(WSConfig.KeyParam.LANG_CODE2, "vi");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+
+    public static JSONObject getParamWithAccessKey(JSONObject param, String accessKey) {
+        Random generator = new Random();
+        int a  = generator.nextInt();
+
+        String requestId = StringUtils.md5(String.valueOf(a));
+
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.SERVICE_ENDPOINT_NAME, WSConfig.ENDPOINT_NAME);
+            map.putOpt(WSConfig.KeyParam.DATA, param);
+            map.put(WSConfig.KeyParam.CHECK_SUM, StringUtils.md5(param.toString().replace("\\", "") + requestId + accessKey));
+//            map.put(WSConfig.KeyParam.CHECK_SUM, "4b1beb638e2dafa1c41a1f00e94e5cda");
+            map.put(WSConfig.KeyParam.REQUEST_ID, requestId);
             map.put(WSConfig.KeyParam.LANG_CODE2, "vi");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -1069,6 +1091,42 @@ public class Param {
         try {
             map.put(WSConfig.KeyParam.TICKET_ID, ticketId);
             map.put(WSConfig.KeyParam.FIELD, field);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+
+    public static JSONObject updateInbox(String id, String status) {
+        JSONObject map = new JSONObject();
+        try {
+            JSONArray jsonArray = new JSONArray();
+            jsonArray.put(id);
+            map.putOpt(WSConfig.KeyParam.IDS, jsonArray);
+            map.put(WSConfig.KeyParam.STATUS, status);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static JSONObject updateViewedAllInbox() {
+        JSONObject map = new JSONObject();
+        try {
+            JSONArray jsonArray = new JSONArray();
+            map.putOpt(WSConfig.KeyParam.IDS, jsonArray);
+            map.put(WSConfig.KeyParam.STATUS, "1");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static JSONObject logout(String token) {
+        JSONObject map = new JSONObject();
+        try {
+            map.put(WSConfig.KeyParam.DEVICE_TOKEN, token);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -18,12 +18,14 @@ import com.namviet.vtvtravel.adapter.filter.SortAdapter;
 import com.namviet.vtvtravel.databinding.F2DialogSortBinding;
 import com.namviet.vtvtravel.databinding.F3DialogMenuItemNotifyBinding;
 import com.namviet.vtvtravel.response.f2smalllocation.SortSmallLocationResponse;
+import com.namviet.vtvtravel.view.f3.notification.model.Notification;
 import com.namviet.vtvtravel.view.fragment.f2offline.BaseDialogBottom;
 
 import java.util.List;
 import java.util.Objects;
 
 public class MenuItemNotifyDialog extends BaseDialogBottom {
+    private Notification notification;
     private F3DialogMenuItemNotifyBinding binding;
     private IMenuItemNotifyClick iMenuItemNotifyClick;
 
@@ -34,6 +36,10 @@ public class MenuItemNotifyDialog extends BaseDialogBottom {
     @SuppressLint("ValidFragment")
 
     public MenuItemNotifyDialog() {
+    }
+
+    public MenuItemNotifyDialog(Notification notification) {
+        this.notification = notification;
     }
 
     private SortSmallLocationResponse sortSmallLocationResponse;
@@ -72,36 +78,60 @@ public class MenuItemNotifyDialog extends BaseDialogBottom {
 
     @Override
     protected void setUp(View view) {
+        setupView();
         binding.lnlNoteViewed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iMenuItemNotifyClick.onMenuItemClickListener(MenuItem.VIEWED);
+                dismiss();
             }
         });
         binding.lnlBookmarkNoti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iMenuItemNotifyClick.onMenuItemClickListener(MenuItem.BOOKMARK);
+                dismiss();
             }
         });
         binding.lnlRemoveNoti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iMenuItemNotifyClick.onMenuItemClickListener(MenuItem.REMOVE);
+                dismiss();
             }
         });
         binding.lnlCancelNoti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iMenuItemNotifyClick.onMenuItemClickListener(MenuItem.CANCEL);
+                dismiss();
             }
         });
     }
 
-    public interface IMenuItemNotifyClick{
+    private void setupView() {
+        if (notification.getIsMarked().equals("0")) {
+            binding.tvSaveAction.setText("Lưu thông báo");
+            binding.icMark.setVisibility(View.VISIBLE);
+            binding.icMarked.setVisibility(View.GONE);
+        } else {
+            binding.tvSaveAction.setText("Bỏ lưu thông báo");
+            binding.icMark.setVisibility(View.GONE);
+            binding.icMarked.setVisibility(View.VISIBLE   );
+        }
+
+        if (notification.getStatus().equals("0")) {
+            binding.tvViewAction.setText("Đánh dấu đã đọc");
+        } else {
+            binding.tvViewAction.setText("Đánh dấu là chưa đọc");
+        }
+    }
+
+    public interface IMenuItemNotifyClick {
         void onMenuItemClickListener(MenuItem menuItem);
     }
-    public enum MenuItem{
+
+    public enum MenuItem {
         VIEWED,
         BOOKMARK,
         REMOVE,

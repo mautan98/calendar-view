@@ -32,6 +32,15 @@ public class Account {
     private String sipAccount;
     private String sipTransportType;
     private String refreshToken;
+    private String accessKey;
+
+    public String getAccessKey() {
+        return accessKey;
+    }
+
+    public void setAccessKey(String accessKey) {
+        this.accessKey = accessKey;
+    }
 
     public String getRefreshToken() {
         return refreshToken;

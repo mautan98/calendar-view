@@ -4,6 +4,13 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationChannel;
+
+import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
+import com.namviet.vtvtravel.view.f2.MyGiftActivity;
+import com.namviet.vtvtravel.view.f2.WebviewActivity;
+import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealHomeActivity;
+import com.namviet.vtvtravel.view.f3.deal.view.mygift.NewMyGiftActivity;
+import com.namviet.vtvtravel.view.f3.notification.model.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -85,8 +92,6 @@ import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
-import com.namviet.vtvtravel.fcm.Notification;
-import com.namviet.vtvtravel.fcm.NotificationType;
 import com.namviet.vtvtravel.listener.CitySelectListener;
 import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.model.City;
@@ -124,12 +129,16 @@ import com.namviet.vtvtravel.view.dialog.WeatherDialog;
 import com.namviet.vtvtravel.view.dialog.f2.ReceiverTripInviteDialog;
 import com.namviet.vtvtravel.view.f2.DetailVideoActivity;
 import com.namviet.vtvtravel.view.f2.ImagePartActivity;
+import com.namviet.vtvtravel.view.f2.LiveTVActivity;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f2.ReceiveInviteTripDetailActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.f2.SystemInboxActivity;
 import com.namviet.vtvtravel.view.f2.TravelNewsActivity;
 import com.namviet.vtvtravel.view.f2.TravelVoucherActivity;
+import com.namviet.vtvtravel.view.f3.notification.view.NotificationActivity;
+import com.namviet.vtvtravel.view.f2.VQMMWebviewActivity;
+import com.namviet.vtvtravel.view.f3.notification.model.NotificationCode;
 import com.namviet.vtvtravel.view.fragment.DetailsFragment;
 import com.namviet.vtvtravel.view.fragment.EncodeDemoFragment;
 import com.namviet.vtvtravel.view.fragment.FormChatFragment;
@@ -1674,24 +1683,28 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
         }
 
 
-        int notificationType = getIntent().getIntExtra(Constants.IntentKey.NOTIFICATION_TYPE, 1000);
+        String notificationType = getIntent().getStringExtra(Constants.IntentKey.NOTIFICATION_TYPE);
+        Notification notification = (Notification) getIntent().getSerializableExtra(Constants.IntentKey.NOTIFICATION);
+        handleIntentFromNotification(notificationType,notification);
 
-        switch (notificationType) {
-            case NotificationType.INVITE_TRIP:
-                Notification notification = (Notification) getIntent().getSerializableExtra(Constants.IntentKey.NOTIFICATION);
-                dataSystemInbox = notification.getDataSystemInbox();
-                openDialogTripInvite();
-                break;
-            case NotificationType.VIP:
-                SystemInboxActivity.startScreen(this);
-                break;
-            case NotificationType.SHARE:
-                SystemInboxActivity.startScreen(this);
-                break;
-            case NotificationType.TICKET:
-                SystemInboxActivity.startScreen(this);
-                break;
-        }
+
+//
+//        switch (notificationType) {
+//            case NotificationType.INVITE_TRIP:
+//                Notification notification = (Notification) getIntent().getSerializableExtra(Constants.IntentKey.NOTIFICATION);
+//                dataSystemInbox = notification.getDataSystemInbox();
+//                openDialogTripInvite();
+//                break;
+//            case NotificationType.VIP:
+//                SystemInboxActivity.startScreen(this);
+//                break;
+//            case NotificationType.SHARE:
+//                SystemInboxActivity.startScreen(this);
+//                break;
+//            case NotificationType.TICKET:
+//                SystemInboxActivity.startScreen(this);
+//                break;
+//        }
 
         handleLinkShare();
         handleLinkShareFromIntent();
@@ -2109,31 +2122,98 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
         }
     }
 
+    private void handleIntentFromNotification(String code,Notification notification){
+        try {
+            Account account = MyApplication.getInstance().getAccount();
+            switch (code){
+                case NotificationCode.WHEEL_TIME_OUT :
+                case NotificationCode.SUBSCRIBE :
+                    if (null != account && account.isLogin()) {
+                        VQMMWebviewActivity.startScreen(this, "");
+                    } else {
+                        LoginAndRegisterActivityNew.startScreen(this, 0, false);
+                    }
+                    break;
+                case NotificationCode.UN_SUBSCRIBE :
+
+                    break;
+                case NotificationCode.MAINTENANCE :
+
+                    break;
+
+                case NotificationCode.UPDATE :
+                    final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                    try {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                    } catch (android.content.ActivityNotFoundException anfe) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                    }
+                    break;
+                case NotificationCode.LIVE_TV :
+                    LiveTVActivity.openScreen(this, 0, "");
+                    break;
+                case NotificationCode.ADD_TO_CART :
+                case NotificationCode.TIME_OUT :
+                case NotificationCode.CODE_CANCEL :
+                case NotificationCode.BOOKING_SUCCESS :
+                case NotificationCode.FLY_TIME :
+                    if (null != account && account.isLogin()) {
+                        WebviewActivity.startScreen(this);
+                    } else {
+                        LoginAndRegisterActivityNew.startScreen(this, 0, false);
+                    }
+                    break;
+                case NotificationCode.HUNT_DEAL_SUCCESS :
+                case NotificationCode.DEAL_LOSS :
+                case NotificationCode.DEAL_WIN :
+                case NotificationCode.HOT_DEAL :
+                    try {
+                        DealHomeActivity.Companion.startScreen(this);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case NotificationCode.WIN_WHEEL :
+                    NewMyGiftActivity.startScreen(this);
+                    break;
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
+        String notificationType = getIntent().getStringExtra(Constants.IntentKey.NOTIFICATION_TYPE);
+        Notification notification = (Notification) getIntent().getSerializableExtra(Constants.IntentKey.NOTIFICATION);
+        handleIntentFromNotification(notificationType,notification);
+//        switch (notificationType) {
+//            case NotificationType.INVITE_TRIP:
+//                Notification notification = (Notification) getIntent().getSerializableExtra(Constants.IntentKey.NOTIFICATION);
+//                dataSystemInbox = notification.getDataSystemInbox();
+//                openDialogTripInvite();
+//                break;
+//            case NotificationType.VIP:
+//                SystemInboxActivity.startScreen(this);
+//                break;
+//            case NotificationType.SHARE:
+//                SystemInboxActivity.startScreen(this);
+//                break;
+//            case NotificationType.TICKET:
+//                SystemInboxActivity.startScreen(this);
+//                break;
+//        }
 
-        int notificationType = getIntent().getIntExtra(Constants.IntentKey.NOTIFICATION_TYPE, 1000);
 
-        switch (notificationType) {
-            case NotificationType.INVITE_TRIP:
-                Notification notification = (Notification) getIntent().getSerializableExtra(Constants.IntentKey.NOTIFICATION);
-                dataSystemInbox = notification.getDataSystemInbox();
-                openDialogTripInvite();
-                break;
-            case NotificationType.VIP:
-                SystemInboxActivity.startScreen(this);
-                break;
-            case NotificationType.SHARE:
-                SystemInboxActivity.startScreen(this);
-                break;
-            case NotificationType.TICKET:
-                SystemInboxActivity.startScreen(this);
-                break;
-        }
 
+
+
+
+//
         handleLinkShare();
         handleLinkShareFromIntent();
     }

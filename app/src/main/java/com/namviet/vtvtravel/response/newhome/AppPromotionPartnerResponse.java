@@ -13,15 +13,24 @@ public class AppPromotionPartnerResponse extends BaseResponse {
     }
 
     public class Item {
-        private String avatarUri;
+        private String imageUri;
         private String linkAdvertise;
+        private Long id;
+
+        public String getId() {
+            return String.valueOf(id);
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
 
         public String getLinkAdvertise() {
             return linkAdvertise;
         }
 
         public String getAvatarUri() {
-            return avatarUri;
+            return imageUri;
         }
     }
 

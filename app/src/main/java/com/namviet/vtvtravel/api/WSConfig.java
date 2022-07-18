@@ -25,11 +25,12 @@ public class WSConfig {
 //    public static final String LINK_DEAL = "http://deal.vtvtravel.vn";
 //    public static final String HOST_ORDER = "https://booking-testing.vtvtravel.vn/order/dashboard";
 //    public static final String API_VQMM_HISTORY = "https://core-testing.vtvtravel.vn/api/v1/wheel/history";
+//    public static final String API_VQMM_AREAS = "https://core-testing.vtvtravel.vn/api/v2/wheel/wheelAreas";
 //    public static final String API_TO_GET_SMALL_LOCATION = "https://api-testing.vtvtravel.vn/nearby?content_type=";
-    public static final String API_TRIPS_SCHEDULE = "user/customSchedule/";
+
 //
 //
-    //Deal
+//    //Deal
 //    public static final String HOST_DEAL_CAMPAIGN_HOME = "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/home?page=0&size=5";
 //    public static final String HOST_DEAL_HOME = "https://core-testing.vtvtravel.vn/api/v1/deals/home?size=5&page=0";
 //    public static final String HOST_DEAL_FOLLOW = "https://core-testing.vtvtravel.vn/api/v1/deals/campaigns/follows";
@@ -58,11 +59,11 @@ public class WSConfig {
     public static final String LINK_DEAL = "http://deal.vtvtravel.vn";
     public static final String HOST_ORDER = "https://booking-dev.vtvtravel.vn/order/dashboard";
     public static final String API_VQMM_HISTORY = "https://core-dev.vtvtravel.vn/api/v1/wheel/history";
+    public static final String API_VQMM_AREAS = "https://core-dev.vtvtravel.vn/api/v2/wheel/wheelAreas";
     public static final String API_TO_GET_SMALL_LOCATION = "https://api-dev.vtvtravel.vn/nearby?content_type=";
 
-//
-//
-//    //Deal
+
+    //Deal
     public static final String HOST_DEAL_CAMPAIGN_HOME = "https://core-dev.vtvtravel.vn/api/v1/deals/campaigns/home?page=0&size=5";
     public static final String HOST_DEAL_HOME = "https://core-dev.vtvtravel.vn/api/v1/deals/home?size=5&page=0";
     public static final String HOST_DEAL_FOLLOW = "https://core-dev.vtvtravel.vn/api/v1/deals/campaigns/follows";
@@ -89,6 +90,7 @@ public class WSConfig {
 //    public static final String LINK_DEAL = "http://deal.vtvtravel.vn";
 //    public static final String HOST_ORDER = "http://booking.vtvtravel.vn/order/dashboard/";
 //    public static final String API_VQMM_HISTORY = "https://core.vtvtravel.vn/api/v1/wheel/history";
+//    public static final String API_VQMM_AREAS = "https://core.vtvtravel.vn/api/v2/wheel/wheelAreas";
 //    public static final String API_TO_GET_SMALL_LOCATION = "https://api.vtvtravel.vn/nearby?content_type=";
 //
 //    //Deal
@@ -226,6 +228,7 @@ public class WSConfig {
         public static final String LIKE = "like";
         public static final String WHEEL_ROTATE = "wheel/rotate";
         public static final String WHEEL_RESULT = "wheel/result";
+        public static final String WHEEL_ACTION = "wheel/action";
         public static final String WHEEL_AREAS = "wheel/wheelAreas";
         public static final String WHEEL_CHARTS = "wheel/charts?page=0&size=100";
         public static final String WHEEL_CHARTS_2 = "wheel/charts?page=0&size=10";
@@ -258,11 +261,22 @@ public class WSConfig {
         public static final String HASH_TAG_SEARCH = "deals/getDealFilter";
         public static final String DEAL_HOT_HOME = "deals/getDealHot";
         public static final String TERMS = "page/dieu-khoan-su-dung";
+
         public static final String CTKM_BLOCK = "ctkm";
         public static final String DEAL_CAMPAIGN_DETAIL = "deals/campaigns/details";
         public static final String DEAL_CHILD_DETAIL = "deals/details";
         public static final String DEAL_BY_CAMPAIGN = "deals/byCampaigns";
         public static final String MY_GIFT = "myGifts";
+
+
+        public static final String INBOX_TYPE = "user/inbox/type";
+        public static final String INBOX_MARK = "user/inbox/mark";
+        public static final String INBOX_STATUS = "user/inbox/status";
+        public static final String UPDATE_MARK = "user/inbox/marked";
+        public static final String UPDATE_INBOX = "user/updateInbox";
+        public static final String USER_LOGOUT = "user/logout";
+
+        public static final String API_TRIPS_SCHEDULE = "user/customSchedule/";
         public static final String GET_SCHEDULE = "schedule";
         public static final String CREATE_SCHEDULE = "createSchedule";
         public static final String SCHEDULE_BY_ID = "scheduleById";
@@ -394,11 +408,6 @@ public class WSConfig {
         public static final String PROCESS_TICKET_CONTENT = "content";
         public static final String TICKET_STATUS = "type";
         public static final String TITLE = "title";
-        public static final String PLACE_CHECKIN_ID = "placeCheckInId";
-        public static final String PLACE_CHECKOUT_ID = "placeCheckOutId";
-        public static final String START_AT = "startAt";
-        public static final String END_AT = "endAt";
-        public static final String SCHEDULE_PLACE_ID = "schedulePlaceId";
     }
 
     public class KeySocket {
