@@ -43,7 +43,7 @@ class PlacesInScheduleAdapter(var context:Context) : RecyclerView.Adapter<Places
     inner class ViewHolder(var binding: LayoutItemScheduleByDaysBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(placeItem:SchedulePlaceByDaysItem,position: Int){
-            Glide.with(context).load(placeItem.logoUrl).into(binding.imvPlace)
+            Glide.with(context).load(placeItem.logoUrl).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(binding.imvPlace)
             binding.tvDayNo.text = "Ngày ${position +1}"
             binding.tvDayStartSchedule.text = Utils.formatTimestampTrips(placeItem.day)
             if (placeItem.totalPlace != null && placeItem.totalDistance != null){
