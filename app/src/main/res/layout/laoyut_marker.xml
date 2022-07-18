@@ -6,24 +6,25 @@
 
 
     <ImageView
-        android:src="@drawable/f2_ic_marker_play_what_big"
+        android:src="@drawable/pin"
         android:layout_width="80dp"
         android:layout_height="80dp"/>
 
 
     <com.ornach.richtext.RichText
+        android:textSize="16dp"
         android:id="@+id/tvPosition"
-        android:textColor="@color/colorPrimary"
-        android:fontFamily="@font/roboto_bold"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/roboto_medium"
         android:gravity="center"
         android:text="1"
+        android:textColor="@color/colorPrimary"
+        app:rt_backgroundColor="@color/white"
         app:rt_borderColor="@color/white"
         app:rt_borderWidth="1dp"
-        app:rt_radius="100dp"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        app:rt_backgroundColor="@color/white"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
+        app:rt_radius="100dp" />
 
 </RelativeLayout>
