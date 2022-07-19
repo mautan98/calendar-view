@@ -13,6 +13,7 @@ import com.namviet.vtvtravel.api.WSConfig
 import com.namviet.vtvtravel.databinding.FragmentDetailTripBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
+import com.namviet.vtvtravel.listener.OnBackToFragmentListener
 import com.namviet.vtvtravel.listener.OnItemRecyclerClickListener
 import com.namviet.vtvtravel.ultils.DialogUtil.Companion.showErrorDialog
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.OverlapDecoration
@@ -25,12 +26,16 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.UserListItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.detail.PlaceScheduleResponse
 import com.namviet.vtvtravel.view.fragment.f2mytrip.place.DetailPlacesFragment
+import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.NotifyUpdateData
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.math.BigDecimal
 import java.util.*
 
 class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
-    EditTripCostFragment.OnBackFragmentListener {
+    EditTripCostFragment.OnBackFragmentListener, OnBackToFragmentListener {
 
     companion object {
 
@@ -57,10 +62,22 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        context!!.theme.applyStyle(R.style.ActionBarTheme, true)
+        requireContext().theme.applyStyle(R.style.ActionBarTheme, true)
     }
     override fun getLayoutRes(): Int {
         return R.layout.fragment_detail_trip
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (!EventBus.getDefault().isRegistered(this@DetailTripFragment)){
+            EventBus.getDefault().register(this)
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
     }
 
     override fun initView() {
@@ -88,6 +105,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
         adapter?.setOnItemClickListener(object : OnItemRecyclerClickListener{
             override fun onItemClick(position: Int) {
                 val fragment = DetailPlacesFragment.newInstance(tripItem)
+                fragment.setOnBackToFragmentListener(this@DetailTripFragment)
                 addFragment(fragment)
             }
         })
@@ -144,6 +162,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
         }
         binding.tvViewAll.setOnClickListener {
             val fragment = DetailPlacesFragment.newInstance(tripItem)
+            fragment.setOnBackToFragmentListener(this@DetailTripFragment)
             addFragment(fragment)
         }
         binding.btnSaveSchedule.setOnClickListener {
@@ -209,4 +228,14 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
     interface OnBackFragmentListener{
         fun onBackFragment()
     }
+
+    override fun onBack() {
+        tripItem?.id?.let { viewModel.getDetailplaceById(it) }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onReloadData(notify:NotifyUpdateData){
+        tripItem?.id?.let { viewModel.getDetailplaceById(it) }
+    }
+
 }

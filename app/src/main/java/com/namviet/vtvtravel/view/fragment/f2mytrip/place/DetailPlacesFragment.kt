@@ -22,10 +22,12 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.place.adapter.AllPlacesAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.DetailPlacesResponse
 import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.ItemPlaces
+import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.NotifyUpdateData
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.DetailPlaceScheduleViewModel
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
 import com.namviet.vtvtravel.view.fragment.f2travelvoucher.AlreadyReceiverDialog
 import com.namviet.vtvtravel.widget.ConfirmDeleteDialog
+import org.greenrobot.eventbus.EventBus
 import java.util.*
 
 
@@ -47,6 +49,11 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
     private var detailPlaceViewModel:DetailPlaceScheduleViewModel? =null
     private var listPlaces:MutableList<ItemPlaces> = mutableListOf()
     private var adapter:AllPlacesAdapter? = null
+    private var backToFragmentListener:OnBackToFragmentListener? = null
+
+    fun setOnBackToFragmentListener(listener: OnBackToFragmentListener){
+        backToFragmentListener = listener
+    }
 
     override fun getLayoutRes(): Int {
         return R.layout.fragment_detail_schedule_places
@@ -156,6 +163,7 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
             }
         }
         binding.imvBack.setOnClickListener {
+            backToFragmentListener?.onBack()
             activity?.onBackPressed()
         }
 
@@ -194,6 +202,7 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
             val response = arg
             listPlaces = response.data?.content as MutableList<ItemPlaces>
             adapter?.setListDetailPlaces(listPlaces)
+            EventBus.getDefault().post(NotifyUpdateData())
         } else if (arg is BaseResponse) {
             if (arg.isSuccess){
                 tripItem?.id?.let { viewModel?.getDetailPlaces(it) }
