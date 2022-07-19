@@ -103,6 +103,12 @@ class InviteFriendScheduleFragment : BaseFragment<FragmentInviteScheduleBinding>
                 CodePhone.INVITE_PHONE_IS_MEMBER -> {
                     desc = "Số điện thoại đã là thành viên"
                 }
+                CodePhone.MOBILE_ALREADY_INVITE -> {
+                    desc = "Số điện thoại đã được mời"
+                }
+                else -> {
+                    desc = response.errorCode
+                }
             }
             DialogUtil.showErrorDialog(
                 requireContext().getString(R.string.error_title),
@@ -116,5 +122,6 @@ class InviteFriendScheduleFragment : BaseFragment<FragmentInviteScheduleBinding>
         const val PHONE_FORMAT_NOT_VALID = "PHONE_FORMAT_NOT_VALID"
         const val INVITE_DIFFERENT_NETWORK = "INVITE_DIFFIRENT_NETWORK"
         const val INVITE_PHONE_IS_MEMBER = "INVITE_PHONE_IS_MEMBER"
+        const val MOBILE_ALREADY_INVITE = "MOBILE_ALREADY_INVITE"
     }
 }
