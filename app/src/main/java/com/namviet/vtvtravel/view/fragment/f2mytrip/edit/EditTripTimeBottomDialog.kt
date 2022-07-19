@@ -107,6 +107,7 @@ class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer,
             if (lastDate != null) {
                 calendar.timeInMillis = lastDate
             }
+            calendar.add(Calendar.DATE,1)
             val selectedYear = calendar[Calendar.YEAR]
             val selectedMonth = calendar[Calendar.MONTH]
             val selectedDayOfMonth = calendar[Calendar.DAY_OF_MONTH]
@@ -130,7 +131,7 @@ class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer,
                 }, selectedYear, selectedMonth, selectedDayOfMonth
             )
             if (lastDate != null) {
-                datePickerDialog.datePicker.minDate = lastDate
+                datePickerDialog.datePicker.minDate = calendar.timeInMillis
             }
             datePickerDialog.show()
         }
