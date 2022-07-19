@@ -38,6 +38,8 @@
                 android:paddingVertical="15dp">
 
                 <TextView
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="16dp"
                     android:id="@+id/tv_cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,10 +67,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="15dp"
-                    android:fontFamily="@font/roboto_regular"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="Lưu"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
+                    android:textSize="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -88,6 +90,7 @@
             app:layout_constraintTop_toBottomOf="@id/header_passenger">
 
             <TextView
+                android:textAllCaps="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="18dp"
@@ -97,6 +100,7 @@
                 android:textSize="12sp" />
 
             <EditText
+                android:backgroundTint="#ECECEC"
                 android:id="@+id/edtTrip_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -106,6 +110,8 @@
                 android:textColor="@color/black"/>
 
             <TextView
+                android:layout_marginTop="18dp"
+                android:textAllCaps="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="18dp"
@@ -115,6 +121,7 @@
                 android:textSize="12sp" />
 
             <EditText
+                android:backgroundTint="#ECECEC"
                 android:layout_width="match_parent"
                 android:id="@+id/edt_trip_desc"
                 android:layout_marginHorizontal="18dp"
@@ -124,6 +131,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:textAllCaps="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="18dp"
@@ -160,6 +168,7 @@
                 app:layout_constraintTop_toBottomOf="@id/view_spe">
 
                 <TextView
+                    android:textAllCaps="true"
                     android:id="@+id/delete_trip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
