@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.namviet.vtvtravel.R
+import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.databinding.LayoutAddOtherCostBinding
 import com.namviet.vtvtravel.databinding.LayoutItemTypeCostBinding
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.cost.TypeCost
@@ -79,7 +80,7 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
             binding.tvTypeName.text = typeCost.costName
             binding.tvAmount.text = "${typeCost.amount}"
             binding.edtPrice.setText(typeCost.pricePP.toString())
-            binding.tvTotalPrice.text = typeCost.totalPrice.toString()
+            binding.tvTotalPrice.text = Utils.convertPriceTrips(typeCost.totalPrice)
             binding.imbDeleteCost.visibility =
                 (if (typeCost.removeAble) View.VISIBLE else View.GONE)
             RxTextView.afterTextChangeEvents(binding.edtPrice)
@@ -120,7 +121,7 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
 
         private fun changeTotal(priceFloat: BigDecimal, amount: Int,typeCost: TypeCost) {
             val totalPrice = (priceFloat.multiply(BigDecimal.valueOf(amount.toLong())))
-            binding.tvTotalPrice.text = "$totalPrice"
+            binding.tvTotalPrice.text = Utils.convertPriceTrips(totalPrice)
             typeCost.pricePP = priceFloat
             typeCost.amount = amount
             typeCost.totalPrice = totalPrice

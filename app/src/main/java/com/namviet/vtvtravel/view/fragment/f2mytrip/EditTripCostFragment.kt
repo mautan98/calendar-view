@@ -3,6 +3,7 @@ package com.namviet.vtvtravel.view.fragment.f2mytrip
 import android.os.Bundle
 import android.widget.Toast
 import com.namviet.vtvtravel.R
+import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.databinding.FragmentAddEstimateCostBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.response.BaseResponse
@@ -47,7 +48,7 @@ class EditTripCostFragment: BaseFragment<FragmentAddEstimateCostBinding>(), Obse
         costTypeAdapter = CostTypesAdapter(requireContext())
         costTypeAdapter?.setSumTotalCostListener(object :CostTypesAdapter.SumTotalCost{
             override fun onTotalPriceChange(total: BigDecimal) {
-                binding.tvTotalCost.text = total.toString()
+                binding.tvTotalCost.text = Utils.convertPriceTrips(total)
             }
         })
         costTypeAdapter?.setAddNewCostListener(object :CostTypesAdapter.AddNewCost{

@@ -55,9 +55,9 @@ class MyTripsAdapter(var context: Context) : RecyclerView.Adapter<MyTripsAdapter
             binding.tvTripsName.text = tripItem.name
             binding.tvTripsDesc.text = tripItem.description
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                binding.tvEstimateCost.text = Html.fromHtml(Utils.convertPriceTrips(tripItem.estimatedCost),Html.FROM_HTML_MODE_COMPACT)
+                binding.tvEstimateCost.text = Html.fromHtml(Utils.convertPriceTrips(tripItem.estimatedCost?.toBigDecimal()),Html.FROM_HTML_MODE_COMPACT)
             } else {
-                binding.tvEstimateCost.text = Html.fromHtml(Utils.convertPriceTrips(tripItem.estimatedCost))
+                binding.tvEstimateCost.text = Html.fromHtml(Utils.convertPriceTrips(tripItem.estimatedCost?.toBigDecimal()))
             }
             val diff = tripItem.startAt?.let { tripItem.endAt?.minus(it) }
             if (tripItem.startAt == tripItem.endAt){

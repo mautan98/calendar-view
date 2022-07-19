@@ -26,6 +26,7 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.model.UserListItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.detail.PlaceScheduleResponse
 import com.namviet.vtvtravel.view.fragment.f2mytrip.place.DetailPlacesFragment
 import com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel.MyTripsViewModel
+import java.math.BigDecimal
 import java.util.*
 
 class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
@@ -76,12 +77,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
         val startDate = Utils.formatTimestampTrips(tripItem?.startAt)
         val endDate = Utils.formatTimestampTrips(tripItem?.endAt)
         binding.tvDetailTimeTrips.text = "($startDate - $endDate, ${tripItem?.numberPeople} người)"
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            binding.tvEstimateCost.text = Html.fromHtml(Utils.convertPriceTrips(tripItem?.estimatedCost),
-                Html.FROM_HTML_MODE_COMPACT)
-        } else {
-            binding.tvEstimateCost.text = Html.fromHtml(Utils.convertPriceTrips(tripItem?.estimatedCost))
-        }
+        setTextTripCost(tripItem?.estimatedCost?.toBigDecimal())
         val userAdapter = UserListAdapter(requireContext())
         val listAvt = tripItem?.userList as MutableList<UserListItem>
         userAdapter.setListAvt(listAvt)
@@ -170,6 +166,15 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
         }
     }
 
+    private fun setTextTripCost(totalCost:BigDecimal?){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            binding.tvEstimateCost.text = Html.fromHtml(Utils.convertPriceTrips(totalCost),
+                Html.FROM_HTML_MODE_COMPACT).toString() + "đ"
+        } else {
+            binding.tvEstimateCost.text = Html.fromHtml(Utils.convertPriceTrips(totalCost)).toString() + "đ"
+        }
+    }
+
     override fun setObserver() {
     }
 
@@ -178,12 +183,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             val myTripResponse = arg
             tripItem = myTripResponse.data
             adapter?.setListPlaces(myTripResponse.data?.schedulePlaceByDays as MutableList<SchedulePlaceByDaysItem>)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                binding.tvEstimateCost.text = Html.fromHtml(Utils.convertPriceTrips(myTripResponse.data?.estimatedCost),
-                    Html.FROM_HTML_MODE_COMPACT)
-            } else {
-                binding.tvEstimateCost.text = Html.fromHtml(Utils.convertPriceTrips(myTripResponse.data?.estimatedCost))
-            }
+            setTextTripCost(tripItem?.estimatedCost?.toBigDecimal())
             binding.tvDetailTripName.text = myTripResponse.data?.name
             binding.tvDetailTripDesc.text = myTripResponse.data?.description
             val startDate = Utils.formatTimestampTrips(tripItem?.startAt)
