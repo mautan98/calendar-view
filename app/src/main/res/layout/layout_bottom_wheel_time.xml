@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             app:layout_constraintTop_toBottomOf="@id/view_line"
             android:orientation="horizontal"
-            android:paddingTop="8dp"
+            android:paddingVertical="8dp"
             android:gravity="center_horizontal"
             android:layout_height="wrap_content">
 
