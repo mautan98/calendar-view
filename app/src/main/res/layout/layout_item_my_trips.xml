@@ -3,16 +3,18 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:paddingBottom="18dp"
         android:layout_height="wrap_content">
 
-        <FrameLayout
+        <RelativeLayout
+            android:layout_marginTop="20dp"
             android:id="@+id/header_item_my_trip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
             android:paddingEnd="8dp"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/view">
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imv_banner_trip"
@@ -21,6 +23,31 @@
                 android:scaleType="centerCrop"
                 app:riv_corner_radius_top_left="@dimen/dp_9"
                 app:riv_corner_radius_top_right="@dimen/dp_9" />
+
+
+
+            <com.ornach.richtext.RichView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_alignTop="@+id/imv_banner_trip"
+                android:layout_alignBottom="@+id/imv_banner_trip"
+                android:layout_marginBottom="-9dp"
+                app:rt_backgroundColor="#50000000"
+                app:rt_radius="9dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_image_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imv_banner_trip"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="@dimen/dp_9"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:reverseLayout="true" />
+
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ll_creator"
@@ -53,22 +80,8 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcv_image_user"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="@dimen/dp_9"
-                android:layout_marginEnd="8dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:reverseLayout="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ll_creator" />
 
-        </FrameLayout>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_trips_name"
@@ -84,6 +97,7 @@
             app:layout_constraintTop_toBottomOf="@id/header_item_my_trip" />
 
         <ImageView
+            android:layout_marginEnd="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="8dp"
@@ -273,7 +287,7 @@
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/roboto_regular"
                 android:includeFontPadding="false"
-                android:text="@string/people_numb"
+                android:text="người"
                 android:textColor="#3A3A3A"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -291,12 +305,11 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
+            android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:layout_marginTop="16dp"
             android:background="@color/color_gray_trip_ec"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ly_detail_days" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
