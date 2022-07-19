@@ -10,6 +10,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -125,13 +126,12 @@ public class Utils {
         }
     }
 
-    public static String convertPriceTrips(Long price) {
-        String pattern = " <u>đ</u>";
+    public static String convertPriceTrips(BigDecimal price) {
         try {
             DecimalFormat df = new DecimalFormat("###,###,###");
-            return df.format(price)+pattern;
+            return df.format(price);
         } catch (Exception e) {
-            return "0" +pattern;
+            return "0";
         }
     }
 
