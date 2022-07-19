@@ -53,44 +53,60 @@
             android:textSize="16sp"
             app:drawableStartCompat="@drawable/ic_money_no_coin"
             app:layout_constraintStart_toStartOf="@id/imv_back_cost"
-            app:layout_constraintBottom_toBottomOf="@id/vnd"
-            app:layout_constraintTop_toTopOf="@id/vnd" />
+            app:layout_constraintBottom_toBottomOf="@id/layout_total_cost"
+            app:layout_constraintTop_toTopOf="@id/layout_total_cost" />
 
-        <com.ornach.richtext.RichText
-            android:id="@+id/vnd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/roboto_medium"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="7dp"
-            android:text="VNĐ"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@id/total_estimate_cost"
-            app:layout_constraintTop_toBottomOf="@id/view_line"
-            app:rt_borderColor="#FABE6B"
-            app:rt_borderWidth="1dp" />
-
-        <com.ornach.richtext.RichText
-            android:id="@+id/tv_total_cost"
+        <com.ornach.richtext.RichView
+            android:id="@+id/layout_total_cost"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:fontFamily="@font/roboto_medium"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="7dp"
-            tools:text="1.600.000000000000000"
-            android:inputType="text"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/vnd"
+            app:layout_constraintStart_toEndOf="@id/total_estimate_cost"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/vnd"
-            app:layout_constraintTop_toTopOf="@id/vnd"
+            android:layout_marginEnd="12dp"
+            android:orientation="horizontal"
+            app:rt_radius="4dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="10dp"
             app:rt_borderColor="#FABE6B"
-            app:rt_borderWidth="1dp" />
+            app:rt_borderWidth="1dp"
+            android:paddingVertical="7dp"
+            app:layout_constraintTop_toBottomOf="@id/view_line">
+
+            <com.ornach.richtext.RichText
+                android:id="@+id/vnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="VNĐ"
+                android:includeFontPadding="false"
+                android:layout_marginHorizontal="10dp"
+                app:rt_radius="4dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/total_estimate_cost"
+                app:layout_constraintTop_toBottomOf="@id/view_line" />
+
+            <View
+                android:layout_width="1dp"
+                android:background="#FABE6B"
+                android:layout_height="match_parent"/>
+
+            <com.ornach.richtext.RichText
+                android:id="@+id/tv_total_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_medium"
+               android:layout_marginStart="15dp"
+                tools:text="1.600.000000000000000"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/vnd"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/vnd"
+                app:layout_constraintTop_toTopOf="@id/vnd" />
+        </com.ornach.richtext.RichView>
 
         <TextView
             android:id="@+id/cost_types"
@@ -107,7 +123,7 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_total_cost" />
+            app:layout_constraintTop_toBottomOf="@id/layout_total_cost" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_type_of_cost"
