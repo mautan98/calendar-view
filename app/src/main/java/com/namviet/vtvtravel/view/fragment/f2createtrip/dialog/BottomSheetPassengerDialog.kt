@@ -99,12 +99,12 @@ class BottomSheetPassengerDialog(context: Context) : BottomSheetDialogFragment()
 
     private fun resetSelect(){
         binding.tvNumberPassenger.text = "1"
-        binding.tvNumberPassenger.text = "0"
-        binding.tvNumberPassenger.text = "0"
+        binding.tvNumberBaby.text = "0"
+        binding.tvNumberChildren.text = "0"
         numAdult = 1
         numChildren = 0
         numBaby = 0
-        setEnableButton(binding.imvMinus,false,false)
+        setEnableButton(binding.imvMinus,true,false)
         setEnableButton(binding.imvPlus,true,true)
         setEnableButton(binding.imvMinusChildren,false,false)
         setEnableButton(binding.imvPlusChildren,true,true)
