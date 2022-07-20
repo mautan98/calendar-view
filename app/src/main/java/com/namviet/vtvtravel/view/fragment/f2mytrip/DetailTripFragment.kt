@@ -15,7 +15,10 @@ import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.listener.OnBackToFragmentListener
 import com.namviet.vtvtravel.listener.OnItemRecyclerClickListener
+import com.namviet.vtvtravel.model.f2booking.DataHelpCenter
 import com.namviet.vtvtravel.ultils.DialogUtil.Companion.showErrorDialog
+import com.namviet.vtvtravel.ultils.F2Util
+import com.namviet.vtvtravel.view.f2.MyGiftActivity
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.OverlapDecoration
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.PlacesInScheduleAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.UserListAdapter
@@ -182,6 +185,30 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
                 flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
             }, null)
             startActivity(share)
+        }
+
+        binding.btnMoreDetailTrip.setOnClickListener {
+            var tripMenuDialog = TripMenuDialog();
+            tripMenuDialog.setClickListener(object : TripMenuDialog.Click{
+                override fun onClickHelpCenter() {
+                    val dataHelpCenter = Gson().fromJson(
+                        F2Util.loadJSONFromAsset(mActivity, "helpcenter_pro"),
+                        DataHelpCenter::class.java
+                    )
+                    MyGiftActivity.startScreen(
+                        mActivity,
+                        dataHelpCenter.itemMenus,
+                        dataHelpCenter.name
+                    )
+                }
+
+                override fun onClickGoHome() {
+                    mActivity.finish()
+                }
+
+            })
+
+            addFragment(tripMenuDialog)
         }
     }
 
