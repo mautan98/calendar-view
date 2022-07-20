@@ -8,6 +8,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.google.gson.Gson;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
@@ -15,9 +16,12 @@ import com.namviet.vtvtravel.databinding.F2FragmentMyTripBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.listener.OnItemRecyclerClickListener;
 import com.namviet.vtvtravel.model.Account;
+import com.namviet.vtvtravel.model.f2booking.DataHelpCenter;
 import com.namviet.vtvtravel.response.newhome.HomeServiceResponse;
+import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.view.f2.CreateTripActivity;
 import com.namviet.vtvtravel.view.f2.DisplayMarkerForMapActivity;
+import com.namviet.vtvtravel.view.f2.MyGiftActivity;
 import com.namviet.vtvtravel.view.f2.SmallLocationActivity;
 import com.namviet.vtvtravel.view.fragment.f2createtrip.CreateTripFragment;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.MyTripsAdapter;
@@ -83,6 +87,26 @@ public class MyTripFragment extends BaseFragment<F2FragmentMyTripBinding> implem
                 }
             });
             addFragment(createTripFragment);
+        });
+
+        getBinding().btnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TripMenuDialog tripMenuDialog = new TripMenuDialog();
+                tripMenuDialog.setClickListener(new TripMenuDialog.Click() {
+                    @Override
+                    public void onClickHelpCenter() {
+                        DataHelpCenter dataHelpCenter = new Gson().fromJson(F2Util.loadJSONFromAsset(mActivity, "helpcenter_pro"), DataHelpCenter.class);
+                        MyGiftActivity.startScreen(mActivity, dataHelpCenter.getItemMenus(), dataHelpCenter.getName());
+                    }
+
+                    @Override
+                    public void onClickGoHome() {
+                        mActivity.finish();
+                    }
+                });
+                addFragment(tripMenuDialog);
+            }
         });
     }
 
