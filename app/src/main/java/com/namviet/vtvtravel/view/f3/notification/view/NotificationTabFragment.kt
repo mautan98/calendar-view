@@ -125,7 +125,7 @@ class NotificationTabFragment : BaseFragment<F3FragmentNotificationTabBinding?>,
                 override fun onClickItem(position: Int?, notification: Notification?) {
                     notificationViewModel?.updateInbox(notification?.id, "1", position!! )
                     var notificationCaseProcessing = NotificationCaseProcessing(mActivity)
-                    notificationCaseProcessing.handleIntentFromNotification(notification?.data?.code, notification)
+                    notificationCaseProcessing.handleIntentFromNotification(notification?.data?.code, notification, this@NotificationTabFragment)
                 }
 
                 override fun onDataChange(isShow: Boolean) {
