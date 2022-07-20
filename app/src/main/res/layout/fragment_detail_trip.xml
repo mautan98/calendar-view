@@ -59,7 +59,7 @@
                             android:id="@+id/btn_share"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="26dp"
+                            android:layout_marginEnd="8dp"
                             android:background="@drawable/ic_share_my_trips"
                             android:backgroundTint="@color/white"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -67,13 +67,12 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.appcompat.widget.AppCompatImageButton
+                            android:tint="@color/white"
                             android:id="@+id/btn_more_detail_trip"
-                            android:layout_width="wrap_content"
+                            android:layout_width="36dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:layout_marginEnd="18dp"
-                            android:background="@drawable/ic_three_dot_gray"
-                            android:backgroundTint="@color/white"
+                            android:src="@drawable/ic_three_dot_gray"
                             app:layout_constraintBottom_toBottomOf="@id/btn_back"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@id/btn_back" />
