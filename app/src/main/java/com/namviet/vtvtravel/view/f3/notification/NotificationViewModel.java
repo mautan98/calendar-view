@@ -221,7 +221,7 @@ public class NotificationViewModel extends BaseViewModel {
     public void getNotificationTab() {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
-        Disposable disposable = newsService.getNotificationTab("https://core-testing.vtvtravel.vn/sys/v1/notifications/types/list")
+        Disposable disposable = newsService.getNotificationTab("https://core-dev.vtvtravel.vn/sys/v1/notifications/types/list")
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<NotificationTab>() {
