@@ -553,16 +553,7 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
 
             } else if (o instanceof ErrorResponse) {
 //                getBinding().rllNoData.setVisibility(View.VISIBLE);
-                ErrorResponse responseError = (ErrorResponse) o;
-               String des = "Đã có lỗi không xác định";
-                if (!TextUtils.isEmpty(responseError.getErrorCode())) {
-                    des = responseError.getErrorCode();
-                }
-                DialogUtil.Companion.showErrorDialog(getString(R.string.error_title), getString(R.string.close_title), des, getChildFragmentManager());
-                try {
-                } catch (Exception e) {
-
-                }
+//                Snackbar.make()
             } else if (o instanceof BaseResponse){
                 onBackToFragmentListener.onBack();
                 getActivity().onBackPressed();

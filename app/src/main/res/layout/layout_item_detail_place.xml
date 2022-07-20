@@ -187,6 +187,10 @@
             app:layout_constraintStart_toStartOf="@id/layout_content"
             app:layout_constraintTop_toBottomOf="@id/layout_content">
 
+            <View
+                android:layout_width="1dp"
+                android:layout_height="14dp"
+                android:background="@color/my_statusbar_color" />
 
             <ImageView
                 android:layout_width="wrap_content"
