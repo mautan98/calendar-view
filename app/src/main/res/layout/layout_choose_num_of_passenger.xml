@@ -68,7 +68,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:showDividers="middle"
             android:background="@color/white"
             app:divider="@color/black"
             app:layout_constraintTop_toBottomOf="@id/header_passenger"
@@ -77,9 +76,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="11dp"
-                android:paddingTop="14dp"
-                android:paddingBottom="16dp">
+                android:paddingStart="11dp">
 
                 <TextView
                     android:id="@+id/adult"
@@ -114,8 +111,9 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tv_number_passenger"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:paddingVertical="15dp"
-                    android:paddingHorizontal="12dp"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="17dp"
+                    android:paddingHorizontal="15dp"
                     app:srcCompat="@drawable/ic_minus_passenger" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -137,8 +135,10 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:paddingVertical="15dp"
-                    android:paddingHorizontal="12dp"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="17dp"
+                    android:paddingEnd="12dp"
+                    android:paddingStart="15dp"
                     app:srcCompat="@drawable/ic_plus_passenger" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -146,9 +146,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="11dp"
-                android:paddingTop="14dp"
-                android:paddingBottom="16dp">
+                android:paddingStart="11dp">
 
                 <TextView
                     android:id="@+id/children"
@@ -183,8 +181,9 @@
                     android:src="@drawable/ic_minus_passenger"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tv_number_children"
-                    android:paddingVertical="15dp"
-                    android:paddingHorizontal="12dp"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="17dp"
+                    android:paddingHorizontal="15dp"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -206,8 +205,10 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:paddingVertical="15dp"
-                    android:paddingHorizontal="12dp"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="17dp"
+                    android:paddingEnd="12dp"
+                    android:paddingStart="15dp"
                     app:srcCompat="@drawable/ic_plus_passenger" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -215,9 +216,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="11dp"
-                android:paddingTop="14dp"
-                android:paddingBottom="16dp">
+                android:paddingStart="11dp">
 
                 <TextView
                     android:id="@+id/baby"
@@ -252,8 +251,9 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tv_number_baby"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:paddingVertical="15dp"
-                    android:paddingHorizontal="12dp"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="17dp"
+                    android:paddingHorizontal="15dp"
                     app:srcCompat="@drawable/ic_minus_passenger" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -275,8 +275,10 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:paddingVertical="15dp"
-                    android:paddingHorizontal="12dp"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="17dp"
+                    android:paddingEnd="12dp"
+                    android:paddingStart="15dp"
                     app:srcCompat="@drawable/ic_plus_passenger" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -142,6 +142,15 @@ public class Utils {
         return calendar.get(Calendar.DAY_OF_MONTH) + " thg " + (calendar.get(Calendar.MONTH) + 1);
     }
 
+    public static String formatWeekDaysTimestampTrips(Long timeStamp) {
+        Date date = new Date(timeStamp);
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        calendar.setTime(date);
+        String pattern = "EEEE";
+        String weekDay = new SimpleDateFormat(pattern).format(timeStamp);
+        return weekDay + ", " +calendar.get(Calendar.DAY_OF_MONTH) + " tháng " + (calendar.get(Calendar.MONTH) + 1);
+    }
+
     public static String formatTimeStamp(Long timestamp,String pattern){
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);

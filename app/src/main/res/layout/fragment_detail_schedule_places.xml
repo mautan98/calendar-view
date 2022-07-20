@@ -27,7 +27,7 @@
                 android:id="@+id/imv_back"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:paddingVertical="8dp"
+                android:paddingVertical="7dp"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/ic_back_white"
                 app:layout_constraintStart_toStartOf="parent"

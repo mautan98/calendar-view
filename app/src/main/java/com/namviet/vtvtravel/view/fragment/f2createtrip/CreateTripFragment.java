@@ -128,7 +128,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
                 if (isChecked){
                     if (startAtTimestamp != 0) {
                         endAtTimestamp = startAtTimestamp;
-                        getBinding().edtReturnDate.setText(Utils.formatTimestampTrips(endAtTimestamp));
+                        getBinding().edtReturnDate.setText(Utils.formatWeekDaysTimestampTrips(endAtTimestamp));
                     }
                 }
             }
@@ -153,7 +153,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
                                 if (getBinding().tripInday.isChecked()){
                                     endAtTimestamp = startAtTimestamp;
                                 }
-                                getBinding().edtStartDate.setText(Utils.formatTimestampTrips(calendar.getTimeInMillis()));
+                                getBinding().edtStartDate.setText(Utils.formatWeekDaysTimestampTrips(calendar.getTimeInMillis()));
                             }
                         }, selectedYear, selectedMonth, selectedDayOfMonth);
                 datePickerDialog.getDatePicker().setMinDate(minCalendar.getTimeInMillis());
@@ -175,7 +175,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
                                 calendar.set(Calendar.MONTH,month);
                                 calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
                                 endAtTimestamp = calendar.getTimeInMillis();
-                                getBinding().edtReturnDate.setText(Utils.formatTimestampTrips(calendar.getTimeInMillis()));
+                                getBinding().edtReturnDate.setText(Utils.formatWeekDaysTimestampTrips(calendar.getTimeInMillis()));
                             }
                         }, selectedYear, selectedMonth, selectedDayOfMonth);
                 if (startAtTimestamp > 0){

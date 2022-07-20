@@ -12,8 +12,9 @@
             android:id="@+id/layout_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="7dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
             android:paddingEnd="32dp"
             android:background="@drawable/bg_radius_4dp"
             app:layout_constraintTop_toTopOf="parent">
@@ -68,7 +69,7 @@
                 android:id="@+id/tv_detail_place_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:maxLines="2"
+                android:maxLines="1"
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/roboto_medium"
@@ -77,7 +78,8 @@
                 app:layout_constraintStart_toEndOf="@id/imv_detail_place"
                 app:layout_constraintTop_toTopOf="@id/imv_detail_place"
                 app:layout_constraintEnd_toEndOf="parent"
-                tools:text="Quang truong lam vien" />
+                android:ellipsize="end"
+                tools:text="Quang truong lam vien erqwerqwerqwerqwerqwerqwerqwerqwe" />
 
             <TextView
                 android:id="@+id/time_visiting"
@@ -122,9 +124,7 @@
                 android:id="@+id/note_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/change_place"
-                android:paddingTop="7dp"
-                android:paddingBottom="6dp"
+                android:layout_marginTop="12dp"
                 android:drawablePadding="5dp"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center_vertical"
@@ -132,9 +132,8 @@
                 android:textColor="#F89C1C"
                 android:textSize="12sp"
                 app:drawableStartCompat="@drawable/ic_notes"
-                app:layout_constraintBottom_toBottomOf="@id/change_place"
                 app:layout_constraintStart_toStartOf="@id/tv_detail_place_name"
-                app:layout_constraintTop_toBottomOf="@id/edt_time_visiting" />
+                app:layout_constraintTop_toBottomOf="@id/tv_dot" />
 
             <ImageView
                 android:id="@+id/imv_is_have_note"
@@ -150,22 +149,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:drawablePadding="5dp"
-                android:paddingTop="7dp"
-                android:paddingBottom="6dp"
                 android:fontFamily="@font/roboto_regular"
                 android:textColor="#F89C1C"
                 android:textSize="12sp"
                 android:gravity="center_vertical"
                 app:drawableStartCompat="@drawable/ic_change_place"
                 app:layout_constraintStart_toEndOf="@id/note_place"
-                app:layout_constraintTop_toBottomOf="@id/tv_dot"
+                app:layout_constraintBottom_toBottomOf="@id/note_place"
+                app:layout_constraintTop_toTopOf="@id/note_place"
                 android:text="@string/change_places" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/layout_movement"
-            android:layout_width="wrap_content"
+            android:layout_width="75dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -195,6 +193,7 @@
                 android:id="@+id/tv_desc_movement"
                 android:layout_width="wrap_content"
                 tools:text="0.3 Km/1p"
+                android:lines="1"
                 android:textColor="@color/my_statusbar_color"
                 android:fontFamily="@font/roboto_regular"
                 android:textSize="16sp"
