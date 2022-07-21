@@ -9,38 +9,38 @@ import kotlinx.android.parcel.RawValue
 data class TripItem(
 
 	@field:SerializedName("creator")
-	val creator: Creator? = null,
+	var creator: Creator? = null,
 
 	@field:SerializedName("userList")
-	val userList: List<UserListItem?>? = null,
+	var userList: List<UserListItem?>? = null,
 
 	@field:SerializedName("checkRights")
-	val checkRights: @RawValue Any? = null,
+	var checkRights: @RawValue Any? = null,
 
 	@field:SerializedName("name")
-	val name: String? = null,
+	var name: String? = null,
 
 	@field:SerializedName("bannerUrl")
-	val bannerUrl: String? = null,
+	var bannerUrl: String? = null,
 
 	@field:SerializedName("description")
-	val description: String? = null,
+	var description: String? = null,
 
 	@field:SerializedName("schedulePlaceByDays")
-	val schedulePlaceByDays: List<SchedulePlaceByDaysItem?>? = null,
+	var schedulePlaceByDays: List<SchedulePlaceByDaysItem?>? = null,
 
 	@field:SerializedName("id")
-	val id: String? = null,
+	var id: String? = null,
 
 	@field:SerializedName("estimatedCost")
-	val estimatedCost: Long? = null,
+	var estimatedCost: Long? = null,
 
 	@field:SerializedName("endAt")
-	val endAt: Long? = null,
+	var endAt: Long? = null,
 
 	@field:SerializedName("startAt")
-	val startAt: Long? = null,
+	var startAt: Long? = null,
 
 	@field:SerializedName("numberPeople")
-	val numberPeople: Int? = null
+	var numberPeople: Int? = null
 ) : Parcelable
