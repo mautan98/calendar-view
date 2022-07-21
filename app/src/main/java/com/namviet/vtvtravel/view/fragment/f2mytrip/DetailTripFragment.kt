@@ -241,7 +241,6 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             val endDate = Utils.formatTimestampTrips(tripItem?.endAt)
             binding.tvDetailTimeTrips.text = "($startDate - $endDate, ${tripItem?.numberPeople} người)"
             Glide.with(requireContext()).load(tripItem?.bannerUrl).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(binding.imvBannerDetail)
-            tripItem?.let { adapter?.setListPlaces(it.schedulePlaceByDays as MutableList<SchedulePlaceByDaysItem>) }
         } else if (arg is ErrorResponse){
             val responseError = arg
             var des = "Đã có lỗi không xác định"

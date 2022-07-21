@@ -40,7 +40,7 @@ class UserListAdapter(var context: Context) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(userItem: UserListItem?) {
-            Glide.with(context).load(userItem?.imageProfile).into(binding.imvUserTrips)
+            Glide.with(context).load(userItem?.imageProfile).placeholder(R.drawable.f2_defaut_user).error(R.drawable.f2_defaut_user).into(binding.imvUserTrips)
         }
 
     }
