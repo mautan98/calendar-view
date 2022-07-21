@@ -4,9 +4,23 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp">
 
+
+        <LinearLayout
+            android:id="@+id/view_connectparent"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="75dp"
+            android:layout_height="10dp">
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/my_statusbar_color" />
+
+        </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_content"
@@ -14,10 +28,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="10dp"
-            android:paddingEnd="32dp"
             android:background="@drawable/bg_radius_4dp"
-            app:layout_constraintTop_toTopOf="parent">
+            android:paddingEnd="32dp"
+            app:layout_constraintTop_toBottomOf="@id/view_connectparent">
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imv_detail_place"
@@ -33,8 +46,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_time_travel_place"
                 android:layout_width="0dp"
-                android:paddingVertical="3dp"
-                android:layout_height="match_parent"
+                android:layout_height="23dp"
                 android:background="@drawable/bg_radius_4dp_bottom"
                 android:backgroundTint="#F89C1C"
                 android:orientation="horizontal"
@@ -47,9 +59,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
+                    android:includeFontPadding="false"
                     android:textColor="@color/white"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="09:00" />
 
                 <ImageView
@@ -57,10 +71,10 @@
                     android:layout_height="6dp"
                     android:layout_gravity="center_vertical|start"
                     android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_drop_down_thick_3726"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:src="@drawable/ic_drop_down_thick_3726"
                     app:tint="@color/white" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -69,16 +83,16 @@
                 android:id="@+id/tv_detail_place_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="5dp"
+                android:ellipsize="end"
                 android:fontFamily="@font/roboto_medium"
+                android:maxLines="1"
                 android:textColor="@color/black"
                 android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/imv_detail_place"
                 app:layout_constraintTop_toTopOf="@id/imv_detail_place"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:ellipsize="end"
                 tools:text="Quang truong lam vien erqwerqwerqwerqwerqwerqwerqwerqwe" />
 
             <TextView
@@ -125,6 +139,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:layout_marginBottom="6dp"
                 android:drawablePadding="5dp"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center_vertical"
@@ -132,16 +147,17 @@
                 android:textColor="#F89C1C"
                 android:textSize="12sp"
                 app:drawableStartCompat="@drawable/ic_notes"
-                app:layout_constraintStart_toStartOf="@id/tv_detail_place_name"
-                app:layout_constraintTop_toBottomOf="@id/tv_dot" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_detail_place_name" />
 
             <ImageView
                 android:id="@+id/imv_is_have_note"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
                 android:src="@drawable/ic_dot_blue_5dp"
-                app:layout_constraintBottom_toTopOf="@id/note_place"
                 app:layout_constraintStart_toEndOf="@id/note_place"
-                android:layout_height="wrap_content"/>
+                app:layout_constraintTop_toTopOf="@id/note_place" />
 
             <TextView
                 android:id="@+id/change_place"
@@ -150,14 +166,14 @@
                 android:layout_marginStart="30dp"
                 android:drawablePadding="5dp"
                 android:fontFamily="@font/roboto_regular"
+                android:gravity="center_vertical"
+                android:text="@string/change_places"
                 android:textColor="#F89C1C"
                 android:textSize="12sp"
-                android:gravity="center_vertical"
                 app:drawableStartCompat="@drawable/ic_change_place"
-                app:layout_constraintStart_toEndOf="@id/note_place"
                 app:layout_constraintBottom_toBottomOf="@id/note_place"
-                app:layout_constraintTop_toTopOf="@id/note_place"
-                android:text="@string/change_places" />
+                app:layout_constraintStart_toEndOf="@id/note_place"
+                app:layout_constraintTop_toTopOf="@id/note_place" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -173,11 +189,8 @@
 
             <View
                 android:layout_width="1dp"
-                android:layout_height="15dp"
-                android:background="@color/my_statusbar_color"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="14dp"
+                android:background="@color/my_statusbar_color" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -192,16 +205,16 @@
             <TextView
                 android:id="@+id/tv_desc_movement"
                 android:layout_width="wrap_content"
-                tools:text="0.3 Km/1p"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
                 android:lines="1"
                 android:textColor="@color/my_statusbar_color"
-                android:fontFamily="@font/roboto_regular"
                 android:textSize="16sp"
-                android:layout_height="wrap_content"/>
+                tools:text="0.3 Km/1p" />
 
             <View
                 android:layout_width="1dp"
-                android:layout_height="32dp"
+                android:layout_height="22dp"
                 android:background="@color/my_statusbar_color" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

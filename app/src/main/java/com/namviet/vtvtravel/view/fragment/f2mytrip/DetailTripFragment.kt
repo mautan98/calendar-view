@@ -1,12 +1,14 @@
 package com.namviet.vtvtravel.view.fragment.f2mytrip
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.text.TextUtils
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
+import com.namviet.vtvtravel.BuildConfig
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.api.WSConfig
@@ -173,17 +175,20 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             activity?.onBackPressed()
         }
         binding.btnShare.setOnClickListener {
+            val uri = Uri.parse("android.resource://" + BuildConfig.APPLICATION_ID + "/drawable/bg_demo")
             val share = Intent.createChooser(Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TEXT, "https://developer.android.com/training/sharing/")
+                putExtra(Intent.EXTRA_SUBJECT, tripItem?.name)
                 type = "text/plain"
+
                 // (Optional) Here we're setting the title of the content
-                putExtra(Intent.EXTRA_TITLE, "Introducing content previews")
+                putExtra(Intent.EXTRA_TITLE, tripItem?.name)
 
                 // (Optional) Here we're passing a content URI to an image to be displayed
-//                data = contentUri
+                data = uri
                 flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-            }, null)
+            }, tripItem?.name)
             startActivity(share)
         }
 

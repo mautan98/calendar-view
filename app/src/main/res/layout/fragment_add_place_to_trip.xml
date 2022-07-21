@@ -8,7 +8,7 @@
         android:orientation="vertical">
 
         <View
-            android:background="@color/colorPrimary"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="26dp"/>
 
@@ -53,9 +53,8 @@
                 android:visibility="gone"
                 android:id="@+id/rll_header_map"
                 android:background="#00918D"
-                android:paddingTop="25dp"
                 android:layout_width="match_parent"
-                android:layout_height="75dp">
+                android:layout_height="50dp">
                 <ImageView
                     android:id="@+id/btnBackmap"
                     android:layout_width="38dp"

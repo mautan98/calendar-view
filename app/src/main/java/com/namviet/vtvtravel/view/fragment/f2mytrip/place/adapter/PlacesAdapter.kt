@@ -47,6 +47,11 @@ class PlacesAdapter : RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(placeDetailItem: PlacesScheduleItem, position: Int) {
+            if (position == 0){
+                binding.viewConnectparent.visibility = View.INVISIBLE
+            } else {
+                binding.viewConnectparent.visibility = View.VISIBLE
+            }
             binding.tvDetailPlaceName.text = placeDetailItem.name
             binding.edtTimeVisiting.text = "${placeDetailItem.durationVisit}p"
             binding.tvArrivalTime.text = Utils.formatTimeStamp(placeDetailItem.arrivalTime,"HH:mm")
