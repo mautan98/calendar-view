@@ -19,6 +19,10 @@ public class Data implements Serializable {
     @Expose
     private String icon;
 
+    @SerializedName("scheduleCustomId")
+    @Expose
+    private String scheduleCustomId;
+
     public String getCode() {
         return code;
     }
@@ -41,5 +45,13 @@ public class Data implements Serializable {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public String getScheduleCustomId() {
+        return scheduleCustomId;
+    }
+
+    public void setScheduleCustomId(String scheduleCustomId) {
+        this.scheduleCustomId = scheduleCustomId;
     }
 }

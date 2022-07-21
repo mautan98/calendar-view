@@ -49,7 +49,7 @@ public class InviteTripNotificationDetailFragment extends BaseFragment<ActivityI
                         try {
                             Account account = MyApplication.getInstance().getAccount();
                             if (null != account && account.isLogin()) {
-//                                systemInboxViewModel.confirmEnterTrip(dataSystemInbox.getScheduleCustomId(), String.valueOf(account.getId()));
+                                systemInboxViewModel.confirmEnterTrip(notification.getData().getScheduleCustomId(), String.valueOf(account.getId()));
                             } else {
                                 LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
                             }
