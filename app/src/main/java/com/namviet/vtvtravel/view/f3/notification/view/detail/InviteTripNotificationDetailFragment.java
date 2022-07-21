@@ -12,6 +12,7 @@ import com.namviet.vtvtravel.model.Account;
 import com.namviet.vtvtravel.response.f2systeminbox.ConfirmEnterTrip;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 import com.namviet.vtvtravel.view.f3.notification.model.Notification;
+import com.namviet.vtvtravel.view.fragment.f2mytrip.DetailTripActivity;
 import com.namviet.vtvtravel.viewmodel.f2systeminbox.SystemInboxViewModel;
 
 import java.util.Observable;
@@ -49,6 +50,7 @@ public class InviteTripNotificationDetailFragment extends BaseFragment<ActivityI
                         try {
                             Account account = MyApplication.getInstance().getAccount();
                             if (null != account && account.isLogin()) {
+                                showLoading();
                                 systemInboxViewModel.confirmEnterTrip(notification.getData().getScheduleCustomId(), String.valueOf(account.getId()));
                             } else {
                                 LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
@@ -78,10 +80,15 @@ public class InviteTripNotificationDetailFragment extends BaseFragment<ActivityI
 
     @Override
     public void update(Observable observable, Object o) {
+        hideLoading();
         try {
             if (observable instanceof SystemInboxViewModel && null != o) {
                 if (o instanceof ConfirmEnterTrip) {
-
+                    try {
+                        DetailTripActivity.Companion.startScreen(mActivity, ((ConfirmEnterTrip) o).getTripID());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }  else if (o instanceof ErrorResponse) {
                     ErrorResponse responseError = (ErrorResponse) o;
                     try {

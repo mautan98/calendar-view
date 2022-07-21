@@ -65,27 +65,27 @@ public class SystemInboxFragment extends BaseFragment<F2FragmentSystemInboxBindi
             @Override
             public void onClickInvite(SystemInbox.Data.InboxItem inboxItem, DataSystemInbox dataSystemInbox) {
                 try {
-                    SystemInboxFragment.this.dataSystemInbox = dataSystemInbox;
-                    ReceiverTripInviteDialog notifyDialog = ReceiverTripInviteDialog.newInstance(dataSystemInbox.getTitle(), dataSystemInbox.getContent(), "Đồng ý tham gia", new ReceiverTripInviteDialog.ClickButton() {
-                        @Override
-                        public void onClickButton() {
-                            try {
-
-                                Account account = MyApplication.getInstance().getAccount();
-                                if (null != account && account.isLogin()) {
-                                    systemInboxViewModel.confirmEnterTrip(dataSystemInbox.getScheduleCustomId(), String.valueOf(account.getId()));
-                                } else {
-                                    LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
-                                }
-
-                                systemInboxViewModel.updateSystemInbox(inboxItem.getId());
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    });
-                    notifyDialog.show(mActivity.getSupportFragmentManager(), null);
+//                    SystemInboxFragment.this.dataSystemInbox = dataSystemInbox;
+//                    ReceiverTripInviteDialog notifyDialog = ReceiverTripInviteDialog.newInstance(dataSystemInbox.getTitle(), dataSystemInbox.getContent(), "Đồng ý tham gia", new ReceiverTripInviteDialog.ClickButton() {
+//                        @Override
+//                        public void onClickButton() {
+//                            try {
+//
+//                                Account account = MyApplication.getInstance().getAccount();
+//                                if (null != account && account.isLogin()) {
+//                                    systemInboxViewModel.confirmEnterTrip(dataSystemInbox.getScheduleCustomId(), String.valueOf(account.getId()));
+//                                } else {
+//                                    LoginAndRegisterActivityNew.startScreen(mActivity, 0, false);
+//                                }
+//
+//                                systemInboxViewModel.updateSystemInbox(inboxItem.getId());
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                        }
+//                    });
+//                    notifyDialog.show(mActivity.getSupportFragmentManager(), null);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

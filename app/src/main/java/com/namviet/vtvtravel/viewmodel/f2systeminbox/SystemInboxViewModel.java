@@ -60,6 +60,7 @@ public class SystemInboxViewModel extends BaseViewModel {
                     @Override
                     public void accept(ConfirmEnterTrip response) throws Exception {
                         if (response != null && response.isSuccess()) {
+                            response.setTripID(id);
                             requestSuccess(response);
                         } else {
                             requestSuccess(null);

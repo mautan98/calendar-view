@@ -161,6 +161,7 @@ import com.namviet.vtvtravel.view.fragment.account.SettingFragment;
 import com.namviet.vtvtravel.view.fragment.account.UpdateInfoFragment;
 import com.namviet.vtvtravel.view.fragment.f2callnow.MainCallNowFragment;
 import com.namviet.vtvtravel.view.fragment.f2mygift.NotifyDialog;
+import com.namviet.vtvtravel.view.fragment.f2mytrip.DetailTripActivity;
 import com.namviet.vtvtravel.view.fragment.f2offline.MainOfflineFragment;
 import com.namviet.vtvtravel.view.fragment.f2offline.MainPageLoginFragment;
 import com.namviet.vtvtravel.view.fragment.f2offline.OfflineDialog;
@@ -1350,7 +1351,11 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
         if (observable instanceof SystemInboxViewModel && null != o) {
             if (o instanceof ConfirmEnterTrip) {
-                ReceiveInviteTripDetailActivity.startScreen(this, dataSystemInbox.getScheduleCustomId());
+                try {
+                    DetailTripActivity.Companion.startScreen(this, ((ConfirmEnterTrip) o).getTripID());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } else if (o instanceof ErrorResponse) {
                 ErrorResponse responseError = (ErrorResponse) o;
                 try {
@@ -2075,25 +2080,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
 
 
     private void openDialogTripInvite() {
-        ReceiverTripInviteDialog notifiDialog = ReceiverTripInviteDialog.newInstance(dataSystemInbox.getTitle(), dataSystemInbox.getContent(), "Đồng ý tham gia", new ReceiverTripInviteDialog.ClickButton() {
-            @Override
-            public void onClickButton() {
-                try {
 
-                    Account account = MyApplication.getInstance().getAccount();
-                    if (null != account && account.isLogin()) {
-                        systemInboxViewModel.confirmEnterTrip(dataSystemInbox.getScheduleCustomId(), String.valueOf(account.getId()));
-                    } else {
-                        LoginAndRegisterActivityNew.startScreen(MainActivity.this, 0, false);
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
-        notifiDialog.show(getSupportFragmentManager(), null);
     }
 
 
@@ -2176,6 +2163,25 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
                 case NotificationCode.WIN_WHEEL :
                     NewMyGiftActivity.startScreen(this);
                     break;
+                case NotificationCode.INVITE_SCHEDULE:
+                    ReceiverTripInviteDialog receiverTripInviteDialog = ReceiverTripInviteDialog.newInstance(new ReceiverTripInviteDialog.ClickButton() {
+                        @Override
+                        public void onClickButton() {
+                            try {
+                                Account account = MyApplication.getInstance().getAccount();
+                                if (null != account && account.isLogin()) {
+                                    systemInboxViewModel.confirmEnterTrip(notification.getData().getScheduleCustomId(), String.valueOf(account.getId()));
+                                } else {
+                                    LoginAndRegisterActivityNew.startScreen(MainActivity.this, 0, false);
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+                    receiverTripInviteDialog.show(getSupportFragmentManager(), null);
 
             }
         } catch (Exception e) {

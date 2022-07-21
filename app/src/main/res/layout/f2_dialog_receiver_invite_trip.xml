@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data></data>
 
@@ -31,31 +32,29 @@
                 android:gravity="center"
                 android:text="Thông báo"
                 android:textColor="#000000"
-                android:textSize="18dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/tvDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="21dp"
+                android:layout_marginTop="6dp"
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center"
                 android:text="tin nhắn"
                 android:textColor="#000000"
-                android:textSize="16dp" />
+                android:textSize="15dp" />
 
 
-            <TextView
+            <com.ornach.richtext.RichText
                 android:id="@+id/tvLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="12dp"
-                android:background="@drawable/f2_bg_button_agree_invite"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center"
                 android:paddingTop="8dp"
@@ -63,7 +62,9 @@
                 android:text="Đồng ý tham gia"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="15dp" />
+                android:textSize="14dp"
+                app:rt_backgroundColor="@color/colorPrimary"
+                app:rt_radius="10dp" />
 
 
             <TextView
@@ -71,14 +72,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="21dp"
+                android:layout_marginTop="34dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="34dp"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center"
                 android:text="Đã hiểu"
                 android:textAllCaps="true"
-                android:textColor="#6DC0BD"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14dp" />
         </LinearLayout>
 

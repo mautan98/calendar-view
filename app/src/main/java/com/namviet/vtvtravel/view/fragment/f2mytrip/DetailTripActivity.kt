@@ -14,7 +14,7 @@ class DetailTripActivity : BaseActivityNew<ActivityDetailTripBinding>() {
     companion object {
 
         fun startScreen(activity: Context, tripId: String) {
-            val intent = Intent(activity, MyTripActivity::class.java)
+            val intent = Intent(activity, DetailTripActivity::class.java)
             intent.apply { putExtra(DetailTripFragment.KEY_TRIP_ITEM, tripId) }
             activity.startActivity(intent)
         }
@@ -27,11 +27,6 @@ class DetailTripActivity : BaseActivityNew<ActivityDetailTripBinding>() {
 
     override fun getFrame(): Int {
         return R.id.mainFrame
-    }
-
-    fun startScreen(activity: Context) {
-        val intent = Intent(activity, MyTripActivity::class.java)
-        activity.startActivity(intent)
     }
 
     override fun getDataFromIntent() {
