@@ -8,6 +8,7 @@ import android.text.Html
 import android.text.TextUtils
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
+import com.mindinventory.overlaprecylcerview.decoration.OverlapRecyclerViewDecoration
 import com.namviet.vtvtravel.BuildConfig
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.Utils
@@ -21,7 +22,6 @@ import com.namviet.vtvtravel.model.f2booking.DataHelpCenter
 import com.namviet.vtvtravel.ultils.DialogUtil.Companion.showErrorDialog
 import com.namviet.vtvtravel.ultils.F2Util
 import com.namviet.vtvtravel.view.f2.MyGiftActivity
-import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.OverlapDecoration
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.PlacesInScheduleAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.UserListAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.edit.EditTripBottomDialog
@@ -91,6 +91,8 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
 
     override fun initData() {
         tripItem = arguments?.getParcelable(KEY_TRIP_ITEM)
+        adapter = PlacesInScheduleAdapter(requireContext())
+        binding.rcvAllSchedule.adapter = adapter
         tripItem?.id?.let { viewModel.getDetailplaceById(it) }
         viewModel.addObserver(this)
 
@@ -103,10 +105,9 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
         val userAdapter = UserListAdapter(requireContext())
         val listAvt = tripItem?.userList as MutableList<UserListItem>
         userAdapter.setListAvt(listAvt)
-        binding.rcvImageUser.addItemDecoration(OverlapDecoration(listAvt))
+        binding.rcvImageUser.addItemDecoration(OverlapRecyclerViewDecoration(5,-25))
         binding.rcvImageUser.adapter = userAdapter
 
-        adapter = PlacesInScheduleAdapter(requireContext())
         adapter?.setOnItemClickListener(object : OnItemRecyclerClickListener{
             override fun onItemClick(position: Int) {
                 val fragment = DetailPlacesFragment.newInstance(tripItem)
@@ -114,7 +115,6 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
                 addFragment(fragment)
             }
         })
-        binding.rcvAllSchedule.adapter = adapter
         Glide.with(requireContext()).load(tripItem?.bannerUrl).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(binding.imvBannerDetail)
     }
 

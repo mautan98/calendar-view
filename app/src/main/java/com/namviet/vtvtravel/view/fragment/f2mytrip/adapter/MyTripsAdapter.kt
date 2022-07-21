@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.mindinventory.overlaprecylcerview.decoration.OverlapRecyclerViewDecoration
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.databinding.LayoutItemMyTripsBinding
@@ -75,7 +76,7 @@ class MyTripsAdapter(var context: Context) : RecyclerView.Adapter<MyTripsAdapter
             val userAdapter = UserListAdapter(context)
             val listAvt = tripItem.userList as MutableList<UserListItem>
             userAdapter.setListAvt(listAvt)
-            binding.rcvImageUser.addItemDecoration(OverlapDecoration(listAvt))
+//            binding.rcvImageUser.addItemDecoration(OverlapRecyclerViewDecoration(10,-25))
             binding.rcvImageUser.adapter = userAdapter
 
         }
