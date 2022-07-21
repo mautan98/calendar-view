@@ -25,6 +25,8 @@
 
 
             <TextView
+                android:textSize="18dp"
+                android:fontFamily="@font/roboto_medium"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -42,11 +44,16 @@
 
         </LinearLayout>
 
+        <View
+            android:background="#ececec"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
 
         <LinearLayout
             android:layout_marginTop="20dp"
             android:layout_marginEnd="14dp"
-            android:layout_marginStart="14dp"
+            android:layout_marginStart="18dp"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -58,20 +65,20 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:textSize="20dp"
                     android:id="@+id/tvTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_bold"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="Chuyến đi Hà Nội - Đà Lạt"
-                    android:textColor="@color/black"
-                    android:textSize="18dp" />
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_regular"
                     android:text="09:18 14/07"
-                    android:textSize="18dp" />
+                    android:textSize="14dp" />
             </LinearLayout>
 
 
@@ -90,7 +97,7 @@
             android:textColor="@color/black"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="14dp"
-            android:layout_marginStart="14dp"
+            android:layout_marginStart="18dp"
             android:text="text text text text text text text text text text text text text text text text "
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -102,9 +109,9 @@
             app:rt_backgroundColor="@color/colorPrimary"
             android:textColor="@color/white"
             android:paddingVertical="8dp"
-            android:paddingHorizontal="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="14dp"
+            android:paddingHorizontal="16dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginStart="18dp"
             android:textAllCaps="true"
             android:text="Đồng ý tham gia"
             android:layout_width="wrap_content"
