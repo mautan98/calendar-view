@@ -15,6 +15,8 @@ import com.namviet.vtvtravel.view.f3.deal.view.dealhome.DealHomeActivity;
 import com.namviet.vtvtravel.view.f3.deal.view.mygift.NewMyGiftActivity;
 import com.namviet.vtvtravel.view.f3.notification.model.Notification;
 import com.namviet.vtvtravel.view.f3.notification.model.NotificationCode;
+import com.namviet.vtvtravel.view.f3.notification.view.NotificationTabFragment;
+import com.namviet.vtvtravel.view.f3.notification.view.detail.InviteTripNotificationDetailFragment;
 
 public class NotificationCaseProcessing {
 
@@ -23,7 +25,7 @@ public class NotificationCaseProcessing {
         this.context = context;
     }
 
-    public void handleIntentFromNotification(String code, Notification notification){
+    public void handleIntentFromNotification(String code, Notification notification, NotificationTabFragment notificationTabFragment){
         try {
             Account account = MyApplication.getInstance().getAccount();
             switch (code){
@@ -76,6 +78,11 @@ public class NotificationCaseProcessing {
                     break;
                 case NotificationCode.WIN_WHEEL :
                     NewMyGiftActivity.startScreen(context);
+                    break;
+                case NotificationCode.INVITE_SCHEDULE :
+                    InviteTripNotificationDetailFragment inviteTripNotificationDetailFragment = new InviteTripNotificationDetailFragment();
+                    inviteTripNotificationDetailFragment.setNotification(notification);
+                    notificationTabFragment.addFragment(inviteTripNotificationDetailFragment);
                     break;
 
             }

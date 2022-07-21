@@ -16,5 +16,6 @@ public class NotificationCode {
     DEAL_WIN = "DEAL_WIN",
     HOT_DEAL = "HOT_DEAL",
     WIN_WHEEL ="WIN_WHEEL",
-    WHEEL_TIME_OUT = "WHEEL_TIME_OUT";
+    WHEEL_TIME_OUT = "WHEEL_TIME_OUT",
+    INVITE_SCHEDULE = "INVITE_SCHEDULE";
 }
