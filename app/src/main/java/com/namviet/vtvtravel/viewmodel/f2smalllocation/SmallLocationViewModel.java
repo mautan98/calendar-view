@@ -149,25 +149,15 @@ public class SmallLocationViewModel extends BaseViewModel {
         compositeDisposable.add(disposable);
     }
 
-    public void updateSchedulePlace(String schedulePlaceId, List<String> lstCordinate, String detailLink, String name, String logoUrl){
+    public void updateSchedulePlace(String schedulePlaceId, String detailLink, String placeId, String typePlace){
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
         JSONObject jsonObject = new JSONObject();
-        JSONObject locJsonObject = new JSONObject();
-        JSONArray jsonArray = new JSONArray(lstCordinate);
-        try {
-            locJsonObject.put("type","Point");
-            locJsonObject.putOpt("coordinates",jsonArray);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         try {
             jsonObject.put("id",schedulePlaceId);
-            jsonObject.putOpt("loc",locJsonObject);
+            jsonObject.put("typePlace",typePlace);
+            jsonObject.put("placeId",placeId);
             jsonObject.put("detailLink",detailLink);
-            jsonObject.put("name",name);
-            jsonObject.put("logoUrl",logoUrl);
-            jsonObject.put("status","1");
         } catch (JSONException e) {
             e.printStackTrace();
         }

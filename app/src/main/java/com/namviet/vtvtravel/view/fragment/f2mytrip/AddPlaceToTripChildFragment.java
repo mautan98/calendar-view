@@ -233,7 +233,7 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
                 calendar.set(Calendar.MINUTE,0);
                 String arrivalTime = Utils.formatTimeStamp(calendar.getTimeInMillis(),"dd-MM-yyyy HH:mm:ss");
                 if (isUpdatePlace){
-                    viewModel.updateSchedulePlace(detailPlacesScheduleItem.getId(),travel.getLoc().getCoordinates(),travel.getDetail_link(),travel.getName(),travel.getLogo_url());
+                    viewModel.updateSchedulePlace(detailPlacesScheduleItem.getId(),travel.getDetail_link(),travel.getId(),travel.getContent_type());
                 } else {
                     int stt = placesScheduleItem.getSchedulePlaceList() != null ? placesScheduleItem.getSchedulePlaceList().size() + 1 :1;
                     viewModel.createPlace(scheduleCustomId, "", String.valueOf(stt), "", freeTime, "30", travel.getContent_type(), travel.getId(), travel.getDetail_link(), travel.getName(), "1",day);
