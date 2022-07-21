@@ -89,6 +89,6 @@
             android:layout_alignTop="@+id/layoutNoti"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="-40dp"
-            android:background="@color/colorPrimary" />
+            android:src="@drawable/ic_banner_agree_schedule" />
     </RelativeLayout>
 </layout>
