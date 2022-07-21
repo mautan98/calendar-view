@@ -321,6 +321,7 @@
         <activity android:name=".view.f2.SearchActivity" />
         <activity android:name=".view.f2.CreateTripActivity" />
         <activity android:name=".view.f2.MyTripActivity" />
+        <activity android:name=".view.fragment.f2mytrip.DetailTripActivity" />
         <activity android:name=".view.f2.HistoryLuckyWheelActivity" />
         <activity android:name=".view.f2.ReceiveInviteTripDetailActivity" />
         <activity android:name=".view.f2.DisplayMarkerForMapActivity" />
