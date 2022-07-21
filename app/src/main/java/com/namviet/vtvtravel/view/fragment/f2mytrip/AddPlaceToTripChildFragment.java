@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -552,8 +553,12 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
                 sortSmallLocationResponse = (SortSmallLocationResponse) o;
 
             } else if (o instanceof ErrorResponse) {
-//                getBinding().rllNoData.setVisibility(View.VISIBLE);
-//                Snackbar.make()
+                ErrorResponse errorResponse = (ErrorResponse) o;
+                String desc = "Đã có lỗi không xác định";
+                if (errorResponse.getErrorCode() != null){
+                    desc = errorResponse.getErrorCode();
+                }
+                Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
             } else if (o instanceof BaseResponse){
                 onBackToFragmentListener.onBack();
                 getActivity().onBackPressed();
