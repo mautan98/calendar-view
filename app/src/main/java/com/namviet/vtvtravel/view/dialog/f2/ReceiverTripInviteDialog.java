@@ -16,12 +16,18 @@ import com.namviet.vtvtravel.databinding.F2DialogReceiverInviteTripBinding;
 
 public class ReceiverTripInviteDialog extends BaseDialogFragment2 {
     private F2DialogReceiverInviteTripBinding binding;
+    private String title;
+    private String description;
+    private String label;
     private ClickButton clickButton;
 
 
 
-    public static ReceiverTripInviteDialog newInstance(ClickButton clickButton) {
+    public static ReceiverTripInviteDialog newInstance(String title, String description, String label, ClickButton clickButton) {
         ReceiverTripInviteDialog oneButtonTitleDialog = new ReceiverTripInviteDialog();
+        oneButtonTitleDialog.label = label;
+        oneButtonTitleDialog.title = title;
+        oneButtonTitleDialog.description =description;
         oneButtonTitleDialog.clickButton = clickButton;
         return oneButtonTitleDialog;
     }
@@ -57,6 +63,11 @@ public class ReceiverTripInviteDialog extends BaseDialogFragment2 {
     }
 
     private void setLabel() {
+
+
+        binding.tvLabel.setText(label);
+        binding.tvTitle.setText(title);
+        binding.tvDescription.setText(description);
 
         binding.tvLabel.setOnClickListener(new View.OnClickListener() {
             @Override

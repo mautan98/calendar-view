@@ -13,82 +13,88 @@
             android:layout_height="match_parent" />
 
 
-        <LinearLayout
-            android:id="@+id/layoutNoti"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="54dp"
-            android:layout_marginEnd="52dp"
-            android:background="@drawable/f2_bg_dialog_15"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tvTitle"
+            <LinearLayout
+                android:id="@+id/layoutNoti"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="55dp"
-                android:fontFamily="@font/roboto_bold"
-                android:gravity="center"
-                android:text="Thông báo"
-                android:textColor="#000000"
-                android:textSize="15dp" />
+                android:layout_centerInParent="true"
+                android:layout_marginStart="54dp"
+                android:layout_marginEnd="52dp"
+                android:background="@drawable/f2_bg_dialog_15"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="20dp"
-                android:fontFamily="@font/roboto_regular"
-                android:gravity="center"
-                android:text="tin nhắn"
-                android:textColor="#000000"
-                android:textSize="15dp" />
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="55dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:text="Thông báo"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
 
-
-            <com.ornach.richtext.RichText
-                android:id="@+id/tvLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="30dp"
-                android:fontFamily="@font/roboto_regular"
-                android:gravity="center"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:text="Đồng ý tham gia"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="14dp"
-                app:rt_backgroundColor="@color/colorPrimary"
-                app:rt_radius="10dp" />
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center"
+                    android:text="tin nhắn"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
 
 
-            <TextView
-                android:id="@+id/btnDismiss"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="34dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="34dp"
-                android:fontFamily="@font/roboto_regular"
-                android:gravity="center"
-                android:text="Đã hiểu"
-                android:textAllCaps="true"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14dp" />
-        </LinearLayout>
+                <com.ornach.richtext.RichText
+                    android:id="@+id/tvLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="30dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="Đồng ý tham gia"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    app:rt_backgroundColor="@color/colorPrimary"
+                    app:rt_radius="10dp" />
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_alignTop="@+id/layoutNoti"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="-40dp"
-            android:src="@drawable/ic_banner_agree_schedule" />
+
+                <TextView
+                    android:id="@+id/btnDismiss"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="34dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="34dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center"
+                    android:text="Đã hiểu"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14dp" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignTop="@+id/layoutNoti"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="-40dp"
+                android:src="@drawable/ic_banner_agree_schedule" />
+
+        </RelativeLayout>
     </RelativeLayout>
 </layout>

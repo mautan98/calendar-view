@@ -2164,7 +2164,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
                     NewMyGiftActivity.startScreen(this);
                     break;
                 case NotificationCode.INVITE_SCHEDULE:
-                    ReceiverTripInviteDialog receiverTripInviteDialog = ReceiverTripInviteDialog.newInstance(new ReceiverTripInviteDialog.ClickButton() {
+                    ReceiverTripInviteDialog receiverTripInviteDialog = ReceiverTripInviteDialog.newInstance(notification.getTitle(), notification.getMessage(), "Đồng ý tham gia", new ReceiverTripInviteDialog.ClickButton() {
                         @Override
                         public void onClickButton() {
                             try {
