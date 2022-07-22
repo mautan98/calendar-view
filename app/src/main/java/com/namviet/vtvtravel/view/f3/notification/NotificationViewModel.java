@@ -3,6 +3,7 @@ package com.namviet.vtvtravel.view.f3.notification;
 import com.google.gson.Gson;
 import com.namviet.vtvtravel.api.Param;
 import com.namviet.vtvtravel.api.TravelService;
+import com.namviet.vtvtravel.api.WSConfig;
 import com.namviet.vtvtravel.app.MyApplication;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
 import com.namviet.vtvtravel.model.Schedule;
@@ -221,7 +222,7 @@ public class NotificationViewModel extends BaseViewModel {
     public void getNotificationTab() {
         MyApplication myApplication = MyApplication.getInstance();
         TravelService newsService = myApplication.getTravelServiceAcc();
-        Disposable disposable = newsService.getNotificationTab("https://core-dev.vtvtravel.vn/sys/v1/notifications/types/list")
+        Disposable disposable = newsService.getNotificationTab(WSConfig.API_TO_GET_NOTIFICATION_TYPE)
                 .subscribeOn(myApplication.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<NotificationTab>() {

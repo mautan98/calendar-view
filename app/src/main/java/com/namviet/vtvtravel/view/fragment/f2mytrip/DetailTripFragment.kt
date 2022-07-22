@@ -9,7 +9,6 @@ import android.text.Html
 import android.text.TextUtils
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
-import com.mindinventory.overlaprecylcerview.decoration.OverlapRecyclerViewDecoration
 import com.namviet.vtvtravel.BuildConfig
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.Utils
@@ -113,7 +112,6 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
         val userAdapter = UserListAdapter(requireContext())
         val listAvt = tripItem?.userList as MutableList<UserListItem>
         userAdapter.setListAvt(listAvt)
-        binding.rcvImageUser.addItemDecoration(OverlapRecyclerViewDecoration(5,-25))
         binding.rcvImageUser.adapter = userAdapter
 
         adapter?.setOnItemClickListener(object : OnItemRecyclerClickListener{
@@ -249,6 +247,14 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
 
             addFragment(tripMenuDialog)
         }
+    }
+
+    fun shareText(subject: String?, body: String?) {
+        val txtIntent = Intent(Intent.ACTION_SEND)
+        txtIntent.type = "text/plain"
+        txtIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
+        txtIntent.putExtra(Intent.EXTRA_TEXT, body)
+        startActivity(Intent.createChooser(txtIntent, "Share"))
     }
 
     private fun setTextTripCost(totalCost: BigDecimal?) {
