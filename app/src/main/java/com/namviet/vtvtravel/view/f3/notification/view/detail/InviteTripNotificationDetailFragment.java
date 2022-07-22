@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.app.MyApplication;
+import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.ActivityInviteTripNotificationBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
@@ -15,6 +16,9 @@ import com.namviet.vtvtravel.view.f3.notification.model.Notification;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.DetailTripActivity;
 import com.namviet.vtvtravel.viewmodel.f2systeminbox.SystemInboxViewModel;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -71,6 +75,19 @@ public class InviteTripNotificationDetailFragment extends BaseFragment<ActivityI
 
         getBinding().tvTitle.setText(notification.getTitle());
         getBinding().tvMessage.setText(notification.getMessage());
+        getBinding().time.setText(timeToString(Long.parseLong(notification.getCreatedAt())));
+    }
+
+    public static String timeToString(Long dateTime) {
+        if (dateTime != null) {
+            Date date = new Date(dateTime);
+            DateFormat formatter = new SimpleDateFormat("HH:mm dd/MM");
+            String dateFormatted = formatter.format(date);
+            return dateFormatted;
+        } else {
+            return null;
+        }
+
     }
 
     @Override
