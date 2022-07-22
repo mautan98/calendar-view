@@ -63,7 +63,8 @@ class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>(),
     override fun initData() {
 
 
-
+        if (isUpdatePlace)
+            binding?.title?.text = getString(R.string.update_schedule_place)
         mainAdapter = MainAdapter(childFragmentManager)
         binding!!.vpContent.offscreenPageLimit = 10
 
