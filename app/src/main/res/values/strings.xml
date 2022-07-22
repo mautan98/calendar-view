@@ -250,6 +250,7 @@
     <string name="agree">Đồng ý</string>
     <string name="confirm_delete_trip">Bạn có chắc chắn muốn xoá chuyến đi?</string>
     <string name="only_read_cant_edit">Bạn chỉ được xem, không có quyền chỉnh sửa</string>
+    <string name="update_schedule_place">Chỉnh sửa địa điểm</string>
 
 
 </resources>

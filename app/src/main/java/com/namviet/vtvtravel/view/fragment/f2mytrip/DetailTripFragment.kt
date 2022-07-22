@@ -98,11 +98,13 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
 
     override fun initData() {
         tripItem = arguments?.getParcelable(KEY_TRIP_ITEM)
-        adapter = PlacesInScheduleAdapter(requireContext())
-        binding.rcvAllSchedule.adapter = adapter
         tripItem?.id?.let { viewModel.getDetailplaceById(it) }
         viewModel.addObserver(this)
+    }
 
+    private fun setDataToView(){
+        adapter = PlacesInScheduleAdapter(requireContext())
+        binding.rcvAllSchedule.adapter = adapter
         binding.tvDetailTripName.text = tripItem?.name
         binding.tvDetailTripDesc.text = tripItem?.description
         val startDate = Utils.formatTimestampTrips(tripItem?.startAt)
@@ -206,7 +208,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             activity?.onBackPressed()
         }
         binding.btnShare.setOnClickListener {
-            val uri = Uri.parse("android.resource://" + BuildConfig.APPLICATION_ID + "/drawable/bg_demo")
+            val uri = Uri.parse("android.resource://" + BuildConfig.APPLICATION_ID + "/drawable/bg_demo.jpg")
             val share = Intent.createChooser(Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TEXT, "https://developer.android.com/training/sharing/")
@@ -218,7 +220,6 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
 
                 // (Optional) Here we're passing a content URI to an image to be displayed
 //                data = uri
-                clipData = ClipData.newRawUri("ewqeqwe", uri)
                 flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
             }, tripItem?.name)
             startActivity(share)
@@ -249,14 +250,6 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
         }
     }
 
-    fun shareText(subject: String?, body: String?) {
-        val txtIntent = Intent(Intent.ACTION_SEND)
-        txtIntent.type = "text/plain"
-        txtIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
-        txtIntent.putExtra(Intent.EXTRA_TEXT, body)
-        startActivity(Intent.createChooser(txtIntent, "Share"))
-    }
-
     private fun setTextTripCost(totalCost: BigDecimal?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             binding.tvEstimateCost.text = Html.fromHtml(
@@ -285,14 +278,8 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
         if (arg is PlaceScheduleResponse) {
             val myTripResponse = arg
             tripItem = myTripResponse.data
+            setDataToView()
             adapter?.setListPlaces(myTripResponse.data?.schedulePlaceByDays as MutableList<SchedulePlaceByDaysItem>)
-            setTextTripCost(tripItem?.estimatedCost?.toBigDecimal())
-            binding.tvDetailTripName.text = myTripResponse.data?.name
-            binding.tvDetailTripDesc.text = myTripResponse.data?.description
-            val startDate = Utils.formatTimestampTrips(tripItem?.startAt)
-            val endDate = Utils.formatTimestampTrips(tripItem?.endAt)
-            binding.tvDetailTimeTrips.text = "($startDate - $endDate, ${tripItem?.numberPeople} người)"
-            Glide.with(requireContext()).load(tripItem?.bannerUrl).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(binding.imvBannerDetail)
         } else if (arg is ErrorResponse){
             val responseError = arg
             var des = "Đã có lỗi không xác định"
