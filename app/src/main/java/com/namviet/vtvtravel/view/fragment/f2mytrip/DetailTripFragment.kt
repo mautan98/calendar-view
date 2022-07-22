@@ -1,5 +1,6 @@
 package com.namviet.vtvtravel.view.fragment.f2mytrip
 
+import android.content.ClipData
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -45,6 +46,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
     companion object {
 
         const val KEY_TRIP_ITEM = "trip_item_key"
+        const val KEY_EDITABLE = "is_editable"
 
         fun newInstance(tripItem: TripItem): DetailTripFragment{
             val args = Bundle()
@@ -56,19 +58,25 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
     }
 
     private var adapter: PlacesInScheduleAdapter? = null
-    private lateinit var binding:FragmentDetailTripBinding
-    private var tripItem:TripItem?= null
+    private lateinit var binding: FragmentDetailTripBinding
+    private var tripItem: TripItem? = null
     private var viewModel = MyTripsViewModel()
-    private var onBackToTripsFragment:OnBackFragmentListener ?= null
+    private var onBackToTripsFragment: OnBackFragmentListener? = null
+    private var isEditable: Boolean = true
 
-    fun setOnBackToTripsFragment(listener: OnBackFragmentListener){
+    fun setOnBackToTripsFragment(listener: OnBackFragmentListener) {
         this.onBackToTripsFragment = listener
+    }
+
+    fun setIsEditable(editable: Boolean) {
+        this.isEditable = editable
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireContext().theme.applyStyle(R.style.ActionBarTheme, true)
     }
+
     override fun getLayoutRes(): Int {
         return R.layout.fragment_detail_trip
     }
@@ -110,6 +118,10 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
 
         adapter?.setOnItemClickListener(object : OnItemRecyclerClickListener{
             override fun onItemClick(position: Int) {
+                if (!isEditable) {
+                    showErrorEditable()
+                    return
+                }
                 val fragment = DetailPlacesFragment.newInstance(tripItem)
                 fragment.setOnBackToFragmentListener(this@DetailTripFragment)
                 addFragment(fragment)
@@ -122,17 +134,22 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
     }
 
     override fun setClickListener() {
-        binding.tvEditTrip.setOnClickListener{
+        binding.tvEditTrip.setOnClickListener {
+            if (!isEditable) {
+                showErrorEditable()
+                return@setOnClickListener
+            }
             val editTripBottomDialog = EditTripBottomDialog()
-            val tripItemClone =  Gson().fromJson(Gson().toJson(tripItem) , TripItem::class.java )
+            val tripItemClone = Gson().fromJson(Gson().toJson(tripItem), TripItem::class.java)
             editTripBottomDialog.setList(tripItemClone)
-            editTripBottomDialog.setOnBackFragmentListener(object:EditTripBottomDialog.OnBackFragmentListener{
+            editTripBottomDialog.setOnBackFragmentListener(object :
+                EditTripBottomDialog.OnBackFragmentListener {
                 override fun onBackFragment(apiCode: String) {
-                    if (apiCode.equals("back_to_invite_friend")){
+                    if (apiCode.equals("back_to_invite_friend")) {
                         addFragment(InviteFriendScheduleFragment())
                         return
                     }
-                    if (apiCode.equals(WSConfig.Api.DELETE_SCHEDULE)){
+                    if (apiCode.equals(WSConfig.Api.DELETE_SCHEDULE)) {
                         onBackToTripsFragment?.onBackFragment()
                         activity?.onBackPressed()
                         return
@@ -149,6 +166,10 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             addFragment(fragment)
         }
         binding.tvEditTime.setOnClickListener {
+            if (!isEditable) {
+                showErrorEditable()
+                return@setOnClickListener
+            }
             val dialog = tripItem?.let { it1 -> EditTripTimeBottomDialog.newInstance(it1) }
             dialog?.setOnBackFragmentListener(object :EditTripTimeBottomDialog.OnBackFragmentListener{
                 override fun onBackFragment(apiCode: String) {
@@ -162,15 +183,27 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             activity?.onBackPressed()
         }
         binding.tvInvieFriends.setOnClickListener {
+            if (!isEditable) {
+                showErrorEditable()
+                return@setOnClickListener
+            }
             val fragment = tripItem?.id?.let { it -> InviteFriendScheduleFragment.newInstance(it) }
             addFragment(fragment)
         }
         binding.tvViewAll.setOnClickListener {
+            if (!isEditable) {
+                showErrorEditable()
+                return@setOnClickListener
+            }
             val fragment = DetailPlacesFragment.newInstance(tripItem)
             fragment.setOnBackToFragmentListener(this@DetailTripFragment)
             addFragment(fragment)
         }
         binding.btnSaveSchedule.setOnClickListener {
+            if (!isEditable) {
+                showErrorEditable()
+                return@setOnClickListener
+            }
             onBackToTripsFragment?.onBackFragment()
             activity?.onBackPressed()
         }
@@ -186,7 +219,8 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
                 putExtra(Intent.EXTRA_TITLE, tripItem?.name)
 
                 // (Optional) Here we're passing a content URI to an image to be displayed
-                data = uri
+//                data = uri
+                clipData = ClipData.newRawUri("ewqeqwe", uri)
                 flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
             }, tripItem?.name)
             startActivity(share)
@@ -217,13 +251,25 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
         }
     }
 
-    private fun setTextTripCost(totalCost:BigDecimal?){
+    private fun setTextTripCost(totalCost: BigDecimal?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            binding.tvEstimateCost.text = Html.fromHtml(Utils.convertPriceTrips(totalCost),
-                Html.FROM_HTML_MODE_COMPACT).toString() + "đ"
+            binding.tvEstimateCost.text = Html.fromHtml(
+                Utils.convertPriceTrips(totalCost),
+                Html.FROM_HTML_MODE_COMPACT
+            ).toString() + "đ"
         } else {
-            binding.tvEstimateCost.text = Html.fromHtml(Utils.convertPriceTrips(totalCost)).toString() + "đ"
+            binding.tvEstimateCost.text =
+                Html.fromHtml(Utils.convertPriceTrips(totalCost)).toString() + "đ"
         }
+    }
+
+    private fun showErrorEditable() {
+        showErrorDialog(
+            getString(R.string.error_title),
+            getString(R.string.close_title),
+            getString(R.string.only_read_cant_edit),
+            childFragmentManager
+        )
     }
 
     override fun setObserver() {

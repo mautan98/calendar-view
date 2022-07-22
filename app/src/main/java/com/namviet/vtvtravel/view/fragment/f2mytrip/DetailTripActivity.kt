@@ -2,11 +2,12 @@ package com.namviet.vtvtravel.view.fragment.f2mytrip
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.view.View
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.databinding.ActivityDetailTripBinding
 import com.namviet.vtvtravel.f2base.base.BaseActivityNew
 import com.namviet.vtvtravel.f2base.base.BaseFragment
-import com.namviet.vtvtravel.view.f2.MyTripActivity
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
 
 class DetailTripActivity : BaseActivityNew<ActivityDetailTripBinding>() {
@@ -44,11 +45,19 @@ class DetailTripActivity : BaseActivityNew<ActivityDetailTripBinding>() {
         val tripItem = TripItem()
         tripItem.id = scheduleId
         val detailTripFragment: DetailTripFragment = DetailTripFragment.newInstance(tripItem)
+        detailTripFragment.setIsEditable(false)
         detailTripFragment.setOnBackToTripsFragment(object :
             DetailTripFragment.OnBackFragmentListener {
             override fun onBackFragment() {
             }
         })
         return detailTripFragment
+    }
+
+    override fun afterSetContentView() {
+        super.afterSetContentView()
+        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+        window.statusBarColor = Color.TRANSPARENT
     }
 }
