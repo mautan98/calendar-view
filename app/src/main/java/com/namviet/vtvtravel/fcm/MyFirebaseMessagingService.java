@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.namviet.vtvtravel.model.f2event.OnHaveInviteTrip;
 import com.namviet.vtvtravel.view.f3.notification.model.NotificationCode;
 import com.namviet.vtvtravel.view.f3.notification.model.Notification;
 
@@ -82,15 +83,31 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 }
 
 
-
                 Notification notification = new Gson().fromJson(remoteMessage.getData().get("data"), Notification.class);
                 try {
                     Log.e("FirebaseJson", new Gson().toJson(notification));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                if(notification != null){
-                    sendNotificationNotInApp(notification.getData().getCode(),notification);
+                if (notification != null) {
+                    if (notification.getData().getCode().equals("INVITE_SCHEDULE")) {
+                        if (isAppRunning()) {
+                            try {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        EventBus.getDefault().post(new OnHaveInviteTrip(notification));
+                                    }
+                                });
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            sendNotificationNotInApp(notification.getData().getCode(), notification);
+                        }
+                    } else {
+                        sendNotificationNotInApp(notification.getData().getCode(), notification);
+                    }
                 }
 
 //                if (notification.getTitle().equals("INVITE_SCHEDULE")) {
@@ -139,7 +156,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 //                    }
 //                    sendNotificationNotInApp(NotificationType.VIP, notification);
 //                }
-
 
 
             }
@@ -244,7 +260,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
 
-
     private boolean isAppRunning() {
         ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
@@ -272,12 +287,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         String channelId = "VTVTravel Notification";
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, channelId)
-                        .setSmallIcon(R.mipmap.ic_app)
-                        .setContentTitle(notification.getTitle())
-                        .setContentText(notification.getMessage())
-                        .setAutoCancel(true)
-                        .setPriority(NotificationCompat.PRIORITY_HIGH)
-                        .setContentIntent(pendingIntent);
+                .setSmallIcon(R.mipmap.ic_app)
+                .setContentTitle(notification.getTitle())
+                .setContentText(notification.getMessage())
+                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(pendingIntent);
 //        switch (notificationCode) {
 //            case NotificationType.INVITE_TRIP:
 //                notificationBuilder =

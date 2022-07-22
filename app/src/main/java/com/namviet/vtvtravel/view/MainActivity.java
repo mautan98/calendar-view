@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationChannel;
 
+import com.namviet.vtvtravel.model.f2event.OnHaveInviteTrip;
 import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
 import com.namviet.vtvtravel.view.f2.MyGiftActivity;
 import com.namviet.vtvtravel.view.f2.WebviewActivity;
@@ -1638,6 +1639,13 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
     }
 
 
+
+    @Subscribe
+    public void onHaveInviteTripNoti(OnHaveInviteTrip onHaveInviteTrip) {
+        showPopupInviteTrip(onHaveInviteTrip.notification);
+    }
+
+
     public void showDialogNoCon() {
         try {
             if (!F2Util.isOnline(this)) {
@@ -2164,29 +2172,34 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
                     NewMyGiftActivity.startScreen(this);
                     break;
                 case NotificationCode.INVITE_SCHEDULE:
-                    ReceiverTripInviteDialog receiverTripInviteDialog = ReceiverTripInviteDialog.newInstance(notification.getTitle(), notification.getMessage(), "Đồng ý tham gia", new ReceiverTripInviteDialog.ClickButton() {
-                        @Override
-                        public void onClickButton() {
-                            try {
-                                Account account = MyApplication.getInstance().getAccount();
-                                if (null != account && account.isLogin()) {
-                                    systemInboxViewModel.confirmEnterTrip(notification.getData().getScheduleCustomId(), String.valueOf(account.getId()));
-                                } else {
-                                    LoginAndRegisterActivityNew.startScreen(MainActivity.this, 0, false);
-                                }
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-
-                    receiverTripInviteDialog.show(getSupportFragmentManager(), null);
+                    showPopupInviteTrip(notification);
+                    break;
 
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void showPopupInviteTrip(Notification notification){
+        ReceiverTripInviteDialog receiverTripInviteDialog = ReceiverTripInviteDialog.newInstance(notification.getTitle(), notification.getMessage(), "Đồng ý tham gia", new ReceiverTripInviteDialog.ClickButton() {
+            @Override
+            public void onClickButton() {
+                try {
+                    Account account = MyApplication.getInstance().getAccount();
+                    if (null != account && account.isLogin()) {
+                        systemInboxViewModel.confirmEnterTrip(notification.getData().getScheduleCustomId(), String.valueOf(account.getId()));
+                    } else {
+                        LoginAndRegisterActivityNew.startScreen(MainActivity.this, 0, false);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        receiverTripInviteDialog.show(getSupportFragmentManager(), null);
     }
 
 
