@@ -15,7 +15,7 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.model.SchedulePlaceByDaysIte
 class PlacesInScheduleAdapter(var context:Context) : RecyclerView.Adapter<PlacesInScheduleAdapter.ViewHolder>() {
 
     private var listPlace:MutableList<SchedulePlaceByDaysItem> = mutableListOf()
-    private lateinit var onItemClickListener : OnItemRecyclerClickListener
+    private var onItemClickListener : OnItemRecyclerClickListener?= null
 
     fun setListPlaces(list:MutableList<SchedulePlaceByDaysItem>){
         listPlace = list
@@ -52,7 +52,7 @@ class PlacesInScheduleAdapter(var context:Context) : RecyclerView.Adapter<Places
                 binding.tvNumberPlace.text = "0 địa điểm, 0 km"
             }
             itemView.setOnClickListener {
-                onItemClickListener.onItemClick(position)
+                onItemClickListener?.onItemClick(position)
             }
         }
     }

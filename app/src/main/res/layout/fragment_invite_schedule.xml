@@ -22,8 +22,8 @@
 
             <ImageView
                 android:id="@+id/imv_back"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="21dp"
                 android:src="@drawable/ic_back_white"
