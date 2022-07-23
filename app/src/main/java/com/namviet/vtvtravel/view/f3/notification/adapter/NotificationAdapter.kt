@@ -122,6 +122,15 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     dataList!![position].typeId.equals("9") -> {
                         itemView.tvTypeName.text = "Giao dịch"
                     }
+                    dataList!![position].typeId.equals("20") -> {
+                        itemView.tvTypeName.text = "Chuyến đi của tôi"
+                    }
+                    dataList!![position].typeId.equals("12") -> {
+                        itemView.tvTypeName.text = "Đăng ký"
+                    }
+                    dataList!![position].typeId.equals("13") -> {
+                        itemView.tvTypeName.text = "VQMM"
+                    }
                 }
             } catch (e: Exception) {
             }
