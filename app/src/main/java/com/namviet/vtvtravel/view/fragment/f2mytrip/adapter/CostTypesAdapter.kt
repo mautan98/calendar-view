@@ -19,6 +19,7 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var isEditAble: Boolean = true
     private val TYPE_ADD_OTHER_COST = -1
     private var listTypeCost:MutableList<TypeCost> = mutableListOf()
     private lateinit var sumTotalCostListener:SumTotalCost
@@ -71,6 +72,10 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
         } else {
             return super.getItemViewType(position)
         }
+    }
+
+    fun setIsEditAble(editAble: Boolean) {
+        isEditAble = editAble
     }
 
     inner class ViewHolder(var binding: LayoutItemTypeCostBinding) : RecyclerView.ViewHolder(binding.root){
@@ -177,7 +182,7 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
 
         fun bind(){
             binding.tvAddNewCostType.setOnClickListener {
-               addNewCostListener.onClickAddNewCost()
+               addNewCostListener.onClickAddNewCost(isEditAble)
             }
         }
 
@@ -188,6 +193,6 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
     }
 
     interface AddNewCost{
-        fun onClickAddNewCost()
+        fun onClickAddNewCost(isEditAble : Boolean)
     }
 }

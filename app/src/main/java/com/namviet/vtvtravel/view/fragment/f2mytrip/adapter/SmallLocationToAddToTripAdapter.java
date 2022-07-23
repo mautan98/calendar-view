@@ -33,6 +33,12 @@ public class SmallLocationToAddToTripAdapter extends RecyclerView.Adapter<Recycl
     private ClickItem clickItem;
     private List<Travel> travels;
 
+    public void setUpdateSchedulePlace(boolean updateSchedulePlace) {
+        isUpdateSchedulePlace = updateSchedulePlace;
+    }
+
+    private boolean isUpdateSchedulePlace;
+
     public SmallLocationToAddToTripAdapter(Context context, List<Travel> travels, ClickItem clickItem) {
         this.context = context;
         this.clickItem = clickItem;
@@ -102,7 +108,7 @@ public class SmallLocationToAddToTripAdapter extends RecyclerView.Adapter<Recycl
         private View viewTime;
         private LikeButton imgHeart;
         private RichText viewStatus;
-        private View btnAddPlaceToTrip;
+        private ImageView btnAddPlaceToTrip;
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -197,7 +203,9 @@ public class SmallLocationToAddToTripAdapter extends RecyclerView.Adapter<Recycl
                     }, 100);
                 }
             });
-
+            if (isUpdateSchedulePlace){
+                btnAddPlaceToTrip.setImageResource(R.drawable.ic_edit_place_schedule);
+            }
             btnAddPlaceToTrip.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

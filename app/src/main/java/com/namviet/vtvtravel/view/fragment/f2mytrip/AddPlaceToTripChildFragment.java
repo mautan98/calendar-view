@@ -241,6 +241,7 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
                 }
             }
         });
+        smallLocationToAddToTripAdapter.setUpdateSchedulePlace(isUpdatePlace);
         getBinding().rclContent.setAdapter(smallLocationToAddToTripAdapter);
 
 

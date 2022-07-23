@@ -12,6 +12,7 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.ItemPlaces
 
 class AllPlacesAdapter : RecyclerView.Adapter<AllPlacesAdapter.ViewHolder>() {
 
+    private var isEditAble: Boolean = true
     private var listDetailPlace: MutableList<ItemPlaces> = mutableListOf()
     private var onItemClickListener: OnItemClickPlace? = null
     private var lastCheckedPos = -1
@@ -48,6 +49,10 @@ class AllPlacesAdapter : RecyclerView.Adapter<AllPlacesAdapter.ViewHolder>() {
         return null
     }
 
+    fun setIsEditAble(editAble: Boolean) {
+        isEditAble = editAble
+    }
+
     inner class ViewHolder(var binding: LayoutItemPlaceBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -61,9 +66,10 @@ class AllPlacesAdapter : RecyclerView.Adapter<AllPlacesAdapter.ViewHolder>() {
             }
             binding.tvNumberPlace.text = "${totalPlace} địa điểm"
             val adapter = PlacesAdapter()
+            adapter.setisEditAble(isEditAble)
             adapter.setOnItemClickListener(object : PlacesAdapter.OnItemClickListener{
-                override fun onItemClick(position: Int, view: View) {
-                    onItemClickListener?.onItemClick(currentPosition,position,view)
+                override fun onItemClick(position: Int, view: View,editAble: Boolean) {
+                    onItemClickListener?.onItemClick(currentPosition,position,view,editAble)
                 }
 
             })
@@ -82,7 +88,7 @@ class AllPlacesAdapter : RecyclerView.Adapter<AllPlacesAdapter.ViewHolder>() {
     }
 
     interface OnItemClickPlace{
-        fun onItemClick(currentPos: Int, positionItem: Int, view: View)
+        fun onItemClick(currentPos: Int, positionItem: Int, view: View,editAble: Boolean)
     }
 
 }

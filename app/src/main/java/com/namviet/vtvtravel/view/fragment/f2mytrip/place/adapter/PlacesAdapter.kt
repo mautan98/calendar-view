@@ -14,6 +14,7 @@ import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.PlacesScheduleIt
 
 class PlacesAdapter : RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
 
+    private var isEditAble: Boolean = true
     private var listDetailPlace: MutableList<PlacesScheduleItem> = mutableListOf()
     private var onItemClickListener: OnItemClickListener? = null
 
@@ -43,6 +44,10 @@ class PlacesAdapter : RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
         return listDetailPlace.size
     }
 
+    fun setisEditAble(editAble: Boolean) {
+        isEditAble = editAble
+    }
+
     inner class ViewHolder(var binding: LayoutItemDetailPlaceBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -60,28 +65,28 @@ class PlacesAdapter : RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
                 binding.layoutMovement.visibility = View.GONE
             binding.tvDescMovement.text = "${placeDetailItem.durationMove} km/${placeDetailItem.freeTime}p"
             binding.layoutTimeTravelPlace.setOnClickListener {
-                onItemClickListener?.onItemClick(position,binding.layoutTimeTravelPlace)
+                onItemClickListener?.onItemClick(position,binding.layoutTimeTravelPlace,isEditAble)
             }
             binding.imvIsHaveNote.visibility =
                 (if (!TextUtils.isEmpty(placeDetailItem.note)) View.VISIBLE else View.GONE)
             binding.notePlace.setOnClickListener {
-                onItemClickListener?.onItemClick(position,binding.notePlace)
+                onItemClickListener?.onItemClick(position,binding.notePlace,isEditAble)
             }
             binding.edtTimeVisiting.setOnClickListener {
-                onItemClickListener?.onItemClick(position,binding.edtTimeVisiting)
+                onItemClickListener?.onItemClick(position,binding.edtTimeVisiting,isEditAble)
             }
             binding.imvClose.setOnClickListener {
-                onItemClickListener?.onItemClick(position,binding.imvClose)
+                onItemClickListener?.onItemClick(position,binding.imvClose,isEditAble)
             }
             binding.changePlace.setOnClickListener {
-                onItemClickListener?.onItemClick(position,binding.changePlace)
+                onItemClickListener?.onItemClick(position,binding.changePlace,isEditAble)
             }
         }
 
     }
 
     interface OnItemClickListener{
-        fun onItemClick(position: Int,view:View)
+        fun onItemClick(position: Int,view:View,isEditAble : Boolean)
     }
 
 }

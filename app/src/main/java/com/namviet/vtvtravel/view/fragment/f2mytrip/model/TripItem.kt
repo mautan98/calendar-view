@@ -14,8 +14,8 @@ data class TripItem(
     @field:SerializedName("userList")
     var userList: List<UserListItem?>? = null,
 
-    @field:SerializedName("checkRights")
-    var checkRights: @RawValue Any? = null,
+	@field:SerializedName("checkRights")
+	var checkRights: String = "true",
 
     @field:SerializedName("name")
     var name: String? = null,

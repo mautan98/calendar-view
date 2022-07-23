@@ -32,6 +32,7 @@ class EditTripCostFragment: BaseFragment<FragmentAddEstimateCostBinding>(), Obse
     private var listTypeCost: MutableList<TypeCost> = mutableListOf()
     private var tripViewModel: MyTripsViewModel = MyTripsViewModel()
     private var scheduleId:String?= null
+    private var isEditAble:Boolean = true
     private lateinit var onBackFragment:OnBackFragmentListener
 
     fun setOnBackFragmentListener(onBack: OnBackFragmentListener) {
@@ -46,13 +47,18 @@ class EditTripCostFragment: BaseFragment<FragmentAddEstimateCostBinding>(), Obse
         scheduleId = arguments?.getString(KEY_SCHEDULE_ID)
         binding = getBinding()
         costTypeAdapter = CostTypesAdapter(requireContext())
+        costTypeAdapter?.setIsEditAble(isEditAble)
         costTypeAdapter?.setSumTotalCostListener(object :CostTypesAdapter.SumTotalCost{
             override fun onTotalPriceChange(total: BigDecimal) {
                 binding.tvTotalCost.text = Utils.convertPriceTrips(total)
             }
         })
         costTypeAdapter?.setAddNewCostListener(object :CostTypesAdapter.AddNewCost{
-            override fun onClickAddNewCost() {
+            override fun onClickAddNewCost(editable: Boolean) {
+                if (!editable){
+                    showErrorEditable(childFragmentManager)
+                    return
+                }
                 val dialog = AddNewCostBottomDialog.newInstance()
                 dialog.setAddDoneListener(object : AddNewCostBottomDialog.AddNewCostDoneListener{
                     override fun onAddDone(typeCost: TypeCost) {
@@ -161,6 +167,10 @@ class EditTripCostFragment: BaseFragment<FragmentAddEstimateCostBinding>(), Obse
                 activity?.onBackPressed()
             }
         }
+    }
+
+    fun setIsEditAble(editable: Boolean) {
+        isEditAble = editable
     }
 
     interface OnBackFragmentListener{

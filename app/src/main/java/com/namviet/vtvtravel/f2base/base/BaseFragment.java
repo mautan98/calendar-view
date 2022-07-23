@@ -21,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import com.baseapp.utils.KeyboardUtils;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.tracking.TrackingAnalytic;
+import com.namviet.vtvtravel.ultils.DialogUtil;
 import com.namviet.vtvtravel.ultils.F2Util;
 import com.namviet.vtvtravel.view.f2.LoginAndRegisterActivityNew;
 
@@ -206,6 +207,15 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
         // Show dialog thong báo
 //        OmiAlertDialog dialog = OmiAlertDialog.newInstance(getContext(), "Error", "No internet connected");
 //        dialog.show(getFragmentManager(), null);
+    }
+
+    public void showErrorEditable(FragmentManager fragmentManager) {
+        DialogUtil.Companion.showErrorDialog(
+                getString(R.string.error_title),
+                getString(R.string.close_title),
+                getString(R.string.only_read_cant_edit),
+                fragmentManager
+        );
     }
 
 

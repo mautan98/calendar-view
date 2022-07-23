@@ -2,6 +2,7 @@ package com.namviet.vtvtravel.view.fragment.f2mytrip.place
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
 import android.view.View
 import com.namviet.vtvtravel.R
@@ -64,10 +65,15 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
         viewModel = MyTripsViewModel()
         detailPlaceViewModel = DetailPlaceScheduleViewModel()
         adapter = AllPlacesAdapter()
+        adapter?.setIsEditAble(tripItem?.checkRights.equals("true"))
         adapter?.setOnItemClickListener(object :AllPlacesAdapter.OnItemClickPlace{
-            override fun onItemClick(currentPosition:Int, itemDetailPosition: Int, view: View) {
+            override fun onItemClick(currentPosition:Int, itemDetailPosition: Int, view: View,isEditable: Boolean) {
                 when(view.id){
                     R.id.layout_time_travel_place -> {
+                        if (!isEditable){
+                            showErrorEditable(childFragmentManager)
+                            return
+                        }
                         val dialog = BottomWheelDialog()
                         dialog.setOnSaveListener(object : BottomWheelDialog.OnClickSaveWheelTime{
                             override fun onClickSave(hour: Int, minute: Int) {
@@ -84,6 +90,10 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
                         dialog.show(childFragmentManager,null)
                     }
                     R.id.note_place -> {
+                        if (!isEditable){
+                            showErrorEditable(childFragmentManager)
+                            return
+                        }
                         val item = listPlaces.get(currentPosition).schedulePlaceList?.get(
                             itemDetailPosition
                         )
@@ -98,6 +108,10 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
                         dialog.show(childFragmentManager, null)
                     }
                     R.id.edt_time_visiting -> {
+                        if (!isEditable){
+                            showErrorEditable(childFragmentManager)
+                            return
+                        }
                         val dialog = BottomWheelDialog.newInstance(true)
                         dialog.setOnSaveListener(object : BottomWheelDialog.OnClickSaveWheelTime{
                             override fun onClickSave(hour: Int, minute: Int) {
@@ -109,6 +123,10 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
                         dialog.show(childFragmentManager,null)
                     }
                     R.id.imv_close -> {
+                        if (!isEditable){
+                            showErrorEditable(childFragmentManager)
+                            return
+                        }
                         val dialog = ConfirmDeleteDialog()
                         dialog.setDescription("Bạn có chắc chắn muốn xoá địa điểm này?")
                         dialog.setConfirmClickListener(object :ConfirmDeleteDialog.OnConfirmListener{
@@ -121,6 +139,10 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
                         dialog.show(childFragmentManager,null)
                     }
                     R.id.change_place -> {
+                        if (!isEditable){
+                            showErrorEditable(childFragmentManager)
+                            return
+                        }
                         var addPlaceToTripFragment  = AddPlaceToTripFragment();
                         addPlaceToTripFragment.setOnBackToFragmentListener(object :OnBackToFragmentListener{
                             override fun onBack() {
@@ -169,6 +191,10 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
         }
 
         binding.btnAddPlace.setOnClickListener {
+            if (!tripItem?.checkRights.equals("true")){
+                showErrorEditable(childFragmentManager)
+                return@setOnClickListener
+            }
             if (adapter?.getItemPlaceSelected() == null) {
                 DialogUtil.showErrorDialog(
                     requireContext().getString(R.string.error_title),
