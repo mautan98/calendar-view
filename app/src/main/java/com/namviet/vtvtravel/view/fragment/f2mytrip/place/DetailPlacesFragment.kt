@@ -186,6 +186,7 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
             })
             addPlaceToTripFragment.setData(tripItem?.id)
             addPlaceToTripFragment.setPlaceScheduleItem(adapter?.getItemPlaceSelected())
+            addPlaceToTripFragment.setDestinationRegionId(tripItem?.destinationRegionId)
             addFragment(addPlaceToTripFragment)
         }
 
