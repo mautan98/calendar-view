@@ -49,7 +49,7 @@ class ParticipantsAdapter(var context: Context) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(participant: UserListItem, position: Int) {
-            Glide.with(context).load(participant.imageProfile).into(binding.imvParticipant)
+            Glide.with(context).load(participant.imageProfile).placeholder(R.drawable.f2_defaut_user).into(binding.imvParticipant)
             binding.tvParticipantName.text = participant.fullname
             if (position ==listParticipants.size-1){
                 Glide.with(context).load(R.drawable.ic_invite_trip_participant).into(binding.imvParticipant)

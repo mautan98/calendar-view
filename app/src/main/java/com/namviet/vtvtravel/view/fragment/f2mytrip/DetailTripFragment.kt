@@ -119,7 +119,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
         adapter?.setOnItemClickListener(object : OnItemRecyclerClickListener{
             override fun onItemClick(position: Int) {
                 if (!isEditable) {
-                    showErrorEditable()
+                    showErrorEditable(childFragmentManager)
                     return
                 }
                 val fragment = DetailPlacesFragment.newInstance(tripItem)
@@ -136,7 +136,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
     override fun setClickListener() {
         binding.tvEditTrip.setOnClickListener {
             if (!isEditable) {
-                showErrorEditable()
+                showErrorEditable(childFragmentManager)
                 return@setOnClickListener
             }
             val editTripBottomDialog = EditTripBottomDialog()
@@ -163,11 +163,12 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
         binding.layoutAddEstimateCost.setOnClickListener {
             val fragment = EditTripCostFragment.newInstance(tripItem?.id)
             fragment.setOnBackFragmentListener(this)
+            fragment.setIsEditAble(isEditable)
             addFragment(fragment)
         }
         binding.tvEditTime.setOnClickListener {
             if (!isEditable) {
-                showErrorEditable()
+                showErrorEditable(childFragmentManager)
                 return@setOnClickListener
             }
             val dialog = tripItem?.let { it1 -> EditTripTimeBottomDialog.newInstance(it1) }
@@ -184,7 +185,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
         }
         binding.tvInvieFriends.setOnClickListener {
             if (!isEditable) {
-                showErrorEditable()
+                showErrorEditable(childFragmentManager)
                 return@setOnClickListener
             }
             val fragment = tripItem?.id?.let { it -> InviteFriendScheduleFragment.newInstance(it) }
@@ -192,7 +193,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
         }
         binding.tvViewAll.setOnClickListener {
             if (!isEditable) {
-                showErrorEditable()
+                showErrorEditable(childFragmentManager)
                 return@setOnClickListener
             }
             val fragment = DetailPlacesFragment.newInstance(tripItem)
@@ -201,7 +202,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
         }
         binding.btnSaveSchedule.setOnClickListener {
             if (!isEditable) {
-                showErrorEditable()
+                showErrorEditable(childFragmentManager)
                 return@setOnClickListener
             }
             onBackToTripsFragment?.onBackFragment()
@@ -260,15 +261,6 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             binding.tvEstimateCost.text =
                 Html.fromHtml(Utils.convertPriceTrips(totalCost)).toString() + "đ"
         }
-    }
-
-    private fun showErrorEditable() {
-        showErrorDialog(
-            getString(R.string.error_title),
-            getString(R.string.close_title),
-            getString(R.string.only_read_cant_edit),
-            childFragmentManager
-        )
     }
 
     override fun setObserver() {
