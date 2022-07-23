@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 
+import com.baseapp.utils.KeyboardUtils;
 import com.namviet.vtvtravel.R;
 import com.namviet.vtvtravel.Utils;
 import com.namviet.vtvtravel.api.WSConfig;
@@ -99,14 +100,19 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
     @Override
     public void setClickListener() {
         getBinding().edtStartPlace.setOnClickListener(v -> {
+            KeyboardUtils.hideKeyboard(mActivity, getBinding().edtTripName);
+            KeyboardUtils.hideKeyboard(mActivity, getBinding().edtDestination);
             if (locationList.size() > 0) {
                 ChooseRegionMainFragment chooseRegionMainFragment = new ChooseRegionMainFragment();
                 chooseRegionMainFragment.setData(locationList, CreateTripFragment.this);
+                chooseRegionMainFragment.setFullScreen(true);
                 addFragment(chooseRegionMainFragment);
             }
         });
         getBinding().edtDestination.setOnClickListener(v -> {
             if (locationList.size() > 0) {
+                KeyboardUtils.hideKeyboard(mActivity, getBinding().edtTripName);
+                KeyboardUtils.hideKeyboard(mActivity, getBinding().edtDestination);
                 ChooseRegionMainFragment chooseRegionMainFragment = new ChooseRegionMainFragment();
                 chooseRegionMainFragment.setData(locationList, new ChooseRegionMainFragment.ChooseRegion() {
                     @Override
@@ -117,6 +123,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
                         }
                     }
                 });
+                chooseRegionMainFragment.setFullScreen(true);
                 addFragment(chooseRegionMainFragment);
             }
         });

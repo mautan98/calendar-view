@@ -94,6 +94,10 @@ class ChooseRegionMainFragment : BaseFragment<F3FragmentSearchRegionMainBinding?
 
     }
 
+    public fun setFullScreen(isFullScreen: Boolean){
+        this.isFullScreen = isFullScreen
+    }
+
 
     public fun setData(locationsMain: ArrayList<Location>?, chooseRegion: ChooseRegion?, isFullScreen : Boolean) {
         this.locationsMain = locationsMain
