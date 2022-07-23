@@ -47,6 +47,14 @@ class EditTripCostFragment: BaseFragment<FragmentAddEstimateCostBinding>(), Obse
         scheduleId = arguments?.getString(KEY_SCHEDULE_ID)
         binding = getBinding()
         costTypeAdapter = CostTypesAdapter(requireContext())
+        costTypeAdapter?.setOnItemClickListener(object : CostTypesAdapter.OnItemCostClickListener{
+            override fun onItemClick(isEditAble: Boolean) {
+                if (!isEditAble){
+                    showErrorEditable(childFragmentManager)
+                }
+            }
+
+        })
         costTypeAdapter?.setIsEditAble(isEditAble)
         costTypeAdapter?.setSumTotalCostListener(object :CostTypesAdapter.SumTotalCost{
             override fun onTotalPriceChange(total: BigDecimal) {
@@ -102,6 +110,10 @@ class EditTripCostFragment: BaseFragment<FragmentAddEstimateCostBinding>(), Obse
 
     override fun setClickListener() {
         binding.btnUpdateCost.setOnClickListener {
+            if (!isEditAble){
+                showErrorEditable(childFragmentManager)
+                return@setOnClickListener
+            }
             val list = costTypeAdapter?.getListTypeCost()
             list?.size?.minus(1)?.let { it -> list.removeAt(it) }
             for (i in 0..list?.size?.minus(1)!!){

@@ -118,10 +118,6 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
 
         adapter?.setOnItemClickListener(object : OnItemRecyclerClickListener{
             override fun onItemClick(position: Int) {
-                if (!isEditable) {
-                    showErrorEditable(childFragmentManager)
-                    return
-                }
                 val fragment = DetailPlacesFragment.newInstance(tripItem)
                 fragment.setOnBackToFragmentListener(this@DetailTripFragment)
                 addFragment(fragment)
@@ -135,7 +131,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
 
     override fun setClickListener() {
         binding.tvEditTrip.setOnClickListener {
-            if (!isEditable) {
+            if (!isEditable || !tripItem?.checkRights.equals("true")) {
                 showErrorEditable(childFragmentManager)
                 return@setOnClickListener
             }
@@ -163,11 +159,11 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
         binding.layoutAddEstimateCost.setOnClickListener {
             val fragment = EditTripCostFragment.newInstance(tripItem?.id)
             fragment.setOnBackFragmentListener(this)
-            fragment.setIsEditAble(isEditable)
+            fragment.setIsEditAble(tripItem?.checkRights.equals("true"))
             addFragment(fragment)
         }
         binding.tvEditTime.setOnClickListener {
-            if (!isEditable) {
+            if (!isEditable || !tripItem?.checkRights.equals("true")) {
                 showErrorEditable(childFragmentManager)
                 return@setOnClickListener
             }
@@ -184,7 +180,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             activity?.onBackPressed()
         }
         binding.tvInvieFriends.setOnClickListener {
-            if (!isEditable) {
+            if (!isEditable || !tripItem?.checkRights.equals("true")) {
                 showErrorEditable(childFragmentManager)
                 return@setOnClickListener
             }
@@ -192,16 +188,12 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             addFragment(fragment)
         }
         binding.tvViewAll.setOnClickListener {
-            if (!isEditable) {
-                showErrorEditable(childFragmentManager)
-                return@setOnClickListener
-            }
             val fragment = DetailPlacesFragment.newInstance(tripItem)
             fragment.setOnBackToFragmentListener(this@DetailTripFragment)
             addFragment(fragment)
         }
         binding.btnSaveSchedule.setOnClickListener {
-            if (!isEditable) {
+            if (!isEditable || !tripItem?.checkRights.equals("true")) {
                 showErrorEditable(childFragmentManager)
                 return@setOnClickListener
             }
