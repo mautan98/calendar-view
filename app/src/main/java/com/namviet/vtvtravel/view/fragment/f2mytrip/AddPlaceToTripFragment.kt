@@ -32,6 +32,7 @@ class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>(),
     private var placesScheduleItem: ItemPlaces? = null
     private var detailPlaceScheduleItem: PlacesScheduleItem? = null
     private var isUpdatePlace: Boolean = false
+    private var destinationRegionId : String? = null
     private var onBackToFragmentListener: OnBackToFragmentListener? = null
 
     public fun setData(scheduleCustomId: String?){
@@ -54,6 +55,10 @@ class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>(),
         this.onBackToFragmentListener = onBackToFragmentListener
     }
 
+    fun setDestinationRegionId(destinationRegionId: String?){
+        this.destinationRegionId = destinationRegionId
+    }
+
     override fun getLayoutRes(): Int {
         return R.layout.fragment_add_place_to_trip
     }
@@ -68,7 +73,7 @@ class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>(),
         binding!!.vpContent.offscreenPageLimit = 10
 
         var addPlaceToTripChildFragment1 =
-            AddPlaceToTripChildFragment("APP_WHERE_GO", "", scheduleCustomId);
+            AddPlaceToTripChildFragment("APP_WHERE_GO", destinationRegionId, scheduleCustomId);
         addPlaceToTripChildFragment1.setOnBackToFragmentListener(this)
         addPlaceToTripChildFragment1.placesScheduleItem = placesScheduleItem
         addPlaceToTripChildFragment1.setDetailPlacesScheduleItem(detailPlaceScheduleItem)
@@ -76,7 +81,7 @@ class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>(),
         mainAdapter?.addFragment(addPlaceToTripChildFragment1, "")
 
         var addPlaceToTripChildFragment2 =
-            AddPlaceToTripChildFragment("APP_WHERE_STAY", "", scheduleCustomId);
+            AddPlaceToTripChildFragment("APP_WHERE_STAY", destinationRegionId, scheduleCustomId);
         addPlaceToTripChildFragment2.placesScheduleItem = placesScheduleItem
         addPlaceToTripChildFragment2.setDetailPlacesScheduleItem(detailPlaceScheduleItem)
         addPlaceToTripChildFragment2.setOnBackToFragmentListener(this)
@@ -84,7 +89,7 @@ class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>(),
         mainAdapter?.addFragment(addPlaceToTripChildFragment2, "")
 
         var addPlaceToTripChildFragment3 =
-            AddPlaceToTripChildFragment("APP_WHAT_EAT", "", scheduleCustomId);
+            AddPlaceToTripChildFragment("APP_WHAT_EAT", destinationRegionId, scheduleCustomId);
         addPlaceToTripChildFragment3.placesScheduleItem = placesScheduleItem
         addPlaceToTripChildFragment3.setDetailPlacesScheduleItem(detailPlaceScheduleItem)
         addPlaceToTripChildFragment3.setUpdatePlace(isUpdatePlace)
@@ -92,7 +97,7 @@ class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>(),
         mainAdapter?.addFragment(addPlaceToTripChildFragment3, "")
 
         var addPlaceToTripChildFragment4 =
-            AddPlaceToTripChildFragment("APP_WHAT_PLAY", "", scheduleCustomId);
+            AddPlaceToTripChildFragment("APP_WHAT_PLAY", destinationRegionId, scheduleCustomId);
         addPlaceToTripChildFragment4.placesScheduleItem = placesScheduleItem
         addPlaceToTripChildFragment4.setDetailPlacesScheduleItem(detailPlaceScheduleItem)
         addPlaceToTripChildFragment4.setUpdatePlace(isUpdatePlace)
