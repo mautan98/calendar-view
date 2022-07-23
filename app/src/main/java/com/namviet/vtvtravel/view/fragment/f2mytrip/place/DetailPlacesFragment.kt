@@ -150,9 +150,10 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
                             }
                         })
                         addPlaceToTripFragment.setData(tripItem?.id)
-                        addPlaceToTripFragment.setPlaceScheduleItem(listPlaces.get(currentPosition))
-                        addPlaceToTripFragment.setDetailPlaceScheduleItem(listPlaces.get(currentPosition).schedulePlaceList?.get(itemDetailPosition))
+                        addPlaceToTripFragment.setPlaceScheduleItem(listPlaces[currentPosition])
+                        addPlaceToTripFragment.setDetailPlaceScheduleItem(listPlaces[currentPosition].schedulePlaceList?.get(itemDetailPosition))
                         addPlaceToTripFragment.setIsUpdatePlace(true)
+                        addPlaceToTripFragment.setDestinationRegionId(tripItem?.destinationRegionId)
                         addFragment(addPlaceToTripFragment)
                     }
                 }
