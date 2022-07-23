@@ -24,6 +24,7 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
     private var listTypeCost:MutableList<TypeCost> = mutableListOf()
     private lateinit var sumTotalCostListener:SumTotalCost
     private lateinit var addNewCostListener:AddNewCost
+    private lateinit var onItemClickListener:OnItemCostClickListener
 
     fun setListTypeCost(list: MutableList<TypeCost>) {
         this.listTypeCost = list
@@ -36,6 +37,10 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
 
     fun setAddNewCostListener(addNewCostListener:AddNewCost){
         this.addNewCostListener = addNewCostListener
+    }
+
+    fun setOnItemClickListener(onItemCostClickListener :OnItemCostClickListener){
+        this.onItemClickListener = onItemCostClickListener
     }
 
     fun getListTypeCost():MutableList<TypeCost>{
@@ -84,6 +89,7 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
             binding.imvCostType.setImageResource(if (typeCost.resourceImage != 0) typeCost.resourceImage else R.drawable.ic_money_no_coin)
             binding.tvTypeName.text = typeCost.costName
             binding.tvAmount.text = "${typeCost.amount}"
+            binding.edtPrice.isEnabled = isEditAble
             binding.edtPrice.setText(typeCost.pricePP.toString())
             binding.tvTotalPrice.text = Utils.convertPriceTrips(typeCost.totalPrice)
             binding.imbDeleteCost.visibility =
@@ -101,14 +107,26 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
                     }
                 }
             binding.imvPlus.setOnClickListener {
+                if (!isEditAble){
+                    onItemClickListener.onItemClick(isEditAble)
+                    return@setOnClickListener
+                }
                 val numberPlus = binding.tvAmount.text.toString().toInt()
                 setPlusNumber(numberPlus, binding.tvAmount, binding.imvMinus, typeCost)
             }
             binding.imvMinus.setOnClickListener {
+                if (!isEditAble){
+                    onItemClickListener.onItemClick(isEditAble)
+                    return@setOnClickListener
+                }
                 val numberPlus = binding.tvAmount.text.toString().toInt()
                 setMinusNumber(numberPlus, binding.tvAmount, binding.imvMinus, typeCost)
             }
             binding.imbDeleteCost.setOnClickListener {
+                if (!isEditAble){
+                    onItemClickListener.onItemClick(isEditAble)
+                    return@setOnClickListener
+                }
                 listTypeCost.removeAt(position)
                 notifyItemRemoved(position)
             }
@@ -194,5 +212,9 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
 
     interface AddNewCost{
         fun onClickAddNewCost(isEditAble : Boolean)
+    }
+
+    interface OnItemCostClickListener{
+        fun onItemClick(isEditAble: Boolean)
     }
 }

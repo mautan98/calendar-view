@@ -15,10 +15,10 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="12dp"
             android:paddingVertical="18dp"
-            android:tint="#707070"
             android:src="@drawable/ic_baseline_arrow_back_ios_24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#707070" />
 
         <TextView
             android:id="@+id/estimate_cost"
