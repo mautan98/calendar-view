@@ -106,6 +106,8 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
                     } catch (e: Exception) {
                     }
                 }
+
+//            binding.edtPrice.addTextChangedListener(NumberTextWatcher(binding.edtPrice))
             binding.imvPlus.setOnClickListener {
                 if (!isEditAble){
                     onItemClickListener.onItemClick(isEditAble)
