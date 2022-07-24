@@ -33,6 +33,8 @@ class NotificationTabFragment : BaseFragment<F3FragmentNotificationTabBinding?>,
     private var progressDialog: ProgressDialog? = null
     private var dataMap: HashMap<String, ArrayList<Notification>>? = null
 
+    private var page = 0
+
     constructor(isNotType: Boolean, type: String?) {
         this.isNotType = isNotType;
         this.type = type;

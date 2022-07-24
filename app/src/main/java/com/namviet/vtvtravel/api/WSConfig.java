@@ -258,7 +258,7 @@ public class WSConfig {
         public static final String SEARCH_ALL = "v3/search/{path}";
 
 
-        public static final String SYSTEM_INBOX = "user/inbox";
+        public static final String SYSTEM_INBOX = "user/inbox?page=0&size=100";
         public static final String SYSTEM_INBOX_COUNT = "user/count";
         public static final String SYSTEM_UPDATE_INBOX = "user/updateInbox";
         public static final String CONFIRM_ENTER_SYSTEM_TRIP = "user/customSchedule/addScheduleUser";
