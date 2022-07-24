@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationChannel;
 
+import com.namviet.vtvtravel.model.f2event.OmLoginSuccessAndGoToTripDetail;
 import com.namviet.vtvtravel.model.f2event.OnHaveInviteTrip;
 import com.namviet.vtvtravel.view.f2.DetailDealWebviewActivity;
 import com.namviet.vtvtravel.view.f2.MyGiftActivity;
@@ -1795,6 +1796,14 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
                 case Constants.ShareLinkType.HOTELS:
                     SmallLocationActivity.startScreenDetail(this, SmallLocationActivity.OpenType.DETAIL, link);
                     break;
+                case "shareTrip":
+                    Account account = MyApplication.getInstance().getAccount();
+                    if (null != account && account.isLogin()) {
+                        DetailTripActivity.Companion.startScreen(this, link);
+                    } else {
+                        LoginAndRegisterActivityNew.startScreen(this, 0, false, false , false , true, link);
+                    }
+                    break;
 
             }
 
@@ -2084,6 +2093,11 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
             }
         });
         notifyDialog.show(getSupportFragmentManager(), null);
+    }
+
+    @Subscribe
+    public void onLoginSuccessAndGoToTripDetail(OmLoginSuccessAndGoToTripDetail omLoginSuccessAndGoToTripDetail) {
+        DetailTripActivity.Companion.startScreen(this, omLoginSuccessAndGoToTripDetail.tripId);
     }
 
 

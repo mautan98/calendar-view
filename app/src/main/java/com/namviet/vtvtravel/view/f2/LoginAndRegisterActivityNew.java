@@ -18,6 +18,9 @@ public class LoginAndRegisterActivityNew extends BaseActivityNew<F2ActivityLogin
     public boolean isFromButtonCallNow;
     public boolean isFromBooking;
     public boolean isFromDeal;
+    public boolean isFromTripShare;
+    public String tripId;
+
 
 
     private int position;
@@ -39,6 +42,8 @@ public class LoginAndRegisterActivityNew extends BaseActivityNew<F2ActivityLogin
         isFromButtonCallNow = getIntent().getBooleanExtra(Constants.IntentKey.IS_FROM_BUTTON_CALL_NOW, false);
         isFromBooking = getIntent().getBooleanExtra(Constants.IntentKey.IS_FROM_BOOKING, false);
         isFromDeal = getIntent().getBooleanExtra(Constants.IntentKey.IS_FROM_DEAL, false);
+        isFromTripShare = getIntent().getBooleanExtra("isFromTripShare", false);
+        tripId = getIntent().getStringExtra("tripId");
         position = getIntent().getIntExtra(Constants.IntentKey.KEY_POSITION, 0);
     }
 
@@ -100,6 +105,18 @@ public class LoginAndRegisterActivityNew extends BaseActivityNew<F2ActivityLogin
         intent.putExtra(Constants.IntentKey.IS_FROM_BUTTON_CALL_NOW, isFromButtonCallNow);
         intent.putExtra(Constants.IntentKey.IS_FROM_DEAL, isFromDealAndHaveBackLink);
         intent.putExtra(Constants.IntentKey.IS_FROM_BOOKING, isFromBooking);
+        activity.startActivity(intent);
+    }
+
+    public static void startScreen(Context activity, int position, boolean isFromButtonCallNow, boolean isFromBooking, boolean isFromDealAndHaveBackLink, boolean isFromTripShare, String tripId){
+        Intent intent = new Intent(activity, LoginAndRegisterActivityNew.class);
+        intent.putExtra(Constants.IntentKey.POSITION_LOGIN, position);
+        intent.putExtra(Constants.IntentKey.KEY_POSITION, position);
+        intent.putExtra(Constants.IntentKey.IS_FROM_BUTTON_CALL_NOW, isFromButtonCallNow);
+        intent.putExtra(Constants.IntentKey.IS_FROM_DEAL, isFromDealAndHaveBackLink);
+        intent.putExtra(Constants.IntentKey.IS_FROM_BOOKING, isFromBooking);
+        intent.putExtra("isFromTripShare", isFromTripShare);
+        intent.putExtra("tripId", tripId);
         activity.startActivity(intent);
     }
 

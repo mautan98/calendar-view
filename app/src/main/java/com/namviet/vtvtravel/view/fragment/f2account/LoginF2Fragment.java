@@ -22,6 +22,7 @@ import com.namviet.vtvtravel.config.Constants;
 import com.namviet.vtvtravel.databinding.F2FragmentLoginBinding;
 import com.namviet.vtvtravel.f2base.base.BaseFragment;
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse;
+import com.namviet.vtvtravel.model.f2event.OmLoginSuccessAndGoToTripDetail;
 import com.namviet.vtvtravel.model.f2event.OnChangeTab;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndGoToBooking;
 import com.namviet.vtvtravel.model.f2event.OnLoginSuccessAndGoToCallNow;
@@ -184,6 +185,8 @@ public class LoginF2Fragment extends BaseFragment<F2FragmentLoginBinding> implem
                         EventBus.getDefault().post(new OnLoginSuccessAndGoToBooking());
                     } else if (((LoginAndRegisterActivityNew) mActivity).isFromDeal) {
                         EventBus.getDefault().post(new OnLoginSuccessAndReloadDeal());
+                    }else if(((LoginAndRegisterActivityNew) mActivity).isFromTripShare){
+                        EventBus.getDefault().post(new OmLoginSuccessAndGoToTripDetail(((LoginAndRegisterActivityNew) mActivity).tripId));
                     }
                     EventBus.getDefault().post(new OnLoginSuccessAndUpdateUserView());
                     EventBus.getDefault().post(new OnReloadCountSystemInbox());
