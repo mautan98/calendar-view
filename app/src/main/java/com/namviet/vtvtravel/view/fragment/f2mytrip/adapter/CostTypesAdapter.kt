@@ -48,11 +48,6 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == TYPE_ADD_OTHER_COST){
-            val binding:LayoutAddOtherCostBinding = DataBindingUtil.inflate(LayoutInflater.from(context),
-                R.layout.layout_add_other_cost,parent,false)
-            return AddCostViewHolder(binding)
-        }
         val binding:LayoutItemTypeCostBinding = DataBindingUtil.inflate(LayoutInflater.from(context),
             R.layout.layout_item_type_cost,parent,false)
         return ViewHolder(binding)
@@ -60,23 +55,11 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val typeCost = listTypeCost.get(position)
-        if (getItemViewType(position) == TYPE_ADD_OTHER_COST){
-            (holder as CostTypesAdapter.AddCostViewHolder).bind()
-        } else {
-            (holder as CostTypesAdapter.ViewHolder).bind(typeCost,position)
-        }
+        (holder as CostTypesAdapter.ViewHolder).bind(typeCost,position)
     }
 
     override fun getItemCount(): Int {
         return listTypeCost.size
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        if (position == listTypeCost.size-1){
-            return TYPE_ADD_OTHER_COST
-        } else {
-            return super.getItemViewType(position)
-        }
     }
 
     fun setIsEditAble(editAble: Boolean) {
@@ -136,9 +119,11 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
                 isClick = !isClick
                 if (isClick){
                     binding.llDetailTypes.visibility = View.GONE
+                    binding.viewLineHeader.visibility = View.GONE
                     binding.imvShowHide.setImageResource(R.drawable.ic_drop_down_thick_3726)
                 } else {
                     binding.llDetailTypes.visibility = View.VISIBLE
+                    binding.viewLineHeader.visibility = View.VISIBLE
                     binding.imvShowHide.setImageResource(R.drawable.ic_drop_up_thick_3726)
                 }
             }
@@ -196,16 +181,6 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
                 changeTotal(typeCost.pricePP,typeCost.amount,typeCost)
             }
         }
-    }
-
-    inner class AddCostViewHolder(var binding: LayoutAddOtherCostBinding) : RecyclerView.ViewHolder(binding.root){
-
-        fun bind(){
-            binding.tvAddNewCostType.setOnClickListener {
-               addNewCostListener.onClickAddNewCost(isEditAble)
-            }
-        }
-
     }
 
     interface SumTotalCost{
