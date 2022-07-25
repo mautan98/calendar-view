@@ -11,6 +11,7 @@
             android:id="@+id/layout_header"
             android:layout_width="match_parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:paddingBottom="11dp"
             android:layout_height="wrap_content">
 
             <ImageView
@@ -19,7 +20,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="11dp"
                 android:layout_marginTop="12dp"
-                android:padding="5dp"
                 android:src="@drawable/ic_type_eating"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -31,6 +31,7 @@
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_regular"
                 android:text="Ăn uống"
+                android:includeFontPadding="false"
                 android:textColor="#3A3A3A"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/imv_cost_type"
@@ -49,6 +50,15 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <View
+            android:id="@+id/view_line_header"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="3dp"
+            android:visibility="visible"
+            android:background="@color/color_gray_trip_ec"
+            app:layout_constraintTop_toBottomOf="@id/layout_header" />
+
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/ll_detail_types"
             android:layout_width="match_parent"
@@ -58,17 +68,8 @@
             android:visibility="visible"
             app:divider="@color/color_gray_trip_ec"
             app:dividerPadding="12dp"
-            app:layout_constraintTop_toBottomOf="@id/layout_header"
+            app:layout_constraintTop_toBottomOf="@id/view_line_header"
             app:showDividers="middle">
-
-
-            <View
-                android:id="@+id/view_line_header"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="14dp"
-                android:background="@color/color_gray_trip_ec"
-                app:layout_constraintTop_toBottomOf="@id/imv_cost_type" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -96,7 +97,7 @@
                     android:layout_marginEnd="32dp"
                     android:layout_marginStart="100dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="123456"
+                    android:text="0"
                     android:paddingTop="14dp"
                     android:paddingBottom="17dp"
                     android:gravity="center_horizontal"
@@ -174,51 +175,55 @@
                     android:id="@+id/total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="17dp"
                     android:layout_marginStart="12dp"
                     android:fontFamily="@font/roboto_medium"
                     android:text="Tổng"
                     android:textColor="#555555"
                     android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_total_price"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@id/tv_total_price" />
 
                 <TextView
                     android:id="@+id/tv_total_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="29dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginBottom="15dp"
                     android:fontFamily="@font/roboto_medium"
                     android:text="800000"
                     android:textColor="#555555"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@id/total"
+                    app:layout_constraintBottom_toTopOf="@id/imbDeleteCost"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/total" />
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imbDeleteCost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="19dp"
+                    android:paddingTop="9dp"
+                    android:paddingBottom="15dp"
+                    android:src="@drawable/ic_trash_delete"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_total_price" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imb_delete_cost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_trash_delete"
-            android:paddingVertical="7dp"
-            android:paddingHorizontal="19dp"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_detail_types" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:background="@color/color_gray_trip_ec"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imb_delete_cost" />
+            app:layout_constraintTop_toBottomOf="@id/ll_detail_types" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

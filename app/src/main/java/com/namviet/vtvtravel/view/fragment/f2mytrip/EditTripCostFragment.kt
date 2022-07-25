@@ -92,6 +92,21 @@ class EditTripCostFragment: BaseFragment<FragmentAddEstimateCostBinding>(), Obse
         binding.imvBackCost.setOnClickListener {
             activity?.onBackPressed()
         }
+        binding.tvAddNewCostType.setOnClickListener {
+            if (!isEditAble){
+                showErrorEditable(childFragmentManager)
+                return@setOnClickListener
+            }
+            val dialog = AddNewCostBottomDialog.newInstance()
+            dialog.setAddDoneListener(object : AddNewCostBottomDialog.AddNewCostDoneListener{
+                override fun onAddDone(typeCost: TypeCost) {
+                    listTypeCost.add(listTypeCost.size - 1,typeCost)
+                    costTypeAdapter?.setListTypeCost(listTypeCost)
+                }
+
+            })
+            dialog.show(childFragmentManager,null)
+        }
     }
 
     private fun initListType(){
