@@ -5,8 +5,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:paddingTop="26dp"
         android:background="@color/white"
-        android:paddingTop="17dp"
         android:layout_height="match_parent">
 
         <ImageView
@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="12dp"
-            android:paddingVertical="18dp"
+            android:paddingVertical="12.5dp"
             android:src="@drawable/ic_baseline_arrow_back_ios_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -69,17 +69,17 @@
             android:layout_marginTop="10dp"
             app:rt_borderColor="#FABE6B"
             app:rt_borderWidth="1dp"
-            android:paddingVertical="7dp"
             app:layout_constraintTop_toBottomOf="@id/view_line">
 
             <com.ornach.richtext.RichText
+                android:paddingVertical="8dp"
                 android:id="@+id/vnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_medium"
                 android:text="VNĐ"
                 android:includeFontPadding="false"
-                android:layout_marginHorizontal="10dp"
+                android:layout_marginHorizontal="9dp"
                 app:rt_radius="4dp"
                 android:textColor="@color/black"
                 android:textSize="16sp"
