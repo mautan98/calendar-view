@@ -559,7 +559,7 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
                 if (errorResponse.getErrorCode() != null){
                     desc = errorResponse.getErrorCode();
                 }
-                Toast.makeText(getContext(), desc, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, desc, Toast.LENGTH_SHORT).show();
             } else if (o instanceof BaseResponse){
                 onBackToFragmentListener.onBack();
                 getActivity().onBackPressed();
