@@ -48,6 +48,11 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        if (viewType == TYPE_ADD_OTHER_COST){
+            val binding:LayoutAddOtherCostBinding = DataBindingUtil.inflate(LayoutInflater.from(context),
+                R.layout.layout_add_other_cost,parent,false)
+            return AddCostViewHolder(binding)
+        }
         val binding:LayoutItemTypeCostBinding = DataBindingUtil.inflate(LayoutInflater.from(context),
             R.layout.layout_item_type_cost,parent,false)
         return ViewHolder(binding)
@@ -55,7 +60,11 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val typeCost = listTypeCost.get(position)
-        (holder as CostTypesAdapter.ViewHolder).bind(typeCost,position)
+        if (getItemViewType(position) == TYPE_ADD_OTHER_COST){
+            (holder as CostTypesAdapter.AddCostViewHolder).bind()
+        } else {
+            (holder as CostTypesAdapter.ViewHolder).bind(typeCost,position)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -181,6 +190,24 @@ class CostTypesAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
                 changeTotal(typeCost.pricePP,typeCost.amount,typeCost)
             }
         }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        if (position == listTypeCost.size-1){
+            return TYPE_ADD_OTHER_COST
+        } else {
+            return super.getItemViewType(position)
+        }
+    }
+
+    inner class AddCostViewHolder(var binding: LayoutAddOtherCostBinding) : RecyclerView.ViewHolder(binding.root){
+
+        fun bind(){
+            binding.tvAddNewCostType.setOnClickListener {
+                addNewCostListener.onClickAddNewCost(isEditAble)
+            }
+        }
+
     }
 
     interface SumTotalCost{
