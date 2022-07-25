@@ -71,7 +71,7 @@
             android:background="@color/white"
             app:divider="@color/black"
             app:layout_constraintTop_toBottomOf="@id/header_passenger"
-            app:showDividers="middle">
+            app:showDividers="middle|end">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
