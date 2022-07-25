@@ -1,5 +1,6 @@
 package com.namviet.vtvtravel.view.fragment.f2mytrip.place.adapter
 
+import android.app.Activity
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.databinding.LayoutItemDetailPlaceBinding
+import com.namviet.vtvtravel.view.f2.SmallLocationActivity
 import com.namviet.vtvtravel.view.fragment.f2mytrip.place.model.PlacesScheduleItem
 
 class PlacesAdapter : RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
@@ -81,6 +83,17 @@ class PlacesAdapter : RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
             binding.changePlace.setOnClickListener {
                 onItemClickListener?.onItemClick(position,binding.changePlace,isEditAble)
             }
+            binding.root.setOnClickListener {
+                try {
+                    SmallLocationActivity.startScreenDetail(
+                        itemView.context,
+                        SmallLocationActivity.OpenType.DETAIL,
+                        placeDetailItem.detailLink
+                    )
+                } catch (e: Exception) {
+                }
+            }
+
         }
 
     }
