@@ -52,7 +52,7 @@
             <RelativeLayout
                 android:visibility="gone"
                 android:id="@+id/rll_header_map"
-                android:background="#00918D"
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
                 <ImageView
@@ -62,8 +62,7 @@
                     android:paddingStart="15dp"
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
-                    android:src="@drawable/f2_ic_back"
-                    app:tint="@color/white" />
+                    android:src="@drawable/f2_ic_back" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -75,6 +74,7 @@
                     android:layout_weight="1">
 
                     <com.ornach.richtext.RichView
+                        android:visibility="gone"
                         android:id="@+id/btnChooseRegion2"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -88,13 +88,13 @@
                             android:layout_height="match_parent">
 
                             <TextView
-                                android:ellipsize="end"
-                                android:layout_marginEnd="30dp"
                                 android:id="@+id/tvRegionName2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="14dp"
+                                android:layout_marginEnd="30dp"
+                                android:ellipsize="end"
                                 android:fontFamily="@font/roboto_regular"
                                 android:text="Hà Nội"
                                 android:textColor="@color/white"
@@ -112,6 +112,16 @@
 
                         </RelativeLayout>
                     </com.ornach.richtext.RichView>
+
+
+                    <TextView
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="18dp"
+                        android:textColor="@color/black"
+                        android:text="Bản đồ"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
                 </RelativeLayout>
             </RelativeLayout>

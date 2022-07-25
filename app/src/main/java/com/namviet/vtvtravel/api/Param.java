@@ -469,7 +469,7 @@ public class Param {
             map.put("durationVisit", durationVisit);
             map.put("typePlace", typePlace);
             map.put("placeId", placeId);
-            map.put("detail_link", detail_link);
+            map.put("detailLink", detail_link);
             map.put("name", name);
             map.put("status", status);
             map.put("day", day);
