@@ -14,6 +14,8 @@ import com.namviet.vtvtravel.config.Constants
 import com.namviet.vtvtravel.databinding.FragmentAddPlaceToTripBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.listener.OnBackToFragmentListener
+import com.namviet.vtvtravel.ultils.toGone
+import com.namviet.vtvtravel.ultils.toVisible
 import com.namviet.vtvtravel.view.f3.model.ClickHideMapView
 import com.namviet.vtvtravel.view.f3.model.HideMapView
 import com.namviet.vtvtravel.view.f3.model.ShowMapView
@@ -67,93 +69,95 @@ class AddPlaceToTripFragment : BaseFragment<FragmentAddPlaceToTripBinding?>(),
     override fun initView() {
     }
     override fun initData() {
-
+        binding!!.viewLoading.toVisible()
         Handler().postDelayed(Runnable {
-            if (isUpdatePlace)
-                binding?.title?.text = getString(R.string.update_schedule_place)
-            mainAdapter = MainAdapter(childFragmentManager)
-            binding!!.vpContent.offscreenPageLimit = 10
+            try {
+                if (isUpdatePlace)
+                    binding?.title?.text = getString(R.string.update_schedule_place)
+                mainAdapter = MainAdapter(childFragmentManager)
+                binding!!.vpContent.offscreenPageLimit = 10
 
-            var addPlaceToTripChildFragment1 =
-                AddPlaceToTripChildFragment("APP_WHERE_GO", destinationRegionId, scheduleCustomId);
-            addPlaceToTripChildFragment1.setOnBackToFragmentListener(this)
-            addPlaceToTripChildFragment1.placesScheduleItem = placesScheduleItem
-            addPlaceToTripChildFragment1.setDetailPlacesScheduleItem(detailPlaceScheduleItem)
-            addPlaceToTripChildFragment1.setUpdatePlace(isUpdatePlace)
-            mainAdapter?.addFragment(addPlaceToTripChildFragment1, "")
+                var addPlaceToTripChildFragment1 =
+                    AddPlaceToTripChildFragment("APP_WHERE_GO", destinationRegionId, scheduleCustomId);
+                addPlaceToTripChildFragment1.setOnBackToFragmentListener(this)
+                addPlaceToTripChildFragment1.placesScheduleItem = placesScheduleItem
+                addPlaceToTripChildFragment1.setDetailPlacesScheduleItem(detailPlaceScheduleItem)
+                addPlaceToTripChildFragment1.setUpdatePlace(isUpdatePlace)
+                mainAdapter?.addFragment(addPlaceToTripChildFragment1, "")
 
-            var addPlaceToTripChildFragment2 =
-                AddPlaceToTripChildFragment("APP_WHERE_STAY", destinationRegionId, scheduleCustomId);
-            addPlaceToTripChildFragment2.placesScheduleItem = placesScheduleItem
-            addPlaceToTripChildFragment2.setDetailPlacesScheduleItem(detailPlaceScheduleItem)
-            addPlaceToTripChildFragment2.setOnBackToFragmentListener(this)
-            addPlaceToTripChildFragment2.setUpdatePlace(isUpdatePlace)
-            mainAdapter?.addFragment(addPlaceToTripChildFragment2, "")
+                var addPlaceToTripChildFragment2 =
+                    AddPlaceToTripChildFragment("APP_WHERE_STAY", destinationRegionId, scheduleCustomId);
+                addPlaceToTripChildFragment2.placesScheduleItem = placesScheduleItem
+                addPlaceToTripChildFragment2.setDetailPlacesScheduleItem(detailPlaceScheduleItem)
+                addPlaceToTripChildFragment2.setOnBackToFragmentListener(this)
+                addPlaceToTripChildFragment2.setUpdatePlace(isUpdatePlace)
+                mainAdapter?.addFragment(addPlaceToTripChildFragment2, "")
 
-            var addPlaceToTripChildFragment3 =
-                AddPlaceToTripChildFragment("APP_WHAT_EAT", destinationRegionId, scheduleCustomId);
-            addPlaceToTripChildFragment3.placesScheduleItem = placesScheduleItem
-            addPlaceToTripChildFragment3.setDetailPlacesScheduleItem(detailPlaceScheduleItem)
-            addPlaceToTripChildFragment3.setUpdatePlace(isUpdatePlace)
-            addPlaceToTripChildFragment3.setOnBackToFragmentListener(this)
-            mainAdapter?.addFragment(addPlaceToTripChildFragment3, "")
+                var addPlaceToTripChildFragment3 =
+                    AddPlaceToTripChildFragment("APP_WHAT_EAT", destinationRegionId, scheduleCustomId);
+                addPlaceToTripChildFragment3.placesScheduleItem = placesScheduleItem
+                addPlaceToTripChildFragment3.setDetailPlacesScheduleItem(detailPlaceScheduleItem)
+                addPlaceToTripChildFragment3.setUpdatePlace(isUpdatePlace)
+                addPlaceToTripChildFragment3.setOnBackToFragmentListener(this)
+                mainAdapter?.addFragment(addPlaceToTripChildFragment3, "")
 
-            var addPlaceToTripChildFragment4 =
-                AddPlaceToTripChildFragment("APP_WHAT_PLAY", destinationRegionId, scheduleCustomId);
-            addPlaceToTripChildFragment4.placesScheduleItem = placesScheduleItem
-            addPlaceToTripChildFragment4.setDetailPlacesScheduleItem(detailPlaceScheduleItem)
-            addPlaceToTripChildFragment4.setUpdatePlace(isUpdatePlace)
-            addPlaceToTripChildFragment4.setOnBackToFragmentListener(this)
-            mainAdapter?.addFragment(addPlaceToTripChildFragment4, "")
+                var addPlaceToTripChildFragment4 =
+                    AddPlaceToTripChildFragment("APP_WHAT_PLAY", destinationRegionId, scheduleCustomId);
+                addPlaceToTripChildFragment4.placesScheduleItem = placesScheduleItem
+                addPlaceToTripChildFragment4.setDetailPlacesScheduleItem(detailPlaceScheduleItem)
+                addPlaceToTripChildFragment4.setUpdatePlace(isUpdatePlace)
+                addPlaceToTripChildFragment4.setOnBackToFragmentListener(this)
+                mainAdapter?.addFragment(addPlaceToTripChildFragment4, "")
 
-            binding!!.vpContent.adapter = mainAdapter
+                binding!!.vpContent.adapter = mainAdapter
 
 
-            binding!!.tabLayout.setTabTextColors(ContextCompat.getColor(mActivity, R.color.md_black_1000), ContextCompat.getColor(mActivity, R.color.f2_color_package))
-            binding!!.tabLayout.setupWithViewPager(binding!!.vpContent)
+                binding!!.tabLayout.setTabTextColors(ContextCompat.getColor(mActivity, R.color.md_black_1000), ContextCompat.getColor(mActivity, R.color.f2_color_package))
+                binding!!.tabLayout.setupWithViewPager(binding!!.vpContent)
 
 //        for(i in 0 until dataMenu!!.size){
 //            tabLayout.getTabAt(i)?.text = dataMenu?.get(i)?.name
 //        }
 
-            binding!!.tabLayout.getTabAt(0)?.text = "Đi đâu"
-            binding!!.tabLayout.getTabAt(1)?.text = "Ở đâu"
-            binding!!.tabLayout.getTabAt(2)?.text = "Ăn gì"
-            binding!!.tabLayout.getTabAt(3)?.text = "Chơi gì"
+                binding!!.tabLayout.getTabAt(0)?.text = "Đi đâu"
+                binding!!.tabLayout.getTabAt(1)?.text = "Ở đâu"
+                binding!!.tabLayout.getTabAt(2)?.text = "Ăn gì"
+                binding!!.tabLayout.getTabAt(3)?.text = "Chơi gì"
 
 
+                val tabLayout1 = (binding!!.tabLayout.getChildAt(0)as ViewGroup).getChildAt(
+                    0
+                ) as ViewGroup
+                val tabTextView = tabLayout1.getChildAt(1) as TextView
+                val typeface = ResourcesCompat.getFont(mActivity, R.font.roboto_medium)
+                tabTextView.typeface = typeface
 
+                binding!!.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+                    override fun onTabSelected(tab: TabLayout.Tab?) {
+                        val tabLayout = (binding!!.tabLayout.getChildAt(0)as ViewGroup).getChildAt(
+                            tab!!.position
+                        ) as ViewGroup
+                        val tabTextView = tabLayout.getChildAt(1) as TextView
+                        val typeface = ResourcesCompat.getFont(mActivity, R.font.roboto_medium)
+                        tabTextView.typeface = typeface
+                    }
 
-            val tabLayout1 = (binding!!.tabLayout.getChildAt(0)as ViewGroup).getChildAt(
-                0
-            ) as ViewGroup
-            val tabTextView = tabLayout1.getChildAt(1) as TextView
-            val typeface = ResourcesCompat.getFont(mActivity, R.font.roboto_medium)
-            tabTextView.typeface = typeface
+                    override fun onTabUnselected(tab: TabLayout.Tab?) {
+                        val tabLayout = (binding!!.tabLayout.getChildAt(0)as ViewGroup).getChildAt(
+                            tab!!.position
+                        ) as ViewGroup
+                        val tabTextView = tabLayout.getChildAt(1) as TextView
+                        val typeface = ResourcesCompat.getFont(mActivity, R.font.roboto_regular)
+                        tabTextView.typeface = typeface
+                    }
 
-            binding!!.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    val tabLayout = (binding!!.tabLayout.getChildAt(0)as ViewGroup).getChildAt(
-                        tab!!.position
-                    ) as ViewGroup
-                    val tabTextView = tabLayout.getChildAt(1) as TextView
-                    val typeface = ResourcesCompat.getFont(mActivity, R.font.roboto_medium)
-                    tabTextView.typeface = typeface
-                }
+                    override fun onTabReselected(tab: TabLayout.Tab?) {
+                    }
 
-                override fun onTabUnselected(tab: TabLayout.Tab?) {
-                    val tabLayout = (binding!!.tabLayout.getChildAt(0)as ViewGroup).getChildAt(
-                        tab!!.position
-                    ) as ViewGroup
-                    val tabTextView = tabLayout.getChildAt(1) as TextView
-                    val typeface = ResourcesCompat.getFont(mActivity, R.font.roboto_regular)
-                    tabTextView.typeface = typeface
-                }
-
-                override fun onTabReselected(tab: TabLayout.Tab?) {
-                }
-
-            })
+                })
+                binding!!.viewLoading.toGone()
+            } catch (e: Exception) {
+            }
         }, 500)
 
 

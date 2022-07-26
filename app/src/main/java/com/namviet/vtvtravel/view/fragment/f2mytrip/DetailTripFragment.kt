@@ -21,6 +21,8 @@ import com.namviet.vtvtravel.listener.OnItemRecyclerClickListener
 import com.namviet.vtvtravel.model.f2booking.DataHelpCenter
 import com.namviet.vtvtravel.ultils.DialogUtil.Companion.showErrorDialog
 import com.namviet.vtvtravel.ultils.F2Util
+import com.namviet.vtvtravel.ultils.toGone
+import com.namviet.vtvtravel.ultils.toVisible
 import com.namviet.vtvtravel.view.f2.MyGiftActivity
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.PlacesInScheduleAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.UserListAdapter
@@ -97,6 +99,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
     }
 
     override fun initData() {
+        binding.viewLoading.toVisible()
         tripItem = arguments?.getParcelable(KEY_TRIP_ITEM)
         tripItem?.id?.let { viewModel.getDetailplaceById(it) }
         viewModel.addObserver(this)
@@ -259,6 +262,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
     }
 
     override fun update(o: Observable?, arg: Any?) {
+        binding.viewLoading.toGone()
         if (arg is PlaceScheduleResponse) {
             val myTripResponse = arg
             tripItem = myTripResponse.data
