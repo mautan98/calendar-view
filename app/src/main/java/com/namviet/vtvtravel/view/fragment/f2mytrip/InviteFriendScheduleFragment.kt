@@ -47,6 +47,7 @@ class InviteFriendScheduleFragment : BaseFragment<FragmentInviteScheduleBinding>
         binding.btnSendInvite.setOnClickListener {
             val phoneNumber = binding.edtPhoneNumber.text.toString().trim()
             if (validate(phoneNumber)){
+                showLoading()
                 scheduleId?.let { it -> viewmodel?.inviteSchedule(it,phoneNumber) }
             }
         }
@@ -81,6 +82,7 @@ class InviteFriendScheduleFragment : BaseFragment<FragmentInviteScheduleBinding>
     }
 
     override fun update(o: Observable?, arg: Any?) {
+        hideLoading()
         if (arg is BaseResponse) {
             val response = arg
             if (response.isSuccess) {
