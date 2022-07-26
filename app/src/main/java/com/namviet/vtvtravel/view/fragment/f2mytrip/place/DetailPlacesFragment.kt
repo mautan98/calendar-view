@@ -14,6 +14,8 @@ import com.namviet.vtvtravel.listener.OnBackToFragmentListener
 import com.namviet.vtvtravel.response.BaseResponse
 import com.namviet.vtvtravel.ultils.DialogUtil
 import com.namviet.vtvtravel.ultils.DialogUtil.Companion.showErrorDialog
+import com.namviet.vtvtravel.ultils.toGone
+import com.namviet.vtvtravel.ultils.toVisible
 import com.namviet.vtvtravel.view.fragment.f2mytrip.AddPlaceToTripFragment
 import com.namviet.vtvtravel.view.fragment.f2mytrip.RoadActivity
 import com.namviet.vtvtravel.view.fragment.f2mytrip.TripRoadFragment
@@ -61,6 +63,7 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
     }
 
     override fun initView() {
+        binding!!.viewLoading.toVisible()
         tripItem = arguments?.getParcelable(KEY_DETAIL_PLACE_TRIP_ITEM)
         viewModel = MyTripsViewModel()
         detailPlaceViewModel = DetailPlaceScheduleViewModel()
@@ -226,6 +229,7 @@ class DetailPlacesFragment : BaseFragment<FragmentDetailSchedulePlacesBinding>()
     }
 
     override fun update(o: Observable?, arg: Any?) {
+        binding!!.viewLoading.toGone()
         if (arg is DetailPlacesResponse){
             val response = arg
             listPlaces = response.data?.content as MutableList<ItemPlaces>
