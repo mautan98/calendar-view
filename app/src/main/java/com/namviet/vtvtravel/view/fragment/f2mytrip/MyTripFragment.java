@@ -53,6 +53,7 @@ public class MyTripFragment extends BaseFragment<F2FragmentMyTripBinding> implem
     @Override
     public void initView() {
         myTripsViewModel = new MyTripsViewModel();
+        getBinding().setViewModel(myTripsViewModel);
         myTripsViewModel.addObserver(this);
         myTripsViewModel.getListScheduleTrips();
         myTripsAdapter = new MyTripsAdapter(getContext());

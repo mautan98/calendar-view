@@ -1,29 +1,30 @@
 package com.namviet.vtvtravel.view.fragment.f2mytrip.viewmodel
 
+import android.view.View
+import androidx.databinding.ObservableField
 import com.google.gson.Gson
 import com.namviet.vtvtravel.api.Param
 import com.namviet.vtvtravel.api.WSConfig
 import com.namviet.vtvtravel.app.MyApplication
-import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.cost.TypeCost
-import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.BodyCreateTrip
-import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.DataCreateTrips
 import com.namviet.vtvtravel.viewmodel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import okhttp3.RequestBody
 import org.json.JSONArray
 import org.json.JSONObject
-import retrofit2.HttpException
 
 class MyTripsViewModel: BaseViewModel() {
+    var isShowLoading = ObservableField(View.VISIBLE)
 
     fun getListScheduleTrips(){
         val myApplication = MyApplication.getInstance()
         val newsService = myApplication.travelServiceAcc
 
         val dispose  = newsService.allTripsSchedule.subscribeOn(myApplication.subscribeScheduler())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe(Consumer {
+            .observeOn(AndroidSchedulers.mainThread()).doOnSubscribe {
+                isShowLoading.set(View.VISIBLE)
+            }.doFinally { isShowLoading.set(View.GONE) }.subscribe(Consumer {
                 if (it != null) {
                     requestSuccessRes(it)
                 } else {
