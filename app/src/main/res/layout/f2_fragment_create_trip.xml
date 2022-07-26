@@ -376,7 +376,7 @@
             android:id="@+id/layoutLoading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
+            android:background="#50000000"
             android:visibility="@{viewmodel.isShowLoading()}">
 
             <ProgressBar
