@@ -74,6 +74,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
     public void initView() {
         locationViewModel = new SearchBigLocationViewModel();
         myTripsViewModel = new CreateTripViewModel();
+        getBinding().setViewmodel(myTripsViewModel);
         locationViewModel.addObserver(this);
         locationViewModel.getAllLocation();
         myTripsViewModel.addObserver(this);

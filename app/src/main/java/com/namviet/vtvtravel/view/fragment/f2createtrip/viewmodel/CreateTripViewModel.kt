@@ -1,5 +1,7 @@
 package com.namviet.vtvtravel.view.fragment.f2createtrip.viewmodel
 
+import android.view.View
+import androidx.databinding.ObservableField
 import com.google.gson.Gson
 import com.namviet.vtvtravel.api.Param
 import com.namviet.vtvtravel.app.MyApplication
@@ -12,14 +14,21 @@ import org.json.JSONObject
 
 class CreateTripViewModel : BaseViewModel() {
 
-    fun createScheduleTrip(bodyCreate: BodyCreateTrip){
+    var isShowLoading = ObservableField(View.GONE)
+
+    fun createScheduleTrip(bodyCreate: BodyCreateTrip) {
         isLoading = true
         val myApplication = MyApplication.getInstance()
         val newsService = myApplication.travelServiceAcc
         val jsonObj = JSONObject(Gson().toJson(bodyCreate))
         val param = Param.getParams(jsonObj)
-        val resquestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),param.toString())
-        val dispose  = newsService.createTrip(resquestBody).subscribeOn(myApplication.subscribeScheduler())
+        val resquestBody = RequestBody.create(
+            okhttp3.MediaType.parse("application/json; charset=utf-8"),
+            param.toString()
+        )
+        val dispose = newsService.createTrip(resquestBody).doOnSubscribe {
+            isShowLoading.set(View.VISIBLE)
+        }.doFinally { isShowLoading.set(View.GONE) }.subscribeOn(myApplication.subscribeScheduler())
             .observeOn(AndroidSchedulers.mainThread()).subscribe(Consumer {
                 isLoading = false
                 if (it != null) {
