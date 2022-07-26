@@ -83,6 +83,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
@@ -405,7 +406,7 @@ public class AddPlaceToTripChildFragment extends BaseFragment<FragmentAddPlaceTo
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
-                if (!recyclerView.canScrollVertically(1)) {
+                if (!recyclerView.canScrollVertically(1)&& loadMoreLink != null && !loadMoreLink.equals("")) {
                     viewModel.getSmallLocation(loadMoreLink, true);
                     loadMoreLink = "";
                 }
