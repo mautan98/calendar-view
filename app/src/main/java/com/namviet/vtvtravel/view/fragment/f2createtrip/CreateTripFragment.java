@@ -70,14 +70,6 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
         return R.layout.f2_fragment_create_trip;
     }
 
-    @androidx.annotation.Nullable
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @androidx.annotation.Nullable @Nullable ViewGroup container, @androidx.annotation.Nullable @Nullable Bundle savedInstanceState) {
-        getContext().getTheme().applyStyle(R.style.ActionBarTheme, true);
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
     @Override
     public void initView() {
         locationViewModel = new SearchBigLocationViewModel();
