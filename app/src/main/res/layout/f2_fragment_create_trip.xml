@@ -349,7 +349,6 @@
                             android:layout_height="1dp"/>
 
                         <com.ornach.richtext.RichText
-                            android:foreground="@drawable/ripple_effect_click"
                             android:id="@+id/btn_schedule_trip"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
