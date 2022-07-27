@@ -83,6 +83,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/_40sdp"
+            android:foreground="@drawable/ripple_effect_click"
             android:src="@drawable/ic_create_trips" />
 
         <RelativeLayout
