@@ -1,5 +1,6 @@
 package com.namviet.vtvtravel.view.fragment.f2mytrip.adapter
 
+import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -14,6 +15,7 @@ import com.mindinventory.overlaprecylcerview.decoration.OverlapRecyclerViewDecor
 import com.namviet.vtvtravel.BuildConfig
 import com.namviet.vtvtravel.R
 import com.namviet.vtvtravel.Utils
+import com.namviet.vtvtravel.api.WSConfig
 import com.namviet.vtvtravel.databinding.LayoutItemMyTripsBinding
 import com.namviet.vtvtravel.databinding.LayoutItemUserTripsBinding
 import com.namviet.vtvtravel.listener.OnItemRecyclerClickListener
@@ -85,7 +87,7 @@ class MyTripsAdapter(var context: Context) : RecyclerView.Adapter<MyTripsAdapter
                 val uri = Uri.parse("android.resource://" + BuildConfig.APPLICATION_ID + "/drawable/bg_demo.jpg")
                 val share = Intent.createChooser(Intent().apply {
                     action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, "https://developer.android.com/training/sharing/")
+                    putExtra(Intent.EXTRA_TEXT, WSConfig.HOST_SHARE_TRIP+tripItem?.id)
                     putExtra(Intent.EXTRA_SUBJECT, tripItem?.name)
                     type = "text/plain"
 
@@ -94,6 +96,7 @@ class MyTripsAdapter(var context: Context) : RecyclerView.Adapter<MyTripsAdapter
 
                     // (Optional) Here we're passing a content URI to an image to be displayed
 //                data = uri
+                    clipData = ClipData.newRawUri("", uri)
                     flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
                 }, tripItem?.name)
                 context.startActivity(share)

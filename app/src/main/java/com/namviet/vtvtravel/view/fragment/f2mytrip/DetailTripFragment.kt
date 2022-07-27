@@ -207,7 +207,7 @@ class DetailTripFragment: BaseFragment<FragmentDetailTripBinding>(), Observer,
             val uri = Uri.parse("android.resource://" + BuildConfig.APPLICATION_ID + "/drawable/bg_demo.jpg")
             val share = Intent.createChooser(Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "https://developer.android.com/training/sharing/")
+                putExtra(Intent.EXTRA_TEXT, WSConfig.HOST_SHARE_TRIP+tripItem?.id)
                 putExtra(Intent.EXTRA_SUBJECT, tripItem?.name)
                 type = "text/plain"
 

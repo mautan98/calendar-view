@@ -28,6 +28,7 @@ public class WSConfig {
     public static final String API_VQMM_AREAS = "https://core-testing.vtvtravel.vn/api/v2/wheel/wheelAreas";
     public static final String API_TO_GET_SMALL_LOCATION = "https://api-testing.vtvtravel.vn/nearby?content_type=";
     public static final String API_TO_GET_NOTIFICATION_TYPE = "https://core-testing.vtvtravel.vn/api/v1/user/notifications/types";
+    public static final String HOST_SHARE_TRIP = "https://web-testing.vtvtravel.vn/message-shared/";
 
 
 
@@ -63,6 +64,7 @@ public class WSConfig {
 //    public static final String API_VQMM_AREAS = "https://core-dev.vtvtravel.vn/api/v2/wheel/wheelAreas";
 //    public static final String API_TO_GET_SMALL_LOCATION = "https://api-dev.vtvtravel.vn/nearby?content_type=";
 //    public static final String API_TO_GET_NOTIFICATION_TYPE = "https://core-dev.vtvtravel.vn/api/v1/user/notifications/types";
+//    public static final String HOST_SHARE_TRIP = "https://web-dev.vtvtravel.vn/message-shared/";
 //
 //
 //
@@ -95,7 +97,9 @@ public class WSConfig {
 //    public static final String API_VQMM_HISTORY = "https://core.vtvtravel.vn/api/v1/wheel/history";
 //    public static final String API_VQMM_AREAS = "https://core.vtvtravel.vn/api/v2/wheel/wheelAreas";
 //    public static final String API_TO_GET_SMALL_LOCATION = "https://api.vtvtravel.vn/nearby?content_type=";
-//    public static final String API_TO_GET_NOTIFICATION_TYPE = "https://core.vtvtravel.vn/api/v1/user/notifications/types";
+//    public static final String API_TO_GET_NOTIFICATION_TYPE = "https://core.vtvtravel.vn/api/v1/user/notifications/types"
+//    public static final String HOST_SHARE_TRIP = "https://web.vtvtravel.vn/message-shared/";
+
 
 //
 //    //Deal
