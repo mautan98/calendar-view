@@ -3,6 +3,7 @@ package com.namviet.vtvtravel.view.f3.notification.view
 import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.DialogInterface
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.namviet.vtvtravel.R
@@ -10,6 +11,7 @@ import com.namviet.vtvtravel.config.Constants
 import com.namviet.vtvtravel.databinding.F3FragmentNotificationTabBinding
 import com.namviet.vtvtravel.f2base.base.BaseFragment
 import com.namviet.vtvtravel.f2errorresponse.ErrorResponse
+import com.namviet.vtvtravel.model.f2event.OnReloadNoti
 import com.namviet.vtvtravel.view.f3.notification.NotificationViewModel
 import com.namviet.vtvtravel.view.f3.notification.adapter.NotificationAdapter
 import com.namviet.vtvtravel.view.f3.notification.model.Notification
@@ -17,6 +19,8 @@ import com.namviet.vtvtravel.view.f3.notification.model.ui.NotificationResponse
 import com.namviet.vtvtravel.view.f3.notification.model.ui.UpdateNotificationResponse
 import com.namviet.vtvtravel.view.f3.notification.processing.NotificationCaseProcessing
 import kotlinx.android.synthetic.main.f3_fragment_notification_tab.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -247,5 +251,20 @@ class NotificationTabFragment : BaseFragment<F3FragmentNotificationTabBinding?>,
     public fun viewAllNotification(){
 //        progressDialog?.show()
         notificationViewModel?.updateViewedAllInbox()
+    }
+
+    @Subscribe
+    public fun onReload(onReloadNoti: OnReloadNoti){
+        getData()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 }

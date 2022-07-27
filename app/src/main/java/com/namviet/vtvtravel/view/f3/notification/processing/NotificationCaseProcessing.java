@@ -90,4 +90,9 @@ public class NotificationCaseProcessing {
             e.printStackTrace();
         }
     }
+
+
+    public interface HandleProcess{
+        public void onMarkOrUnMark();
+    }
 }

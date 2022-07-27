@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,11 +37,12 @@
 
 
             <ImageView
+                android:id="@+id/btnDelete"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:padding="14dp"
-                android:src="@drawable/f2_ic_back"
-                android:visibility="invisible" />
+                android:src="@drawable/ic_trash_delete"
+                android:visibility="visible" />
 
         </LinearLayout>
 
@@ -84,8 +86,18 @@
 
 
             <ImageView
-                android:visibility="gone"
+                android:id="@+id/btnMark"
+                android:visibility="visible"
                 android:src="@drawable/ic_bookmark_noti"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:tint="@color/black" />
+
+
+            <ImageView
+                android:id="@+id/btnUnMark"
+                android:visibility="gone"
+                android:src="@drawable/ic_noti_marked"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 app:tint="@color/black" />
