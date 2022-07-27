@@ -45,11 +45,12 @@
                         android:layout_marginTop="16dp">
 
                         <ImageView
+                            android:foreground="@drawable/ripple_effect_click"
                             android:id="@+id/imv_back"
                             android:layout_width="36dp"
                             android:layout_height="48dp"
-                            android:paddingVertical="15dp"
                             android:layout_centerVertical="true"
+                            android:paddingVertical="15dp"
                             android:src="@drawable/ic_back_white" />
 
                         <TextView
@@ -348,6 +349,7 @@
                             android:layout_height="1dp"/>
 
                         <com.ornach.richtext.RichText
+                            android:foreground="@drawable/ripple_effect_click"
                             android:id="@+id/btn_schedule_trip"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
