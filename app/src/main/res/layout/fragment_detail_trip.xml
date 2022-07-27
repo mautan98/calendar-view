@@ -44,6 +44,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
+                            android:foreground="@drawable/ripple_effect_click"
                             android:id="@+id/btn_back"
                             android:layout_width="48dp"
                             android:layout_height="50dp"
@@ -56,6 +57,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.appcompat.widget.AppCompatImageButton
+                            android:foreground="@drawable/ripple_effect_click"
                             android:id="@+id/btn_share"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -68,6 +70,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.appcompat.widget.AppCompatImageView
+                            android:foreground="@drawable/ripple_effect_click"
                             android:id="@+id/btn_more_detail_trip"
                             android:layout_width="36dp"
                             android:layout_height="wrap_content"
@@ -132,6 +135,7 @@
                             android:layout_marginTop="21dp">
 
                             <TextView
+                                android:foreground="@drawable/ripple_effect_click"
                                 android:id="@+id/tv_edit_trip"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -150,6 +154,7 @@
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
+                                android:foreground="@drawable/ripple_effect_click"
                                 android:id="@+id/tv_edit_time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -169,6 +174,7 @@
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
+                                android:foreground="@drawable/ripple_effect_click"
                                 android:id="@+id/tv_invie_friends"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -219,6 +225,7 @@
                         app:layout_constraintTop_toBottomOf="@id/summarize_layout" />
 
                     <TextView
+                        android:foreground="@drawable/ripple_effect_click"
                         android:id="@+id/tv_view_all"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -284,6 +291,7 @@
                             tools:text="142523325" />
 
                         <com.ornach.richtext.RichText
+                            android:foreground="@drawable/ripple_effect_click"
                             android:id="@+id/btn_save_schedule"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -311,6 +319,7 @@
                             app:layout_constraintTop_toBottomOf="@id/btn_save_schedule" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
+                            android:foreground="@drawable/ripple_effect_click"
                             android:id="@+id/layout_add_estimate_cost"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -373,6 +382,7 @@
 
 
         <RelativeLayout
+            android:visibility="gone"
             android:background="#50000000"
             android:id="@+id/viewLoading"
             android:layout_width="match_parent"
