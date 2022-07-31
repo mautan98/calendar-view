@@ -296,6 +296,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
     private boolean fromVIPNoti = false;
     private AlertDialog permissionDialog;
     private SearchBigLocationViewModel searchBigLocationViewModel;
+    private boolean isActivityRunning = false;
 
 
     //for Linphone
@@ -1098,6 +1099,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
     @Override
     protected void onResume() {
         super.onResume();
+        isActivityRunning = true;
         MyApplication.activityResumed();
 
 
@@ -1147,6 +1149,7 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
     protected void onPause() {
         super.onPause();
         MyApplication.activityPaused();
+        isActivityRunning = false;
 //        try {
 //            LinphoneService.getCore().removeListener(mCoreListener);
 //        } catch (Exception e) {
@@ -2195,26 +2198,29 @@ public class MainActivity extends BaseActivity implements Observer, CitySelectLi
         }
     }
 
-    private void showPopupInviteTrip(Notification notification){
-        ReceiverTripInviteDialog receiverTripInviteDialog = ReceiverTripInviteDialog.newInstance(notification.getTitle(), notification.getMessage(), "Đồng ý tham gia", new ReceiverTripInviteDialog.ClickButton() {
-            @Override
-            public void onClickButton() {
-                try {
-                    Account account = MyApplication.getInstance().getAccount();
-                    if (null != account && account.isLogin()) {
-                        systemInboxViewModel.confirmEnterTrip(notification.getData().getScheduleCustomId(), String.valueOf(account.getId()));
-                    } else {
-                        LoginAndRegisterActivityNew.startScreen(MainActivity.this, 0, false);
+    private void showPopupInviteTrip(Notification notification) {
+        if (isActivityRunning) {
+            ReceiverTripInviteDialog receiverTripInviteDialog = ReceiverTripInviteDialog.newInstance(notification.getTitle(), notification.getMessage(), "Đồng ý tham gia", new ReceiverTripInviteDialog.ClickButton() {
+                @Override
+                public void onClickButton() {
+                    try {
+                        Account account = MyApplication.getInstance().getAccount();
+                        if (null != account && account.isLogin()) {
+                            systemInboxViewModel.confirmEnterTrip(notification.getData().getScheduleCustomId(), String.valueOf(account.getId()));
+                        } else {
+                            LoginAndRegisterActivityNew.startScreen(MainActivity.this, 0, false);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-            }
-        });
+            });
 
-        receiverTripInviteDialog.show(getSupportFragmentManager(), null);
+            receiverTripInviteDialog.show(getSupportFragmentManager(), null);
+        }
     }
+
 
 
     @Override
