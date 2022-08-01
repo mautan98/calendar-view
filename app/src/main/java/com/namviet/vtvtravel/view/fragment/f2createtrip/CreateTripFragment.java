@@ -332,7 +332,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
         } else if (ValidateUtils.isEmptyTextview(getBinding().edtReturnDate) && !getBinding().tripInday.isChecked()){
             showErrorDialog(dialog, "Bạn chưa chọn ngày về");
             return false;
-        } else if (ValidateUtils.isEmptyTextview(getBinding().edtAmountPeople)) {
+        } else if (ValidateUtils.isEmptyTextview(getBinding().edtAmountPeople) || numAdult == 0) {
             showErrorDialog(dialog, "Bạn chưa chọn số lượng hành khách");
             return false;
         }
