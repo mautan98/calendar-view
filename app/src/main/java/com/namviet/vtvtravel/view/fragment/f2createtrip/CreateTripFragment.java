@@ -207,7 +207,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
 //                datePickerDialog.show();
 
 
-                PickDateDialog pickDateDialog = PickDateDialog.Companion.newInstance(selectedDayOfMonth, selectedMonth, selectedYear, "Chọn ngày về");
+                PickDateDialog pickDateDialog = PickDateDialog.Companion.newInstance(selectedYear, selectedMonth, selectedDayOfMonth, "Chọn ngày về");
                 pickDateDialog.setAddDoneListener(new PickDateDialog.PickDate() {
                     @Override
                     public void onDateSelected(int year, int month, int dayOfMonth) {
