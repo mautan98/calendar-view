@@ -40,10 +40,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:textAllCaps="true"
+                android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_regular"
-                android:text="Thêm loại"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Chọn ngày đi"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -89,7 +91,7 @@
                 android:layout_marginHorizontal="26dp"
                 android:gravity="center_horizontal"
                 android:paddingVertical="12dp"
-                android:text="Thêm"
+                android:text="Chọn ngày"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

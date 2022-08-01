@@ -160,7 +160,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
 //                datePickerDialog.getDatePicker().setMinDate(minCalendar.getTimeInMillis());
 //                datePickerDialog.show();
 
-                PickDateDialog pickDateDialog = PickDateDialog.Companion.newInstance(selectedYear, selectedMonth, selectedDayOfMonth);
+                PickDateDialog pickDateDialog = PickDateDialog.Companion.newInstance(selectedYear, selectedMonth, selectedDayOfMonth, "Chọn ngày đi");
                 pickDateDialog.setAddDoneListener(new PickDateDialog.PickDate() {
                     @Override
                     public void onDateSelected(int year, int month, int dayOfMonth) {
@@ -207,7 +207,7 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
 //                datePickerDialog.show();
 
 
-                PickDateDialog pickDateDialog = PickDateDialog.Companion.newInstance(selectedDayOfMonth, selectedMonth, selectedYear);
+                PickDateDialog pickDateDialog = PickDateDialog.Companion.newInstance(selectedDayOfMonth, selectedMonth, selectedYear, "Chọn ngày về");
                 pickDateDialog.setAddDoneListener(new PickDateDialog.PickDate() {
                     @Override
                     public void onDateSelected(int year, int month, int dayOfMonth) {
