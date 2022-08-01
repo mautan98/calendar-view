@@ -28,6 +28,7 @@
             android:layout_below="@id/line_gesture">
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_regular"
@@ -55,38 +56,16 @@
             android:id="@+id/layout_cost_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:layout_below="@id/layout_header"
             android:layout_above="@id/cardview_save_cost"
+            android:layout_below="@id/layout_header"
+            android:background="@color/white"
             app:layout_constraintTop_toBottomOf="@id/layout_header">
 
-            <TextView
-                android:id="@+id/cost_name_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nhập tên loại chi phí"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="14sp"
-                android:textColor="#3D3D3D"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="19dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/tv_cost_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="Loại chi phí"
-                android:backgroundTint="#00918D"
-                android:textSize="16sp"
-                android:fontFamily="@font/roboto_regular"
-                android:textColor="@color/black"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="18dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/cost_name_title"
-                app:layout_constraintTop_toBottomOf="@id/cost_name_title" />
+            <CalendarView
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

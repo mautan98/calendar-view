@@ -1,4 +1,4 @@
-package com.namviet.vtvtravel.view.fragment.f2mytrip.model.cost
+package com.namviet.vtvtravel.view.fragment.f2mytrip
 
 import android.app.Dialog
 import android.graphics.Color
@@ -12,28 +12,35 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.namviet.vtvtravel.R
-import com.namviet.vtvtravel.databinding.LayoutAddNewCostBinding
+import com.namviet.vtvtravel.databinding.LayoutPickDateBinding
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
 import java.util.*
 
-class AddNewCostBottomDialog : BottomSheetDialogFragment() {
+class PickDateDialog : BottomSheetDialogFragment() {
 
     companion object {
-        fun newInstance(): AddNewCostBottomDialog {
-            val fragment = AddNewCostBottomDialog()
+        fun newInstance(year: Int, month: Int, dayOfMonth: Int): PickDateDialog {
+            val fragment = PickDateDialog()
+            fragment.year = year
+            fragment.month = month
+            fragment.dayOfMonth = dayOfMonth
             return fragment
         }
     }
 
-    private lateinit var binding: LayoutAddNewCostBinding
+    private lateinit var binding: LayoutPickDateBinding
     private var tripItem: TripItem? = null
-    private lateinit var addDoneListener: AddNewCostDoneListener
+    private lateinit var addDoneListener: PickDate
+    private var minDate: Long = 0L
+    private var year: Int = 0
+    private var month: Int = 0
+    private var dayOfMonth: Int = 0
 
     fun setList(tripItem: TripItem?) {
         this.tripItem = tripItem
     }
 
-    fun setAddDoneListener(addDoneListener: AddNewCostDoneListener) {
+    fun setAddDoneListener(addDoneListener: PickDate) {
         this.addDoneListener = addDoneListener
     }
 
@@ -49,7 +56,7 @@ class AddNewCostBottomDialog : BottomSheetDialogFragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.layout_add_new_cost,
+            R.layout.layout_pick_date,
             container,
             false
         )
@@ -61,13 +68,25 @@ class AddNewCostBottomDialog : BottomSheetDialogFragment() {
     }
 
     private fun initView() {
-
-        binding.btnAddCost.setOnClickListener {
-            val typeCost = TypeCost()
-            typeCost.costName = binding.tvCostName.text.toString().trim()
-            addDoneListener.onAddDone(typeCost)
-            dismiss()
+        binding.calendarView.minDate = minDate
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.YEAR, year)
+        calendar.set(Calendar.MONTH, month)
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+        binding.calendarView.date = calendar.timeInMillis
+        binding.calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            this.year = year
+            this.month = month
+            this.dayOfMonth = dayOfMonth
         }
+        binding.btnAddCost.setOnClickListener {
+            addDoneListener.onDateSelected(year, month, dayOfMonth)
+            dismissAllowingStateLoss()
+        }
+    }
+
+    public fun setMinDate(minDate: Long) {
+        this.minDate = minDate
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -82,7 +101,7 @@ class AddNewCostBottomDialog : BottomSheetDialogFragment() {
         return dialog
     }
 
-    interface AddNewCostDoneListener {
-        fun onAddDone(typeCost: TypeCost)
+    interface PickDate {
+        fun onDateSelected(year: Int, month: Int, dayOfMonth: Int)
     }
 }

@@ -23,6 +23,7 @@ import com.namviet.vtvtravel.ultils.ValidateUtils;
 import com.namviet.vtvtravel.view.f2.MyTripActivity;
 import com.namviet.vtvtravel.view.fragment.f2createtrip.dialog.BottomSheetPassengerDialog;
 import com.namviet.vtvtravel.view.fragment.f2createtrip.viewmodel.CreateTripViewModel;
+import com.namviet.vtvtravel.view.fragment.f2mytrip.PickDateDialog;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.BodyCreateTrip;
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.createschedule.CreateScheduleResponse;
 import com.namviet.vtvtravel.view.fragment.f2search.ChooseRegionMainFragment;
@@ -142,22 +143,39 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
                 int selectedDayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
                 Calendar minCalendar = Calendar.getInstance(TimeZone.getDefault());
                 minCalendar.add(Calendar.DATE,1);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                calendar.set(Calendar.YEAR,year);
-                                calendar.set(Calendar.MONTH,month);
-                                calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-                                startAtTimestamp = calendar.getTimeInMillis();
-                                if (getBinding().tripInday.isChecked()){
-                                    endAtTimestamp = startAtTimestamp;
-                                }
-                                getBinding().edtStartDate.setText(Utils.formatWeekDaysTimestampTrips(calendar.getTimeInMillis()));
-                            }
-                        }, selectedYear, selectedMonth, selectedDayOfMonth);
-                datePickerDialog.getDatePicker().setMinDate(minCalendar.getTimeInMillis());
-                datePickerDialog.show();
+//                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+//                        new DatePickerDialog.OnDateSetListener() {
+//                            @Override
+//                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                                calendar.set(Calendar.YEAR,year);
+//                                calendar.set(Calendar.MONTH,month);
+//                                calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+//                                startAtTimestamp = calendar.getTimeInMillis();
+//                                if (getBinding().tripInday.isChecked()){
+//                                    endAtTimestamp = startAtTimestamp;
+//                                }
+//                                getBinding().edtStartDate.setText(Utils.formatWeekDaysTimestampTrips(calendar.getTimeInMillis()));
+//                            }
+//                        }, selectedYear, selectedMonth, selectedDayOfMonth);
+//                datePickerDialog.getDatePicker().setMinDate(minCalendar.getTimeInMillis());
+//                datePickerDialog.show();
+
+                PickDateDialog pickDateDialog = PickDateDialog.Companion.newInstance(selectedYear, selectedMonth, selectedDayOfMonth);
+                pickDateDialog.setAddDoneListener(new PickDateDialog.PickDate() {
+                    @Override
+                    public void onDateSelected(int year, int month, int dayOfMonth) {
+                        calendar.set(Calendar.YEAR,year);
+                        calendar.set(Calendar.MONTH,month);
+                        calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                        startAtTimestamp = calendar.getTimeInMillis();
+                        if (getBinding().tripInday.isChecked()){
+                            endAtTimestamp = startAtTimestamp;
+                        }
+                        getBinding().edtStartDate.setText(Utils.formatWeekDaysTimestampTrips(calendar.getTimeInMillis()));
+                    }
+                });
+                pickDateDialog.setMinDate(minCalendar.getTimeInMillis());
+                pickDateDialog.show(mActivity.getSupportFragmentManager(), null);
             }
         });
 
@@ -167,26 +185,49 @@ public class CreateTripFragment extends BaseFragment<F2FragmentCreateTripBinding
                 int selectedYear = calendar.get(Calendar.YEAR);
                 int selectedMonth = calendar.get(Calendar.MONTH);
                 int selectedDayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                calendar.set(Calendar.YEAR,year);
-                                calendar.set(Calendar.MONTH,month);
-                                calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-                                endAtTimestamp = calendar.getTimeInMillis();
-                                getBinding().edtReturnDate.setText(Utils.formatWeekDaysTimestampTrips(calendar.getTimeInMillis()));
-                            }
-                        }, selectedYear, selectedMonth, selectedDayOfMonth);
+//                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+//                        new DatePickerDialog.OnDateSetListener() {
+//                            @Override
+//                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                                calendar.set(Calendar.YEAR,year);
+//                                calendar.set(Calendar.MONTH,month);
+//                                calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+//                                endAtTimestamp = calendar.getTimeInMillis();
+//                                getBinding().edtReturnDate.setText(Utils.formatWeekDaysTimestampTrips(calendar.getTimeInMillis()));
+//                            }
+//                        }, selectedYear, selectedMonth, selectedDayOfMonth);
+//                if (startAtTimestamp > 0){
+//                    Date date = new Date(startAtTimestamp);
+//                    Calendar minCalendarReturn = Calendar.getInstance(TimeZone.getDefault(),Locale.getDefault());
+//                    minCalendarReturn.setTime(date);
+//                    minCalendarReturn.add(Calendar.DATE,1);
+//                    datePickerDialog.getDatePicker().setMinDate(minCalendarReturn.getTimeInMillis());
+//                }
+//
+//                datePickerDialog.show();
+
+
+                PickDateDialog pickDateDialog = PickDateDialog.Companion.newInstance(selectedDayOfMonth, selectedMonth, selectedYear);
+                pickDateDialog.setAddDoneListener(new PickDateDialog.PickDate() {
+                    @Override
+                    public void onDateSelected(int year, int month, int dayOfMonth) {
+                        calendar.set(Calendar.YEAR,year);
+                        calendar.set(Calendar.MONTH,month);
+                        calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                        endAtTimestamp = calendar.getTimeInMillis();
+                        getBinding().edtReturnDate.setText(Utils.formatWeekDaysTimestampTrips(calendar.getTimeInMillis()));
+                    }
+                });
                 if (startAtTimestamp > 0){
                     Date date = new Date(startAtTimestamp);
                     Calendar minCalendarReturn = Calendar.getInstance(TimeZone.getDefault(),Locale.getDefault());
                     minCalendarReturn.setTime(date);
                     minCalendarReturn.add(Calendar.DATE,1);
-                    datePickerDialog.getDatePicker().setMinDate(minCalendarReturn.getTimeInMillis());
+                    pickDateDialog.setMinDate(minCalendarReturn.getTimeInMillis());
                 }
+                pickDateDialog.show(mActivity.getSupportFragmentManager(), null);
 
-                datePickerDialog.show();
+
             }
         });
 
