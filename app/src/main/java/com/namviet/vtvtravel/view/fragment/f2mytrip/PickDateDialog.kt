@@ -19,11 +19,12 @@ import java.util.*
 class PickDateDialog : BottomSheetDialogFragment() {
 
     companion object {
-        fun newInstance(year: Int, month: Int, dayOfMonth: Int): PickDateDialog {
+        fun newInstance(year: Int, month: Int, dayOfMonth: Int, title: String?): PickDateDialog {
             val fragment = PickDateDialog()
             fragment.year = year
             fragment.month = month
             fragment.dayOfMonth = dayOfMonth
+            fragment.title = title
             return fragment
         }
     }
@@ -35,6 +36,7 @@ class PickDateDialog : BottomSheetDialogFragment() {
     private var year: Int = 0
     private var month: Int = 0
     private var dayOfMonth: Int = 0
+    private var title : String? = null
 
     fun setList(tripItem: TripItem?) {
         this.tripItem = tripItem
@@ -68,6 +70,7 @@ class PickDateDialog : BottomSheetDialogFragment() {
     }
 
     private fun initView() {
+        binding.tvTitle.text = title
         binding.calendarView.minDate = minDate
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.YEAR, year)
