@@ -27,7 +27,6 @@ class EditTripCostFragment: BaseFragment<FragmentAddEstimateCostBinding>(), Obse
             return fragment
         }
     }
-    private lateinit var binding: FragmentAddEstimateCostBinding
     private var costTypeAdapter: CostTypesAdapter?= null
     private var listTypeCost: MutableList<TypeCost> = mutableListOf()
     private var tripViewModel: MyTripsViewModel = MyTripsViewModel()
@@ -44,8 +43,8 @@ class EditTripCostFragment: BaseFragment<FragmentAddEstimateCostBinding>(), Obse
     }
 
     override fun initView() {
+        binding.tvTotalCost.isSelected = true
         scheduleId = arguments?.getString(KEY_SCHEDULE_ID)
-        binding = getBinding()
         costTypeAdapter = CostTypesAdapter(requireContext())
         costTypeAdapter?.setOnItemClickListener(object : CostTypesAdapter.OnItemCostClickListener{
             override fun onItemClick(isEditAble: Boolean) {
