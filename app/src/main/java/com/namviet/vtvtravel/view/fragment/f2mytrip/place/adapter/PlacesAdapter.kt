@@ -63,8 +63,11 @@ class PlacesAdapter : RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
             binding.edtTimeVisiting.text = "${placeDetailItem.durationVisit}p"
             binding.tvArrivalTime.text = Utils.formatTimeStamp(placeDetailItem.arrivalTime,"HH:mm")
             Glide.with(itemView.context).load(placeDetailItem.logoUrl).into(binding.imvDetailPlace)
-            if (position == listDetailPlace.size -1)
-                binding.layoutMovement.visibility = View.GONE
+                binding.layoutMovement.visibility =  if (position == listDetailPlace.size -1) {
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
             binding.tvDescMovement.text = "${placeDetailItem.durationMove} km/${placeDetailItem.freeTime}p"
             binding.layoutTimeTravelPlace.setOnClickListener {
                 onItemClickListener?.onItemClick(position,binding.layoutTimeTravelPlace,isEditAble)
