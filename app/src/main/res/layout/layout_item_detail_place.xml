@@ -8,12 +8,13 @@
         android:layout_marginStart="8dp">
 
 
+
         <LinearLayout
             android:id="@+id/view_connectparent"
             android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="75dp"
+            android:layout_width="70dp"
             android:layout_height="10dp">
             <View
                 android:layout_width="1dp"
@@ -29,13 +30,13 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/bg_radius_4dp"
-            android:paddingEnd="32dp"
+            android:paddingEnd="10dp"
             app:layout_constraintTop_toBottomOf="@id/view_connectparent">
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imv_detail_place"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/bg_demo"
                 app:layout_constraintStart_toStartOf="parent"
@@ -83,13 +84,13 @@
                 android:id="@+id/tv_detail_place_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="17dp"
                 android:layout_marginTop="5dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto_medium"
                 android:maxLines="1"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/imv_detail_place"
                 app:layout_constraintTop_toTopOf="@id/imv_detail_place"
@@ -102,7 +103,7 @@
                 android:fontFamily="@font/roboto_medium"
                 android:text="@string/time_visiting"
                 android:textColor="#919191"
-                android:textSize="14sp"
+                android:textSize="13dp"
                 app:layout_constraintBottom_toBottomOf="@id/edt_time_visiting"
                 app:layout_constraintStart_toStartOf="@id/tv_detail_place_name"
                 app:layout_constraintTop_toTopOf="@id/edt_time_visiting" />
@@ -111,11 +112,11 @@
                 android:id="@+id/edt_time_visiting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
+                android:layout_marginStart="6dp"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/roboto_medium"
                 android:textColor="#F89C1C"
-                android:textSize="16sp"
+                android:textSize="15dp"
                 app:layout_constraintStart_toEndOf="@id/time_visiting"
                 app:layout_constraintTop_toBottomOf="@id/tv_detail_place_name"
                 tools:text="30p" />
@@ -145,7 +146,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/note_title"
                 android:textColor="#F89C1C"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 app:drawableStartCompat="@drawable/ic_notes"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tv_detail_place_name" />
@@ -163,13 +164,13 @@
                 android:id="@+id/change_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="28dp"
                 android:drawablePadding="5dp"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center_vertical"
                 android:text="@string/change_places"
                 android:textColor="#F89C1C"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 app:drawableStartCompat="@drawable/ic_change_place"
                 app:layout_constraintBottom_toBottomOf="@id/note_place"
                 app:layout_constraintStart_toEndOf="@id/note_place"
@@ -179,7 +180,7 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/layout_movement"
-            android:layout_width="75dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -203,13 +204,14 @@
                 android:background="@color/my_statusbar_color" />
 
             <TextView
+                android:ellipsize="middle"
                 android:id="@+id/tv_desc_movement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_regular"
-                android:lines="1"
+                android:singleLine="true"
                 android:textColor="@color/my_statusbar_color"
-                android:textSize="16sp"
+                android:textSize="15dp"
                 tools:text="0.3 Km/1p" />
 
             <View
