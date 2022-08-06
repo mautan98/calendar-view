@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/day_item_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dayLabel"
+        android:layout_width="@dimen/day_label_size_events_enabled"
+        android:layout_height="@dimen/day_label_size_events_enabled"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="ewrqwe"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/dayIcon"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:src="@drawable/ic_arrow_left"
+        android:scaleType="centerInside" />
+
+    <TextView
+        android:id="@+id/tvIsTodayEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Hôm nay"
+        android:textColor="#00918D"
+        android:textSize="12sp" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_height="0.5dp"
+        android:background="@color/nextMonthDayColor" />
+
+</LinearLayout>
+

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dayLabel"
+        android:layout_width="@dimen/day_label_size_events_disabled"
+        android:layout_height="@dimen/day_label_size_events_disabled"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvIsTodayNoEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Hôm nay"
+        android:textColor="#00918D"
+        android:textSize="12sp" />
+
+</LinearLayout>
+
