@@ -14,6 +14,7 @@ import com.namviet.vtvtravel.Utils
 import com.namviet.vtvtravel.databinding.LayoutEditTimeTripBinding
 import com.namviet.vtvtravel.listener.OnItemRecyclerClickListener
 import com.namviet.vtvtravel.response.BaseResponse
+import com.namviet.vtvtravel.view.fragment.f2mytrip.EditDayTripBottomDialog
 import com.namviet.vtvtravel.view.fragment.f2mytrip.adapter.TripsTimeAdapter
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.SchedulePlaceByDaysItem
 import com.namviet.vtvtravel.view.fragment.f2mytrip.model.TripItem
@@ -97,43 +98,20 @@ class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer,
             dismiss()
         }
         binding.tvAddNewDate.setOnClickListener {
-            var lastDate:Long?
-            val calendar = Calendar.getInstance()
-            if (listDay.size > 0){
-                lastDate = listDay.get(listDay.size-1).day
-            } else {
-                lastDate = calendar.timeInMillis
-            }
-            if (lastDate != null) {
-                calendar.timeInMillis = lastDate
-            }
-            calendar.add(Calendar.DATE,1)
-            val selectedYear = calendar[Calendar.YEAR]
-            val selectedMonth = calendar[Calendar.MONTH]
-            val selectedDayOfMonth = calendar[Calendar.DAY_OF_MONTH]
-            val datePickerDialog = DatePickerDialog(
-                requireContext(),
-                object : DatePickerDialog.OnDateSetListener {
-                    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-                        calendar[Calendar.YEAR] = year
-                        calendar[Calendar.MONTH] = month
-                        calendar[Calendar.DAY_OF_MONTH] = dayOfMonth
-
-                        val item = SchedulePlaceByDaysItem()
-                        item.totalDistance = 0
-                        item.totalPlace = 0
-                        item.day = calendar.timeInMillis
-                        item.removeAble = false
-                        val listClone = listDay
-                        listClone.add(item)
-                        adapter?.setListScheduleByDays(listClone)
+            var listDisableDay:MutableList<Calendar> = mutableListOf()
+            if (tripItem?.schedulePlaceByDays != null){
+                for (i in 0..tripItem?.schedulePlaceByDays?.size!!.minus(1)){
+                    val dayItem = tripItem?.schedulePlaceByDays?.get(i)
+                    if (dayItem != null){
+                        val day = Calendar.getInstance()
+                        day.timeInMillis = dayItem.day!!
+                        listDisableDay.add(day)
                     }
-                }, selectedYear, selectedMonth, selectedDayOfMonth
-            )
-            if (lastDate != null) {
-                datePickerDialog.datePicker.minDate = calendar.timeInMillis
+                }
+                val editDayDialog = EditDayTripBottomDialog()
+                editDayDialog.setDisableDayList(listDisableDay)
             }
-            datePickerDialog.show()
+
         }
     }
 

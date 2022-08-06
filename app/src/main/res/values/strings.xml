@@ -227,7 +227,7 @@
     <string name="days_in_trip">Thời gian đi:</string>
     <string name="people_numb">Người</string>
     <string name="my_trips_title">Chuyến đi của tôi</string>
-    <string name="number_passenger">%d Người lớn, %d trẻ em, %d em bé</string>
+    <string name="number_passenger" formatted="false">%d Người lớn, %d trẻ em, %d em bé</string>
     <string name="error_title">Lỗi</string>
     <string name="close_title">Đóng</string>
     <string name="view_all">Xem tất cả</string>
@@ -251,6 +251,9 @@
     <string name="confirm_delete_trip">Bạn có chắc chắn muốn xoá chuyến đi?</string>
     <string name="only_read_cant_edit">Bạn chỉ được xem, không có quyền chỉnh sửa</string>
     <string name="update_schedule_place">Chỉnh sửa địa điểm</string>
+
+<!--    <string name="material_calendar_monday">T2</string>-->
+
 
 
 </resources>
