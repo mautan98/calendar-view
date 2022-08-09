@@ -10,4 +10,5 @@ import com.applandeo.materialcalendarview.EventDay
 
 interface OnDayClickListener {
     fun onDayClick(eventDay: EventDay)
+    fun onOutDate();
 }

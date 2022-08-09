@@ -20,7 +20,8 @@ import java.util.*
  */
 class CalendarPageAdapter(
         private val context: Context,
-        private val calendarProperties: CalendarProperties
+        private val calendarProperties: CalendarProperties,
+        var lastDate: Date
 ) : PagerAdapter() {
 
     private lateinit var calendarGridView: CalendarGridView
@@ -52,7 +53,7 @@ class CalendarPageAdapter(
 
         loadMonth(position)
 
-        calendarGridView.onItemClickListener = DayRowClickListener(this, calendarProperties, pageMonth)
+        calendarGridView.onItemClickListener = DayRowClickListener(this, calendarProperties, pageMonth, lastDate )
 
         container.addView(calendarGridView)
 

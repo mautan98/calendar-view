@@ -14,6 +14,7 @@ import com.applandeo.materialcalendarview.utils.SelectedDay
 import com.applandeo.materialcalendarview.utils.setCurrentMonthDayColors
 import com.applandeo.materialcalendarview.utils.setSelectedDayColors
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 /**
  * This class is responsible for handle click events
@@ -22,9 +23,10 @@ import java.util.*
  * Created by Applandeo Team.
  */
 class DayRowClickListener(
-        private val calendarPageAdapter: CalendarPageAdapter,
-        private val calendarProperties: CalendarProperties,
-        pageMonth: Int
+    private val calendarPageAdapter: CalendarPageAdapter,
+    private val calendarProperties: CalendarProperties,
+    pageMonth: Int,
+    var lastDate: Date
 ) : OnItemClickListener {
 
     private val pageMonth = if (pageMonth < 0) 11 else pageMonth
@@ -37,6 +39,18 @@ class DayRowClickListener(
         if (calendarProperties.selectionDisabled) return
 
         if (calendarProperties.onDayClickListener != null) {
+            var eventDay = calendarProperties.eventDays.firstOrNull {
+                it.calendar == day
+            }
+            eventDay = eventDay ?: EventDay(day)
+            val diff: Long = kotlin.math.abs(eventDay.calendar.time?.time!! - lastDate.time)
+            val mDifferenceDates = diff / (24 * 60 * 60 * 1000)
+//            val dayBetween = mDifferenceDates
+            val dayBetween = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1
+            if (dayBetween > 2) {
+                calendarProperties.onDayClickListener?.onOutDate()
+                return
+            }
             onClick(day)
         }
 

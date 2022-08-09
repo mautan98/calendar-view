@@ -29,7 +29,9 @@ class UserListAdapter(var context: Context) :
 
     override fun onBindViewHolder(holder: UserListViewHolder, position: Int) {
         val userItem = listAvt.get(position)
-        holder.bind(userItem)
+        if(userItem != null){
+            holder.bind(userItem)
+        }
     }
 
     override fun getItemCount(): Int {

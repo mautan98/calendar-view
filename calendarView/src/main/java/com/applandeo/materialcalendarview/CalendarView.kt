@@ -50,11 +50,17 @@ class CalendarView @JvmOverloads constructor(
 
     private var currentPage: Int = 0
     private lateinit var binding: CalendarViewBinding
+    private var lastDate: Date? = null
 
     init {
         initControl(CalendarProperties(context)) {
             setAttributes(attrs)
         }
+    }
+
+    fun setLastDate(lastDate: Date){
+        this.lastDate = lastDate;
+        initCalendar()
     }
 
     //internal constructor to create CalendarView for the dialog date picker
@@ -72,7 +78,7 @@ class CalendarView @JvmOverloads constructor(
         LayoutInflater.from(context).inflate(R.layout.calendar_view, this)
         initUiElements()
         onUiCreate()
-        initCalendar()
+
     }
 
     /**
@@ -183,7 +189,7 @@ class CalendarView @JvmOverloads constructor(
     }
 
     private fun initCalendar() {
-        calendarPageAdapter = CalendarPageAdapter(context, calendarProperties)
+        calendarPageAdapter = CalendarPageAdapter(context, calendarProperties, lastDate!!)
 
         binding.calendarViewPager.adapter = calendarPageAdapter
         binding.calendarViewPager.onCalendarPageChangedListener(::renderHeader)
@@ -373,6 +379,8 @@ class CalendarView @JvmOverloads constructor(
         binding.calendarViewPager.setCurrentItem(page, true)
     }
 
+
+
     fun setDisabledDays(disabledDays: List<Calendar>) {
         calendarProperties.disabledDays = disabledDays
     }
@@ -384,6 +392,11 @@ class CalendarView @JvmOverloads constructor(
     fun setSwipeEnabled(swipeEnabled: Boolean) {
         calendarProperties.swipeEnabled = swipeEnabled
         binding.calendarViewPager.swipeEnabled = calendarProperties.swipeEnabled
+    }
+
+    fun clearSelectedDays() {
+        calendarProperties.selectedDays.clear()
+        calendarPageAdapter.notifyDataSetChanged()
     }
 
     companion object {

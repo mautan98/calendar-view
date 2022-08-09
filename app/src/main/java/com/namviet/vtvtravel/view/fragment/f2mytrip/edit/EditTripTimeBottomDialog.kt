@@ -109,7 +109,22 @@ class EditTripTimeBottomDialog : BottomSheetDialogFragment(), Observer,
                     }
                 }
                 val editDayDialog = EditDayTripBottomDialog()
+                editDayDialog.setLastDate(Date(listDay.get(listDay.size -1).day!!))
+                editDayDialog.setOnSelectDateListener(object : EditDayTripBottomDialog.OnSelectedDateListener{
+                    override fun onDateSelected(listDates: List<Calendar>) {
+                        val listClone = listDay
+                        for (i in 0..listDates.size - 1){
+                            val item = SchedulePlaceByDaysItem()
+                            item.removeAble = false
+                            item.day = listDates.get(i).timeInMillis
+                            listClone.add(item)
+                        }
+                        adapter?.setListScheduleByDays(listClone)
+                    }
+
+                })
                 editDayDialog.setDisableDayList(listDisableDay)
+                editDayDialog.show(childFragmentManager,null)
             }
 
         }

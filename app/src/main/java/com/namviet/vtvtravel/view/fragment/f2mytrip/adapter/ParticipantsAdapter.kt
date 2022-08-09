@@ -38,7 +38,9 @@ class ParticipantsAdapter(var context: Context) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val participant = listParticipants.get(position)
-        holder.bind(participant,position)
+        if (participant!= null){
+            holder.bind(participant,position)
+        }
     }
 
     override fun getItemCount(): Int {

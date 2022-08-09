@@ -176,11 +176,6 @@ dependencies {
 
     implementation 'cn.aigestudio.wheelpicker:WheelPicker:1.1.3'
 
-    //overlap item image
-    implementation 'com.github.Mindinventory:OverlapImageGalleryView:1.0'
-
-
-
 }
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
